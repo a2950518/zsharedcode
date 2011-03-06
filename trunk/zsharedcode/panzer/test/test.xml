@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TestDS xmlns="http://tempuri.org/TestDS.xsd">
+	<Student>
+		<Name>小明</Name>
+		<Age>12</Age>
+	</Student>
+	<Student>
+		<Name>小红</Name>
+		<Age>14</Age>
+	</Student>
+</TestDS>
