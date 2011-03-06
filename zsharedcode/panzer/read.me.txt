@@ -1,0 +1,9 @@
+﻿= 简介 =
+
+panzer 项目中包含了多种 C# 类, 程序员使用 panzer 可以帮助程序员节省更多的开发时间. 可以在 HowToDownloadAndUse 如何下载使用[http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse] 中查看如何下载和使用 panzer.
+
+如果, 希望加入 panzer 项目的开发, 请参照 HowToJoin 如何加入开发[http://code.google.com/p/zsharedcode/wiki/HowToJoin].
+
+= 使用许可 =
+
+如果您使用 panzer 项目的全部或者部分内容, 那么您需要遵守一些条款, 详细内容请参照 PanzerLicense panzer 许可证[http://code.google.com/p/zsharedcode/wiki/PanzerLicense] 或者 panzer.license.txt.

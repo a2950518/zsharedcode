@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		div
+		{
+			width: 60px;
+			height: 60px;
+			margin: 5px;
+			float: left;
+			border: 4px outset;
+			background: green;
+			text-align: center;
+			font-weight: bolder;
+			cursor: pointer;
+		}
+		.blue
+		{
+			background: blue;
+		}
+		.red
+		{
+			background: red;
+		}
+		span
+		{
+			color: white;
+			font-size: 16px;
+		}
+		p
+		{
+			color: red;
+			font-weight: bolder;
+			background: yellow;
+			margin: 3px;
+			clear: left;
+			display: none;
+		}
+	</style>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+456
+	<div>
+	</div>
+	<div class="blue">123
+	<span>abc</span>
+	</div>
+	<div>
+	</div>
+	<div class="red">
+	</div>
+	<div>
+		<br />
+		<span>Peter</span></div>
+	<div class="blue">
+	</div>
+	<p>
+		&nbsp;</p>
+		<input onclick="$('body').find('.blue').find('span').end().css('border', 'solid 1px #ff0000').end().css('border', 'solid 1px #000000');" />
+		<input onclick="__set('__t', '$('#a').contents().find('#t').val());'" />
+	<script type="text/javascript">
+		function __set(name, value) { if (null == name) { return; } window[name] = eval(value); } function __get(name) { if (null == name) { return null; } else { return window[name]; } }
+	</script>
+</body>
+</html>

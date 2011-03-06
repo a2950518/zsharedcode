@@ -1,0 +1,115 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "panzer", "panzer", "{9F82E6A2-6D6D-41A9-9056-4C33B55C7C74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "databook", "databook", "{E8C9A6D7-1D55-4DF3-B623-FDF2CE9C2ABC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql server", "sql server", "{C64843FA-A2FB-49C1-BF8D-D3D20B6B2504}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{087A24BC-4F79-4635-8A76-5C92258B5803}"
+	ProjectSection(SolutionItems) = preProject
+		databook\sql server\test\create.N.use.temp.table.sql = databook\sql server\test\create.N.use.temp.table.sql
+		databook\sql server\test\dbo.CreateGlobalTempStudentTable.sql = databook\sql server\test\dbo.CreateGlobalTempStudentTable.sql
+		databook\sql server\test\dbo.CreateTempStudentTable.sql = databook\sql server\test\dbo.CreateTempStudentTable.sql
+		databook\sql server\test\dbo.UseGlobalTempStudentTable.sql = databook\sql server\test\dbo.UseGlobalTempStudentTable.sql
+		databook\sql server\test\dbo.UseTempStudentTable.sql = databook\sql server\test\dbo.UseTempStudentTable.sql
+		databook\sql server\test\temp.table.life.sql = databook\sql server\test\temp.table.life.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "panzer", "panzer\panzer.csproj", "{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "panzer\test\test.csproj", "{0D365980-C848-4D4D-B642-B2E269472C50}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "testsite", "panzer\test\testsite\", "{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "Svn"
+		SccAuxPath = "Svn"
+		SccLocalPath = "Svn"
+		SccProvider = "SubversionScc"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444}|zoyobar.shared.panzer.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/testsite"
+		Debug.AspNetCompiler.PhysicalPath = "panzer\test\testsite\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\testsite\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/testsite"
+		Release.AspNetCompiler.PhysicalPath = "panzer\test\testsite\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\testsite\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "55735"
+		VWDDynamicPort = "false"
+		VWDVirtualPath = "/"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444}.Release|Win32.ActiveCfg = Release|Any CPU
+		{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444}.Release|x86.ActiveCfg = Release|Any CPU
+		{0D365980-C848-4D4D-B642-B2E269472C50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D365980-C848-4D4D-B642-B2E269472C50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D365980-C848-4D4D-B642-B2E269472C50}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0D365980-C848-4D4D-B642-B2E269472C50}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0D365980-C848-4D4D-B642-B2E269472C50}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{0D365980-C848-4D4D-B642-B2E269472C50}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0D365980-C848-4D4D-B642-B2E269472C50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D365980-C848-4D4D-B642-B2E269472C50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D365980-C848-4D4D-B642-B2E269472C50}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0D365980-C848-4D4D-B642-B2E269472C50}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0D365980-C848-4D4D-B642-B2E269472C50}.Release|Win32.ActiveCfg = Release|Any CPU
+		{0D365980-C848-4D4D-B642-B2E269472C50}.Release|x86.ActiveCfg = Release|Any CPU
+		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}.Release|Win32.ActiveCfg = Debug|Any CPU
+		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}.Release|x86.ActiveCfg = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E8C9A6D7-1D55-4DF3-B623-FDF2CE9C2ABC} = {9F82E6A2-6D6D-41A9-9056-4C33B55C7C74}
+		{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444} = {9F82E6A2-6D6D-41A9-9056-4C33B55C7C74}
+		{0D365980-C848-4D4D-B642-B2E269472C50} = {9F82E6A2-6D6D-41A9-9056-4C33B55C7C74}
+		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF} = {9F82E6A2-6D6D-41A9-9056-4C33B55C7C74}
+		{C64843FA-A2FB-49C1-BF8D-D3D20B6B2504} = {E8C9A6D7-1D55-4DF3-B623-FDF2CE9C2ABC}
+		{087A24BC-4F79-4635-8A76-5C92258B5803} = {C64843FA-A2FB-49C1-BF8D-D3D20B6B2504}
+	EndGlobalSection
+EndGlobal
