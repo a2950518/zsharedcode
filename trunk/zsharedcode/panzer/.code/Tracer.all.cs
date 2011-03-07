@@ -1,9 +1,9 @@
-﻿/*allinone合并了多个文件,下载使用多个allinone代码,可能会遇到重复的类型定义,可以下载对应的zip文件*/
+﻿/* allinone合并了多个文件,下载使用多个allinone代码,可能会遇到重复的类型定义,http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/debug/Tracer.cs */
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
-// .class/debug/Tracer.cs
+// ../.class/debug/Tracer.cs
 /*
  * 参考文档: http://blog.sina.com.cn/s/blog_604c436d0100o04w.html (目前已经停止更新同步)
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://blog.sina.com.cn/s/blog_604c436d0100o04s.html
@@ -453,7 +453,7 @@ namespace zoyobar.shared.panzer.debug
 	}
 
 }
-// .enum/FunctionType.cs
+// ../.enum/FunctionType.cs
 /*
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/FunctionType.cs
  * 版本: .net 4.0, 其它版本可能有所不同
