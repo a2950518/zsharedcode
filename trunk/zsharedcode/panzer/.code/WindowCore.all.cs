@@ -1,4 +1,4 @@
-﻿/*allinone合并了多个文件,下载使用多个allinone代码,可能会遇到重复的类型定义,可以下载对应的zip文件*/
+﻿/* allinone合并了多个文件,下载使用多个allinone代码,可能会遇到重复的类型定义,http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/WindowCore.cs */
 // HACK: 如果代码不能编译, 请尝试设置为 V4, V3_5, V3, V2 以表示不同的 .NET 版本
 #define V4
 using System;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Windows.Forms;
-// .class/ui/WindowCore.cs
+// ../.class/ui/WindowCore.cs
 /*
  * 参考文档: http://blog.sina.com.cn/s/blog_604c436d0100o07z.html (目前已经停止更新同步)
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://blog.sina.com.cn/s/blog_604c436d0100o04s.html
@@ -167,7 +167,7 @@ namespace zoyobar.shared.panzer.ui
 	}
 
 }
-// .interface/ui/IWindow.cs
+// ../.interface/ui/IWindow.cs
 /*
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.interface/ui/IWindow.cs
  * 版本: 2.0, .net 4.0, 其它版本可能有所不同
