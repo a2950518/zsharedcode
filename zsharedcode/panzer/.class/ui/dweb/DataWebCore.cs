@@ -28,7 +28,7 @@ using zoyobar.shared.panzer.ui.dwindow;
 namespace zoyobar.shared.panzer.ui.dweb
 {
 
-	#region " PagerType "
+	#region " PagerStoreType "
 	/// <summary>
 	/// 分页设置的存储类型.
 	/// </summary>
