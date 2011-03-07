@@ -1,4 +1,4 @@
-#labels Featured
+#labels Featured,Phase-Implementation
 <font face="microsoft yahei">
 === 申请条件 ===
  由于 *panzer* 是使用 C# 作为开发语言, 因此, 希望申请开发者是已经在此之前熟悉了 C# 以及 Visual Studio.
