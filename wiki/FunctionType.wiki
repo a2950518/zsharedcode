@@ -1,3 +1,3 @@
+﻿#summary FunctionType 成员参考
 #labels Phase-Design,Phase-Implementation
-
-<font size="2" face="microsoft yahei"><h3>FunctionType 成员参考</h3>{{{函数或者方法的类型.}}}<br /><font color="#003366" size="3"><strong>{{{Constructor}}}</strong></font><br /><ul><li><strong>简介:</strong> {{{构造函数.}}}</li><li><strong>类型:</strong> 字段</li></ul><br /><font color="#003366" size="3"><strong>{{{Method}}}</strong></font><br /><ul><li><strong>简介:</strong> {{{方法.}}}</li><li><strong>类型:</strong> 字段</li></ul><br /></font>
+<font size="2" face="microsoft yahei"><h3>FunctionType 成员参考</h3>[http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/FunctionType.cs 查看代码]<br />{{{函数或者方法的类型.}}}<br /><font color="#003366" size="3"><strong>{{{Constructor}}}</strong></font><br /><ul><li><strong>简介:</strong> {{{构造函数.}}}</li><li><strong>类型:</strong> 字段</li></ul><br /><font color="#003366" size="3"><strong>{{{Method}}}</strong></font><br /><ul><li><strong>简介:</strong> {{{方法.}}}</li><li><strong>类型:</strong> 字段</li></ul><br /></font>
