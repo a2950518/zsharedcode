@@ -451,6 +451,9 @@ namespace zoyobar.shared.panzer.xml
 		#endregion
 
 		private readonly string name;
+		/// <summary>
+		/// XmlNode 节点类.
+		/// </summary>
 		protected N node;
 		private readonly List<XmlNodeHelper<N>> childNodeHelpers = new List<XmlNodeHelper<N>> ( );
 
