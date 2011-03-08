@@ -7,7 +7,7 @@
     * [PanzerLicense panzer 许可证]
   * 使用注意事项
     * [AllInOneFile all.cs 文件]
-  * 类成员参考
+  * [ClassDoc 类成员参考]
     * [CodingHelper code.CodingHelper]
     * [StringConvert code.StringConvert]
     * [DataSetHelper data.DataSetHelper]
