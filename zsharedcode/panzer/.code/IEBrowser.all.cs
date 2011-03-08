@@ -2403,6 +2403,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// <param name="failedAction">页面状态失败后的行为.</param>
 		/// <param name="failedStateSetting">页面状态失败后会转到的状态的名称.</param>
 		/// <param name="condition">成此页面状态的条件.</param>
+		/// <param name="timeout">超时秒数.</param>
 		public WebPageState ( string name, WebPageAction[] startActions = null, WebPageAction completedAction = null, WebPageNextStateSetting completedStateSetting = null, WebPageAction failedAction = null, WebPageNextStateSetting failedStateSetting = null, WebPageCondition condition = null, int timeout = 0 )
 			: this ( name, startActions, new WebPageAction[] { completedAction }, completedStateSetting, new WebPageAction[] { failedAction }, failedStateSetting, new WebPageCondition[] { condition }, 0 )
 		{ }
@@ -2419,6 +2420,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// <param name="failedAction">页面状态失败后的行为.</param>
 		/// <param name="failedStateSetting">页面状态失败后会转到的状态的名称.</param>
 		/// <param name="condition">成此页面状态的条件.</param>
+		/// <param name="timeout">超时秒数.</param>
 		public WebPageState ( string name, WebPageAction startAction = null, WebPageAction completedAction = null, WebPageNextStateSetting completedStateSetting = null, WebPageAction failedAction = null, WebPageNextStateSetting failedStateSetting = null, WebPageCondition condition = null, int timeout = 0 )
 			: this ( name, new WebPageAction[] { startAction }, new WebPageAction[] { completedAction }, completedStateSetting, new WebPageAction[] { failedAction }, failedStateSetting, new WebPageCondition[] { condition }, 0 )
 		{ }
