@@ -1,9 +1,9 @@
-#summary all.cs �ļ�����
+#summary all.cs 文件介绍
 #labels Phase-Implementation,Phase-Support,Phase-Deploy
 <font face="microsoft yahei">
-=== ��� ===
- all.cs �ļ��Ƕ�� cs �ļ��ļ���, ���ܰ����˶����, �ṹ����ö�ٵ����͵Ķ���. �ʺ��ڸ����������ĳ������.
+=== 简介 ===
+ all.cs 文件是多个 cs 文件的集合, 可能包含了多个类, 结构或者枚举等类型的定义. 适合于更方便的引用某种类型.
 
-=== ע������ ===
- �����ö�� all.cs �ļ�ʱ, ���ܻᵼ��ĳЩ���͵��ظ�����.
+=== 注意事项 ===
+ 在引用多个 all.cs 文件时, 可能会导致某些类型的重复定义.
 </font>
