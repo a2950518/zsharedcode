@@ -68,4 +68,6 @@
       * [ScriptHelper ScriptHelper]
       * [ScriptType ScriptType]
       * [JQuery JQuery]
+    * xml
+      * [XmlNodeHelper XmlNodeHelper`1]
 </font>
