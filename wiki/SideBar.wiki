@@ -8,7 +8,8 @@
   * 使用注意事项
     * [AllInOneFile all.cs 文件]
   * [ClassDoc 类成员参考]
-    * [CodingHelper code.CodingHelper]
+    * code
+      * [CodingHelper code.CodingHelper]
     * [StringConvert code.StringConvert]
     * [DataSetHelper data.DataSetHelper]
     * [Tracer debug.Tracer]

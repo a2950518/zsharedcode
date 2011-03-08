@@ -1,4 +1,5 @@
 #labels Phase-Design,Phase-Implementation
+<font face="microsoft yahei">
 == 参考文档 ==
     * [StringConvert code.StringConvert]
     * [DataSetHelper data.DataSetHelper]
@@ -49,3 +50,4 @@
     * [ScriptHelper web.ScriptHelper]
     * [ScriptType web.ScriptType]
     * [JQuery web.JQuery]
+</font>
