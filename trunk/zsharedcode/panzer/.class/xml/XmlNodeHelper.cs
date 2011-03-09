@@ -22,6 +22,15 @@ namespace zoyobar.shared.panzer.xml
 	public partial class XmlNodeHelper<N>
 		where N : XmlNode
 	{
+		private static readonly List<XmlNodeHelper<XmlNode>> sharedFetchedNodeHelpers = new List<XmlNodeHelper<XmlNode>> ( );
+
+		/// <summary>
+		/// 获取共享的得到的 XmlNode 子节点辅助类.
+		/// </summary>
+		public static List<XmlNodeHelper<XmlNode>> SharedFetchedNodeHelpers
+		{
+			get { return sharedFetchedNodeHelpers; }
+		}
 
 		#region " GetAttributeValue "
 #if PARAM
@@ -32,7 +41,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="name">属性名称, 默认为 "value".</param>
 		/// <param name="defaultValue">属性默认值, 默认为 null.</param>
 		/// <returns>属性值.</returns>
-		public static object GetAttributeValue ( XmlNodeHelper<N> nodeHelper, string name = null, object defaultValue = null )
+		public static object GetAttributeValue ( XmlNodeHelper<XmlNode> nodeHelper, string name = null, object defaultValue = null )
 #else
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的属性值.
@@ -41,7 +50,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="name">属性名称.</param>
 		/// <param name="defaultValue">属性默认值.</param>
 		/// <returns>属性值.</returns>
-		public static object GetAttributeValue ( XmlNodeHelper<N> nodeHelper, string name, object defaultValue )
+		public static object GetAttributeValue ( XmlNodeHelper<XmlNode> nodeHelper, string name, object defaultValue )
 #endif
 		{ return GetAttributeValue<object> ( nodeHelper, name, defaultValue ); }
 
@@ -54,7 +63,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="name">属性名称, 默认为 "value".</param>
 		/// <param name="defaultValue">属性默认值, 默认为 default(T).</param>
 		/// <returns>属性值.</returns>
-		public static T GetAttributeValue<T> ( XmlNodeHelper<N> nodeHelper, string name = null, T defaultValue = default(T) )
+		public static T GetAttributeValue<T> ( XmlNodeHelper<XmlNode> nodeHelper, string name = null, T defaultValue = default(T) )
 #else
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的属性值.
@@ -64,7 +73,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="name">属性名称.</param>
 		/// <param name="defaultValue">属性默认值.</param>
 		/// <returns>属性值.</returns>
-		public static T GetAttributeValue<T> ( XmlNodeHelper<N> nodeHelper, string name, T defaultValue )
+		public static T GetAttributeValue<T> ( XmlNodeHelper<XmlNode> nodeHelper, string name, T defaultValue )
 #endif
 		{
 
@@ -82,7 +91,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="name">属性名称, 默认为 "value".</param>
 		/// <param name="defaultValue">属性默认值, 默认为 null.</param>
 		/// <returns>属性值.</returns>
-		public static object GetAttributeValue ( N node, string name = null, object defaultValue = null )
+		public static object GetAttributeValue ( XmlNode node, string name = null, object defaultValue = null )
 #else
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的属性值.
@@ -91,7 +100,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="name">属性名称.</param>
 		/// <param name="defaultValue">属性默认值.</param>
 		/// <returns>属性值.</returns>
-		public static object GetAttributeValue ( N node, string name, object defaultValue )
+		public static object GetAttributeValue ( XmlNode node, string name, object defaultValue )
 #endif
 		{ return GetAttributeValue<object> ( node, name, defaultValue ); }
 
@@ -104,7 +113,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="name">属性名称, 默认为 "value".</param>
 		/// <param name="defaultValue">属性默认值, 默认为 default(T).</param>
 		/// <returns>属性值.</returns>
-		public static T GetAttributeValue<T> ( N node, string name = null, T defaultValue = default(T) )
+		public static T GetAttributeValue<T> ( XmlNode node, string name = null, T defaultValue = default(T) )
 #else
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的属性值.
@@ -114,7 +123,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="name">属性名称.</param>
 		/// <param name="defaultValue">属性默认值.</param>
 		/// <returns>属性值.</returns>
-		public static T GetAttributeValue<T> ( N node, string name, T defaultValue )
+		public static T GetAttributeValue<T> ( XmlNode node, string name, T defaultValue )
 #endif
 		{
 			T value = default ( T );
@@ -134,7 +143,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="name">属性名称, 默认为 "value".</param>
 		/// <param name="defaultValue">属性默认值, 默认为 null.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue ( ref object value, XmlNodeHelper<N> nodeHelper, string name = null, object defaultValue = null )
+		public static bool FetchAttributeValue ( ref object value, XmlNodeHelper<XmlNode> nodeHelper, string name = null, object defaultValue = null )
 #else
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的属性值.
@@ -144,7 +153,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="name">属性名称.</param>
 		/// <param name="defaultValue">属性默认值.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue ( ref object value, XmlNodeHelper<N> nodeHelper, string name, object defaultValue )
+		public static bool FetchAttributeValue ( ref object value, XmlNodeHelper<XmlNode> nodeHelper, string name, object defaultValue )
 #endif
 		{ return FetchAttributeValue<object> ( ref value, nodeHelper, name, defaultValue ); }
 
@@ -158,7 +167,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="name">属性名称, 默认为 "value".</param>
 		/// <param name="defaultValue">属性默认值, 默认为 default(T).</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue<T> ( ref T value, XmlNodeHelper<N> nodeHelper, string name = null, T defaultValue = default(T) )
+		public static bool FetchAttributeValue<T> ( ref T value, XmlNodeHelper<XmlNode> nodeHelper, string name = null, T defaultValue = default(T) )
 #else
 		/// <summary>
 		/// 获取辅助类所表示 XmlNode 的属性值.
@@ -169,7 +178,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="name">属性名称.</param>
 		/// <param name="defaultValue">属性默认值.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue<T> ( ref T value, XmlNodeHelper<N> nodeHelper, string name, T defaultValue )
+		public static bool FetchAttributeValue<T> ( ref T value, XmlNodeHelper<XmlNode> nodeHelper, string name, T defaultValue )
 #endif
 		{
 
@@ -188,7 +197,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="name">属性名称, 默认为 "value".</param>
 		/// <param name="defaultValue">属性默认值, 默认为 null.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue ( ref object value, N node, string name = null, object defaultValue = null )
+		public static bool FetchAttributeValue ( ref object value, XmlNode node, string name = null, object defaultValue = null )
 #else
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的属性值.
@@ -198,7 +207,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="name">属性名称.</param>
 		/// <param name="defaultValue">属性默认值.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue ( ref object value, N node, string name, object defaultValue )
+		public static bool FetchAttributeValue ( ref object value, XmlNode node, string name, object defaultValue )
 #endif
 		{ return FetchAttributeValue<object> ( ref value, node, name, defaultValue ); }
 
@@ -212,7 +221,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="name">属性名称, 默认为 "value".</param>
 		/// <param name="defaultValue">属性默认值, 默认为 default(T).</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue<T> ( ref T value, N node, string name = null, T defaultValue = default(T) )
+		public static bool FetchAttributeValue<T> ( ref T value, XmlNode node, string name = null, T defaultValue = default(T) )
 #else
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的属性值.
@@ -223,7 +232,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="name">属性名称.</param>
 		/// <param name="defaultValue">属性默认值.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue<T> ( ref T value, N node, string name, T defaultValue )
+		public static bool FetchAttributeValue<T> ( ref T value, XmlNode node, string name, T defaultValue )
 #endif
 		{
 
@@ -263,7 +272,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="value">属性值.</param>
 		/// <param name="name">属性的名称, 默认为 null.</param>
 		/// <returns>是否成功设置.</returns>
-		public static bool FlushAttributeValue ( XmlNodeHelper<N> nodeHelper, object value, string name = null )
+		public static bool FlushAttributeValue ( XmlNodeHelper<XmlNode> nodeHelper, object value, string name = null )
 #else
 		/// <summary>
 		/// 设置辅助类所表示 XmlNode 的属性值. 
@@ -272,7 +281,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="value">属性值.</param>
 		/// <param name="name">属性的名称.</param>
 		/// <returns>是否成功设置.</returns>
-		public static bool FlushAttributeValue ( XmlNodeHelper<N> nodeHelper, object value, string name )
+		public static bool FlushAttributeValue ( XmlNodeHelper<XmlNode> nodeHelper, object value, string name )
 #endif
 		{
 
@@ -290,7 +299,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="value">属性值.</param>
 		/// <param name="name">属性的名称, 默认为 "value".</param>
 		/// <returns>是否成功设置.</returns>
-		public static bool FlushAttributeValue ( N node, object value, string name = null )
+		public static bool FlushAttributeValue ( XmlNode node, object value, string name = null )
 #else
 		/// <summary>
 		/// 设置辅助类所表示 XmlNode 的属性值. 
@@ -299,7 +308,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="value">属性值.</param>
 		/// <param name="name">属性的名称.</param>
 		/// <returns>是否成功设置.</returns>
-		public static bool FlushAttributeValue ( N node, object value, string name )
+		public static bool FlushAttributeValue ( XmlNode node, object value, string name )
 #endif
 		{
 
@@ -326,7 +335,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="beginNodeHelper">开始的 XmlNode 辅助类.</param>
 		/// <param name="xPath">用于搜索的 xpath.</param>
 		/// <returns>搜索到子节点辅助类.</returns>
-		public static XmlNodeHelper<N> GetNodeHelper ( XmlNodeHelper<N> beginNodeHelper, string xPath )
+		public static XmlNodeHelper<XmlNode> GetNodeHelper ( XmlNodeHelper<XmlNode> beginNodeHelper, string xPath )
 		{
 
 			if ( null == beginNodeHelper )
@@ -340,9 +349,9 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="beginNode">开始的 XmlNode 类.</param>
 		/// <param name="xPath">用于搜索的 xpath.</param>
 		/// <returns>搜索到子节点辅助类.</returns>
-		public static XmlNodeHelper<N> GetNodeHelper ( N beginNode, string xPath )
+		public static XmlNodeHelper<XmlNode> GetNodeHelper ( XmlNode beginNode, string xPath )
 		{
-			XmlNodeHelper<N> nodeHelper = null;
+			XmlNodeHelper<XmlNode> nodeHelper = null;
 
 			FetchNodeHelper ( ref nodeHelper, beginNode, xPath );
 			return nodeHelper;
@@ -354,7 +363,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="beginNodeHelper">开始的 XmlNode 辅助类.</param>
 		/// <param name="xPath">用于搜索的 xpath.</param>
 		/// <returns>是否搜索到子节点.</returns>
-		public static bool FetchNodeHelper ( ref XmlNodeHelper<N> nodeHelper, XmlNodeHelper<N> beginNodeHelper, string xPath )
+		public static bool FetchNodeHelper ( ref XmlNodeHelper<XmlNode> nodeHelper, XmlNodeHelper<XmlNode> beginNodeHelper, string xPath )
 		{
 			if ( null == beginNodeHelper )
 				return false;
@@ -364,18 +373,32 @@ namespace zoyobar.shared.panzer.xml
 		/// <summary>
 		/// 获取 XmlNode 的子节点的辅助类.
 		/// </summary>
+		/// <param name="beginNode">开始的 XmlNode 类.</param>
+		/// <param name="xPath">用于搜索的 xpath.</param>
+		/// <returns>是否搜索到子节点.</returns>
+		public static bool FetchNodeHelper ( XmlNode beginNode, string xPath )
+		{
+			XmlNodeHelper<XmlNode> nodeHelper = null;
+
+			return FetchNodeHelper ( ref nodeHelper, beginNode, xPath );
+		}
+		/// <summary>
+		/// 获取 XmlNode 的子节点的辅助类.
+		/// </summary>
 		/// <param name="nodeHelper">返回的子节点的辅助类.</param>
 		/// <param name="beginNode">开始的 XmlNode 类.</param>
 		/// <param name="xPath">用于搜索的 xpath.</param>
 		/// <returns>是否搜索到子节点.</returns>
-		public static bool FetchNodeHelper ( ref XmlNodeHelper<N> nodeHelper, N beginNode, string xPath )
+		public static bool FetchNodeHelper ( ref XmlNodeHelper<XmlNode> nodeHelper, XmlNode beginNode, string xPath )
 		{
-			List<XmlNodeHelper<N>> nodeHelpers = GetNodeHelpers ( beginNode, xPath );
+			List<XmlNodeHelper<XmlNode>> nodeHelpers = GetNodeHelpers ( beginNode, xPath );
 
 			if ( nodeHelpers.Count == 0 )
 				return false;
 
 			nodeHelper = nodeHelpers[0];
+			sharedFetchedNodeHelpers.Clear ( );
+			sharedFetchedNodeHelpers.Add ( nodeHelper );
 			return true;
 		}
 
@@ -385,11 +408,11 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="beginNodeHelper">开始的 XmlNode 辅助类.</param>
 		/// <param name="xPath">用于搜索的 xpath.</param>
 		/// <returns>搜索到子节点辅助类.</returns>
-		public static List<XmlNodeHelper<N>> GetNodeHelpers ( XmlNodeHelper<N> beginNodeHelper, string xPath )
+		public static List<XmlNodeHelper<XmlNode>> GetNodeHelpers ( XmlNodeHelper<XmlNode> beginNodeHelper, string xPath )
 		{
 
 			if ( null == beginNodeHelper )
-				return new List<XmlNodeHelper<N>> ( );
+				return new List<XmlNodeHelper<XmlNode>> ( );
 
 			return GetNodeHelpers ( beginNodeHelper.node, xPath );
 		}
@@ -399,9 +422,9 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="beginNode">开始的 XmlNode 类.</param>
 		/// <param name="xPath">用于搜索的 xpath.</param>
 		/// <returns>搜索到子节点辅助类.</returns>
-		public static List<XmlNodeHelper<N>> GetNodeHelpers ( N beginNode, string xPath )
+		public static List<XmlNodeHelper<XmlNode>> GetNodeHelpers ( XmlNode beginNode, string xPath )
 		{
-			List<XmlNodeHelper<N>> nodeHelpers = new List<XmlNodeHelper<N>> ( );
+			List<XmlNodeHelper<XmlNode>> nodeHelpers = new List<XmlNodeHelper<XmlNode>> ( );
 
 			FetchNodeHelpers ( ref nodeHelpers, beginNode, xPath );
 			return nodeHelpers;
@@ -413,7 +436,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="beginNodeHelper">开始的 XmlNode 辅助类.</param>
 		/// <param name="xPath">用于搜索的 xpath.</param>
 		/// <returns>是否搜索到子节点.</returns>
-		public static bool FetchNodeHelpers ( ref List<XmlNodeHelper<N>> nodeHelpers, XmlNodeHelper<N> beginNodeHelper, string xPath )
+		public static bool FetchNodeHelpers ( ref List<XmlNodeHelper<XmlNode>> nodeHelpers, XmlNodeHelper<XmlNode> beginNodeHelper, string xPath )
 		{
 
 			if ( null == beginNodeHelper )
@@ -424,15 +447,27 @@ namespace zoyobar.shared.panzer.xml
 		/// <summary>
 		/// 获取 XmlNode 的子节点的辅助类.
 		/// </summary>
+		/// <param name="beginNode">开始的 XmlNode 类.</param>
+		/// <param name="xPath">用于搜索的 xpath.</param>
+		/// <returns>是否搜索到子节点.</returns>
+		public static bool FetchNodeHelpers ( XmlNode beginNode, string xPath )
+		{
+			List<XmlNodeHelper<XmlNode>> nodeHelpers = null;
+
+			return FetchNodeHelpers ( ref nodeHelpers, beginNode, xPath );
+		}
+		/// <summary>
+		/// 获取 XmlNode 的子节点的辅助类.
+		/// </summary>
 		/// <param name="nodeHelpers">返回的子节点的辅助类.</param>
 		/// <param name="beginNode">开始的 XmlNode 类.</param>
 		/// <param name="xPath">用于搜索的 xpath.</param>
 		/// <returns>是否搜索到子节点.</returns>
-		public static bool FetchNodeHelpers ( ref List<XmlNodeHelper<N>> nodeHelpers, N beginNode, string xPath )
+		public static bool FetchNodeHelpers ( ref List<XmlNodeHelper<XmlNode>> nodeHelpers, XmlNode beginNode, string xPath )
 		{
 
 			if ( null == nodeHelpers )
-				nodeHelpers = new List<XmlNodeHelper<N>> ( );
+				nodeHelpers = new List<XmlNodeHelper<XmlNode>> ( );
 
 			if ( null == beginNode || string.IsNullOrEmpty ( xPath ) )
 				return false;
@@ -440,24 +475,28 @@ namespace zoyobar.shared.panzer.xml
 			try
 			{
 
-				foreach ( N node in beginNode.SelectNodes ( xPath ) )
-					nodeHelpers.Add ( new XmlNodeHelper<N> ( node ) );
+				foreach ( XmlNode node in beginNode.SelectNodes ( xPath ) )
+					nodeHelpers.Add ( new XmlNodeHelper<XmlNode> ( node ) );
 
 			}
 			catch { }
 
-			return nodeHelpers.Count != 0;
+			if ( nodeHelpers.Count == 0 )
+				return false;
+
+			sharedFetchedNodeHelpers.Clear ( );
+			sharedFetchedNodeHelpers.AddRange ( nodeHelpers.ToArray() );
+			return true;
 		}
 		#endregion
 
 		private readonly string name;
-		/// <summary>
-		/// XmlNode 节点类.
-		/// </summary>
 		protected N node;
-		private readonly List<XmlNodeHelper<N>> childNodeHelpers = new List<XmlNodeHelper<N>> ( );
+		private readonly List<XmlNodeHelper<XmlNode>> childNodeHelpers = new List<XmlNodeHelper<XmlNode>> ( );
 
 		private readonly SortedList<string, object> attributes = new SortedList<string, object> ( );
+
+		private readonly List<XmlNodeHelper<XmlNode>> fetchedNodeHelpers = new List<XmlNodeHelper<XmlNode>> ( );
 
 		/// <summary>
 		/// 获取节点名称.
@@ -468,7 +507,7 @@ namespace zoyobar.shared.panzer.xml
 		}
 
 		/// <summary>
-		/// 获取 XmlNode.
+		/// 获取继承自 XmlNode 的节点.
 		/// </summary>
 		public N Node
 		{
@@ -478,7 +517,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <summary>
 		/// 获取子节点的 XmlNodeHelper.
 		/// </summary>
-		public List<XmlNodeHelper<N>> ChildNodeHelpers
+		public List<XmlNodeHelper<XmlNode>> ChildNodeHelpers
 		{
 			get { return this.childNodeHelpers; }
 		}
@@ -501,7 +540,7 @@ namespace zoyobar.shared.panzer.xml
 				{
 					xml += ">";
 
-					foreach ( XmlNodeHelper<N> childNodeHelper in this.childNodeHelpers )
+					foreach ( XmlNodeHelper<XmlNode> childNodeHelper in this.childNodeHelpers )
 						if ( null != childNodeHelper )
 							xml += childNodeHelper.OuterXml;
 
@@ -510,6 +549,14 @@ namespace zoyobar.shared.panzer.xml
 
 				return xml;
 			}
+		}
+
+		/// <summary>
+		/// 获取得到的 XmlNode 子节点辅助类.
+		/// </summary>
+		public List<XmlNodeHelper<XmlNode>> FetchedNodeHelpers
+		{
+			get { return this.fetchedNodeHelpers; }
 		}
 
 		/// <summary>
@@ -560,14 +607,14 @@ namespace zoyobar.shared.panzer.xml
 		/// </summary>
 		/// <param name="name">节点名称.</param>
 		/// <param name="childNodeHelpers">子节点的 XmlNode 辅助类.</param>
-		public XmlNodeHelper ( string name, params XmlNodeHelper<N>[] childNodeHelpers )
+		public XmlNodeHelper ( string name, params XmlNodeHelper<XmlNode>[] childNodeHelpers )
 		{
 
 			if ( string.IsNullOrEmpty ( name ) )
 				throw new ArgumentNullException ( "name", " 节点名称不能为空" );
 
 			if ( null != childNodeHelpers )
-				foreach ( XmlNodeHelper<N> childNodeHelper in childNodeHelpers )
+				foreach ( XmlNodeHelper<XmlNode> childNodeHelper in childNodeHelpers )
 					if ( null != childNodeHelper )
 						this.childNodeHelpers.Add ( childNodeHelper );
 
@@ -669,7 +716,10 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="value">属性值.</param>
 		/// <returns>是否成功设置.</returns>
 		public bool FlushAttributeValue ( object value )
-		{ return FlushAttributeValue ( this.node, value ); }
+		{
+			// 无法使用 FlushAttributeValue ( this.node, value );
+			return FlushAttributeValue ( this.node, value, null );
+		}
 		/// <summary>
 		/// 设置辅助类所表示 XmlNode 的属性值. 
 		/// </summary>
@@ -686,7 +736,7 @@ namespace zoyobar.shared.panzer.xml
 		/// </summary>
 		/// <param name="xPath">用于搜索的 xpath.</param>
 		/// <returns>搜索到子节点辅助类.</returns>
-		public XmlNodeHelper<N> GetNodeHelper ( string xPath )
+		public XmlNodeHelper<XmlNode> GetNodeHelper ( string xPath )
 		{ return GetNodeHelper ( this.node, xPath ); }
 		/// <summary>
 		/// 获取 XmlNode 的子节点的辅助类.
@@ -694,28 +744,57 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="nodeHelper">返回的子节点的辅助类.</param>
 		/// <param name="xPath">用于搜索的 xpath.</param>
 		/// <returns>是否搜索到子节点.</returns>
-		public bool FetchNodeHelper ( ref XmlNodeHelper<N> nodeHelper, string xPath )
-		{ return FetchNodeHelper ( ref nodeHelper, this.node, xPath ); }
+		public bool FetchNodeHelper ( string xPath )
+		{ return FetchNodeHelper ( this.node, xPath ); }
+		/// <summary>
+		/// 获取 XmlNode 的子节点的辅助类.
+		/// </summary>
+		/// <param name="nodeHelper">返回的子节点的辅助类.</param>
+		/// <param name="xPath">用于搜索的 xpath.</param>
+		/// <returns>是否搜索到子节点.</returns>
+		public bool FetchNodeHelper ( ref XmlNodeHelper<XmlNode> nodeHelper, string xPath )
+		{
+			bool isSuccess = FetchNodeHelper ( ref nodeHelper, this.node, xPath );
+
+			this.fetchedNodeHelpers.Clear ( );
+			this.fetchedNodeHelpers.Add ( nodeHelper );
+
+			return isSuccess;
+		}
 		/// <summary>
 		/// 得到 XmlNode 的子节点的辅助类.
 		/// </summary>
 		/// <param name="xPath">用于搜索的 xpath.</param>
 		/// <returns>搜索到子节点辅助类.</returns>
-		public List<XmlNodeHelper<N>> GetNodeHelpers ( string xPath )
+		public List<XmlNodeHelper<XmlNode>> GetNodeHelpers ( string xPath )
 		{ return GetNodeHelpers ( this.node, xPath ); }
+		/// <summary>
+		/// 获取 XmlNode 的子节点的辅助类.
+		/// </summary>
+		/// <param name="xPath">用于搜索的 xpath.</param>
+		/// <returns>是否搜索到子节点.</returns>
+		public bool FetchNodeHelpers ( string xPath )
+		{return FetchNodeHelpers ( this.node, xPath ); }
 		/// <summary>
 		/// 获取 XmlNode 的子节点的辅助类.
 		/// </summary>
 		/// <param name="nodeHelpers">返回的子节点的辅助类.</param>
 		/// <param name="xPath">用于搜索的 xpath.</param>
 		/// <returns>是否搜索到子节点.</returns>
-		public bool FetchNodeHelpers ( ref List<XmlNodeHelper<N>> nodeHelpers, string xPath )
-		{ return FetchNodeHelpers ( ref nodeHelpers, this.node, xPath ); }
+		public bool FetchNodeHelpers ( ref List<XmlNodeHelper<XmlNode>> nodeHelpers, string xPath )
+		{
+			bool isSuccess = FetchNodeHelpers ( ref nodeHelpers, this.node, xPath );
+
+			this.fetchedNodeHelpers.Clear ( );
+			this.fetchedNodeHelpers.AddRange ( nodeHelpers.ToArray ( ) );
+
+			return isSuccess;
+		}
 		#endregion
 
 	}
 
-	partial class XmlNodeHelper<N>
+	partial class XmlNodeHelper
 	{
 #if !PARAM
 		/// <summary>
@@ -723,7 +802,7 @@ namespace zoyobar.shared.panzer.xml
 		/// </summary>
 		/// <param name="nodeHelper">XmlNode 辅助类.</param>
 		/// <returns>属性值.</returns>
-		public static object GetAttributeValue ( XmlNodeHelper<N> nodeHelper )
+		public static object GetAttributeValue ( XmlNodeHelper<XmlNode> nodeHelper )
 		{ return GetAttributeValue<object> ( nodeHelper, null, null ); }
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的 value 属性值.
@@ -731,7 +810,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="nodeHelper">XmlNode 辅助类.</param>
 		/// <param name="defaultValue">属性默认值.</param>
 		/// <returns>属性值.</returns>
-		public static object GetAttributeValue ( XmlNodeHelper<N> nodeHelper, object defaultValue )
+		public static object GetAttributeValue ( XmlNodeHelper<XmlNode> nodeHelper, object defaultValue )
 		{ return GetAttributeValue<object> ( nodeHelper, null, defaultValue ); }
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的属性值.
@@ -739,7 +818,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="nodeHelper">XmlNode 辅助类.</param>
 		/// <param name="name">属性名称.</param>
 		/// <returns>属性值.</returns>
-		public static object GetAttributeValue ( XmlNodeHelper<N> nodeHelper, string name )
+		public static object GetAttributeValue ( XmlNodeHelper<XmlNode> nodeHelper, string name )
 		{ return GetAttributeValue<object> ( nodeHelper, name, null ); }
 
 		/// <summary>
@@ -748,7 +827,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <typeparam name="T">属性的类型.</typeparam>
 		/// <param name="nodeHelper">XmlNode 辅助类.</param>
 		/// <returns>属性值.</returns>
-		public static T GetAttributeValue<T> ( XmlNodeHelper<N> nodeHelper )
+		public static T GetAttributeValue<T> ( XmlNodeHelper<XmlNode> nodeHelper )
 		{ return GetAttributeValue<T> ( nodeHelper, null, default ( T ) ); }
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的 value 属性值.
@@ -757,7 +836,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="nodeHelper">XmlNode 辅助类.</param>
 		/// <param name="defaultValue">属性默认值.</param>
 		/// <returns>属性值.</returns>
-		public static T GetAttributeValue<T> ( XmlNodeHelper<N> nodeHelper, T defaultValue )
+		public static T GetAttributeValue<T> ( XmlNodeHelper<XmlNode> nodeHelper, T defaultValue )
 		{ return GetAttributeValue<T> ( nodeHelper, null, defaultValue ); }
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的属性值.
@@ -766,7 +845,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="nodeHelper">XmlNode 辅助类.</param>
 		/// <param name="name">属性名称.</param>
 		/// <returns>属性值.</returns>
-		public static T GetAttributeValue<T> ( XmlNodeHelper<N> nodeHelper, string name )
+		public static T GetAttributeValue<T> ( XmlNodeHelper<XmlNode> nodeHelper, string name )
 		{ return GetAttributeValue<T> ( nodeHelper, name, default ( T ) ); }
 
 		/// <summary>
@@ -774,7 +853,7 @@ namespace zoyobar.shared.panzer.xml
 		/// </summary>
 		/// <param name="node">XmlNode 类.</param>
 		/// <returns>属性值.</returns>
-		public static object GetAttributeValue ( N node )
+		public static object GetAttributeValue ( XmlNode node )
 		{ return GetAttributeValue<object> ( node, null, null ); }
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的 value 属性值.
@@ -782,7 +861,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="node">XmlNode 类.</param>
 		/// <param name="defaultValue">属性默认值.</param>
 		/// <returns>属性值.</returns>
-		public static object GetAttributeValue ( N node, object defaultValue )
+		public static object GetAttributeValue ( XmlNode node, object defaultValue )
 		{ return GetAttributeValue<object> ( node, null, defaultValue ); }
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的属性值.
@@ -790,7 +869,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="node">XmlNode 类.</param>
 		/// <param name="name">属性名称.</param>
 		/// <returns>属性值.</returns>
-		public static object GetAttributeValue ( N node, string name )
+		public static object GetAttributeValue ( XmlNode node, string name )
 		{ return GetAttributeValue<object> ( node, name, null ); }
 
 		/// <summary>
@@ -799,7 +878,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <typeparam name="T">属性的类型.</typeparam>
 		/// <param name="node">XmlNode 类.</param>
 		/// <returns>属性值.</returns>
-		public static T GetAttributeValue<T> ( N node )
+		public static T GetAttributeValue<T> ( XmlNode node )
 		{ return GetAttributeValue<T> ( node, null, default ( T ) ); }
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的 value 属性值.
@@ -808,7 +887,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="node">XmlNode 类.</param>
 		/// <param name="defaultValue">属性默认值.</param>
 		/// <returns>属性值.</returns>
-		public static T GetAttributeValue<T> ( N node, T defaultValue )
+		public static T GetAttributeValue<T> ( XmlNode node, T defaultValue )
 		{ return GetAttributeValue<T> (node,  null, defaultValue ); }
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的属性值.
@@ -817,7 +896,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="node">XmlNode 类.</param>
 		/// <param name="name">属性名称.</param>
 		/// <returns>属性值.</returns>
-		public static T GetAttributeValue<T> ( N node, string name )
+		public static T GetAttributeValue<T> ( XmlNode node, string name )
 		{ return GetAttributeValue<T> ( node, name, default ( T ) ); }
 
 		/// <summary>
@@ -827,7 +906,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="value">返回的属性值.</param>
 		/// <param name="node">XmlNode 类.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue<T> ( ref T value, N node )
+		public static bool FetchAttributeValue<T> ( ref T value, XmlNode node )
 		{ return FetchAttributeValue<T> ( ref value, node, null, default ( T ) ); }
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的 value 属性值.
@@ -837,7 +916,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="node">XmlNode 类.</param>
 		/// <param name="defaultValue">属性默认值.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue<T> ( ref T value, N node, T defaultValue )
+		public static bool FetchAttributeValue<T> ( ref T value, XmlNode node, T defaultValue )
 		{ return FetchAttributeValue<T> ( ref value, node, null, defaultValue ); }
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的属性值.
@@ -847,7 +926,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="node">XmlNode 类.</param>
 		/// <param name="name">属性名称.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue<T> ( ref T value, N node, string name )
+		public static bool FetchAttributeValue<T> ( ref T value, XmlNode node, string name )
 		{ return FetchAttributeValue<T> ( ref value, node, name, default ( T ) ); }
 
 		/// <summary>
@@ -856,7 +935,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="value">返回的属性值.</param>
 		/// <param name="node">XmlNode 类.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue ( ref object value, N node )
+		public static bool FetchAttributeValue ( ref object value, XmlNode node )
 		{ return FetchAttributeValue<object> ( ref value, node, null, null ); }
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的 value 属性值.
@@ -865,7 +944,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="node">XmlNode 类.</param>
 		/// <param name="defaultValue">属性默认值.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue ( ref object value, N node, object defaultValue )
+		public static bool FetchAttributeValue ( ref object value, XmlNode node, object defaultValue )
 		{ return FetchAttributeValue<object> ( ref value, node, null, defaultValue ); }
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的属性值.
@@ -874,7 +953,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="node">XmlNode 类.</param>
 		/// <param name="name">属性名称.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue ( ref object value, N node, string name )
+		public static bool FetchAttributeValue ( ref object value, XmlNode node, string name )
 		{ return FetchAttributeValue<object> ( ref value, node, name, null ); }
 
 		/// <summary>
@@ -884,7 +963,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="value">返回的属性值.</param>
 		/// <param name="nodeHelper">XmlNode 辅助类.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue<T> ( ref T value, XmlNodeHelper<N> nodeHelper )
+		public static bool FetchAttributeValue<T> ( ref T value, XmlNodeHelper<XmlNode> nodeHelper )
 		{ return FetchAttributeValue<T> ( ref value, nodeHelper, null, default ( T ) ); }
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的 value 属性值.
@@ -894,7 +973,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="nodeHelper">XmlNode 辅助类.</param>
 		/// <param name="defaultValue">属性默认值.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue<T> ( ref T value, XmlNodeHelper<N> nodeHelper, T defaultValue )
+		public static bool FetchAttributeValue<T> ( ref T value, XmlNodeHelper<XmlNode> nodeHelper, T defaultValue )
 		{ return FetchAttributeValue<T> ( ref value, nodeHelper, null, defaultValue ); }
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的属性值.
@@ -904,7 +983,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="nodeHelper">XmlNode 辅助类.</param>
 		/// <param name="name">属性名称.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue<T> ( ref T value, XmlNodeHelper<N> nodeHelper, string name )
+		public static bool FetchAttributeValue<T> ( ref T value, XmlNodeHelper<XmlNode> nodeHelper, string name )
 		{ return FetchAttributeValue<T> ( ref value, nodeHelper, name, default ( T ) ); }
 
 		/// <summary>
@@ -913,7 +992,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="value">返回的属性值.</param>
 		/// <param name="nodeHelper">XmlNode 辅助类.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue ( ref object value, XmlNodeHelper<N> nodeHelper )
+		public static bool FetchAttributeValue ( ref object value, XmlNodeHelper<XmlNode> nodeHelper )
 		{ return FetchAttributeValue<object> ( ref value, nodeHelper, null, null ); }
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的 value 属性值.
@@ -922,7 +1001,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="nodeHelper">XmlNode 辅助类.</param>
 		/// <param name="defaultValue">属性默认值.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue ( ref object value, XmlNodeHelper<N> nodeHelper, object defaultValue )
+		public static bool FetchAttributeValue ( ref object value, XmlNodeHelper<XmlNode> nodeHelper, object defaultValue )
 		{ return FetchAttributeValue<object> ( ref value, nodeHelper, null, defaultValue ); }
 		/// <summary>
 		/// 得到辅助类所表示 XmlNode 的属性值.
@@ -931,7 +1010,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="nodeHelper">XmlNode 辅助类.</param>
 		/// <param name="name">属性名称.</param>
 		/// <returns>是否成功获取到 XmlNode 的属性.</returns>
-		public static bool FetchAttributeValue ( ref object value, XmlNodeHelper<N> nodeHelper, string name )
+		public static bool FetchAttributeValue ( ref object value, XmlNodeHelper<XmlNode> nodeHelper, string name )
 		{ return FetchAttributeValue<object> ( ref value, nodeHelper, name, null ); }
 
 		/// <summary>
@@ -940,7 +1019,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="node">XmlNode 类.</param>
 		/// <param name="value">属性值.</param>
 		/// <returns>是否成功设置.</returns>
-		public static bool FlushAttributeValue ( N node, object value )
+		public static bool FlushAttributeValue ( XmlNode node, object value )
 		{ return FlushAttributeValue ( node, value, null ); }
 
 		/// <summary>
@@ -949,7 +1028,7 @@ namespace zoyobar.shared.panzer.xml
 		/// <param name="nodeHelper">XmlNode 辅助类.</param>
 		/// <param name="value">属性值.</param>
 		/// <returns>是否成功设置.</returns>
-		public static bool FlushAttributeValue ( XmlNodeHelper<N> nodeHelper, object value )
+		public static bool FlushAttributeValue ( XmlNodeHelper<XmlNode> nodeHelper, object value )
 		{ return FlushAttributeValue ( nodeHelper, value, null ); }
 
 		/// <summary>

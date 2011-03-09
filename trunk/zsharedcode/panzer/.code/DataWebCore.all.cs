@@ -1,5 +1,5 @@
 ﻿/* allinone合并了多个文件,下载使用多个allinone代码,可能会遇到重复的类型定义,http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/dweb/DataWebCore.cs */
-// HACK: 如果代码不能编译, 请尝试设置为 V4, V3_5, V3, V2 以表示不同的 .NET 版本
+// HACK: 如果代码不能编译, 请尝试在项目中定义编译符号 V4, V3_5, V3, V2 以表示不同的 .NET 版本
 #define V4
 using System;
 using System.Collections.Generic;

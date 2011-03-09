@@ -3,6 +3,8 @@
  * 版本: .net 4.0, 其它版本可能有所不同
  * */
 
+// HACK: 如果代码不能编译, 请尝试在项目中定义编译符号 V4, V3_5, V3, V2 以表示不同的 .NET 版本
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -51,12 +53,21 @@ namespace zoyobar.shared.panzer.code
 			try
 			{
 
+#if V4
 				if ( type == typeof ( Guid ) )
 					return ( T ) ( object ) new Guid ( value );
 				else if ( type == typeof ( Color ) )
 					return ( T ) ( object ) Color.FromArgb ( Convert.ToInt32 ( value ) );
 				else
 					return ( T ) ( object ) value;
+#else
+				if ( object.ReferenceEquals ( type, typeof ( Guid ) ) )
+					return ( T ) ( object ) new Guid ( value );
+				else if ( object.ReferenceEquals ( type, typeof ( Color ) ) )
+					return ( T ) ( object ) Color.FromArgb ( Convert.ToInt32 ( value ) );
+				else
+					return ( T ) ( object ) value;
+#endif
 
 			}
 			catch
