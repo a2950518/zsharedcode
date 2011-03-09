@@ -22,8 +22,9 @@
 
 // HACK: 在项目中定义编译符号 PARAM, 使用提供默认参数的方法.
 
-// HACK: 如果代码不能编译, 请尝试设置为 V4, V3_5, V3, V2 以表示不同的 .NET 版本
-#define V4
+// HACK: 如果代码不能编译, 请尝试在项目中定义编译符号 V4, V3_5, V3, V2 以表示不同的 .NET 版本
+
+// HACK: DataWindowCore 需要 V4 或者 V3_5
 
 using System;
 using System.Collections.Generic;
