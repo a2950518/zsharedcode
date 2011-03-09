@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>zoyobar.shared.panzer</RootNamespace>
     <AssemblyName>zoyobar.shared.panzer</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>Svn</SccProjectName>
     <SccLocalPath>Svn</SccLocalPath>
@@ -28,7 +28,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;PARAM V2</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;PARAM V4</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\zoyobar.shared.panzer.XML</DocumentationFile>
@@ -81,9 +81,12 @@
     <None Include=".code\Tracer.all.cs" />
     <None Include=".code\Tracer.all.with.test.cs" />
     <None Include=".code\WindowCore.all.cs" />
+    <Compile Include=".class\xml\XmlDocumentHelper.cs" />
     <Compile Include=".class\xml\XmlNodeHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include=".class\xml\XmlSeriation.cs" />
+    <Compile Include=".class\xml\XmlSeriationManager.cs" />
     <Compile Include=".enum\FunctionType.cs" />
     <Compile Include=".enum\CharacterType.cs" />
     <Compile Include=".enum\StringCompareMode.cs" />
