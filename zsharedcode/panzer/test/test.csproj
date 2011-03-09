@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>zoyobar.shared.panzer.test</RootNamespace>
     <AssemblyName>zoyobar.shared.panzer.test</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>zoyobar.shared.panzer.test.Test</StartupObject>
     <SccProjectName>Svn</SccProjectName>
@@ -155,6 +155,7 @@
     <Content Include="test.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="app.config" />
     <None Include="web\ib\jquery-1.5.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
