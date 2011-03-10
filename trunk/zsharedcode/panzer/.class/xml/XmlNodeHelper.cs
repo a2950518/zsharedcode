@@ -1,4 +1,5 @@
 ﻿/*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/XmlNodeHelper
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/xml/XmlNodeHelper.cs
  * 引用代码:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs

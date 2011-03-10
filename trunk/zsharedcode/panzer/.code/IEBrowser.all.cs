@@ -1,15 +1,15 @@
 ﻿/* allinone合并了多个文件,下载使用多个allinone代码,可能会遇到重复的类型定义,http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/IEBrowser.cs */
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 using zoyobar.shared.panzer.flow;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 using NControl = System.Web.UI.Control;
 // ../.class/web/ib/IEBrowser.cs
 /*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/IEBrowser
+ * http://code.google.com/p/zsharedcode/wiki/IEFlow
  * 参考文档: http://blog.sina.com.cn/s/blog_604c436d0100o5ix.html (目前已经停止更新同步)
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://blog.sina.com.cn/s/blog_604c436d0100o04s.html
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/IEBrowser.cs
@@ -17,6 +17,7 @@ using NControl = System.Web.UI.Control;
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageAction.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageState.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageCondition.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
@@ -734,6 +735,12 @@ namespace zoyobar.shared.panzer.web.ib
 }
 // ../.class/flow/Flow.cs
 /*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/FlowAction
+ * http://code.google.com/p/zsharedcode/wiki/FlowCondition
+ * http://code.google.com/p/zsharedcode/wiki/FlowState
+ * http://code.google.com/p/zsharedcode/wiki/Flow
+ * http://code.google.com/p/zsharedcode/wiki/NextStateSetting
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * */
@@ -1507,7 +1514,21 @@ namespace zoyobar.shared.panzer.flow
 }
 // ../.class/web/ib/WebPageAction.cs
 /*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/WPAEmptyAction
+ * http://code.google.com/p/zsharedcode/wiki/ExecuteJavaScriptAction
+ * http://code.google.com/p/zsharedcode/wiki/ExecuteJQueryAction
+ * http://code.google.com/p/zsharedcode/wiki/InstallJavaScriptAction
+ * http://code.google.com/p/zsharedcode/wiki/InstallJQueryAction
+ * http://code.google.com/p/zsharedcode/wiki/InstallTraceAction
+ * http://code.google.com/p/zsharedcode/wiki/InvokeJavaScriptAction
+ * http://code.google.com/p/zsharedcode/wiki/WPANavigateAction
+ * http://code.google.com/p/zsharedcode/wiki/WPARefreshAction
+ * http://code.google.com/p/zsharedcode/wiki/WebPageActionType
+ * http://code.google.com/p/zsharedcode/wiki/WebPageAction
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageAction.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * */
 
@@ -2230,7 +2251,14 @@ namespace zoyobar.shared.panzer.web.ib
 }
 // ../.class/web/ib/WebPageCondition.cs
 /*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryCondition
+ * http://code.google.com/p/zsharedcode/wiki/UrlCondition
+ * http://code.google.com/p/zsharedcode/wiki/WebPageConditionType
+ * http://code.google.com/p/zsharedcode/wiki/WebPageCondition
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageCondition.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * */
 
@@ -2350,10 +2378,14 @@ namespace zoyobar.shared.panzer.web.ib
 }
 // ../.class/web/ib/WebPageState.cs
 /*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/WebPageNextStateSetting
+ * http://code.google.com/p/zsharedcode/wiki/WebPageState
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageCondition.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * 版本: 1.2, .net 4.0, 其它版本可能有所不同
  * */
-
 
 
 namespace zoyobar.shared.panzer.web.ib
@@ -2601,7 +2633,13 @@ namespace zoyobar.shared.panzer.web.ib
 }
 // ../.class/web/JQuery.cs
 /*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/JQuery
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * */
 
@@ -3156,6 +3194,7 @@ namespace zoyobar.shared.panzer.web
 }
 // ../.class/web/ScriptHelper.cs
 /*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/ScriptHelper
  * 参考文档: http://blog.sina.com.cn/s/blog_604c436d0100o07u.html (目前已经停止更新同步)
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://blog.sina.com.cn/s/blog_604c436d0100o04s.html
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
@@ -4339,6 +4378,7 @@ namespace zoyobar.shared.panzer.web
 }
 // ../.enum/web/NavigateOption.cs
 /*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/NavigateOption
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * */
@@ -4372,6 +4412,7 @@ namespace zoyobar.shared.panzer.web
 }
 // ../.enum/web/ScriptBuildOption.cs
 /*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/ScriptBuildOption
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * */
@@ -4405,6 +4446,7 @@ namespace zoyobar.shared.panzer.web
 }
 // ../.enum/web/ScriptType.cs
 /*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/ScriptType
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * */
@@ -4430,6 +4472,7 @@ namespace zoyobar.shared.panzer.web
 }
 // ../.enum/StringCompareMode.cs
 /*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/StringCompareMode
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/StringCompareMode.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * */

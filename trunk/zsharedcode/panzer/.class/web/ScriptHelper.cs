@@ -1,4 +1,5 @@
 ﻿/*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/ScriptHelper
  * 参考文档: http://blog.sina.com.cn/s/blog_604c436d0100o07u.html (目前已经停止更新同步)
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://blog.sina.com.cn/s/blog_604c436d0100o04s.html
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs

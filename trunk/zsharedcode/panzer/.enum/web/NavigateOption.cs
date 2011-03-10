@@ -1,4 +1,5 @@
 ﻿/*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/NavigateOption
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * */

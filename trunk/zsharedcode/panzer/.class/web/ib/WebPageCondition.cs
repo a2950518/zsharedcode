@@ -1,4 +1,9 @@
 ﻿/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryCondition
+ * http://code.google.com/p/zsharedcode/wiki/UrlCondition
+ * http://code.google.com/p/zsharedcode/wiki/WebPageConditionType
+ * http://code.google.com/p/zsharedcode/wiki/WebPageCondition
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageCondition.cs
  * 引用代码:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
