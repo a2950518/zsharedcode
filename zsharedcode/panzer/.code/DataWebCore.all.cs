@@ -1,6 +1,4 @@
 ﻿/* allinone合并了多个文件,下载使用多个allinone代码,可能会遇到重复的类型定义,http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/dweb/DataWebCore.cs */
-// HACK: 如果代码不能编译, 请尝试在项目中定义编译符号 V4, V3_5, V3, V2 以表示不同的 .NET 版本
-#define V4
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -550,6 +548,9 @@ namespace zoyobar.shared.panzer.ui.dweb
 
 // HACK: 在项目中定义编译符号 PARAM, 使用提供默认参数的方法.
 
+// HACK: 如果代码不能编译, 请尝试在项目中定义编译符号 V4, V3_5, V3, V2 以表示不同的 .NET 版本
+
+// HACK: DataWindowCore 需要 V4 或者 V3_5
 
 
 namespace zoyobar.shared.panzer.ui.dwindow
@@ -1485,6 +1486,7 @@ namespace zoyobar.shared.panzer.ui.dwindow
  * 版本: 2.0, .net 4.0, 其它版本可能有所不同
 * */
 
+// HACK: 如果代码不能编译, 请尝试在项目中定义编译符号 V4, V3_5, V3, V2 以表示不同的 .NET 版本
 
 
 namespace zoyobar.shared.panzer.ui
