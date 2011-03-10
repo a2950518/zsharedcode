@@ -1,14 +1,9 @@
-#summary One-sentence summary of this page.
+#summary 编译符号参考
 #labels Phase-Design,Phase-Implementation
+<font size="2" face="microsoft yahei">
+=== {{{PARAM}}} ===
+ 在项目中定义 {{{PARAM}}} 编译符号, 将采用方法参数有默认值的书写风格. 这种风格在 Visual Studio 2010 以及 .NET 4.0 下适用, 不同的环境可能会出现编译错误.
 
-= Introduction =
-
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+=== {{{V2, V3, V3_5, V4}}} ===
+ 在项目中定义 {{{V2, V3, V3_5, V4}}} 编译符号, 将采用不同的编码风格, 分别适用在不同的 .NET 版本下, 如果你的项目采用 .NET 4.0, 那么你可以定义 {{{V2, V3, V3_5, V4}}} 中的任意一种. 如果你的项目采用 .NET 4.0, 那么你不能定义 {{{V3, V3_5, V4}}} 中的任意一种, 这可能导致编译无法通过.
+</font>
