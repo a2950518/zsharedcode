@@ -119,6 +119,12 @@
       <DependentUpon>FormStudent.cs</DependentUpon>
     </Compile>
     <Compile Include="ui\wc\TestWindowCore.cs" />
+    <Compile Include="web\FormHtmlEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="web\FormHtmlEditor.Designer.cs">
+      <DependentUpon>FormHtmlEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="web\ib\FormIEBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,7 +144,7 @@
       <DependentUpon>FormIEBrowser3.cs</DependentUpon>
     </Compile>
     <Compile Include="web\ib\TestIEBrowser.cs" />
-    <Compile Include="TestXmlSeriation.cs" />
+    <Compile Include="web\TestHtmlEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\panzer.csproj">
@@ -243,6 +249,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ui\wc\FormStudent.resx">
       <DependentUpon>FormStudent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="web\FormHtmlEditor.resx">
+      <DependentUpon>FormHtmlEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="web\ib\FormIEBrowser.resx">
       <DependentUpon>FormIEBrowser.cs</DependentUpon>
