@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<seriation>
+	<types>
+		<type id="@Student" assembly="zoyobar.shared.panzer.test.TestXmlSeriation+Student, zoyobar.shared.panzer.test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+	</types>
+	<items>
+		<item id="$name" kind="Structure" value="tom" type="String" />
+		<item id="$age" kind="Structure" value="12" type="Integer" />
+		<item id="$student1" kind="Class" type="@Student">
+			<param kind="Structure" value="jack" type="String" />
+			<param kind="Structure" value="11" type="Integer" />
+		</item>
+	</items>
+</seriation>
