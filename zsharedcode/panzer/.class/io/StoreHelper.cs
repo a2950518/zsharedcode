@@ -4,10 +4,8 @@
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/io/StoreHelper.cs
  * */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
+using System.Text;
 
 namespace zoyobar.shared.panzer.io
 {

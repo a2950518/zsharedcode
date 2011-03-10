@@ -1,12 +1,11 @@
 ﻿/*
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageCondition.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
 
 using zoyobar.shared.panzer.flow;
 
