@@ -16,6 +16,7 @@
       * [DataSetHelper DataSetHelper]
     * debug
       * [Tracer Tracer]
+    * [DirectionType DirectionType]
     * flow
       * [FlowAction FlowAction]
       * [FlowCondition FlowCondition]
@@ -30,10 +31,10 @@
       * dweb
         * [DataWebCore DataWebCore{`0,`1}]
         * [DWebCPagerSetting PagerSetting]
-        * [PagerStoreType PagerBuilder]
+        * [PagerBuilder PagerBuilder]
         * [PagerStoreType PagerStoreType]
-        * [PagerStoreType QuerySetting]
-        * [PagerStoreType QueryBuilder]
+        * [QueryBuilder QueryBuilder]
+        * [QuerySetting QuerySetting]
       * dwindow
         * [DataActionType DataActionType]
         * [DataWindowCore DataWindowCore{`0,`1}]
@@ -42,6 +43,8 @@
         * [DWCTableSetting TableSetting`1]
       * [EventHandlerType EventHandlerType]
       * [WindowCore WindowCore`1]
+    * [ValueKind ValueKind]
+    * [ValueStamp ValueStamp]
     * web
       * [EMail EMail]
       * ib
@@ -64,11 +67,11 @@
         * [WebPageCondition WebPageCondition]
         * [WebPageNextStateSetting WebPageNextStateSetting]
         * [WebPageState WebPageState]
+      * [JQuery JQuery]
       * [NavigateOption NavigateOption]
       * [ScriptBuildOption ScriptBuildOption]
       * [ScriptHelper ScriptHelper]
       * [ScriptType ScriptType]
-      * [JQuery JQuery]
     * xml
       * [XmlDocumentHelper XmlDocumentHelper]
       * [XmlNodeHelper XmlNodeHelper`1]
