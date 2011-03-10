@@ -1,13 +1,10 @@
 ﻿/* allinone合并了多个文件,下载使用多个allinone代码,可能会遇到重复的类型定义,http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs */
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 using NControl = System.Web.UI.Control;
 // ../.class/web/ScriptHelper.cs
 /*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/ScriptHelper
  * 参考文档: http://blog.sina.com.cn/s/blog_604c436d0100o07u.html (目前已经停止更新同步)
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://blog.sina.com.cn/s/blog_604c436d0100o04s.html
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
@@ -1191,6 +1188,7 @@ namespace zoyobar.shared.panzer.web
 }
 // ../.enum/web/NavigateOption.cs
 /*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/NavigateOption
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * */
@@ -1224,6 +1222,7 @@ namespace zoyobar.shared.panzer.web
 }
 // ../.enum/web/ScriptBuildOption.cs
 /*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/ScriptBuildOption
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * */
@@ -1257,6 +1256,7 @@ namespace zoyobar.shared.panzer.web
 }
 // ../.enum/web/ScriptType.cs
 /*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/ScriptType
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * */

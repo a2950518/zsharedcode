@@ -1,4 +1,10 @@
 ﻿/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/FlowAction
+ * http://code.google.com/p/zsharedcode/wiki/FlowCondition
+ * http://code.google.com/p/zsharedcode/wiki/FlowState
+ * http://code.google.com/p/zsharedcode/wiki/Flow
+ * http://code.google.com/p/zsharedcode/wiki/NextStateSetting
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * */

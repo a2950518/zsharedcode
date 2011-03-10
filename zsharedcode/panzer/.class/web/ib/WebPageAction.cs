@@ -1,4 +1,16 @@
 ﻿/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/WPAEmptyAction
+ * http://code.google.com/p/zsharedcode/wiki/ExecuteJavaScriptAction
+ * http://code.google.com/p/zsharedcode/wiki/ExecuteJQueryAction
+ * http://code.google.com/p/zsharedcode/wiki/InstallJavaScriptAction
+ * http://code.google.com/p/zsharedcode/wiki/InstallJQueryAction
+ * http://code.google.com/p/zsharedcode/wiki/InstallTraceAction
+ * http://code.google.com/p/zsharedcode/wiki/InvokeJavaScriptAction
+ * http://code.google.com/p/zsharedcode/wiki/WPANavigateAction
+ * http://code.google.com/p/zsharedcode/wiki/WPARefreshAction
+ * http://code.google.com/p/zsharedcode/wiki/WebPageActionType
+ * http://code.google.com/p/zsharedcode/wiki/WebPageAction
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageAction.cs
  * 引用代码:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs

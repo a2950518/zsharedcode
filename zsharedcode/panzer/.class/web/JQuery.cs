@@ -1,4 +1,5 @@
 ﻿/*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/JQuery
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
  * 引用代码:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptHelper.cs

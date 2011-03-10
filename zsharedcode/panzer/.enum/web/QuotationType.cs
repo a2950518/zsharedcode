@@ -1,4 +1,5 @@
 ﻿/*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/QuotationType.cs
  * */
 
