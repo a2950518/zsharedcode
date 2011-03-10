@@ -42,11 +42,13 @@ namespace zoyobar.shared.panzer.test
 			// new TestEMail ().Test ();
 
 			// TODO: 如果需要测试 StringConvert 类, 请使用下面的代码
-			 new TestStringConvert ( ).Test ( );
+			// new TestStringConvert ( ).Test ( );
 
 			// TODO: 如果需要测试 XmlNodeHelper 类, 请使用下面的代码
 			// new TestXmlNodeHelper ( ).Test ( );
 
+			// TODO: 如果需要测试 TestXmlSeriation 类, 请使用下面的代码
+			 new TestXmlSeriation ( ).Test ( );
 		}
 
 	}

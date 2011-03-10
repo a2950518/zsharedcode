@@ -138,6 +138,7 @@
       <DependentUpon>FormIEBrowser3.cs</DependentUpon>
     </Compile>
     <Compile Include="web\ib\TestIEBrowser.cs" />
+    <Compile Include="TestXmlSeriation.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\panzer.csproj">
@@ -146,6 +147,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="seriation.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Test.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
