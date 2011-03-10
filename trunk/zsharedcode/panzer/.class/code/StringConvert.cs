@@ -58,6 +58,24 @@ namespace zoyobar.shared.panzer.code
 					return ( T ) ( object ) new Guid ( value );
 				else if ( type == typeof ( Color ) )
 					return ( T ) ( object ) Color.FromArgb ( Convert.ToInt32 ( value ) );
+				else if ( type == typeof ( string ) )
+					return ( T ) ( object ) value.ToString ( );
+				else if ( type == typeof ( int ) )
+					return ( T ) ( object ) int.Parse ( value );
+				else if ( type == typeof ( short ) )
+					return ( T ) ( object ) short.Parse ( value );
+				else if ( type == typeof ( long ) )
+					return ( T ) ( object ) long.Parse ( value );
+				else if ( type == typeof ( decimal ) )
+					return ( T ) ( object ) decimal.Parse ( value );
+				else if ( type == typeof ( bool ) )
+					return ( T ) ( object ) bool.Parse ( value );
+				else if ( type == typeof ( DateTime ) )
+					return ( T ) ( object ) DateTime.Parse ( value );
+				else if ( type == typeof ( float ) )
+					return ( T ) ( object ) float.Parse ( value );
+				else if ( type == typeof ( double ) )
+					return ( T ) ( object ) double.Parse ( value );
 				else
 					return ( T ) ( object ) value;
 #else
@@ -65,6 +83,24 @@ namespace zoyobar.shared.panzer.code
 					return ( T ) ( object ) new Guid ( value );
 				else if ( object.ReferenceEquals ( type, typeof ( Color ) ) )
 					return ( T ) ( object ) Color.FromArgb ( Convert.ToInt32 ( value ) );
+				else if ( object.ReferenceEquals ( type, typeof ( string ) ) )
+					return ( T ) ( object ) value.ToString ( );
+				else if ( object.ReferenceEquals ( type, typeof ( int ) ) )
+					return ( T ) ( object ) int.Parse ( value );
+				else if ( object.ReferenceEquals ( type, typeof ( short ) ) )
+					return ( T ) ( object ) short.Parse ( value );
+				else if ( object.ReferenceEquals ( type, typeof ( long ) ) )
+					return ( T ) ( object ) long.Parse ( value );
+				else if ( object.ReferenceEquals ( type, typeof ( decimal ) ) )
+					return ( T ) ( object ) decimal.Parse ( value );
+				else if ( object.ReferenceEquals ( type, typeof ( bool ) ) )
+					return ( T ) ( object ) bool.Parse ( value );
+				else if ( object.ReferenceEquals ( type, typeof ( DateTime ) ) )
+					return ( T ) ( object ) DateTime.Parse ( value );
+				else if ( object.ReferenceEquals ( type, typeof ( float ) ) )
+					return ( T ) ( object ) float.Parse ( value );
+				else if ( object.ReferenceEquals ( type, typeof ( double ) ) )
+					return ( T ) ( object ) double.Parse ( value );
 				else
 					return ( T ) ( object ) value;
 #endif

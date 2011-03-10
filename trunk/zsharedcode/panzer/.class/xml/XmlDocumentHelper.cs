@@ -130,6 +130,10 @@ namespace zoyobar.shared.panzer.xml
 
 			try
 			{
+
+				if ( null == this.node )
+					this.node = new XmlDocument ( );
+
 				this.node.Load ( filePath );
 				this.filePath = filePath;
 			}

@@ -51,7 +51,15 @@ namespace zoyobar.shared.panzer
 		/// <summary>
 		/// 日期类型.
 		/// </summary>
-		DateTime = 9
+		DateTime = 9,
+		/// <summary>
+		/// 单精度类型.
+		/// </summary>
+		Single = 10,
+		/// <summary>
+		/// 双精度类型.
+		/// </summary>
+		Double = 11
 	}
 
 }
