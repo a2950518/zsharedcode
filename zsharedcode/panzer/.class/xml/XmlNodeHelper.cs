@@ -490,6 +490,25 @@ namespace zoyobar.shared.panzer.xml
 		}
 		#endregion
 
+		#region " AppendNode "
+		/// <summary>
+		/// 添加 Xml 节点.
+		/// </summary>
+		/// <param name="parentNodeHelper">添加到的节点的辅助类.</param>
+		/// <param name="childNodeHelper">添加节点的辅助类.</param>
+		public static void AppendNode ( XmlNodeHelper<XmlNode> parentNodeHelper, XmlNodeHelper<XmlNode> childNodeHelper )
+		{
+
+			if ( null == parentNodeHelper || null == parentNodeHelper.node || null == childNodeHelper )
+				return;
+
+			try
+			{ parentNodeHelper.node.InnerXml += childNodeHelper.OuterXml; }
+			catch { }
+
+		}
+		#endregion
+
 		private readonly string name;
 		protected N node;
 		private readonly List<XmlNodeHelper<XmlNode>> childNodeHelpers = new List<XmlNodeHelper<XmlNode>> ( );
@@ -790,6 +809,15 @@ namespace zoyobar.shared.panzer.xml
 
 			return isSuccess;
 		}
+		#endregion
+
+		#region " AppendNode "
+		/// <summary>
+		/// 添加 Xml 节点.
+		/// </summary>
+		/// <param name="childNodeHelper">添加节点的辅助类.</param>
+		public void AppendNode ( XmlNodeHelper<XmlNode> childNodeHelper )
+		{ AppendNode ( this, childNodeHelper ); }
 		#endregion
 
 	}
