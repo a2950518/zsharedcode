@@ -1,6 +1,4 @@
 ﻿/* allinone合并了多个文件,下载使用多个allinone代码,可能会遇到重复的类型定义,http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/IEBrowser.cs */
-// HACK: 如果代码不能编译, 请尝试在项目中定义编译符号 V4, V3_5, V3, V2 以表示不同的 .NET 版本
-#define V2
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -732,7 +730,6 @@ namespace zoyobar.shared.panzer.web.ib
 #endif
 	}
 	#endregion
-
 
 }
 // ../.class/flow/Flow.cs
@@ -3179,6 +3176,7 @@ namespace zoyobar.shared.panzer.web
 
 // HACK: 在项目中定义编译符号 PARAM, 使用提供默认参数的方法.
 
+// HACK: 如果代码不能编译, 请尝试在项目中定义编译符号 V4, V3_5, V3, V2 以表示不同的 .NET 版本
 
 
 // HACK: 避免在 allinone 文件中的名称冲突
