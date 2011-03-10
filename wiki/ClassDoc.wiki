@@ -50,5 +50,6 @@
     * [ScriptHelper web.ScriptHelper]
     * [ScriptType web.ScriptType]
     * [JQuery web.JQuery]
+    * [XmlDocumentHelper XmlDocumentHelper]
     * [XmlNodeHelper XmlNodeHelper`1]
 </font>

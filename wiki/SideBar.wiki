@@ -70,5 +70,6 @@
       * [ScriptType ScriptType]
       * [JQuery JQuery]
     * xml
+      * [XmlDocumentHelper XmlDocumentHelper]
       * [XmlNodeHelper XmlNodeHelper`1]
 </font>
