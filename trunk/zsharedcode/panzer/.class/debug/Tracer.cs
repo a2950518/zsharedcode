@@ -17,8 +17,6 @@
 // HACK: 在项目中定义编译符号 PARAM, 使用提供默认参数的方法.
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Reflection;
 
 namespace zoyobar.shared.panzer.debug

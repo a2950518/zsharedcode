@@ -22,11 +22,7 @@
 // HACK: 如果代码不能编译, 请尝试在项目中定义编译符号 V4, V3_5, V3, V2 以表示不同的 .NET 版本
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 
 // HACK: 避免在 allinone 文件中的名称冲突
 using NControl = System.Web.UI.Control;

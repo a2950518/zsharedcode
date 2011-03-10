@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
 using System.Data;
+using System.Windows.Forms;
 
 namespace zoyobar.shared.panzer.ui
 {
