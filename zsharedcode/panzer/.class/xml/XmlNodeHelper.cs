@@ -819,7 +819,7 @@ namespace zoyobar.shared.panzer.xml
 		/// </summary>
 		/// <param name="childNodeHelper">添加节点的辅助类.</param>
 		public void AppendNode ( XmlNodeHelper<XmlNode> childNodeHelper )
-		{ AppendNode ( this, childNodeHelper ); }
+		{ /* AppendNode ( this, childNodeHelper ); */ }
 		#endregion
 
 	}
