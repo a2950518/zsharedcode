@@ -48,7 +48,10 @@ namespace zoyobar.shared.panzer.test
 			// new TestXmlNodeHelper ( ).Test ( );
 
 			// TODO: 如果需要测试 TestXmlSeriation 类, 请使用下面的代码
-			 new TestXmlSeriation ( ).Test ( );
+			// new TestXmlSeriation ( ).Test ( );
+
+			// TODO: 如果需要测试 TestXmlSeriation 类, 请使用下面的代码
+			 new web.TestHtmlEditor ( ).Test ( );
 		}
 
 	}
