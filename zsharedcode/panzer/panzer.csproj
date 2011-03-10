@@ -68,7 +68,7 @@
     <Compile Include=".class\ui\UILoader.cs" />
     <Compile Include=".class\ui\WindowCore.cs" />
     <Compile Include=".class\web\EMail.cs" />
-    <Compile Include=".class\web\HtmlEditor.cs" />
+    <Compile Include=".class\web\HtmlEditHelper.cs" />
     <Compile Include=".class\web\ib\WebPageAction.cs" />
     <Compile Include=".class\web\ib\WebPageCondition.cs" />
     <Compile Include=".class\web\ib\WebPageState.cs" />
