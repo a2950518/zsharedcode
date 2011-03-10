@@ -144,7 +144,7 @@
       <DependentUpon>FormIEBrowser3.cs</DependentUpon>
     </Compile>
     <Compile Include="web\ib\TestIEBrowser.cs" />
-    <Compile Include="web\TestHtmlEditor.cs" />
+    <Compile Include="web\TestHtmlEditHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\panzer.csproj">
@@ -163,6 +163,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="test.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web\html.editor.htm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="app.config" />

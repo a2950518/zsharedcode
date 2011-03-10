@@ -13,18 +13,19 @@ namespace zoyobar.shared.panzer.test.web
 {
 	public partial class FormHtmlEditor : Form
 	{
-		private readonly HtmlEditor editor;
+		private readonly HtmlEditHelper editHelper;
 
 		public FormHtmlEditor ( )
 		{
 			InitializeComponent ( );
 
-			this.editor = new HtmlEditor ( this.browser );
+			this.editHelper = new HtmlEditHelper ( this.browser, "web/html.editor.htm" );
 		}
 
 		private void cmdBackColor_Click ( object sender, EventArgs e )
-		{
-			this.editor.BackColor ( Color.Red );
-		}
+		{ this.editHelper.BackColor ( Color.Red ); }
+
+		private void cmdBold_Click ( object sender, EventArgs e )
+		{ this.editHelper.Bold ( ); }
 	}
 }
