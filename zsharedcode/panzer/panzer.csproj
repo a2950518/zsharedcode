@@ -85,8 +85,12 @@
     <Compile Include=".class\xml\XmlNodeHelper.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include=".class\xml\XmlSeriation.cs" />
-    <Compile Include=".class\xml\XmlSeriationManager.cs" />
+    <Compile Include=".class\xml\XmlSeriation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include=".class\xml\XmlSeriationManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include=".enum\FunctionType.cs" />
     <Compile Include=".enum\CharacterType.cs" />
     <Compile Include=".enum\StringCompareMode.cs" />

@@ -276,6 +276,14 @@ namespace zoyobar.shared.panzer.xml
 				case ValueStamp.Color:
 					value = XmlNodeHelper<XmlNode>.GetAttributeValue<Color> ( node );
 					break;
+
+				case ValueStamp.Single:
+					value = XmlNodeHelper<XmlNode>.GetAttributeValue<float> ( node );
+					break;
+
+				case ValueStamp.Double:
+					value = XmlNodeHelper<XmlNode>.GetAttributeValue<double> ( node );
+					break;
 			}
 
 			try

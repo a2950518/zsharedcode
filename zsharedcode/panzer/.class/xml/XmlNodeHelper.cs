@@ -794,7 +794,7 @@ namespace zoyobar.shared.panzer.xml
 
 	}
 
-	partial class XmlNodeHelper
+	partial class XmlNodeHelper<N>
 	{
 #if !PARAM
 		/// <summary>
