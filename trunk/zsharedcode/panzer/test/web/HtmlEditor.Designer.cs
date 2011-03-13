@@ -445,6 +445,12 @@
 			// toolInsert
 			// 
 			this.toolInsert.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.toolJust.DropDownItems.AddRange ( new System.Windows.Forms.ToolStripItem[] {
+            this.toolInsertP,
+			this.line8,
+            this.toolInsertOrderedList,
+            this.toolInsertUnorderedList
+			} );
 			this.toolInsert.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.toolInsert.Name = "toolInsert";
 			this.toolInsert.Size = new System.Drawing.Size ( 48, 22 );
