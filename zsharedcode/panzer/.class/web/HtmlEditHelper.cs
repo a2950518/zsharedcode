@@ -25,7 +25,7 @@ namespace zoyobar.shared.panzer.web
 		/// </summary>
 		/// <param name="browser">WebBrowser 控件.</param>
 		public HtmlEditHelper ( WebBrowser browser )
-			: this(browser, null)
+			: this ( browser, null )
 		{ }
 		/// <summary>
 		/// 创建一个 Html 编辑器.
@@ -62,6 +62,19 @@ namespace zoyobar.shared.panzer.web
 		}
 
 		/// <summary>
+		/// 设置选中内容的前景色.
+		/// </summary>
+		/// <param name="color">前景色.</param>
+		public void ForeColor ( Color color )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "ForeColor", true, color );
+		}
+
+		/// <summary>
 		/// 切换选中内容是否粗体.
 		/// </summary>
 		public void Bold ( )
@@ -71,6 +84,78 @@ namespace zoyobar.shared.panzer.web
 				return;
 
 			this.browser.Document.ExecCommand ( "Bold", true, null );
+		}
+
+		/// <summary>
+		/// 切换选中内容是否斜体.
+		/// </summary>
+		public void Italic ( )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "Italic", true, null );
+		}
+
+		/// <summary>
+		/// 切换选中内容是否有下划线.
+		/// </summary>
+		public void Underline ( )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "Underline", true, null );
+		}
+
+		/// <summary>
+		/// 撤销.
+		/// </summary>
+		public void Undo ( )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "Undo", true, null );
+		}
+
+		/// <summary>
+		/// 增加缩进.
+		/// </summary>
+		public void Indent ( )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "Indent", true, null );
+		}
+
+		/// <summary>
+		/// 减少缩进.
+		/// </summary>
+		public void Outdent ( )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "Outdent", true, null );
+		}
+
+		/// <summary>
+		/// 清楚样式.
+		/// </summary>
+		public void RemoveFormat ( )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "RemoveFormat", true, null );
 		}
 
 		/// <summary>
@@ -110,32 +195,154 @@ namespace zoyobar.shared.panzer.web
 		}
 
 		/// <summary>
-		/// 设置选中内容的字体.
+		/// 粘贴.
 		/// </summary>
-		public void FontName ( Font font )
+		public void Paste ( )
 		{
 
 			if ( null == this.browser.Document )
 				return;
 
-			this.browser.Document.ExecCommand ( "FontName", true, font );
+			this.browser.Document.ExecCommand ( "Paste", true, null );
+		}
+
+		/// <summary>
+		/// 居中.
+		/// </summary>
+		public void JustifyCenter ( )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "JustifyCenter", true, null );
+		}
+
+		/// <summary>
+		/// 居左.
+		/// </summary>
+		public void JustifyLeft ( )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "JustifyLeft", true, null );
+		}
+
+		/// <summary>
+		/// 居右.
+		/// </summary>
+		public void JustifyRight ( )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "JustifyRight", true, null );
+		}
+
+		/// <summary>
+		/// 插入段落.
+		/// </summary>
+		public void InsertParagraph ( )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "InsertParagraph", true, null );
+		}
+
+		/// <summary>
+		/// 插入顺序列表.
+		/// </summary>
+		public void InsertOrderedList ( )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "InsertOrderedList", true, null );
+		}
+
+		/// <summary>
+		/// 插入非顺序列表.
+		/// </summary>
+		public void InsertUnorderedList ( )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "InsertUnorderedList", true, null );
+		}
+
+		/// <summary>
+		/// 插入图片.
+		/// </summary>
+		public void InsertImage ( )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "InsertImage", true, null );
+		}
+
+		/// <summary>
+		/// 插入超链接.
+		/// </summary>
+		public void CreateLink ( )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "CreateLink", true, null );
+		}
+
+		/// <summary>
+		/// 取消超链接.
+		/// </summary>
+		public void Unlink ( )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "Unlink", true, null );
 		}
 
 		/// <summary>
 		/// 设置选中内容的字体.
 		/// </summary>
-		public void FontSize ( Font font )
+		/// <param name="name">设置的字体名称.</param>
+		public void FontName ( string name )
 		{
 
 			if ( null == this.browser.Document )
 				return;
 
-			this.browser.Document.ExecCommand ( "FontSize", true, font );
+			this.browser.Document.ExecCommand ( "FontName", true, name );
+		}
+
+		/// <summary>
+		/// 设置选中内容的字体.
+		/// </summary>
+		/// <param name="size">设置的字体大小.</param>
+		public void FontSize ( int size )
+		{
+
+			if ( null == this.browser.Document )
+				return;
+
+			this.browser.Document.ExecCommand ( "FontSize", true, size );
 		}
 
 	}
-	
-	partial class HtmlEditor
+
+	partial class HtmlEditHelper
 	{
 #if !PARAM
 #endif
