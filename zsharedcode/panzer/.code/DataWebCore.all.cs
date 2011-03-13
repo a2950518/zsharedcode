@@ -1,4 +1,4 @@
-﻿/* allinone合并了多个文件,下载使用多个allinone代码,可能会遇到重复的类型定义,http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/dweb/DataWebCore.cs */
+﻿/* allinone合并了多个文件,下载使用多个allinone代码,可能会遇到重复的类型定义,http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/DataWebCore.all.cs */
 using System;
 using System.Collections.Generic;
 using System.Web;
