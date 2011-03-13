@@ -20,19 +20,21 @@ namespace zoyobar.shared.panzer.web
 	{
 		private readonly WebBrowser browser;
 
+#if PARAM
 		/// <summary>
-		/// 创建一个 Html 编辑器, 编辑页面地址为 "html.editor.htm".
+		/// 创建一个 Html 编辑器.
 		/// </summary>
 		/// <param name="browser">WebBrowser 控件.</param>
-		public HtmlEditHelper ( WebBrowser browser )
-			: this ( browser, null )
-		{ }
+		/// <param name="editorUrl">编辑器页面地址, 默认使用本地编辑器.</param>
+		public HtmlEditHelper ( WebBrowser browser, string editorUrl = null )
+#else
 		/// <summary>
 		/// 创建一个 Html 编辑器.
 		/// </summary>
 		/// <param name="browser">WebBrowser 控件.</param>
 		/// <param name="editorUrl">编辑器页面地址.</param>
 		public HtmlEditHelper ( WebBrowser browser, string editorUrl )
+#endif
 		{
 
 			if ( null == browser )
@@ -345,6 +347,13 @@ namespace zoyobar.shared.panzer.web
 	partial class HtmlEditHelper
 	{
 #if !PARAM
+		/// <summary>
+		/// 创建一个 Html 编辑器, 编辑页面地址为 "html.editor.htm".
+		/// </summary>
+		/// <param name="browser">WebBrowser 控件.</param>
+		public HtmlEditHelper ( WebBrowser browser )
+			: this ( browser, null )
+		{ }
 #endif
 	}
 

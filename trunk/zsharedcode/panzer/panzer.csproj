@@ -87,6 +87,7 @@
     <Compile Include=".class\xml\XmlNodeHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include=".code\IEBrowser.with.HtmlEditHelper.all.cs" />
     <Compile Include=".enum\FunctionType.cs" />
     <Compile Include=".enum\CharacterType.cs" />
     <Compile Include=".enum\StringCompareMode.cs" />
