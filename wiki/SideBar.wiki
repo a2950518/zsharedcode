@@ -47,6 +47,7 @@
     * [ValueStamp ValueStamp]
     * web
       * [EMail EMail]
+      * [HtmlEditHelper HtmlEditHelper]
       * ib
         * [WPAEmptyAction EmptyAction]
         * [ExecuteJavaScriptAction ExecuteJavaScriptAction]

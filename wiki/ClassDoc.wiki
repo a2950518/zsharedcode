@@ -30,6 +30,7 @@
     * [ValueKind ValueKind]
     * [ValueStamp ValueStamp]
     * [EMail web.EMail]
+    * [HtmlEditHelper web.HtmlEditHelper]
     * [WPAEmptyAction web.ib.EmptyAction]
     * [ExecuteJavaScriptAction web.ib.ExecuteJavaScriptAction]
     * [ExecuteJQueryAction web.ib.ExecuteJQueryAction]
