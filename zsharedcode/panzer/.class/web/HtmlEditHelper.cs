@@ -20,6 +20,25 @@ namespace zoyobar.shared.panzer.web
 	{
 		private readonly WebBrowser browser;
 
+		public string Html
+		{
+			get
+			{
+
+				if ( null == this.browser.Document )
+					return string.Empty;
+
+				return this.browser.Document.Body.InnerHtml;
+			}
+			set
+			{
+
+				if ( null != this.browser.Document || null != value )
+					this.browser.Document.Body.InnerHtml = value;
+
+			}
+		}
+
 #if PARAM
 		/// <summary>
 		/// 创建一个 Html 编辑器.
