@@ -25,16 +25,16 @@ namespace zoyobar.shared.panzer.web
 			get
 			{
 
-				if ( null == this.browser.Document )
+				if ( null == this.browser.Document || null == this.browser.Document.GetElementById ( "html" ) )
 					return string.Empty;
 
-				return this.browser.Document.Body.InnerHtml;
+				return this.browser.Document.GetElementById ( "html" ).InnerHtml;
 			}
 			set
 			{
 
-				if ( null != this.browser.Document || null != value )
-					this.browser.Document.Body.InnerHtml = value;
+				if ( null != this.browser.Document && null != value && null == this.browser.Document.GetElementById ( "html" ) )
+					this.browser.Document.GetElementById ( "html" ).InnerHtml = value;
 
 			}
 		}
