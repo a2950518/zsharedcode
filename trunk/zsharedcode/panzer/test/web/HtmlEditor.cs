@@ -17,7 +17,7 @@ namespace zoyobar.shared.panzer.test.web
 		private Color selectedBackColor = Color.Empty;
 		private Color selectedForeColor = Color.Empty;
 		private string selectedFontName = string.Empty;
-		private int selectedFontSize;
+		private int selectedFontSize = 0;
 		private string selectedJust = string.Empty;
 
 		public HtmlEditor ( )
@@ -30,21 +30,26 @@ namespace zoyobar.shared.panzer.test.web
 		private void setFont ( string name, int size )
 		{
 
-			if ( name == string.Empty )
+			if ( name == string.Empty && size == 0 )
 			{
-				this.toolFont.ToolTipText = "请选择一种字体";
+				this.toolFont.ToolTipText = "请选择一种字体或者大小";
 				return;
 			}
 
-			this.selectedFontName = name;
+			if ( null != string.Empty )
+			{
+				this.selectedFontName = name;
+				this.editHelper.FontName ( name );
+			}
 
 			if ( size != 0 )
+			{
 				this.selectedFontSize = size;
+				this.editHelper.FontSize ( size );
+			}
 
-			this.toolFont.Text = name + " " + size;
+			this.toolFont.Text = name + ( size == 0 ? string.Empty : " " + size.ToString ( ) );
 			this.toolFont.ToolTipText = string.Format ( "设置字体 {0}", this.toolFont.Text );
-			this.editHelper.FontName ( name );
-			this.editHelper.FontSize ( size );
 		}
 
 		private void setJust ( string just )
@@ -192,16 +197,16 @@ namespace zoyobar.shared.panzer.test.web
 		{ this.setFont ( this.selectedFontName, this.selectedFontSize ); }
 
 		private void toolFontHead1_Click ( object sender, EventArgs e )
-		{ this.setFont ( this.toolFontHead1.Font.Name, 6 ); }
+		{ this.setFont ( string.Empty, 6 ); }
 
 		private void toolFontHead2_Click ( object sender, EventArgs e )
-		{ this.setFont ( this.toolFontHead2.Font.Name, 5 ); }
+		{ this.setFont ( string.Empty, 5 ); }
 
 		private void toolFontHead3_Click ( object sender, EventArgs e )
-		{ this.setFont ( this.toolFontHead3.Font.Name, 4 ); }
+		{ this.setFont ( string.Empty, 4 ); }
 
 		private void toolFontHead4_Click ( object sender, EventArgs e )
-		{ this.setFont ( this.toolFontHead4.Font.Name, 3 ); }
+		{ this.setFont ( string.Empty, 3 ); }
 
 		private void toolSelectFont_Click ( object sender, EventArgs e )
 		{

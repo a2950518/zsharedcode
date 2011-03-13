@@ -71,6 +71,9 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="zoyobar.shared.panzer.test, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <ExecutableExtension>.exe</ExecutableExtension>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include=".ex\DataAdapter\TestDataAdapter.cs" />
@@ -119,11 +122,17 @@
       <DependentUpon>FormStudent.cs</DependentUpon>
     </Compile>
     <Compile Include="ui\wc\TestWindowCore.cs" />
-    <Compile Include="web\FormHtmlEditor.cs">
+    <Compile Include="web\FormHtmlEditHelper.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="web\FormHtmlEditor.Designer.cs">
-      <DependentUpon>FormHtmlEditor.cs</DependentUpon>
+    <Compile Include="web\FormHtmlEditHelper.Designer.cs">
+      <DependentUpon>FormHtmlEditHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="web\HtmlEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="web\HtmlEditor.Designer.cs">
+      <DependentUpon>HtmlEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="web\ib\FormIEBrowser.cs">
       <SubType>Form</SubType>
@@ -253,8 +262,11 @@
     <EmbeddedResource Include="ui\wc\FormStudent.resx">
       <DependentUpon>FormStudent.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="web\FormHtmlEditor.resx">
-      <DependentUpon>FormHtmlEditor.cs</DependentUpon>
+    <EmbeddedResource Include="web\FormHtmlEditHelper.resx">
+      <DependentUpon>FormHtmlEditHelper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="web\HtmlEditor.resx">
+      <DependentUpon>HtmlEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="web\ib\FormIEBrowser.resx">
       <DependentUpon>FormIEBrowser.cs</DependentUpon>

@@ -69,12 +69,12 @@
 			this.line1 = new System.Windows.Forms.ToolStripSeparator ( );
 			this.toolSelectBackColor = new System.Windows.Forms.ToolStripMenuItem ( );
 			this.toolImage = new System.Windows.Forms.ToolStripButton ( );
+			this.toolLink = new System.Windows.Forms.ToolStripButton ( );
 			this.toolInsert = new System.Windows.Forms.ToolStripSplitButton ( );
 			this.toolInsertP = new System.Windows.Forms.ToolStripMenuItem ( );
 			this.line8 = new System.Windows.Forms.ToolStripSeparator ( );
 			this.toolInsertOrderedList = new System.Windows.Forms.ToolStripMenuItem ( );
 			this.toolInsertUnorderedList = new System.Windows.Forms.ToolStripMenuItem ( );
-			this.toolLink = new System.Windows.Forms.ToolStripButton ( );
 			this.toolJust = new System.Windows.Forms.ToolStripSplitButton ( );
 			this.toolJustLeft = new System.Windows.Forms.ToolStripMenuItem ( );
 			this.toolJustCenter = new System.Windows.Forms.ToolStripMenuItem ( );
@@ -96,7 +96,10 @@
             this.toolUnderline,
             this.toolForeColor,
             this.toolBackColor,
-			this.toolImage, this.toolLink, this.toolInsert, this.toolJust} );
+            this.toolImage,
+            this.toolLink,
+            this.toolInsert,
+            this.toolJust} );
 			this.tool.Location = new System.Drawing.Point ( 0, 0 );
 			this.tool.Name = "tool";
 			this.tool.Size = new System.Drawing.Size ( 547, 25 );
@@ -123,41 +126,41 @@
 			// toolFontHead1
 			// 
 			this.toolFontHead1.Name = "toolFontHead1";
-			this.toolFontHead1.Size = new System.Drawing.Size ( 113, 22 );
+			this.toolFontHead1.Size = new System.Drawing.Size ( 152, 22 );
 			this.toolFontHead1.Text = "标题 1";
 			this.toolFontHead1.Click += new System.EventHandler ( this.toolFontHead1_Click );
 			// 
 			// toolFontHead2
 			// 
 			this.toolFontHead2.Name = "toolFontHead2";
-			this.toolFontHead2.Size = new System.Drawing.Size ( 113, 22 );
+			this.toolFontHead2.Size = new System.Drawing.Size ( 152, 22 );
 			this.toolFontHead2.Text = "标题 2";
 			this.toolFontHead2.Click += new System.EventHandler ( this.toolFontHead2_Click );
 			// 
 			// toolFontHead3
 			// 
 			this.toolFontHead3.Name = "toolFontHead3";
-			this.toolFontHead3.Size = new System.Drawing.Size ( 113, 22 );
+			this.toolFontHead3.Size = new System.Drawing.Size ( 152, 22 );
 			this.toolFontHead3.Text = "标题 3";
 			this.toolFontHead3.Click += new System.EventHandler ( this.toolFontHead3_Click );
 			// 
 			// toolFontHead4
 			// 
 			this.toolFontHead4.Name = "toolFontHead4";
-			this.toolFontHead4.Size = new System.Drawing.Size ( 113, 22 );
+			this.toolFontHead4.Size = new System.Drawing.Size ( 152, 22 );
 			this.toolFontHead4.Text = "标题 4";
 			this.toolFontHead4.Click += new System.EventHandler ( this.toolFontHead4_Click );
 			// 
 			// line3
 			// 
 			this.line3.Name = "line3";
-			this.line3.Size = new System.Drawing.Size ( 110, 6 );
+			this.line3.Size = new System.Drawing.Size ( 149, 6 );
 			// 
 			// toolSelectFont
 			// 
 			this.toolSelectFont.Name = "toolSelectFont";
-			this.toolSelectFont.Size = new System.Drawing.Size ( 113, 22 );
-			this.toolSelectFont.Text = "更多 ...";
+			this.toolSelectFont.Size = new System.Drawing.Size ( 152, 22 );
+			this.toolSelectFont.Text = "选择字体 ...";
 			this.toolSelectFont.Click += new System.EventHandler ( this.toolSelectFont_Click );
 			// 
 			// toolEdit
@@ -442,46 +445,6 @@
 			this.toolImage.ToolTipText = "插入或设置图像";
 			this.toolImage.Click += new System.EventHandler ( this.toolImage_Click );
 			// 
-			// toolInsert
-			// 
-			this.toolInsert.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.toolJust.DropDownItems.AddRange ( new System.Windows.Forms.ToolStripItem[] {
-            this.toolInsertP,
-			this.line8,
-            this.toolInsertOrderedList,
-            this.toolInsertUnorderedList
-			} );
-			this.toolInsert.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolInsert.Name = "toolInsert";
-			this.toolInsert.Size = new System.Drawing.Size ( 48, 22 );
-			this.toolInsert.Text = "插入";
-			// 
-			// toolInsertP
-			// 
-			this.toolInsertP.Name = "toolInsertP";
-			this.toolInsertP.Size = new System.Drawing.Size ( 152, 22 );
-			this.toolInsertP.Text = "段落";
-			this.toolInsertP.Click += new System.EventHandler ( this.toolInsertP_Click );
-			// 
-			// line8
-			// 
-			this.line8.Name = "line8";
-			this.line8.Size = new System.Drawing.Size ( 149, 6 );
-			// 
-			// toolInsertOrderedList
-			// 
-			this.toolInsertOrderedList.Name = "toolInsertOrderedList";
-			this.toolInsertOrderedList.Size = new System.Drawing.Size ( 152, 22 );
-			this.toolInsertOrderedList.Text = "顺序列表";
-			this.toolInsertOrderedList.Click += new System.EventHandler ( this.toolInsertOrderedList_Click );
-			// 
-			// toolInsertUnorderedList
-			// 
-			this.toolInsertUnorderedList.Name = "toolInsertUnorderedList";
-			this.toolInsertUnorderedList.Size = new System.Drawing.Size ( 152, 22 );
-			this.toolInsertUnorderedList.Text = "无序列表";
-			this.toolInsertUnorderedList.Click += new System.EventHandler ( this.toolInsertUnorderedList_Click );
-			// 
 			// toolLink
 			// 
 			this.toolLink.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -491,6 +454,45 @@
 			this.toolLink.Text = "超链接";
 			this.toolLink.ToolTipText = "插入或设置超链接";
 			this.toolLink.Click += new System.EventHandler ( this.toolLink_Click );
+			// 
+			// toolInsert
+			// 
+			this.toolInsert.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.toolInsert.DropDownItems.AddRange ( new System.Windows.Forms.ToolStripItem[] {
+            this.toolInsertP,
+            this.line8,
+            this.toolInsertOrderedList,
+            this.toolInsertUnorderedList} );
+			this.toolInsert.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolInsert.Name = "toolInsert";
+			this.toolInsert.Size = new System.Drawing.Size ( 48, 22 );
+			this.toolInsert.Text = "插入";
+			// 
+			// toolInsertP
+			// 
+			this.toolInsertP.Name = "toolInsertP";
+			this.toolInsertP.Size = new System.Drawing.Size ( 124, 22 );
+			this.toolInsertP.Text = "段落";
+			this.toolInsertP.Click += new System.EventHandler ( this.toolInsertP_Click );
+			// 
+			// line8
+			// 
+			this.line8.Name = "line8";
+			this.line8.Size = new System.Drawing.Size ( 121, 6 );
+			// 
+			// toolInsertOrderedList
+			// 
+			this.toolInsertOrderedList.Name = "toolInsertOrderedList";
+			this.toolInsertOrderedList.Size = new System.Drawing.Size ( 124, 22 );
+			this.toolInsertOrderedList.Text = "顺序列表";
+			this.toolInsertOrderedList.Click += new System.EventHandler ( this.toolInsertOrderedList_Click );
+			// 
+			// toolInsertUnorderedList
+			// 
+			this.toolInsertUnorderedList.Name = "toolInsertUnorderedList";
+			this.toolInsertUnorderedList.Size = new System.Drawing.Size ( 124, 22 );
+			this.toolInsertUnorderedList.Text = "无序列表";
+			this.toolInsertUnorderedList.Click += new System.EventHandler ( this.toolInsertUnorderedList_Click );
 			// 
 			// toolJust
 			// 

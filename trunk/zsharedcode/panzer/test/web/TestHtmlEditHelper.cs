@@ -22,7 +22,7 @@ namespace zoyobar.shared.panzer.test.web
 			if ( this.tracer.WaitInputAChar ( "是否测试 HtmlEditor?" ) != 'y' )
 				return;
 
-			new FormHtmlEditor ( ).ShowDialog ( );
+			new FormHtmlEditHelper ( ).ShowDialog ( );
 		}
 
 
