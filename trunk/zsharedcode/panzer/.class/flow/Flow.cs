@@ -7,6 +7,8 @@
  * http://code.google.com/p/zsharedcode/wiki/NextStateSetting
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
  * */
 
 // HACK: 在项目中定义编译符号 PARAM, 使用提供默认参数的方法.

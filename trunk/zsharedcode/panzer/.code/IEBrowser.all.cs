@@ -10,8 +10,7 @@ using NControl = System.Web.UI.Control;
  * wiki:
  * http://code.google.com/p/zsharedcode/wiki/IEBrowser
  * http://code.google.com/p/zsharedcode/wiki/IEFlow
- * 参考文档: http://blog.sina.com.cn/s/blog_604c436d0100o5ix.html (目前已经停止更新同步)
- * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://blog.sina.com.cn/s/blog_604c436d0100o04s.html
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/IEBrowser.cs
  * 引用代码:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageAction.cs
@@ -26,9 +25,10 @@ using NControl = System.Web.UI.Control;
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/StringCompareMode.cs
  * 合并下载:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs
- * 打包下载:
- * http://zsharedcode.googlecode.com/files/IEBrowser.zip (目前已经停止更新同步)
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs.cs (包含 HtmlEditHelper 类)
  * 版本: 2.1, .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
  * */
 
 // HACK: 在项目中定义编译符号 PARAM, 使用提供默认参数的方法.
@@ -743,6 +743,8 @@ namespace zoyobar.shared.panzer.web.ib
  * http://code.google.com/p/zsharedcode/wiki/NextStateSetting
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
  * */
 
 // HACK: 在项目中定义编译符号 PARAM, 使用提供默认参数的方法.
@@ -1526,10 +1528,13 @@ namespace zoyobar.shared.panzer.flow
  * http://code.google.com/p/zsharedcode/wiki/WPARefreshAction
  * http://code.google.com/p/zsharedcode/wiki/WebPageActionType
  * http://code.google.com/p/zsharedcode/wiki/WebPageAction
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageAction.cs
  * 引用代码:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
  * */
 
 // HACK: 在项目中定义编译符号 PARAM, 使用提供默认参数的方法.
@@ -2256,10 +2261,13 @@ namespace zoyobar.shared.panzer.web.ib
  * http://code.google.com/p/zsharedcode/wiki/UrlCondition
  * http://code.google.com/p/zsharedcode/wiki/WebPageConditionType
  * http://code.google.com/p/zsharedcode/wiki/WebPageCondition
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageCondition.cs
  * 引用代码:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
  * */
 
 
@@ -2381,10 +2389,13 @@ namespace zoyobar.shared.panzer.web.ib
  * wiki:
  * http://code.google.com/p/zsharedcode/wiki/WebPageNextStateSetting
  * http://code.google.com/p/zsharedcode/wiki/WebPageState
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageCondition.cs
  * 引用代码:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * 版本: 1.2, .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
  * */
 
 
@@ -2634,6 +2645,7 @@ namespace zoyobar.shared.panzer.web.ib
 // ../.class/web/JQuery.cs
 /*
  * wiki: http://code.google.com/p/zsharedcode/wiki/JQuery
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
  * 引用代码:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptHelper.cs
@@ -2641,6 +2653,8 @@ namespace zoyobar.shared.panzer.web.ib
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
  * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
  * */
 
 namespace zoyobar.shared.panzer.web
@@ -3195,8 +3209,7 @@ namespace zoyobar.shared.panzer.web
 // ../.class/web/ScriptHelper.cs
 /*
  * wiki: http://code.google.com/p/zsharedcode/wiki/ScriptHelper
- * 参考文档: http://blog.sina.com.cn/s/blog_604c436d0100o07u.html (目前已经停止更新同步)
- * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://blog.sina.com.cn/s/blog_604c436d0100o04s.html
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
  * 引用代码:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
@@ -3207,10 +3220,9 @@ namespace zoyobar.shared.panzer.web
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/test/testsite/TestScriptHelper.aspx.cs
  * 合并下载:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/ScriptHelper.all.cs
- * 打包下载:
- * http://zsharedcode.googlecode.com/files/ScriptHelper.zip (目前已经停止更新同步)
- * http://zsharedcode.googlecode.com/files/ScriptHelper.with.test.zip (包含测试) (目前已经停止更新同步)
  * 版本: 1.1, .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
 * */
 
 // HACK: 在项目中定义编译符号 PARAM, 使用提供默认参数的方法.
@@ -4379,8 +4391,11 @@ namespace zoyobar.shared.panzer.web
 // ../.enum/web/NavigateOption.cs
 /*
  * wiki: http://code.google.com/p/zsharedcode/wiki/NavigateOption
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
  * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
  * */
 
 namespace zoyobar.shared.panzer.web
@@ -4413,8 +4428,11 @@ namespace zoyobar.shared.panzer.web
 // ../.enum/web/ScriptBuildOption.cs
 /*
  * wiki: http://code.google.com/p/zsharedcode/wiki/ScriptBuildOption
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
  * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
  * */
 
 namespace zoyobar.shared.panzer.web
@@ -4447,8 +4465,11 @@ namespace zoyobar.shared.panzer.web
 // ../.enum/web/ScriptType.cs
 /*
  * wiki: http://code.google.com/p/zsharedcode/wiki/ScriptType
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
  * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
  * */
 
 namespace zoyobar.shared.panzer.web
@@ -4473,8 +4494,11 @@ namespace zoyobar.shared.panzer.web
 // ../.enum/StringCompareMode.cs
 /*
  * wiki: http://code.google.com/p/zsharedcode/wiki/StringCompareMode
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/StringCompareMode.cs
  * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
  * */
 
 namespace zoyobar.shared.panzer
