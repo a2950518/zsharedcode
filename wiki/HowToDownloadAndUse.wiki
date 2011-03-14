@@ -3,8 +3,6 @@
 === 下载使用 ===
  可以使用 [http://ankhsvn.open.collab.net/ AnkhSvn] 下载共享代码, 大家可以查看 [http://blog.sina.com.cn/s/blog_604c436d0100o04n.html 使用 AnkhSvn, Visual Studio 2008 2010 实现代码托管共享], 通过 [http://ankhsvn.open.collab.net/ AnkhSvn] 在 http://zsharedcode.googlecode.com/svn/trunk/ 的 zsharedcode 目录下打开解决方案文件 zsharedcode.sln.
 
- 或者在 http://code.google.com/p/zsharedcode/downloads/list 中下载指定的某些类的功能包.
-
 === 配置环境 ===
  建议使用 Visual Studio 2010, .NET 4.0 或者更高的版本. 如果使用其它开发工具可以单独下载功能包.
 </font>
