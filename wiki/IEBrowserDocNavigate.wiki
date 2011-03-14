@@ -1,7 +1,7 @@
-#summary IEBrowser 示例-页面跳转
+#summary IEBrowser 示锟斤拷-页锟斤拷锟斤拷转
 #labels Phase-Implementation
 <font face="microsoft yahei">
-=== 代码 ===
+=== 浠ｇ爜 ===
 {{{
 IEBrowser ie = new IEBrowser ( this.webBrowser );
 
