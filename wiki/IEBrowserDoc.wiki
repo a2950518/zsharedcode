@@ -1,5 +1,5 @@
 #summary IEBrowser 分析&示例
-#labels Phase-Design,Phase-Implementation
+#labels Phase-Implementation
 
 = Introduction =
 
