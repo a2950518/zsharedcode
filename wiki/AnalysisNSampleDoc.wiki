@@ -1,6 +1,6 @@
 #summary 分析&示例
 #labels Phase-Implementation
 <font face="microsoft yahei">
-=== IEBrowser ===
- [IEBrowserDoc IEBrowser 分析&示例]
+=== 分析&示例 ===
+[IEBrowserDoc IEBrowser 分析&示例]
 </font>

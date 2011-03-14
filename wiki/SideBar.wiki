@@ -78,5 +78,6 @@
       * [XmlNodeHelper XmlNodeHelper`1]
   * [AnalysisNSampleDoc 分析&示例]
     * [IEBrowserDoc IEBrowser 分析&示例]
+      * [IEBrowserDocNavigate 页面跳转]
   * [Member 项目成员]
 </font>

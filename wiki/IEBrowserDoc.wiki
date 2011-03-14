@@ -6,4 +6,7 @@
 
 === 使用 ===
  可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [https://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs] (包含 Html 编辑器)
+
+=== 示例 ===
+ [IEBrowserDocNavigate 页面跳转]
 </font>
