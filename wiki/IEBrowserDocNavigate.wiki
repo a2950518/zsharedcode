@@ -9,4 +9,9 @@ IEBrowser ie = new IEBrowser ( this.webBrowser );
 // 将 WebBrowser 导航到 http://www.google.com.hk/.
 ie.Navigate ( "http://www.google.com.hk/" );
 }}}
+
+=== 说明 ===
+ 页面跳转的代码是十分的简单的, 使用 [IEBrowser IEBrowser] 的 Navigate 方法即可.
+
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等_
 </font>
