@@ -6,11 +6,29 @@
 // 从当前的 WebBrowser 控件创建 IEBrowser 对象, WebBrowser 的 Url 属性已经设置为 "about:blank".
 IEBrowser ie = new IEBrowser ( this.webBrowser );
 
-// 在当前页面上执行 javascript 脚本, 弹出对话框.
-ie.ExecuteScript ( "alert('你好, IEBrowser!');" );
+// 定义 javascript 脚本, 声明一个 showMessage 函数.
+string showMessageScript = "function showMessage(message){alert('消息:' + message);}";
+// 将脚本安装到 WebBrowser 中.
+ie.InstallScript ( showMessageScript );
 
-// 可以执行多条 javascript 脚本, 对于脚本中的字符串可以使用 " 或者 '.
-ie.ExecuteScript ( "var message = \"我\" + '又来了';alert(message);" );
+// 执行脚本, 调用 showMessage 函数.
+ie.ExecuteScript ( "showMessage('哈哈!');" );
+
+// 定义 javascript 脚本, 声明一个 add 函数.
+string addScript = "function add(num1, num2){return num1 + num2;}";
+// 将脚本安装到 WebBrowser 中, id 为 jsAdd.
+ie.InstallScript ( addScript, "jsAdd" );
+
+// 执行脚本, 调用 add 函数.
+ie.ExecuteScript ( "showMessage(add(1, 3));" );
+
+// 安装 jquery 脚本
+ie.InstallScript ( new Uri ( "http://code.jquery.com/jquery-1.5.1.min.js" ) );
+
+
+
+// 等待脚本载入完毕后, 您可以执行一条 jquery 命令.
+ie.ExecuteScript ( "showMessage($('*').length);" );
 }}}
 
 === 说明 ===
