@@ -32,7 +32,9 @@ ie.ExecuteScript ( "showMessage($('*').length);" );
 }}}
 
 === 说明 ===
- 使用 [IEBrowser IEBrowser] 的 ExecuteScript 方法即可执行 javascript 脚本.
+ [IEBrowser IEBrowser] 的 InstallScript 方法可以将脚本载入到 WebBrowser 中, 您可以直接载入脚本, 或者从网络, 本地中载入 js 文件.
+
+ 对于直接载入的脚本, 可以直接调用脚本中定义的函数或者变量. *而对于从网络, 本地载入的脚本, 则需要等待脚本载入完成后, 才能调用.*
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
 </font>
