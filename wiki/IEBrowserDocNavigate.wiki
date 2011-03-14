@@ -1,14 +1,10 @@
-#summary One-sentence summary of this page.
+#summary IEBrowser 示例-页面跳转
 #labels Phase-Implementation
+<font face="microsoft yahei">
+=== 代码 ===
+{{{
+			IEBrowser ie = new IEBrowser ( this.webBrowser );
 
-= Introduction =
-
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+			ie.Navigate ( "http://www.google.com.hk/" );
+}}}
+</font>
