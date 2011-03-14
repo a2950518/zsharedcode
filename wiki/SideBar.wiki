@@ -80,5 +80,6 @@
     * [IEBrowserDoc IEBrowser 分析&示例]
       * [IEBrowserDocNavigate 页面跳转]
       * [IEBrowserDocExecuteJavaScript 执行 javascript 脚本]
+      * [IEBrowserDocInstallJavaScript 安装 javascript 脚本]
   * [Member 项目成员]
 </font>
