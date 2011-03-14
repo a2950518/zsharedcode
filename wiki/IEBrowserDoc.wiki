@@ -2,8 +2,8 @@
 #labels Phase-Implementation
 <font face="microsoft yahei">
 === 简介 ===
- [IEBrowser IEBrowser] 可以控制 [WebBrowser http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx] 控件, 包括添加/执行 javascript 脚本, 执行 jquery 命令, 模拟用户操作页面的过程, 可以实现一系列用户操作流程, 完成不同的日常任务.
+ [IEBrowser IEBrowser] 可以控制 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 控件, 包括添加/执行 javascript 脚本, 执行 jquery 命令, 模拟用户操作页面的过程, 可以实现一系列用户操作流程, 完成不同的日常任务.
 
 === 使用 ===
- 可以下载 [IEBrowser.all.cs http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs] 或者 [IEBrowser.with.HtmlEditHelper.all.cs https://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs] (包含 Html 编辑器)
+ 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [https://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs] (包含 Html 编辑器)
 </font>
