@@ -1,10 +1,10 @@
-#summary IEBrowser ç¤ºä¾‹-é¡µé¢è·³è½¬
+#summary IEBrowser Ê¾Àı-Ò³ÃæÌø×ª
 #labels Phase-Implementation
 <font face="microsoft yahei">
-=== ä»£ç  ===
+=== ´úÂë ===
 {{{
-			IEBrowser ie = new IEBrowser ( this.webBrowser );
+IEBrowser ie = new IEBrowser ( this.webBrowser );
 
-			ie.Navigate ( "http://www.google.com.hk/" );
+ie.Navigate ( "http://www.google.com.hk/" );
 }}}
 </font>
