@@ -1,4 +1,4 @@
-#summary IEBrowser ʾ��-ҳ����ת
+#summary IEBrowser 页面跳转
 #labels Phase-Implementation
 <font face="microsoft yahei">
 === 代码 ===
