@@ -76,5 +76,7 @@
     * xml
       * [XmlDocumentHelper XmlDocumentHelper]
       * [XmlNodeHelper XmlNodeHelper`1]
+  * [AnalysisNSampleDoc 分析&示例]
+    * [IEBrowserDoc IEBrowser 分析&示例]
   * [Member 项目成员]
 </font>
