@@ -1,0 +1,20 @@
+#summary IEBrowser 安装 javascript 脚本
+#labels Phase-Implementation
+<font face="microsoft yahei">
+=== 代码 ===
+{{{
+// 从当前的 WebBrowser 控件创建 IEBrowser 对象, WebBrowser 的 Url 属性已经设置为 "about:blank".
+IEBrowser ie = new IEBrowser ( this.webBrowser );
+
+// 在当前页面上执行 javascript 脚本, 弹出对话框.
+ie.ExecuteScript ( "alert('你好, IEBrowser!');" );
+
+// 可以执行多条 javascript 脚本, 对于脚本中的字符串可以使用 " 或者 '.
+ie.ExecuteScript ( "var message = \"我\" + '又来了';alert(message);" );
+}}}
+
+=== 说明 ===
+ 使用 [IEBrowser IEBrowser] 的 ExecuteScript 方法即可执行 javascript 脚本.
+
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+</font>
