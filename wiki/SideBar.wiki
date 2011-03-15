@@ -81,5 +81,7 @@
       * [IEBrowserDocNavigate 页面跳转]
       * [IEBrowserDocExecuteJavaScript 执行 javascript 脚本]
       * [IEBrowserDocInstallJavaScript 安装 javascript 脚本]
+      * [IEBrowserDocInvokeJavaScript 调用 javascript 函数]
+      * [IEBrowserDocDataExchange 与页面进行数据交互]
   * [Member 项目成员]
 </font>
