@@ -13,4 +13,6 @@
  * [IEBrowserDocInstallJavaScript 安装 javascript 脚本]
  * [IEBrowserDocInvokeJavaScript 调用 javascript 函数]
  * [IEBrowserDocDataExchange 与页面进行数据交互]
+ * 页面流程控制
+  * [IEBrowserDocFlowNWPC 页面载入后跳转至新页面]
 </font>
