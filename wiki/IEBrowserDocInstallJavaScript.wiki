@@ -22,19 +22,20 @@ ie.InstallScript ( addScript, "jsAdd" );
 // 执行脚本, 调用 add 函数.
 ie.ExecuteScript ( "showMessage(add(1, 3));" );
 
-// 安装 jquery 脚本
-ie.InstallScript ( new Uri ( "http://code.jquery.com/jquery-1.5.1.min.js" ) );
+// 安装本地 jquery 脚本, 需要生成目录中存在 jquery-1.5.min.js 文件.
+ie.InstallScript ( new Uri ( Path.Combine ( AppDomain.CurrentDomain.BaseDirectory, @"jquery-1.5.min.js" ) ) );
 
+// 如果从网络位置载入脚本, 可以等待 5 秒钟, 以便脚本载入完毕.
+// ie.IEFlow.Wait ( 5 );
 
-
-// 等待脚本载入完毕后, 您可以执行一条 jquery 命令.
+// 等待脚本载入完毕后, 执行一条 jquery 命令.
 ie.ExecuteScript ( "showMessage($('*').length);" );
 }}}
 
 === 说明 ===
  [IEBrowser IEBrowser] 的 InstallScript 方法可以将脚本载入到 WebBrowser 中, 您可以直接载入脚本, 或者从网络, 本地中载入 js 文件.
 
- 对于直接载入的脚本, 可以直接调用脚本中定义的函数或者变量. *而对于从网络, 本地载入的脚本, 则需要等待脚本载入完成后, 才能调用.*
+ 对于直接载入的脚本, 可以直接调用脚本中定义的函数或者变量. *而对于从网络载入的脚本, 则需要等待脚本载入完成后, 才能调用.*
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
 </font>
