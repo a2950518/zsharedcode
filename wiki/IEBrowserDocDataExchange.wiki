@@ -13,7 +13,7 @@ int age = 10;
 
 // 设置姓名和年龄到 WebBrowser, 对于脚本中的字符串可以使用 " 或者 '.
 ie.__Set ( "name", "'tom'" );
-ie.__Set ( "age", (age+1).ToString() );
+ie.__Set ( "age", ( age + 1 ).ToString ( ) );
 
 // 获取 WebBrowser 中的 name 和 age, 并弹出对话框.
 MessageBox.Show ( string.Format ( "name={0}, age={1}", ie.__Get<string> ( "name" ), ie.__Get<int> ( "age" ) ) );
