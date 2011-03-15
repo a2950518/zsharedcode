@@ -1,25 +1,25 @@
-#summary è°ƒç”¨ javascript å‡½æ•°
+#summary µ÷ÓÃ javascript º¯Êı
 #labels Phase-Implementation
 <font face="microsoft yahei">
-=== ä»£ç  ===
+=== ´úÂë ===
 {{{
-// ä»å½“å‰çš„ WebBrowser æ§ä»¶åˆ›å»º IEBrowser å¯¹è±¡, WebBrowser çš„ Url å±æ€§å·²ç»è®¾ç½®ä¸º "about:blank".
+// ´Óµ±Ç°µÄ WebBrowser ¿Ø¼ş´´½¨ IEBrowser ¶ÔÏó, WebBrowser µÄ Url ÊôĞÔÒÑ¾­ÉèÖÃÎª "about:blank".
 IEBrowser ie = new IEBrowser ( this.webBrowser );
 
-// å®‰è£…å®šä¹‰å‡½æ•° setName å’Œ getName çš„å‡½æ•°åˆ° WebBrowser.
+// °²×°¶¨Òåº¯Êı setName ºÍ getName µÄº¯Êıµ½ WebBrowser.
 ie.InstallScript ( "var name;function setName(name){this.name = name;}function getName(){return this.name;}" );
 
-// è°ƒç”¨ setName å‡½æ•°, å‚æ•°ä¸º "jack".
+// µ÷ÓÃ setName º¯Êı, ²ÎÊıÎª "jack".
 ie.InvokeScript ( "setName", new object[] { "jack" } );
 
-// è°ƒç”¨ getName å‡½æ•°, å¾—åˆ°ç»“æœå¹¶å¼¹å‡ºå¯¹è¯æ¡†.
+// µ÷ÓÃ getName º¯Êı, µÃµ½½á¹û²¢µ¯³ö¶Ô»°¿ò.
 MessageBox.Show ( ie.InvokeScript ( "getName" ).ToString() );
 }}}
 
-=== è¯´æ˜ ===
- ä½¿ç”¨ [IEBrowser IEBrowser] çš„ InvokeScript æ–¹æ³•å¯ä»¥è°ƒç”¨é¡µé¢ä¸­çš„ javascript ä¸­å®šä¹‰çš„å‡½æ•°, å¹¶å¾—åˆ°å‡½æ•°çš„è¿”å›å€¼. å‡½æ•°çš„å‚æ•°é€šè¿‡ä¸€ä¸ª object ç±»å‹çš„æ•°ç»„æ¥ä¼ é€’.
+=== ËµÃ÷ ===
+ Ê¹ÓÃ [IEBrowser IEBrowser] µÄ InvokeScript ·½·¨¿ÉÒÔµ÷ÓÃÒ³ÃæÖĞµÄ javascript ÖĞ¶¨ÒåµÄº¯Êı, ²¢µÃµ½º¯ÊıµÄ·µ»ØÖµ. º¯ÊıµÄ²ÎÊıÍ¨¹ıÒ»¸ö object ÀàĞÍµÄÊı×éÀ´´«µİ.
 
- è™½ç„¶ä½¿ç”¨ ExecuteScript æ–¹æ³•ä¹Ÿå¯ä»¥å®Œæˆç±»ä¼¼çš„æ•ˆæœ, ä½† InvokeScript åœ¨å‚æ•°ä¼ é€’ä¸Šæ›´åŠ çš„ç®€ä¾¿.
+ ËäÈ»Ê¹ÓÃ ExecuteScript ·½·¨Ò²¿ÉÒÔÍê³ÉÀàËÆµÄĞ§¹û, µ« InvokeScript ÔÚ²ÎÊı´«µİÉÏ¸ü¼ÓµÄ¼ò±ã.
 
- _è¿™é‡Œä»…åˆ—å‡ºéƒ¨åˆ†ä»£ç , å¯èƒ½éœ€è¦æ‚¨è‡ªå·±åˆ›å»ºçª—å£, é¡µé¢ç­‰._
+ _ÕâÀï½öÁĞ³ö²¿·Ö´úÂë, ¿ÉÄÜĞèÒªÄú×Ô¼º´´½¨´°¿Ú, Ò³ÃæµÈ._
 </font>
