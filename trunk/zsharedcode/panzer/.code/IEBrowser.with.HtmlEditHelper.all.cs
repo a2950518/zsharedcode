@@ -588,7 +588,7 @@ namespace zoyobar.shared.panzer.web.ib
 		}
 
 		/// <summary>
-		/// 刷新当前地址.
+		/// 刷新使用 Navigate 导航的地址.
 		/// </summary>
 		public void Refresh ( )
 		{ this.Navigate ( this.url ); }
