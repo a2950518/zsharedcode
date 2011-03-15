@@ -36,7 +36,7 @@ namespace zoyobar.shared.panzer.test
 			// new ui.TestDataWindowCore ().Test ();
 
 			// TODO: 如果需要测试 IEBrowser 类, 请使用下面的代码
-			// new web.TestIEBrowser ().Test ();
+			 new web.TestIEBrowser ().Test ();
 
 			// TODO: 如果需要测试 EMail 类, 请使用下面的代码
 			// new TestEMail ().Test ();
@@ -51,7 +51,7 @@ namespace zoyobar.shared.panzer.test
 			// new TestXmlSeriation ( ).Test ( );
 
 			// TODO: 如果需要测试 TestXmlSeriation 类, 请使用下面的代码
-			 new web.TestHtmlEditor ( ).Test ( );
+			// new web.TestHtmlEditor ( ).Test ( );
 		}
 
 	}

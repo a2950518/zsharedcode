@@ -21,9 +21,10 @@ namespace zoyobar.shared.panzer.test.web
 			if ( this.tracer.WaitInputAChar ( "是否测试 IEBrowser?" ) != 'y' )
 				return;
 
-			new ib.FormIEBrowser ( ).ShowDialog ( );
-			new ib.FormIEBrowser2 ( ).ShowDialog ( );
-			new ib.FormIEBrowser3 ( ).ShowDialog ( );
+			//new ib.FormIEBrowser ( ).ShowDialog ( );
+			//new ib.FormIEBrowser2 ( ).ShowDialog ( );
+			//new ib.FormIEBrowser3 ( ).ShowDialog ( );
+			new ib.FormIEBrowserDoc ( ).ShowDialog ( );
 		}
 
 
