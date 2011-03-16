@@ -1,4 +1,52 @@
-#summary One-sentence summary of this page.
+#summary 执行 jquery
 #labels Phase-Implementation
+<font face="microsoft yahei">
+=== 代码 ===
+{{{
+// 从当前的 WebBrowser 控件创建 IEBrowser 对象.
+IEBrowser ie = new IEBrowser ( this.webBrowser );
 
-= 代码 =
+// 导航到页面 http://www.google.com.hk/.
+ie.Navigate ( "http://www.google.com.hk/" );
+
+// 等待 5 秒钟, 以便页面载入完毕.
+ie.IEFlow.Wait ( 5 );
+
+// 安装跟踪脚本, 执行 jquery 必需.
+ie.InstallTrace ( );
+
+// 安装本地的 jquery 脚本.
+ie.InstallJQuery ( new Uri ( Path.Combine ( AppDomain.CurrentDomain.BaseDirectory, @"jquery-1.5.min.js" ) ) );
+
+// 执行 jquery 脚本 $('*').length, 获得页面上总元素个数.
+Console.WriteLine ( "页面上共有 {0} 个元素", ie.ExecuteJQuery ( JQuery.Create ( "'*'" ).Length ( ) ) );
+
+// 执行 jquery 脚本 $('a'), 获得页面上所有的 a 元素并将结果保存在 __jAs 变量中.
+ie.ExecuteJQuery ( JQuery.Create ( "'a'" ), "__jAs" );
+
+// 得到 __jAs 变量中包含的 a 元素的个数.
+int count = ie.ExecuteJQuery<int> ( JQuery.Create ( "__jAs" ).Length ( ) );
+
+for ( int index = 0; index < count; index++ )
+{
+	// 得到 __jAs 变量中索引为 index 的 a 元素, 并保存在 __jA 变量中.
+	ie.ExecuteJQuery ( JQuery.Create ( "__jAs" ).Eq ( index.ToString ( ) ), "__jA" );
+
+	// 输出 a 元素的 innerText 和 href 属性.
+	Console.WriteLine ( string.Format (
+		"a[{0}], '{1}', '{2}'",
+		index,
+		ie.ExecuteJQuery<string> ( JQuery.Create ( "__jA" ).Text ( ) ),
+		ie.ExecuteJQuery<string> ( JQuery.Create ( "__jA" ).Attr ( "'href'" ) )
+		)
+		);
+}
+}}}
+
+=== 说明 ===
+ 使用 [IEBrowser IEBrowser] 的 ExecuteJQuery 方法可以在页面上执行 jquery 命令. 使用 [JQuery JQuery] 类可以创建一条 jquery 命令, 关于 jquery 的各种用法可以参考 http://www.jquery.com/, [JQuery JQuery] 类完成了 jquery 命令的编写, 包含了常用的 jquery 命令.
+
+ 在执行 ExecuteJQuery 方法前, 需要先执行 InstallJQuery 和 InstallTrace 方法. 
+
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+</font>
