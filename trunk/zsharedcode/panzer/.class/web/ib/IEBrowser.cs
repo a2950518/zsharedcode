@@ -290,7 +290,10 @@ namespace zoyobar.shared.panzer.web.ib
 #if TRACE
 			Console.WriteLine ( string.Format ( "\tcompleted url: {0}", e.Url.AbsoluteUri.ToLower ( ) ) );
 #endif
-			this.ieFlow.CompletedUrls.Add ( e.Url.AbsoluteUri.ToLower ( ) );
+
+			if ( this.ieFlow.CompletedUrls.Count < 100 )
+				this.ieFlow.CompletedUrls.Add ( e.Url.AbsoluteUri.ToLower ( ) );
+
 		}
 
 		private void installScript ( string id, Uri scriptUrl, string code )
