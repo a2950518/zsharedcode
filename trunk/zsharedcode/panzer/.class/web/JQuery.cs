@@ -18,7 +18,7 @@ namespace zoyobar.shared.panzer.web
 	/// <summary>
 	/// JQuery 用于编写构造 jQuery 脚本, 包含了 jQuery 中的方法等.
 	/// </summary>
-	public sealed class JQuery
+	public class JQuery
 		: ScriptHelper
 	{
 
@@ -263,35 +263,49 @@ namespace zoyobar.shared.panzer.web
 		#region " 方法 A "
 
 		/// <summary>
-		/// 尚未编辑.
+		/// 合并新的元素和当前 jQuery 中的元素, 生成一个新的 jQuery 对象. (需要 1.4 版本以上)
 		/// </summary>
-		/// <param name="expressionI">尚未编辑.</param>
-		/// <param name="expressionII">尚未编辑.</param>
-		/// <returns>尚未编辑.</returns>
+		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 也可以是 DOM 元素, 比如: "document.getElementById('myTable')", "[document.getElementById('myTable1'), document.getElementById('myTable2')]", 或者是一段 html 代码, 比如: "'&lt;stong&gt;ok&lt;/stong&gt;'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Add ( string expressionI )
+		{ return this.Execute ( "add", expressionI, null ); }
+		/// <summary>
+		/// 合并新的元素和当前 jQuery 中的元素, 生成一个新的 jQuery 对象. (需要 1.4 版本以上)
+		/// </summary>
+		/// <param name="expressionI">选择器, 比如: "'body table .red'".</param>
+		/// <param name="expressionII">document 元素, 指定选择器搜索的文档.</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Add ( string expressionI, string expressionII )
 		{ return this.Execute ( "add", expressionI, expressionII ); }
 
 		/// <summary>
-		/// 添加执行添加样式的 addClass 方法的代码.
+		/// 为 jQuery 中的包含的页面元素添加新的样式.
 		/// </summary>
-		/// <param name="expression">可以是多个样式的名称, 比如: "'box red'", 或者返回样式名称的函数, 比如: "function(i, c){ return 'my_' + i.toString(); }".</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <param name="expression">返回样式名称的表达式, 可以是多个样式的名称, 比如: "'box red'", 或者返回样式名称的函数, 比如: "function(i, c){ return 'my_' + i.toString(); }". (如果使用函数需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery AddClass ( string expression )
 		{ return this.Execute ( "addClass", expression ); }
 
 		/// <summary>
-		/// 添加执行获取设置属性的 attr 方法的代码.
+		/// 合并 jQuery 匹配到的上一批元素和当前 jQuery 中的元素, 生成一个新的 jQuery 对象. (需要 1.2 版本以上)
 		/// </summary>
-		/// <param name="expressionI">可以是属性名称, 比如: "'title'", 也可以是属性集合, 比如: "{type: 'text', title: 'test'}".</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery AndSelf ( )
+		{ return this.Execute ( "andSelf" ); }
+
+		/// <summary>
+		/// 获取 jQuery 中包含的第一个元素的属性, 或者设置所有元素的多个属性.
+		/// </summary>
+		/// <param name="expressionI">返回属性名称的表达式, 比如: "'title'", 也可以是属性集合, 比如: "{type: 'text', title: 'test'}".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Attr ( string expressionI )
 		{ return this.Attr ( expressionI, null ); }
 		/// <summary>
-		/// 添加执行获取设置属性的 attr 方法的代码.
+		/// 设置 jQuery 中元素的属性.
 		/// </summary>
 		/// <param name="expressionI">可以是属性名称, 比如: "'title'".</param>
-		/// <param name="expressionII">可以是属性值, 比如: "'just test'", 或者返回属性值的函数, 比如: "function(i, a){ return 'my_' + i.toString(); }".</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <param name="expressionII">返回属性名称的表达式, 比如: "'just test'", 或者返回属性值的函数, 比如: "function(i, a){ return 'my_' + i.toString(); }". (如果使用函数需要 1.1 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Attr ( string expressionI, string expressionII )
 		{ return this.Execute ( "attr", expressionI, expressionII ); }
 
@@ -300,16 +314,16 @@ namespace zoyobar.shared.panzer.web
 		#region " 方法 C "
 
 		/// <summary>
-		/// 尚未编辑.
+		/// 获取当前 jQuery 中包含的元素的第一级子元素, 不包含文本元素.
 		/// </summary>
-		/// <returns>尚未编辑.</returns>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Children ( )
 		{ return this.Children ( null ); }
 		/// <summary>
-		/// 尚未编辑.
+		/// 获取当前 jQuery 中包含的元素中符合选择器的第一级子元素, 不包含文本元素.
 		/// </summary>
-		/// <param name="expression">尚未编辑.</param>
-		/// <returns>尚未编辑.</returns>
+		/// <param name="expression">可以是选择器, 比如: "'strong'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Children ( string expression )
 		{ return this.Execute ( "children", expression ); }
 
@@ -367,24 +381,24 @@ namespace zoyobar.shared.panzer.web
 		{ return this.Execute ( "has", expression ); }
 
 		/// <summary>
-		/// 添加执行判断样式是否存在的 hasClass 方法的代码.
+		/// 判断样式是否存在.
 		/// </summary>
-		/// <param name="expression">样式名称, 比如: "'box'", 将判断样式是否存在.</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <param name="expression">返回样式名称的表达式, 比如: "'box'", 将判断样式是否存在.</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery HasClass ( string expression )
 		{ return this.Execute ( "hasClass", expression ); }
 
 		/// <summary>
-		/// 添加执行获取 innerHTML 的 html 方法的代码.
+		/// 获取 jQuery 中包含的第一个元素的 innerHTML 属性.
 		/// </summary>
-		/// <returns>添加代码后的 JQuery.</returns>
-		public JQuery Html ()
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Html ( )
 		{ return this.Html ( null ); }
 		/// <summary>
-		/// 添加执行设置 innerHTML 的 html 方法的代码.
+		/// 设置 jQuery 中包含元素的 innerHTML 属性.
 		/// </summary>
-		/// <param name="expression">可以是 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'", 或者返回 html 代码的函数, 比如: "function(i, h){ return '&lt;stong&gt;&lt;/stong&gt;'; }".</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <param name="expression">返回 html 代码的表达式, 比如: "'&lt;stong&gt;&lt;/stong&gt;'", 或者返回 html 代码的函数, 比如: "function(i, h){ return '&lt;stong&gt;&lt;/stong&gt;'; }". (如果使用函数需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Html ( string expression )
 		{ return this.Execute ( "html", expression ); }
 
@@ -445,6 +459,20 @@ namespace zoyobar.shared.panzer.web
 		{ return this.Execute ( "next" ); }
 
 		/// <summary>
+		/// 卸载 jQuery 在页面中 $ 的定义.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery NoConflict ( )
+		{ return this.NoConflict ( null ); }
+		/// <summary>
+		/// 卸载 jQuery 在页面中 $ 的定义.
+		/// </summary>
+		/// <param name="expression">一个返回布尔值的表达式, 比如: "true", "1 > 2" 或者 "isOK", 其中 isOK 是 javascript 脚本中的变量, 如果表达式为 true, 则卸载 $ 和 jQuery 的定义, 否则只卸载 $ 的定义.</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery NoConflict ( string expression )
+		{ return this.Execute ( "noConflict", expression ); }
+
+		/// <summary>
 		/// 添加执行选择不符合条件的元素的 not 方法的代码.
 		/// </summary>
 		/// <param name="expression">可以是选择器, 比如: "'li'", 也可以是 DOM 元素, 比如: "document.getElementById('li51')", 或者是测试函数, 比如: "function(i){ return i == 3; }".</param>
@@ -457,24 +485,24 @@ namespace zoyobar.shared.panzer.web
 		#region " 方法 R "
 
 		/// <summary>
-		/// 添加执行删除属性的 removeAttr 方法的代码.
+		/// 删除 jQuery 中包含的元素的属性.
 		/// </summary>
-		/// <param name="expression">属性的名称, 比如: "'title'".</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <param name="expression">返回属性名称的表达式, 比如: "'title'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery RemoveAttr ( string expression )
 		{ return this.Execute ( "removeAttr", expression ); }
 
 		/// <summary>
-		/// 添加执行删除样式的 removeClass 方法的代码.
+		/// 删除 jQuery 中包含的元素的所有样式.
 		/// </summary>
-		/// <returns>添加代码后的 JQuery.</returns>
-		public JQuery RemoveClass ()
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery RemoveClass ( )
 		{ return this.RemoveClass ( null ); }
 		/// <summary>
-		/// 添加执行删除样式的 removeClass 方法的代码.
+		/// 删除 jQuery 中包含的元素的指定样式.
 		/// </summary>
-		/// <param name="expression">样式的名称, 比如: "'box'", 或者返回样式名称的函数, 比如: "function(i, c){ return 'my_' + i.toString(); }."</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <param name="expression">返回样式名称的表达式, 比如: "'box'", 或者返回样式名称的函数, 比如: "function(i, c){ return 'my_' + i.toString(); }". (如果使用函数需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery RemoveClass ( string expression )
 		{ return this.Execute ( "removeClass", expression ); }
 
@@ -498,6 +526,13 @@ namespace zoyobar.shared.panzer.web
 		public JQuery Slice ( string expressionI, string expressionII )
 		{ return this.Execute ( "slice", expressionI, expressionII ); }
 
+		/// <summary>
+		/// 创建主 jQuery 对象的副本.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Sub ( )
+		{ return this.Execute ( "sub" ); }
+
 		#endregion
 
 		#region " 方法 T "
@@ -516,20 +551,19 @@ namespace zoyobar.shared.panzer.web
 		public JQuery Text ( string expression )
 		{ return this.Execute ( "text", expression ); }
 
-
 		/// <summary>
-		/// 添加执行切换样式的 toggleClass 方法的代码.
+		/// 切换 jQuery 中包含的元素的样式, 样式存在则删除, 如果不存在则添加.
 		/// </summary>
-		/// <param name="expressionI">样式的名称, 比如: "'box'".</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <param name="expressionI">返回样式名称的表达式, 比如: "'box'", 或者返回样式名称的函数, 比如: "function(i, c){ return 'my_' + i.toString(); }". (如果使用函数需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery ToggleClass ( string expressionI )
 		{ return this.ToggleClass ( expressionI, null ); }
 		/// <summary>
-		/// 添加执行切换样式的 toggleClass 方法的代码.
+		/// 添加或者删除 jQuery 中包含的元素的样式. (需要 1.3 版本以上)
 		/// </summary>
-		/// <param name="expressionI">样式的名称, 比如: "'box'", 或者返回样式名称的函数, 比如: "function(i, c){ return 'my_' + i.toString(); }."</param>
-		/// <param name="expressionII">一个布尔值, 表示添加还是删除样式.</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <param name="expressionI">返回样式名称的表达式, 比如: "'box'", 或者返回样式名称的函数, 比如: "function(i, c){ return 'my_' + i.toString(); }". (如果使用函数需要 1.4 版本以上)</param>
+		/// <param name="expressionII">返回布尔值的表达式, 表示添加还是删除样式.</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery ToggleClass ( string expressionI, string expressionII )
 		{ return this.Execute ( "toggleClass", expressionI, expressionII ); }
 
@@ -543,19 +577,31 @@ namespace zoyobar.shared.panzer.web
 		#region " 方法 V "
 
 		/// <summary>
-		/// 添加获取元素值的 val 方法的代码.
+		/// 获取 jQuery 中包含的第一个元素的 value 属性.
 		/// </summary>
-		/// <returns>添加代码后的 JQuery.</returns>
-		public JQuery Val ()
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Val ( )
 		{ return this.Val ( null ); }
 		/// <summary>
-		/// 添加设置元素值的 val 方法的代码.
+		/// 设置 jQuery 中包含的元素 value 属性.
 		/// </summary>
-		/// <param name="expressionI">元素值的表达式, 比如: "'my name'", 或者返回元素值的函数, 比如: "function(i, v){ return 'my_' + i.toString(); }."</param>
-		/// <returns>添加代码后的 JQuery.</returns>
-		public JQuery Val ( string expressionI )
-		{ return this.Execute ( "val", expressionI ); }
+		/// <param name="expression">一个表达式, 比如: "'my name'", 或者是一个返回值的函数, 比如: "function(i, v){ return 'my_' + i.toString(); }". (如果使用函数需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Val ( string expression )
+		{ return this.Execute ( "val", expression ); }
 		
+		#endregion
+
+		#region " 方法 W "
+
+		/// <summary>
+		/// 调用 when 方法, 传递一个或者多个 javascript 对象, 之后可再通过 done, then 等方法编写这些对象载入后的处理方法. (需要 1.5 版本以上)
+		/// </summary>
+		/// <param name="expression">一个或者多个对象的表达式, 比如: "$.ajax('test.aspx')", 或者 "{ testing: 123 }, { name: 'jack' }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery When ( string expression )
+		{ return this.Execute ( "when", expression ); }
+
 		#endregion
 
 	}

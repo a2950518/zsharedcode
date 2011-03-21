@@ -127,11 +127,18 @@ namespace zoyobar.shared.panzer.web
 		protected readonly ScriptType scriptType;
 
 		/// <summary>
-		/// 获取脚本代码.
+		/// 获取或设置脚本代码.
 		/// </summary>
 		public string Code
 		{
 			get { return this.code; }
+			set
+			{
+
+				if ( null != value )
+					this.code = value;
+
+			}
 		}
 
 		/// <summary>

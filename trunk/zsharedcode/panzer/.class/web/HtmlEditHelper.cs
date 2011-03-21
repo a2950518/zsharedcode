@@ -23,6 +23,9 @@ namespace zoyobar.shared.panzer.web
 	{
 		private readonly WebBrowser browser;
 
+		/// <summary>
+		/// 获取或设置编辑器中的 html 代码.
+		/// </summary>
 		public string Html
 		{
 			get

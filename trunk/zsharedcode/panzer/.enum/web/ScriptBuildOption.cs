@@ -28,7 +28,7 @@ namespace zoyobar.shared.panzer.web
 		/// </summary>
 		OnlyCode = 2,
 		/// <summary>
-		/// 最为启动脚本.
+		/// 做为启动脚本.
 		/// </summary>
 		Startup = 4
 	}
