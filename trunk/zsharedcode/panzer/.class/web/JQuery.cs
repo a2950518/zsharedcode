@@ -52,7 +52,7 @@ namespace zoyobar.shared.panzer.web
 		/// 创建使用别名的空的 JQuery.
 		/// </summary>
 		/// <returns>JQuery 实例.</returns>
-		public static JQuery Create ()
+		public static JQuery Create ( )
 		{ return Create ( null, null, true ); }
 		/// <summary>
 		/// 创建空的 JQuery.
@@ -111,7 +111,7 @@ namespace zoyobar.shared.panzer.web
 		/// <summary>
 		/// 创建使用别名的空的 JQuery.
 		/// </summary>
-		public JQuery ()
+		public JQuery ( )
 			: this ( null, null, true )
 		{ }
 		/// <summary>
@@ -179,14 +179,14 @@ namespace zoyobar.shared.panzer.web
 		/// 创建当前 JQuery 的副本, 拥有相同的 Code 属性.
 		/// </summary>
 		/// <returns>JQuery 的副本.</returns>
-		public JQuery Copy ()
-		{ return new JQuery(this); }
+		public JQuery Copy ( )
+		{ return new JQuery ( this ); }
 
 		/// <summary>
 		/// 添加语句的结尾符号.
 		/// </summary>
 		/// <returns>添加结尾符号后的 JQuery.</returns>
-		public JQuery EndLine ()
+		public JQuery EndLine ( )
 		{
 			this.AppendCode ( this.EndOfLine );
 			return this;
@@ -268,7 +268,7 @@ namespace zoyobar.shared.panzer.web
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 也可以是 DOM 元素, 比如: "document.getElementById('myTable')", "[document.getElementById('myTable1'), document.getElementById('myTable2')]", 或者是一段 html 代码, 比如: "'&lt;stong&gt;ok&lt;/stong&gt;'".</param>
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Add ( string expressionI )
-		{ return this.Execute ( "add", expressionI, null ); }
+		{ return this.Add ( expressionI, null ); }
 		/// <summary>
 		/// 合并新的元素和当前 jQuery 中的元素, 生成一个新的 jQuery 对象. (需要 1.4 版本以上)
 		/// </summary>
@@ -287,11 +287,51 @@ namespace zoyobar.shared.panzer.web
 		{ return this.Execute ( "addClass", expression ); }
 
 		/// <summary>
+		/// 在当前 jQuery 中包含的所有元素之后添加新的内容作为兄弟元素.
+		/// </summary>
+		/// <param name="expressionI">可以是返回 html 代码的表达式, 比如: "'&lt;stong&gt;ok&lt;/stong&gt;'", 也可以是元素, 比如: "document.getElementById('myTable')" 或者是 jQuery 对象, 比如: "$('a')", 还可以是返回 html 代码的函数, 比如: "function(i) { return this.className + i.toString;}". (如果使用函数需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery After ( string expressionI )
+		{ return this.After ( expressionI, null ); }
+		/// <summary>
+		/// 在当前 jQuery 中包含的所有元素之后添加新的内容作为兄弟元素.
+		/// </summary>
+		/// <param name="expressionI">可以是返回 html 代码的表达式, 比如: "'&lt;stong&gt;ok&lt;/stong&gt;'", 也可以是元素, 比如: "document.getElementById('myTable')" 或者是 jQuery 对象, 比如: "$('a')".</param>
+		/// <param name="expressionII">作用同第一个参数, 不过以数组的形式存在, 比如: "['&lt;stong&gt;ok&lt;/stong&gt;', '&lt;span&gt;ok&lt;/span&gt;']".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery After ( string expressionI, string expressionII )
+		{ return this.Execute ( "after", expressionI, expressionII ); }
+
+		/// <summary>
 		/// 合并 jQuery 匹配到的上一批元素和当前 jQuery 中的元素, 生成一个新的 jQuery 对象. (需要 1.2 版本以上)
 		/// </summary>
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery AndSelf ( )
 		{ return this.Execute ( "andSelf" ); }
+
+		/// <summary>
+		/// 在当前 jQuery 中包含的所有元素之后添加新的内容作为子元素.
+		/// </summary>
+		/// <param name="expressionI">可以是返回 html 代码的表达式, 比如: "'&lt;stong&gt;ok&lt;/stong&gt;'", 也可以是元素, 比如: "document.getElementById('myTable')" 或者是 jQuery 对象, 比如: "$('a')", 还可以是返回 html 代码的函数, 比如: "function(i, h) { return 'old html is ' + h;}". (如果使用函数需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Append ( string expressionI )
+		{ return this.Append ( expressionI, null ); }
+		/// <summary>
+		/// 在当前 jQuery 中包含的所有元素之后添加新的内容作为子元素.
+		/// </summary>
+		/// <param name="expressionI">可以是返回 html 代码的表达式, 比如: "'&lt;stong&gt;ok&lt;/stong&gt;'", 也可以是元素, 比如: "document.getElementById('myTable')" 或者是 jQuery 对象, 比如: "$('a')".</param>
+		/// <param name="expressionII">作用同第一个参数, 不过以数组的形式存在, 比如: "['&lt;stong&gt;ok&lt;/stong&gt;', '&lt;span&gt;ok&lt;/span&gt;']".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Append ( string expressionI, string expressionII )
+		{ return this.Execute ( "append", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 将当前 jQuery 中包含的元素追加到指定目标之后.
+		/// </summary>
+		/// <param name="expression">可以是选择器, 比如: "'.red'", 可以是返回 html 代码的表达式, 比如: "'&lt;stong&gt;ok&lt;/stong&gt;'", 也可以是元素, 比如: "document.getElementById('myTable')" 或者是 jQuery 对象, 比如: "$('a')".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery AppendTo ( string expression )
+		{ return this.Execute ( "appendTo", expression ); }
 
 		/// <summary>
 		/// 获取 jQuery 中包含的第一个元素的属性, 或者设置所有元素的多个属性.
@@ -311,7 +351,97 @@ namespace zoyobar.shared.panzer.web
 
 		#endregion
 
+		#region " 方法 B "
+
+		/// <summary>
+		/// 在当前 jQuery 中包含的所有元素之前添加新的内容作为兄弟元素.
+		/// </summary>
+		/// <param name="expressionI">可以是返回 html 代码的表达式, 比如: "'&lt;stong&gt;ok&lt;/stong&gt;'", 也可以是元素, 比如: "document.getElementById('myTable')" 或者是 jQuery 对象, 比如: "$('a')", 还可以是返回 html 代码的函数, 比如: "function(i) { return this.className + i.toString;}". (如果使用函数需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Before ( string expressionI )
+		{ return this.Before ( expressionI, null ); }
+		/// <summary>
+		/// 在当前 jQuery 中包含的所有元素之前添加新的内容作为兄弟元素.
+		/// </summary>
+		/// <param name="expressionI">可以是返回 html 代码的表达式, 比如: "'&lt;stong&gt;ok&lt;/stong&gt;'", 也可以是元素, 比如: "document.getElementById('myTable')" 或者是 jQuery 对象, 比如: "$('a')".</param>
+		/// <param name="expressionII">作用同第一个参数, 不过以数组的形式存在, 比如: "['&lt;stong&gt;ok&lt;/stong&gt;', '&lt;span&gt;ok&lt;/span&gt;']".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Before ( string expressionI, string expressionII )
+		{ return this.Execute ( "before", expressionI, expressionII ); }
+
+		// TODO: weibo
+		/// <summary>
+		/// 为 jQuery 中的元素添加事件. (需要 1.4 版本以上)
+		/// </summary>
+		/// <param name="expressionI">包含多个事件的对象, 比如: "{ click: function(){}, mouseover: function(){} }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Bind ( string expressionI )
+		{ return this.Bind ( expressionI, null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加事件.
+		/// </summary>
+		/// <param name="expressionI">事件的类型, 比如: "'click'", "'click mouseover'".</param>
+		/// <param name="expressionII">可以是返回函数的表达式, 比如: "function(){ return false; }", 或者为 "false", 表示停止事件的冒泡. (如果使用 false 需要 1.4.3 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Bind ( string expressionI, string expressionII )
+		{ return this.Bind ( expressionI, expressionII, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加事件.
+		/// </summary>
+		/// <param name="expressionI">事件的类型, 比如: "'click'", "'click mouseover'".</param>
+		/// <param name="expressionII">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionIII">可以是返回函数的表达式, 比如: "function(){ return false; }", 或者为 "false", 表示停止事件的冒泡. (如果使用 false 需要 1.4.3 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Bind ( string expressionI, string expressionII, string expressionIII )
+		{ return this.Execute ( "bind", expressionI, expressionII, expressionIII ); }
+
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加失去焦点事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Blur ( )
+		{ return this.Blur ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加失去焦点的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Blur ( string expressionI )
+		{ return this.Blur ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加失去焦点的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Blur ( string expressionI, string expressionII )
+		{ return this.Execute ( "blur", expressionI, expressionII ); }
+
+		#endregion
+
 		#region " 方法 C "
+
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加数据改变事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Change ( )
+		{ return this.Change ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加数据改变的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Change ( string expressionI )
+		{ return this.Change ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加数据改变的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Change ( string expressionI, string expressionII )
+		{ return this.Execute ( "change", expressionI, expressionII ); }
 
 		/// <summary>
 		/// 获取当前 jQuery 中包含的元素的第一级子元素, 不包含文本元素.
@@ -328,55 +458,230 @@ namespace zoyobar.shared.panzer.web
 		{ return this.Execute ( "children", expression ); }
 
 		/// <summary>
-		/// 尚未编辑.
+		/// 触发 jQuery 中的元素的添加单击事件.
 		/// </summary>
-		/// <returns>尚未编辑.</returns>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Click ( )
+		{ return this.Click ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加单击的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Click ( string expressionI )
+		{ return this.Click ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加单击的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Click ( string expressionI, string expressionII )
+		{ return this.Execute ( "click", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 复制当前 jQuery 中包含的元素, 对于是否复制元素的事件和数据, 1.5.0 版本默认 true, 低版本和 1.5.1 以及更高版本默认为 false, 不复制元素的子元素的事件和数据.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Clone ( )
+		{ return this.Clone ( null, null ); }
+		/// <summary>
+		/// 复制当前 jQuery 中包含的元素, 不复制元素的子元素的事件和数据.
+		/// </summary>
+		/// <param name="expressionI">一个布尔表达式, 比如: "true", 表示是否复制元素的事件和数据. (1.5.0 版本默认 true, 低版本和 1.5.1 以及更高版本默认为 false)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Clone ( string expressionI )
+		{ return this.Clone ( expressionI, null ); }
+		/// <summary>
+		/// 复制当前 jQuery 中包含的元素. (需要 1.5 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个布尔表达式, 比如: "true", 表示是否复制元素的事件和数据. (1.5.0 版本默认 true, 低版本和 1.5.1 以及更高版本默认为 false)</param>
+		/// <param name="expressionII">一个布尔表达式, 比如: "true", 表示是否复制元素的子元素的事件和数据.</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Clone ( string expressionI, string expressionII )
+		{ return this.Execute ( "clone", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 获取当前 jQuery 中元素的第一个符合选择器的父元素, 从当前 jQuery 元素开始搜索. (需要 1.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">可以是一个选择器, 比如: "'strong'", 或者选择器的数组, 比如: "['body', 'ul']". (如果使用数组需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Closest ( string expressionI )
+		{ return this.Closest ( expressionI, null ); }
+		/// <summary>
+		/// 获取当前 jQuery 中元素的第一个符合选择器的父元素, 从当前 jQuery 元素开始搜索. (需要 1.4 版本以上)
+		/// </summary>
+		/// <param name="expressionI">可以是一个选择器, 比如: "'strong'", 或者选择器的数组, 比如: "['body', 'ul']".</param>
+		/// <param name="expressionII">返回页面元素的表达式, 指定搜索的位置.</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Closest ( string expressionI, string expressionII )
+		{ return this.Execute ( "closest", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 获取当前 jQuery 中包含的元素的所有子元素, 包含文本和注释. (需要 1.2 版本以上)
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Contents ( )
 		{ return this.Execute ( "contents" ); }
+
+		/// <summary>
+		/// 获取当前 jQuery 中第一个元素的样式或者设置所有元素的多个样式.
+		/// </summary>
+		/// <param name="expressionI">返回要获取的样式名称的表达式, 比如: "'color'", 或者要设置的多个样式, 比如: "{'background-color' : '#ddd', 'font-weight' : '', 'color' : 'rgb(0,40,244)'}".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Css ( string expressionI )
+		{ return this.Css ( expressionI, null ); }
+		/// <summary>
+		/// 设置当前 jQuery 中元素的样式.
+		/// </summary>
+		/// <param name="expressionI">返回要设置的样式名称的表达式, 比如: "'color'".</param>
+		/// <param name="expressionII">返回样式值的表达式, 比如: "'red'", 或者返回值的函数, 比如: "function(i, v){return i.toString() + 'px';}". (如果使用函数需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Css ( string expressionI, string expressionII )
+		{ return this.Execute ( "css", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 获得 jQuery 的 cssHooks 属性, 用于设置新的样式规则. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery CssHooks ( )
+		{
+			this.AppendCode ( ".cssHooks" );
+			return this;
+		}
+
+		#endregion
+
+		#region " 方法 D "
+
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加双击事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Dblclick ( )
+		{ return this.Dblclick ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加双击的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Dblclick ( string expressionI )
+		{ return this.Dblclick ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加双击的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Dblclick ( string expressionI, string expressionII )
+		{ return this.Execute ( "dblclick", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 将当前 jQuery 中的元素从页面中删除, 但仍保存在 jQuery 中. (需要 1.4 版本以上)
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Detach ( )
+		{ return this.Detach ( null ); }
+		/// <summary>
+		/// 将当前 jQuery 中符合选择器的元素从页面中删除, 但仍保存在 jQuery 中. (需要 1.4 版本以上)
+		/// </summary>
+		/// <param name="expression">用于选择删除元素的选择器, 比如: "'li'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Detach ( string expression )
+		{ return this.Execute ( "detach", expression ); }
 
 		#endregion
 
 		#region " 方法 E "
 
 		/// <summary>
-		/// 添加执行按照索引选择元素的 eq 方法的代码.
+		/// 对当前 jQuery 中包含的元素执行对应的 javascript 函数.
 		/// </summary>
-		/// <param name="expression">元素的索引值, 比如: "0", 如果是 "-1", 则表示最后一个元素.</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <param name="expression">返回函数的表达式, 比如: "function(i, e){ $(e).html(i.toString()); }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Each ( string expression )
+		{ return this.Execute ( "each", expression ); }
+
+		/// <summary>
+		/// 将当前 jQuery 中元素的子元素从页面中删除, 包含文本.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Empty ( )
+		{ return this.Execute ( "empty" ); }
+
+		/// <summary>
+		/// 将最初搜索的一批元素恢复到 jQuery 中. 
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery End ( )
+		{ return this.Execute ( "end" ); }
+
+		/// <summary>
+		/// 获取当前 jQuery 中指定索引的元素. (需要 1.1.2 版本以上)
+		/// </summary>
+		/// <param name="expression">返回元素的索引值的表达式, 比如: "0", 如果是 "-1", 则表示最后一个元素. (如果使用负数需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Eq ( string expression )
 		{ return this.Execute ( "eq", expression ); }
-		
+
 		#endregion
 
 		#region " 方法 F "
 
 		/// <summary>
-		/// 添加执行通过选择器, 测试函数等选择元素的 filter 方法的代码.
+		/// 选择当前 jQuery 中符合选择器, 筛选函数, 元素或者 jQuery 中元素的元素.
 		/// </summary>
-		/// <param name="expression">可以是选择器, 比如: "'strong'", 也可以是测试函数, 比如: "function(i){return (i == 0) || (i == 4);}", 也可以是 DOM 元素, 比如: "document.getElementById('li51')", 或者是另一个 jQuery 对象, 比如: "$('#li64')".</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <param name="expression">可以是选择器, 比如: "'strong'", 也可以是测试函数, 比如: "function(i){return (i == 0) || (i == 4);}", 也可以是 DOM 元素, 比如: "document.getElementById('li51')", 或者是另一个 jQuery 对象, 比如: "$('#li64')". (如果元素或者 jQuery 需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Filter ( string expression )
 		{ return this.Execute ( "filter", expression ); }
 
+		/// <summary>
+		/// 选择当前 jQuery 中包含元素的符合选择器的子元素.
+		/// </summary>
+		/// <param name="expression">用于筛选子元素的选择器, 比如: "'strong'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Find ( string expression )
 		{ return this.Execute ( "find", expression ); }
 
 		/// <summary>
-		/// 添加执行选择第一个元素的 first 方法的代码.
+		/// 选择当前 jQuery 中第一个元素.
 		/// </summary>
-		/// <returns>添加代码后的 JQuery.</returns>
-		public JQuery First ()
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery First ( )
 		{ return this.Execute ( "first" ); }
+
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加获取焦点事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Focus ( )
+		{ return this.Focus ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加获取焦点的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Focus ( string expressionI )
+		{ return this.Focus ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加获取焦点的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Focus ( string expressionI, string expressionII )
+		{ return this.Execute ( "focus", expressionI, expressionII ); }
 
 		#endregion
 
 		#region " 方法 H "
 
 		/// <summary>
-		/// 添加执行通过判断子元素是否符合选择器, DOM 元素从而选择元素的 has 方法的代码.
+		/// 选择 jQuery 中元素, 其子元素符合选择器或者元素. (需要 1.4 版本以上)
 		/// </summary>
-		/// <param name="expression">可以是选择器, 比如: "'strong'", 或者是 DOM 元素, 比如: "document.getElementById('li51')".</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <param name="expression">可以是选择器, 比如: "'strong'", 或者是元素, 比如: "document.getElementById('li51')".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Has ( string expression )
 		{ return this.Execute ( "has", expression ); }
 
@@ -387,6 +692,20 @@ namespace zoyobar.shared.panzer.web
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery HasClass ( string expression )
 		{ return this.Execute ( "hasClass", expression ); }
+
+		/// <summary>
+		/// 获取当前 jQuery 中包含的第一个元素的高度数值.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Height ( )
+		{ return this.Height ( null ); }
+		/// <summary>
+		/// 设置当前 jQuery 中元素的高度.
+		/// </summary>
+		/// <param name="expression">一个数值的表达式, 比如: "110", 或者一个返回数值的函数, 比如: "function(i, h){ return i + h; }". (如果使用函数需要 1.4.1 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Height ( string expression )
+		{ return this.Execute ( "height", expression ); }
 
 		/// <summary>
 		/// 获取 jQuery 中包含的第一个元素的 innerHTML 属性.
@@ -407,29 +726,129 @@ namespace zoyobar.shared.panzer.web
 		#region " 方法 I "
 
 		/// <summary>
-		/// 添加执行判断元素是否符合选择器的 is 方法的代码.
+		/// 获取当前 jQuery 中包含的第一个元素的高度数值, 不包含边框. (需要 1.2.6 版本以上)
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery InnerHeight ( )
+		{ return this.Execute ( "innerHeight" ); }
+
+		/// <summary>
+		/// 获取当前 jQuery 中包含的第一个元素的宽度数值, 不包含边框. (需要 1.2.6 版本以上)
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery InnerWidth ( )
+		{ return this.Execute ( "innerWidth" ); }
+
+		/// <summary>
+		/// 将当前 jQuery 中包含的元素添加到目标之后作为兄弟元素.
+		/// </summary>
+		/// <param name="expression">可以是返回 html 代码的表达式, 比如: "'&lt;stong&gt;ok&lt;/stong&gt;'", 也可以是元素, 比如: "document.getElementById('myTable')" 或者是 jQuery 对象, 比如: "$('a')".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery InsertAfter ( string expression )
+		{ return this.Execute ( "insertAfter", expression ); }
+
+		/// <summary>
+		/// 将当前 jQuery 中包含的元素添加到目标之前作为兄弟元素.
+		/// </summary>
+		/// <param name="expression">可以是返回 html 代码的表达式, 比如: "'&lt;stong&gt;ok&lt;/stong&gt;'", 也可以是元素, 比如: "document.getElementById('myTable')" 或者是 jQuery 对象, 比如: "$('a')".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery InsertBefore ( string expression )
+		{ return this.Execute ( "insertBefore", expression ); }
+
+		/// <summary>
+		///判断当前 jQuery 元素是否符合选择器, 如果至少一个符合时, 将在 javascript 中返回 true.
 		/// </summary>
 		/// <param name="expression">选择器, 比如: "'.box'".</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Is ( string expression )
 		{ return this.Execute ( "is", expression ); }
+
+		#endregion
+
+		#region " 方法 K "
+
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加键盘按下事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Keydown ( )
+		{ return this.Keydown ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加获取键盘按下的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Keydown ( string expressionI )
+		{ return this.Keydown ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加获取键盘按下的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Keydown ( string expressionI, string expressionII )
+		{ return this.Execute ( "keydown", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加键盘按住事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Keypress ( )
+		{ return this.Keypress ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加获取键盘按住的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Keypress ( string expressionI )
+		{ return this.Keypress ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加获取键盘按住的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Keypress ( string expressionI, string expressionII )
+		{ return this.Execute ( "keypress", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加键盘松开事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Keyup ( )
+		{ return this.Keyup ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加获取键盘松开的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Keyup ( string expressionI )
+		{ return this.Keyup ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加获取键盘松开的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Keyup ( string expressionI, string expressionII )
+		{ return this.Execute ( "keyup", expressionI, expressionII ); }
 
 		#endregion
 
 		#region " 方法 L "
 
 		/// <summary>
-		/// 添加执行选择最后一个元素的 last 方法的代码.
+		/// 选择当前 jQuery 中最后一个元素.
 		/// </summary>
-		/// <returns>添加代码后的 JQuery.</returns>
-		public JQuery Last ()
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Last ( )
 		{ return this.Execute ( "last" ); }
 
 		/// <summary>
 		/// 尚未编辑.
 		/// </summary>
 		/// <returns>尚未编辑.</returns>
-		public JQuery Length ()
+		public JQuery Length ( )
 		{
 			this.AppendCode ( ".length" );
 			return this;
@@ -440,23 +859,212 @@ namespace zoyobar.shared.panzer.web
 		#region " 方法 M "
 
 		/// <summary>
-		/// 添加执行对元素使用函数的 map 方法的代码.
+		/// 对当前 jQuery 中的元素执行函数, 并将执行的结果返回为一个 javascript 数组. (需要 1.2 版本以上)
 		/// </summary>
-		/// <param name="expression">对元素调用的函数, 比如: "function(i, o){ return 'my_' + i.toString(); }".</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <param name="expression">返回调用函数的表达式, 比如: "function(i, o){ return 'my_' + i.toString(); }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Map ( string expression )
 		{ return this.Execute ( "map", expression ); }
+
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加鼠标按下事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mousedown ( )
+		{ return this.Mousedown ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加鼠标按下的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mousedown ( string expressionI )
+		{ return this.Mousedown ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加鼠标按下的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mousedown ( string expressionI, string expressionII )
+		{ return this.Execute ( "mousedown", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加鼠标进入事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mouseenter ( )
+		{ return this.Mouseenter ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加鼠标进入的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mouseenter ( string expressionI )
+		{ return this.Mouseenter ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加鼠标进入的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mouseenter ( string expressionI, string expressionII )
+		{ return this.Execute ( "mouseenter", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加鼠标离开事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mouseleave ( )
+		{ return this.Mouseleave ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加鼠标离开的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mouseleave ( string expressionI )
+		{ return this.Mouseleave ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加鼠标离开的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mouseleave ( string expressionI, string expressionII )
+		{ return this.Execute ( "mouseleave", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加鼠标滑动事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mousemove ( )
+		{ return this.Mousemove ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加鼠标滑动的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mousemove ( string expressionI )
+		{ return this.Mousemove ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加鼠标滑动的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mousemove ( string expressionI, string expressionII )
+		{ return this.Execute ( "mousemove", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加鼠标滑出事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mouseout ( )
+		{ return this.Mouseout ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加鼠标滑出的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mouseout ( string expressionI )
+		{ return this.Mouseout ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加鼠标滑出的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mouseout ( string expressionI, string expressionII )
+		{ return this.Execute ( "mouseout", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加鼠标滑入事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mouseover ( )
+		{ return this.Mouseover ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加鼠标滑入的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mouseover ( string expressionI )
+		{ return this.Mouseover ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加鼠标滑入的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mouseover ( string expressionI, string expressionII )
+		{ return this.Execute ( "mouseover", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加鼠标松开事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mouseup ( )
+		{ return this.Mouseup ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加鼠标松开的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mouseup ( string expressionI )
+		{ return this.Mouseup ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加鼠标松开的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Mouseup ( string expressionI, string expressionII )
+		{ return this.Execute ( "mouseup", expressionI, expressionII ); }
 
 		#endregion
 
 		#region " 方法 N "
 
 		/// <summary>
-		/// 尚未编辑.
+		/// 得到当前 jQuery 中包含元素的向后的第一个兄弟元素.
 		/// </summary>
-		/// <returns>尚未编辑.</returns>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Next ( )
-		{ return this.Execute ( "next" ); }
+		{ return this.Next ( null ); }
+		/// <summary>
+		/// 得到当前 jQuery 中包含元素的向后的符合选择器的第一个兄弟元素.
+		/// </summary>
+		/// <param name="expression">用于选择兄弟元素的选择器, 比如: "'strong'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Next ( string expression )
+		{ return this.Execute ( "next", expression ); }
+
+		/// <summary>
+		/// 得到当前 jQuery 中包含元素的向后的所有兄弟元素. (需要 1.2 版本以上)
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery NextAll ( )
+		{ return this.NextAll ( null ); }
+		/// <summary>
+		/// 得到当前 jQuery 中包含元素的向后的符合选择器的所有兄弟元素. (需要 1.2 版本以上)
+		/// </summary>
+		/// <param name="expression">用于选择兄弟元素的选择器, 比如: "'strong'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery NextAll ( string expression )
+		{ return this.Execute ( "nextAll", expression ); }
+
+		/// <summary>
+		/// 得到当前 jQuery 中包含元素向后的所有兄弟元素. (需要 1.4 版本以上)
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery NextUntil ( )
+		{ return this.NextUntil ( null ); }
+		/// <summary>
+		/// 得到当前 jQuery 中包含元素向后的所有兄弟元素, 出现符合选择器的兄弟元素为止, 不包含此符合选择器的兄弟元素. (需要 1.4 版本以上)
+		/// </summary>
+		/// <param name="expression">用于选择兄弟元素的选择器, 比如: "'strong'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery NextUntil ( string expression )
+		{ return this.Execute ( "nextUntil", expression ); }
 
 		/// <summary>
 		/// 卸载 jQuery 在页面中 $ 的定义.
@@ -473,16 +1081,202 @@ namespace zoyobar.shared.panzer.web
 		{ return this.Execute ( "noConflict", expression ); }
 
 		/// <summary>
-		/// 添加执行选择不符合条件的元素的 not 方法的代码.
+		/// 去除当前 jQuery 中符合条件的元素.
 		/// </summary>
-		/// <param name="expression">可以是选择器, 比如: "'li'", 也可以是 DOM 元素, 比如: "document.getElementById('li51')", 或者是测试函数, 比如: "function(i){ return i == 3; }".</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <param name="expression">可以是选择器, 比如: "'strong'", 也可以是测试函数, 比如: "function(i){return (i == 0) || (i == 4);}", 也可以是 DOM 元素, 比如: "document.getElementById('li51')".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Not ( string expression )
 		{ return this.Execute ( "not", expression ); }
 
 		#endregion
 
+		#region " 方法 O "
+
+		/// <summary>
+		/// 获取当前 jQuery 中第一个元素相对于 document 的位置, 返回值保存一个拥有 top 和 left 属性的对象中.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Offset ( )
+		{ return this.Offset ( null ); }
+		/// <summary>
+		/// 设置当前 jQuery 中元素相对于 document 的位置.
+		/// </summary>
+		/// <param name="expression">返回具有 top 和 left 属性的对象的表达式, 比如: "{ top: 10, left: 20 }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Offset ( string expression )
+		{ return this.Execute ( "offset", expression ); }
+
+		/// <summary>
+		/// 获取 jQuery 中包含元素的第一个设置了 position 样式为 relative, absolute 或者 fixed 的父元素.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery OffsetParent ( )
+		{ return this.Execute ( "offsetParent" ); }
+
+		/// <summary>
+		/// 获取当前 jQuery 中包含的第一个元素的高度数值, 包含边框, padding. (需要 1.2.6 版本以上)
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery OuterHeight ( )
+		{ return this.OuterHeight ( null ); }
+		/// <summary>
+		/// 获取当前 jQuery 中包含的第一个元素的高度数值, 包含边框, padding, 可选 margin. (需要 1.2.6 版本以上)
+		/// </summary>
+		/// <param name="expression">一个布尔表达式, 比如: "true", 指定是否包含 margin, 默认为 false.</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery OuterHeight ( string expression )
+		{ return this.Execute ( "outerHeight", expression ); }
+
+		/// <summary>
+		/// 获取当前 jQuery 中包含的第一个元素的宽度数值, 包含边框, padding. (需要 1.2.6 版本以上)
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery OuterWidth ( )
+		{ return this.OuterWidth ( null ); }
+		/// <summary>
+		/// 获取当前 jQuery 中包含的第一个元素的宽度数值, 包含边框, padding, 可选 margin. (需要 1.2.6 版本以上)
+		/// </summary>
+		/// <param name="expression">一个布尔表达式, 比如: "true", 指定是否包含 margin, 默认为 false.</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery OuterWidth ( string expression )
+		{ return this.Execute ( "outerWidth", expression ); }
+
+		#endregion
+
+		#region " 方法  P "
+
+		/// <summary>
+		/// 获取当前 jQuery 中包含的元素的第一级父元素.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Parent ( )
+		{ return this.Parent ( null ); }
+		/// <summary>
+		/// 获取当前 jQuery 中包含的元素的第一级符合选择器的父元素.
+		/// </summary>
+		/// <param name="expression">用于选择父元素的选择器, 比如: "'strong'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Parent ( string expression )
+		{ return this.Execute ( "parent", expression ); }
+
+		/// <summary>
+		/// 获取当前 jQuery 中包含的元素的所有父元素.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Parents ( )
+		{ return this.Parents ( null ); }
+		/// <summary>
+		/// 获取当前 jQuery 中包含的元素的所有符合选择器的父元素.
+		/// </summary>
+		/// <param name="expression">用于选择父元素的选择器, 比如: "'strong'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Parents ( string expression )
+		{ return this.Execute ( "parents", expression ); }
+
+		/// <summary>
+		/// 得到当前 jQuery 中包含元素的所有父元素. (需要 1.4 版本以上)
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery ParentsUntil ( )
+		{ return this.ParentsUntil ( null ); }
+		/// <summary>
+		/// 得到当前 jQuery 中包含元素的所有父元素, 出现符合选择器的父元素为止, 不包含此符合选择器的父元素. (需要 1.4 版本以上)
+		/// </summary>
+		/// <param name="expression">用于选择父元素的选择器, 比如: "'strong'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery ParentsUntil ( string expression )
+		{ return this.Execute ( "parentsUntil", expression ); }
+
+		/// <summary>
+		/// 获取当前 jQuery 中第一个元素相对于父元素的位置, 返回值保存一个拥有 top 和 left 属性的对象中.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Position ( )
+		{ return this.Execute ( "position" ); }
+
+		/// <summary>
+		/// 在当前 jQuery 中包含的所有元素之前添加新的内容作为子元素.
+		/// </summary>
+		/// <param name="expressionI">可以是返回 html 代码的表达式, 比如: "'&lt;stong&gt;ok&lt;/stong&gt;'", 也可以是元素, 比如: "document.getElementById('myTable')" 或者是 jQuery 对象, 比如: "$('a')", 还可以是返回 html 代码的函数, 比如: "function(i, h) { return 'old html is ' + h;}". (如果使用函数需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Prepend ( string expressionI )
+		{ return this.Prepend ( expressionI, null ); }
+		/// <summary>
+		/// 在当前 jQuery 中包含的所有元素之前添加新的内容作为子元素.
+		/// </summary>
+		/// <param name="expressionI">可以是返回 html 代码的表达式, 比如: "'&lt;stong&gt;ok&lt;/stong&gt;'", 也可以是元素, 比如: "document.getElementById('myTable')" 或者是 jQuery 对象, 比如: "$('a')".</param>
+		/// <param name="expressionII">作用同第一个参数, 不过以数组的形式存在, 比如: "['&lt;stong&gt;ok&lt;/stong&gt;', '&lt;span&gt;ok&lt;/span&gt;']".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Prepend ( string expressionI, string expressionII )
+		{ return this.Execute ( "prepend", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 将当前 jQuery 中包含的元素追加到指定目标之前.
+		/// </summary>
+		/// <param name="expression">可以是选择器, 比如: "'.red'", 可以是返回 html 代码的表达式, 比如: "'&lt;stong&gt;ok&lt;/stong&gt;'", 也可以是元素, 比如: "document.getElementById('myTable')" 或者是 jQuery 对象, 比如: "$('a')".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery PrependTo ( string expression )
+		{ return this.Execute ( "prependTo", expression ); }
+
+		/// <summary>
+		/// 得到当前 jQuery 中包含元素的向前的第一个兄弟元素.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Prev ( )
+		{ return this.Prev ( null ); }
+		/// <summary>
+		/// 得到当前 jQuery 中包含元素的向前的符合选择器的第一个兄弟元素.
+		/// </summary>
+		/// <param name="expression">用于选择兄弟元素的选择器, 比如: "'strong'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Prev ( string expression )
+		{ return this.Execute ( "prev", expression ); }
+
+		/// <summary>
+		/// 得到当前 jQuery 中包含元素的向前的所有兄弟元素. (需要 1.2 版本以上)
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery PrevAll ( )
+		{ return this.PrevAll ( null ); }
+		/// <summary>
+		/// 得到当前 jQuery 中包含元素的向前的符合选择器的所有兄弟元素. (需要 1.2 版本以上)
+		/// </summary>
+		/// <param name="expression">用于选择兄弟元素的选择器, 比如: "'strong'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery PrevAll ( string expression )
+		{ return this.Execute ( "prevAll", expression ); }
+
+		/// <summary>
+		/// 得到当前 jQuery 中包含元素向前的所有兄弟元素. (需要 1.4 版本以上)
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery PrevUntil ( )
+		{ return this.PrevUntil ( null ); }
+		/// <summary>
+		/// 得到当前 jQuery 中包含元素向前的所有兄弟元素, 出现符合选择器的兄弟元素为止, 不包含此符合选择器的兄弟元素. (需要 1.4 版本以上)
+		/// </summary>
+		/// <param name="expression">用于选择兄弟元素的选择器, 比如: "'strong'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery PrevUntil ( string expression )
+		{ return this.Execute ( "prevUntil", expression ); }
+
+		#endregion
+
 		#region " 方法 R "
+
+		/// <summary>
+		/// 将当前 jQuery 中的元素从页面中删除.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Remove ( )
+		{ return this.Remove ( null ); }
+		/// <summary>
+		/// 将当前 jQuery 中符合选择器的元素从页面中删除.
+		/// </summary>
+		/// <param name="expression">用于选择删除元素的选择器, 比如: "'li'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Remove ( string expression )
+		{ return this.Execute ( "remove", expression ); }
 
 		/// <summary>
 		/// 删除 jQuery 中包含的元素的属性.
@@ -506,23 +1300,147 @@ namespace zoyobar.shared.panzer.web
 		public JQuery RemoveClass ( string expression )
 		{ return this.Execute ( "removeClass", expression ); }
 
+		/// <summary>
+		/// 使用当前 jQuery 中的元素替换符合选择器的元素. (需要 1.2 版本以上)
+		/// </summary>
+		/// <param name="expression">选择被替换到的元素的选择器, 比如: "'li'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery ReplaceAll ( string expression )
+		{ return this.Execute ( "replaceAll", expression ); }
+
+		/// <summary>
+		/// 使用新的元素替换当前 jQuery 中的元素. (需要 1.2 版本以上)
+		/// </summary>
+		/// <param name="expression">可以是返回 html 代码的表达式, 比如: "'&lt;stong&gt;ok&lt;/stong&gt;'", 也可以是元素, 比如: "document.getElementById('myTable')" 或者是 jQuery 对象, 比如: "$('a')", 还可以是一个返回元素的函数, 比如: "function(){ document.getElementById('abc') }". (如果使用函数需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery ReplaceWith ( string expression )
+		{ return this.Execute ( "replaceWith", expression ); }
+
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加大小改变事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Resize ( )
+		{ return this.Resize ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加大小改变的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Resize ( string expressionI )
+		{ return this.Resize ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加大小改变的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Resize ( string expressionI, string expressionII )
+		{ return this.Execute ( "resize", expressionI, expressionII ); }
+
 		#endregion
 
 		#region " 方法 S "
 
 		/// <summary>
-		/// 添加执行选择某个位置开始到结束范围的元素的 slice 方法的代码, 0 是第 1 个元素, -1 是最后一个元素.
+		/// 触发 jQuery 中的元素的添加滚动轴事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Scroll ( )
+		{ return this.Scroll ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加滚动轴的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Scroll ( string expressionI )
+		{ return this.Scroll ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加滚动轴的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Scroll ( string expressionI, string expressionII )
+		{ return this.Execute ( "scroll", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 获取当前 jQuery 中包含的第一个元素的水平滚动轴位置. (需要 1.2.6 版本以上)
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery ScrollLeft ( )
+		{ return this.ScrollLeft ( null ); }
+		/// <summary>
+		/// 设置当前 jQuery 中元素的水平滚动轴位置. (需要 1.2.6 版本以上)
+		/// </summary>
+		/// <param name="expression">一个数值的表达式, 比如: "110".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery ScrollLeft ( string expression )
+		{ return this.Execute ( "scrollLeft", expression ); }
+
+		/// <summary>
+		/// 获取当前 jQuery 中包含的第一个元素的垂直滚动轴位置. (需要 1.2.6 版本以上)
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery ScrollTop ( )
+		{ return this.ScrollTop ( null ); }
+		/// <summary>
+		/// 设置当前 jQuery 中元素的垂直滚动轴位置. (需要 1.2.6 版本以上)
+		/// </summary>
+		/// <param name="expression">一个数值的表达式, 比如: "110".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery ScrollTop ( string expression )
+		{ return this.Execute ( "scrollTop", expression ); }
+
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加选择事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Select ( )
+		{ return this.Select ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加选择的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Select ( string expressionI )
+		{ return this.Select ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加选择的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Select ( string expressionI, string expressionII )
+		{ return this.Execute ( "select", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 获取当前 jQuery 中包含的元素的所有兄弟元素.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Siblings ( )
+		{ return this.Siblings ( null ); }
+		/// <summary>
+		/// 获取当前 jQuery 中包含的元素的所有符合选择器的兄弟元素.
+		/// </summary>
+		/// <param name="expression">用于选择兄弟元素的选择器, 比如: "'strong'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Siblings ( string expression )
+		{ return this.Execute ( "siblings", expression ); }
+
+		/// <summary>
+		/// 选择当前 jQuery 中从某个位置开始到结束范围的元素, 0 是第 1 个元素, -1 是最后一个元素. (需要 1.1.4 版本以上)
 		/// </summary>
 		/// <param name="expressionI">开始索引, 比如: "1".</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Slice ( string expressionI )
 		{ return this.Slice ( expressionI, null ); }
 		/// <summary>
-		/// 添加执行选择某个范围的元素的 slice 方法的代码, 0 是第 1 个元素, -1 是最后一个元素.
+		/// 选择当前 jQuery 中某个范围的元素, 0 是第 1 个元素, -1 是最后一个元素. (需要 1.1.4 版本以上)
 		/// </summary>
 		/// <param name="expressionI">开始索引, 比如: "1".</param>
 		/// <param name="expressionII">结束索引, 比如: "2", 结束位置的元素不会被选择.</param>
-		/// <returns>添加代码后的 JQuery.</returns>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Slice ( string expressionI, string expressionII )
 		{ return this.Execute ( "slice", expressionI, expressionII ); }
 
@@ -533,21 +1451,43 @@ namespace zoyobar.shared.panzer.web
 		public JQuery Sub ( )
 		{ return this.Execute ( "sub" ); }
 
+		/// <summary>
+		/// 触发 jQuery 中的元素的添加提交事件.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Submit ( )
+		{ return this.Submit ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加提交的事件.
+		/// </summary>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Submit ( string expressionI )
+		{ return this.Submit ( expressionI, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素添加提交的事件. (需要 1.4.3 版本以上)
+		/// </summary>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Submit ( string expressionI, string expressionII )
+		{ return this.Execute ( "submit", expressionI, expressionII ); }
+
 		#endregion
 
 		#region " 方法 T "
 
 		/// <summary>
-		/// 尚未编辑.
+		/// 获取 jQuery 中包含的第一个元素的 innerText 属性.
 		/// </summary>
-		/// <returns>尚未编辑.</returns>
-		public JQuery Text ()
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Text ( )
 		{ return this.Text ( null ); }
 		/// <summary>
-		/// 尚未编辑.
+		/// 设置 jQuery 中包含元素的 innerText 属性.
 		/// </summary>
-		/// <param name="expression">尚未编辑.</param>
-		/// <returns>尚未编辑.</returns>
+		/// <param name="expression">一个字符串表达式, 比如: "'this is abc'", 或者返回字符串的函数, 比如: "function(i, t){ return 'old text is ' + t; }". (如果使用函数需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Text ( string expression )
 		{ return this.Execute ( "text", expression ); }
 
@@ -574,6 +1514,17 @@ namespace zoyobar.shared.panzer.web
 
 		#endregion
 
+		#region " 方法 U "
+
+		/// <summary>
+		/// 删除调用 wrap 方法产生的父元素. (需要 1.4 版本以上)
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Unwrap ( )
+		{ return this.Execute ( "unwrap" ); }
+
+		#endregion
+
 		#region " 方法 V "
 
 		/// <summary>
@@ -589,7 +1540,7 @@ namespace zoyobar.shared.panzer.web
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Val ( string expression )
 		{ return this.Execute ( "val", expression ); }
-		
+
 		#endregion
 
 		#region " 方法 W "
@@ -601,6 +1552,44 @@ namespace zoyobar.shared.panzer.web
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery When ( string expression )
 		{ return this.Execute ( "when", expression ); }
+
+		/// <summary>
+		/// 获取当前 jQuery 中包含的第一个元素的宽度数值.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Width ( )
+		{ return this.Width ( null ); }
+		/// <summary>
+		/// 设置当前 jQuery 中元素的宽度.
+		/// </summary>
+		/// <param name="expression">一个数值的表达式, 比如: "110", 或者一个返回数值的函数, 比如: "function(i, w){ return i + w; }". (如果使用函数需要 1.4.1 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Width ( string expression )
+		{ return this.Execute ( "width", expression ); }
+
+		/// <summary>
+		/// 为当前 jQuery 中的每一个元素添加父元素.
+		/// </summary>
+		/// <param name="expression">可以是返回 html 代码的表达式, 比如: "'&lt;stong&gt;&lt;/stong&gt;'", 也可以是元素, 比如: "document.getElementById('myTable')" 或者是 jQuery 对象, 比如: "$('a')", 还可以是一个返回元素的函数, 比如: "function(i){ return '&lt;div&gt;&lt;/div&gt;'; }". (如果使用函数需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Wrap ( string expression )
+		{ return this.Execute ( "wrap", expression ); }
+
+		/// <summary>
+		/// 为当前 jQuery 中的元素添加一个共同的父元素. (需要 1.2 版本以上)
+		/// </summary>
+		/// <param name="expression">可以是返回 html 代码的表达式, 比如: "'&lt;stong&gt;&lt;/stong&gt;'", 也可以是元素, 比如: "document.getElementById('myTable')" 或者是 jQuery 对象, 比如: "$('a')".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery WrapAll ( string expression )
+		{ return this.Execute ( "wrapAll", expression ); }
+
+		/// <summary>
+		/// 为当前 jQuery 中的每一个元素添加一个子元素, 这个子元素包含原来所有的子元素. (需要 1.2 版本以上)
+		/// </summary>
+		/// <param name="expression">可以是返回 html 代码的表达式, 比如: "'&lt;stong&gt;&lt;/stong&gt;'", 也可以是元素, 比如: "document.getElementById('myTable')" 或者是 jQuery 对象, 比如: "$('a')", 还可以是一个返回元素的函数, 比如: "function(){ return '&lt;div&gt;&lt;/div&gt;'; }". (如果使用函数需要 1.4 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery WrapInner ( string expression )
+		{ return this.Execute ( "wrapInner", expression ); }
 
 		#endregion
 
