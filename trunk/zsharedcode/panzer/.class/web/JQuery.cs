@@ -16,7 +16,7 @@ namespace zoyobar.shared.panzer.web
 {
 
 	/// <summary>
-	/// JQuery 用于编写构造 jQuery 脚本, 包含了 jQuery 中的方法等.
+	/// JQuery 用于编写构造 jQuery 脚本, 包含了 jQuery 中的方法等. (尚未包含 Effects, Ajax, Utilities 的部分方法)
 	/// </summary>
 	public class JQuery
 		: ScriptHelper
