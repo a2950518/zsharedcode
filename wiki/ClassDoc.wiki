@@ -51,6 +51,7 @@
  * [WebPageNextStateSetting web.ib.WebPageNextStateSetting]
  * [WebPageState web.ib.WebPageState]
  * [JQuery web.JQuery]
+ * [JQueryUIExpressionHelper web.jqueryui.ExpressionHelper]
  * [JQueryUIOption web.jqueryui.Option]
  * [JQueryUIOptionType web.jqueryui.OptionType]
  * [NavigateOption web.NavigateOption]
