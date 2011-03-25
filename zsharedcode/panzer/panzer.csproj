@@ -48,6 +48,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
@@ -66,6 +67,8 @@
     </Compile>
     <Compile Include=".class\ui\dwindow\DataWindowCore.cs" />
     <Compile Include=".class\ui\jqueryui\JQueryElement.cs" />
+    <Compile Include=".class\ui\jqueryui\OptionEdit.cs" />
+    <Compile Include=".class\ui\jqueryui\DraggableSettingEdit.cs" />
     <Compile Include=".class\ui\UILoader.cs" />
     <Compile Include=".class\ui\WindowCore.cs" />
     <Compile Include=".class\web\EMail.cs" />
@@ -75,6 +78,10 @@
     <Compile Include=".class\web\ib\WebPageState.cs" />
     <Compile Include=".class\web\JQuery.cs" />
     <Compile Include=".class\web\ib\IEBrowser.cs" />
+    <Compile Include=".class\web\jqueryui\JQueryUI.cs" />
+    <Compile Include=".class\web\jqueryui\DraggableSetting.cs" />
+    <Compile Include=".class\web\jqueryui\Option.cs" />
+    <Compile Include=".class\web\jqueryui\ExpressionHelper.cs" />
     <Compile Include=".class\web\ScriptHelper.cs" />
     <None Include=".code\DataWebCore.all.cs" />
     <None Include=".code\DataWindowCore.all.cs" />
