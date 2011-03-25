@@ -72,6 +72,7 @@
       * jqueryui
         * [JQueryUIDraggableSetting DraggableSetting]
         * [JQueryUIExpressionHelper ExpressionHelper]
+        * [JQueryUI JQueryUI]
         * [JQueryUIOption Option]
         * [JQueryUIOptionType OptionType]
       * [NavigateOption NavigateOption]
