@@ -43,6 +43,8 @@
         * [DWCTableSetting TableSetting`1]
       * [EventHandlerType EventHandlerType]
       * jqueryui
+        * [JQueryUIDraggableSettingEdit DraggableSettingEdit]
+        * [JQueryUIDraggableSettingEditConverter DraggableSettingEditConverter]
         * [JQueryUIOptionEdit OptionEdit]
         * [JQueryUIOptionEditCollectionEditor OptionEditCollectionEditor]
         * [JQueryUIOptionEditConverter JQueryUIOptionEditConverter]

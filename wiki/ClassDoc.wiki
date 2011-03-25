@@ -26,6 +26,8 @@
  * [PagerActionType ui.dwindow.PagerActionType]
  * [DWCTableSetting ui.dwindow.TableSetting`1]
  * [EventHandlerType ui.EventHandlerType]
+ * [JQueryUIDraggableSettingEdit ui.jqueryui.DraggableSettingEdit]
+ * [JQueryUIDraggableSettingEditConverter ui.jqueryui.DraggableSettingEditConverter]
  * [JQueryUIOptionEdit ui.jqueryui.OptionEdit]
  * [JQueryUIOptionEditCollectionEditor ui.jqueryui.OptionEditCollectionEditor]
  * [JQueryUIOptionEditConverter ui.jqueryui.JQueryUIOptionEditConverter]
