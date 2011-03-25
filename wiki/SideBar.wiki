@@ -42,6 +42,10 @@
         * [PagerActionType PagerActionType]
         * [DWCTableSetting TableSetting`1]
       * [EventHandlerType EventHandlerType]
+      * jqueryui
+        * [JQueryUIOptionEdit OptionEdit]
+        * [JQueryUIOptionEditCollectionEditor OptionEditCollectionEditor]
+        * [JQueryUIOptionEditConverter JQueryUIOptionEditConverter]
       * [WindowCore WindowCore`1]
     * [ValueKind ValueKind]
     * [ValueStamp ValueStamp]
