@@ -45,6 +45,8 @@
       * jqueryui
         * [JQueryUIDraggableSettingEdit DraggableSettingEdit]
         * [JQueryUIDraggableSettingEditConverter DraggableSettingEditConverter]
+        * [JQueryElementType ui.jqueryui.ElementType]
+        * [JQueryElement ui.jqueryui.JQueryElement]
         * [JQueryUIOptionEdit OptionEdit]
         * [JQueryUIOptionEditCollectionEditor OptionEditCollectionEditor]
         * [JQueryUIOptionEditConverter JQueryUIOptionEditConverter]

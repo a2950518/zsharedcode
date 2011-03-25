@@ -28,6 +28,8 @@
  * [EventHandlerType ui.EventHandlerType]
  * [JQueryUIDraggableSettingEdit ui.jqueryui.DraggableSettingEdit]
  * [JQueryUIDraggableSettingEditConverter ui.jqueryui.DraggableSettingEditConverter]
+ * [JQueryElementType ui.jqueryui.ElementType]
+ * [JQueryElement ui.jqueryui.JQueryElement]
  * [JQueryUIOptionEdit ui.jqueryui.OptionEdit]
  * [JQueryUIOptionEditCollectionEditor ui.jqueryui.OptionEditCollectionEditor]
  * [JQueryUIOptionEditConverter ui.jqueryui.JQueryUIOptionEditConverter]
