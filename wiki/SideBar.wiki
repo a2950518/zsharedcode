@@ -70,6 +70,7 @@
         * [WebPageState WebPageState]
       * [JQuery JQuery]
       * jqueryui
+        * [JQueryUIDraggableSetting DraggableSetting]
         * [JQueryUIExpressionHelper ExpressionHelper]
         * [JQueryUIOption Option]
         * [JQueryUIOptionType OptionType]
