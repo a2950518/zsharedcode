@@ -35,7 +35,7 @@ namespace zoyobar.shared.panzer.web
 	public partial class ScriptHelper
 	{
 
-		private static readonly Random random = new Random ();
+		private static readonly Random random = new Random ( );
 
 #if PARAM
 		/// <summary>
@@ -116,9 +116,9 @@ namespace zoyobar.shared.panzer.web
 #else
 			if ( ( option & ScriptBuildOption.Startup ) == ScriptBuildOption.Startup )
 #endif
-				return page.ClientScript.IsStartupScriptRegistered ( page.GetType (), MakeKey ( key ) );
+				return page.ClientScript.IsStartupScriptRegistered ( page.GetType ( ), MakeKey ( key ) );
 			else
-				return page.ClientScript.IsClientScriptBlockRegistered ( page.GetType (), MakeKey ( key ) );
+				return page.ClientScript.IsClientScriptBlockRegistered ( page.GetType ( ), MakeKey ( key ) );
 
 		}
 
@@ -351,7 +351,7 @@ namespace zoyobar.shared.panzer.web
 		/// <summary>
 		/// 清除所有的代码.
 		/// </summary>
-		public void Clear ()
+		public void Clear ( )
 		{ this.code = string.Empty; }
 
 		/// <summary>
@@ -433,7 +433,7 @@ namespace zoyobar.shared.panzer.web
 #endif
 				script = this.code;
 			else
-				script = string.Format ( "<script language='{0}' type='{1}'>\n{2}\n</script>", this.scriptType, type, this.code );
+				script = string.Format ( "<script language='{0}' type='{1}'>\n{2}\n</script>", this.scriptType.ToString ( ).ToLower ( ), type, this.code );
 
 			key = MakeKey ( key );
 
@@ -442,9 +442,9 @@ namespace zoyobar.shared.panzer.web
 #else
 			if ( ( option & ScriptBuildOption.Startup ) == ScriptBuildOption.Startup )
 #endif
-				page.ClientScript.RegisterStartupScript ( page.GetType (), key, script );
+				page.ClientScript.RegisterStartupScript ( page.GetType ( ), key, script );
 			else
-				page.ClientScript.RegisterClientScriptBlock ( page.GetType (), key, script );
+				page.ClientScript.RegisterClientScriptBlock ( page.GetType ( ), key, script );
 
 			// if ( option.HasFlag ( ScriptBuildOption.EndResponse ) && null != page.Response )
 			//     page.Response.End ();
@@ -791,10 +791,10 @@ namespace zoyobar.shared.panzer.web
 
 			key = MakeKey ( key );
 
-			if ( page.ClientScript.IsClientScriptIncludeRegistered ( page.GetType (), key ) )
+			if ( page.ClientScript.IsClientScriptIncludeRegistered ( page.GetType ( ), key ) )
 				return;
 
-			page.ClientScript.RegisterClientScriptInclude ( page.GetType (), key, url );
+			page.ClientScript.RegisterClientScriptInclude ( page.GetType ( ), key, url );
 		}
 
 
@@ -916,10 +916,10 @@ namespace zoyobar.shared.panzer.web
 
 			key = MakeKey ( key );
 
-			if ( page.ClientScript.IsOnSubmitStatementRegistered ( page.GetType (), key ) )
+			if ( page.ClientScript.IsOnSubmitStatementRegistered ( page.GetType ( ), key ) )
 				return;
 
-			page.ClientScript.RegisterOnSubmitStatement ( page.GetType (), key, code );
+			page.ClientScript.RegisterOnSubmitStatement ( page.GetType ( ), key, code );
 		}
 
 	}
