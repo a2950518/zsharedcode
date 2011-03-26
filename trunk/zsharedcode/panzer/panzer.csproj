@@ -96,6 +96,7 @@
       <SubType>Code</SubType>
     </Compile>
     <None Include=".code\IEBrowser.with.HtmlEditHelper.all.cs" />
+    <None Include=".code\JQueryElement.all.cs" />
     <Compile Include=".enum\FunctionType.cs" />
     <Compile Include=".enum\CharacterType.cs" />
     <Compile Include=".enum\StringCompareMode.cs" />
