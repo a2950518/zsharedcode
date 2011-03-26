@@ -1,4 +1,4 @@
-#summary JQueryElement 示例
+#summary JQueryElement 分析&示例
 #labels Phase-Implementation,Featured
 <font face="microsoft yahei">
 === 分析&示例 ===
