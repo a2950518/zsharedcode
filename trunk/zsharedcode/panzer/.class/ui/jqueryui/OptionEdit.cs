@@ -38,14 +38,14 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class OptionEdit
 		: IStateManager
 	{
-		private OptionType type = OptionType.None;
+		private OptionType type = OptionType.none;
 		private string value = string.Empty;
 
 		/// <summary>
 		/// 获取或设置选项的类型.
 		/// </summary>
 		[Category ( "jQuery UI" )]
-		[DefaultValue ( OptionType.None )]
+		[DefaultValue ( OptionType.none )]
 		[Description ( "选项的类型" )]
 		[NotifyParentProperty ( true )]
 		public OptionType Type
@@ -186,7 +186,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			OptionEdit edit = value as OptionEdit;
 
-			return string.Format ( "{0}`;{1}", edit.Type.ToString ( ).ToLower ( ), edit.Value );
+			return string.Format ( "{0}`;{1}", edit.Type.ToString ( ), edit.Value );
 		}
 
 	}

@@ -235,10 +235,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				string style = string.Empty;
 
 				if ( this.Width != Unit.Empty )
-					style += "width:" + this.Width.ToString ( );
+					style += string.Format( "width:{0};", this.Width );
 
 				if ( this.Height != Unit.Empty )
-					style += "height:" + this.Height.ToString ( );
+					style += string.Format ( "height:{0};", this.Height );
 
 				writer.Write (
 					"<{0} id={1}{2}{3}{4}>",
@@ -258,7 +258,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			jquery.Draggable ( this.draggableSetting.CreateDraggableSetting ( ) );
 
-			jquery.Code = "$(function(){" + jquery.Code + "});";
+			jquery.Code = "$(function(){" + jquery.Code + ";});";
 			jquery.Build ( this, this.ClientID, ScriptBuildOption.Startup );
 		}
 
