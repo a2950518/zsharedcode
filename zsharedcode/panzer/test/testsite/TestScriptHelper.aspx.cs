@@ -754,7 +754,7 @@ public partial class TestScriptHelper : System.Web.UI.Page
 		if ( !isInfoValid )
 		{
 			// 因为存在错误, 生成脚本到页面并返回
-			scriptHelper.Build ( this, ScriptBuildOption.Startup );
+			scriptHelper.Build ( this, option: ScriptBuildOption.Startup );
 			return;
 		}
 
@@ -782,7 +782,7 @@ public partial class TestScriptHelper : System.Web.UI.Page
 		}
 
 		// 生成脚本到页面
-		scriptHelper.Build ( this, ScriptBuildOption.Startup );
+		scriptHelper.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdRun2_Click ( object sender, EventArgs e )
@@ -795,7 +795,7 @@ public partial class TestScriptHelper : System.Web.UI.Page
 		{
 			// 没有脚本, 添加弹出消息框的脚本
 			scriptHelper.Alert ( "'没有任何脚本'" );
-			scriptHelper.Build ( this, ScriptBuildOption.Startup );
+			scriptHelper.Build ( this, option: ScriptBuildOption.Startup );
 			return;
 		}
 
@@ -803,7 +803,7 @@ public partial class TestScriptHelper : System.Web.UI.Page
 		scriptHelper.AppendCode ( code );
 
 		// 生成脚本到页面
-		scriptHelper.Build ( this, ScriptBuildOption.Startup );
+		scriptHelper.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdNext3_Click ( object sender, EventArgs e )
@@ -824,7 +824,7 @@ public partial class TestScriptHelper : System.Web.UI.Page
 		}
 
 		// 生成脚本
-		scriptHelper.Build ( this, ScriptBuildOption.Startup );
+		scriptHelper.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdOK3_Click ( object sender, EventArgs e )
@@ -851,7 +851,7 @@ public partial class TestScriptHelper : System.Web.UI.Page
 		}
 
 		// 生成脚本
-		scriptHelper.Build ( this, ScriptBuildOption.Startup );
+		scriptHelper.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdOK4_Click ( object sender, EventArgs e )
@@ -869,7 +869,7 @@ public partial class TestScriptHelper : System.Web.UI.Page
 		scriptHelper.SetInterval ( "function(){document.getElementById('span4').style.color = GetNextColor();}", 100 );
 
 		// 生成脚本
-		scriptHelper.Build ( this, ScriptBuildOption.Startup );
+		scriptHelper.Build ( this, option:ScriptBuildOption.Startup );
 	}
 
 	#endregion

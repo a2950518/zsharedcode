@@ -177,7 +177,7 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		jQuery.Build ( this, ScriptBuildOption.Startup );
+		jQuery.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdTestAttr_Click ( object sender, EventArgs e )
@@ -214,8 +214,8 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		jQuery1.Build ( this, ScriptBuildOption.Startup );
-		jQuery2.Build ( this, ScriptBuildOption.Startup );
+		jQuery1.Build ( this, option: ScriptBuildOption.Startup );
+		jQuery2.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdTestHasClass_Click ( object sender, EventArgs e )
@@ -243,7 +243,7 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		scriptHelper.Build ( this, ScriptBuildOption.Startup );
+		scriptHelper.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdTestHtml_Click ( object sender, EventArgs e )
@@ -283,8 +283,8 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		scriptHelper.Build ( this, ScriptBuildOption.Startup );
-		jQuery2.Build ( this, ScriptBuildOption.Startup );
+		scriptHelper.Build ( this, option: ScriptBuildOption.Startup );
+		jQuery2.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdTestRemoveAttr_Click ( object sender, EventArgs e )
@@ -307,7 +307,7 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		jQuery.Build ( this, ScriptBuildOption.Startup );
+		jQuery.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdTestRemoveClass_Click ( object sender, EventArgs e )
@@ -330,7 +330,7 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		jQuery.Build ( this, ScriptBuildOption.Startup );
+		jQuery.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdTestToggleClass_Click ( object sender, EventArgs e )
@@ -353,7 +353,7 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		jQuery.Build ( this, ScriptBuildOption.Startup );
+		jQuery.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdTestVal_Click ( object sender, EventArgs e )
@@ -393,8 +393,8 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		scriptHelper.Build ( this, ScriptBuildOption.Startup );
-		jQuery2.Build ( this, ScriptBuildOption.Startup );
+		scriptHelper.Build ( this, option: ScriptBuildOption.Startup );
+		jQuery2.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdTestEq_Click ( object sender, EventArgs e )
@@ -422,7 +422,7 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		scriptHelper.Build ( this, ScriptBuildOption.Startup );
+		scriptHelper.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdTestFilter_Click ( object sender, EventArgs e )
@@ -445,7 +445,7 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		jQuery.Build ( this, ScriptBuildOption.Startup );
+		jQuery.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdTestHas_Click ( object sender, EventArgs e )
@@ -468,7 +468,7 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		jQuery.Build ( this, ScriptBuildOption.Startup );
+		jQuery.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdTestIs_Click ( object sender, EventArgs e )
@@ -496,7 +496,7 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		scriptHelper.Build ( this, ScriptBuildOption.Startup );
+		scriptHelper.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdTestFirst_Click ( object sender, EventArgs e )
@@ -519,7 +519,7 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		jQuery.Build ( this, ScriptBuildOption.Startup );
+		jQuery.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdTestLast_Click ( object sender, EventArgs e )
@@ -542,7 +542,7 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		jQuery.Build ( this, ScriptBuildOption.Startup );
+		jQuery.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdTestMap_Click ( object sender, EventArgs e )
@@ -565,7 +565,7 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		jQuery.Build ( this, ScriptBuildOption.Startup );
+		jQuery.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdTestNot_Click ( object sender, EventArgs e )
@@ -588,7 +588,7 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		jQuery.Build ( this, ScriptBuildOption.Startup );
+		jQuery.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 	protected void cmdTestSlice_Click ( object sender, EventArgs e )
@@ -623,8 +623,8 @@ public partial class TestJQuery : System.Web.UI.Page
 
 		this.lblResult.Text = result;
 
-		jQuery1.Build ( this, ScriptBuildOption.Startup );
-		jQuery2.Build ( this, ScriptBuildOption.Startup );
+		jQuery1.Build ( this, option: ScriptBuildOption.Startup );
+		jQuery2.Build ( this, option: ScriptBuildOption.Startup );
 	}
 
 }

@@ -1,66 +1,20 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<style>
-		div
-		{
-			width: 60px;
-			height: 60px;
-			margin: 5px;
-			float: left;
-			border: 4px outset;
-			background: green;
-			text-align: center;
-			font-weight: bolder;
-			cursor: pointer;
-		}
-		.blue
-		{
-			background: blue;
-		}
-		.red
-		{
-			background: red;
-		}
-		span
-		{
-			color: white;
-			font-size: 16px;
-		}
-		p
-		{
-			color: red;
-			font-weight: bolder;
-			background: yellow;
-			margin: 3px;
-			clear: left;
-			display: none;
-		}
-	</style>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.11.custom.css" />
+	<script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.11.custom.min.js"></script>
 </head>
 <body>
-456
-	<div>
-	</div>
-	<div class="blue">123
-	<span>abc</span>
-	</div>
-	<div>
-	</div>
-	<div class="red">
-	</div>
-	<div>
-		<br />
-		<span>Peter</span></div>
-	<div class="blue">
-	</div>
-	<p>
-		&nbsp;</p>
-		<input onclick="$('body').find('.blue').find('span').end().css('border', 'solid 1px #ff0000').end().css('border', 'solid 1px #000000');" />
-		<input onclick="__set('__t', '$('#a').contents().find('#t').val());'" />
+	<div id="draggable" class="ui-button">draggable</div>
+	<div id="Div1" class="ui-button">Div1</div>
 	<script type="text/javascript">
-		function __set(name, value) { if (null == name) { return; } window[name] = eval(value); } function __get(name) { if (null == name) { return null; } else { return window[name]; } }
+		$(function () {
+			$("#draggable").draggable();
+		});
+		$(function () {
+			$("#Div1").draggable();
+		});
 	</script>
 </body>
 </html>
