@@ -3,4 +3,5 @@
 <font face="microsoft yahei">
 === 分析&示例 ===
  * [IEBrowserDoc IEBrowser 分析&示例]
+ * [JQueryElementDoc JQueryElement 分析&示例]
 </font>
