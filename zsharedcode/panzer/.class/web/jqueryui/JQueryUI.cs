@@ -141,6 +141,11 @@ namespace zoyobar.shared.panzer.web.jqueryui
 
 		#region " draggable "
 
+		/// <summary>
+		/// 拖动操作.
+		/// </summary>
+		/// <param name="setting">拖动的相关设置.</param>
+		/// <returns>更新后的 JQueryUI 对象.</returns>
 		public JQueryUI Draggable ( DraggableSetting setting )
 		{
 
@@ -151,12 +156,12 @@ namespace zoyobar.shared.panzer.web.jqueryui
 
 			foreach ( Option option in setting.Options )
 					if ( null != option )
-						optionExpression += string.Format ( " {0}: {1},", option.Type.ToString ( ).ToLower ( ), option.Value );
+						optionExpression += string.Format ( " {0}: {1},", option.Type, option.Value );
 
 			optionExpression = optionExpression.TrimEnd ( ',' ) + " }";
-			return this.Draggable ( optionExpression, null, null );
+			return this.draggable ( optionExpression, null, null );
 		}
-		public JQueryUI Draggable ( string expressionI, string expressionII, string expressionIII )
+		private JQueryUI draggable ( string expressionI, string expressionII, string expressionIII )
 		{ return this.Execute ( "draggable", expressionI, expressionII, expressionIII ) as JQueryUI; }
 
 		#endregion

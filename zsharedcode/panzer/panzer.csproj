@@ -116,6 +116,8 @@
     <None Include=".interface\Interface.cd" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="jquery.GPL-LICENSE.txt" />
+    <Content Include="jquery.MIT-LICENSE.txt" />
     <Content Include="panzer.license.txt" />
     <Content Include="read.me.txt" />
   </ItemGroup>
