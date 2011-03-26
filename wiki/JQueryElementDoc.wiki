@@ -1,6 +1,18 @@
-#summary JQueryElement 分析&示例
+﻿#summary JQueryElement 分析&示例
 #labels Phase-Implementation,Featured
 <font face="microsoft yahei">
 === 分析&示例 ===
  * [JQueryElementDraggableDoc JQueryElement 拖动基本操作]
+ * [JEDraggableAxisDoc JQueryElement 拖动 x/y 轴拖动]
+ * [JEDraggableContainmentDoc JQueryElement 拖动在指定区域]
+ * [JEDraggableCursorAtDoc JQueryElement 拖动鼠标位置]
+ * [JEDraggableCursorDoc JQueryElement 拖动鼠标样式]
+ * [JEDraggableDelayDoc JQueryElement 拖动延迟]
+ * [JEDraggableDistanceDoc JQueryElement 拖动有效距离]
+ * [JEDraggableGridDoc JQueryElement 拖动按照点阵移动]
+ * [JEDraggableHelperDoc JQueryElement 拖动使用副本]
+ * [JEDraggableOpacityDoc JQueryElement 拖动透明度]
+ * [JEDraggableRevertDoc JQueryElement 拖动恢复原位置]
+ * [JEDraggableRevertDurationDoc JQueryElement 拖动延迟恢复原位置]
+ * [JEDraggableSnapDoc JQueryElement 拖动附着到元素]
 </font>
