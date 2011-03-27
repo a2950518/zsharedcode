@@ -182,6 +182,56 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 动作停止时, 对应一个 javascript 函数.
 		/// </summary>
 		stop = 32,
+
+		/// <summary>
+		/// 动作接受的目标, 对应一个 javascript 函数或者选择器.
+		/// </summary>
+		accept = 33,
+
+		/// <summary>
+		/// 提供可用时的样式, 对应一个 javascript 字符串.
+		/// </summary>
+		activeClass = 34,
+
+		/// <summary>
+		/// 阻止事件的传播, 对应一个 javascript 布尔值.
+		/// </summary>
+		greedy = 35,
+
+		/// <summary>
+		/// 提供悬浮样式, 对应一个 javascript 字符串.
+		/// </summary>
+		hoverClass = 36,
+
+		/// <summary>
+		/// 接触的模式, 对应一个 javascript 字符串, 为 'fit', 'intersect', 'pointer', 'touch' 中的一种.
+		/// </summary>
+		tolerance = 37,
+
+		/// <summary>
+		/// 被激活时, 对应一个 javascript 函数.
+		/// </summary>
+		activate = 38,
+
+		/// <summary>
+		/// 取消激活时, 对应一个 javascript 函数.
+		/// </summary>
+		deactivate = 39,
+
+		/// <summary>
+		/// 在元素上时, 对应一个 javascript 函数.
+		/// </summary>
+		over = 40,
+
+		/// <summary>
+		/// 在元素之外时, 对应一个 javascript 函数.
+		/// </summary>
+		@out = 41,
+
+		/// <summary>
+		/// 元素放下时, 对应一个 javascript 函数.
+		/// </summary>
+		drop = 42,
 	}
 	#endregion
 

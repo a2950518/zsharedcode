@@ -27,8 +27,12 @@ using NControl = System.Web.UI.Control;
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
@@ -78,6 +82,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private ElementType elementType;
 
 		private DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
+		private DroppableSettingEdit droppableSetting = new DroppableSettingEdit ( );
+		private SortableSettingEdit sortableSetting = new SortableSettingEdit ( );
 
 		private readonly PlaceHolder html = new PlaceHolder ( );
 
@@ -91,7 +97,30 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public DraggableSettingEdit DraggableSetting
 		{
 			get { return this.draggableSetting; }
-			set { this.draggableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取元素的拖放设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的拖放设置, 前提 ElementType 不能为 None" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public DroppableSettingEdit DroppableSetting
+		{
+			get { return this.droppableSetting; }
+		}
+
+		/// <summary>
+		/// 获取元素的排列设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的排列设置, 前提 ElementType 不能为 None" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public SortableSettingEdit SortableSetting
+		{
+			get { return this.sortableSetting; }
 		}
 
 		/// <summary>
@@ -267,6 +296,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				writer.Write ( "</{0}>", this.elementType.ToString ( ).ToLower ( ) );
 
 			jquery.Draggable ( this.draggableSetting.CreateDraggableSetting ( ) );
+			jquery.Droppable ( this.droppableSetting.CreateDroppableSetting ( ) );
+			jquery.Sortable ( this.sortableSetting.CreateSortableSetting ( ) );
 
 			jquery.Code = "$(function(){" + jquery.Code + ";});";
 			jquery.Build ( this, this.ClientID, ScriptBuildOption.Startup );
@@ -277,11 +308,15 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			base.LoadViewState ( savedState );
 
 			( this.draggableSetting as IStateManager ).LoadViewState ( this.ViewState["DraggableSetting"] );
+			( this.droppableSetting as IStateManager ).LoadViewState ( this.ViewState["DroppableSetting"] );
+			( this.sortableSetting as IStateManager ).LoadViewState ( this.ViewState["SortableSetting"] );
 		}
 
 		protected override object SaveViewState ( )
 		{
 			this.ViewState["DraggableSetting"] = ( this.draggableSetting as IStateManager ).SaveViewState ( );
+			this.ViewState["DroppableSetting"] = ( this.droppableSetting as IStateManager ).SaveViewState ( );
+			this.ViewState["SortableSetting"] = ( this.sortableSetting as IStateManager ).SaveViewState ( );
 
 			return base.SaveViewState ( );
 		}
@@ -468,6 +503,190 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			DraggableSettingEdit setting = value as DraggableSettingEdit;
 
 			return string.Format ( "{0}`;", setting.IsDraggable );
+		}
+
+	}
+	#endregion
+
+}
+// ../.class/ui/jqueryui/DroppableSettingEdit.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIDroppableSettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIDroppableSettingEditConverter
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	#region " DroppableSettingEdit "
+	/// <summary>
+	/// jQuery UI 拖放的相关设置.
+	/// </summary>
+	[TypeConverter ( typeof ( DroppableSettingEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class DroppableSettingEdit
+		: IStateManager
+	{
+		private List<OptionEdit> options = new List<OptionEdit> ( );
+		private bool isDroppable;
+
+		/// <summary>
+		/// 获取元素的拖放设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的拖放设置, 前提 ElementType 不能为 None" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<OptionEdit> Options
+		{
+			get { return this.options; }
+		}
+
+		/// <summary>
+		/// 获取或设置是否可以拖放.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( false )]
+		[Description ( "指示元素是否可以拖放" )]
+		[NotifyParentProperty ( true )]
+		public bool IsDroppable
+		{
+			get { return this.isDroppable; }
+			set { this.isDroppable = value; }
+		}
+
+		/// <summary>
+		/// 创建一个 jQuery UI 拖放的相关设置.
+		/// </summary>
+		/// <returns>jQuery UI 拖放的相关设置.</returns>
+		public DroppableSetting CreateDroppableSetting ( )
+		{
+			List<Option> options = new List<Option> ( );
+
+			foreach ( OptionEdit edit in this.options )
+				options.Add ( edit.CreateOption ( ) );
+
+			return new DroppableSetting ( this.isDroppable, options.ToArray ( ) );
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				this.isDroppable = ( bool ) states[0];
+
+			for ( int index = 0; index < this.options.Count; index++ )
+				( this.options[index] as IStateManager ).LoadViewState ( states[index + 1] );
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+			states.Add ( this.isDroppable );
+
+			foreach ( OptionEdit edit in this.options )
+				states.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " DroppableSettingEditConverter "
+	/// <summary>
+	/// jQuery UI 拖放设置编辑器的转换器.
+	/// </summary>
+	public sealed class DroppableSettingEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			DroppableSettingEdit edit = new DroppableSettingEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 1 )
+				edit.IsDroppable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is DroppableSettingEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType ); ;
+
+			DroppableSettingEdit setting = value as DroppableSettingEdit;
+
+			return string.Format ( "{0}`;", setting.IsDroppable );
 		}
 
 	}
@@ -733,6 +952,57 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	#endregion
 
 }
+// ../.class/web/jqueryui/DroppableSetting.cs
+/*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/JQueryUIDroppableSetting
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+namespace zoyobar.shared.panzer.web.jqueryui
+{
+
+	#region " DroppableSetting "
+	/// <summary>
+	/// jQuery UI 拖放的相关设置.
+	/// </summary>
+	public sealed class DroppableSetting
+	{
+		/// <summary>
+		/// 拖放相关选项.
+		/// </summary>
+		public readonly List<Option> Options = new List<Option> ( );
+		/// <summary>
+		/// 是否可以拖放.
+		/// </summary>
+		public readonly bool IsDroppable;
+
+		/// <summary>
+		/// 创建 jQuery UI 拖放的相关设置.
+		/// </summary>
+		/// <param name="isDroppable">是否可以拖放.</param>
+		/// <param name="options">拖放相关选项.</param>
+		public DroppableSetting ( bool isDroppable, Option[] options )
+		{
+
+			if ( null != options )
+				foreach ( Option option in options )
+					if ( null != option )
+						this.Options.Add ( option );
+
+			this.IsDroppable = isDroppable;
+		}
+
+	}
+	#endregion
+
+}
 // ../.class/web/jqueryui/ExpressionHelper.cs
 /*
  * wiki:
@@ -868,6 +1138,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
@@ -885,6 +1156,21 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	public sealed class JQueryUI
 		: JQuery
 	{
+
+		private static string makeOptionExpression ( List<Option> options )
+		{
+
+			if ( null == options || options.Count == 0 )
+				return string.Empty;
+
+			string optionExpression = "{";
+
+			foreach ( Option option in options )
+				if ( null != option )
+					optionExpression += string.Format ( " {0}: {1},", option.Type, option.Value );
+
+			return optionExpression.TrimEnd ( ',' ) + " }";
+		}
 
 		#region " 构造 "
 
@@ -998,8 +1284,6 @@ namespace zoyobar.shared.panzer.web.jqueryui
 
 		#endregion
 
-		#region " draggable "
-
 		/// <summary>
 		/// 拖动操作.
 		/// </summary>
@@ -1011,19 +1295,36 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			if ( null == setting || !setting.IsDraggable )
 				return this;
 
-			string optionExpression = "{";
-
-			foreach ( Option option in setting.Options )
-					if ( null != option )
-						optionExpression += string.Format ( " {0}: {1},", option.Type, option.Value );
-
-			optionExpression = optionExpression.TrimEnd ( ',' ) + " }";
-			return this.draggable ( optionExpression, null, null );
+			return this.Execute ( "draggable", makeOptionExpression ( setting.Options ) ) as JQueryUI;
 		}
-		private JQueryUI draggable ( string expressionI, string expressionII, string expressionIII )
-		{ return this.Execute ( "draggable", expressionI, expressionII, expressionIII ) as JQueryUI; }
 
-		#endregion
+		/// <summary>
+		/// 拖放操作.
+		/// </summary>
+		/// <param name="setting">拖放的相关设置.</param>
+		/// <returns>更新后的 JQueryUI 对象.</returns>
+		public JQueryUI Droppable ( DroppableSetting setting )
+		{
+
+			if ( null == setting || !setting.IsDroppable )
+				return this;
+
+			return this.Execute ( "droppable", makeOptionExpression ( setting.Options ) ) as JQueryUI;
+		}
+
+		/// <summary>
+		/// 排列操作.
+		/// </summary>
+		/// <param name="setting">排列的相关设置.</param>
+		/// <returns>更新后的 JQueryUI 对象.</returns>
+		public JQueryUI Sortable ( SortableSetting setting )
+		{
+
+			if ( null == setting || !setting.IsSortable )
+				return this;
+
+			return this.Execute ( "sortable", makeOptionExpression ( setting.Options ) ) as JQueryUI;
+		}
 
 	}
 	#endregion
@@ -1214,6 +1515,56 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 动作停止时, 对应一个 javascript 函数.
 		/// </summary>
 		stop = 32,
+
+		/// <summary>
+		/// 动作接受的目标, 对应一个 javascript 函数或者选择器.
+		/// </summary>
+		accept = 33,
+
+		/// <summary>
+		/// 提供可用时的样式, 对应一个 javascript 字符串.
+		/// </summary>
+		activeClass = 34,
+
+		/// <summary>
+		/// 阻止事件的传播, 对应一个 javascript 布尔值.
+		/// </summary>
+		greedy = 35,
+
+		/// <summary>
+		/// 提供悬浮样式, 对应一个 javascript 字符串.
+		/// </summary>
+		hoverClass = 36,
+
+		/// <summary>
+		/// 接触的模式, 对应一个 javascript 字符串, 为 'fit', 'intersect', 'pointer', 'touch' 中的一种.
+		/// </summary>
+		tolerance = 37,
+
+		/// <summary>
+		/// 被激活时, 对应一个 javascript 函数.
+		/// </summary>
+		activate = 38,
+
+		/// <summary>
+		/// 取消激活时, 对应一个 javascript 函数.
+		/// </summary>
+		deactivate = 39,
+
+		/// <summary>
+		/// 在元素上时, 对应一个 javascript 函数.
+		/// </summary>
+		over = 40,
+
+		/// <summary>
+		/// 在元素之外时, 对应一个 javascript 函数.
+		/// </summary>
+		@out = 41,
+
+		/// <summary>
+		/// 元素放下时, 对应一个 javascript 函数.
+		/// </summary>
+		drop = 42,
 	}
 	#endregion
 

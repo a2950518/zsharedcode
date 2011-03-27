@@ -11,8 +11,12 @@
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
@@ -69,6 +73,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private ElementType elementType;
 
 		private DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
+		private DroppableSettingEdit droppableSetting = new DroppableSettingEdit ( );
+		private SortableSettingEdit sortableSetting = new SortableSettingEdit ( );
 
 		private readonly PlaceHolder html = new PlaceHolder ( );
 
@@ -82,7 +88,30 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public DraggableSettingEdit DraggableSetting
 		{
 			get { return this.draggableSetting; }
-			set { this.draggableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取元素的拖放设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的拖放设置, 前提 ElementType 不能为 None" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public DroppableSettingEdit DroppableSetting
+		{
+			get { return this.droppableSetting; }
+		}
+
+		/// <summary>
+		/// 获取元素的排列设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的排列设置, 前提 ElementType 不能为 None" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public SortableSettingEdit SortableSetting
+		{
+			get { return this.sortableSetting; }
 		}
 
 		/// <summary>
@@ -258,6 +287,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				writer.Write ( "</{0}>", this.elementType.ToString ( ).ToLower ( ) );
 
 			jquery.Draggable ( this.draggableSetting.CreateDraggableSetting ( ) );
+			jquery.Droppable ( this.droppableSetting.CreateDroppableSetting ( ) );
+			jquery.Sortable ( this.sortableSetting.CreateSortableSetting ( ) );
 
 			jquery.Code = "$(function(){" + jquery.Code + ";});";
 			jquery.Build ( this, this.ClientID, ScriptBuildOption.Startup );
@@ -268,11 +299,15 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			base.LoadViewState ( savedState );
 
 			( this.draggableSetting as IStateManager ).LoadViewState ( this.ViewState["DraggableSetting"] );
+			( this.droppableSetting as IStateManager ).LoadViewState ( this.ViewState["DroppableSetting"] );
+			( this.sortableSetting as IStateManager ).LoadViewState ( this.ViewState["SortableSetting"] );
 		}
 
 		protected override object SaveViewState ( )
 		{
 			this.ViewState["DraggableSetting"] = ( this.draggableSetting as IStateManager ).SaveViewState ( );
+			this.ViewState["DroppableSetting"] = ( this.droppableSetting as IStateManager ).SaveViewState ( );
+			this.ViewState["SortableSetting"] = ( this.sortableSetting as IStateManager ).SaveViewState ( );
 
 			return base.SaveViewState ( );
 		}
