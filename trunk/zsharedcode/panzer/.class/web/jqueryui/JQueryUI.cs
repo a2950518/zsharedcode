@@ -9,12 +9,14 @@
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
  * */
 
+using System.Collections.Generic;
 
 namespace zoyobar.shared.panzer.web.jqueryui
 {
@@ -26,6 +28,21 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	public sealed class JQueryUI
 		: JQuery
 	{
+
+		private static string makeOptionExpression ( List<Option> options )
+		{
+
+			if ( null == options || options.Count == 0 )
+				return string.Empty;
+
+			string optionExpression = "{";
+
+			foreach ( Option option in options )
+				if ( null != option )
+					optionExpression += string.Format ( " {0}: {1},", option.Type, option.Value );
+
+			return optionExpression.TrimEnd ( ',' ) + " }";
+		}
 
 		#region " 构造 "
 
@@ -139,8 +156,6 @@ namespace zoyobar.shared.panzer.web.jqueryui
 
 		#endregion
 
-		#region " draggable "
-
 		/// <summary>
 		/// 拖动操作.
 		/// </summary>
@@ -152,19 +167,36 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			if ( null == setting || !setting.IsDraggable )
 				return this;
 
-			string optionExpression = "{";
-
-			foreach ( Option option in setting.Options )
-					if ( null != option )
-						optionExpression += string.Format ( " {0}: {1},", option.Type, option.Value );
-
-			optionExpression = optionExpression.TrimEnd ( ',' ) + " }";
-			return this.draggable ( optionExpression, null, null );
+			return this.Execute ( "draggable", makeOptionExpression ( setting.Options ) ) as JQueryUI;
 		}
-		private JQueryUI draggable ( string expressionI, string expressionII, string expressionIII )
-		{ return this.Execute ( "draggable", expressionI, expressionII, expressionIII ) as JQueryUI; }
 
-		#endregion
+		/// <summary>
+		/// 拖放操作.
+		/// </summary>
+		/// <param name="setting">拖放的相关设置.</param>
+		/// <returns>更新后的 JQueryUI 对象.</returns>
+		public JQueryUI Droppable ( DroppableSetting setting )
+		{
+
+			if ( null == setting || !setting.IsDroppable )
+				return this;
+
+			return this.Execute ( "droppable", makeOptionExpression ( setting.Options ) ) as JQueryUI;
+		}
+
+		/// <summary>
+		/// 排列操作.
+		/// </summary>
+		/// <param name="setting">排列的相关设置.</param>
+		/// <returns>更新后的 JQueryUI 对象.</returns>
+		public JQueryUI Sortable ( SortableSetting setting )
+		{
+
+			if ( null == setting || !setting.IsSortable )
+				return this;
+
+			return this.Execute ( "sortable", makeOptionExpression ( setting.Options ) ) as JQueryUI;
+		}
 
 	}
 	#endregion
