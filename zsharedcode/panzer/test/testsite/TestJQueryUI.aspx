@@ -13,22 +13,13 @@
 <body>
 	<form id="formTestJQueryUI" runat="server">
 	<div>
-		<ui:JQueryElement ID="jqueryUI" runat="server" ElementType="Div" 
-			EnableViewState="false" ToolTip="ddddd" Height="16px" 
-			Width="123px">
-			<DraggableSetting IsDraggable="True">
-				<Options>
-					<ui:OptionEdit Type="revert" Value="true" />
-				</Options>
-			</DraggableSetting>
-			<Html>sdfefsdfdf</Html>
-		</ui:JQueryElement>
 		<asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
 		<asp:Button ID="Button2" runat="server" Text="Button" OnClick="Button2_Click" /><asp:DropDownList
 			ID="DropDownList1" runat="server">
 			<asp:ListItem></asp:ListItem>
 		</asp:DropDownList>
-		<iframe src="http://www.baidu.com/"></iframe>
+		<ui:JQueryElement ID="JQueryElement1" runat="server">
+		</ui:JQueryElement>
 	</div>
 	</form>
 </body>

@@ -232,6 +232,66 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 元素放下时, 对应一个 javascript 函数.
 		/// </summary>
 		drop = 42,
+
+		/// <summary>
+		/// 关联的元素, 对应一个选择器.
+		/// </summary>
+		connectWith = 43,
+
+		/// <summary>
+		/// 是否允许拖放目标为空, 对应一个 javascript 布尔值.
+		/// </summary>
+		dropOnEmpty = 44,
+
+		/// <summary>
+		/// 强制 helper 拥有尺寸, 对应一个 javascript 布尔值.
+		/// </summary>
+		forceHelperSize = 45,
+
+		/// <summary>
+		/// 强制 placeholder 拥有尺寸, 对应一个 javascript 布尔值.
+		/// </summary>
+		forcePlaceholderSize = 46,
+
+		/// <summary>
+		/// 针对的条目, 对应一个选择器.
+		/// </summary>
+		items = 47,
+
+		/// <summary>
+		/// 应用于空白的样式, 对应一个 javascript 字符串.
+		/// </summary>
+		placeholder = 48,
+
+		/// <summary>
+		/// 排序时, 对应一个 javascript 函数.
+		/// </summary>
+		sort = 49,
+
+		/// <summary>
+		/// 改变时, 对应一个 javascript 函数.
+		/// </summary>
+		change = 50,
+
+		/// <summary>
+		/// 动作停止之前, 对应一个 javascript 函数.
+		/// </summary>
+		beforeStop = 51,
+
+		/// <summary>
+		/// 更新后, 对应一个 javascript 函数.
+		/// </summary>
+		update = 52,
+
+		/// <summary>
+		/// 接收时, 对应一个 javascript 函数.
+		/// </summary>
+		receive = 53,
+
+		/// <summary>
+		/// 移除后, 对应一个 javascript 函数.
+		/// </summary>
+		remove = 54,
 	}
 	#endregion
 

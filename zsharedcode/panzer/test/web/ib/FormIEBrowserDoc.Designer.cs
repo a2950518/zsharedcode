@@ -34,6 +34,8 @@
 			this.cmdInstallJavascript = new System.Windows.Forms.Button ( );
 			this.cmdDataExchange = new System.Windows.Forms.Button ( );
 			this.cmdInvokeJavascript = new System.Windows.Forms.Button ( );
+			this.cmdFlowNWPC = new System.Windows.Forms.Button ( );
+			this.cmdExecuteJQuery = new System.Windows.Forms.Button ( );
 			this.SuspendLayout ( );
 			// 
 			// webBrowser
@@ -95,11 +97,33 @@
 			this.cmdInvokeJavascript.UseVisualStyleBackColor = true;
 			this.cmdInvokeJavascript.Click += new System.EventHandler ( this.cmdInvokeJavascript_Click );
 			// 
+			// cmdFlowNWPC
+			// 
+			this.cmdFlowNWPC.Location = new System.Drawing.Point ( 268, 186 );
+			this.cmdFlowNWPC.Name = "cmdFlowNWPC";
+			this.cmdFlowNWPC.Size = new System.Drawing.Size ( 130, 23 );
+			this.cmdFlowNWPC.TabIndex = 1;
+			this.cmdFlowNWPC.Text = "页面载入跳转";
+			this.cmdFlowNWPC.UseVisualStyleBackColor = true;
+			this.cmdFlowNWPC.Click += new System.EventHandler ( this.cmdFlowNWPC_Click );
+			// 
+			// cmdExecuteJQuery
+			// 
+			this.cmdExecuteJQuery.Location = new System.Drawing.Point ( 268, 157 );
+			this.cmdExecuteJQuery.Name = "cmdExecuteJQuery";
+			this.cmdExecuteJQuery.Size = new System.Drawing.Size ( 130, 23 );
+			this.cmdExecuteJQuery.TabIndex = 1;
+			this.cmdExecuteJQuery.Text = "执行 jquery";
+			this.cmdExecuteJQuery.UseVisualStyleBackColor = true;
+			this.cmdExecuteJQuery.Click += new System.EventHandler ( this.cmdExecuteJQuery_Click );
+			// 
 			// FormIEBrowserDoc
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF ( 6F, 12F );
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size ( 572, 324 );
+			this.Controls.Add ( this.cmdExecuteJQuery );
+			this.Controls.Add ( this.cmdFlowNWPC );
 			this.Controls.Add ( this.cmdInvokeJavascript );
 			this.Controls.Add ( this.cmdDataExchange );
 			this.Controls.Add ( this.cmdInstallJavascript );
@@ -120,5 +144,7 @@
 		private System.Windows.Forms.Button cmdInstallJavascript;
 		private System.Windows.Forms.Button cmdDataExchange;
 		private System.Windows.Forms.Button cmdInvokeJavascript;
+		private System.Windows.Forms.Button cmdFlowNWPC;
+		private System.Windows.Forms.Button cmdExecuteJQuery;
 	}
 }
