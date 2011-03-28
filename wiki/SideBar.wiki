@@ -121,5 +121,8 @@
         * [JEDraggableRevertDoc JQueryElement 拖动恢复原位置]
         * [JEDraggableRevertDurationDoc JQueryElement 拖动延迟恢复原位置]
         * [JEDraggableSnapDoc JQueryElement 拖动附着到元素]
+        * [JEDraggableEventDoc JQueryElement 拖动事件]
+      * JQueryElement 拖放分析&示例
+        * [JQueryElementDroppableDoc JQueryElement 拖放基本操作]
   * [Member 项目成员]
 </font>
