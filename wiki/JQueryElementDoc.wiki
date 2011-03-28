@@ -19,4 +19,7 @@
 
 
  * [JQueryElementDraggableDoc JQueryElement 拖动基本操作]
+ * [JEDroppableClassDoc JQueryElement 拖放设置样式]
+ * [JEDroppableToleranceDoc JQueryElement 拖放模式]
+ * [JEDroppableEventDoc JQueryElement 拖放事件]
 </font>

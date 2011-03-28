@@ -124,5 +124,8 @@
         * [JEDraggableEventDoc JQueryElement 拖动事件]
       * JQueryElement 拖放分析&示例
         * [JQueryElementDroppableDoc JQueryElement 拖放基本操作]
+        * [JEDroppableClassDoc JQueryElement 拖放设置样式]
+        * [JEDroppableToleranceDoc JQueryElement 拖放模式]
+        * [JEDroppableEventDoc JQueryElement 拖放事件]
   * [Member 项目成员]
 </font>
