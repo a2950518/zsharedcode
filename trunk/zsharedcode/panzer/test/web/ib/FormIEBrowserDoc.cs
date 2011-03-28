@@ -7,6 +7,7 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 
+using zoyobar.shared.panzer.web;
 using zoyobar.shared.panzer.web.ib;
 
 namespace zoyobar.shared.panzer.test.web.ib
@@ -103,6 +104,82 @@ namespace zoyobar.shared.panzer.test.web.ib
 
 			// 获取 WebBrowser 中的 name 和 age, 并弹出对话框.
 			MessageBox.Show ( string.Format ( "name={0}, age={1}", ie.__Get<string> ( "name" ), ie.__Get<int> ( "age" ) ) );
+		}
+
+		private void cmdExecuteJQuery_Click ( object sender, EventArgs e )
+		{
+			// 从当前的 WebBrowser 控件创建 IEBrowser 对象.
+			IEBrowser ie = new IEBrowser ( this.webBrowser );
+
+			// 导航到页面 http://www.google.com.hk/.
+			ie.Navigate ( "http://www.google.com.hk/" );
+
+			// 等待 5 秒钟, 以便页面载入完毕.
+			ie.IEFlow.Wait ( 5 );
+
+			// 安装跟踪脚本, 这可以执行更多的 jquery 操作.
+			ie.InstallTrace ( );
+
+			// 安装本地的 jquery 脚本.
+			ie.InstallJQuery ( new Uri ( Path.Combine ( AppDomain.CurrentDomain.BaseDirectory, @"jquery-1.5.min.js" ) ) );
+
+			// 执行 jquery 脚本 $('*').length, 获得页面上总元素个数.
+			Console.WriteLine ( "页面上共有 {0} 个元素", ie.ExecuteJQuery ( JQuery.Create ( "'*'" ).Length ( ) ) );
+
+			// 执行 jquery 脚本 $('a'), 获得页面上所有的 a 元素并将结果保存在 __jAs 变量中.
+			ie.ExecuteJQuery ( JQuery.Create ( "'a'" ), "__jAs" );
+
+			// 得到 __jAs 变量中包含的 a 元素的个数.
+			int count = ie.ExecuteJQuery<int> ( JQuery.Create ( "__jAs" ).Length ( ) );
+
+			for ( int index = 0; index < count; index++ )
+			{
+				// 得到 __jAs 变量中索引为 index 的 a 元素, 并保存在 __jA 变量中.
+				ie.ExecuteJQuery ( JQuery.Create ( "__jAs" ).Eq ( index.ToString ( ) ), "__jA" );
+
+				// 输出 a 元素的 innerText 和 href 属性.
+				Console.WriteLine ( string.Format (
+					"a[{0}], '{1}', '{2}'",
+					index,
+					ie.ExecuteJQuery<string> ( JQuery.Create ( "__jA" ).Text ( ) ),
+					ie.ExecuteJQuery<string> ( JQuery.Create ( "__jA" ).Attr ( "'href'" ) )
+					)
+					);
+			}
+
+		}
+
+		private void cmdFlowNWPC_Click ( object sender, EventArgs e )
+		{
+			// 定义载入 google 的页面状态.
+			WebPageState loadGoogle = new WebPageState (
+				"load google", // 状态的名称.
+				completedStateSetting: new WebPageNextStateSetting ( "load blog", true ), // 在页面完成时, 自动跳转到载入 blog 的状态.
+				startAction: new NavigateAction ( "http://www.google.com.hk" ), // 页面状态的开始动作为载入 http://www.google.com.hk.
+				condition: new UrlCondition ( // 判断页面状态是否完成的地址条件.
+					"google condition", // 条件名称.
+					"http://www.google.com.hk", // 载入的页面以 http://www.google.com.hk 开始时, 认为此地址条件成立.
+					StringCompareMode.StartWith
+					)
+				);
+
+			// 定义载入 blog 的页面状态.
+			WebPageState loadMyBlog = new WebPageState (
+				"load blog", // 状态的名称.
+				startAction: new NavigateAction ( "http://blog.sina.com.cn/zoyobar" ), // 页面状态的开始动作为载入 http://blog.sina.com.cn/zoyobar.
+				completedAction: new ExecuteJavaScriptAction ( "alert('我是从 google 页面跳转过来的!');" ), // 当页面状态完成后, 执行一条 javascript 脚本.
+				condition: new UrlCondition ( // 判断页面状态是否完成的地址条件.
+					"blog condition", // 条件名称.
+					"http://blog.sina.com.cn/zoyobar", // 载入的页面以 http://blog.sina.com.cn/zoyobar 开始时, 认为此地址条件成立.
+					StringCompareMode.StartWith
+					)
+				);
+
+			// 从当前的 WebBrowser 控件创建 IEBrowser 对象, 并赋予刚才定义的流程.
+			IEBrowser ie = new IEBrowser ( this.webBrowser, new WebPageState[] { loadGoogle, loadMyBlog } );
+
+			// 从载入 google 页面的状态开始.
+			ie.IEFlow.JumpToState ( "load google" );
 		}
 
 	}

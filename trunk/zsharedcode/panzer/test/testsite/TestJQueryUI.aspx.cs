@@ -24,14 +24,14 @@ public partial class TestJQueryUI : System.Web.UI.Page
 		//this.D ( h );
 
 		//new ListItem ( );
-		this.Response.Write(this.jqueryUI.DraggableSetting.Options.Count);
-		this.Response.Write ( this.jqueryUI.DraggableSetting.Options[0].Value );
+		//this.Response.Write(this.jqueryUI.DraggableSetting.Options.Count);
+		//this.Response.Write ( this.jqueryUI.DraggableSetting.Options[0].Value );
 
 	}
 	protected void Button1_Click ( object sender, EventArgs e )
 	{ this.jqueryUI.DraggableSetting.IsDraggable = true; }
 	protected void Button2_Click ( object sender, EventArgs e )
 	{
-		this.jqueryUI.DraggableSetting.Options[0].Value = "Button2_Click";
+		//this.jqueryUI.DraggableSetting.Options[0].Value = "Button2_Click";
 	}
 }
