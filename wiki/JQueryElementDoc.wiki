@@ -2,6 +2,9 @@
 #labels Phase-Implementation,Featured
 <font face="microsoft yahei">
 === 分析&示例 ===
+ * [JQueryElementHtmlDoc JQueryElement 设置 html 代码]
+ * [JQueryElementElementDoc JQueryElement 设置元素的类型]
+
  * [JQueryElementDraggableDoc JQueryElement 拖动基本操作]
  * [JEDraggableAxisDoc JQueryElement 拖动 x/y 轴拖动]
  * [JEDraggableContainmentDoc JQueryElement 拖动在指定区域]
