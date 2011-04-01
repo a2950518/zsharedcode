@@ -10,6 +10,9 @@
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
@@ -196,6 +199,34 @@ namespace zoyobar.shared.panzer.web.jqueryui
 				return this;
 
 			return this.Execute ( "sortable", makeOptionExpression ( setting.Options ) ) as JQueryUI;
+		}
+
+		/// <summary>
+		/// 选中操作.
+		/// </summary>
+		/// <param name="setting">选中的相关设置.</param>
+		/// <returns>更新后的 JQueryUI 对象.</returns>
+		public JQueryUI Selectable ( SelectableSetting setting )
+		{
+
+			if ( null == setting || !setting.IsSelectable )
+				return this;
+
+			return this.Execute ( "selectable", makeOptionExpression ( setting.Options ) ) as JQueryUI;
+		}
+
+		/// <summary>
+		/// 缩放操作.
+		/// </summary>
+		/// <param name="setting">缩放的相关设置.</param>
+		/// <returns>更新后的 JQueryUI 对象.</returns>
+		public JQueryUI Resizable ( ResizableSetting setting )
+		{
+
+			if ( null == setting || !setting.IsResizable )
+				return this;
+
+			return this.Execute ( "resizable", makeOptionExpression ( setting.Options ) ) as JQueryUI;
 		}
 
 	}
