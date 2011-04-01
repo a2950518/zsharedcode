@@ -29,10 +29,14 @@ using NControl = System.Web.UI.Control;
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
@@ -64,7 +68,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// span 元素.
 		/// </summary>
-		Span = 2
+		Span = 2,
+		/// <summary>
+		/// p 元素.
+		/// </summary>
+		P = 3,
+		/// <summary>
+		/// ul 元素.
+		/// </summary>
+		Ul = 4,
+		/// <summary>
+		/// li 元素.
+		/// </summary>
+		Li = 5,
 	}
 	#endregion
 
@@ -84,6 +100,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
 		private DroppableSettingEdit droppableSetting = new DroppableSettingEdit ( );
 		private SortableSettingEdit sortableSetting = new SortableSettingEdit ( );
+		private SelectableSettingEdit selectableSetting = new SelectableSettingEdit ( );
+		private ResizableSettingEdit resizableSetting = new ResizableSettingEdit ( );
 
 		private readonly PlaceHolder html = new PlaceHolder ( );
 
@@ -121,6 +139,30 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public SortableSettingEdit SortableSetting
 		{
 			get { return this.sortableSetting; }
+		}
+
+		/// <summary>
+		/// 获取元素的选中设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的选中设置, 前提 ElementType 不能为 None" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public SelectableSettingEdit SelectableSetting
+		{
+			get { return this.selectableSetting; }
+		}
+
+		/// <summary>
+		/// 获取元素的缩放设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的缩放设置, 前提 ElementType 不能为 None" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ResizableSettingEdit ResizableSetting
+		{
+			get { return this.resizableSetting; }
 		}
 
 		/// <summary>
@@ -298,6 +340,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			jquery.Draggable ( this.draggableSetting.CreateDraggableSetting ( ) );
 			jquery.Droppable ( this.droppableSetting.CreateDroppableSetting ( ) );
 			jquery.Sortable ( this.sortableSetting.CreateSortableSetting ( ) );
+			jquery.Selectable ( this.selectableSetting.CreateSelectableSetting ( ) );
+			jquery.Resizable ( this.resizableSetting.CreateResizableSetting ( ) );
 
 			jquery.Code = "$(function(){" + jquery.Code + ";});";
 			jquery.Build ( this, this.ClientID, ScriptBuildOption.Startup );
@@ -310,6 +354,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			( this.draggableSetting as IStateManager ).LoadViewState ( this.ViewState["DraggableSetting"] );
 			( this.droppableSetting as IStateManager ).LoadViewState ( this.ViewState["DroppableSetting"] );
 			( this.sortableSetting as IStateManager ).LoadViewState ( this.ViewState["SortableSetting"] );
+			( this.selectableSetting as IStateManager ).LoadViewState ( this.ViewState["SelectableSetting"] );
+			( this.resizableSetting as IStateManager ).LoadViewState ( this.ViewState["ResizableSetting"] );
 		}
 
 		protected override object SaveViewState ( )
@@ -317,6 +363,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			this.ViewState["DraggableSetting"] = ( this.draggableSetting as IStateManager ).SaveViewState ( );
 			this.ViewState["DroppableSetting"] = ( this.droppableSetting as IStateManager ).SaveViewState ( );
 			this.ViewState["SortableSetting"] = ( this.sortableSetting as IStateManager ).SaveViewState ( );
+			this.ViewState["SelectableSetting"] = ( this.selectableSetting as IStateManager ).SaveViewState ( );
+			this.ViewState["ResizableSetting"] = ( this.resizableSetting as IStateManager ).SaveViewState ( );
 
 			return base.SaveViewState ( );
 		}
@@ -693,6 +741,374 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	#endregion
 
 }
+// ../.class/ui/jqueryui/ResizableSettingEdit.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIResizableSettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIResizableSettingEditConverter
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	#region " ResizableSettingEdit "
+	/// <summary>
+	/// jQuery UI 缩放的相关设置.
+	/// </summary>
+	[TypeConverter ( typeof ( ResizableSettingEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class ResizableSettingEdit
+		: IStateManager
+	{
+		private List<OptionEdit> options = new List<OptionEdit> ( );
+		private bool isResizable;
+
+		/// <summary>
+		/// 获取元素的缩放设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的缩放设置, 前提 ElementType 不能为 None" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<OptionEdit> Options
+		{
+			get { return this.options; }
+		}
+
+		/// <summary>
+		/// 获取或设置是否可以缩放.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( false )]
+		[Description ( "指示元素是否可以缩放" )]
+		[NotifyParentProperty ( true )]
+		public bool IsResizable
+		{
+			get { return this.isResizable; }
+			set { this.isResizable = value; }
+		}
+
+		/// <summary>
+		/// 创建一个 jQuery UI 缩放的相关设置.
+		/// </summary>
+		/// <returns>jQuery UI 缩放的相关设置.</returns>
+		public ResizableSetting CreateResizableSetting ( )
+		{
+			List<Option> options = new List<Option> ( );
+
+			foreach ( OptionEdit edit in this.options )
+				options.Add ( edit.CreateOption ( ) );
+
+			return new ResizableSetting ( this.isResizable, options.ToArray ( ) );
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				this.isResizable = ( bool ) states[0];
+
+			for ( int index = 0; index < this.options.Count; index++ )
+				( this.options[index] as IStateManager ).LoadViewState ( states[index + 1] );
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+			states.Add ( this.isResizable );
+
+			foreach ( OptionEdit edit in this.options )
+				states.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " ResizableSettingEditConverter "
+	/// <summary>
+	/// jQuery UI 缩放设置编辑器的转换器.
+	/// </summary>
+	public sealed class ResizableSettingEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			ResizableSettingEdit edit = new ResizableSettingEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 1 )
+				edit.IsResizable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is ResizableSettingEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType ); ;
+
+			ResizableSettingEdit setting = value as ResizableSettingEdit;
+
+			return string.Format ( "{0}`;", setting.IsResizable );
+		}
+
+	}
+	#endregion
+
+}
+// ../.class/ui/jqueryui/SelectableSettingEdit.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUISelectableSettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUISelectableSettingEditConverter
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	#region " SelectableSettingEdit "
+	/// <summary>
+	/// jQuery UI 选中的相关设置.
+	/// </summary>
+	[TypeConverter ( typeof ( SelectableSettingEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class SelectableSettingEdit
+		: IStateManager
+	{
+		private List<OptionEdit> options = new List<OptionEdit> ( );
+		private bool isSelectable;
+
+		/// <summary>
+		/// 获取元素的选中设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的选中设置, 前提 ElementType 不能为 None" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<OptionEdit> Options
+		{
+			get { return this.options; }
+		}
+
+		/// <summary>
+		/// 获取或设置是否可以选中.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( false )]
+		[Description ( "指示元素是否可以选中" )]
+		[NotifyParentProperty ( true )]
+		public bool IsSelectable
+		{
+			get { return this.isSelectable; }
+			set { this.isSelectable = value; }
+		}
+
+		/// <summary>
+		/// 创建一个 jQuery UI 选中的相关设置.
+		/// </summary>
+		/// <returns>jQuery UI 选中的相关设置.</returns>
+		public SelectableSetting CreateSelectableSetting ( )
+		{
+			List<Option> options = new List<Option> ( );
+
+			foreach ( OptionEdit edit in this.options )
+				options.Add ( edit.CreateOption ( ) );
+
+			return new SelectableSetting ( this.isSelectable, options.ToArray ( ) );
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				this.isSelectable = ( bool ) states[0];
+
+			for ( int index = 0; index < this.options.Count; index++ )
+				( this.options[index] as IStateManager ).LoadViewState ( states[index + 1] );
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+			states.Add ( this.isSelectable );
+
+			foreach ( OptionEdit edit in this.options )
+				states.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " SelectableSettingEditConverter "
+	/// <summary>
+	/// jQuery UI 选中设置编辑器的转换器.
+	/// </summary>
+	public sealed class SelectableSettingEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			SelectableSettingEdit edit = new SelectableSettingEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 1 )
+				edit.IsSelectable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is SelectableSettingEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType ); ;
+
+			SelectableSettingEdit setting = value as SelectableSettingEdit;
+
+			return string.Format ( "{0}`;", setting.IsSelectable );
+		}
+
+	}
+	#endregion
+
+}
 // ../.class/ui/jqueryui/SortableSettingEdit.cs
 /*
  * wiki:
@@ -816,7 +1232,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 	#region " SortableSettingEditConverter "
 	/// <summary>
-	/// jQuery UI 拖放设置编辑器的转换器.
+	/// jQuery UI 排列设置编辑器的转换器.
 	/// </summary>
 	public sealed class SortableSettingEditConverter : ExpandableObjectConverter
 	{
@@ -1187,6 +1603,108 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	#endregion
 
 }
+// ../.class/web/jqueryui/ResizableSetting.cs
+/*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/JQueryUIResizableSetting
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+namespace zoyobar.shared.panzer.web.jqueryui
+{
+
+	#region " ResizableSetting "
+	/// <summary>
+	/// jQuery UI 缩放的相关设置.
+	/// </summary>
+	public sealed class ResizableSetting
+	{
+		/// <summary>
+		/// 缩放相关选项.
+		/// </summary>
+		public readonly List<Option> Options = new List<Option> ( );
+		/// <summary>
+		/// 是否可以缩放.
+		/// </summary>
+		public readonly bool IsResizable;
+
+		/// <summary>
+		/// 创建 jQuery UI 缩放的相关设置.
+		/// </summary>
+		/// <param name="isResizable">是否可以缩放.</param>
+		/// <param name="options">缩放相关选项.</param>
+		public ResizableSetting ( bool isResizable, Option[] options )
+		{
+
+			if ( null != options )
+				foreach ( Option option in options )
+					if ( null != option )
+						this.Options.Add ( option );
+
+			this.IsResizable = isResizable;
+		}
+
+	}
+	#endregion
+
+}
+// ../.class/web/jqueryui/SelectableSetting.cs
+/*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/JQueryUISelectableSetting
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+namespace zoyobar.shared.panzer.web.jqueryui
+{
+
+	#region " SelectableSetting "
+	/// <summary>
+	/// jQuery UI 选中的相关设置.
+	/// </summary>
+	public sealed class SelectableSetting
+	{
+		/// <summary>
+		/// 选中相关选项.
+		/// </summary>
+		public readonly List<Option> Options = new List<Option> ( );
+		/// <summary>
+		/// 是否可以选中.
+		/// </summary>
+		public readonly bool IsSelectable;
+
+		/// <summary>
+		/// 创建 jQuery UI 选中的相关设置.
+		/// </summary>
+		/// <param name="isSelectable">是否可以选中.</param>
+		/// <param name="options">选中相关选项.</param>
+		public SelectableSetting ( bool isSelectable, Option[] options )
+		{
+
+			if ( null != options )
+				foreach ( Option option in options )
+					if ( null != option )
+						this.Options.Add ( option );
+
+			this.IsSelectable = isSelectable;
+		}
+
+	}
+	#endregion
+
+}
 // ../.class/web/jqueryui/SortableSetting.cs
 /*
  * wiki: http://code.google.com/p/zsharedcode/wiki/JQueryUISortableSetting
@@ -1374,6 +1892,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
@@ -1559,6 +2080,34 @@ namespace zoyobar.shared.panzer.web.jqueryui
 				return this;
 
 			return this.Execute ( "sortable", makeOptionExpression ( setting.Options ) ) as JQueryUI;
+		}
+
+		/// <summary>
+		/// 选中操作.
+		/// </summary>
+		/// <param name="setting">选中的相关设置.</param>
+		/// <returns>更新后的 JQueryUI 对象.</returns>
+		public JQueryUI Selectable ( SelectableSetting setting )
+		{
+
+			if ( null == setting || !setting.IsSelectable )
+				return this;
+
+			return this.Execute ( "selectable", makeOptionExpression ( setting.Options ) ) as JQueryUI;
+		}
+
+		/// <summary>
+		/// 缩放操作.
+		/// </summary>
+		/// <param name="setting">缩放的相关设置.</param>
+		/// <returns>更新后的 JQueryUI 对象.</returns>
+		public JQueryUI Resizable ( ResizableSetting setting )
+		{
+
+			if ( null == setting || !setting.IsResizable )
+				return this;
+
+			return this.Execute ( "resizable", makeOptionExpression ( setting.Options ) ) as JQueryUI;
 		}
 
 	}
@@ -1860,6 +2409,36 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 移除后, 对应一个 javascript 函数.
 		/// </summary>
 		remove = 54,
+
+		/// <summary>
+		/// 自动刷新, 对应一个 javascript 布尔值.
+		/// </summary>
+		autoRefresh = 55,
+
+		/// <summary>
+		/// 对目标的过滤, 对应选择器.
+		/// </summary>
+		filter = 56,
+
+		/// <summary>
+		/// 选择后, 对应一个 javascript 函数.
+		/// </summary>
+		selected = 57,
+
+		/// <summary>
+		/// 选择时, 对应一个 javascript 函数.
+		/// </summary>
+		selecting = 58,
+
+		/// <summary>
+		/// 取消选择后, 对应一个 javascript 函数.
+		/// </summary>
+		unselected = 59,
+
+		/// <summary>
+		/// 取消选择时, 对应一个 javascript 函数.
+		/// </summary>
+		unselecting = 60,
 	}
 	#endregion
 
