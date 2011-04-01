@@ -292,6 +292,36 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 移除后, 对应一个 javascript 函数.
 		/// </summary>
 		remove = 54,
+
+		/// <summary>
+		/// 自动刷新, 对应一个 javascript 布尔值.
+		/// </summary>
+		autoRefresh = 55,
+
+		/// <summary>
+		/// 对目标的过滤, 对应选择器.
+		/// </summary>
+		filter = 56,
+
+		/// <summary>
+		/// 选择后, 对应一个 javascript 函数.
+		/// </summary>
+		selected = 57,
+
+		/// <summary>
+		/// 选择时, 对应一个 javascript 函数.
+		/// </summary>
+		selecting = 58,
+
+		/// <summary>
+		/// 取消选择后, 对应一个 javascript 函数.
+		/// </summary>
+		unselected = 59,
+
+		/// <summary>
+		/// 取消选择时, 对应一个 javascript 函数.
+		/// </summary>
+		unselecting = 60,
 	}
 	#endregion
 

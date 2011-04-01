@@ -1,12 +1,12 @@
 ﻿/*
  * wiki:
- * http://code.google.com/p/zsharedcode/wiki/JQueryUISortableSettingEdit
- * http://code.google.com/p/zsharedcode/wiki/JQueryUISortableSettingEditConverter
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUISelectableSettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUISelectableSettingEditConverter
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
- * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
  * 引用代码:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
@@ -28,24 +28,24 @@ using zoyobar.shared.panzer.web.jqueryui;
 namespace zoyobar.shared.panzer.ui.jqueryui
 {
 
-	#region " SortableSettingEdit "
+	#region " SelectableSettingEdit "
 	/// <summary>
-	/// jQuery UI 排列的相关设置.
+	/// jQuery UI 选中的相关设置.
 	/// </summary>
-	[TypeConverter ( typeof ( SortableSettingEditConverter ) )]
+	[TypeConverter ( typeof ( SelectableSettingEditConverter ) )]
 	[ParseChildren ( true )]
 	[PersistChildren ( false )]
-	public sealed class SortableSettingEdit
+	public sealed class SelectableSettingEdit
 		: IStateManager
 	{
 		private List<OptionEdit> options = new List<OptionEdit> ( );
-		private bool isSortable;
+		private bool isSelectable;
 
 		/// <summary>
-		/// 获取元素的排列设置.
+		/// 获取元素的选中设置.
 		/// </summary>
 		[Category ( "jQuery UI" )]
-		[Description ( "元素相关的排列设置, 前提 ElementType 不能为 None" )]
+		[Description ( "元素相关的选中设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
 		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
@@ -56,30 +56,30 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置是否可以排列.
+		/// 获取或设置是否可以选中.
 		/// </summary>
 		[Category ( "jQuery UI" )]
 		[DefaultValue ( false )]
-		[Description ( "指示元素是否可以排列" )]
+		[Description ( "指示元素是否可以选中" )]
 		[NotifyParentProperty ( true )]
-		public bool IsSortable
+		public bool IsSelectable
 		{
-			get { return this.isSortable; }
-			set { this.isSortable = value; }
+			get { return this.isSelectable; }
+			set { this.isSelectable = value; }
 		}
 
 		/// <summary>
-		/// 创建一个 jQuery UI 排列的相关设置.
+		/// 创建一个 jQuery UI 选中的相关设置.
 		/// </summary>
-		/// <returns>jQuery UI 排列的相关设置.</returns>
-		public SortableSetting CreateSortableSetting ( )
+		/// <returns>jQuery UI 选中的相关设置.</returns>
+		public SelectableSetting CreateSelectableSetting ( )
 		{
 			List<Option> options = new List<Option> ( );
 
 			foreach ( OptionEdit edit in this.options )
 				options.Add ( edit.CreateOption ( ) );
 
-			return new SortableSetting ( this.isSortable, options.ToArray ( ) );
+			return new SelectableSetting ( this.isSelectable, options.ToArray ( ) );
 		}
 
 		/// <summary>
@@ -102,7 +102,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				return;
 
 			if ( states.Count >= 1 )
-				this.isSortable = ( bool ) states[0];
+				this.isSelectable = ( bool ) states[0];
 
 			for ( int index = 0; index < this.options.Count; index++ )
 				( this.options[index] as IStateManager ).LoadViewState ( states[index + 1] );
@@ -112,7 +112,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		object IStateManager.SaveViewState ( )
 		{
 			List<object> states = new List<object> ( );
-			states.Add ( this.isSortable );
+			states.Add ( this.isSelectable );
 
 			foreach ( OptionEdit edit in this.options )
 				states.Add ( ( edit as IStateManager ).SaveViewState ( ) );
@@ -126,11 +126,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	}
 	#endregion
 
-	#region " SortableSettingEditConverter "
+	#region " SelectableSettingEditConverter "
 	/// <summary>
-	/// jQuery UI 排列设置编辑器的转换器.
+	/// jQuery UI 选中设置编辑器的转换器.
 	/// </summary>
-	public sealed class SortableSettingEditConverter : ExpandableObjectConverter
+	public sealed class SelectableSettingEditConverter : ExpandableObjectConverter
 	{
 
 		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
@@ -153,7 +153,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
 		{
-			SortableSettingEdit edit = new SortableSettingEdit ( );
+			SelectableSettingEdit edit = new SelectableSettingEdit ( );
 
 			if ( null == value )
 				return edit;
@@ -169,7 +169,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
 			if ( expressionHelper.ChildCount == 1 )
-				edit.IsSortable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
+				edit.IsSelectable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
 
 			return edit;
 		}
@@ -177,12 +177,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
 		{
 
-			if ( null == value || !( value is SortableSettingEdit ) || destinationType != typeof ( string ) )
+			if ( null == value || !( value is SelectableSettingEdit ) || destinationType != typeof ( string ) )
 				return base.ConvertTo ( context, culture, value, destinationType ); ;
 
-			SortableSettingEdit setting = value as SortableSettingEdit;
+			SelectableSettingEdit setting = value as SelectableSettingEdit;
 
-			return string.Format ( "{0}`;", setting.IsSortable );
+			return string.Format ( "{0}`;", setting.IsSelectable );
 		}
 
 	}

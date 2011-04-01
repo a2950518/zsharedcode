@@ -13,10 +13,14 @@
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
@@ -55,7 +59,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// span 元素.
 		/// </summary>
-		Span = 2
+		Span = 2,
+		/// <summary>
+		/// p 元素.
+		/// </summary>
+		P = 3,
+		/// <summary>
+		/// ul 元素.
+		/// </summary>
+		Ul = 4,
+		/// <summary>
+		/// li 元素.
+		/// </summary>
+		Li = 5,
 	}
 	#endregion
 
@@ -75,6 +91,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
 		private DroppableSettingEdit droppableSetting = new DroppableSettingEdit ( );
 		private SortableSettingEdit sortableSetting = new SortableSettingEdit ( );
+		private SelectableSettingEdit selectableSetting = new SelectableSettingEdit ( );
+		private ResizableSettingEdit resizableSetting = new ResizableSettingEdit ( );
 
 		private readonly PlaceHolder html = new PlaceHolder ( );
 
@@ -112,6 +130,30 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public SortableSettingEdit SortableSetting
 		{
 			get { return this.sortableSetting; }
+		}
+
+		/// <summary>
+		/// 获取元素的选中设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的选中设置, 前提 ElementType 不能为 None" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public SelectableSettingEdit SelectableSetting
+		{
+			get { return this.selectableSetting; }
+		}
+
+		/// <summary>
+		/// 获取元素的缩放设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的缩放设置, 前提 ElementType 不能为 None" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ResizableSettingEdit ResizableSetting
+		{
+			get { return this.resizableSetting; }
 		}
 
 		/// <summary>
@@ -289,6 +331,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			jquery.Draggable ( this.draggableSetting.CreateDraggableSetting ( ) );
 			jquery.Droppable ( this.droppableSetting.CreateDroppableSetting ( ) );
 			jquery.Sortable ( this.sortableSetting.CreateSortableSetting ( ) );
+			jquery.Selectable ( this.selectableSetting.CreateSelectableSetting ( ) );
+			jquery.Resizable ( this.resizableSetting.CreateResizableSetting ( ) );
 
 			jquery.Code = "$(function(){" + jquery.Code + ";});";
 			jquery.Build ( this, this.ClientID, ScriptBuildOption.Startup );
@@ -301,6 +345,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			( this.draggableSetting as IStateManager ).LoadViewState ( this.ViewState["DraggableSetting"] );
 			( this.droppableSetting as IStateManager ).LoadViewState ( this.ViewState["DroppableSetting"] );
 			( this.sortableSetting as IStateManager ).LoadViewState ( this.ViewState["SortableSetting"] );
+			( this.selectableSetting as IStateManager ).LoadViewState ( this.ViewState["SelectableSetting"] );
+			( this.resizableSetting as IStateManager ).LoadViewState ( this.ViewState["ResizableSetting"] );
 		}
 
 		protected override object SaveViewState ( )
@@ -308,6 +354,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			this.ViewState["DraggableSetting"] = ( this.draggableSetting as IStateManager ).SaveViewState ( );
 			this.ViewState["DroppableSetting"] = ( this.droppableSetting as IStateManager ).SaveViewState ( );
 			this.ViewState["SortableSetting"] = ( this.sortableSetting as IStateManager ).SaveViewState ( );
+			this.ViewState["SelectableSetting"] = ( this.selectableSetting as IStateManager ).SaveViewState ( );
+			this.ViewState["ResizableSetting"] = ( this.resizableSetting as IStateManager ).SaveViewState ( );
 
 			return base.SaveViewState ( );
 		}
