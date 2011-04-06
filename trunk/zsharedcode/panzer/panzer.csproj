@@ -73,6 +73,10 @@
     <Compile Include=".class\ui\jqueryui\SortableSettingEdit.cs" />
     <Compile Include=".class\ui\jqueryui\SelectableSettingEdit.cs" />
     <Compile Include=".class\ui\jqueryui\ResizableSettingEdit.cs" />
+    <Compile Include=".class\ui\jqueryui\EventEdit.cs" />
+    <Compile Include=".class\ui\jqueryui\AjaxSettingEdit.cs" />
+    <Compile Include=".class\ui\jqueryui\WidgetSettingEdit.cs" />
+    <Compile Include=".class\ui\jqueryui\ParameterEdit.cs" />
     <Compile Include=".class\ui\UILoader.cs" />
     <Compile Include=".class\ui\WindowCore.cs" />
     <Compile Include=".class\web\EMail.cs" />
@@ -90,6 +94,10 @@
     <Compile Include=".class\web\jqueryui\SortableSetting.cs" />
     <Compile Include=".class\web\jqueryui\SelectableSetting.cs" />
     <Compile Include=".class\web\jqueryui\ResizableSetting.cs" />
+    <Compile Include=".class\web\jqueryui\Event.cs" />
+    <Compile Include=".class\web\jqueryui\AjaxSetting.cs" />
+    <Compile Include=".class\web\jqueryui\WidgetSetting.cs" />
+    <Compile Include=".class\web\jqueryui\Parameter.cs" />
     <Compile Include=".class\web\ScriptHelper.cs" />
     <None Include=".code\DataWebCore.all.cs" />
     <None Include=".code\DataWindowCore.all.cs" />
