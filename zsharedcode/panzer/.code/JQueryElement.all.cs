@@ -32,12 +32,21 @@ using NControl = System.Web.UI.Control;
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
@@ -97,11 +106,13 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	{
 		private ElementType elementType;
 
-		private DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
-		private DroppableSettingEdit droppableSetting = new DroppableSettingEdit ( );
-		private SortableSettingEdit sortableSetting = new SortableSettingEdit ( );
-		private SelectableSettingEdit selectableSetting = new SelectableSettingEdit ( );
-		private ResizableSettingEdit resizableSetting = new ResizableSettingEdit ( );
+		private readonly DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
+		private readonly DroppableSettingEdit droppableSetting = new DroppableSettingEdit ( );
+		private readonly SortableSettingEdit sortableSetting = new SortableSettingEdit ( );
+		private readonly SelectableSettingEdit selectableSetting = new SelectableSettingEdit ( );
+		private readonly ResizableSettingEdit resizableSetting = new ResizableSettingEdit ( );
+
+		private readonly WidgetSettingEdit widgetSetting = new WidgetSettingEdit ( );
 
 		private readonly PlaceHolder html = new PlaceHolder ( );
 
@@ -163,6 +174,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public ResizableSettingEdit ResizableSetting
 		{
 			get { return this.resizableSetting; }
+		}
+
+		/// <summary>
+		/// 获取元素的 Widget 设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的 Widget 设置, 前提 ElementType 不能为 None" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public WidgetSettingEdit WidgetSetting
+		{
+			get { return this.widgetSetting; }
 		}
 
 		/// <summary>
@@ -303,6 +326,13 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		#endregion
 
+		/// <summary>
+		/// 创建一个 JQueryElement.
+		/// </summary>
+		public JQueryElement ( )
+			: base ( )
+		{ this.EnableViewState = false; }
+
 		protected override void Render ( HtmlTextWriter writer )
 		{
 
@@ -343,6 +373,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			jquery.Selectable ( this.selectableSetting.CreateSelectableSetting ( ) );
 			jquery.Resizable ( this.resizableSetting.CreateResizableSetting ( ) );
 
+			jquery.Widget ( this.widgetSetting.CreateWidgetSetting ( ) );
+
 			jquery.Code = "$(function(){" + jquery.Code + ";});";
 			jquery.Build ( this, this.ClientID, ScriptBuildOption.Startup );
 		}
@@ -356,6 +388,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			( this.sortableSetting as IStateManager ).LoadViewState ( this.ViewState["SortableSetting"] );
 			( this.selectableSetting as IStateManager ).LoadViewState ( this.ViewState["SelectableSetting"] );
 			( this.resizableSetting as IStateManager ).LoadViewState ( this.ViewState["ResizableSetting"] );
+
+			( this.widgetSetting as IStateManager ).LoadViewState ( this.ViewState["WidgetSetting"] );
 		}
 
 		protected override object SaveViewState ( )
@@ -365,6 +399,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			this.ViewState["SortableSetting"] = ( this.sortableSetting as IStateManager ).SaveViewState ( );
 			this.ViewState["SelectableSetting"] = ( this.selectableSetting as IStateManager ).SaveViewState ( );
 			this.ViewState["ResizableSetting"] = ( this.resizableSetting as IStateManager ).SaveViewState ( );
+
+			this.ViewState["WidgetSetting"] = ( this.widgetSetting as IStateManager ).SaveViewState ( );
 
 			return base.SaveViewState ( );
 		}
@@ -1321,6 +1357,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	// [DefaultProperty ( "Value" )]
 	// [ToolboxData ( "<{0}:OptionEdit />" )]
 	// [ControlBuilder ( typeof ( ListItemControlBuilder ) )]
+	[DefaultProperty ( "Value" )]
 	[TypeConverter ( typeof ( OptionEditConverter ) )]
 	[ParseChildren ( true )]
 	[PersistChildren ( false )]
@@ -1390,7 +1427,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( states.Count >= 1 )
 				this.type = ( OptionType ) states[0];
-			
+
 			if ( states.Count >= 2 )
 				this.Value = states[1] as string;
 
@@ -1454,7 +1491,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
 			if ( expressionHelper.ChildCount == 2 )
-			{
 				try
 				{
 					edit.Type = ( OptionType ) Enum.Parse ( typeof ( OptionType ), expressionHelper[0].Value, true );
@@ -1462,7 +1498,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				}
 				catch
 				{ }
-			}
 
 			return edit;
 		}
@@ -1475,7 +1510,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			OptionEdit edit = value as OptionEdit;
 
-			return string.Format ( "{0}`;{1}", edit.Type.ToString ( ), edit.Value );
+			return string.Format ( "{0}`;{1}`;", edit.Type, edit.Value );
 		}
 
 	}
@@ -1497,6 +1532,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		protected override Type CreateCollectionItemType ( )
 		{ return typeof ( OptionEdit ); }
+
 	}
 	#endregion
 
@@ -1895,7 +1931,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -1928,64 +1967,98 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			return optionExpression.TrimEnd ( ',' ) + " }";
 		}
 
+		private static string makeParameterExpression ( List<Parameter> parameters )
+		{
+
+			if ( null == parameters || parameters.Count == 0 )
+				return string.Empty;
+
+			string parameterExpression = "{";
+
+			foreach ( Parameter parameter in parameters )
+				if ( null != parameter )
+					switch ( parameter.Type )
+					{
+						case ParameterType.Selector:
+							parameterExpression += string.Format ( " {0}: {1},", parameter.Name, JQuery.Create ( parameter.Value ).Val ( ).Code );
+							break;
+
+						case ParameterType.Expression:
+							parameterExpression += string.Format ( " {0}: {1},", parameter.Name, parameter.Value );
+							break;
+					}
+
+			return parameterExpression.TrimEnd ( ',' ) + " }";
+		}
+
 		#region " 构造 "
 
 		/// <summary>
-		/// 从另一个 JQuery 上创建具有相同 Code 属性的 JQuery 实例.
+		/// 从另一个 JQuery 上创建具有相同 Code 属性的 JQuery UI 实例.
 		/// </summary>
 		/// <param name="jQuery">jQuery 实例, 新实例将复制其 Code 属性.</param>
-		/// <returns>JQuery 实例.</returns>
+		/// <returns>JQuery UI 实例.</returns>
 		public static JQueryUI Create ( JQueryUI jQuery )
 		{ return new JQueryUI ( jQuery ); }
 
 		/// <summary>
-		/// 创建使用别名的空的 JQuery.
+		/// 创建使用别名的空的 JQuery UI.
 		/// </summary>
-		/// <returns>JQuery 实例.</returns>
+		/// <returns>JQuery UI 实例.</returns>
 		public static JQueryUI Create ( )
 		{ return Create ( null, null, true ); }
 		/// <summary>
-		/// 创建空的 JQuery.
+		/// 创建空的 JQuery UI.
 		/// </summary>
 		/// <param name="isAlias">是否在脚本中使用 $ 作为 jQuery 的别名.</param>
-		/// <returns>JQuery 实例.</returns>
+		/// <returns>JQuery UI 实例.</returns>
 		public static JQueryUI Create ( bool isAlias )
 		{ return Create ( null, null, isAlias ); }
 		/// <summary>
-		/// 创建使用别名的 JQuery.
+		/// 创建使用别名的 JQuery UI.
 		/// </summary>
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 也可以是 DOM 元素, 比如: "document.getElementById('myTable')", "[document.getElementById('myTable1'), document.getElementById('myTable2')]", 也可以是脚本中另一个 jQuery 实例, 比如: "myJQuery", 也可以是页面载入的回调函数, 比如: "function(){}", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
-		/// <returns>JQuery 实例.</returns>
+		/// <returns>JQuery UI 实例.</returns>
 		public static JQueryUI Create ( string expressionI )
 		{ return Create ( expressionI, null, true ); }
 		/// <summary>
-		/// 创建 JQuery.
+		/// 创建 JQuery UI.
 		/// </summary>
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 也可以是 DOM 元素, 比如: "document.getElementById('myTable')", "[document.getElementById('myTable1'), document.getElementById('myTable2')]", 也可以是脚本中另一个 jQuery 实例, 比如: "myJQuery", 也可以是页面载入的回调函数, 比如: "function(){}", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
 		/// <param name="isAlias">是否在脚本中使用 $ 作为 jQuery 的别名.</param>
-		/// <returns>JQuery 实例.</returns>
+		/// <returns>JQuery UI 实例.</returns>
 		public static JQueryUI Create ( string expressionI, bool isAlias )
 		{ return Create ( expressionI, null, isAlias ); }
 		/// <summary>
-		/// 创建使用别名的 JQuery.
+		/// 创建使用别名的 JQuery UI.
 		/// </summary>
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
 		/// <param name="expressionII">当 expressionI 是选择器时, expressionII 是一个 DOM 元素, 指定搜索上下文, 比如: "document.body", 当 expressionI 是一段 html 代码时, expressionII 可以是 document 元素, 指定 html 代码创建位置, 比如: "document", 也可以是属性集合, 用来初始化只包含单一元素 html 代码元素, 比如: "{type: 'text'}".</param>
-		/// <returns>JQuery 实例.</returns>
+		/// <returns>JQuery UI 实例.</returns>
 		public static JQueryUI Create ( string expressionI, string expressionII )
 		{ return Create ( expressionI, expressionII, true ); }
 		/// <summary>
-		/// 创建 JQuery.
+		/// 创建 JQuery UI.
 		/// </summary>
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
 		/// <param name="expressionII">当 expressionI 是选择器时, expressionII 是一个 DOM 元素, 指定搜索上下文, 比如: "document.body", 当 expressionI 是一段 html 代码时, expressionII 可以是 document 元素, 指定 html 代码创建位置, 比如: "document", 也可以是属性集合, 用来初始化只包含单一元素 html 代码元素, 比如: "{type: 'text'}".</param>
 		/// <param name="isAlias">是否在脚本中使用 $ 作为 jQuery 的别名.</param>
-		/// <returns>JQuery 实例.</returns>
+		/// <returns>JQuery UI 实例.</returns>
 		public static JQueryUI Create ( string expressionI, string expressionII, bool isAlias )
 		{ return new JQueryUI ( expressionI, expressionII, isAlias ); }
 
 		/// <summary>
-		/// 从另一个 JQuery 上创建具有相同 Code 属性的 JQuery 实例.
+		/// 创建 JQuery UI.
+		/// </summary>
+		/// <param name="isInstance">是否创建为实例, 为 false, 则创建为 $, 否则为 $().</param>
+		/// <param name="isAlias">是否在脚本中使用 $ 作为 jQuery 的别名.</param>
+		/// <returns>JQuery UI 实例.</returns>
+		public static JQueryUI Create ( bool isInstance, bool isAlias )
+		{ return new JQueryUI ( isInstance, isAlias ); }
+
+
+		/// <summary>
+		/// 从另一个 JQuery 上创建具有相同 Code 属性的 JQuery UI 实例.
 		/// </summary>
 		/// <param name="jQuery">jQuery 实例, 新实例将复制其 Code 属性.</param>
 		public JQueryUI ( JQueryUI jQuery )
@@ -1993,27 +2066,27 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		{ }
 
 		/// <summary>
-		/// 创建使用别名的空的 JQuery.
+		/// 创建使用别名的空的 JQuery UI.
 		/// </summary>
 		public JQueryUI ( )
 			: this ( null, null, true )
 		{ }
 		/// <summary>
-		/// 创建空的 JQuery.
+		/// 创建空的 JQuery UI.
 		/// </summary>
 		/// <param name="isAlias">是否在脚本中使用 $ 作为 jQuery 的别名.</param>
 		public JQueryUI ( bool isAlias )
 			: this ( null, null, isAlias )
 		{ }
 		/// <summary>
-		/// 创建使用别名的 JQuery.
+		/// 创建使用别名的 JQuery UI.
 		/// </summary>
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 也可以是 DOM 元素, 比如: "document.getElementById('myTable')", "[document.getElementById('myTable1'), document.getElementById('myTable2')]", 也可以是脚本中另一个 jQuery 实例, 比如: "myJQuery", 也可以是页面载入的回调函数, 比如: "function(){}", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
 		public JQueryUI ( string expressionI )
 			: this ( expressionI, null, true )
 		{ }
 		/// <summary>
-		/// 创建 JQuery.
+		/// 创建 JQuery UI.
 		/// </summary>
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 也可以是 DOM 元素, 比如: "document.getElementById('myTable')", "[document.getElementById('myTable1'), document.getElementById('myTable2')]", 也可以是脚本中另一个 jQuery 实例, 比如: "myJQuery", 也可以是页面载入的回调函数, 比如: "function(){}", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
 		/// <param name="isAlias">是否在脚本中使用 $ 作为 jQuery 的别名.</param>
@@ -2021,7 +2094,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			: this ( expressionI, null, isAlias )
 		{ }
 		/// <summary>
-		/// 创建使用别名的 JQuery.
+		/// 创建使用别名的 JQuery UI.
 		/// </summary>
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
 		/// <param name="expressionII">当 expressionI 是选择器时, expressionII 是一个 DOM 元素, 指定搜索上下文, 比如: "document.body", 当 expressionI 是一段 html 代码时, expressionII 可以是 document 元素, 指定 html 代码创建位置, 比如: "document", 也可以是属性集合, 用来初始化只包含单一元素 html 代码元素, 比如: "{type: 'text'}".</param>
@@ -2029,13 +2102,22 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			: this ( expressionI, expressionII, true )
 		{ }
 		/// <summary>
-		/// 创建 JQuery.
+		/// 创建 JQuery UI.
 		/// </summary>
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
 		/// <param name="expressionII">当 expressionI 是选择器时, expressionII 是一个 DOM 元素, 指定搜索上下文, 比如: "document.body", 当 expressionI 是一段 html 代码时, expressionII 可以是 document 元素, 指定 html 代码创建位置, 比如: "document", 也可以是属性集合, 用来初始化只包含单一元素 html 代码元素, 比如: "{type: 'text'}".</param>
 		/// <param name="isAlias">是否在脚本中使用 $ 作为 jQuery 的别名.</param>
 		public JQueryUI ( string expressionI, string expressionII, bool isAlias )
 			: base ( expressionI, expressionII, isAlias )
+		{ }
+
+		/// <summary>
+		/// 创建 JQuery UI.
+		/// </summary>
+		/// <param name="isInstance">是否创建为实例, 为 false, 则创建为 $, 否则为 $().</param>
+		/// <param name="isAlias">是否在脚本中使用 $ 作为 jQuery 的别名.</param>
+		public JQueryUI ( bool isInstance, bool isAlias )
+			: base ( isInstance, isAlias )
 		{ }
 
 		#endregion
@@ -2108,6 +2190,56 @@ namespace zoyobar.shared.panzer.web.jqueryui
 				return this;
 
 			return this.Execute ( "resizable", makeOptionExpression ( setting.Options ) ) as JQueryUI;
+		}
+
+		/// <summary>
+		/// Widget 操作.
+		/// </summary>
+		/// <param name="setting">Widget 相关设置.</param>
+		/// <returns>更新后的 JQueryUI 对象.</returns>
+		public JQueryUI Widget ( WidgetSetting setting )
+		{
+
+			if ( null == setting || setting.WidgetType == WidgetType.None )
+				return this;
+
+			this.Execute ( setting.WidgetType.ToString ( ).ToLower ( ), makeOptionExpression ( setting.Options ) );
+
+			foreach ( Event @event in setting.Events )
+				this.Execute ( @event.Type.ToString ( ).ToLower ( ), @event.Value );
+
+			foreach ( AjaxSetting ajaxSetting in setting.AjaxSettings )
+			{
+
+				if ( ajaxSetting.WidgetEventType == EventType.None )
+					continue;
+
+				string quote;
+
+				if ( ajaxSetting.IsSingleQuote )
+					quote = "'";
+				else
+					quote = "\"";
+
+				string data;
+
+				if ( string.IsNullOrEmpty ( ajaxSetting.Form ) )
+					data = makeParameterExpression ( ajaxSetting.Parameters );
+				else
+					data = JQuery.Create ( ajaxSetting.Form ).Serialize ( ).Code;
+
+				JQuery jQuery = JQuery.Create ( false, true );
+				string map = string.Format ( "url: {0}{1}{0}, dataType: {0}{2}{0}, data: {3}", quote, ajaxSetting.Url, ajaxSetting.DataType.ToString ( ).ToLower ( ), data );
+
+				foreach ( Event @event in ajaxSetting.Events )
+					map += ", " + @event.Type.ToString ( ).ToLower ( ) + ": " + @event.Value;
+
+				jQuery.Ajax ( "{" + map + "}" );
+
+				this.Execute ( ajaxSetting.WidgetEventType.ToString ( ).ToLower ( ), "function(e){" + jQuery.Code + "}" );
+			}
+
+			return this;
 		}
 
 	}
@@ -2446,7 +2578,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	/// <summary>
 	/// jQuery UI 的选项.
 	/// </summary>
-	public sealed partial class Option
+	public sealed class Option
 	{
 		/// <summary>
 		/// 选项类型.
@@ -2495,7 +2627,7 @@ namespace zoyobar.shared.panzer.web
 {
 
 	/// <summary>
-	/// JQuery 用于编写构造 jQuery 脚本, 包含了 jQuery 中的方法等. (尚未包含 Effects, Ajax, Utilities 的部分方法)
+	/// JQuery 用于编写构造 jQuery 脚本, 包含了 jQuery 中的方法等. (尚未包含 Effects, Utilities 的部分方法)
 	/// </summary>
 	public class JQuery
 		: ScriptHelper
@@ -2574,6 +2706,16 @@ namespace zoyobar.shared.panzer.web
 		{ return new JQuery ( expressionI, expressionII, isAlias ); }
 
 		/// <summary>
+		/// 创建 JQuery.
+		/// </summary>
+		/// <param name="isInstance">是否创建为实例, 为 false, 则创建为 $, 否则为 $().</param>
+		/// <param name="isAlias">是否在脚本中使用 $ 作为 jQuery 的别名.</param>
+		/// <returns>JQuery 实例.</returns>
+		public static JQuery Create ( bool isInstance, bool isAlias )
+		{ return new JQuery ( isInstance, isAlias ); }
+
+
+		/// <summary>
 		/// 从另一个 JQuery 上创建具有相同 Code 属性的 JQuery 实例.
 		/// </summary>
 		/// <param name="jQuery">jQuery 实例, 新实例将复制其 Code 属性.</param>
@@ -2647,6 +2789,25 @@ namespace zoyobar.shared.panzer.web
 					this.AppendCode ( string.Format ( "{0}({1})", constructor, expressionI ) );
 				else
 					this.AppendCode ( string.Format ( "{0}({1}, {2})", constructor, expressionI, expressionII ) );
+
+		}
+
+		/// <summary>
+		/// 创建 JQuery.
+		/// </summary>
+		/// <param name="isInstance">是否创建为实例, 为 false, 则创建为 $, 否则为 $().</param>
+		/// <param name="isAlias">是否在脚本中使用 $ 作为 jQuery 的别名.</param>
+		public JQuery ( bool isInstance, bool isAlias )
+			: base ( ScriptType.JavaScript )
+		{
+
+			if ( isAlias )
+				this.AppendCode ( "$" );
+			else
+				this.AppendCode ( "jQuery" );
+
+			if ( isInstance )
+				this.AppendCode ( "()" );
 
 		}
 
@@ -2780,6 +2941,78 @@ namespace zoyobar.shared.panzer.web
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery After ( string expressionI, string expressionII )
 		{ return this.Execute ( "after", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 执行 ajax 操作, 并返回 jqXHR javascript 对象.
+		/// </summary>
+		/// <param name="expressionI">返回对象的表达式, 包含 ajax 操作的设置, 比如: "{url: 'js/test.js'}".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Ajax ( string expressionI )
+		{ return this.Ajax ( expressionI, null ); }
+		/// <summary>
+		/// 执行 ajax 操作, 并返回 jqXHR javascript 对象. (需要 1.5 版本以上)
+		/// </summary>
+		/// <param name="expressionI">返回地址的表达式, 比如: "'js/test.js'".</param>
+		/// <param name="expressionII">返回对象的表达式, 包含 ajax 操作的设置, 比如: "{url: 'js/test.js'}".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Ajax ( string expressionI, string expressionII )
+		{ return this.Execute ( "ajax", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 在当前 jQuery 中包含的元素添加 ajax 请求完成的事件.
+		/// </summary>
+		/// <param name="expression">返回函数的表达式, 比如: "function(e, x, a){alert('ajax');}"</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery AjaxComplete ( string expression )
+		{ return this.Execute ( "ajaxComplete", expression ); }
+
+		/// <summary>
+		/// 在当前 jQuery 中包含的元素添加 ajax 请求失败的事件.
+		/// </summary>
+		/// <param name="expression">返回函数的表达式, 比如: "function(e, g, a, t){alert('ajax');}"</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery AjaxError ( string expression )
+		{ return this.Execute ( "ajaxError", expression ); }
+
+		/// <summary>
+		/// 在当前 jQuery 中包含的元素添加 ajax 请求发出的事件.
+		/// </summary>
+		/// <param name="expression">返回函数的表达式, 比如: "function(e, x, a){alert('ajax');}"</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery AjaxSend ( string expression )
+		{ return this.Execute ( "ajaxSend", expression ); }
+
+		/// <summary>
+		/// 设置之后 ajax 操作的默认设置. (需要 1.1 版本以上)
+		/// </summary>
+		/// <param name="expression">返回对象的表达式, 包含 ajax 操作的设置, 比如: "{url: 'js/test.js'}".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery AjaxSetup ( string expression )
+		{ return this.Execute ( "ajaxSetup", expression ); }
+
+		/// <summary>
+		/// 在当前 jQuery 中包含的元素添加第一个 ajax 请求的事件.
+		/// </summary>
+		/// <param name="expression">返回函数的表达式, 比如: "function(){alert('ajax');}"</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery AjaxStart ( string expression )
+		{ return this.Execute ( "ajaxStart", expression ); }
+
+		/// <summary>
+		/// 在当前 jQuery 中包含的元素添加所有 ajax 请求结束的事件.
+		/// </summary>
+		/// <param name="expression">返回函数的表达式, 比如: "function(){alert('ajax');}"</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery AjaxStop ( string expression )
+		{ return this.Execute ( "ajaxStop", expression ); }
+
+		/// <summary>
+		/// 在当前 jQuery 中包含的元素添加所有 ajax 请求成功的事件.
+		/// </summary>
+		/// <param name="expression">返回函数的表达式, 比如: "function(e, x, a){alert('ajax');}"</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery AjaxSuccess ( string expression )
+		{ return this.Execute ( "ajaxSuccess", expression ); }
 
 		/// <summary>
 		/// 合并 jQuery 匹配到的上一批元素和当前 jQuery 中的元素, 生成一个新的 jQuery 对象. (需要 1.2 版本以上)
@@ -3211,6 +3444,61 @@ namespace zoyobar.shared.panzer.web
 
 		#endregion
 
+		#region " 方法 G "
+
+		/// <summary>
+		/// 使用 GET 获取请求数据.
+		/// </summary>
+		/// <param name="expressionI">返回地址的表达式, 比如: "js/test.js".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Get ( string expressionI )
+		{ return this.Get ( expressionI, null, null, null ); }
+		/// <summary>
+		/// 使用 GET 获取请求数据.
+		/// </summary>
+		/// <param name="expressionI">返回地址的表达式, 比如: "js/test.js".</param>
+		/// <param name="expressionII">返回对象或字符串的表达式, 比如: "{name: 'abc'}", 将传送给服务器.</param>
+		/// <param name="expressionIII">返回成功时回调函数的表达式, 比如: "function(d, t, j){alert('ajax');}".</param>
+		/// <param name="expressionIV">指定获取数据类型的字符串, "'xml'", "'json'", "'script'", "'html'" 中的一种.</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Get ( string expressionI, string expressionII, string expressionIII, string expressionIV )
+		{ return this.Execute ( "get", expressionI, expressionII, expressionIII, expressionIV ); }
+
+		/// <summary>
+		/// 使用 GET 获取请求 json 数据.
+		/// </summary>
+		/// <param name="expressionI">返回地址的表达式, 比如: "test.aspx".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery GetJSON ( string expressionI )
+		{ return this.GetJSON ( expressionI, null, null ); }
+		/// <summary>
+		/// 使用 GET 获取请求 json 数据.
+		/// </summary>
+		/// <param name="expressionI">返回地址的表达式, 比如: "test.aspx".</param>
+		/// <param name="expressionII">返回对象或字符串的表达式, 比如: "{name: 'abc'}", 将传送给服务器.</param>
+		/// <param name="expressionIII">返回成功时回调函数的表达式, 比如: "function(d, t, j){alert('ajax');}".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery GetJSON ( string expressionI, string expressionII, string expressionIII )
+		{ return this.Execute ( "getJSON", expressionI, expressionII, expressionIII ); }
+
+		/// <summary>
+		/// 使用 GET 获取请求 javascript 脚本并执行.
+		/// </summary>
+		/// <param name="expressionI">返回地址的表达式, 比如: "js/test.js".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery GetScript ( string expressionI )
+		{ return this.GetScript ( expressionI, null ); }
+		/// <summary>
+		/// 使用 GET 获取请求 javascript 脚本并执行.
+		/// </summary>
+		/// <param name="expressionI">返回地址的表达式, 比如: "js/test.js".</param>
+		/// <param name="expressionIII">返回成功时回调函数的表达式, 比如: "function(d, t){alert('ajax');}".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery GetScript ( string expressionI, string expressionII)
+		{ return this.Execute ( "getScript", expressionI, expressionII ); }
+
+		#endregion
+
 		#region " 方法 H "
 
 		/// <summary>
@@ -3432,12 +3720,12 @@ namespace zoyobar.shared.panzer.web
 		{ return this.Execute ( "live", expressionI, expressionII, expressionIII ); }
 
 		/// <summary>
-		/// 为 jQuery 中的元素添加载入的事件.
+		/// 为 jQuery 中的元素添加载入的事件, 或者使用 GET 请求 html 代码.
 		/// </summary>
-		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }", 或者返回地址的表达式, 比如: "'test.html'".</param>
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Load ( string expressionI )
-		{ return this.Load ( expressionI, null ); }
+		{ return this.Load ( expressionI, null, null ); }
 		/// <summary>
 		/// 为 jQuery 中的元素添加载入的事件. (需要 1.4.3 版本以上)
 		/// </summary>
@@ -3445,8 +3733,16 @@ namespace zoyobar.shared.panzer.web
 		/// <param name="expressionIII">返回函数的表达式, 比如: "function(){ return false; }".</param>
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Load ( string expressionI, string expressionII )
-		{ return this.Execute ( "load", expressionI, expressionII ); }
-
+		{ return this.Load ( expressionI, expressionII, null ); }
+		/// <summary>
+		/// 使用 GET 请求 html 代码.
+		/// </summary>
+		/// <param name="expressionI">返回地址的表达式, 比如: "'test.html'".</param>
+		/// <param name="expressionII">返回对象或字符串的表达式, 比如: "{name: 'abc'}", 将传送给服务器.</param>
+		/// <param name="expressionIII">返回完成时回调函数的表达式, 比如: "function(r, t, x){alert('ajax');}".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Load ( string expressionI, string expressionII, string expressionIII )
+		{ return this.Execute ( "load", expressionI, expressionII, expressionIII ); }
 
 		#endregion
 
@@ -3750,6 +4046,22 @@ namespace zoyobar.shared.panzer.web
 		#region " 方法  P "
 
 		/// <summary>
+		/// 将对象或者数组转化为 url 参数.
+		/// </summary>
+		/// <param name="expressionI">对象或者数组, 比如: "{name: 'abc', age: 12}".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Param ( string expressionI )
+		{ return this.Param ( expressionI, null ); }
+		/// <summary>
+		/// 将对象或者数组转化为 url 参数.
+		/// </summary>
+		/// <param name="expressionI">对象或者数组, 比如: "{name: 'abc', age: 12}".</param>
+		/// <param name="expressionII">返回布尔值的表达式, 比如: "true", 指示是否深度转化.</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Param ( string expressionI, string expressionII )
+		{ return this.Execute ( "param", expressionI, expressionII ); }
+
+		/// <summary>
 		/// 获取当前 jQuery 中包含的元素的第一级父元素.
 		/// </summary>
 		/// <returns>更新后的 JQuery 对象.</returns>
@@ -3797,6 +4109,24 @@ namespace zoyobar.shared.panzer.web
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Position ( )
 		{ return this.Execute ( "position" ); }
+
+		/// <summary>
+		/// 使用 POST 获取请求数据.
+		/// </summary>
+		/// <param name="expressionI">返回地址的表达式, 比如: "js/test.js".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Post ( string expressionI )
+		{ return this.Post ( expressionI, null, null, null ); }
+		/// <summary>
+		/// 使用 POST 获取请求数据.
+		/// </summary>
+		/// <param name="expressionI">返回地址的表达式, 比如: "js/test.js".</param>
+		/// <param name="expressionII">返回对象或字符串的表达式, 比如: "{name: 'abc'}", 将传送给服务器.</param>
+		/// <param name="expressionIII">返回成功时回调函数的表达式, 比如: "function(d, t, j){alert('ajax');}".</param>
+		/// <param name="expressionIV">指定获取数据类型的字符串, "'xml'", "'json'", "'script'", "'html'" 中的一种.</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Post ( string expressionI, string expressionII, string expressionIII, string expressionIV )
+		{ return this.Execute ( "post", expressionI, expressionII, expressionIII, expressionIV ); }
 
 		/// <summary>
 		/// 在当前 jQuery 中包含的所有元素之前添加新的内容作为子元素.
@@ -4034,6 +4364,20 @@ namespace zoyobar.shared.panzer.web
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Select ( string expressionI, string expressionII )
 		{ return this.Execute ( "select", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 将表单中包含的值转化为 url 参数字符串.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Serialize ( )
+		{ return this.Execute ( "serialize" ); }
+
+		/// <summary>
+		/// 将表单中包含的值转化为数组.
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery SerializeArray ( )
+		{ return this.Execute ( "serializeArray" ); }
 
 		/// <summary>
 		/// 获取当前 jQuery 中包含的元素的所有兄弟元素.

@@ -1,12 +1,12 @@
 ﻿/*
  * wiki:
- * http://code.google.com/p/zsharedcode/wiki/JQueryUIOptionEdit
- * http://code.google.com/p/zsharedcode/wiki/JQueryUIOptionEditConverter
- * http://code.google.com/p/zsharedcode/wiki/JQueryUIOptionEditCollectionEditor
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIEventEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIEventEditConverter
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIEventEditCollectionEditor
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
- * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
  * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
@@ -25,42 +25,42 @@ using zoyobar.shared.panzer.web.jqueryui;
 namespace zoyobar.shared.panzer.ui.jqueryui
 {
 
-	#region " OptionEdit "
+	#region " EventEdit "
 	/// <summary>
-	/// jQuery UI 的选项编辑器.
+	/// jQuery UI 的事件编辑器.
 	/// </summary>
 	// [DefaultProperty ( "Value" )]
-	// [ToolboxData ( "<{0}:OptionEdit />" )]
+	// [ToolboxData ( "<{0}:EventEdit />" )]
 	// [ControlBuilder ( typeof ( ListItemControlBuilder ) )]
 	[DefaultProperty ( "Value" )]
-	[TypeConverter ( typeof ( OptionEditConverter ) )]
+	[TypeConverter ( typeof ( EventEditConverter ) )]
 	[ParseChildren ( true )]
 	[PersistChildren ( false )]
-	public sealed class OptionEdit
+	public sealed class EventEdit
 		: IStateManager
 	{
-		private OptionType type = OptionType.none;
+		private EventType type = EventType.None;
 		private string value = string.Empty;
 
 		/// <summary>
-		/// 获取或设置选项的类型.
+		/// 获取或设置事件的类型.
 		/// </summary>
 		[Category ( "jQuery UI" )]
-		[DefaultValue ( OptionType.none )]
-		[Description ( "选项的类型" )]
+		[DefaultValue ( EventType.None )]
+		[Description ( "事件的类型" )]
 		[NotifyParentProperty ( true )]
-		public OptionType Type
+		public EventType Type
 		{
 			get { return this.type; }
 			set { this.type = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置选项的数据.
+		/// 获取或设置事件的内容.
 		/// </summary>
 		[Category ( "jQuery UI" )]
 		[DefaultValue ( "" )]
-		[Description ( "选项的数据" )]
+		[Description ( "事件的内容" )]
 		[NotifyParentProperty ( true )]
 		public string Value
 		{
@@ -75,11 +75,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 创建一个 jQuery UI 选项.
+		/// 创建一个 jQuery UI 事件.
 		/// </summary>
-		/// <returns>jQuery UI 选项.</returns>
-		public Option CreateOption ( )
-		{ return new Option ( this.type, this.value ); }
+		/// <returns>jQuery UI 事件.</returns>
+		public Event CreateEvent ( )
+		{ return new Event ( this.type, this.value ); }
 
 		/// <summary>
 		/// 转换为等效字符串.
@@ -101,7 +101,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				return;
 
 			if ( states.Count >= 1 )
-				this.type = ( OptionType ) states[0];
+				this.type = ( EventType ) states[0];
 
 			if ( states.Count >= 2 )
 				this.Value = states[1] as string;
@@ -123,11 +123,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	}
 	#endregion
 
-	#region " OptionEditConverter "
+	#region " EventEditConverter "
 	/// <summary>
 	/// jQuery UI 选项编辑器的转换器.
 	/// </summary>
-	public sealed class OptionEditConverter : ExpandableObjectConverter
+	public sealed class EventEditConverter : ExpandableObjectConverter
 	{
 
 		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
@@ -150,7 +150,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
 		{
-			OptionEdit edit = new OptionEdit ( );
+			EventEdit edit = new EventEdit ( );
 
 			if ( null == value )
 				return edit;
@@ -168,7 +168,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( expressionHelper.ChildCount == 2 )
 				try
 				{
-					edit.Type = ( OptionType ) Enum.Parse ( typeof ( OptionType ), expressionHelper[0].Value, true );
+					edit.Type = ( EventType ) Enum.Parse ( typeof ( EventType ), expressionHelper[0].Value, true );
 					edit.Value = expressionHelper[1].Value;
 				}
 				catch
@@ -180,25 +180,25 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
 		{
 
-			if ( null == value || !( value is OptionEdit ) || destinationType != typeof ( string ) )
+			if ( null == value || !( value is EventEdit ) || destinationType != typeof ( string ) )
 				return base.ConvertTo ( context, culture, value, destinationType );
 
-			OptionEdit edit = value as OptionEdit;
+			EventEdit edit = value as EventEdit;
 
-			return string.Format ( "{0}`;{1}`;", edit.Type, edit.Value );
+			return string.Format ( "{0}`;{1}`;", edit.Type.ToString ( ), edit.Value );
 		}
 
 	}
 	#endregion
 
-	#region " OptionEditCollectionEditor "
+	#region " EventEditCollectionEditor "
 	/// <summary>
 	/// jQuery UI 选项的集合编辑器.
 	/// </summary>
-	public class OptionEditCollectionEditor : CollectionEditor
+	public class EventEditCollectionEditor : CollectionEditor
 	{
 
-		public OptionEditCollectionEditor ( Type type )
+		public EventEditCollectionEditor ( Type type )
 			: base ( type )
 		{ }
 
@@ -206,7 +206,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{ return false; }
 
 		protected override Type CreateCollectionItemType ( )
-		{ return typeof ( OptionEdit ); }
+		{ return typeof ( EventEdit ); }
 
 	}
 	#endregion

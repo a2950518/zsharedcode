@@ -329,7 +329,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	/// <summary>
 	/// jQuery UI 的选项.
 	/// </summary>
-	public sealed partial class Option
+	public sealed class Option
 	{
 		/// <summary>
 		/// 选项类型.
