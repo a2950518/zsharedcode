@@ -1,0 +1,3 @@
+﻿#summary AjaxSettingEditCollectionEditor 成员参考
+#labels Phase-Design,Phase-Implementation
+<font size="2" face="microsoft yahei"><h3>AjaxSettingEditCollectionEditor 成员参考</h3>[http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs 查看代码]<br />说明: {{{jQuery UI 选项的集合编辑器.}}}<br /></font>
