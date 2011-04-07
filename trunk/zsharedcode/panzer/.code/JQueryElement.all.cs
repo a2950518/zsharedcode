@@ -12,6 +12,7 @@ using System.Drawing.Design;
 using System.Globalization;
 using zoyobar.shared.panzer.code;
 using System.ComponentModel.Design;
+using System.Reflection;
 using NControl = System.Web.UI.Control;
 // ../.class/ui/jqueryui/JQueryElement.cs
 /*
@@ -21,8 +22,8 @@ using NControl = System.Web.UI.Control;
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryElement.cs
  * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/JQuery.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
@@ -37,6 +38,7 @@ using NControl = System.Web.UI.Control;
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
@@ -375,7 +377,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			jquery.Widget ( this.widgetSetting.CreateWidgetSetting ( ) );
 
-			jquery.Code = "$(function(){" + jquery.Code + ";});";
+			jquery.Code = "$(function(){" + JQueryCoder.Encode ( this, jquery.Code ) + ";});";
 			jquery.Build ( this, this.ClientID, ScriptBuildOption.Startup );
 		}
 
@@ -1537,6 +1539,1363 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	#endregion
 
 }
+// ../.class/ui/jqueryui/EventEdit.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIEventEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIEventEditConverter
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIEventEditCollectionEditor
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	#region " EventEdit "
+	/// <summary>
+	/// jQuery UI 的事件编辑器.
+	/// </summary>
+	// [DefaultProperty ( "Value" )]
+	// [ToolboxData ( "<{0}:EventEdit />" )]
+	// [ControlBuilder ( typeof ( ListItemControlBuilder ) )]
+	[DefaultProperty ( "Value" )]
+	[TypeConverter ( typeof ( EventEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class EventEdit
+		: IStateManager
+	{
+		private EventType type = EventType.None;
+		private string value = string.Empty;
+
+		/// <summary>
+		/// 获取或设置事件的类型.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( EventType.None )]
+		[Description ( "事件的类型" )]
+		[NotifyParentProperty ( true )]
+		public EventType Type
+		{
+			get { return this.type; }
+			set { this.type = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置事件的内容.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "事件的内容" )]
+		[NotifyParentProperty ( true )]
+		public string Value
+		{
+			get { return this.value; }
+			set
+			{
+
+				if ( null != value )
+					this.value = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 创建一个 jQuery UI 事件.
+		/// </summary>
+		/// <returns>jQuery UI 事件.</returns>
+		public Event CreateEvent ( )
+		{ return new Event ( this.type, this.value ); }
+
+		/// <summary>
+		/// 转换为等效字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				this.type = ( EventType ) states[0];
+
+			if ( states.Count >= 2 )
+				this.Value = states[1] as string;
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+			states.Add ( this.type );
+			states.Add ( this.value );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " EventEditConverter "
+	/// <summary>
+	/// jQuery UI 选项编辑器的转换器.
+	/// </summary>
+	public sealed class EventEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			EventEdit edit = new EventEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 2 )
+				try
+				{
+					edit.Type = ( EventType ) Enum.Parse ( typeof ( EventType ), expressionHelper[0].Value, true );
+					edit.Value = expressionHelper[1].Value;
+				}
+				catch
+				{ }
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is EventEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType );
+
+			EventEdit edit = value as EventEdit;
+
+			return string.Format ( "{0}`;{1}`;", edit.Type.ToString ( ), edit.Value );
+		}
+
+	}
+	#endregion
+
+	#region " EventEditCollectionEditor "
+	/// <summary>
+	/// jQuery UI 选项的集合编辑器.
+	/// </summary>
+	public class EventEditCollectionEditor : CollectionEditor
+	{
+
+		public EventEditCollectionEditor ( Type type )
+			: base ( type )
+		{ }
+
+		protected override bool CanSelectMultipleInstances ( )
+		{ return false; }
+
+		protected override Type CreateCollectionItemType ( )
+		{ return typeof ( EventEdit ); }
+
+	}
+	#endregion
+
+}
+// ../.class/ui/jqueryui/ParameterEdit.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIParameterEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIParameterEditConverter
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIParameterEditCollectionEditor
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	#region " ParameterEdit "
+	/// <summary>
+	/// jQuery UI 的参数编辑器.
+	/// </summary>
+	// [DefaultProperty ( "Value" )]
+	// [ToolboxData ( "<{0}:ParameterEdit />" )]
+	// [ControlBuilder ( typeof ( ListItemControlBuilder ) )]
+	[DefaultProperty ( "Value" )]
+	[TypeConverter ( typeof ( ParameterEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class ParameterEdit
+		: IStateManager
+	{
+		private ParameterType type = ParameterType.Selector;
+		private string value = string.Empty;
+		private string name = string.Empty;
+
+		/// <summary>
+		/// 获取或设置参数的名称.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "参数的名称" )]
+		[NotifyParentProperty ( true )]
+		public string Name
+		{
+			get { return this.name; }
+			set
+			{
+
+				if ( null != value )
+					this.name = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置参数的类型.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( ParameterType.Selector )]
+		[Description ( "参数的类型" )]
+		[NotifyParentProperty ( true )]
+		public ParameterType Type
+		{
+			get { return this.type; }
+			set { this.type = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置参数的数据.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "参数的数据" )]
+		[NotifyParentProperty ( true )]
+		public string Value
+		{
+			get { return this.value; }
+			set
+			{
+
+				if ( null != value )
+					this.value = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 创建一个 jQuery UI 参数.
+		/// </summary>
+		/// <returns>jQuery UI 参数</returns>
+		public Parameter CreateParameter ( )
+		{ return new Parameter ( this.name, this.type, this.value ); }
+
+		/// <summary>
+		/// 转换为等效字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				this.Name = states[0] as string;
+
+			if ( states.Count >= 2 )
+				this.type = ( ParameterType ) states[1];
+
+			if ( states.Count >= 3 )
+				this.Value = states[2] as string;
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+			states.Add ( this.name );
+			states.Add ( this.type );
+			states.Add ( this.value );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " ParameterEditConverter "
+	/// <summary>
+	/// jQuery UI 参数编辑器的转换器.
+	/// </summary>
+	public sealed class ParameterEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			ParameterEdit edit = new ParameterEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 3 )
+				try
+				{
+					edit.Name = expressionHelper[0].Value;
+					edit.Type = ( ParameterType ) Enum.Parse ( typeof ( ParameterType ), expressionHelper[1].Value, true );
+					edit.Value = expressionHelper[2].Value;
+				}
+				catch
+				{ }
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is ParameterEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType );
+
+			ParameterEdit edit = value as ParameterEdit;
+
+			return string.Format ( "{0}`;{1}`;{2}`;", edit.Name, edit.Type, edit.Value );
+		}
+
+	}
+	#endregion
+
+	#region " ParameterEditCollectionEditor "
+	/// <summary>
+	/// jQuery UI 参数的集合编辑器.
+	/// </summary>
+	public class ParameterEditCollectionEditor : CollectionEditor
+	{
+
+		public ParameterEditCollectionEditor ( Type type )
+			: base ( type )
+		{ }
+
+		protected override bool CanSelectMultipleInstances ( )
+		{ return false; }
+
+		protected override Type CreateCollectionItemType ( )
+		{ return typeof ( ParameterEdit ); }
+
+	}
+	#endregion
+
+}
+// ../.class/ui/jqueryui/AjaxSettingEdit.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIAjaxSettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIAjaxSettingEditConverter
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	#region " AjaxSettingEdit "
+	/// <summary>
+	/// jQuery UI Ajax 的相关设置.
+	/// </summary>
+	[TypeConverter ( typeof ( AjaxSettingEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class AjaxSettingEdit
+		: IStateManager
+	{
+		private List<EventEdit> events = new List<EventEdit> ( );
+		private EventType widgetEventType;
+		private string url;
+		private DataType dataType;
+		private string form;
+		private List<ParameterEdit> parameters = new List<ParameterEdit> ( );
+		private bool isSingleQuote;
+
+		/// <summary>
+		/// 获取元素的 Ajax 事件.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的 Ajax 事件" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<EventEdit> Events
+		{
+			get { return this.events; }
+		}
+
+		/// <summary>
+		/// 获取或设置和 Widget 相关的触发事件.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( EventType.None )]
+		[Description ( "指示和 Widget 相关的触发事件" )]
+		[NotifyParentProperty ( true )]
+		public EventType WidgetEventType
+		{
+			get { return this.widgetEventType; }
+			set { this.widgetEventType = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置请求的地址.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示请求的地址" )]
+		[NotifyParentProperty ( true )]
+		[UrlProperty()]
+		public string Url
+		{
+			get { return this.url; }
+			set
+			{
+
+				if ( !string.IsNullOrEmpty ( value ) )
+					this.url = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置获取的数据类型.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( DataType.JSon )]
+		[Description ( "指示获取的数据类型" )]
+		[NotifyParentProperty ( true )]
+		public DataType DataType
+		{
+			get { return this.dataType; }
+			set { this.dataType = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置用作传递参数的表单.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示用作传递参数的表单, 可以是一个选择器或元素" )]
+		[NotifyParentProperty ( true )]
+		public string Form
+		{
+			get { return this.form; }
+			set
+			{
+
+				if ( !string.IsNullOrEmpty ( value ) )
+					this.form = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取用作传递的参数.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "用作传递的参数" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( ParameterEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<ParameterEdit> Parameters
+		{
+			get { return this.parameters; }
+		}
+
+		/// <summary>
+		/// 获取或设置是否为字符串使用单引号.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( true )]
+		[Description ( "指示是否为字符串使用单引号" )]
+		[NotifyParentProperty ( true )]
+		public bool IsSingleQuote
+		{
+			get { return this.isSingleQuote; }
+			set { this.isSingleQuote = value; }
+		}
+
+		/// <summary>
+		/// 创建一个 jQuery UI Ajax 的相关设置.
+		/// </summary>
+		/// <returns>jQuery UI Ajax 的相关设置.</returns>
+		public AjaxSetting CreateAjaxSetting ( )
+		{
+			List<Event> events = new List<Event> ( );
+
+			foreach ( EventEdit edit in this.events )
+				events.Add ( edit.CreateEvent ( ) );
+
+			List<Parameter> parameters = new List<Parameter> ( );
+
+			foreach ( ParameterEdit edit in this.parameters )
+				parameters.Add ( edit.CreateParameter ( ) );
+
+			return new AjaxSetting ( this.widgetEventType, this.url, this.dataType, this.form, parameters.ToArray(), events.ToArray ( ), this.isSingleQuote );
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				this.widgetEventType = ( EventType ) states[0];
+
+			if ( states.Count >= 2 )
+				this.Url = states[1] as string;
+
+			if ( states.Count >= 3 )
+				this.dataType = ( DataType ) states[2];
+
+			if ( states.Count >= 4 )
+				this.Form = states[3] as string;
+
+			if ( states.Count >= 5 )
+				this.isSingleQuote = ( bool ) states[4];
+
+			if ( states.Count >= 6 )
+			{
+				List<object> eventStates = states[5] as List<object>;
+
+				for ( int index = 0; index < eventStates.Count; index++ )
+					( this.events[index] as IStateManager ).LoadViewState ( eventStates[index] );
+
+			}
+
+			if ( states.Count >= 7 )
+			{
+				List<object> parameterStates = states[6] as List<object>;
+
+				for ( int index = 0; index < parameterStates.Count; index++ )
+					( this.parameters[index] as IStateManager ).LoadViewState ( parameterStates[index] );
+
+			}
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+			states.Add ( this.widgetEventType );
+			states.Add ( this.url );
+			states.Add ( this.dataType );
+			states.Add ( this.form );
+			states.Add ( this.isSingleQuote );
+
+			List<object> eventStates = new List<object> ( );
+
+			foreach ( EventEdit edit in this.events )
+				eventStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+
+			states.Add ( eventStates );
+
+
+			List<object> parameterStates = new List<object> ( );
+
+			foreach ( ParameterEdit edit in this.parameters )
+				parameterStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+
+			states.Add ( parameterStates );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " AjaxSettingEditConverter "
+	/// <summary>
+	/// jQuery UI Ajax 设置编辑器的转换器.
+	/// </summary>
+	public sealed class AjaxSettingEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			AjaxSettingEdit edit = new AjaxSettingEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 5 )
+				try
+				{
+					edit.WidgetEventType = ( EventType ) Enum.Parse ( typeof ( EventType ), expressionHelper[0].Value );
+					edit.Url = expressionHelper[1].Value;
+					edit.DataType = ( DataType ) Enum.Parse ( typeof ( DataType ), expressionHelper[2].Value );
+					edit.Form = expressionHelper[3].Value;
+					edit.IsSingleQuote = StringConvert.ToObject<bool> ( expressionHelper[4].Value );
+				}
+				catch { }
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is AjaxSettingEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType ); ;
+
+			AjaxSettingEdit setting = value as AjaxSettingEdit;
+
+			return string.Format ( "{0}`;{1}`;{2}`;{3}`;{4}`;", setting.WidgetEventType, setting.Url, setting.DataType, setting.Form, setting.IsSingleQuote );
+		}
+
+	}
+	#endregion
+
+	#region " AjaxSettingEditCollectionEditor "
+	/// <summary>
+	/// jQuery UI 选项的集合编辑器.
+	/// </summary>
+	public class AjaxSettingEditCollectionEditor : CollectionEditor
+	{
+
+		public AjaxSettingEditCollectionEditor ( Type type )
+			: base ( type )
+		{ }
+
+		protected override bool CanSelectMultipleInstances ( )
+		{ return false; }
+
+		protected override Type CreateCollectionItemType ( )
+		{ return typeof ( AjaxSettingEdit ); }
+
+	}
+	#endregion
+
+}
+// ../.class/ui/jqueryui/WidgetSettingEdit.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIWidgetSettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIWidgetSettingEditConverter
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	#region " WidgetSettingEdit "
+	/// <summary>
+	/// jQuery UI Widget 的相关设置.
+	/// </summary>
+	[TypeConverter ( typeof ( WidgetSettingEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class WidgetSettingEdit
+		: IStateManager
+	{
+		private List<OptionEdit> options = new List<OptionEdit> ( );
+		private List<EventEdit> events = new List<EventEdit> ( );
+		private List<AjaxSettingEdit> ajaxSettings = new List<AjaxSettingEdit> ( );
+		private WidgetType type;
+
+		/// <summary>
+		/// 获取元素的 Widget 设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "Widget 相关的排列设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<OptionEdit> Options
+		{
+			get { return this.options; }
+		}
+
+		/// <summary>
+		/// 获取元素的 Widget 事件.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "Widget 相关的事件" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( EventEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<EventEdit> Events
+		{
+			get { return this.events; }
+		}
+
+		/// <summary>
+		/// 获取元素的 Widget 设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "Widget 相关的 Ajax 设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( AjaxSettingEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<AjaxSettingEdit> AjaxSettings
+		{
+			get { return this.ajaxSettings; }
+		}
+
+		/// <summary>
+		/// 获取或设置 Widget 类型.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( false )]
+		[Description ( "指示 Widget 类型" )]
+		[NotifyParentProperty ( true )]
+		public WidgetType Type
+		{
+			get { return this.type; }
+			set { this.type = value; }
+		}
+
+		/// <summary>
+		/// 创建一个 jQuery UI 排列的相关设置.
+		/// </summary>
+		/// <returns>jQuery UI 排列的相关设置.</returns>
+		public WidgetSetting CreateWidgetSetting ( )
+		{
+			List<Option> options = new List<Option> ( );
+
+			foreach ( OptionEdit edit in this.options )
+				options.Add ( edit.CreateOption ( ) );
+
+			List<Event> events = new List<Event> ( );
+
+			foreach ( EventEdit edit in this.events )
+				events.Add ( edit.CreateEvent ( ) );
+
+			List<AjaxSetting> ajaxSettings = new List<AjaxSetting> ( );
+
+			foreach ( AjaxSettingEdit edit in this.ajaxSettings )
+				ajaxSettings.Add ( edit.CreateAjaxSetting ( ) );
+
+			return new WidgetSetting ( this.type, options.ToArray ( ), events.ToArray ( ), ajaxSettings.ToArray ( ) );
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				this.type = ( WidgetType ) states[0];
+
+			if ( states.Count >= 2 )
+			{
+				List<object> optionStates = states[1] as List<object>;
+
+				for ( int index = 0; index < optionStates.Count; index++ )
+					( this.options[index] as IStateManager ).LoadViewState ( optionStates[index] );
+
+			}
+
+			if ( states.Count >= 3 )
+			{
+				List<object> eventStates = states[2] as List<object>;
+
+				for ( int index = 0; index < eventStates.Count; index++ )
+					( this.events[index] as IStateManager ).LoadViewState ( eventStates[index] );
+
+			}
+
+			if ( states.Count >= 4 )
+			{
+				List<object> ajaxSettingStates = states[3] as List<object>;
+
+				for ( int index = 0; index < ajaxSettingStates.Count; index++ )
+					( this.ajaxSettings[index] as IStateManager ).LoadViewState ( ajaxSettingStates[index] );
+
+			}
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+			states.Add ( this.type );
+
+			List<object> optionStates = new List<object> ( );
+
+			foreach ( OptionEdit edit in this.options )
+				optionStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+
+			states.Add ( optionStates );
+
+
+			List<object> eventStates = new List<object> ( );
+
+			foreach ( EventEdit edit in this.events )
+				eventStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+
+			states.Add ( eventStates );
+
+
+			List<object> ajaxSettingStates = new List<object> ( );
+
+			foreach ( AjaxSettingEdit edit in this.ajaxSettings )
+				ajaxSettingStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+
+			states.Add ( ajaxSettingStates );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " WidgetSettingEditConverter "
+	/// <summary>
+	/// jQuery UI Widget 设置编辑器的转换器.
+	/// </summary>
+	public sealed class WidgetSettingEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			WidgetSettingEdit edit = new WidgetSettingEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 1 )
+				try
+				{ edit.Type = ( WidgetType ) Enum.Parse ( typeof ( WidgetType ), expressionHelper[0].Value, true ); }
+				catch
+				{ }
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is WidgetSettingEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType ); ;
+
+			WidgetSettingEdit setting = value as WidgetSettingEdit;
+
+			return string.Format ( "{0}`;", setting.Type );
+		}
+
+	}
+	#endregion
+
+}
+// ../.class/ui/jqueryui/JQueryScript.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryScript
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryScript.cs
+ * 引用代码:
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	#region " JQueryScript "
+	/// <summary>
+	/// 实现 jQuery UI 的服务器控件.
+	/// </summary>
+	// [DefaultProperty ( "Html" )]
+	[ToolboxData ( "<{0}:JQueryScript runat=server></{0}:JQueryScript>" )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public class JQueryScript
+		: WebControl, INamingContainer
+	{
+
+		private readonly PlaceHolder html = new PlaceHolder ( );
+
+		/// <summary>
+		/// 获取 PlaceHolder 控件, 其中包含了元素中包含的 script 标签的代码. 
+		/// </summary>
+		[Browsable ( false )]
+		[Category ( "jQuery UI" )]
+		[Description ( "设置元素中包含的 script 标签的代码" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public PlaceHolder Html
+		{
+			get { return this.html; }
+		}
+
+		#region " hide "
+
+		/// <summary>
+		/// 在 JQueryScript 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override string AccessKey
+		{
+			get { return string.Empty; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 JQueryScript 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override Color BackColor
+		{
+			get { return Color.Empty; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 JQueryScript 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override Color BorderColor
+		{
+			get { return Color.Empty; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 JQueryScript 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override BorderStyle BorderStyle
+		{
+			get { return BorderStyle.None; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 JQueryScript 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override Unit BorderWidth
+		{
+			get { return Unit.Empty; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 JQueryScript 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override bool Enabled
+		{
+			get { return true; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 JQueryScript 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override bool EnableTheming
+		{
+			get { return false; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 JQueryScript 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override FontInfo Font
+		{
+			get { return base.Font; }
+		}
+
+		/// <summary>
+		/// 在 JQueryScript 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override Color ForeColor
+		{
+			get { return Color.Empty; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 JQueryScript 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override string SkinID
+		{
+			get { return string.Empty; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 JQueryScript 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override short TabIndex
+		{
+			get { return -1; }
+			set { }
+		}
+
+		#endregion
+
+		/// <summary>
+		/// 创建一个 JQueryScript.
+		/// </summary>
+		public JQueryScript ( )
+			: base ( )
+		{ this.EnableViewState = false; }
+
+		protected override void Render ( HtmlTextWriter writer )
+		{
+
+			if ( !this.Visible || this.html.Controls.Count != 1)
+				return;
+
+			LiteralControl literal = this.html.Controls[0] as LiteralControl;
+
+			if ( null == literal )
+				return;
+
+			literal.Text = JQueryCoder.Encode ( this, literal.Text );
+
+			this.html.RenderControl ( writer );
+		}
+
+	}
+	#endregion
+
+}
+// ../.class/ui/jqueryui/JQueryCoder.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryCoder
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
+ * 引用代码:
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	/// <summary>
+	/// 为 JQueryElement 以及相关控件中的内嵌语法执行操作.
+	/// </summary>
+	public sealed class JQueryCoder
+	{
+
+		/// <summary>
+		/// 编码内嵌语法.
+		/// </summary>
+		/// <param name="control">控件.</param>
+		/// <param name="code">包含内嵌语法的代码.</param>
+		/// <returns>编码后的代码.</returns>
+		public static string Encode ( Control control, string code )
+		{
+
+			if ( string.IsNullOrEmpty ( code ) || null == control || null == control.Page )
+				return string.Empty;
+
+			int beginIndex;
+			int endIndex;
+
+			while ( true )
+			{
+				endIndex = code.IndexOf ( "%]" );
+
+				if ( endIndex == -1 )
+					break;
+
+				beginIndex = code.LastIndexOf ( "[%", endIndex );
+
+				if ( beginIndex == -1 )
+					break;
+
+				string expression = code.Substring ( beginIndex, endIndex - beginIndex + 2 );
+
+				string command = expression.Replace ( "[%", string.Empty ).Replace ( "%]", string.Empty ).Trim();
+
+				beginIndex = command.IndexOf(':');
+
+				if(beginIndex <= 0 || beginIndex == command.Length - 1)
+					break;
+
+				string commandName = command.Substring ( 0, beginIndex ).Trim ( ).ToLower();
+				string commandParameter = command.Substring ( beginIndex + 1 ).Trim ( );
+
+				if ( commandName == string.Empty || commandParameter == string.Empty )
+					break;
+
+				string result = string.Empty;
+
+				switch ( commandName )
+				{
+					case "id":
+						Control aimControl = control.Page.FindControl ( commandParameter );
+
+						if ( null != aimControl )
+							result = aimControl.ClientID;
+
+						break;
+
+					case "fun":
+						MethodInfo methodInfo;
+						Control currentControl = control;
+
+						while ( true )
+						{
+							methodInfo = currentControl.GetType ( ).GetMethod ( commandParameter, BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic );
+
+							if ( null != methodInfo || null == currentControl.Parent )
+								break;
+
+							currentControl = currentControl.Parent;
+						}
+
+						if ( null != methodInfo )
+							if ( methodInfo.IsStatic )
+								result = methodInfo.Invoke ( null, null ) as string;
+							else
+								result = methodInfo.Invoke ( currentControl, null ) as string;
+
+						if ( null == result )
+							result = string.Empty;
+
+						break;
+				}
+
+				code = code.Replace ( expression, result );
+			}
+
+			return code;
+		}
+
+	}
+
+}
 // ../.class/web/jqueryui/DraggableSetting.cs
 /*
  * wiki: http://code.google.com/p/zsharedcode/wiki/JQueryUIDraggableSetting
@@ -1921,8 +3280,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
  * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/JQuery.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
@@ -2608,13 +3967,373 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	#endregion
 
 }
+// ../.class/web/jqueryui/Event.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIEvent
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIEventType
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+namespace zoyobar.shared.panzer.web.jqueryui
+{
+
+	#region " EventType "
+	/// <summary>
+	/// jQuery UI 的事件类型.
+	/// </summary>
+	public enum EventType
+	{
+		/// <summary>
+		/// 没有任何事件.
+		/// </summary>
+		None = 0,
+		/// <summary>
+		/// 完成时.
+		/// </summary>
+		Complete = 1,
+		/// <summary>
+		/// 出错时.
+		/// </summary>
+		Error = 2,
+		/// <summary>
+		/// 成功时.
+		/// </summary>
+		Success = 3,
+		/// <summary>
+		/// 点击时.
+		/// </summary>
+		Click = 4,
+	}
+	#endregion
+
+	#region " Event "
+	/// <summary>
+	/// jQuery UI 的事件.
+	/// </summary>
+	public sealed class Event
+	{
+		/// <summary>
+		/// 事件类型.
+		/// </summary>
+		public readonly EventType Type;
+		/// <summary>
+		/// 事件内容.
+		/// </summary>
+		public readonly string Value;
+
+		/// <summary>
+		/// 创建一个 jQuery UI 事件.
+		/// </summary>
+		/// <param name="type">事件类型.</param>
+		/// <param name="value">事件内容.</param>
+		public Event ( EventType type, string value )
+		{
+
+			if ( null == value )
+				value = string.Empty;
+
+			this.Type = type;
+			this.Value = value;
+		}
+
+	}
+	#endregion
+
+}
+// ../.class/web/jqueryui/Parameter.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIParameter
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIParameterType
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+namespace zoyobar.shared.panzer.web.jqueryui
+{
+
+	#region " ParameterType "
+	/// <summary>
+	/// jQuery UI 的参数类型.
+	/// </summary>
+	public enum ParameterType
+	{
+		/// <summary>
+		/// 表达式.
+		/// </summary>
+		Expression = 1,
+		/// <summary>
+		/// 选择器.
+		/// </summary>
+		Selector = 2,
+	}
+	#endregion
+
+	#region " Parameter "
+	/// <summary>
+	/// jQuery UI 的参数.
+	/// </summary>
+	public sealed class Parameter
+	{
+		/// <summary>
+		/// 参数名称.
+		/// </summary>
+		public readonly string Name;
+		/// <summary>
+		/// 参数类型.
+		/// </summary>
+		public readonly ParameterType Type;
+		/// <summary>
+		/// 参数值.
+		/// </summary>
+		public readonly string Value;
+
+		/// <summary>
+		/// 创建一个 jQuery UI 参数.
+		/// </summary>
+		/// <param name="name">参数名称.</param>
+		/// <param name="type">参数类型.</param>
+		/// <param name="value">参数值.</param>
+		public Parameter ( string name, ParameterType type, string value )
+		{
+
+			if ( string.IsNullOrEmpty ( name ) )
+				throw new ArgumentNullException ( "name", "参数名称不能为空" );
+
+			if ( null == value )
+				value = string.Empty;
+
+			this.Name = name;
+			this.Type = type;
+			this.Value = value;
+		}
+
+	}
+	#endregion
+
+}
+// ../.class/web/jqueryui/AjaxSetting.cs
+/*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/JQueryUIAjaxSetting
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+namespace zoyobar.shared.panzer.web.jqueryui
+{
+
+	#region " DataType "
+	/// <summary>
+	/// Ajax 获取的数据类型.
+	/// </summary>
+	public enum DataType
+	{
+		/// <summary>
+		/// json 数据.
+		/// </summary>
+		JSon = 1,
+		/// <summary>
+		/// 脚本代码.
+		/// </summary>
+		Script = 2,
+		/// <summary>
+		/// xml 数据.
+		/// </summary>
+		Xml = 3,
+		/// <summary>
+		/// html 代码.
+		/// </summary>
+		Html = 4,
+	}
+	#endregion
+
+	#region " AjaxSetting "
+	/// <summary>
+	/// jQuery UI Ajax 设置.
+	/// </summary>
+	public sealed class AjaxSetting
+	{
+		/// <summary>
+		/// Ajax 相关事件.
+		/// </summary>
+		public readonly List<Event> Events = new List<Event> ( );
+		/// <summary>
+		/// 和 Widget 相关的触发事件.
+		/// </summary>
+		public readonly EventType WidgetEventType;
+		/// <summary>
+		/// 请求的地址.
+		/// </summary>
+		public readonly string Url;
+		/// <summary>
+		/// 获取的数据类型.
+		/// </summary>
+		public readonly DataType DataType;
+		/// <summary>
+		/// 用作传递参数的表单.
+		/// </summary>
+		public readonly string Form;
+		/// <summary>
+		/// 用作传递的参数.
+		/// </summary>
+		public readonly List<Parameter> Parameters = new List<Parameter> ( );
+		/// <summary>
+		/// 是否为字符串使用单引号.
+		/// </summary>
+		public readonly bool IsSingleQuote;
+
+		/// <summary>
+		/// 创建 jQuery UI Ajax 设置.
+		/// </summary>
+		/// <param name="widgetEventType">和 Widget 相关的触发事件.</param>
+		/// <param name="url">请求的地址, 比如: "''".</param>
+		/// <param name="dataType">获取的数据类型.</param>
+		/// <param name="form">用作传递参数的表单.</param>
+		/// <param name="parameters">用作传递的参数, 如果指定了 form 参数, 则忽略 parameters.</param>
+		/// <param name="events">Ajax 相关事件.</param>
+		/// <param name="isSingleQuote">是否为字符串使用单引号.</param>
+		public AjaxSetting ( EventType widgetEventType, string url, DataType dataType, string form, Parameter[] parameters, Event[] events, bool isSingleQuote )
+		{
+
+			if ( string.IsNullOrEmpty ( url ) )
+				url = "/";
+
+			if ( string.IsNullOrEmpty ( form ) )
+				if ( null != parameters )
+					foreach ( Parameter parameter in parameters )
+						if ( null != parameter )
+							this.Parameters.Add ( parameter );
+
+			if ( null != events )
+				foreach ( Event @event in events )
+					if ( null != @event )
+						this.Events.Add ( @event );
+
+			this.Url = url;
+			this.DataType = dataType;
+			this.WidgetEventType = widgetEventType;
+			this.Form = form;
+
+			this.IsSingleQuote = isSingleQuote;
+		}
+
+	}
+	#endregion
+
+}
+// ../.class/web/jqueryui/WidgetSetting.cs
+/*
+ * wiki: http://code.google.com/p/zsharedcode/wiki/JQueryUIWidgetSetting
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+namespace zoyobar.shared.panzer.web.jqueryui
+{
+
+	#region " WidgetType "
+	/// <summary>
+	/// Widget 类型.
+	/// </summary>
+	public enum WidgetType
+	{
+		/// <summary>
+		/// 没有任何类型.
+		/// </summary>
+		None = 0,
+		/// <summary>
+		/// 按钮.
+		/// </summary>
+		Button = 1,
+	}
+	#endregion
+
+	#region " WidgetSetting "
+	/// <summary>
+	/// jQuery UI Widget 设置.
+	/// </summary>
+	public sealed class WidgetSetting
+	{
+		/// <summary>
+		/// Widget 相关事件.
+		/// </summary>
+		public readonly List<Event> Events = new List<Event> ( );
+		/// <summary>
+		/// Widget 相关设置.
+		/// </summary>
+		public readonly List<Option> Options = new List<Option> ( );
+		/// <summary>
+		/// Widget 类型.
+		/// </summary>
+		public readonly WidgetType WidgetType;
+		/// <summary>
+		/// Ajax 相关设置.
+		/// </summary>
+		public readonly List<AjaxSetting> AjaxSettings = new List<AjaxSetting> ( );
+
+		/// <summary>
+		/// 创建 jQuery UI Widget 设置.
+		/// </summary>
+		/// <param name="widgetEventType">和 Widget 相关的触发事件.</param>
+		/// <param name="options">Widget 相关设置.</param>
+		/// <param name="events">Widget 相关事件.</param>
+		/// <param name="ajaxSettings">Ajax 相关设置.</param>
+		public WidgetSetting ( WidgetType widgetEventType, Option[] options, Event[] events, AjaxSetting[] ajaxSettings )
+		{
+
+			if ( null != options )
+				foreach ( Option option in options )
+					if ( null != option )
+						this.Options.Add ( option );
+
+			if ( null != events )
+				foreach ( Event @event in events )
+					if ( null != @event )
+						this.Events.Add ( @event );
+
+			if ( null != ajaxSettings )
+				foreach ( AjaxSetting ajaxSetting in ajaxSettings )
+					if ( null != ajaxSetting )
+						this.AjaxSettings.Add ( ajaxSetting );
+
+			this.WidgetType = widgetEventType;
+		}
+
+	}
+	#endregion
+
+}
 // ../.class/web/JQuery.cs
 /*
  * wiki: http://code.google.com/p/zsharedcode/wiki/JQuery
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
  * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
