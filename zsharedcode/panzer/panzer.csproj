@@ -77,6 +77,8 @@
     <Compile Include=".class\ui\jqueryui\AjaxSettingEdit.cs" />
     <Compile Include=".class\ui\jqueryui\WidgetSettingEdit.cs" />
     <Compile Include=".class\ui\jqueryui\ParameterEdit.cs" />
+    <Compile Include=".class\ui\jqueryui\JQueryCoder.cs" />
+    <Compile Include=".class\ui\jqueryui\JQueryScript.cs" />
     <Compile Include=".class\ui\UILoader.cs" />
     <Compile Include=".class\ui\WindowCore.cs" />
     <Compile Include=".class\web\EMail.cs" />
