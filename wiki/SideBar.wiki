@@ -171,5 +171,6 @@
         * [JESortableItemsDoc JQueryElement 排列选择可以排列的目标]
         * [JESortableOpacityDoc JQueryElement 排列透明度]
         * [JESortableRevertDoc JQueryElement 排列恢复原位置]
+        * [JESortableEventDoc JQueryElement 排列事件]
   * [Member 项目成员]
 </font>
