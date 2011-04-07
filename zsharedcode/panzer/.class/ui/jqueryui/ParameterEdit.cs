@@ -22,6 +22,9 @@ using System.Web.UI;
 
 using zoyobar.shared.panzer.web.jqueryui;
 
+// HACK: 避免在 allinone 文件中的名称冲突
+using NParameter = zoyobar.shared.panzer.web.jqueryui.Parameter;
+
 namespace zoyobar.shared.panzer.ui.jqueryui
 {
 
@@ -98,8 +101,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 创建一个 jQuery UI 参数.
 		/// </summary>
 		/// <returns>jQuery UI 参数</returns>
-		public Parameter CreateParameter ( )
-		{ return new Parameter ( this.name, this.type, this.value ); }
+		public NParameter CreateParameter ( )
+		{ return new NParameter ( this.name, this.type, this.value ); }
 
 		/// <summary>
 		/// 转换为等效字符串.

@@ -12,6 +12,7 @@ using System.Drawing.Design;
 using System.Globalization;
 using zoyobar.shared.panzer.code;
 using System.ComponentModel.Design;
+using NParameter = zoyobar.shared.panzer.web.jqueryui.Parameter;
 using System.Reflection;
 using NControl = System.Web.UI.Control;
 // ../.class/ui/jqueryui/JQueryElement.cs
@@ -1765,6 +1766,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 
 
+// HACK: 避免在 allinone 文件中的名称冲突
+
 namespace zoyobar.shared.panzer.ui.jqueryui
 {
 
@@ -1841,8 +1844,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 创建一个 jQuery UI 参数.
 		/// </summary>
 		/// <returns>jQuery UI 参数</returns>
-		public Parameter CreateParameter ( )
-		{ return new Parameter ( this.name, this.type, this.value ); }
+		public NParameter CreateParameter ( )
+		{ return new NParameter ( this.name, this.type, this.value ); }
 
 		/// <summary>
 		/// 转换为等效字符串.
@@ -2002,6 +2005,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 
 
+// HACK: 避免在 allinone 文件中的名称冲突
+
 namespace zoyobar.shared.panzer.ui.jqueryui
 {
 
@@ -2140,7 +2145,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			foreach ( EventEdit edit in this.events )
 				events.Add ( edit.CreateEvent ( ) );
 
-			List<Parameter> parameters = new List<Parameter> ( );
+			List<NParameter> parameters = new List<NParameter> ( );
 
 			foreach ( ParameterEdit edit in this.parameters )
 				parameters.Add ( edit.CreateParameter ( ) );
@@ -3355,28 +3360,28 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		/// <param name="jQuery">jQuery 实例, 新实例将复制其 Code 属性.</param>
 		/// <returns>JQuery UI 实例.</returns>
-		public static JQueryUI Create ( JQueryUI jQuery )
+		public new static JQueryUI Create ( JQueryUI jQuery )
 		{ return new JQueryUI ( jQuery ); }
 
 		/// <summary>
 		/// 创建使用别名的空的 JQuery UI.
 		/// </summary>
 		/// <returns>JQuery UI 实例.</returns>
-		public static JQueryUI Create ( )
+		public new static JQueryUI Create ( )
 		{ return Create ( null, null, true ); }
 		/// <summary>
 		/// 创建空的 JQuery UI.
 		/// </summary>
 		/// <param name="isAlias">是否在脚本中使用 $ 作为 jQuery 的别名.</param>
 		/// <returns>JQuery UI 实例.</returns>
-		public static JQueryUI Create ( bool isAlias )
+		public new static JQueryUI Create ( bool isAlias )
 		{ return Create ( null, null, isAlias ); }
 		/// <summary>
 		/// 创建使用别名的 JQuery UI.
 		/// </summary>
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 也可以是 DOM 元素, 比如: "document.getElementById('myTable')", "[document.getElementById('myTable1'), document.getElementById('myTable2')]", 也可以是脚本中另一个 jQuery 实例, 比如: "myJQuery", 也可以是页面载入的回调函数, 比如: "function(){}", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
 		/// <returns>JQuery UI 实例.</returns>
-		public static JQueryUI Create ( string expressionI )
+		public new static JQueryUI Create ( string expressionI )
 		{ return Create ( expressionI, null, true ); }
 		/// <summary>
 		/// 创建 JQuery UI.
@@ -3384,7 +3389,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 也可以是 DOM 元素, 比如: "document.getElementById('myTable')", "[document.getElementById('myTable1'), document.getElementById('myTable2')]", 也可以是脚本中另一个 jQuery 实例, 比如: "myJQuery", 也可以是页面载入的回调函数, 比如: "function(){}", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
 		/// <param name="isAlias">是否在脚本中使用 $ 作为 jQuery 的别名.</param>
 		/// <returns>JQuery UI 实例.</returns>
-		public static JQueryUI Create ( string expressionI, bool isAlias )
+		public new static JQueryUI Create ( string expressionI, bool isAlias )
 		{ return Create ( expressionI, null, isAlias ); }
 		/// <summary>
 		/// 创建使用别名的 JQuery UI.
@@ -3392,7 +3397,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
 		/// <param name="expressionII">当 expressionI 是选择器时, expressionII 是一个 DOM 元素, 指定搜索上下文, 比如: "document.body", 当 expressionI 是一段 html 代码时, expressionII 可以是 document 元素, 指定 html 代码创建位置, 比如: "document", 也可以是属性集合, 用来初始化只包含单一元素 html 代码元素, 比如: "{type: 'text'}".</param>
 		/// <returns>JQuery UI 实例.</returns>
-		public static JQueryUI Create ( string expressionI, string expressionII )
+		public new static JQueryUI Create ( string expressionI, string expressionII )
 		{ return Create ( expressionI, expressionII, true ); }
 		/// <summary>
 		/// 创建 JQuery UI.
@@ -3401,7 +3406,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <param name="expressionII">当 expressionI 是选择器时, expressionII 是一个 DOM 元素, 指定搜索上下文, 比如: "document.body", 当 expressionI 是一段 html 代码时, expressionII 可以是 document 元素, 指定 html 代码创建位置, 比如: "document", 也可以是属性集合, 用来初始化只包含单一元素 html 代码元素, 比如: "{type: 'text'}".</param>
 		/// <param name="isAlias">是否在脚本中使用 $ 作为 jQuery 的别名.</param>
 		/// <returns>JQuery UI 实例.</returns>
-		public static JQueryUI Create ( string expressionI, string expressionII, bool isAlias )
+		public new static JQueryUI Create ( string expressionI, string expressionII, bool isAlias )
 		{ return new JQueryUI ( expressionI, expressionII, isAlias ); }
 
 		/// <summary>
@@ -3410,7 +3415,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <param name="isInstance">是否创建为实例, 为 false, 则创建为 $, 否则为 $().</param>
 		/// <param name="isAlias">是否在脚本中使用 $ 作为 jQuery 的别名.</param>
 		/// <returns>JQuery UI 实例.</returns>
-		public static JQueryUI Create ( bool isInstance, bool isAlias )
+		public new static JQueryUI Create ( bool isInstance, bool isAlias )
 		{ return new JQueryUI ( isInstance, isAlias ); }
 
 
