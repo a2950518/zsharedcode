@@ -3933,6 +3933,71 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 取消选择时, 对应一个 javascript 函数.
 		/// </summary>
 		unselecting = 60,
+
+		/// <summary>
+		/// 同时缩放, 对应一个 javascript 元素, 选择器或者 jQuery.
+		/// </summary>
+		alsoResize = 61,
+
+		/// <summary>
+		/// 播放动画, 对应一个 javascript 布尔值.
+		/// </summary>
+		animate = 62,
+
+		/// <summary>
+		/// 播放动画延迟, 对应一个 javascript 数值.
+		/// </summary>
+		animateDuration = 63,
+
+		/// <summary>
+		/// 动画效果, 对应一个 javascript 字符串.
+		/// </summary>
+		animateEasing = 64,
+
+		/// <summary>
+		/// 边框模式, 对应一个 javascript 布尔值或者数值.
+		/// </summary>
+		aspectRatio = 65,
+
+		/// <summary>
+		/// 自动隐藏, 对应一个 javascript 布尔值.
+		/// </summary>
+		autoHide = 66,
+
+		/// <summary>
+		/// 复制, 对应一个 javascript 布尔值.
+		/// </summary>
+		ghost = 67,
+
+		/// <summary>
+		/// 缩放的方式, 对应一个 javascript 字符串或者对象.
+		/// </summary>
+		handles = 68,
+
+		/// <summary>
+		/// 最大高度, 对应一个 javascript 数值.
+		/// </summary>
+		maxHeight = 69,
+
+		/// <summary>
+		/// 最大宽度, 对应一个 javascript 数值.
+		/// </summary>
+		maxWidth = 70,
+
+		/// <summary>
+		/// 最小高度, 对应一个 javascript 数值.
+		/// </summary>
+		minHeight = 71,
+
+		/// <summary>
+		/// 最小宽度, 对应一个 javascript 数值.
+		/// </summary>
+		minWidth = 72,
+
+		/// <summary>
+		/// 大小缩放时, 对应一个 javascript 函数.
+		/// </summary>
+		resize = 73,
 	}
 	#endregion
 
