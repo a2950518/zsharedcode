@@ -28,6 +28,9 @@ using System.Web.UI;
 using zoyobar.shared.panzer.code;
 using zoyobar.shared.panzer.web.jqueryui;
 
+// HACK: 避免在 allinone 文件中的名称冲突
+using NParameter = zoyobar.shared.panzer.web.jqueryui.Parameter;
+
 namespace zoyobar.shared.panzer.ui.jqueryui
 {
 
@@ -166,7 +169,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			foreach ( EventEdit edit in this.events )
 				events.Add ( edit.CreateEvent ( ) );
 
-			List<Parameter> parameters = new List<Parameter> ( );
+			List<NParameter> parameters = new List<NParameter> ( );
 
 			foreach ( ParameterEdit edit in this.parameters )
 				parameters.Add ( edit.CreateParameter ( ) );
