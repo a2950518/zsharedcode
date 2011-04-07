@@ -159,7 +159,7 @@
         * [JEDroppableEventDoc JQueryElement 拖放事件]
       * JQueryElement 排列分析&示例
         * [JQueryElementSortableDoc JQueryElement 排列基本操作]
-        * [JESortableClassDoc JQueryElement 排列 x/y 轴排列]
+        * [JESortableAxisDoc JQueryElement 排列 x/y 轴排列]
         * [JESortableConnectWithDoc JQueryElement 排列联合]
         * [JESortableContainmentDoc JQueryElement 排列在指定区域]
         * [JESortableCursorDoc JQueryElement 排列鼠标样式]
