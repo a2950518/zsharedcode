@@ -21,8 +21,7 @@
  * [JEDraggableSnapDoc JQueryElement 拖动附着到元素]
  * [JEDraggableEventDoc JQueryElement 拖动事件]
 
-
- * [JQueryElementDraggableDoc JQueryElement 拖动基本操作]
+ * [JQueryElementDraggableDoc JQueryElement 拖放基本操作]
  * [JEDroppableClassDoc JQueryElement 拖放设置样式]
  * [JEDroppableToleranceDoc JQueryElement 拖放模式]
  * [JEDroppableEventDoc JQueryElement 拖放事件]
@@ -41,4 +40,21 @@
  * [JESortableOpacityDoc JQueryElement 排列透明度]
  * [JESortableRevertDoc JQueryElement 排列恢复原位置]
  * [JESortableEventDoc JQueryElement 排列事件]
+
+ * [JQueryElementResizableDoc JQueryElement 缩放基本操作]
+ * [JEResizableAlsoResizeDoc JQueryElement 缩放同时缩放]
+ * [JEResizableAnimateDoc JQueryElement 缩放动画]
+ * [JEResizableAspectRatioDoc JQueryElement 缩放宽高比例]
+ * [JEResizableContainmentDoc JQueryElement 缩放在指定区域]
+ * [JEResizableDelayDoc JQueryElement 缩放延迟]
+ * [JEResizableDistanceDoc JQueryElement 缩放有效距离]
+ * [JEResizableGhostDoc JQueryElement 缩放显示拖影]
+ * [JEResizableGridDoc JQueryElement 缩放按照点阵移动]
+ * [JEResizableSizeDoc JQueryElement 缩放最大最小尺寸]
+ * [JEResizableEventDoc JQueryElement 缩放事件]
+
+ * [JQueryElementSelectableDoc JQueryElement 选中基本操作]
+ * [JESelectableDelayDoc JQueryElement 选中延迟]
+ * [JESelectableDistanceDoc JQueryElement 选中有效距离]
+ * [JESelectableEventDoc JQueryElement 选中事件]
 </font>
