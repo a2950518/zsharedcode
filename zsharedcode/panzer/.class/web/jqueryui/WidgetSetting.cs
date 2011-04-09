@@ -31,6 +31,22 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 按钮.
 		/// </summary>
 		Button = 1,
+		/// <summary>
+		/// 折叠列表.
+		/// </summary>
+		Accordion = 2,
+		/// <summary>
+		/// 自动填充.
+		/// </summary>
+		Autocomplete = 3,
+		Datepicker = 4,
+		Dialog = 5,
+		/// <summary>
+		/// 进度条.
+		/// </summary>
+		Progressbar = 6,
+		Slider = 7,
+		Tabs = 8,
 	}
 	#endregion
 
