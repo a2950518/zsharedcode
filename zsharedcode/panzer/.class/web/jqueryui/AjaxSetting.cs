@@ -25,19 +25,19 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// json 数据.
 		/// </summary>
-		JSon = 1,
+		json = 1,
 		/// <summary>
 		/// 脚本代码.
 		/// </summary>
-		Script = 2,
+		script = 2,
 		/// <summary>
 		/// xml 数据.
 		/// </summary>
-		Xml = 3,
+		xml = 3,
 		/// <summary>
 		/// html 代码.
 		/// </summary>
-		Html = 4,
+		html = 4,
 	}
 	#endregion
 

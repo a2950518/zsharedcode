@@ -1575,14 +1575,14 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class EventEdit
 		: IStateManager
 	{
-		private EventType type = EventType.None;
+		private EventType type = EventType.none;
 		private string value = string.Empty;
 
 		/// <summary>
 		/// 获取或设置事件的类型.
 		/// </summary>
 		[Category ( "jQuery UI" )]
-		[DefaultValue ( EventType.None )]
+		[DefaultValue ( EventType.none )]
 		[Description ( "事件的类型" )]
 		[NotifyParentProperty ( true )]
 		public EventType Type
@@ -2046,7 +2046,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 获取或设置和 Widget 相关的触发事件.
 		/// </summary>
 		[Category ( "jQuery UI" )]
-		[DefaultValue ( EventType.None )]
+		[DefaultValue ( EventType.none )]
 		[Description ( "指示和 Widget 相关的触发事件" )]
 		[NotifyParentProperty ( true )]
 		public EventType WidgetEventType
@@ -2079,7 +2079,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 获取或设置获取的数据类型.
 		/// </summary>
 		[Category ( "jQuery UI" )]
-		[DefaultValue ( DataType.JSon )]
+		[DefaultValue ( DataType.json )]
 		[Description ( "指示获取的数据类型" )]
 		[NotifyParentProperty ( true )]
 		public DataType DataType
@@ -3562,18 +3562,18 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		public JQueryUI Widget ( WidgetSetting setting )
 		{
 
-			if ( null == setting || setting.WidgetType == WidgetType.None )
+			if ( null == setting || setting.WidgetType == WidgetType.none )
 				return this;
 
-			this.Execute ( setting.WidgetType.ToString ( ).ToLower ( ), makeOptionExpression ( setting.Options ) );
+			this.Execute ( setting.WidgetType.ToString ( ), makeOptionExpression ( setting.Options ) );
 
 			foreach ( Event @event in setting.Events )
-				this.Execute ( @event.Type.ToString ( ).ToLower ( ), @event.Value );
+				this.Execute ( @event.Type.ToString ( ), @event.Value );
 
 			foreach ( AjaxSetting ajaxSetting in setting.AjaxSettings )
 			{
 
-				if ( ajaxSetting.WidgetEventType == EventType.None )
+				if ( ajaxSetting.WidgetEventType == EventType.none )
 					continue;
 
 				string quote;
@@ -3591,14 +3591,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 					data = JQuery.Create ( ajaxSetting.Form ).Serialize ( ).Code;
 
 				JQuery jQuery = JQuery.Create ( false, true );
-				string map = string.Format ( "url: {0}{1}{0}, dataType: {0}{2}{0}, data: {3}", quote, ajaxSetting.Url, ajaxSetting.DataType.ToString ( ).ToLower ( ), data );
+				string map = string.Format ( "url: {0}{1}{0}, dataType: {0}{2}{0}, data: {3}", quote, ajaxSetting.Url, ajaxSetting.DataType, data );
 
 				foreach ( Event @event in ajaxSetting.Events )
-					map += ", " + @event.Type.ToString ( ).ToLower ( ) + ": " + @event.Value;
+					if ( @event.Type != EventType.none )
+						map += ", " + @event.Type + ": " + @event.Value;
 
 				jQuery.Ajax ( "{" + map + "}" );
 
-				this.Execute ( ajaxSetting.WidgetEventType.ToString ( ).ToLower ( ), "function(e){" + jQuery.Code + "}" );
+				this.Execute ( ajaxSetting.WidgetEventType.ToString ( ), "function(e){" + jQuery.Code + "}" );
 			}
 
 			return this;
@@ -4619,23 +4620,107 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 没有任何事件.
 		/// </summary>
-		None = 0,
+		none = 0,
 		/// <summary>
 		/// 完成时.
 		/// </summary>
-		Complete = 1,
+		complete = 1,
 		/// <summary>
 		/// 出错时.
 		/// </summary>
-		Error = 2,
+		error = 2,
 		/// <summary>
 		/// 成功时.
 		/// </summary>
-		Success = 3,
+		success = 3,
 		/// <summary>
 		/// 点击时.
 		/// </summary>
-		Click = 4,
+		click = 4,
+		/// <summary>
+		/// 提交时.
+		/// </summary>
+		submit,
+		/// <summary>
+		/// 选中时.
+		/// </summary>
+		select,
+		/// <summary>
+		/// 滚动轴事件.
+		/// </summary>
+		scroll,
+		/// <summary>
+		/// document 准备好时.
+		/// </summary>
+		ready,
+		/// <summary>
+		/// 尺寸改变时.
+		/// </summary>
+		resize,
+		/// <summary>
+		/// 鼠标按下时.
+		/// </summary>
+		mousedown,
+		/// <summary>
+		/// 鼠标进入时.
+		/// </summary>
+		mouseenter,
+		/// <summary>
+		/// 鼠标离开时.
+		/// </summary>
+		mouseleave,
+		/// <summary>
+		/// 鼠标移动时.
+		/// </summary>
+		mousemove,
+		/// <summary>
+		/// 鼠标移出时.
+		/// </summary>
+		mouseout,
+		/// <summary>
+		/// 鼠标在其上时.
+		/// </summary>
+		mouseover,
+		/// <summary>
+		/// 鼠标松开时.
+		/// </summary>
+		mouseup,
+		/// <summary>
+		/// 载入时.
+		/// </summary>
+		load,
+		/// <summary>
+		/// 按键按下.
+		/// </summary>
+		keydown,
+		/// <summary>
+		/// 按键按住.
+		/// </summary>
+		keypress,
+		/// <summary>
+		/// 按键松开.
+		/// </summary>
+		keyup,
+		/// <summary>
+		/// 悬停.
+		/// </summary>
+		hover,
+		/// <summary>
+		/// 获得焦点.
+		/// </summary>
+		focus,
+		/// <summary>
+		/// 双击时.
+		/// </summary>
+		dblclick,
+		/// <summary>
+		/// 改变时.
+		/// </summary>
+		change,
+		/// <summary>
+		/// 失去焦点时.
+		/// </summary>
+		blur,
 	}
 	#endregion
 
@@ -4775,19 +4860,19 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// json 数据.
 		/// </summary>
-		JSon = 1,
+		json = 1,
 		/// <summary>
 		/// 脚本代码.
 		/// </summary>
-		Script = 2,
+		script = 2,
 		/// <summary>
 		/// xml 数据.
 		/// </summary>
-		Xml = 3,
+		xml = 3,
 		/// <summary>
 		/// html 代码.
 		/// </summary>
-		Html = 4,
+		html = 4,
 	}
 	#endregion
 
@@ -4892,27 +4977,39 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 没有任何类型.
 		/// </summary>
-		None = 0,
+		none = 0,
 		/// <summary>
 		/// 按钮.
 		/// </summary>
-		Button = 1,
+		button = 1,
 		/// <summary>
 		/// 折叠列表.
 		/// </summary>
-		Accordion = 2,
+		accordion = 2,
 		/// <summary>
 		/// 自动填充.
 		/// </summary>
-		Autocomplete = 3,
-		Datepicker = 4,
-		Dialog = 5,
+		autocomplete = 3,
+		/// <summary>
+		/// 日期框.
+		/// </summary>
+		datepicker = 4,
+		/// <summary>
+		/// 对话框.
+		/// </summary>
+		dialog = 5,
 		/// <summary>
 		/// 进度条.
 		/// </summary>
-		Progressbar = 6,
-		Slider = 7,
-		Tabs = 8,
+		progressbar = 6,
+		/// <summary>
+		/// 分割条.
+		/// </summary>
+		slider = 7,
+		/// <summary>
+		/// 分组标签.
+		/// </summary>
+		tabs = 8,
 	}
 	#endregion
 

@@ -39,14 +39,14 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class EventEdit
 		: IStateManager
 	{
-		private EventType type = EventType.None;
+		private EventType type = EventType.none;
 		private string value = string.Empty;
 
 		/// <summary>
 		/// 获取或设置事件的类型.
 		/// </summary>
 		[Category ( "jQuery UI" )]
-		[DefaultValue ( EventType.None )]
+		[DefaultValue ( EventType.none )]
 		[Description ( "事件的类型" )]
 		[NotifyParentProperty ( true )]
 		public EventType Type

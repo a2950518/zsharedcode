@@ -21,23 +21,107 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 没有任何事件.
 		/// </summary>
-		None = 0,
+		none = 0,
 		/// <summary>
 		/// 完成时.
 		/// </summary>
-		Complete = 1,
+		complete = 1,
 		/// <summary>
 		/// 出错时.
 		/// </summary>
-		Error = 2,
+		error = 2,
 		/// <summary>
 		/// 成功时.
 		/// </summary>
-		Success = 3,
+		success = 3,
 		/// <summary>
 		/// 点击时.
 		/// </summary>
-		Click = 4,
+		click = 4,
+		/// <summary>
+		/// 提交时.
+		/// </summary>
+		submit,
+		/// <summary>
+		/// 选中时.
+		/// </summary>
+		select,
+		/// <summary>
+		/// 滚动轴事件.
+		/// </summary>
+		scroll,
+		/// <summary>
+		/// document 准备好时.
+		/// </summary>
+		ready,
+		/// <summary>
+		/// 尺寸改变时.
+		/// </summary>
+		resize,
+		/// <summary>
+		/// 鼠标按下时.
+		/// </summary>
+		mousedown,
+		/// <summary>
+		/// 鼠标进入时.
+		/// </summary>
+		mouseenter,
+		/// <summary>
+		/// 鼠标离开时.
+		/// </summary>
+		mouseleave,
+		/// <summary>
+		/// 鼠标移动时.
+		/// </summary>
+		mousemove,
+		/// <summary>
+		/// 鼠标移出时.
+		/// </summary>
+		mouseout,
+		/// <summary>
+		/// 鼠标在其上时.
+		/// </summary>
+		mouseover,
+		/// <summary>
+		/// 鼠标松开时.
+		/// </summary>
+		mouseup,
+		/// <summary>
+		/// 载入时.
+		/// </summary>
+		load,
+		/// <summary>
+		/// 按键按下.
+		/// </summary>
+		keydown,
+		/// <summary>
+		/// 按键按住.
+		/// </summary>
+		keypress,
+		/// <summary>
+		/// 按键松开.
+		/// </summary>
+		keyup,
+		/// <summary>
+		/// 悬停.
+		/// </summary>
+		hover,
+		/// <summary>
+		/// 获得焦点.
+		/// </summary>
+		focus,
+		/// <summary>
+		/// 双击时.
+		/// </summary>
+		dblclick,
+		/// <summary>
+		/// 改变时.
+		/// </summary>
+		change,
+		/// <summary>
+		/// 失去焦点时.
+		/// </summary>
+		blur,
 	}
 	#endregion
 
