@@ -70,7 +70,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 获取或设置和 Widget 相关的触发事件.
 		/// </summary>
 		[Category ( "jQuery UI" )]
-		[DefaultValue ( EventType.None )]
+		[DefaultValue ( EventType.none )]
 		[Description ( "指示和 Widget 相关的触发事件" )]
 		[NotifyParentProperty ( true )]
 		public EventType WidgetEventType
@@ -103,7 +103,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 获取或设置获取的数据类型.
 		/// </summary>
 		[Category ( "jQuery UI" )]
-		[DefaultValue ( DataType.JSon )]
+		[DefaultValue ( DataType.json )]
 		[Description ( "指示获取的数据类型" )]
 		[NotifyParentProperty ( true )]
 		public DataType DataType
