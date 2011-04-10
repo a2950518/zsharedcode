@@ -93,6 +93,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// li 元素.
 		/// </summary>
 		Li = 5,
+		/// <summary>
+		/// input 元素.
+		/// </summary>
+		Input = 6,
 	}
 	#endregion
 
@@ -108,6 +112,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		: WebControl, INamingContainer
 	{
 		private ElementType elementType;
+		private string attribute;
 
 		private readonly DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
 		private readonly DroppableSettingEdit droppableSetting = new DroppableSettingEdit ( );
@@ -214,6 +219,24 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			get { return this.elementType; }
 			set { this.elementType = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的属性.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "最终在页面上生成的元素的属性" )]
+		[DefaultValue ( "" )]
+		public string Attribute
+		{
+			get { return this.attribute; }
+			set
+			{
+
+				if ( null != value )
+					this.attribute = value;
+
+			}
 		}
 
 		#region " hide "
@@ -355,20 +378,26 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					style += string.Format ( "height:{0};", this.Height );
 
 				writer.Write (
-					"<{0} id={1}{2}{3}{4}>",
+					"<{0} id={1}{2}{3}{4}{5}{6}>",
 					this.elementType.ToString ( ).ToLower ( ),
 					this.ClientID,
 					string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : " class=" + WebUtility.HtmlEncode ( this.CssClass ),
 					string.IsNullOrEmpty ( this.ToolTip ) ? string.Empty : " title=" + WebUtility.HtmlEncode ( this.ToolTip ),
-					string.IsNullOrEmpty ( style ) ? string.Empty : " style=" + WebUtility.HtmlEncode ( style )
+					string.IsNullOrEmpty ( style ) ? string.Empty : " style=" + WebUtility.HtmlEncode ( style ),
+					" " + this.attribute.Trim(),
+					(this.elementType == ElementType.Input) ? " /" : string.Empty
 					);
 			}
 
-			this.html.RenderControl ( writer );
-			// base.Render ( writer );
+			if ( this.elementType != ElementType.Input )
+			{
+				this.html.RenderControl ( writer );
+				// base.Render ( writer );
 
-			if ( this.elementType != ElementType.None )
-				writer.Write ( "</{0}>", this.elementType.ToString ( ).ToLower ( ) );
+				if ( this.elementType != ElementType.None )
+					writer.Write ( "</{0}>", this.elementType.ToString ( ).ToLower ( ) );
+
+			}
 
 			jquery.Draggable ( this.draggableSetting.CreateDraggableSetting ( ) );
 			jquery.Droppable ( this.droppableSetting.CreateDroppableSetting ( ) );
