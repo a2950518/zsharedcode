@@ -3594,7 +3594,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			if ( null == setting || setting.WidgetType == WidgetType.none )
 				return this;
 
-			this.Execute ( setting.WidgetType.ToString ( ), makeOptionExpression ( setting.Options ) );
+			if ( setting.WidgetType != WidgetType.empty )
+				this.Execute ( setting.WidgetType.ToString ( ), makeOptionExpression ( setting.Options ) );
 
 			foreach ( Event @event in setting.Events )
 				this.Execute ( @event.Type.ToString ( ), @event.Value );
@@ -5039,6 +5040,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 分组标签.
 		/// </summary>
 		tabs = 8,
+		/// <summary>
+		/// 空的 Widget.
+		/// </summary>
+		empty = 9,
 	}
 	#endregion
 

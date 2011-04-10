@@ -59,6 +59,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 分组标签.
 		/// </summary>
 		tabs = 8,
+		/// <summary>
+		/// 空的 Widget.
+		/// </summary>
+		empty = 9,
 	}
 	#endregion
 
