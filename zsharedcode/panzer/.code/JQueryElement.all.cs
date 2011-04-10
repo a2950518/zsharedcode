@@ -372,7 +372,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				string style = string.Empty;
 
 				if ( this.Width != Unit.Empty )
-					style += string.Format( "width:{0};", this.Width );
+					style += string.Format ( "width:{0};", this.Width );
 
 				if ( this.Height != Unit.Empty )
 					style += string.Format ( "height:{0};", this.Height );
@@ -384,8 +384,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : " class=" + WebUtility.HtmlEncode ( this.CssClass ),
 					string.IsNullOrEmpty ( this.ToolTip ) ? string.Empty : " title=" + WebUtility.HtmlEncode ( this.ToolTip ),
 					string.IsNullOrEmpty ( style ) ? string.Empty : " style=" + WebUtility.HtmlEncode ( style ),
-					" " + this.attribute.Trim(),
-					(this.elementType == ElementType.Input) ? " /" : string.Empty
+					string.IsNullOrEmpty ( this.attribute ) ? string.Empty : " " + this.attribute.Trim ( ),
+					( this.elementType == ElementType.Input ) ? " /" : string.Empty
 					);
 			}
 
