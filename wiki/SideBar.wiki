@@ -216,7 +216,6 @@
           * [JEDatePickerRangeDoc JQueryElement 日期框范围]
           * [JEDatePickerSelectOtherMonthsDoc JQueryElement 日期框选择其它月份]
           * [JEDatePickerTextDoc JQueryElement 日期框文字]
-          * [JEDatePickerEventDoc JQueryElement 日期框事件]
         * 对话框
           * [JQueryElementDialogDoc JQueryElement 对话框]
           * [JEDialogAutoOpenDoc JQueryElement 对话框自动弹出]
