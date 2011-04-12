@@ -133,7 +133,7 @@
       * [IEBrowserDocJQuery 执行 jquery]
       * [IEBrowserDocFlow 页面流程控制]
         * [IEBrowserDocFlowNWPC 页面载入后跳转]
-    * [JQueryElementDoc 分析&示例]
+    * [JQueryElementDoc JQueryElement 分析&示例]
       * [JQueryElementHtmlDoc 设置 html 代码]
       * [JQueryElementElementDoc 设置元素的类型]
       * [JQueryElementNestDoc 嵌套]
