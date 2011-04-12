@@ -137,7 +137,7 @@
       * [JQueryElementHtmlDoc 设置 html 代码]
       * [JQueryElementElementDoc 设置元素的类型]
       * [JQueryElementNestDoc 嵌套]
-      * 拖动分析&示例
+      * 拖动
         * [JQueryElementDraggableDoc 拖动基本操作]
         * [JEDraggableAxisDoc 拖动 x/y 轴拖动]
         * [JEDraggableContainmentDoc 拖动在指定区域]
@@ -152,12 +152,12 @@
         * [JEDraggableRevertDurationDoc 拖动延迟恢复原位置]
         * [JEDraggableSnapDoc 拖动附着到元素]
         * [JEDraggableEventDoc 拖动事件]
-      * 拖放分析&示例
+      * 拖放
         * [JQueryElementDroppableDoc 拖放基本操作]
         * [JEDroppableClassDoc 拖放设置样式]
         * [JEDroppableToleranceDoc 拖放模式]
         * [JEDroppableEventDoc 拖放事件]
-      * 排列分析&示例
+      * 排列
         * [JQueryElementSortableDoc 排列基本操作]
         * [JESortableAxisDoc 排列 x/y 轴排列]
         * [JESortableConnectWithDoc 排列联合]
@@ -172,7 +172,7 @@
         * [JESortableOpacityDoc 排列透明度]
         * [JESortableRevertDoc 排列恢复原位置]
         * [JESortableEventDoc 排列事件]
-      * 缩放分析&示例
+      * 缩放
         * [JQueryElementResizableDoc 缩放基本操作]
         * [JEResizableAlsoResizeDoc 缩放同时缩放]
         * [JEResizableAnimateDoc 缩放动画]
@@ -184,12 +184,12 @@
         * [JEResizableGridDoc 缩放按照点阵移动]
         * [JEResizableSizeDoc 缩放最大最小尺寸]
         * [JEResizableEventDoc 缩放事件]
-      * 选中分析&示例
+      * 选中
         * [JQueryElementSelectableDoc 选中基本操作]
         * [JESelectableDelayDoc 选中延迟]
         * [JESelectableDistanceDoc 选中有效距离]
         * [JESelectableEventDoc 选中事件]
-      * Widget 分析&示例
+      * Widget
         * 折叠列表
           * [JQueryElementAccordionDoc 折叠列表]
           * [JEAccordionActiveDoc 折叠列表设置活动的列表]
