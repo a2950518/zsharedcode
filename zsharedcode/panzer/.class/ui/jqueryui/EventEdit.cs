@@ -168,8 +168,13 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( expressionHelper.ChildCount == 2 )
 				try
 				{
-					edit.Type = ( EventType ) Enum.Parse ( typeof ( EventType ), expressionHelper[0].Value, true );
-					edit.Value = expressionHelper[1].Value;
+
+					if ( expressionHelper[0].Value != string.Empty )
+						edit.Type = ( EventType ) Enum.Parse ( typeof ( EventType ), expressionHelper[0].Value, true );
+
+					if ( expressionHelper[1].Value != string.Empty )
+						edit.Value = expressionHelper[1].Value;
+
 				}
 				catch
 				{ }

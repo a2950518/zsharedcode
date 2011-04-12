@@ -195,9 +195,16 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( expressionHelper.ChildCount == 3 )
 				try
 				{
-					edit.Name = expressionHelper[0].Value;
-					edit.Type = ( ParameterType ) Enum.Parse ( typeof ( ParameterType ), expressionHelper[1].Value, true );
-					edit.Value = expressionHelper[2].Value;
+
+					if ( expressionHelper[0].Value != string.Empty )
+						edit.Name = expressionHelper[0].Value;
+
+					if ( expressionHelper[1].Value != string.Empty )
+						edit.Type = ( ParameterType ) Enum.Parse ( typeof ( ParameterType ), expressionHelper[1].Value, true );
+
+					if ( expressionHelper[2].Value != string.Empty )
+						edit.Value = expressionHelper[2].Value;
+
 				}
 				catch
 				{ }

@@ -168,7 +168,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
-			if ( expressionHelper.ChildCount == 1 )
+			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
 				edit.IsSortable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
 
 			return edit;

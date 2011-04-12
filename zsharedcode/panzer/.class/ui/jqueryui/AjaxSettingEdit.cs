@@ -86,7 +86,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[DefaultValue ( "" )]
 		[Description ( "指示请求的地址" )]
 		[NotifyParentProperty ( true )]
-		[UrlProperty()]
+		[UrlProperty ( )]
 		public string Url
 		{
 			get { return this.url; }
@@ -174,7 +174,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			foreach ( ParameterEdit edit in this.parameters )
 				parameters.Add ( edit.CreateParameter ( ) );
 
-			return new AjaxSetting ( this.widgetEventType, this.url, this.dataType, this.form, parameters.ToArray(), events.ToArray ( ), this.isSingleQuote );
+			return new AjaxSetting ( this.widgetEventType, this.url, this.dataType, this.form, parameters.ToArray ( ), events.ToArray ( ), this.isSingleQuote );
 		}
 
 		/// <summary>
@@ -309,11 +309,22 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( expressionHelper.ChildCount == 5 )
 				try
 				{
-					edit.WidgetEventType = ( EventType ) Enum.Parse ( typeof ( EventType ), expressionHelper[0].Value );
-					edit.Url = expressionHelper[1].Value;
-					edit.DataType = ( DataType ) Enum.Parse ( typeof ( DataType ), expressionHelper[2].Value );
-					edit.Form = expressionHelper[3].Value;
-					edit.IsSingleQuote = StringConvert.ToObject<bool> ( expressionHelper[4].Value );
+
+					if ( expressionHelper[0].Value != string.Empty )
+						edit.WidgetEventType = ( EventType ) Enum.Parse ( typeof ( EventType ), expressionHelper[0].Value );
+
+					if ( expressionHelper[1].Value != string.Empty )
+						edit.Url = expressionHelper[1].Value;
+
+					if ( expressionHelper[2].Value != string.Empty )
+						edit.DataType = ( DataType ) Enum.Parse ( typeof ( DataType ), expressionHelper[2].Value );
+
+					if ( expressionHelper[3].Value != string.Empty )
+						edit.Form = expressionHelper[3].Value;
+
+					if ( expressionHelper[4].Value != string.Empty )
+						edit.IsSingleQuote = StringConvert.ToObject<bool> ( expressionHelper[4].Value );
+
 				}
 				catch { }
 
