@@ -59,7 +59,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "元素相关的 Ajax 事件" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[Editor ( typeof ( EventEditCollectionEditor ), typeof ( UITypeEditor ) )]
 		[NotifyParentProperty ( true )]
 		public List<EventEdit> Events
 		{
