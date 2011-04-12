@@ -604,7 +604,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
-			if ( expressionHelper.ChildCount == 1 )
+			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
 				edit.IsDraggable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
 
 			return edit;
@@ -788,7 +788,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
-			if ( expressionHelper.ChildCount == 1 )
+			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
 				edit.IsDroppable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
 
 			return edit;
@@ -972,7 +972,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
-			if ( expressionHelper.ChildCount == 1 )
+			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
 				edit.IsResizable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
 
 			return edit;
@@ -1156,7 +1156,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
-			if ( expressionHelper.ChildCount == 1 )
+			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
 				edit.IsSelectable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
 
 			return edit;
@@ -1340,7 +1340,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
-			if ( expressionHelper.ChildCount == 1 )
+			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
 				edit.IsSortable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
 
 			return edit;
@@ -1525,8 +1525,13 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( expressionHelper.ChildCount == 2 )
 				try
 				{
-					edit.Type = ( OptionType ) Enum.Parse ( typeof ( OptionType ), expressionHelper[0].Value, true );
-					edit.Value = expressionHelper[1].Value;
+
+					if ( expressionHelper[0].Value != string.Empty )
+						edit.Type = ( OptionType ) Enum.Parse ( typeof ( OptionType ), expressionHelper[0].Value, true );
+
+					if ( expressionHelper[1].Value != string.Empty )
+						edit.Value = expressionHelper[1].Value;
+
 				}
 				catch
 				{ }
@@ -1733,8 +1738,13 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( expressionHelper.ChildCount == 2 )
 				try
 				{
-					edit.Type = ( EventType ) Enum.Parse ( typeof ( EventType ), expressionHelper[0].Value, true );
-					edit.Value = expressionHelper[1].Value;
+
+					if ( expressionHelper[0].Value != string.Empty )
+						edit.Type = ( EventType ) Enum.Parse ( typeof ( EventType ), expressionHelper[0].Value, true );
+
+					if ( expressionHelper[1].Value != string.Empty )
+						edit.Value = expressionHelper[1].Value;
+
 				}
 				catch
 				{ }
@@ -1967,9 +1977,16 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( expressionHelper.ChildCount == 3 )
 				try
 				{
-					edit.Name = expressionHelper[0].Value;
-					edit.Type = ( ParameterType ) Enum.Parse ( typeof ( ParameterType ), expressionHelper[1].Value, true );
-					edit.Value = expressionHelper[2].Value;
+
+					if ( expressionHelper[0].Value != string.Empty )
+						edit.Name = expressionHelper[0].Value;
+
+					if ( expressionHelper[1].Value != string.Empty )
+						edit.Type = ( ParameterType ) Enum.Parse ( typeof ( ParameterType ), expressionHelper[1].Value, true );
+
+					if ( expressionHelper[2].Value != string.Empty )
+						edit.Value = expressionHelper[2].Value;
+
 				}
 				catch
 				{ }
@@ -2091,7 +2108,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[DefaultValue ( "" )]
 		[Description ( "指示请求的地址" )]
 		[NotifyParentProperty ( true )]
-		[UrlProperty()]
+		[UrlProperty ( )]
 		public string Url
 		{
 			get { return this.url; }
@@ -2179,7 +2196,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			foreach ( ParameterEdit edit in this.parameters )
 				parameters.Add ( edit.CreateParameter ( ) );
 
-			return new AjaxSetting ( this.widgetEventType, this.url, this.dataType, this.form, parameters.ToArray(), events.ToArray ( ), this.isSingleQuote );
+			return new AjaxSetting ( this.widgetEventType, this.url, this.dataType, this.form, parameters.ToArray ( ), events.ToArray ( ), this.isSingleQuote );
 		}
 
 		/// <summary>
@@ -2314,11 +2331,22 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( expressionHelper.ChildCount == 5 )
 				try
 				{
-					edit.WidgetEventType = ( EventType ) Enum.Parse ( typeof ( EventType ), expressionHelper[0].Value );
-					edit.Url = expressionHelper[1].Value;
-					edit.DataType = ( DataType ) Enum.Parse ( typeof ( DataType ), expressionHelper[2].Value );
-					edit.Form = expressionHelper[3].Value;
-					edit.IsSingleQuote = StringConvert.ToObject<bool> ( expressionHelper[4].Value );
+
+					if ( expressionHelper[0].Value != string.Empty )
+						edit.WidgetEventType = ( EventType ) Enum.Parse ( typeof ( EventType ), expressionHelper[0].Value );
+
+					if ( expressionHelper[1].Value != string.Empty )
+						edit.Url = expressionHelper[1].Value;
+
+					if ( expressionHelper[2].Value != string.Empty )
+						edit.DataType = ( DataType ) Enum.Parse ( typeof ( DataType ), expressionHelper[2].Value );
+
+					if ( expressionHelper[3].Value != string.Empty )
+						edit.Form = expressionHelper[3].Value;
+
+					if ( expressionHelper[4].Value != string.Empty )
+						edit.IsSingleQuote = StringConvert.ToObject<bool> ( expressionHelper[4].Value );
+
 				}
 				catch { }
 
@@ -2611,7 +2639,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
-			if ( expressionHelper.ChildCount == 1 )
+			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
 				try
 				{ edit.Type = ( WidgetType ) Enum.Parse ( typeof ( WidgetType ), expressionHelper[0].Value, true ); }
 				catch
