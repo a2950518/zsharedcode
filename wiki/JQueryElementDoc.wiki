@@ -1,7 +1,7 @@
-﻿#summary 分析&示例
+﻿#summary JQueryElement 分析&示例
 #labels Phase-Implementation,Featured
 <font face="microsoft yahei">
-=== 分析&示例 ===
+=== JQueryElement 分析&示例 ===
  * [JQueryElementHtmlDoc 设置 html 代码]
  * [JQueryElementElementDoc 设置元素的类型]
  * [JQueryElementNestDoc 嵌套]
