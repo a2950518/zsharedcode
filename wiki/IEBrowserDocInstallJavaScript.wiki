@@ -1,11 +1,8 @@
 #summary IEBrowser 安装 javascript 脚本
 #labels Phase-Implementation
 <font face="microsoft yahei">
-=== 目录 ===
-  [需求#需求]
-
 === 需求 ===
- 可能需要引用 System.Web.dll
+ 可能需要引用 System.Web 以及相关程序集
 
 === 代码 ===
 {{{
@@ -39,9 +36,11 @@ ie.ExecuteScript ( "showMessage($('*').length);" );
 }}}
 
 === 说明 ===
+ 当需要为 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 增加一段您自己的 javascript 脚本时, 比如: 一个显示日期的函数, 或者 jQuery 这样的函数库, 可以使用 InstallScript 方法.
+
  [IEBrowser IEBrowser] 的 InstallScript 方法可以将脚本载入到  [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser]  中, 您可以直接载入脚本, 或者从网络, 本地中载入 js 文件.
 
- 对于直接载入的脚本, 可以直接调用脚本中定义的函数或者变量. *而对于从网络载入的脚本, 则需要等待脚本载入完成后, 才能调用.*
+ 对于直接载入的脚本, 比如: {{{ie.InstallScript ( showMessageScript );}}}, 字符串变量 showMessageScript 包含了脚本的内容, InstallScript 方法执行后可以直接调用脚本中定义的函数或者变量, 比如: {{{ie.ExecuteScript ( "showMessage('哈哈!');" );}}}, showMessage 就是刚才定义的 javascript 函数. *而对于从网络载入的脚本, 则需要等待脚本载入完成后, 才能调用.*
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
 </font>
