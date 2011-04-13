@@ -39,9 +39,9 @@ ie.ExecuteScript ( "showMessage($('*').length);" );
 
  对于直接载入的脚本, 比如: {{{ie.InstallScript ( showMessageScript );}}}, 字符串变量 showMessageScript 包含了脚本的内容, InstallScript 方法执行后可以直接调用脚本中定义的函数或者变量, 比如: {{{ie.ExecuteScript ( "showMessage('哈哈!');" );}}}, showMessage 就是刚才定义的 javascript 函数. *而对于从网络载入的脚本, 则需要等待脚本载入完成后, 才能调用.*
 
-  注意: 安装过的脚本, 只针对当前 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 中的页面, 当 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 刷新后, 需要重新安装这些脚本.
-
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+*注意:* 安装过的脚本, 只针对当前 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 中的页面, 当 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 刷新后, 需要重新安装这些脚本.
 
 === 使用 ===
  如果需要单独使用 [IEBrowser IEBrowser], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs].
