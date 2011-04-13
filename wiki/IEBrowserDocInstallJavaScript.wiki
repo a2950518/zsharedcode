@@ -2,7 +2,7 @@
 #labels Phase-Implementation
 <font face="microsoft yahei">
 === 目录 ===
-  * [需求 #需求]
+  [需求#需求]
 
 === 需求 ===
  可能需要引用 System.Web.dll
