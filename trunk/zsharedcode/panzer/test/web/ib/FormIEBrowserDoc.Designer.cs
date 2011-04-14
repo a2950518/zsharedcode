@@ -36,6 +36,7 @@
 			this.cmdInvokeJavascript = new System.Windows.Forms.Button ( );
 			this.cmdFlowNWPC = new System.Windows.Forms.Button ( );
 			this.cmdExecuteJQuery = new System.Windows.Forms.Button ( );
+			this.cmd163Blog = new System.Windows.Forms.Button ( );
 			this.SuspendLayout ( );
 			// 
 			// webBrowser
@@ -117,12 +118,23 @@
 			this.cmdExecuteJQuery.UseVisualStyleBackColor = true;
 			this.cmdExecuteJQuery.Click += new System.EventHandler ( this.cmdExecuteJQuery_Click );
 			// 
+			// cmd163Blog
+			// 
+			this.cmd163Blog.Location = new System.Drawing.Point ( 268, 215 );
+			this.cmd163Blog.Name = "cmd163Blog";
+			this.cmd163Blog.Size = new System.Drawing.Size ( 130, 23 );
+			this.cmd163Blog.TabIndex = 1;
+			this.cmd163Blog.Text = "页面载入跳转";
+			this.cmd163Blog.UseVisualStyleBackColor = true;
+			this.cmd163Blog.Click += new System.EventHandler ( this.cmd163Blog_Click );
+			// 
 			// FormIEBrowserDoc
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF ( 6F, 12F );
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size ( 572, 324 );
 			this.Controls.Add ( this.cmdExecuteJQuery );
+			this.Controls.Add ( this.cmd163Blog );
 			this.Controls.Add ( this.cmdFlowNWPC );
 			this.Controls.Add ( this.cmdInvokeJavascript );
 			this.Controls.Add ( this.cmdDataExchange );
@@ -146,5 +158,6 @@
 		private System.Windows.Forms.Button cmdInvokeJavascript;
 		private System.Windows.Forms.Button cmdFlowNWPC;
 		private System.Windows.Forms.Button cmdExecuteJQuery;
+		private System.Windows.Forms.Button cmd163Blog;
 	}
 }
