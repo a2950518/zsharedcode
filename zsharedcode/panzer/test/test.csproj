@@ -71,9 +71,6 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="zoyobar.shared.panzer.test, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <ExecutableExtension>.exe</ExecutableExtension>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include=".ex\DataAdapter\TestDataAdapter.cs" />
