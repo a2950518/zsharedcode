@@ -17,9 +17,19 @@ MessageBox.Show ( ie.InvokeScript ( "getName" ).ToString() );
 }}}
 
 === 说明 ===
- 使用 [IEBrowser IEBrowser] 的 InvokeScript 方法可以调用页面中的 javascript 中定义的函数, 并得到函数的返回值. 函数的参数通过一个 object 类型的数组来传递.
+ 使用 [IEBrowser IEBrowser] 的 InvokeScript 方法可以调用页面中的 javascript 中定义的函数, 并得到函数的返回值. 函数的参数通过一个 object 类型的数组来传递, 比如: {{{ie.InvokeScript ( "setName", new object[] { "jack" } );}}}.
 
  虽然使用 ExecuteScript 方法也可以完成类似的效果, 但 InvokeScript 在参数传递上更加的简便.
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+*注意:* 执行的脚本中的字符串可以用 '' 来表示, 比如: {{{"'我是学生!'"}}}, 也可以使用 "", 比如: {{{"\"我是老师!\""}}}.
+
+=== 使用 ===
+ 如果需要单独使用 [IEBrowser IEBrowser], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs].
+
+ 如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
+
+=== 需求 ===
+ 可能需要引用 System.Web 以及相关程序集.
 </font>
