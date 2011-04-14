@@ -182,6 +182,68 @@ namespace zoyobar.shared.panzer.test.web.ib
 			ie.IEFlow.JumpToState ( "load google" );
 		}
 
+		private void cmd163Blog_Click ( object sender, EventArgs e )
+		{
+			// 从当前的 WebBrowser 控件创建 IEBrowser 对象.
+			IEBrowser ie = new IEBrowser ( this.webBrowser );
+
+			// 此处修改为您的 163 博客地址.
+			ie.Navigate ( "http://<163 博客地址>" );
+			ie.IEFlow.Wait ( 3 );
+
+			// 安装 jquery 脚本.
+			ie.InstallTrace ( );
+			ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+
+			// 弹出登录框.
+			ie.ExecuteJQuery ( JQuery.Create ( "'a:contains(登录)'" ).Attr ( "'id'", "'denglu'" ) );
+			ie.ExecuteScript ( "document.getElementById('denglu').click();" );
+
+			// 填写用户信息并登录.
+			ie.ExecuteJQuery ( JQuery.Create ( "'.ztxt:text'" ).Val ( "'<用户名>'" ) );
+			ie.ExecuteJQuery ( JQuery.Create ( "'.ztxt:password'" ).Val ( "'<密码>'" ) );
+			ie.ExecuteJQuery ( JQuery.Create ( "'.wbtnok:button'" ).Attr ( "'id'", "'dl'" ) );
+			ie.ExecuteScript ( "document.getElementById('dl').click();" );
+			ie.IEFlow.Wait ( 5 );
+
+			// 安装 jquery 脚本.
+			ie.InstallTrace ( );
+			ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+
+			// 跳转到日志页面.
+			ie.ExecuteJQuery ( JQuery.Create ( "'a:contains(日志)' " ).Attr ( "'id'", "'rz'" ) );
+			ie.ExecuteScript ( "document.getElementById('rz').click();" );
+			ie.IEFlow.Wait ( 5 );
+
+			// 安装 jquery 脚本.
+			ie.InstallTrace ( );
+			ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+
+			// 跳转到编辑日志页面.
+			ie.ExecuteJQuery ( JQuery.Create ( "'a:contains(写日志)' " ).Attr ( "'id'", "'xrz'" ) );
+			ie.ExecuteScript ( "document.getElementById('xrz').click();" );
+			ie.IEFlow.Wait ( 5 );
+
+			// 安装 jquery 脚本.
+			ie.InstallTrace ( );
+			ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+
+			// 填写日志内容.
+			ie.ExecuteJQuery ( JQuery.Create ( "'.ztag:text'" ).Val ( "'<标题>'" ) );
+			ie.ExecuteJQuery ( JQuery.Create ( "'#ne-auto-id-source'" ).Trigger ( "'click'" ) );
+
+			ie.ExecuteJQuery ( JQuery.Create ( "'textarea.ztag'" ).Val ( string.Format ( "'{0}'", IEBrowser.EscapeCharacter ( "<日志 html 代码>" ) ) ) );
+
+			ie.ExecuteJQuery ( JQuery.Create ( "'#ne-auto-id-source'" ).Trigger ( "'click'" ) );
+
+			ie.ExecuteScript ( "document.getElementById('key-093402170-autotag').click();" );
+			ie.IEFlow.Wait ( 5 );
+
+			// 发布日志.
+			ie.ExecuteJQuery ( JQuery.Create ( "'.fc09:button'" ).Attr ( "'id'", "'fb'" ) );
+			ie.ExecuteScript ( "document.getElementById('fb').click();" );
+		}
+
 	}
 
 }
