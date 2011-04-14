@@ -20,7 +20,7 @@ ie.ExecuteScript ( "var message = \"我\" + '又来了';alert(message);" );
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
 
-*注意:* 执行的脚本中的字符串可以用 '' 来表示, 比如: "'我是学生!'", 也可以使用 "", 比如: "\"我是老师!\"".
+*注意:* 执行的脚本中的字符串可以用 '' 来表示, 比如: {{{"'我是学生!'"}}}, 也可以使用 "", 比如: {{{"\"我是老师!\""}}}.
 
 === 使用 ===
  如果需要单独使用 [IEBrowser IEBrowser], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs].
