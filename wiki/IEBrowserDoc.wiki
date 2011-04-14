@@ -16,5 +16,5 @@
  * [IEBrowserDocJQuery 执行 jquery]
  * [IEBrowserDocFlow 页面流程控制]
  * 简单示例
-   * 登录 163 发布日志
+   * [IEBrowserDocS163Blog 登录 163 发布日志]
 </font>
