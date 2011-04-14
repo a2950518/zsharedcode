@@ -1,4 +1,4 @@
-#summary 执行 jquery
+#summary IEBrowser 执行 jquery
 #labels Phase-Implementation
 <font face="microsoft yahei">
 === 代码 ===
@@ -44,9 +44,25 @@ for ( int index = 0; index < count; index++ )
 }}}
 
 === 说明 ===
- 使用 [IEBrowser IEBrowser] 的 ExecuteJQuery 方法可以在页面上执行 jquery 命令. 使用 [JQuery JQuery] 类可以创建一条 jquery 命令, 关于 jquery 的各种用法可以参考 http://www.jquery.com/, [JQuery JQuery] 类完成了 jquery 命令的编写, 包含了常用的 jquery 命令.
+ 当需要在 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 的页面上执行较为复杂的命令时, 比如: 填写账户信息并登录. 可以通过 [IEBrowser IEBrowser] 来为页面载入 jquery 脚本, 并执行相关的 jquery 命令.
 
- 在执行 ExecuteJQuery 方法前, 需要先执行 InstallJQuery 和 InstallTrace 方法. 
+ 使用 [IEBrowser IEBrowser] 的 ExecuteJQuery 方法可以在页面上执行 jquery 命令, 比如: {{{int count = ie.ExecuteJQuery<int> ( JQuery.Create ( "'a'" ).Length ( ) );}}}, 这行代码将返回页面中 a 标签的个数. 使用 [JQuery JQuery] 类可以创建一条 jquery 命令并提供给 [IEBrowser IEBrowser] 执行.
+
+ 在执行 ExecuteJQuery 方法前, 需要先执行 InstallJQuery 和 InstallTrace 方法. InstallTrace 方法是 [IEBrowser IEBrowser] 使用 jquery 必需的. InstallJQuery 可以从本地或者网络地址载入 jquery 脚本.
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+*注意^1^:* [JQuery JQuery] 本身并不是 jquery 脚本, 但包含于 jquery 相同的方法命名和参数, 关于 jquery 的各种用法可以参考 http://www.jquery.com/.
+
+*注意^2^:* 安装过的 jquery 脚本, 只针对当前 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 中的页面, 当 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 刷新后, 需要重新安装 jquery.
+
+*注意^3^:* 采用 Uri 参数安装 jquery 脚本, 可能因为编码的问题导致脚本的错误. 这时, 可以将 jquery 脚本作为项目的资源文件导入, 让后采用带有 string 参数的 InstallScript 方法安装 jquery 脚本.
+
+=== 使用 ===
+ 如果需要单独使用 [IEBrowser IEBrowser], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs].
+
+ 如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
+
+=== 需求 ===
+ 可能需要引用 System.Web 以及相关程序集.
 </font>
