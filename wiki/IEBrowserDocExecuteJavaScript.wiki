@@ -14,7 +14,19 @@ ie.ExecuteScript ( "var message = \"我\" + '又来了';alert(message);" );
 }}}
 
 === 说明 ===
- 使用 [IEBrowser IEBrowser] 的 ExecuteScript 方法即可执行 javascript 脚本.
+ 当 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 中载入了页面之后, 如果希望调用页面中的 js 函数, 或者执行某些 js 语句, 可以使用 ExecuteScript 方法.
+
+ 使用 [IEBrowser IEBrowser] 的 ExecuteScript 方法即可执行 javascript 脚本, 比如: {{{ie.ExecuteScript ( "alert('你好, IEBrowser!');" );}}}.
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+*注意:* 执行的脚本中的字符串可以用 '' 来表示, 比如: "'我是学生!'", 也可以使用 "", 比如: "\"我是老师!\"".
+
+=== 使用 ===
+ 如果需要单独使用 [IEBrowser IEBrowser], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs].
+
+ 如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
+
+=== 需求 ===
+ 可能需要引用 System.Web 以及相关程序集.
 </font>
