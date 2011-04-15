@@ -2,7 +2,7 @@
 #labels Featured
 <font face="microsoft yahei">
 === 开发 ===
- M.S.cxc (麦丝平方, odmidi@gmail.com)
+ [http://t.qq.com/zoyobar M.S.cxc] (麦丝平方, odmidi@gmail.com)
 
 <a href=http://t.qq.com/zoyobar title=http://t.qq.com/zoyobar>
  <img title=http://t.qq.com/zoyobar src=http://v.t.qq.com/sign/zoyobar/df5e812d1b1ce665c751b93ed64c16d060089f51/1.jpg />
