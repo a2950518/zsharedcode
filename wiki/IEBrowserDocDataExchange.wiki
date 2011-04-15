@@ -1,4 +1,4 @@
-#summary 与页面进行数据交互
+#summary IEBrowser 与页面进行数据交互
 #labels Phase-Implementation
 <font face="microsoft yahei">
 === 代码 ===

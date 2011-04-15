@@ -1,4 +1,4 @@
-#summary 调用 javascript 函数
+#summary IEBrowser 调用 javascript 函数
 #labels Phase-Implementation
 <font face="microsoft yahei">
 === 代码 ===
