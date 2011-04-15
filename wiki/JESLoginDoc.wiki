@@ -22,23 +22,22 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 	<title>登录</title>
-	<link rel="stylesheet" href="../css/ui-lightness/jquery-ui-1.8.11.custom.css" />
-	<script type="text/javascript" src="../js/jquery-1.5.1.min.js"></script>
-	<script type="text/javascript" src="../js/jquery-ui-1.8.11.custom.min.js"></script>
+	<link rel="stylesheet" href="../../css/ui-lightness/jquery-ui-1.8.11.custom.css" />
+	<script type="text/javascript" src="../../js/jquery-1.5.1.min.js"></script>
+	<script type="text/javascript" src="../../js/jquery-ui-1.8.11.custom.min.js"></script>
 </head>
 <body>
 	<form id="formLogin" runat="server">
 	测试用户名 abc, 密码 123456
 	<input id="name" type="text" />
 	<input id="password" type="password" />
-
 	<je:JQueryElement ID="je" runat="server" ElementType="Div">
 		<WidgetSetting Type="button">
 			<Options>
 				<je:OptionEdit Type="label" Value="'登录'" />
 			</Options>
 			<AjaxSettings>
-				<je:AjaxSettingEdit DataType="json" Url="Check.ashx" WidgetEventType="click">
+				<je:AjaxSettingEdit DataType="json" Url="../student/Login.ashx" WidgetEventType="click">
 					<Parameters>
 						<je:ParameterEdit Name="n" Type="Selector" Value="'#name'" />
 						<je:ParameterEdit Name="pw" Type="Selector" Value="'#password'" />
@@ -51,10 +50,8 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 			</AjaxSettings>
 		</WidgetSetting>
 	</je:JQueryElement>
-
 	<div id="message">
 	</div>
-
 	<je:JQueryScript ID="js" runat="server">
 		<Html>
 		<script language="javascript" type="text/javascript">
@@ -77,6 +74,9 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 					case 'parsererror':
 						message = '格式错误: ';
 						break;
+
+					default:
+						return;
 				}
 
 				message += (null == errorThrown) ? '...' : errorThrown.toString();
@@ -95,6 +95,9 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 					case 'fail':
 						message = '错误的用户名和密码';
 						break;
+
+					default:
+						return;
 				}
 
 				$('#message').text(message);
@@ -107,14 +110,14 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 </html>
 }}}
 
-=== login/Check.ashx 代码 ===
+=== student/Login.ashx 代码 ===
 {{{
-<%@ WebHandler Language="C#" Class="LoginCheck" %>
+<%@ WebHandler Language="C#" Class="StudentLogin" %>
 
 using System;
 using System.Web;
 
-public class LoginCheck : IHttpHandler
+public class StudentLogin : IHttpHandler
 {
 
 	public void ProcessRequest ( HttpContext context )
@@ -135,8 +138,8 @@ public class LoginCheck : IHttpHandler
 	{
 		get { return false; }
 	}
-}
-}}}
+
+}}}}
 
 === 前提条件 ===
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
