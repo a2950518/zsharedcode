@@ -45,9 +45,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		: IStateManager
 	{
 		private List<EventEdit> events = new List<EventEdit> ( );
-		private EventType widgetEventType;
+		private EventType widgetEventType = EventType.none;
 		private string url;
-		private DataType dataType;
+		private DataType dataType = DataType.json;
 		private string form;
 		private List<ParameterEdit> parameters = new List<ParameterEdit> ( );
 		private bool isSingleQuote;
