@@ -6,7 +6,7 @@
 
  功能: 完成 163 博客的登录和日志的发布
  
- 修正&分析: M.S.cxc
+ 修正&分析: [http://t.qq.com/zoyobar M.S.cxc]
 
 === 代码 ===
 {{{
@@ -71,9 +71,23 @@ ie.ExecuteScript ( "document.getElementById('fb').click();" );
 }}}
 
 === 说明 ===
- 页面跳转的代码是十分的简单的, 使用 [IEBrowser IEBrowser] 的 Navigate 方法即可.
+ 首先感谢雪鱼编写的这段示例代码, 可以完成登录 163 博客并发布日志的功能.
+
+ 代码一开始创建了一个 [IEBrowser IEBrowser] 对象 {{{IEBrowser ie = new IEBrowser ( this.webBrowser );}}}, 这是我们接下来对页面进行各种操作所必须的对象, 其中 webBrowser 是一个 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 控件.
+
+ 接着, 代码让 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 导航到某个 163 博客的首页, 您可以填写为自己博客的地址, {{{ie.Navigate ( "http://<163 博客地址>" ); ie.IEFlow.Wait ( 3 );}}}, 在跳转之后使用了 Wait 方法, 主要是等待页面的载入, 否则代码将继续向下执行, 这会导致不期望的结果.
+
+ 然后, 代码为载入的博客首页安装了 jquery 脚本, 这里 jquery 脚本是导入到了资源当中并作为 jquery_1_5_2_min 属性访问, {{{ie.InstallTrace ( ); ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );}}}, 雪鱼是希望在页面上使用 jquery 了, 载入 jquery 的方式有多种, 也可以使用 InstallJQuery 方法. 更多可以参照 [IEBrowserDocJQuery 执行 jquery].
+
+ 再下来, 代码找到了名字包含日志的 a 标签, 然后模拟了 a 的点击, {{{ie.ExecuteJQuery ( JQuery.Create ( "'a:contains(日志)' " ).Attr ( "'id'", "'rz'" ) ); ie.ExecuteScript ( "document.getElementById('rz').click();" );}}}, 这里需要说明的是 1.5 的 jquery 脚本可能无法使用 trigger 来模拟 a 标签的点击, 所以代码是通过 ExecuteScript 来完成的点击超链接, 而第一句执行的 jquery 是为了给 a 标签增加一个 id 属性, 以提供给下面的 getElementById 使用. 其实你也可以直接 Navigate 导航到指定页面, 这里只是为了演示更多的代码.
+
+ 还有一点, 在页面每跳转或刷新一次的情况下, 你需要重新安装一次 jquery, 如果你要使用 jquery 的话.
+
+ 整个代码, 中多处 Wait 方法, 这可以通过 [IEBrowserDocFlow 页面流程控制] 这种编程方式来省去, 可以不再使用 Wait, 而是由你给出成功和失败的条件由程序来决定下一步如何进行.
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+*注意:* 示例代码可能会因为 163 页面的改动或者使用 jquery 版本的差别而不同.
 
 === 使用 ===
  如果需要单独使用 [IEBrowser IEBrowser], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs].
