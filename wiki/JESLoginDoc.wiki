@@ -1,4 +1,4 @@
-﻿#summary JQueryElement 折叠列表
+﻿#summary JQueryElement 示例-登录
 #labels Phase-Implementation
 <font face="microsoft yahei">
 === login/Default.aspx 代码 ===
@@ -139,7 +139,8 @@ public class StudentLogin : IHttpHandler
 		get { return false; }
 	}
 
-}}}}
+}
+}}}
 
 === 前提条件 ===
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
