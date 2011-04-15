@@ -2,11 +2,11 @@
 #labels Phase-Implementation
 <font face="microsoft yahei">
 === 简介 ===
- 示例编写者: 雪鱼
+*示例编写者:* 雪鱼 (QQ: 422986811)
 
- 功能: 完成 163 博客的登录和日志的发布
+*功能:* 完成 163 博客的登录和日志的发布
  
- 修正&分析: [http://t.qq.com/zoyobar M.S.cxc]
+*分析:* [http://t.qq.com/zoyobar M.S.cxc]
 
 === 代码 ===
 {{{
