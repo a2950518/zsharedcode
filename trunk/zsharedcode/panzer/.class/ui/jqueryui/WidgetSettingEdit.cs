@@ -45,7 +45,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private List<OptionEdit> options = new List<OptionEdit> ( );
 		private List<EventEdit> events = new List<EventEdit> ( );
 		private List<AjaxSettingEdit> ajaxSettings = new List<AjaxSettingEdit> ( );
-		private WidgetType type;
+		private WidgetType type = WidgetType.empty;
 
 		/// <summary>
 		/// 获取元素的 Widget 设置.
@@ -93,7 +93,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 获取或设置 Widget 类型.
 		/// </summary>
 		[Category ( "jQuery UI" )]
-		[DefaultValue ( false )]
+		[DefaultValue ( WidgetType.empty )]
 		[Description ( "指示 Widget 类型" )]
 		[NotifyParentProperty ( true )]
 		public WidgetType Type

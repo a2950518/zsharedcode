@@ -100,7 +100,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public class JQueryElement
 		: WebControl, INamingContainer
 	{
-		private ElementType elementType;
+		private ElementType elementType = ElementType.None;
 		private string attribute;
 
 		private readonly DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
