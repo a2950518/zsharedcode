@@ -1,0 +1,40 @@
+#summary IEBrowser 解决 $ 定义冲突
+#labels Phase-Implementation
+<font face="microsoft yahei">
+=== 代码 ===
+{{{
+// 从当前的 WebBrowser 控件创建 IEBrowser 对象.
+IEBrowser ie = new IEBrowser ( this.webBrowser );
+
+// 导航到页面 http://nt.discuz.net/, 此页面中已经定义了 $, 将和 jquery 的 $ 冲突.
+ie.Navigate ( "http://nt.discuz.net/" );
+
+// 等待 5 秒钟, 以便页面载入完毕.
+ie.IEFlow.Wait ( 5 );
+
+// 安装跟踪脚本, 这可以执行更多的 jquery 操作.
+ie.InstallTrace ( );
+
+// 安装资源中的 jquery 脚本.
+ie.InstallScript ( Properties.Resources.jquery_1_5_2_min );
+
+// 解除 jquery 的 $ 定义, 但仍然可以只用 jQuery 定义.
+ie.ExecuteJQuery ( JQuery.Create ( false, true ).NoConflict ( ) );
+
+// 执行 jquery 脚本 jQuery('*').length, 获得页面上总元素个数.
+Console.WriteLine ( "页面上共有 {0} 个元素", ie.ExecuteJQuery ( JQuery.Create ( "'*'", false ).Length ( ) ) );
+}}}
+
+=== 说明 ===
+ 有些页面事先在 javascript 中定义了 $, 如果使用 [IEBrowser IEBrowser] 安装 jquery 脚本, 将导致原来定义的 $ 失效, 为了使页面使用正常, 可以使用 {{{ie.ExecuteJQuery ( JQuery.Create ( false, true ).NoConflict ( ) );}}} 来解除 jquery 的 $ 定义, 恢复原本的 $ 的定义. 这并不代表你不能使用 jquery 了, 在之后的 Create 方法后加上一个 false 作为参数即可, 这指定使用 jQuery 而不是 $.
+
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+=== 使用 ===
+ 如果需要单独使用 [IEBrowser IEBrowser], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs].
+
+ 如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
+
+=== 需求 ===
+ 可能需要引用 System.Web 以及相关程序集.
+</font>

@@ -14,6 +14,7 @@
  * [IEBrowserDocInvokeJavaScript 调用 javascript 函数]
  * [IEBrowserDocDataExchange 与页面进行数据交互]
  * [IEBrowserDocJQuery 执行 jquery]
+ * [IEBrowserDocNoConflict 解决 $ 定义冲突]
  * [IEBrowserDocFlow 页面流程控制]
  * 爱好者编写代码示例分析
    * [IEBrowserDocS163Blog 登录 163 发布日志]
