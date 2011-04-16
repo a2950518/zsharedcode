@@ -1,11 +1,11 @@
 ﻿/* allinone合并了多个文件,下载使用多个allinone代码,可能会遇到重复的类型定义,http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs */
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using zoyobar.shared.panzer.flow;
 using System.Web.UI;
 using NControl = System.Web.UI.Control;
-using System.Drawing;
 using System.Text;
 using System.IO;
 // ../.class/web/ib/IEBrowser.cs
@@ -595,6 +595,27 @@ namespace zoyobar.shared.panzer.web.ib
 		/// </summary>
 		public void Refresh ( )
 		{ this.Navigate ( this.url ); }
+
+		/// <summary>
+		/// 复制并获取页面中的指定的图像.
+		/// </summary>
+		/// <param name="id">返回 img 标签 id 的表达式, 比如: "'myHead'".</param>
+		/// <returns>图像.</returns>
+		public Image CopyImage ( string id )
+		{
+
+			if ( string.IsNullOrEmpty ( id ) )
+				return null;
+
+			try
+			{
+				this.ExecuteScript ( string.Format ( "var __temp = document.body.createControlRange();__temp.add(document.getElementById({0}));__temp.execCommand('Copy', false, null);", id ) );
+
+				return Clipboard.GetImage ( );
+			}
+			catch
+			{ return null; }
+		}
 
 	}
 
