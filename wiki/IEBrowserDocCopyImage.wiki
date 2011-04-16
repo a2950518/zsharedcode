@@ -1,0 +1,33 @@
+#summary IEBrowser 复制并获取图片
+#labels Phase-Implementation
+<font face="microsoft yahei">
+=== 代码 ===
+{{{
+// 从当前的 WebBrowser 控件创建 IEBrowser 对象.
+IEBrowser ie = new IEBrowser ( this.webBrowser );
+
+// 导航到页面 http://www.google.com.hk/imghp.
+ie.Navigate ( "http://www.google.com.hk/imghp" );
+
+// 等待 5 秒钟, 以便页面载入完毕.
+ie.IEFlow.Wait ( 5 );
+
+// 获取 id 为 hplogo 的 img 的图片.
+this.pictureBox.Image = ie.CopyImage ( "'hplogo'" );
+}}}
+
+=== 说明 ===
+ 通过使用 [IEBrowser IEBrowser] 的 CopyImage 方法, 你便可以将页面中指定的图片复制并获取为 Image 对象, 对于一些刷新就会变化的图片, 比如: 验证码, 这特别有效.
+
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+*注意:* 获取图片时, 可能页面上会弹出对话框.
+
+=== 使用 ===
+ 如果需要单独使用 [IEBrowser IEBrowser], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs].
+
+ 如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
+
+=== 需求 ===
+ 可能需要引用 System.Web 以及相关程序集.
+</font>
