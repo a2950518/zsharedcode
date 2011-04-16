@@ -29,6 +29,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 using zoyobar.shared.panzer.flow;
@@ -588,6 +589,27 @@ namespace zoyobar.shared.panzer.web.ib
 		/// </summary>
 		public void Refresh ( )
 		{ this.Navigate ( this.url ); }
+
+		/// <summary>
+		/// 复制并获取页面中的指定的图像.
+		/// </summary>
+		/// <param name="id">返回 img 标签 id 的表达式, 比如: "'myHead'".</param>
+		/// <returns>图像.</returns>
+		public Image CopyImage ( string id )
+		{
+
+			if ( string.IsNullOrEmpty ( id ) )
+				return null;
+
+			try
+			{
+				this.ExecuteScript ( string.Format ( "var __temp = document.body.createControlRange();__temp.add(document.getElementById({0}));__temp.execCommand('Copy', false, null);", id ) );
+
+				return Clipboard.GetImage ( );
+			}
+			catch
+			{ return null; }
+		}
 
 	}
 
