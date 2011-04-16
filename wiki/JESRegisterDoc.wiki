@@ -472,7 +472,7 @@ public class StudentRegister : IHttpHandler
 *注意^3^:* 在 js 函数 checkUserName 中访问 isUserNameOK 以及 checkOK 不能加 this.
 
 === 使用 ===
- 如果需要单独使用 [JQueryElement JQueryElement], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/JQueryElement.all.cs IEBrowser.all.cs].
+ 如果需要单独使用 [JQueryElement JQueryElement], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/JQueryElement.all.cs JQueryElement.all.cs].
 
  如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
 </font>
