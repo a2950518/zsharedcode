@@ -240,5 +240,6 @@
           * [JETabsEventDoc 分组标签事件]
       * 稍复杂示例
         * [JESLoginDoc 用户登录]
+        * [JESRegisterDoc 用户注册]
   * [Member 项目成员]
 </font>

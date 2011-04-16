@@ -1,0 +1,478 @@
+﻿#summary JQueryElement 示例-注册
+#labels Phase-Implementation
+<font face="microsoft yahei">
+=== register/Default.aspx 代码 ===
+{{{
+<%--
+wiki 成员参考:
+http://code.google.com/p/zsharedcode/wiki/JQueryElement
+wiki 分析&示例:
+http://code.google.com/p/zsharedcode/wiki/JESRegisterDoc
+JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/zsharedcode/.
+所有项目源码托管地址: http://panzer.codeplex.com/.
+--%>
+
+<%@ Page Language="C#" %>
+
+<%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<script runat="server">
+
+</script>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+	<title>注册 - JQueryElement 示例</title>
+	<link rel="stylesheet" href="../../css/ui-lightness/jquery-ui-1.8.11.custom.css" />
+	<script type="text/javascript" src="../../js/jquery-1.5.1.min.js"></script>
+	<script type="text/javascript" src="../../js/jquery-ui-1.8.11.custom.min.js"></script>
+</head>
+<body>
+	<form id="formRegister" runat="server">
+	用户名:
+	<je:JQueryElement ID="txtUserName" runat="server" ElementType="Input" Attribute="type=text"
+		CssClass="ui-widget">
+		<WidgetSetting Type="empty">
+			<AjaxSettings>
+				<je:AjaxSettingEdit WidgetEventType="change" Url="../student/CheckUserName.ashx"
+					DataType="json">
+					<Events>
+						<je:EventEdit Type="success" Value="checkUserName" />
+					</Events>
+					<Parameters>
+						<je:ParameterEdit Name="n" Type="Selector" Value="'#[%id:txtUserName%]'" />
+					</Parameters>
+				</je:AjaxSettingEdit>
+			</AjaxSettings>
+		</WidgetSetting>
+	</je:JQueryElement>
+	<span id="lblCheckUserName"></span>
+	<br />
+	<br />
+	密码:
+	<je:JQueryElement ID="txtPassword" runat="server" ElementType="Input" Attribute="type=password"
+		CssClass="ui-widget">
+		<WidgetSetting Type="empty">
+			<AjaxSettings>
+				<je:AjaxSettingEdit WidgetEventType="change" Url="../student/CheckPassword.ashx"
+					DataType="json">
+					<Events>
+						<je:EventEdit Type="success" Value="checkPassword" />
+					</Events>
+					<Parameters>
+						<je:ParameterEdit Name="pw" Type="Selector" Value="'#[%id:txtPassword%]'" />
+					</Parameters>
+				</je:AjaxSettingEdit>
+			</AjaxSettings>
+		</WidgetSetting>
+	</je:JQueryElement>
+	<span id="lblCheckPassword"></span>
+	<br />
+	<br />
+	邮箱:
+	<je:JQueryElement ID="txtEMail" runat="server" ElementType="Input" Attribute="type=text"
+		CssClass="ui-widget">
+		<WidgetSetting Type="empty">
+			<AjaxSettings>
+				<je:AjaxSettingEdit WidgetEventType="change" Url="../student/CheckEMail.ashx" DataType="json">
+					<Events>
+						<je:EventEdit Type="success" Value="checkEMail" />
+					</Events>
+					<Parameters>
+						<je:ParameterEdit Name="em" Type="Selector" Value="'#[%id:txtEMail%]'" />
+					</Parameters>
+				</je:AjaxSettingEdit>
+			</AjaxSettings>
+		</WidgetSetting>
+	</je:JQueryElement>
+	<span id="lblCheckEMail"></span>
+	<br />
+	<br />
+	<je:JQueryElement ID="cmdRegister" runat="server" ElementType="Div">
+		<WidgetSetting Type="button">
+			<Options>
+				<je:OptionEdit Type="label" Value="'注册'" />
+				<je:OptionEdit Type="disabled" Value="true" />
+			</Options>
+			<AjaxSettings>
+				<je:AjaxSettingEdit WidgetEventType="click" Url="../student/Register.ashx" DataType="json">
+					<Events>
+						<je:EventEdit Type="success" Value="register" />
+					</Events>
+					<Parameters>
+						<je:ParameterEdit Name="n" Type="Selector" Value="'#[%id:txtUserName%]'" />
+						<je:ParameterEdit Name="pw" Type="Selector" Value="'#[%id:txtPassword%]'" />
+						<je:ParameterEdit Name="em" Type="Selector" Value="'#[%id:txtEMail%]'" />
+					</Parameters>
+				</je:AjaxSettingEdit>
+			</AjaxSettings>
+		</WidgetSetting>
+	</je:JQueryElement>
+	<br /><br />
+	<span id="lblRegister"></span>
+	<je:JQueryScript ID="js" runat="server">
+		<Html>
+		<script language="javascript" type="text/javascript">
+			var isUserNameOK = false;
+			var isPasswordOK = false;
+			var isEMailOK = false;
+
+			function checkUserName(data, textStatus, jqXHR) {
+				var message;
+				var color;
+
+				switch (data.result) {
+					case 'empty':
+						message = '用户名不能为空';
+						color = '#ff0000';
+						break;
+
+					case 'size':
+						message = '用户名长度应该在 3-10 个字符';
+						color = '#ff0000';
+						break;
+
+					case 'ok':
+						message = '用户名可以使用';
+						color = '#009900';
+						break;
+
+					case 'used':
+						message = '用户名已被使用';
+						color = '#ff0000';
+						break;
+
+					default:
+						return;
+				}
+
+				$('#lblCheckUserName').text(message).css('color', color);
+				isUserNameOK = (data.result == 'ok');
+				checkOK();
+			}
+
+			function checkPassword(data, textStatus, jqXHR) {
+				var message;
+				var color;
+
+				switch (data.result) {
+					case 'empty':
+						message = '密码不能为空';
+						color = '#ff0000';
+						break;
+
+					case 'size':
+						message = '密码长度应该在 6-20 个字符';
+						color = '#ff0000';
+						break;
+
+					case 'ok':
+						message = '密码可以使用';
+						color = '#009900';
+						break;
+
+					default:
+						return;
+				}
+
+				$('#lblCheckPassword').text(message).css('color', color);
+				isPasswordOK = (data.result == 'ok');
+				checkOK();
+			}
+
+			function checkEMail(data, textStatus, jqXHR) {
+				var message;
+				var color;
+
+				switch (data.result) {
+					case 'empty':
+						message = '邮箱不能为空';
+						color = '#ff0000';
+						break;
+
+					case 'format':
+						message = '邮箱格式错误';
+						color = '#ff0000';
+						break;
+
+					case 'size':
+						message = '邮箱长度应该在 6-50 个字符之内';
+						color = '#ff0000';
+						break;
+
+					case 'ok':
+						message = '邮箱可以使用';
+						color = '#009900';
+						break;
+
+					case 'used':
+						message = '邮箱已被使用';
+						color = '#ff0000';
+						break;
+
+					default:
+						return;
+				}
+
+				$('#lblCheckEMail').text(message).css('color', color);
+				isEMailOK = (data.result == 'ok');
+				checkOK();
+			}
+
+			function register(data, textStatus, jqXHR) {
+				var message;
+				var color;
+
+				switch (data.result) {
+					case 'ok':
+						message = '注册成功';
+						color = '#009900';
+						break;
+
+					default:
+						return;
+				}
+
+				$('#lblRegister').text(message).css('color', color);
+			}
+
+			function checkOK() {
+
+				if(this.isUserNameOK && this.isPasswordOK && this.isEMailOK)
+					$('#[%id:cmdRegister%]').button("enable");
+				else
+					$('#[%id:cmdRegister%]').button("disable");
+			}
+
+		</script>
+		</Html>
+	</je:JQueryScript>
+	</form>
+</body>
+</html>
+}}}
+
+=== student/CheckUserName.ashx 代码 ===
+{{{
+<%@ WebHandler Language="C#" Class="StudentCheckUserName" %>
+
+using System;
+using System.Web;
+
+using LearnDSTableAdapters;
+
+public class StudentCheckUserName : IHttpHandler
+{
+
+	public void ProcessRequest ( HttpContext context )
+	{
+		context.Response.ContentType = "text/javascript";
+
+		string userName = context.Request["n"];
+		string result;
+
+		if ( string.IsNullOrEmpty ( userName ) )
+		{
+			result = "empty";
+			goto EXIT;
+		}
+
+		userName = userName.Trim ( );
+	
+		if ( userName.Length < 3 || userName.Length > 10 )
+		{
+			result = "size";
+			goto EXIT;
+		}
+
+		StudentTableAdapter adapter = new StudentTableAdapter ( );
+
+		LearnDS.StudentDataTable table = new LearnDS ( ).Student;
+
+		adapter.FillByUserName ( table, userName );
+
+		if ( table.Count == 0 )
+			result = "ok";
+		else
+			result = "used";
+
+	EXIT:
+		context.Response.Write ( "{ \"result\": \"" + result + "\" }" );
+	}
+
+	public bool IsReusable
+	{
+		get { return false; }
+	}
+
+}
+}}}
+
+=== student/CheckPassword.ashx 代码 ===
+{{{
+<%@ WebHandler Language="C#" Class="StudentCheckPassword" %>
+
+using System;
+using System.Web;
+
+public class StudentCheckPassword : IHttpHandler
+{
+
+	public void ProcessRequest ( HttpContext context )
+	{
+		context.Response.ContentType = "text/javascript";
+
+		string password = context.Request["pw"];
+		string result;
+
+		if ( string.IsNullOrEmpty ( password ) )
+		{
+			result = "empty";
+			goto EXIT;
+		}
+
+		password = password.Trim ( );
+	
+		if ( password.Length < 6 || password.Length > 20 )
+		{
+			result = "size";
+			goto EXIT;
+		}
+		
+		result = "ok";
+
+	EXIT:
+		context.Response.Write ( "{ \"result\": \"" + result + "\" }" );
+	}
+
+	public bool IsReusable
+	{
+		get { return false; }
+	}
+
+}
+}}}
+
+=== student/CheckEMail.ashx 代码 ===
+{{{
+<%@ WebHandler Language="C#" Class="StudentCheckEMail" %>
+
+using System;
+using System.Web;
+
+using LearnDSTableAdapters;
+
+public class StudentCheckEMail : IHttpHandler
+{
+
+	public void ProcessRequest ( HttpContext context )
+	{
+		context.Response.ContentType = "text/javascript";
+
+		string email = context.Request["em"];
+		string result;
+
+		if ( string.IsNullOrEmpty ( email ) )
+		{
+			result = "empty";
+			goto EXIT;
+		}
+
+		email = email.Trim ( );
+	
+		if ( email.Length < 6 || email.Length > 50 )
+		{
+			result = "size";
+			goto EXIT;
+		}
+
+		if ( !email.Contains ( "@" ) || !email.Contains ( "." ) )
+		{
+			result = "format";
+			goto EXIT;
+		}
+		
+		StudentTableAdapter adapter = new StudentTableAdapter ( );
+
+		LearnDS.StudentDataTable table = new LearnDS ( ).Student;
+
+		adapter.FillByEMail ( table, email );
+
+		if ( table.Count == 0 )
+			result = "ok";
+		else
+			result = "used";
+
+	EXIT:
+		context.Response.Write ( "{ \"result\": \"" + result + "\" }" );
+	}
+
+	public bool IsReusable
+	{
+		get { return false; }
+	}
+
+}
+}}}
+
+=== student/Register.ashx 代码 ===
+{{{
+<%@ WebHandler Language="C#" Class="StudentRegister" %>
+
+using System;
+using System.Web;
+
+using LearnDSTableAdapters;
+
+public class StudentRegister : IHttpHandler
+{
+
+	public void ProcessRequest ( HttpContext context )
+	{
+		context.Response.ContentType = "text/javascript";
+
+		string result;
+
+		StudentTableAdapter adapter = new StudentTableAdapter ( );
+
+		adapter.Register ( context.Request["n"], context.Request["pw"], context.Request["em"] );
+
+		result = "ok";
+
+		context.Response.Write ( "{ \"result\": \"" + result + "\" }" );
+	}
+
+	public bool IsReusable
+	{
+		get { return false; }
+	}
+
+}
+}}}
+
+=== 前提条件 ===
+ 所有示例代码将在以后加入示例代码 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 提供下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
+
+=== 说明 ===
+ register/Default.aspx 中的使用 [JQueryElement JQueryElement] 作为用户名, 密码和邮箱的输入框, 当输入框的内容改变时, 我们调用对应的 .ashx 来检查输入的内容是否合法, 以用户名为例, {{{<je:AjaxSettingEdit WidgetEventType="change" Url="../student/CheckUserName.ashx" DataType="json"> ... </je:AjaxSettingEdit>}}}, {{{Url="../student/CheckUserName.ashx"}}} 表示使用 ../student/CheckUserName.ashx 来检查用户名, {{{DataType="json"}}} 表示 CheckUserName.ashx 返回的数据是 json 格式, {{{WidgetEventType="change"}}} 表示当文本框值改变时触发检查.
+
+ 当然, 要检查用户名还需要将用户名传递给 CheckUserName.ashx, 我们通过 {{{<je:ParameterEdit Name="n" Type="Selector" Value="'#[%id:txtUserName%]'" />}}} 来传递用户名, {{{Name="n"}}} 表示参数名, 将以如: &n=abc 这样的形式传递, {{{Type="Selector"}}} 表示使用选择器来选择输入用户名的文本框, {{{Value="'#[%id:txtUserName%]'"}}} 是选择用户名文本框的选择器, {{{[%id:txtUserName%]}}} 是内嵌语法, 表示 ID 为 txtUserName 的服务器控件的 ClientID, 这里也就是 [JQueryElement JQueryElement] 表示的用户名文本框的 ClientID.
+
+ 最后, 我们需要接收检查的结果, 通过 {{{<je:EventEdit Type="success" Value="checkUserName" />}}} 完成, {{{Type="success"}}} 表示返回检查结果后, {{{Value="checkUserName"}}} 表示处理结果的是 javascript 函数 checkUserName, 这里你也可以直接书写 javascript 函数.
+
+ 在 js 函数 checkUserName 中, 我们根据 CheckUserName.ashx 返回的 json 来判断和显示结果, json 的结构很简单只有一个 result 属性, 函数的最后 {{{isUserNameOK = (data.result == 'ok'); checkOK();}}} 设置变量 isUserNameOK 是否为真, 以及调用 checkOK 函数检查 isUserNameOK, isPasswordOK, isEMailOK 三个变量, 来确定注册按钮是否可用.
+
+ 剩下的密码和邮箱检测以及注册工作原理是基本类似的, 这里不再介绍了.
+
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+*注意^1^:* 密码的检测也可以在客户端进行, 不必返回服务器检查.
+
+*注意^2^:* 注册的 student/Register.ashx 并没有再次检查, 因此可能会存在问题.
+
+*注意^3^:* 在 js 函数 checkUserName 中访问 isUserNameOK 以及 checkOK 不能加 this.
+
+=== 使用 ===
+ 如果需要单独使用 [JQueryElement JQueryElement], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/JQueryElement.all.cs IEBrowser.all.cs].
+
+ 如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
+</font>

@@ -105,4 +105,5 @@
  * [JETabsEventDoc 分组标签事件]
 
  * [JESLoginDoc 用户登录]
+ * [JESRegisterDoc 用户注册]
 </font>
