@@ -137,6 +137,7 @@
         * [IEBrowserDocFlowNWPC 页面载入后跳转]
       * 爱好者编写代码示例分析
         * [IEBrowserDocS163Blog 登录 163 发布日志]
+        * [IEBrowserDocSDZ 登录 DZ 发贴]
     * [JQueryElementDoc JQueryElement 分析&示例]
       * [JQueryElementHtmlDoc 设置 html 代码]
       * [JQueryElementElementDoc 设置元素的类型]

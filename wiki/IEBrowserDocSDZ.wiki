@@ -1,0 +1,207 @@
+#summary IEBrowser 登录 DZ 发贴
+#labels Phase-Implementation
+<font face="microsoft yahei">
+=== 简介 ===
+*示例编写者:* 雪鱼 (QQ: 422986811), [http://t.qq.com/zoyobar M.S.cxc]
+
+*功能:* 完成某 DZ 论坛的发帖
+
+*分析:* [http://t.qq.com/zoyobar M.S.cxc]
+
+=== 代码 ===
+{{{
+public static void Discuz ( IEBrowser ie, string userName, string password, string url, string title, string content )
+{
+
+	// 导航到页面 dz 论坛的页面.
+	ie.Navigate ( url );
+
+	// 等待 10 秒钟, 以便页面载入完毕.
+	ie.IEFlow.Wait ( 10 );
+
+	// 安装跟踪脚本, 这可以执行更多的 jquery 操作.
+	ie.InstallTrace ( );
+
+	// 安装资源中的 jquery 脚本.
+	ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+
+	// 解除 jquery 的 $ 定义, 但仍然可以只用 jQuery 定义.
+	ie.ExecuteJQuery ( JQuery.Create ( false, true ).NoConflict ( ) );
+
+	// 安装 javascript 函数 clickLink, 根据超链接的文本点击超链接.
+	ie.InstallScript (
+		"function clickLink(text) {" +
+		"	links = document.getElementsByTagName('a');" +
+		"	for(var index = 0; index < links.length; index++)" +
+		"	{" +
+		"		if(links[index].innerText == text)" +
+		"		{" +
+		"			links[index].click();" +
+		"			break;" +
+		"		}" +
+		"	}" +
+		"}"
+		);
+
+	// 是否存在已经登录后显示的短消息.
+	if ( ie.ExecuteJQuery<int> ( JQuery.Create ( "'#pm_ntc'", false ).Length ( ) ) == 1 )
+	{
+		// 调用 javascript 函数 clickLink, 模拟点击退出链接.
+		ie.InvokeScript ( "clickLink", new object[] { "退出" } );
+
+		// 等待 3 秒钟, 以便退出完毕.
+		ie.IEFlow.Wait ( 3 );
+
+		// 重新调用自身.
+		Discuz ( ie, userName, password, url, title, content );
+		return;
+	}
+
+	// 设置用户名.
+	ie.ExecuteJQuery ( JQuery.Create ( "'#ls_username'", false ).Val ( "'"+userName+"'" ) );
+
+	// 设置密码.
+	ie.ExecuteJQuery ( JQuery.Create ( "'#ls_password'", false ).Val ( "'"+password+"'" ) );
+
+	// 密码框获得焦点.
+	ie.ExecuteJQuery ( JQuery.Create ( "'#ls_password'", false ).Focus ( ) );
+
+	// 等待 5 秒钟以显示验证码.
+	ie.IEFlow.Wait ( 5 );
+
+	// 获取验证码并显示给用户输入.
+	FormVCode vCodeWindow = new FormVCode (  );
+	vCodeWindow.Image = ie.CopyImage ( "'vcodeimg1'" );
+
+	// 用户是否确认.
+	if ( vCodeWindow.ShowDialog ( ) == DialogResult.OK )
+	{
+		// 验证码框获得焦点.
+		ie.ExecuteJQuery ( JQuery.Create ( "'#vcodetext_header1'", false ).Focus ( ) );
+				
+		// 填写验证码并多加 1.
+		ie.ExecuteJQuery ( JQuery.Create ( "'#vcodetext_header1'", false ).Val ( "'" + vCodeWindow.VCode + "1'" ) );
+
+		// 模拟一个退格键, 删除掉 1.
+		SendKeys.Send ( "{Backspace}" );
+
+		// 等待 2 秒.
+		ie.IEFlow.Wait ( 2 );
+
+		// 登录框提交.
+		ie.ExecuteJQuery ( JQuery.Create ( "'#lsform'", false ).Submit() );
+
+		// 等待 5 秒, 以便登录完成.
+		ie.IEFlow.Wait ( 5 );
+
+		// 是否是验证码错误.
+		if ( ie.ExecuteJQuery<int> ( JQuery.Create ( "'p:contains(验证码错误)'", false ).Length ( ) ) == 1 )
+		{
+			// 验证码错误重新登录.
+			Discuz ( ie, userName, password, url, title, content );
+			return;
+		}
+
+	TOPIC:
+		// 随机导航至某一话题.
+		ie.Navigate ( "http://nt.discuz.net/showtopic-" + new Random ( ).Next ( 11000, 18000 ).ToString() + ".html" );
+
+		// 等待 5 秒, 以便页面完成.
+		ie.IEFlow.Wait ( 5 );
+
+		// 安装 jquery 脚本的一系列操作.
+		ie.InstallTrace ( );
+		ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+		ie.ExecuteJQuery ( JQuery.Create ( false, true ).NoConflict ( ) );
+
+		// 话题不存在则重新选择.
+		if ( ie.ExecuteJQuery<int> ( JQuery.Create ( "'p:contains(该主题不存在)'", false ).Length ( ) ) == 1 )
+			goto TOPIC;
+			
+		// 安装 javascript 函数 clickLink, 根据超链接的文本点击超链接.
+		ie.InstallScript (
+			"function clickLink(text) {" +
+			"	links = document.getElementsByTagName('a');" +
+			"	for(var index = 0; index < links.length; index++)" +
+			"	{" +
+			"		if(links[index].innerText == text)" +
+			"		{" +
+			"			links[index].click();" +
+			"			break;" +
+			"		}" +
+			"	}" +
+			"}"
+			);
+
+		// 切换源码编辑方式.
+		ie.InvokeScript ( "clickLink", new object[] { "Code" } );
+
+		// 填写内容.
+		ie.ExecuteJQuery ( JQuery.Create ( "'#quickpostmessage'", false ).Val ( "'" + content + "'" ) );
+
+		// 验证码框获得焦点.
+		ie.ExecuteJQuery ( JQuery.Create ( "'#vcodetext1'", false ).Focus ( ) );
+
+		// 等待 5 秒钟以显示验证码.
+		ie.IEFlow.Wait ( 3 );
+
+		// 获取验证码并显示给用户输入.
+		vCodeWindow = new FormVCode ( );
+		vCodeWindow.Image = ie.CopyImage ( "'vcodeimg1'" );
+
+		// 用户是否确认.
+		if ( vCodeWindow.DialogResult == DialogResult.OK )
+		{
+			// 填写验证码并多加1.
+			ie.ExecuteJQuery ( JQuery.Create ( "'#vcodetext1'", false ).Val ( "'" + vCodeWindow.VCode + "1'" ) );
+
+			// 模拟一个退格键, 删除掉 1.
+			SendKeys.Send ( "{Backspace}" );
+
+			// 等待 2 秒.
+			ie.IEFlow.Wait ( 3 );
+
+			// 提交.
+			ie.ExecuteJQuery ( JQuery.Create ( "'#quickpostsubmit'", false ).Click ( ) );
+		}
+		else
+		{
+			Discuz ( ie, userName, password, url, title, content );
+			return;
+		}
+
+	}
+	else
+	{
+		Discuz ( ie, userName, password, url, title, content );
+		return;
+	}
+
+}
+}}}
+
+=== 说明 ===
+ 首先感谢雪鱼编写的这段示例代码, 可以完成某 DZ 论坛的发帖.
+
+ 这次我就不再逐一的分析每一行代码的作用了, 上次的 [IEBrowserDocS163Blog 登录 163 发布日志] 里我们已经针对某些语句详细的讲过. 所以, 这里讲一些特别的问题.
+
+ 这次的这个 DZ 论坛中已经定义了 $, 所以我们在安装 jquery 脚本后, 应该立刻解除 jquery 对 $ 的定义, {{{ie.ExecuteJQuery ( JQuery.Create ( false, true ).NoConflict ( ) );}}}, 这样可以保证原页面正常的运行, 详细可以参考 [IEBrowserDocNoConflict 解决 $ 定义冲突].
+
+ 代码中运用了 InvokeScript 方法, 而并没有使用 [IEBrowserDocS163Blog 登录 163 发布日志] 中的为 a 标签增加 id 属性, 然后再调用其 click 方法的作法, 雪鱼在每个 a 标签点击的地方都执行了类似的 javascript 脚本, 我将这些代码改用了 InstallScript 方法安装 clickLink javascript 函数, 以便展示 InvokeScript, {{{ie.InvokeScript ( "clickLink", new object[] { "Code" } );}}}.
+
+ {{{vCodeWindow.Image = ie.CopyImage ( "'vcodeimg1'" );}}} 用于复制页面中的验证码图片, 其实这个 DZ 论坛即便刷新验证码也不会马上变化, 但我们为了保险, 使用 CopyImage 方法将验证码复制到内存中并转化为 Image 对象, 关于 CopyImage 可以参照 [IEBrowserDocCopyImage 复制并获取图片].
+
+ 最特别的地方是, 这个 DZ 论坛的验证码输入, 如果直接赋值登录, 将返回验证码错误. 雪鱼最后找到了一种解决方法, 验证码多输入一个 1, 然后使用 {{{SendKeys.Send ( "{Backspace}" );}}} 删除掉多余的 1, 呵呵...
+
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等. 如果您遇到 BUG 或者功能实现不正常可以联系雪鱼或者 [http://t.qq.com/zoyobar M.S.cxc]_
+
+*注意:* 示例代码可能会因为 DZ 页面的改动或者使用 jquery 版本的差别而不同.
+
+=== 使用 ===
+ 如果需要单独使用 [IEBrowser IEBrowser], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs].
+
+ 如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
+
+=== 需求 ===
+ 可能需要引用 System.Web 以及相关程序集.
+</font>
