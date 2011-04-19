@@ -39,7 +39,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		: IStateManager
 	{
 		private List<OptionEdit> options = new List<OptionEdit> ( );
-		private bool isDroppable;
+		private bool isDroppable = false;
 
 		/// <summary>
 		/// 获取元素的拖放设置.

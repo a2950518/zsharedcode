@@ -39,7 +39,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		: IStateManager
 	{
 		private List<OptionEdit> options = new List<OptionEdit> ( );
-		private bool isSortable;
+		private bool isSortable = false;
 
 		/// <summary>
 		/// 获取元素的排列设置.

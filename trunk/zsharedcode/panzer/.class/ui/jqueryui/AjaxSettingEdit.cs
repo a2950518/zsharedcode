@@ -2,6 +2,7 @@
  * wiki:
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIAjaxSettingEdit
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIAjaxSettingEditConverter
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIAjaxSettingEditCollectionEditor
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
  * 引用代码:
@@ -50,7 +51,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private DataType dataType = DataType.json;
 		private string form;
 		private List<ParameterEdit> parameters = new List<ParameterEdit> ( );
-		private bool isSingleQuote;
+		private bool isSingleQuote = true;
 
 		/// <summary>
 		/// 获取元素的 Ajax 事件.

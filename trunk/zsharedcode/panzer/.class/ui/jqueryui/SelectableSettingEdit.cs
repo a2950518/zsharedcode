@@ -39,7 +39,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		: IStateManager
 	{
 		private List<OptionEdit> options = new List<OptionEdit> ( );
-		private bool isSelectable;
+		private bool isSelectable = false;
 
 		/// <summary>
 		/// 获取元素的选中设置.
