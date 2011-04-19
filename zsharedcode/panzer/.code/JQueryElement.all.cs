@@ -1,13 +1,14 @@
 ﻿/* allinone合并了多个文件,下载使用多个allinone代码,可能会遇到重复的类型定义,http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/JQueryElement.all.cs */
 using System.ComponentModel;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Net;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using zoyobar.shared.panzer.web;
 using zoyobar.shared.panzer.web.jqueryui;
 using System;
-using System.Collections.Generic;
 using System.Drawing.Design;
 using System.Globalization;
 using zoyobar.shared.panzer.code;
@@ -39,6 +40,7 @@ using NControl = System.Web.UI.Control;
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/RepeaterSettingEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
@@ -111,8 +113,33 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public class JQueryElement
 		: WebControl, INamingContainer
 	{
+
+
+		private static string escapeCharacter ( string text )
+		{
+
+			if ( string.IsNullOrEmpty ( text ) )
+				return string.Empty;
+
+			return text.Replace ( "\\", "\\\\" ).Replace ( "\'", "\\'" ).Replace ( "\"", "\\\"" ).Replace ( "\n", "\\n" ).Replace ( "\t", "\\t" ).Replace ( "\r", "\\r" );
+		}
+
+		public static string renderTemplate ( PlaceHolder holder )
+		{
+
+			if ( null == holder )
+				return string.Empty;
+
+			StringWriter writer = new StringWriter ( );
+
+			holder.RenderControl ( new HtmlTextWriter ( writer ) );
+
+			return writer.ToString();
+		}
+
 		private ElementType elementType = ElementType.None;
 		private string attribute;
+		private bool isVariable = false;
 
 		private readonly DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
 		private readonly DroppableSettingEdit droppableSetting = new DroppableSettingEdit ( );
@@ -121,6 +148,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private readonly ResizableSettingEdit resizableSetting = new ResizableSettingEdit ( );
 
 		private readonly WidgetSettingEdit widgetSetting = new WidgetSettingEdit ( );
+
+		private readonly RepeaterSettingEdit repeaterSetting = new RepeaterSettingEdit ( );
 
 		private readonly PlaceHolder html = new PlaceHolder ( );
 
@@ -197,6 +226,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 获取元素的 Repeater 设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的 Repeater 设置, 前提 ElementType 不能为 None" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public RepeaterSettingEdit RepeaterSetting
+		{
+			get { return this.repeaterSetting; }
+		}
+
+		/// <summary>
 		/// 获取 PlaceHolder 控件, 其中包含了元素中包含的 html 代码. 
 		/// </summary>
 		[Browsable ( false )]
@@ -219,6 +260,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			get { return this.elementType; }
 			set { this.elementType = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置是否生成 jquery 对应的 javascript 变量.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "是否以 ClientID 生成对应的 javascript 变量" )]
+		[DefaultValue ( false )]
+		public bool IsVariable
+		{
+			get { return this.isVariable; }
+			set { this.isVariable = value; }
 		}
 
 		/// <summary>
@@ -407,7 +460,99 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			jquery.Widget ( this.widgetSetting.CreateWidgetSetting ( ) );
 
-			jquery.Code = "$(function(){" + JQueryCoder.Encode ( this, jquery.Code ) + ";});";
+			#region " repeater "
+			string repeaterCode = string.Empty;
+
+			if ( this.repeaterSetting.IsRepeatable )
+			{
+				this.isVariable = true;
+
+				if ( !ScriptHelper.IsBuilt ( this, "__jsRepeater" ) )
+				{
+					ScriptHelper script = new ScriptHelper ( );
+
+					script.AppendCode ( "function repeater(je, fields, attribute, header, footer, item, editItem, empty, rowsName) {\n" +
+
+						"	if (null == je)\n" +
+						"		return;\n" +
+
+						"	je.__fields = (null == fields) ? [] : fields;\n" +
+						"	je.__attributes = (null == attribute) ? [] : attribute;\n" +
+						"	je.__template = { header: (null == header) ? '' : header, footer: (null == footer) ? '' : footer, item: (null == item) ? '' : item, editItem: (null == editItem) ? '' : editItem, empty: (null == empty) ? '' : empty };\n" +
+						"	je.__setting = { rowsName: (null == rowsName) ? 'rows' : rowsName };\n" +
+
+						"	je.__bind = function (data) {\n" +
+						"		var html = '';\n" +
+						"		var isEmpty = false;\n" +
+						"		html += je.__template.header;\n" +
+
+						"		if (null == data)\n" +
+						"			isEmpty = true;\n" +
+						"		else {\n" +
+						"			var rows = data[je.__setting.rowsName];\n" +
+
+						"			if (null == rows || rows.length == 0)\n" +
+						"				isEmpty = true;\n" +
+						"			else\n" +
+						"				try {\n" +
+
+						"					for (var x = 0; x < rows.length; x++) {\n" +
+						"						var row = rows[x];\n" +
+						"						var rowHtml = je.__template.item;\n" +
+
+						"						for (var y = 0; y < je.__fields.length; y++)\n" +
+						"							rowHtml = rowHtml.replace(eval('/#' + je.__fields[y] + '/g'), row[je.__fields[y]]);\n" +
+
+						"							html += rowHtml;\n" +
+						"					}\n" +
+
+						"				}\n" +
+						"				catch (err) {\n" +
+						"					isEmpty = true;\n" +
+						"				}\n" +
+
+						"		}\n" +
+
+						"		if (isEmpty)\n" +
+						"			html += je.__template.empty;\n" +
+
+						"		html += je.__template.footer;\n" +
+
+						"		for (var x = 0; x < je.__attributes.length; x++)\n" +
+						"			html = html.replace(eval('/\\@' + je.__attributes[x] + '/g'), data[je.__attributes[x]]);\n" +
+
+						"		je.html(html);\n" +
+						"	};\n" +
+
+						"}"
+						);
+
+					script.Build ( this, "__jsRepeater", ScriptBuildOption.Startup );
+				}
+
+				string fieldsCode = string.Empty;
+				string attributesCode = string.Empty;
+
+				foreach ( string field in this.repeaterSetting.Field.Split ( ';' ) )
+					fieldsCode += "'" + escapeCharacter ( field.Trim ( ) ) + "',";
+
+				foreach ( string attribute in this.repeaterSetting.Attribute.Split ( ';' ) )
+					attributesCode += "'" + escapeCharacter ( attribute.Trim ( ) ) + "',";
+
+				repeaterCode += "repeater(window['" + this.ClientID + "'], " +
+					( fieldsCode == string.Empty ? "null" : "[" + fieldsCode.TrimEnd ( ',' ) + "]" ) + "," +
+					( attributesCode == string.Empty ? "null" : "[" + attributesCode.TrimEnd ( ',' ) + "]" ) + "," +
+					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Header ) ) + "'," +
+					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Footer ) ) + "'," +
+					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Item ) ) + "'," +
+					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.EditItem ) ) + "'," +
+					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Empty ) ) + "'," +
+					"'" + this.repeaterSetting.RowsName + "'" +
+					");";
+			}
+			#endregion
+
+			jquery.Code = "$(function(){" + ( this.isVariable ? ( "window['" + this.ClientID + "'] = " ) : string.Empty ) + JQueryCoder.Encode ( this, jquery.Code ) + ";" + JQueryCoder.Encode ( this, repeaterCode ) + "});";
 			jquery.Build ( this, this.ClientID, ScriptBuildOption.Startup );
 		}
 
@@ -422,6 +567,21 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			( this.resizableSetting as IStateManager ).LoadViewState ( this.ViewState["ResizableSetting"] );
 
 			( this.widgetSetting as IStateManager ).LoadViewState ( this.ViewState["WidgetSetting"] );
+
+			List<object> states = this.ViewState["JQueryElement"] as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				this.elementType = ( ElementType ) states[0];
+
+			if ( states.Count >= 2 )
+				this.attribute = states[1] as string;
+
+			if ( states.Count >= 3 )
+				this.isVariable = ( bool ) states[2];
+
 		}
 
 		protected override object SaveViewState ( )
@@ -433,6 +593,13 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			this.ViewState["ResizableSetting"] = ( this.resizableSetting as IStateManager ).SaveViewState ( );
 
 			this.ViewState["WidgetSetting"] = ( this.widgetSetting as IStateManager ).SaveViewState ( );
+
+			List<object> states = new List<object> ( );
+			states.Add ( this.elementType );
+			states.Add ( this.attribute );
+			states.Add ( this.isVariable );
+
+			this.ViewState["JQueryElement"] = states;
 
 			return base.SaveViewState ( );
 		}
@@ -475,7 +642,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		: IStateManager
 	{
 		private List<OptionEdit> options = new List<OptionEdit> ( );
-		private bool isDraggable;
+		private bool isDraggable = false;
 
 		/// <summary>
 		/// 获取元素的拖动设置.
@@ -659,7 +826,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		: IStateManager
 	{
 		private List<OptionEdit> options = new List<OptionEdit> ( );
-		private bool isDroppable;
+		private bool isDroppable = false;
 
 		/// <summary>
 		/// 获取元素的拖放设置.
@@ -843,7 +1010,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		: IStateManager
 	{
 		private List<OptionEdit> options = new List<OptionEdit> ( );
-		private bool isResizable;
+		private bool isResizable = false;
 
 		/// <summary>
 		/// 获取元素的缩放设置.
@@ -1027,7 +1194,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		: IStateManager
 	{
 		private List<OptionEdit> options = new List<OptionEdit> ( );
-		private bool isSelectable;
+		private bool isSelectable = false;
 
 		/// <summary>
 		/// 获取元素的选中设置.
@@ -1211,7 +1378,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		: IStateManager
 	{
 		private List<OptionEdit> options = new List<OptionEdit> ( );
-		private bool isSortable;
+		private bool isSortable = false;
 
 		/// <summary>
 		/// 获取元素的排列设置.
@@ -2034,6 +2201,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * wiki:
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIAjaxSettingEdit
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIAjaxSettingEditConverter
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIAjaxSettingEditCollectionEditor
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
  * 引用代码:
@@ -2072,7 +2240,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private DataType dataType = DataType.json;
 		private string form;
 		private List<ParameterEdit> parameters = new List<ParameterEdit> ( );
-		private bool isSingleQuote;
+		private bool isSingleQuote = true;
 
 		/// <summary>
 		/// 获取元素的 Ajax 事件.
@@ -2657,6 +2825,315 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			WidgetSettingEdit setting = value as WidgetSettingEdit;
 
 			return string.Format ( "{0}`;", setting.Type );
+		}
+
+	}
+	#endregion
+
+}
+// ../.class/ui/jqueryui/RepeaterSettingEdit.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIRepeaterSettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIRepeaterSettingEditConverter
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/RepeaterSettingEdit.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+
+// HACK: 避免在 allinone 文件中的名称冲突
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	#region " RepeaterSettingEdit "
+	/// <summary>
+	/// jQuery UI Repeater 的相关设置.
+	/// </summary>
+	[TypeConverter ( typeof ( RepeaterSettingEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class RepeaterSettingEdit
+		: IStateManager
+	{
+		private string field = string.Empty;
+		private string attribute = string.Empty;
+
+		private readonly PlaceHolder header = new PlaceHolder ( );
+		private readonly PlaceHolder footer = new PlaceHolder ( );
+		private readonly PlaceHolder item = new PlaceHolder ( );
+		private readonly PlaceHolder editItem = new PlaceHolder ( );
+		private readonly PlaceHolder empty = new PlaceHolder ( );
+
+		private string rowsName = "rows";
+
+		private bool isRepeatable = false;
+
+		/// <summary>
+		/// 获取或设置字段的名称, 使用 ; 号分隔, 区分大小写.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "参加绑定的字段的名称, 使用 ; 号分隔, 区分大小写" )]
+		[NotifyParentProperty ( true )]
+		public string Field
+		{
+			get { return this.field; }
+			set
+			{
+
+				if ( !string.IsNullOrEmpty ( value ) )
+					this.field = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置属性的名称, 使用 ; 号分隔, 区分大小写.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "参加绑定的属性的名称, 使用 ; 号分隔, 区分大小写" )]
+		[NotifyParentProperty ( true )]
+		public string Attribute
+		{
+			get { return this.attribute; }
+			set
+			{
+
+				if ( !string.IsNullOrEmpty ( value ) )
+					this.attribute = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置 json 中行的属性名.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "rows" )]
+		[Description ( "指示 json 中行的属性名" )]
+		[NotifyParentProperty ( true )]
+		public string RowsName
+		{
+			get { return this.rowsName; }
+			set
+			{
+
+				if ( !string.IsNullOrEmpty ( value ) )
+					this.rowsName = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置是否可以使用 Repeater.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( false )]
+		[Description ( "指示 Repeater 是否可用" )]
+		[NotifyParentProperty ( true )]
+		public bool IsRepeatable
+		{
+			get { return this.isRepeatable; }
+			set { this.isRepeatable = value; }
+		}
+
+		/// <summary>
+		/// 获取标题模板, 其中包含了 html 代码. 
+		/// </summary>
+		[Browsable ( false )]
+		[Category ( "jQuery UI" )]
+		[Description ( "设置标题模板" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public PlaceHolder Header
+		{
+			get { return this.header; }
+		}
+
+		/// <summary>
+		/// 获取结尾模板, 其中包含了 html 代码. 
+		/// </summary>
+		[Browsable ( false )]
+		[Category ( "jQuery UI" )]
+		[Description ( "设置结尾模板" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public PlaceHolder Footer
+		{
+			get { return this.footer; }
+		}
+
+		/// <summary>
+		/// 获取行模板, 其中包含了 html 代码. 
+		/// </summary>
+		[Browsable ( false )]
+		[Category ( "jQuery UI" )]
+		[Description ( "设置行模板" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public PlaceHolder Item
+		{
+			get { return this.item; }
+		}
+
+		/// <summary>
+		/// 获取行编辑模板, 其中包含了 html 代码. 
+		/// </summary>
+		[Browsable ( false )]
+		[Category ( "jQuery UI" )]
+		[Description ( "设置行编辑模板" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public PlaceHolder EditItem
+		{
+			get { return this.editItem; }
+		}
+
+		/// <summary>
+		/// 获取空数据模板, 其中包含了 html 代码. 
+		/// </summary>
+		[Browsable ( false )]
+		[Category ( "jQuery UI" )]
+		[Description ( "设置空数据模板" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public PlaceHolder Empty
+		{
+			get { return this.empty; }
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				this.Field = states[0] as string;
+
+			if ( states.Count >= 2 )
+				this.isRepeatable = (bool) states[1];
+
+			if ( states.Count >= 3 )
+				this.RowsName = states[2] as string;
+
+			if ( states.Count >= 4 )
+				this.attribute = states[3] as string;
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+			states.Add ( this.field );
+			states.Add ( this.isRepeatable );
+			states.Add ( this.rowsName );
+			states.Add ( this.attribute );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " RepeaterSettingEditConverter "
+	/// <summary>
+	/// jQuery UI Repeater 设置编辑器的转换器.
+	/// </summary>
+	public sealed class RepeaterSettingEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			RepeaterSettingEdit edit = new RepeaterSettingEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 4 )
+				try
+				{
+
+					if ( expressionHelper[0].Value != string.Empty )
+						edit.IsRepeatable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
+
+					if ( expressionHelper[1].Value != string.Empty )
+						edit.RowsName = expressionHelper[1].Value;
+
+					if ( expressionHelper[2].Value != string.Empty )
+						edit.Field = expressionHelper[2].Value;
+
+					if ( expressionHelper[3].Value != string.Empty )
+						edit.Attribute = expressionHelper[3].Value;
+
+				}
+				catch { }
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is RepeaterSettingEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType ); ;
+
+			RepeaterSettingEdit setting = value as RepeaterSettingEdit;
+
+			return string.Format ( "{0}`;{1}`;{2}`;{3}`;", setting.IsRepeatable, setting.RowsName, setting.Field, setting.Attribute );
 		}
 
 	}
