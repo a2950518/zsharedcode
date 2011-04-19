@@ -21,6 +21,7 @@
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/RepeaterSettingEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
@@ -41,7 +42,9 @@
  * */
 
 using System.ComponentModel;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Net;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -100,8 +103,33 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public class JQueryElement
 		: WebControl, INamingContainer
 	{
+
+
+		private static string escapeCharacter ( string text )
+		{
+
+			if ( string.IsNullOrEmpty ( text ) )
+				return string.Empty;
+
+			return text.Replace ( "\\", "\\\\" ).Replace ( "\'", "\\'" ).Replace ( "\"", "\\\"" ).Replace ( "\n", "\\n" ).Replace ( "\t", "\\t" ).Replace ( "\r", "\\r" );
+		}
+
+		public static string renderTemplate ( PlaceHolder holder )
+		{
+
+			if ( null == holder )
+				return string.Empty;
+
+			StringWriter writer = new StringWriter ( );
+
+			holder.RenderControl ( new HtmlTextWriter ( writer ) );
+
+			return writer.ToString();
+		}
+
 		private ElementType elementType = ElementType.None;
 		private string attribute;
+		private bool isVariable = false;
 
 		private readonly DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
 		private readonly DroppableSettingEdit droppableSetting = new DroppableSettingEdit ( );
@@ -110,6 +138,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private readonly ResizableSettingEdit resizableSetting = new ResizableSettingEdit ( );
 
 		private readonly WidgetSettingEdit widgetSetting = new WidgetSettingEdit ( );
+
+		private readonly RepeaterSettingEdit repeaterSetting = new RepeaterSettingEdit ( );
 
 		private readonly PlaceHolder html = new PlaceHolder ( );
 
@@ -186,6 +216,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 获取元素的 Repeater 设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的 Repeater 设置, 前提 ElementType 不能为 None" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public RepeaterSettingEdit RepeaterSetting
+		{
+			get { return this.repeaterSetting; }
+		}
+
+		/// <summary>
 		/// 获取 PlaceHolder 控件, 其中包含了元素中包含的 html 代码. 
 		/// </summary>
 		[Browsable ( false )]
@@ -208,6 +250,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			get { return this.elementType; }
 			set { this.elementType = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置是否生成 jquery 对应的 javascript 变量.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "是否以 ClientID 生成对应的 javascript 变量" )]
+		[DefaultValue ( false )]
+		public bool IsVariable
+		{
+			get { return this.isVariable; }
+			set { this.isVariable = value; }
 		}
 
 		/// <summary>
@@ -396,7 +450,99 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			jquery.Widget ( this.widgetSetting.CreateWidgetSetting ( ) );
 
-			jquery.Code = "$(function(){" + JQueryCoder.Encode ( this, jquery.Code ) + ";});";
+			#region " repeater "
+			string repeaterCode = string.Empty;
+
+			if ( this.repeaterSetting.IsRepeatable )
+			{
+				this.isVariable = true;
+
+				if ( !ScriptHelper.IsBuilt ( this, "__jsRepeater" ) )
+				{
+					ScriptHelper script = new ScriptHelper ( );
+
+					script.AppendCode ( "function repeater(je, fields, attribute, header, footer, item, editItem, empty, rowsName) {\n" +
+
+						"	if (null == je)\n" +
+						"		return;\n" +
+
+						"	je.__fields = (null == fields) ? [] : fields;\n" +
+						"	je.__attributes = (null == attribute) ? [] : attribute;\n" +
+						"	je.__template = { header: (null == header) ? '' : header, footer: (null == footer) ? '' : footer, item: (null == item) ? '' : item, editItem: (null == editItem) ? '' : editItem, empty: (null == empty) ? '' : empty };\n" +
+						"	je.__setting = { rowsName: (null == rowsName) ? 'rows' : rowsName };\n" +
+
+						"	je.__bind = function (data) {\n" +
+						"		var html = '';\n" +
+						"		var isEmpty = false;\n" +
+						"		html += je.__template.header;\n" +
+
+						"		if (null == data)\n" +
+						"			isEmpty = true;\n" +
+						"		else {\n" +
+						"			var rows = data[je.__setting.rowsName];\n" +
+
+						"			if (null == rows || rows.length == 0)\n" +
+						"				isEmpty = true;\n" +
+						"			else\n" +
+						"				try {\n" +
+
+						"					for (var x = 0; x < rows.length; x++) {\n" +
+						"						var row = rows[x];\n" +
+						"						var rowHtml = je.__template.item;\n" +
+
+						"						for (var y = 0; y < je.__fields.length; y++)\n" +
+						"							rowHtml = rowHtml.replace(eval('/#' + je.__fields[y] + '/g'), row[je.__fields[y]]);\n" +
+
+						"							html += rowHtml;\n" +
+						"					}\n" +
+
+						"				}\n" +
+						"				catch (err) {\n" +
+						"					isEmpty = true;\n" +
+						"				}\n" +
+
+						"		}\n" +
+
+						"		if (isEmpty)\n" +
+						"			html += je.__template.empty;\n" +
+
+						"		html += je.__template.footer;\n" +
+
+						"		for (var x = 0; x < je.__attributes.length; x++)\n" +
+						"			html = html.replace(eval('/\\@' + je.__attributes[x] + '/g'), data[je.__attributes[x]]);\n" +
+
+						"		je.html(html);\n" +
+						"	};\n" +
+
+						"}"
+						);
+
+					script.Build ( this, "__jsRepeater", ScriptBuildOption.Startup );
+				}
+
+				string fieldsCode = string.Empty;
+				string attributesCode = string.Empty;
+
+				foreach ( string field in this.repeaterSetting.Field.Split ( ';' ) )
+					fieldsCode += "'" + escapeCharacter ( field.Trim ( ) ) + "',";
+
+				foreach ( string attribute in this.repeaterSetting.Attribute.Split ( ';' ) )
+					attributesCode += "'" + escapeCharacter ( attribute.Trim ( ) ) + "',";
+
+				repeaterCode += "repeater(window['" + this.ClientID + "'], " +
+					( fieldsCode == string.Empty ? "null" : "[" + fieldsCode.TrimEnd ( ',' ) + "]" ) + "," +
+					( attributesCode == string.Empty ? "null" : "[" + attributesCode.TrimEnd ( ',' ) + "]" ) + "," +
+					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Header ) ) + "'," +
+					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Footer ) ) + "'," +
+					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Item ) ) + "'," +
+					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.EditItem ) ) + "'," +
+					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Empty ) ) + "'," +
+					"'" + this.repeaterSetting.RowsName + "'" +
+					");";
+			}
+			#endregion
+
+			jquery.Code = "$(function(){" + ( this.isVariable ? ( "window['" + this.ClientID + "'] = " ) : string.Empty ) + JQueryCoder.Encode ( this, jquery.Code ) + ";" + JQueryCoder.Encode ( this, repeaterCode ) + "});";
 			jquery.Build ( this, this.ClientID, ScriptBuildOption.Startup );
 		}
 
@@ -411,6 +557,21 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			( this.resizableSetting as IStateManager ).LoadViewState ( this.ViewState["ResizableSetting"] );
 
 			( this.widgetSetting as IStateManager ).LoadViewState ( this.ViewState["WidgetSetting"] );
+
+			List<object> states = this.ViewState["JQueryElement"] as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				this.elementType = ( ElementType ) states[0];
+
+			if ( states.Count >= 2 )
+				this.attribute = states[1] as string;
+
+			if ( states.Count >= 3 )
+				this.isVariable = ( bool ) states[2];
+
 		}
 
 		protected override object SaveViewState ( )
@@ -422,6 +583,13 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			this.ViewState["ResizableSetting"] = ( this.resizableSetting as IStateManager ).SaveViewState ( );
 
 			this.ViewState["WidgetSetting"] = ( this.widgetSetting as IStateManager ).SaveViewState ( );
+
+			List<object> states = new List<object> ( );
+			states.Add ( this.elementType );
+			states.Add ( this.attribute );
+			states.Add ( this.isVariable );
+
+			this.ViewState["JQueryElement"] = states;
 
 			return base.SaveViewState ( );
 		}

@@ -39,7 +39,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		: IStateManager
 	{
 		private List<OptionEdit> options = new List<OptionEdit> ( );
-		private bool isResizable;
+		private bool isResizable = false;
 
 		/// <summary>
 		/// 获取元素的缩放设置.

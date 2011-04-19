@@ -39,7 +39,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		: IStateManager
 	{
 		private List<OptionEdit> options = new List<OptionEdit> ( );
-		private bool isDraggable;
+		private bool isDraggable = false;
 
 		/// <summary>
 		/// 获取元素的拖动设置.
