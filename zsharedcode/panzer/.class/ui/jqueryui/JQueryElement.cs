@@ -253,10 +253,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置是否生成 jquery 对应的 javascript 变量.
+		/// 获取或设置是否生成 jquery 对应的 javascript 变量, 如果使用了 Repeater, 则在运行时自动调整为 true.
 		/// </summary>
 		[Category ( "jQuery UI" )]
-		[Description ( "是否以 ClientID 生成对应的 javascript 变量" )]
+		[Description ( "是否以 ClientID 生成对应的 javascript 变量, 如果使用了 Repeater, 则在运行时自动调整为 true" )]
 		[DefaultValue ( false )]
 		public bool IsVariable
 		{
