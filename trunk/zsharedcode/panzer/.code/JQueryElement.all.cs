@@ -134,7 +134,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			holder.RenderControl ( new HtmlTextWriter ( writer ) );
 
-			return writer.ToString();
+			return writer.ToString ( );
 		}
 
 		private ElementType elementType = ElementType.None;
@@ -410,7 +410,16 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// </summary>
 		public JQueryElement ( )
 			: base ( )
-		{ this.EnableViewState = false; }
+		{
+			this.EnableViewState = false;
+
+			this.Controls.Add ( this.html );
+			this.Controls.Add ( this.repeaterSetting.Header );
+			this.Controls.Add ( this.repeaterSetting.Item );
+			this.Controls.Add ( this.repeaterSetting.EditItem );
+			this.Controls.Add ( this.repeaterSetting.Empty );
+			this.Controls.Add ( this.repeaterSetting.Footer );
+		}
 
 		protected override void Render ( HtmlTextWriter writer )
 		{
