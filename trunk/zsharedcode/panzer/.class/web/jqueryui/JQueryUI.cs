@@ -44,7 +44,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			string optionExpression = "{";
 
 			foreach ( Option option in options )
-				if ( null != option )
+				if ( null != option && option.Type != OptionType.none )
 					optionExpression += string.Format ( " {0}: {1},", option.Type, option.Value );
 
 			return optionExpression.TrimEnd ( ',' ) + " }";
@@ -290,7 +290,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 				this.Execute ( setting.WidgetType.ToString ( ), makeOptionExpression ( setting.Options ) );
 
 			foreach ( Event @event in setting.Events )
-				this.Execute ( @event.Type.ToString ( ), @event.Value );
+				if ( @event.Type != EventType.none && @event.Type != EventType.__init )
+					this.Execute ( @event.Type.ToString ( ), @event.Value );
 
 			foreach ( AjaxSetting ajaxSetting in setting.AjaxSettings )
 			{
@@ -313,15 +314,18 @@ namespace zoyobar.shared.panzer.web.jqueryui
 					data = JQuery.Create ( ajaxSetting.Form ).Serialize ( ).Code;
 
 				JQuery jQuery = JQuery.Create ( false, true );
-				string map = string.Format ( "url: {0}{1}{0}, dataType: {0}{2}{0}, data: {3}", quote, ajaxSetting.Url, ajaxSetting.DataType, data );
+				string map = string.Format ( "url: {0}{1}{0}, dataType: {0}{2}{0}, data: {3}", quote, ajaxSetting.Url, ajaxSetting.DataType, string.IsNullOrEmpty(data) ? "{ }" : data );
 
 				foreach ( Event @event in ajaxSetting.Events )
-					if ( @event.Type != EventType.none )
+					if ( @event.Type != EventType.none && @event.Type != EventType.__init )
 						map += ", " + @event.Type + ": " + @event.Value;
 
 				jQuery.Ajax ( "{" + map + "}" );
 
-				this.Execute ( ajaxSetting.WidgetEventType.ToString ( ), "function(e){" + jQuery.Code + "}" );
+				if ( ajaxSetting.WidgetEventType == EventType.__init )
+					this.EndLine ( ).AppendCode ( jQuery.Code );
+				else
+					this.Execute ( ajaxSetting.WidgetEventType.ToString ( ), "function(e){" + jQuery.Code + "}" );
 			}
 
 			return this;

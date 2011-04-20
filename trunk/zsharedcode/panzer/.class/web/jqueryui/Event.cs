@@ -25,19 +25,19 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 完成时.
 		/// </summary>
-		complete = 1,
+		complete,
 		/// <summary>
 		/// 出错时.
 		/// </summary>
-		error = 2,
+		error,
 		/// <summary>
 		/// 成功时.
 		/// </summary>
-		success = 3,
+		success,
 		/// <summary>
 		/// 点击时.
 		/// </summary>
-		click = 4,
+		click,
 		/// <summary>
 		/// 提交时.
 		/// </summary>
@@ -122,6 +122,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 失去焦点时.
 		/// </summary>
 		blur,
+		/// <summary>
+		/// 在定义后执行.
+		/// </summary>
+		__init,
 	}
 	#endregion
 
