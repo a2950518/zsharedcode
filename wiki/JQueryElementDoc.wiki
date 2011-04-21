@@ -104,6 +104,9 @@
  * [JQueryElementTabsDoc 分组标签]
  * [JETabsEventDoc 分组标签事件]
 
- * [JESLoginDoc 用户登录]
- * [JESRegisterDoc 用户注册]
+ * [JQueryElementRepeaterDoc 数据绑定]
+ 
+ * [JESLoginDoc 登录]
+ * [JESRegisterDoc 注册]
+ * [JESBookListDoc 图书列表]
 </font>

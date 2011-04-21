@@ -243,8 +243,10 @@
         * 分组标签
           * [JQueryElementTabsDoc 分组标签]
           * [JETabsEventDoc 分组标签事件]
+      * [JQueryElementRepeaterDoc 数据绑定]
       * 稍复杂示例
-        * [JESLoginDoc 用户登录]
-        * [JESRegisterDoc 用户注册]
+        * [JESLoginDoc 登录]
+        * [JESRegisterDoc 注册]
+        * [JESBookListDoc 图书列表]
   * [Member 项目成员]
 </font>
