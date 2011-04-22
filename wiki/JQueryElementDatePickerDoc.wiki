@@ -29,6 +29,7 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 		<WidgetSetting Type="datepicker">
 		</WidgetSetting>
 	</je:JQueryElement>
+	<p>讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程)</p>
 	</form>
 </body>
 </html>
