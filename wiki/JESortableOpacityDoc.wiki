@@ -4,7 +4,6 @@
 === 代码 ===
 {{{
 <%--
-<%--
 wiki 成员参考:
 http://code.google.com/p/zsharedcode/wiki/JQueryElement
 wiki 分析&示例:
