@@ -6,9 +6,12 @@
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
  * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
@@ -45,12 +48,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class AjaxSettingEdit
 		: IStateManager
 	{
-		private List<EventEdit> events = new List<EventEdit> ( );
+		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
 		private EventType widgetEventType = EventType.none;
 		private string url;
 		private DataType dataType = DataType.json;
 		private string form;
-		private List<ParameterEdit> parameters = new List<ParameterEdit> ( );
+		private readonly List<ParameterEdit> parameters = new List<ParameterEdit> ( );
 		private bool isSingleQuote = true;
 
 		/// <summary>
@@ -64,7 +67,96 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public List<EventEdit> Events
 		{
-			get { return this.events; }
+			get { return this.editHelper.InnerEventEdits; }
+		}
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置 ajax 完成时的事件, 类似于: function() { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 ajax 完成时的事件, 类似于: function() { }" )]
+		[NotifyParentProperty ( true )]
+		public string Complete
+		{
+			get { return this.editHelper.GetOuterEventEditValue ( EventType.complete ); }
+			set { this.editHelper.SetOuterEventEditValue ( EventType.complete, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 ajax 错误时的事件, 类似于: function() { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 ajax 错误时的事件, 类似于: function() { }" )]
+		[NotifyParentProperty ( true )]
+		public string Error
+		{
+			get { return this.editHelper.GetOuterEventEditValue ( EventType.error ); }
+			set { this.editHelper.SetOuterEventEditValue ( EventType.error, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 ajax 成功时的事件, 类似于: function() { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 ajax 成功时的事件, 类似于: function() { }" )]
+		[NotifyParentProperty ( true )]
+		public string Success
+		{
+			get { return this.editHelper.GetOuterEventEditValue ( EventType.success ); }
+			set { this.editHelper.SetOuterEventEditValue ( EventType.success, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 ajax 发送时的事件, 类似于: function() { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 ajax 发送时的事件, 类似于: function() { }" )]
+		[NotifyParentProperty ( true )]
+		public string Send
+		{
+			get { return this.editHelper.GetOuterEventEditValue ( EventType.send ); }
+			set { this.editHelper.SetOuterEventEditValue ( EventType.send, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 ajax 开始时的事件, 类似于: function() { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 ajax 开始时的事件, 类似于: function() { }" )]
+		[NotifyParentProperty ( true )]
+		public string Start
+		{
+			get { return this.editHelper.GetOuterEventEditValue ( EventType.start ); }
+			set { this.editHelper.SetOuterEventEditValue ( EventType.start, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 ajax 停止时的事件, 类似于: function() { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 ajax 停止时的事件, 类似于: function() { }" )]
+		[NotifyParentProperty ( true )]
+		public string Stop
+		{
+			get { return this.editHelper.GetOuterEventEditValue ( EventType.stop ); }
+			set { this.editHelper.SetOuterEventEditValue ( EventType.stop, value ); }
+		}
+		#endregion
+
+		/// <summary>
+		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// </summary>
+		[Browsable ( false )]
+		public SettingEditHelper EditHelper
+		{
+			get { return this.editHelper; }
 		}
 
 		/// <summary>
@@ -165,17 +257,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <returns>jQuery UI Ajax 的相关设置.</returns>
 		public AjaxSetting CreateAjaxSetting ( )
 		{
-			List<Event> events = new List<Event> ( );
-
-			foreach ( EventEdit edit in this.events )
-				events.Add ( edit.CreateEvent ( ) );
-
 			List<NParameter> parameters = new List<NParameter> ( );
 
 			foreach ( ParameterEdit edit in this.parameters )
 				parameters.Add ( edit.CreateParameter ( ) );
 
-			return new AjaxSetting ( this.widgetEventType, this.url, this.dataType, this.form, parameters.ToArray ( ), events.ToArray ( ), this.isSingleQuote );
+			return new AjaxSetting ( this.widgetEventType, this.url, this.dataType, this.form, parameters.ToArray ( ), this.editHelper.CreateEvents(), this.isSingleQuote );
 		}
 
 		/// <summary>
@@ -213,13 +300,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				this.isSingleQuote = ( bool ) states[4];
 
 			if ( states.Count >= 6 )
-			{
-				List<object> eventStates = states[5] as List<object>;
-
-				for ( int index = 0; index < eventStates.Count; index++ )
-					( this.events[index] as IStateManager ).LoadViewState ( eventStates[index] );
-
-			}
+				( this.editHelper as IStateManager ).LoadViewState ( states[5] );
 
 			if ( states.Count >= 7 )
 			{
@@ -241,13 +322,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			states.Add ( this.form );
 			states.Add ( this.isSingleQuote );
 
-			List<object> eventStates = new List<object> ( );
-
-			foreach ( EventEdit edit in this.events )
-				eventStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
-
-			states.Add ( eventStates );
-
+			states.Add ( ( this.editHelper as IStateManager ).SaveViewState ( ) );
 
 			List<object> parameterStates = new List<object> ( );
 
@@ -307,7 +382,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
-			if ( expressionHelper.ChildCount == 5 )
+			if ( expressionHelper.ChildCount == 6 )
 				try
 				{
 
@@ -326,6 +401,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					if ( expressionHelper[4].Value != string.Empty )
 						edit.IsSingleQuote = StringConvert.ToObject<bool> ( expressionHelper[4].Value );
 
+					if ( expressionHelper[5].Value != string.Empty )
+						edit.EditHelper.FromString ( expressionHelper[5].Value );
+
 				}
 				catch { }
 
@@ -340,7 +418,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			AjaxSettingEdit setting = value as AjaxSettingEdit;
 
-			return string.Format ( "{0}`;{1}`;{2}`;{3}`;{4}`;", setting.WidgetEventType, setting.Url, setting.DataType, setting.Form, setting.IsSingleQuote );
+			return string.Format ( "{0}`;{1}`;{2}`;{3}`;{4}`;{5}", setting.WidgetEventType, setting.Url, setting.DataType, setting.Form, setting.IsSingleQuote, setting.EditHelper );
 		}
 
 	}

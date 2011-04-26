@@ -126,6 +126,18 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 在定义后执行.
 		/// </summary>
 		__init,
+		/// <summary>
+		/// 开始时.
+		/// </summary>
+		start,
+		/// <summary>
+		/// 停止时.
+		/// </summary>
+		stop,
+		/// <summary>
+		/// 发送时.
+		/// </summary>
+		send
 	}
 	#endregion
 
