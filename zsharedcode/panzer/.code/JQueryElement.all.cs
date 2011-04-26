@@ -626,8 +626,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
  * 引用代码:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
@@ -650,7 +653,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class DraggableSettingEdit
 		: IStateManager
 	{
-		private List<OptionEdit> options = new List<OptionEdit> ( );
+		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
 		private bool isDraggable = false;
 
 		/// <summary>
@@ -664,7 +667,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public List<OptionEdit> Options
 		{
-			get { return this.options; }
+			get { return this.editHelper.InnerOptionEdits; }
 		}
 
 		/// <summary>
@@ -680,19 +683,428 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			set { this.isDraggable = value; }
 		}
 
+		#region " Option "
+		/// <summary>
+		/// 获取或设置拖动是否可用, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示拖动是否可用, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Disabled
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否添加样式, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否添加样式, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string AddClasses
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.addClasses ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.addClasses, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置鼠标点击在何处拖动有效, 可以是 'parent', 'body' 等.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示鼠标点击在何处拖动有效, 可以是 'parent', 'body' 等" )]
+		[NotifyParentProperty ( true )]
+		public string AppendTo
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.appendTo ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.appendTo, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置拖动的方向, 可以是 'x', 'y'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示拖动的方向, 可以是 'x', 'y'" )]
+		[NotifyParentProperty ( true )]
+		public string Axis
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.axis ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.axis, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置不参加拖动的元素, 是一个选择器.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示不参加拖动的元素, 是一个选择器" )]
+		[NotifyParentProperty ( true )]
+		public string Cancel
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.cancel ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.cancel, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置关联的排列, 是一个选择器.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示关联的排列, 是一个选择器" )]
+		[NotifyParentProperty ( true )]
+		public string ConnectToSortable
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.connectToSortable ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.connectToSortable, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置拖动所在的容器, 对应选择器, dom 元素, 字符串, 'parent', 'document', 'window' 中的一种, 或者数组, 比如: [0, 0, 300, 400].
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示拖动所在的容器, 对应选择器, dom 元素, 字符串, 'parent', 'document', 'window' 中的一种, 或者数组, 比如: [0, 0, 300, 400]" )]
+		[NotifyParentProperty ( true )]
+		public string Containment
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.containment ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.containment, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置鼠标样式, 比如: 'auto'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示鼠标样式, 比如: 'auto'" )]
+		[NotifyParentProperty ( true )]
+		public string Cursor
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.cursor ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.cursor, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置鼠标的相对位置, 对应一个 javascript 对象, { top: 1, left: 2, right: 3, bottom: 4 }, 需要具有选择其中的一个或者两个属性.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示鼠标的相对位置, 对应一个 javascript 对象, { top: 1, left: 2, right: 3, bottom: 4 }, 需要具有选择其中的一个或者两个属性" )]
+		[NotifyParentProperty ( true )]
+		public string CursorAt
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.cursorAt ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.cursorAt, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置鼠标的延迟, 以毫秒计算.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示鼠标的延迟, 以毫秒计算" )]
+		[NotifyParentProperty ( true )]
+		public string Delay
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.delay ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.delay, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置鼠标移动多少像素触发拖动, 比如: 20.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示鼠标移动多少像素触发排列, 比如: 20" )]
+		[NotifyParentProperty ( true )]
+		public string Distance
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.distance ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.distance, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置按照矩阵来移动元素, 为一个数组, 比如: [10, 30].
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按照矩阵来移动元素, 为一个数组, 比如: [10, 30]" )]
+		[NotifyParentProperty ( true )]
+		public string Grid
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.grid ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.grid, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置用于点击的元素, 点击后拖动才有效, 对应一个 dom 元素或者选择器.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示用于点击的元素, 点击后拖动才有效, 对应一个 dom 元素或者选择器" )]
+		[NotifyParentProperty ( true )]
+		public string Handle
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.handle ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.handle, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否引发 iframe 中的事件, 对应一个 javascript 布尔值或选择器..
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否引发 iframe 中的事件, 对应一个 javascript 布尔值或选择器" )]
+		[NotifyParentProperty ( true )]
+		public string IFrameFix
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.iframeFix ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.iframeFix, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置元素拖动时的透明度, 0 到 1 之间.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示元素拖动时的透明度, 0 到 1 之间" )]
+		[NotifyParentProperty ( true )]
+		public string Opacity
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.opacity ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.opacity, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置元素拖动时的透明度, 0 到 1 之间.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否刷新位置, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string RefreshPositions
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.refreshPositions ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.refreshPositions, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否在拖动后播放恢复原位的动画, 比如: true, 或者是 'valid', 'invalid'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否在拖动后播放恢复原位的动画, 比如: true, 或者是 'valid', 'invalid'" )]
+		[NotifyParentProperty ( true )]
+		public string Revert
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.revert ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.revert, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置以毫秒为单位的动画播放时间, 比如: 500.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示以毫秒为单位的动画播放时间, 比如: 500" )]
+		[NotifyParentProperty ( true )]
+		public string RevertDuration
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.revertDuration ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.revertDuration, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置范围, 比如: 'default'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示范围, 比如: 'default'" )]
+		[NotifyParentProperty ( true )]
+		public string Scope
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.scope ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.scope, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否可以显示滚动轴.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否可以显示滚动轴, 比如: true" )]
+		[NotifyParentProperty ( true )]
+		public string Scroll
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.scroll ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.scroll, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置滚动轴的灵敏度, 比如: 40.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示滚动轴的灵敏度, 比如: 40" )]
+		[NotifyParentProperty ( true )]
+		public string ScrollSensitivity
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.scrollSensitivity ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.scrollSensitivity, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置滚动轴的速度, 比如: 40.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示滚动轴的速度, 比如: 40" )]
+		[NotifyParentProperty ( true )]
+		public string ScrollSpeed
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.scrollSpeed ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.scrollSpeed, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否附着, 比如: true, 或者附着的目标元素的选择器.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否附着, 比如: true, 或者附着的目标元素的选择器" )]
+		[NotifyParentProperty ( true )]
+		public string Snap
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.snap ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.snap, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置附着模式, 可以是 'inner', 'outer', 'both'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示附着模式, 可以是 'inner', 'outer', 'both'" )]
+		[NotifyParentProperty ( true )]
+		public string SnapMode
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.snapMode ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.snapMode, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置附着发生的距离, 比如: 100.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示附着发生的距离, 比如: 100" )]
+		[NotifyParentProperty ( true )]
+		public string SnapTolerance
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.snapTolerance ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.snapTolerance, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置控制 z 轴顺序, 对应一个选择器.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示控制 z 轴顺序, 对应一个选择器" )]
+		[NotifyParentProperty ( true )]
+		public string Stack
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.stack ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.stack, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 Z 轴顺序, 比如: 5.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 Z 轴顺序, 比如: 5" )]
+		[NotifyParentProperty ( true )]
+		public string ZIndex
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.zIndex ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.zIndex, value ); }
+		}
+		#endregion
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置拖动被创建时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示拖动被创建时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Create
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置拖动开始的时候的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示拖动开始的时候的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Start
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.start ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.start, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置拖动完成时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示拖动完成时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Drag
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.drag ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.drag, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置拖动停止的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示拖动停止的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Stop
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.stop ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.stop, value ); }
+		}
+		#endregion
+
+		/// <summary>
+		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// </summary>
+		[Browsable ( false )]
+		public SettingEditHelper EditHelper
+		{
+			get { return this.editHelper; }
+		}
+
 		/// <summary>
 		/// 创建一个 jQuery UI 拖动的相关设置.
 		/// </summary>
 		/// <returns>jQuery UI 拖动的相关设置.</returns>
 		public DraggableSetting CreateDraggableSetting ( )
-		{
-			List<Option> options = new List<Option> ( );
-
-			foreach ( OptionEdit edit in this.options )
-				options.Add ( edit.CreateOption ( ) );
-
-			return new DraggableSetting ( this.isDraggable, options.ToArray ( ) );
-		}
+		{ return new DraggableSetting ( this.isDraggable, this.editHelper.CreateOptions ( ) ); }
 
 		/// <summary>
 		/// 转化为等效的字符串.
@@ -716,8 +1128,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( states.Count >= 1 )
 				this.isDraggable = ( bool ) states[0];
 
-			for ( int index = 0; index < this.options.Count; index++ )
-				( this.options[index] as IStateManager ).LoadViewState ( states[index + 1] );
+			if ( states.Count >= 2 )
+				( this.editHelper as IStateManager ).LoadViewState ( states[1] );
 
 		}
 
@@ -726,8 +1138,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			List<object> states = new List<object> ( );
 			states.Add ( this.isDraggable );
 
-			foreach ( OptionEdit edit in this.options )
-				states.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+			states.Add ( ( this.editHelper as IStateManager ).SaveViewState ( ) );
 
 			return states;
 		}
@@ -780,8 +1191,16 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
-			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
-				edit.IsDraggable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
+			if ( expressionHelper.ChildCount == 2 )
+			{
+
+				if ( expressionHelper[0].Value != string.Empty )
+					edit.IsDraggable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
+
+				if ( expressionHelper[1].Value != string.Empty )
+					edit.EditHelper.FromString ( expressionHelper[1].Value );
+
+			}
 
 			return edit;
 		}
@@ -794,7 +1213,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			DraggableSettingEdit setting = value as DraggableSettingEdit;
 
-			return string.Format ( "{0}`;", setting.IsDraggable );
+			return string.Format ( "{0}`;{1}", setting.IsDraggable, setting.EditHelper );
 		}
 
 	}
@@ -810,8 +1229,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
  * 引用代码:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
@@ -834,7 +1256,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class DroppableSettingEdit
 		: IStateManager
 	{
-		private List<OptionEdit> options = new List<OptionEdit> ( );
+		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
 		private bool isDroppable = false;
 
 		/// <summary>
@@ -848,7 +1270,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public List<OptionEdit> Options
 		{
-			get { return this.options; }
+			get { return this.editHelper.InnerOptionEdits; }
 		}
 
 		/// <summary>
@@ -864,19 +1286,207 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			set { this.isDroppable = value; }
 		}
 
+		#region " Option "
+		/// <summary>
+		/// 获取或设置拖放是否可用, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示拖放是否可用, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Disabled
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置拖放接受的目标, 对应一个函数或者选择器.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示拖放接受的目标, 对应一个函数或者选择器" )]
+		[NotifyParentProperty ( true )]
+		public string Accept
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.accept ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.accept, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置拖放被激活时的样式, 对应一个函数或者选择器.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示拖放被激活时的样式, 对应一个函数或者选择器" )]
+		[NotifyParentProperty ( true )]
+		public string ActiveClass 
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.activeClass ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.activeClass, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否添加样式, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否添加样式, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string AddClasses
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.addClasses ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.addClasses, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否阻止事件传播, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否阻止事件传播, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Greedy
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.greedy ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.greedy, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置悬停样式, 比如: 'drophover'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示悬停样式, 比如: 'drophover'" )]
+		[NotifyParentProperty ( true )]
+		public string HoverClass
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.hoverClass ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.hoverClass, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置范围, 比如: 'default'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示范围, 比如: 'default'" )]
+		[NotifyParentProperty ( true )]
+		public string Scope
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.scope ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.scope, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置拖放的触发方式, 可以是 'fit', 'intersect', 'pointer', 'touch'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示拖放的触发方式, 可以是 'fit', 'intersect', 'pointer', 'touch'" )]
+		[NotifyParentProperty ( true )]
+		public string Tolerance
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.tolerance ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.tolerance, value ); }
+		}
+		#endregion
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置拖放被创建时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示拖放被创建时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Create
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置拖放被激活时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示拖放被激活时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Activate
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.activate ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.activate, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置拖放取消激活时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示拖放取消激活时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Deactivate
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.deactivate ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.deactivate, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置元素滑过时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示元素滑过时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Over
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.over ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.over, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置元素滑出时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示元素滑出时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Out
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.@out ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.@out, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置拖放时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示拖放时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Drop
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.drop ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.drop, value ); }
+		}
+		#endregion
+
+		/// <summary>
+		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// </summary>
+		[Browsable ( false )]
+		public SettingEditHelper EditHelper
+		{
+			get { return this.editHelper; }
+		}
+
 		/// <summary>
 		/// 创建一个 jQuery UI 拖放的相关设置.
 		/// </summary>
 		/// <returns>jQuery UI 拖放的相关设置.</returns>
 		public DroppableSetting CreateDroppableSetting ( )
-		{
-			List<Option> options = new List<Option> ( );
-
-			foreach ( OptionEdit edit in this.options )
-				options.Add ( edit.CreateOption ( ) );
-
-			return new DroppableSetting ( this.isDroppable, options.ToArray ( ) );
-		}
+		{ return new DroppableSetting ( this.isDroppable, this.editHelper.CreateOptions ( ) ); }
 
 		/// <summary>
 		/// 转化为等效的字符串.
@@ -900,8 +1510,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( states.Count >= 1 )
 				this.isDroppable = ( bool ) states[0];
 
-			for ( int index = 0; index < this.options.Count; index++ )
-				( this.options[index] as IStateManager ).LoadViewState ( states[index + 1] );
+			if ( states.Count >= 2 )
+				( this.editHelper as IStateManager ).LoadViewState ( states[1] );
 
 		}
 
@@ -910,8 +1520,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			List<object> states = new List<object> ( );
 			states.Add ( this.isDroppable );
 
-			foreach ( OptionEdit edit in this.options )
-				states.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+			states.Add ( ( this.editHelper as IStateManager ).SaveViewState ( ) );
 
 			return states;
 		}
@@ -964,8 +1573,16 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
-			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
-				edit.IsDroppable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
+			if ( expressionHelper.ChildCount == 2 )
+			{
+
+				if ( expressionHelper[0].Value != string.Empty )
+					edit.IsDroppable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
+
+				if ( expressionHelper[1].Value != string.Empty )
+					edit.EditHelper.FromString ( expressionHelper[1].Value );
+
+			}
 
 			return edit;
 		}
@@ -978,7 +1595,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			DroppableSettingEdit setting = value as DroppableSettingEdit;
 
-			return string.Format ( "{0}`;", setting.IsDroppable );
+			return string.Format ( "{0}`;{1}", setting.IsDroppable, setting.EditHelper );
 		}
 
 	}
@@ -994,9 +1611,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
  * 引用代码:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
+ http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
@@ -1018,7 +1638,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class ResizableSettingEdit
 		: IStateManager
 	{
-		private List<OptionEdit> options = new List<OptionEdit> ( );
+		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
 		private bool isResizable = false;
 
 		/// <summary>
@@ -1032,7 +1652,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public List<OptionEdit> Options
 		{
-			get { return this.options; }
+			get { return this.editHelper.InnerOptionEdits; }
 		}
 
 		/// <summary>
@@ -1048,19 +1668,324 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			set { this.isResizable = value; }
 		}
 
+		#region " Option "
+		/// <summary>
+		/// 获取或设置缩放是否可用, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示缩放是否可用, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Disabled
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置同时缩放的内容, 对应一个 dom 元素, 选择器或者 jQuery.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示同时缩放的内容, 对应一个 dom 元素, 选择器或者 jQuery" )]
+		[NotifyParentProperty ( true )]
+		public string AlsoResize
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.alsoResize ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.alsoResize, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否播放缩放的动画, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否播放缩放的动画, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Animate
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.animate ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.animate, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置以毫秒为单位的动画时长, 比如: 1000.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示以毫秒为单位的动画时长, 比如: 1000" )]
+		[NotifyParentProperty ( true )]
+		public string AnimateDuration
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.animateDuration ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.animateDuration, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置动画效果, 比如: 'swing'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示动画效果, 比如: 'swing'" )]
+		[NotifyParentProperty ( true )]
+		public string AnimateEasing
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.animateEasing ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.animateEasing, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置宽高比例, 比如: 9 / 16, 或者 true, false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示宽高比例, 比如: 9 / 16, 或者 true, false" )]
+		[NotifyParentProperty ( true )]
+		public string AspectRatio
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.aspectRatio ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.aspectRatio, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否自动隐藏, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否自动隐藏, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string AutoHide
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.autoHide ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.autoHide, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置不参加缩放的元素, 是一个选择器.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示不参加缩放的元素, 是一个选择器" )]
+		[NotifyParentProperty ( true )]
+		public string Cancel
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.cancel ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.cancel, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置缩放所在的容器, 对应选择器, dom 元素, 字符串, 'parent', 'document', 'window' 中的一种.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示缩放的容器, 对应选择器, dom 元素, 字符串, 'parent', 'document', 'window' 中的一种" )]
+		[NotifyParentProperty ( true )]
+		public string Containment
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.containment ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.containment, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置鼠标的延迟, 以毫秒计算.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示鼠标的延迟, 以毫秒计算" )]
+		[NotifyParentProperty ( true )]
+		public string Delay
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.delay ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.delay, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置鼠标移动多少像素触发缩放, 比如: 20.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示鼠标移动多少像素触发缩放, 比如: 20" )]
+		[NotifyParentProperty ( true )]
+		public string Distance
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.distance ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.distance, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否在缩放时使用阴影, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否在缩放时使用阴影, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Ghost
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.ghost ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.ghost, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置按照矩阵来缩放, 为一个数组, 比如: [10, 30].
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按照矩阵来缩放, 为一个数组, 比如: [10, 30]" )]
+		[NotifyParentProperty ( true )]
+		public string Grid
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.grid ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.grid, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置缩放的方向, 为一个字符串, 比如: 'n, e, s, w', 可以从 'n, e, s, w, ne, se, sw, nw, all' 中取值.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示缩放的方向, 为一个字符串, 比如: 'n, e, s, w', 可以从 'n, e, s, w, ne, se, sw, nw, all' 中取值" )]
+		[NotifyParentProperty ( true )]
+		public string Handles
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.handles ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.handles, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 helper 的样式, 比如: 'ui-state-highlight'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 helper 的样式, 比如: 'ui-state-highlight'" )]
+		[NotifyParentProperty ( true )]
+		public string Helper
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.helper ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.helper, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置缩放的最大高度, 比如: 200.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示缩放的最大高度, 比如: 200" )]
+		[NotifyParentProperty ( true )]
+		public string MaxHeight
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.maxHeight ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.maxHeight, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置缩放的最大宽度, 比如: 200.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示缩放的最大宽度, 比如: 200" )]
+		[NotifyParentProperty ( true )]
+		public string MaxWidth
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.maxWidth ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.maxWidth, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置缩放的最小高度, 比如: 200.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示缩放的最小高度, 比如: 200" )]
+		[NotifyParentProperty ( true )]
+		public string MinHeight
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.minHeight ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.minHeight, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置缩放的最小宽度, 比如: 200.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示缩放的最小宽度, 比如: 200" )]
+		[NotifyParentProperty ( true )]
+		public string MinWidth
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.minWidth ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.minWidth, value ); }
+		}
+		#endregion
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置缩放被创建时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示缩放被创建时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Create
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置缩放开始的时候的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示缩放开始的时候的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Start
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.start ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.start, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置缩放时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示缩放时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Resize
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.resize ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.resize, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置缩放停止的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示缩放停止的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Stop
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.stop ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.stop, value ); }
+		}
+		#endregion
+
+		/// <summary>
+		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// </summary>
+		[Browsable ( false )]
+		public SettingEditHelper EditHelper
+		{
+			get { return this.editHelper; }
+		}
+
 		/// <summary>
 		/// 创建一个 jQuery UI 缩放的相关设置.
 		/// </summary>
 		/// <returns>jQuery UI 缩放的相关设置.</returns>
 		public ResizableSetting CreateResizableSetting ( )
-		{
-			List<Option> options = new List<Option> ( );
-
-			foreach ( OptionEdit edit in this.options )
-				options.Add ( edit.CreateOption ( ) );
-
-			return new ResizableSetting ( this.isResizable, options.ToArray ( ) );
-		}
+		{ return new ResizableSetting ( this.isResizable, this.editHelper.CreateOptions ( ) ); }
 
 		/// <summary>
 		/// 转化为等效的字符串.
@@ -1084,8 +2009,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( states.Count >= 1 )
 				this.isResizable = ( bool ) states[0];
 
-			for ( int index = 0; index < this.options.Count; index++ )
-				( this.options[index] as IStateManager ).LoadViewState ( states[index + 1] );
+			if ( states.Count >= 2 )
+				( this.editHelper as IStateManager ).LoadViewState ( states[1] );
 
 		}
 
@@ -1094,8 +2019,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			List<object> states = new List<object> ( );
 			states.Add ( this.isResizable );
 
-			foreach ( OptionEdit edit in this.options )
-				states.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+			states.Add ( ( this.editHelper as IStateManager ).SaveViewState ( ) );
 
 			return states;
 		}
@@ -1148,8 +2072,16 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
-			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
-				edit.IsResizable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
+			if ( expressionHelper.ChildCount == 2 )
+			{
+
+				if ( expressionHelper[0].Value != string.Empty )
+					edit.IsResizable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
+
+				if ( expressionHelper[1].Value != string.Empty )
+					edit.EditHelper.FromString ( expressionHelper[1].Value );
+
+			}
 
 			return edit;
 		}
@@ -1162,7 +2094,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ResizableSettingEdit setting = value as ResizableSettingEdit;
 
-			return string.Format ( "{0}`;", setting.IsResizable );
+			return string.Format ( "{0}`;{1}", setting.IsResizable, setting.EditHelper );
 		}
 
 	}
@@ -1178,8 +2110,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
  * 引用代码:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
@@ -1202,7 +2137,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class SelectableSettingEdit
 		: IStateManager
 	{
-		private List<OptionEdit> options = new List<OptionEdit> ( );
+		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
 		private bool isSelectable = false;
 
 		/// <summary>
@@ -1216,7 +2151,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public List<OptionEdit> Options
 		{
-			get { return this.options; }
+			get { return this.editHelper.InnerOptionEdits; }
 		}
 
 		/// <summary>
@@ -1232,19 +2167,207 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			set { this.isSelectable = value; }
 		}
 
+		#region " Option "
+		/// <summary>
+		/// 获取或设置选中是否可用, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示选中是否可用, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Disabled
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置选中是否自动刷新, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示选中是否自动刷新, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string AutoRefresh
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.autoRefresh ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.autoRefresh, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置不参加选中的元素, 是一个选择器.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示不参加选中的元素, 是一个选择器" )]
+		[NotifyParentProperty ( true )]
+		public string Cancel
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.cancel ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.cancel, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置鼠标的延迟, 以毫秒计算.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示鼠标的延迟, 以毫秒计算" )]
+		[NotifyParentProperty ( true )]
+		public string Delay
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.delay ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.delay, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置鼠标移动多少像素触发选中, 比如: 20.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示鼠标移动多少像素触发选中, 比如: 20" )]
+		[NotifyParentProperty ( true )]
+		public string Distance
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.distance ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.distance, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置参加选中的元素, 是一个选择器.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示参加选中的元素, 是一个选择器" )]
+		[NotifyParentProperty ( true )]
+		public string Filter
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.filter ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.filter, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置排列中选中的触发方式, 可以是 'intersect' 或者 'pointer'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示排列中选中的触发方式, 可以是 'touch' 或者 'fit'" )]
+		[NotifyParentProperty ( true )]
+		public string Tolerance
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.tolerance ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.tolerance, value ); }
+		}
+		#endregion
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置选中被创建时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示选中被创建时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Create
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置选中后的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示选中后的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Selected 
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.selected ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.selected, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置选中时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示选中时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Selecting 
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.selecting ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.selecting, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置选中开始时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示选中时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Start 
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.start ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.start, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置选中停止时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示选中时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Stop 
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.stop ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.stop, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置取消选中的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示取消选中的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Unselected 
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.unselected ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.unselected, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置取消选中时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示取消选中时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Unselecting 
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.unselecting ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.unselecting, value ); }
+		}
+		#endregion
+
+		/// <summary>
+		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// </summary>
+		[Browsable ( false )]
+		public SettingEditHelper EditHelper
+		{
+			get { return this.editHelper; }
+		}
+
 		/// <summary>
 		/// 创建一个 jQuery UI 选中的相关设置.
 		/// </summary>
 		/// <returns>jQuery UI 选中的相关设置.</returns>
 		public SelectableSetting CreateSelectableSetting ( )
-		{
-			List<Option> options = new List<Option> ( );
-
-			foreach ( OptionEdit edit in this.options )
-				options.Add ( edit.CreateOption ( ) );
-
-			return new SelectableSetting ( this.isSelectable, options.ToArray ( ) );
-		}
+		{ return new SelectableSetting ( this.isSelectable, this.editHelper.CreateOptions ( ) ); }
 
 		/// <summary>
 		/// 转化为等效的字符串.
@@ -1268,8 +2391,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( states.Count >= 1 )
 				this.isSelectable = ( bool ) states[0];
 
-			for ( int index = 0; index < this.options.Count; index++ )
-				( this.options[index] as IStateManager ).LoadViewState ( states[index + 1] );
+			if ( states.Count >= 2 )
+				( this.editHelper as IStateManager ).LoadViewState ( states[1] );
 
 		}
 
@@ -1278,8 +2401,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			List<object> states = new List<object> ( );
 			states.Add ( this.isSelectable );
 
-			foreach ( OptionEdit edit in this.options )
-				states.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+			states.Add ( ( this.editHelper as IStateManager ).SaveViewState ( ) );
 
 			return states;
 		}
@@ -1332,8 +2454,16 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
-			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
-				edit.IsSelectable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
+			if ( expressionHelper.ChildCount == 2 )
+			{
+
+				if ( expressionHelper[0].Value != string.Empty )
+					edit.IsSelectable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
+
+				if ( expressionHelper[1].Value != string.Empty )
+					edit.EditHelper.FromString ( expressionHelper[1].Value );
+
+			}
 
 			return edit;
 		}
@@ -1346,7 +2476,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			SelectableSettingEdit setting = value as SelectableSettingEdit;
 
-			return string.Format ( "{0}`;", setting.IsSelectable );
+			return string.Format ( "{0}`;{1}", setting.IsSelectable, setting.EditHelper );
 		}
 
 	}
@@ -1362,8 +2492,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
  * 引用代码:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
@@ -1386,7 +2519,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class SortableSettingEdit
 		: IStateManager
 	{
-		private List<OptionEdit> options = new List<OptionEdit> ( );
+		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
 		private bool isSortable = false;
 
 		/// <summary>
@@ -1400,7 +2533,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public List<OptionEdit> Options
 		{
-			get { return this.options; }
+			get { return this.editHelper.InnerOptionEdits; }
 		}
 
 		/// <summary>
@@ -1416,19 +2549,519 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			set { this.isSortable = value; }
 		}
 
+		#region " Option "
+		/// <summary>
+		/// 获取或设置排列是否可用, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示排列是否可用, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Disabled
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置鼠标点击在何处排序有效, 可以是 'parent', 'body' 等.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示鼠标点击在何处排序有效, 可以是 'parent', 'body' 等" )]
+		[NotifyParentProperty ( true )]
+		public string AppendTo
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.appendTo ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.appendTo, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置排列时拖动的方向, 可以是 'x', 'y'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示排列时拖动的方向, 可以是 'x', 'y'" )]
+		[NotifyParentProperty ( true )]
+		public string Axis
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.axis ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.axis, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置不参加排列的元素, 是一个选择器.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示不参加排列的元素, 是一个选择器" )]
+		[NotifyParentProperty ( true )]
+		public string Cancel
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.cancel ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.cancel, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置关联的排列, 可以将元素拖放在关联列表中, 是一个选择器.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示关联的排列, 可以将元素拖放在关联列表中, 是一个选择器" )]
+		[NotifyParentProperty ( true )]
+		public string ConnectWith
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.connectWith ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.connectWith, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置排列所在的容器, 对应选择器, dom 元素, 字符串, 'parent', 'document', 'window' 中的一种, 或者数组, 比如: [0, 0, 300, 400].
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示排列所在的容器, 对应选择器, dom 元素, 字符串, 'parent', 'document', 'window' 中的一种, 或者数组, 比如: [0, 0, 300, 400]" )]
+		[NotifyParentProperty ( true )]
+		public string Containment
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.containment ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.containment, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置鼠标样式, 比如: 'auto'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示鼠标样式, 比如: 'auto'" )]
+		[NotifyParentProperty ( true )]
+		public string Cursor
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.cursor ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.cursor, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置鼠标的相对位置, 对应一个 javascript 对象, { top: 1, left: 2, right: 3, bottom: 4 }, 需要具有选择其中的一个或者两个属性.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示鼠标的相对位置, 对应一个 javascript 对象, { top: 1, left: 2, right: 3, bottom: 4 }, 需要具有选择其中的一个或者两个属性" )]
+		[NotifyParentProperty ( true )]
+		public string CursorAt
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.cursorAt ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.cursorAt, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置鼠标的延迟, 以毫秒计算.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示鼠标的延迟, 以毫秒计算" )]
+		[NotifyParentProperty ( true )]
+		public string Delay
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.delay ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.delay, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置鼠标移动多少像素触发排列, 比如: 20.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示鼠标移动多少像素触发排列, 比如: 20" )]
+		[NotifyParentProperty ( true )]
+		public string Distance
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.distance ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.distance, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否可以将条目拖放到空的关联列表中, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否可以将条目拖放到空的关联列表中, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string DropOnEmpty
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dropOnEmpty ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dropOnEmpty, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否强制 helper 拥有尺寸, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否强制 helper 拥有尺寸, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string ForceHelperSize
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.forceHelperSize ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.forceHelperSize, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否强制 placeholder 拥有尺寸, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否强制 placeholder 拥有尺寸, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string ForcePlaceholderSize
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.forcePlaceholderSize ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.forcePlaceholderSize, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置按照矩阵来移动元素, 为一个数组, 比如: [10, 30].
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按照矩阵来移动元素, 为一个数组, 比如: [10, 30]" )]
+		[NotifyParentProperty ( true )]
+		public string Grid
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.grid ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.grid, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置用于点击的元素, 点击后排列才有效, 对应一个 dom 元素或者选择器.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示用于点击的元素, 点击后排列才有效, 对应一个 dom 元素或者选择器" )]
+		[NotifyParentProperty ( true )]
+		public string Handle
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.handle ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.handle, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 helper 的行为, 可以是 'original', 'clone'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 helper 的行为, 可以是 'original', 'clone'" )]
+		[NotifyParentProperty ( true )]
+		public string Helper
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.helper ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.helper, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置参与排列的元素, 对应选择器.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示参与排列的元素, 对应选择器" )]
+		[NotifyParentProperty ( true )]
+		public string Items
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.items ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.items, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置元素排列时的透明度, 0 到 1 之间.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示元素排列时的透明度, 0 到 1 之间" )]
+		[NotifyParentProperty ( true )]
+		public string Opacity
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.opacity ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.opacity, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 placeholder 的样式, 比如: 'ui-state-highlight'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 placeholder 的样式, 比如: 'ui-state-highlight'" )]
+		[NotifyParentProperty ( true )]
+		public string Placeholder
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.placeholder ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.placeholder, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否在排列后播放恢复原位的动画, 比如: true, 或者是以毫秒为单位的动画播放时间, 比如: 500.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否在排列后播放恢复原位的动画, 比如: true, 或者是以毫秒为单位的动画播放时间, 比如: 500" )]
+		[NotifyParentProperty ( true )]
+		public string Revert
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.revert ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.revert, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否可以显示滚动轴.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否可以显示滚动轴, 比如: true" )]
+		[NotifyParentProperty ( true )]
+		public string Scroll
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.scroll ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.scroll, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置滚动轴的灵敏度, 比如: 40.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示滚动轴的灵敏度, 比如: 40" )]
+		[NotifyParentProperty ( true )]
+		public string ScrollSensitivity
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.scrollSensitivity ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.scrollSensitivity, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置滚动轴的速度, 比如: 40.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示滚动轴的速度, 比如: 40" )]
+		[NotifyParentProperty ( true )]
+		public string ScrollSpeed
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.scrollSpeed ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.scrollSpeed, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置排列中拖放的触发方式, 可以是 'intersect' 或者 'pointer'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示排列中拖放的触发方式, 可以是 'intersect' 或者 'pointer'" )]
+		[NotifyParentProperty ( true )]
+		public string Tolerance
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.tolerance ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.tolerance, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 Z 轴顺序, 比如: 5.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 Z 轴顺序, 比如: 5" )]
+		[NotifyParentProperty ( true )]
+		public string ZIndex
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.zIndex ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.zIndex, value ); }
+		}
+		#endregion
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置排列被创建时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示排列被创建时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Create
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置排列开始的时候的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示排列开始的时候的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Start
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.start ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.start, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置排列时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示排列时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Sort
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.sort ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.sort, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置排列改变的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示排列改变的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Change
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.change ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.change, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置排列停止之前的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示排列停止之前的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string BeforeStop
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.beforeStop ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.beforeStop, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置排列停止的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示排列停止的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Stop
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.stop ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.stop, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 dom 元素改变的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 dom 元素改变的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Update
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.update ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.update, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置接收到元素的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示接收到元素的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Receive
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.receive ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.receive, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置元素被移除的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示元素被移除的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Remove
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.remove ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.remove, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置元素滑过时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示元素滑过时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Over
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.over ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.over, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置元素滑出时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示元素滑出时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Out
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.@out ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.@out, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置排列被激活时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示排列被激活时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Activate
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.activate ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.activate, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置排列取消激活时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示排列取消激活时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Deactivate
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.deactivate ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.deactivate, value ); }
+		}
+		#endregion
+
+		/// <summary>
+		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// </summary>
+		[Browsable ( false )]
+		public SettingEditHelper EditHelper
+		{
+			get { return this.editHelper; }
+		}
+
 		/// <summary>
 		/// 创建一个 jQuery UI 排列的相关设置.
 		/// </summary>
 		/// <returns>jQuery UI 排列的相关设置.</returns>
 		public SortableSetting CreateSortableSetting ( )
-		{
-			List<Option> options = new List<Option> ( );
-
-			foreach ( OptionEdit edit in this.options )
-				options.Add ( edit.CreateOption ( ) );
-
-			return new SortableSetting ( this.isSortable, options.ToArray ( ) );
-		}
+		{ return new SortableSetting ( this.isSortable, this.editHelper.CreateOptions ( ) ); }
 
 		/// <summary>
 		/// 转化为等效的字符串.
@@ -1452,8 +3085,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( states.Count >= 1 )
 				this.isSortable = ( bool ) states[0];
 
-			for ( int index = 0; index < this.options.Count; index++ )
-				( this.options[index] as IStateManager ).LoadViewState ( states[index + 1] );
+			if ( states.Count >= 2 )
+				( this.editHelper as IStateManager ).LoadViewState ( states[1] );
 
 		}
 
@@ -1462,8 +3095,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			List<object> states = new List<object> ( );
 			states.Add ( this.isSortable );
 
-			foreach ( OptionEdit edit in this.options )
-				states.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+			states.Add ( ( this.editHelper as IStateManager ).SaveViewState ( ) );
 
 			return states;
 		}
@@ -1516,8 +3148,16 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
-			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
-				edit.IsSortable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
+			if ( expressionHelper.ChildCount == 2 )
+			{
+
+				if ( expressionHelper[0].Value != string.Empty )
+					edit.IsSortable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
+
+				if ( expressionHelper[1].Value != string.Empty )
+					edit.EditHelper.FromString ( expressionHelper[1].Value );
+
+			}
 
 			return edit;
 		}
@@ -1530,7 +3170,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			SortableSettingEdit setting = value as SortableSettingEdit;
 
-			return string.Format ( "{0}`;", setting.IsSortable );
+			return string.Format ( "{0}`;{1}", setting.IsSortable, setting.EditHelper );
 		}
 
 	}
@@ -2214,9 +3854,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
  * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
@@ -2243,12 +3886,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class AjaxSettingEdit
 		: IStateManager
 	{
-		private List<EventEdit> events = new List<EventEdit> ( );
+		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
 		private EventType widgetEventType = EventType.none;
 		private string url;
 		private DataType dataType = DataType.json;
 		private string form;
-		private List<ParameterEdit> parameters = new List<ParameterEdit> ( );
+		private readonly List<ParameterEdit> parameters = new List<ParameterEdit> ( );
 		private bool isSingleQuote = true;
 
 		/// <summary>
@@ -2262,7 +3905,96 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public List<EventEdit> Events
 		{
-			get { return this.events; }
+			get { return this.editHelper.InnerEventEdits; }
+		}
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置 ajax 完成时的事件, 类似于: function() { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 ajax 完成时的事件, 类似于: function() { }" )]
+		[NotifyParentProperty ( true )]
+		public string Complete
+		{
+			get { return this.editHelper.GetOuterEventEditValue ( EventType.complete ); }
+			set { this.editHelper.SetOuterEventEditValue ( EventType.complete, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 ajax 错误时的事件, 类似于: function() { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 ajax 错误时的事件, 类似于: function() { }" )]
+		[NotifyParentProperty ( true )]
+		public string Error
+		{
+			get { return this.editHelper.GetOuterEventEditValue ( EventType.error ); }
+			set { this.editHelper.SetOuterEventEditValue ( EventType.error, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 ajax 成功时的事件, 类似于: function() { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 ajax 成功时的事件, 类似于: function() { }" )]
+		[NotifyParentProperty ( true )]
+		public string Success
+		{
+			get { return this.editHelper.GetOuterEventEditValue ( EventType.success ); }
+			set { this.editHelper.SetOuterEventEditValue ( EventType.success, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 ajax 发送时的事件, 类似于: function() { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 ajax 发送时的事件, 类似于: function() { }" )]
+		[NotifyParentProperty ( true )]
+		public string Send
+		{
+			get { return this.editHelper.GetOuterEventEditValue ( EventType.send ); }
+			set { this.editHelper.SetOuterEventEditValue ( EventType.send, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 ajax 开始时的事件, 类似于: function() { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 ajax 开始时的事件, 类似于: function() { }" )]
+		[NotifyParentProperty ( true )]
+		public string Start
+		{
+			get { return this.editHelper.GetOuterEventEditValue ( EventType.start ); }
+			set { this.editHelper.SetOuterEventEditValue ( EventType.start, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 ajax 停止时的事件, 类似于: function() { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 ajax 停止时的事件, 类似于: function() { }" )]
+		[NotifyParentProperty ( true )]
+		public string Stop
+		{
+			get { return this.editHelper.GetOuterEventEditValue ( EventType.stop ); }
+			set { this.editHelper.SetOuterEventEditValue ( EventType.stop, value ); }
+		}
+		#endregion
+
+		/// <summary>
+		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// </summary>
+		[Browsable ( false )]
+		public SettingEditHelper EditHelper
+		{
+			get { return this.editHelper; }
 		}
 
 		/// <summary>
@@ -2363,17 +4095,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <returns>jQuery UI Ajax 的相关设置.</returns>
 		public AjaxSetting CreateAjaxSetting ( )
 		{
-			List<Event> events = new List<Event> ( );
-
-			foreach ( EventEdit edit in this.events )
-				events.Add ( edit.CreateEvent ( ) );
-
 			List<NParameter> parameters = new List<NParameter> ( );
 
 			foreach ( ParameterEdit edit in this.parameters )
 				parameters.Add ( edit.CreateParameter ( ) );
 
-			return new AjaxSetting ( this.widgetEventType, this.url, this.dataType, this.form, parameters.ToArray ( ), events.ToArray ( ), this.isSingleQuote );
+			return new AjaxSetting ( this.widgetEventType, this.url, this.dataType, this.form, parameters.ToArray ( ), this.editHelper.CreateEvents(), this.isSingleQuote );
 		}
 
 		/// <summary>
@@ -2411,13 +4138,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				this.isSingleQuote = ( bool ) states[4];
 
 			if ( states.Count >= 6 )
-			{
-				List<object> eventStates = states[5] as List<object>;
-
-				for ( int index = 0; index < eventStates.Count; index++ )
-					( this.events[index] as IStateManager ).LoadViewState ( eventStates[index] );
-
-			}
+				( this.editHelper as IStateManager ).LoadViewState ( states[5] );
 
 			if ( states.Count >= 7 )
 			{
@@ -2439,13 +4160,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			states.Add ( this.form );
 			states.Add ( this.isSingleQuote );
 
-			List<object> eventStates = new List<object> ( );
-
-			foreach ( EventEdit edit in this.events )
-				eventStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
-
-			states.Add ( eventStates );
-
+			states.Add ( ( this.editHelper as IStateManager ).SaveViewState ( ) );
 
 			List<object> parameterStates = new List<object> ( );
 
@@ -2505,7 +4220,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
-			if ( expressionHelper.ChildCount == 5 )
+			if ( expressionHelper.ChildCount == 6 )
 				try
 				{
 
@@ -2524,6 +4239,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					if ( expressionHelper[4].Value != string.Empty )
 						edit.IsSingleQuote = StringConvert.ToObject<bool> ( expressionHelper[4].Value );
 
+					if ( expressionHelper[5].Value != string.Empty )
+						edit.EditHelper.FromString ( expressionHelper[5].Value );
+
 				}
 				catch { }
 
@@ -2538,7 +4256,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			AjaxSettingEdit setting = value as AjaxSettingEdit;
 
-			return string.Format ( "{0}`;{1}`;{2}`;{3}`;{4}`;", setting.WidgetEventType, setting.Url, setting.DataType, setting.Form, setting.IsSingleQuote );
+			return string.Format ( "{0}`;{1}`;{2}`;{3}`;{4}`;{5}", setting.WidgetEventType, setting.Url, setting.DataType, setting.Form, setting.IsSingleQuote, setting.EditHelper );
 		}
 
 	}
@@ -2570,6 +4288,24 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * wiki:
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIWidgetSettingEdit
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIWidgetSettingEditConverter
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIAccordionSettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIAccordionSettingEditConverter
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIAutocompleteSettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIAutocompleteSettingEditConverter
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIButtonSettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIButtonSettingEditConverter
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIDatepickerSettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIDatepickerSettingEditConverter
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIDialogSettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIDialogSettingEditConverter
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIProgressbarSettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIProgressbarSettingEditConverter
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUISliderSettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUISliderSettingEditConverter
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUITabsSettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUITabsSettingEditConverter
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIEmptySettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIEmptySettingEditConverter
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
  * 引用代码:
@@ -2602,38 +4338,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class WidgetSettingEdit
 		: IStateManager
 	{
-		private List<OptionEdit> options = new List<OptionEdit> ( );
-		private List<EventEdit> events = new List<EventEdit> ( );
-		private List<AjaxSettingEdit> ajaxSettings = new List<AjaxSettingEdit> ( );
+		private readonly List<AjaxSettingEdit> ajaxSettings = new List<AjaxSettingEdit> ( );
 		private WidgetType type = WidgetType.empty;
 
-		/// <summary>
-		/// 获取元素的 Widget 设置.
-		/// </summary>
-		[Category ( "jQuery UI" )]
-		[Description ( "Widget 相关的排列设置" )]
-		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
-		[NotifyParentProperty ( true )]
-		public List<OptionEdit> Options
-		{
-			get { return this.options; }
-		}
-
-		/// <summary>
-		/// 获取元素的 Widget 事件.
-		/// </summary>
-		[Category ( "jQuery UI" )]
-		[Description ( "Widget 相关的事件" )]
-		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		[Editor ( typeof ( EventEditCollectionEditor ), typeof ( UITypeEditor ) )]
-		[NotifyParentProperty ( true )]
-		public List<EventEdit> Events
-		{
-			get { return this.events; }
-		}
+		private readonly AccordionSettingEdit accordionSetting = new AccordionSettingEdit ( );
+		private readonly AutocompleteSettingEdit autocompleteSetting = new AutocompleteSettingEdit ( );
+		private readonly ButtonSettingEdit buttonSetting = new ButtonSettingEdit ( );
+		private readonly DatepickerSettingEdit datepickerSetting = new DatepickerSettingEdit ( );
+		private readonly DialogSettingEdit dialogSetting = new DialogSettingEdit ( );
+		private readonly ProgressbarSettingEdit progressbarSetting = new ProgressbarSettingEdit ( );
+		private readonly SliderSettingEdit sliderSetting = new SliderSettingEdit ( );
+		private readonly TabsSettingEdit tabsSetting = new TabsSettingEdit ( );
+		private readonly EmptySettingEdit emptySetting = new EmptySettingEdit ( );
 
 		/// <summary>
 		/// 获取元素的 Widget 设置.
@@ -2663,27 +4379,176 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 获取元素的折叠列表设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "Widget 相关的折叠列表设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[NotifyParentProperty ( true )]
+		public AccordionSettingEdit AccordionSetting
+		{
+			get { return this.accordionSetting; }
+		}
+
+		/// <summary>
+		/// 获取元素的自动填充设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "Widget 相关的自动填充设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[NotifyParentProperty ( true )]
+		public AutocompleteSettingEdit AutocompleteSetting
+		{
+			get { return this.autocompleteSetting; }
+		}
+
+		/// <summary>
+		/// 获取元素的 Button 设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "Widget 相关的 Button 设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[NotifyParentProperty ( true )]
+		public ButtonSettingEdit ButtonSetting
+		{
+			get { return this.buttonSetting; }
+		}
+
+		/// <summary>
+		/// 获取元素的日期框设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "Widget 相关的日期框设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[NotifyParentProperty ( true )]
+		public DatepickerSettingEdit DatepickerSetting
+		{
+			get { return this.datepickerSetting; }
+		}
+
+		/// <summary>
+		/// 获取元素的对话框设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "Widget 相关的对话框设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[NotifyParentProperty ( true )]
+		public DialogSettingEdit DialogSetting
+		{
+			get { return this.dialogSetting; }
+		}
+
+		/// <summary>
+		/// 获取元素的进度条设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "Widget 相关的进度条设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[NotifyParentProperty ( true )]
+		public ProgressbarSettingEdit ProgressbarSetting
+		{
+			get { return this.progressbarSetting; }
+		}
+
+		/// <summary>
+		/// 获取元素的分割条设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "Widget 相关的分割条设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[NotifyParentProperty ( true )]
+		public SliderSettingEdit SliderSetting
+		{
+			get { return this.sliderSetting; }
+		}
+
+		/// <summary>
+		/// 获取元素的分组标签设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "Widget 相关的分组标签设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[NotifyParentProperty ( true )]
+		public TabsSettingEdit TabsSetting
+		{
+			get { return this.tabsSetting; }
+		}
+
+		/// <summary>
+		/// 获取元素的空设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "Widget 相关的空设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[NotifyParentProperty ( true )]
+		public EmptySettingEdit EmptySetting
+		{
+			get { return this.emptySetting; }
+		}
+
+		/// <summary>
 		/// 创建一个 jQuery UI 排列的相关设置.
 		/// </summary>
 		/// <returns>jQuery UI 排列的相关设置.</returns>
 		public WidgetSetting CreateWidgetSetting ( )
 		{
-			List<Option> options = new List<Option> ( );
-
-			foreach ( OptionEdit edit in this.options )
-				options.Add ( edit.CreateOption ( ) );
-
-			List<Event> events = new List<Event> ( );
-
-			foreach ( EventEdit edit in this.events )
-				events.Add ( edit.CreateEvent ( ) );
-
 			List<AjaxSetting> ajaxSettings = new List<AjaxSetting> ( );
 
 			foreach ( AjaxSettingEdit edit in this.ajaxSettings )
 				ajaxSettings.Add ( edit.CreateAjaxSetting ( ) );
 
-			return new WidgetSetting ( this.type, options.ToArray ( ), events.ToArray ( ), ajaxSettings.ToArray ( ) );
+			SettingEditHelper editHelper;
+
+			switch ( this.type )
+			{
+				case WidgetType.accordion:
+					editHelper = this.accordionSetting.EditHelper;
+					break;
+
+				case WidgetType.autocomplete:
+					editHelper = this.autocompleteSetting.EditHelper;
+					break;
+
+				case WidgetType.button:
+					editHelper = this.buttonSetting.EditHelper;
+					break;
+
+				case WidgetType.datepicker:
+					editHelper = this.datepickerSetting.EditHelper;
+					break;
+
+				case WidgetType.dialog:
+					editHelper = this.dialogSetting.EditHelper;
+					break;
+
+				case WidgetType.progressbar:
+					editHelper = this.progressbarSetting.EditHelper;
+					break;
+
+				case WidgetType.slider:
+					editHelper = this.sliderSetting.EditHelper;
+					break;
+
+				case WidgetType.tabs:
+					editHelper = this.tabsSetting.EditHelper;
+					break;
+
+				case WidgetType.empty:
+				default:
+					editHelper = this.emptySetting.EditHelper;
+					break;
+			}
+
+			return new WidgetSetting ( this.type, editHelper.CreateOptions ( ), editHelper.CreateEvents ( ), ajaxSettings.ToArray ( ) );
 		}
 
 		/// <summary>
@@ -2710,30 +4575,39 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( states.Count >= 2 )
 			{
-				List<object> optionStates = states[1] as List<object>;
-
-				for ( int index = 0; index < optionStates.Count; index++ )
-					( this.options[index] as IStateManager ).LoadViewState ( optionStates[index] );
-
-			}
-
-			if ( states.Count >= 3 )
-			{
-				List<object> eventStates = states[2] as List<object>;
-
-				for ( int index = 0; index < eventStates.Count; index++ )
-					( this.events[index] as IStateManager ).LoadViewState ( eventStates[index] );
-
-			}
-
-			if ( states.Count >= 4 )
-			{
-				List<object> ajaxSettingStates = states[3] as List<object>;
+				List<object> ajaxSettingStates = states[1] as List<object>;
 
 				for ( int index = 0; index < ajaxSettingStates.Count; index++ )
 					( this.ajaxSettings[index] as IStateManager ).LoadViewState ( ajaxSettingStates[index] );
 
 			}
+
+			if ( states.Count >= 3 )
+				( this.buttonSetting as IStateManager ).LoadViewState ( states[2] );
+
+			if ( states.Count >= 4 )
+				( this.accordionSetting as IStateManager ).LoadViewState ( states[3] );
+
+			if ( states.Count >= 5 )
+				( this.autocompleteSetting as IStateManager ).LoadViewState ( states[4] );
+
+			if ( states.Count >= 6 )
+				( this.datepickerSetting as IStateManager ).LoadViewState ( states[5] );
+
+			if ( states.Count >= 7 )
+				( this.dialogSetting as IStateManager ).LoadViewState ( states[6] );
+
+			if ( states.Count >= 8 )
+				( this.progressbarSetting as IStateManager ).LoadViewState ( states[7] );
+
+			if ( states.Count >= 9 )
+				( this.sliderSetting as IStateManager ).LoadViewState ( states[8] );
+
+			if ( states.Count >= 10 )
+				( this.tabsSetting as IStateManager ).LoadViewState ( states[9] );
+
+			if ( states.Count >= 11 )
+				( this.emptySetting as IStateManager ).LoadViewState ( states[10] );
 
 		}
 
@@ -2742,22 +4616,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			List<object> states = new List<object> ( );
 			states.Add ( this.type );
 
-			List<object> optionStates = new List<object> ( );
-
-			foreach ( OptionEdit edit in this.options )
-				optionStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
-
-			states.Add ( optionStates );
-
-
-			List<object> eventStates = new List<object> ( );
-
-			foreach ( EventEdit edit in this.events )
-				eventStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
-
-			states.Add ( eventStates );
-
-
 			List<object> ajaxSettingStates = new List<object> ( );
 
 			foreach ( AjaxSettingEdit edit in this.ajaxSettings )
@@ -2765,6 +4623,15 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			states.Add ( ajaxSettingStates );
 
+			states.Add ( ( this.buttonSetting as IStateManager ).SaveViewState ( ) );
+			states.Add ( ( this.accordionSetting as IStateManager ).SaveViewState ( ) );
+			states.Add ( ( this.autocompleteSetting as IStateManager ).SaveViewState ( ) );
+			states.Add ( ( this.datepickerSetting as IStateManager ).SaveViewState ( ) );
+			states.Add ( ( this.dialogSetting as IStateManager ).SaveViewState ( ) );
+			states.Add ( ( this.progressbarSetting as IStateManager ).SaveViewState ( ) );
+			states.Add ( ( this.sliderSetting as IStateManager ).SaveViewState ( ) );
+			states.Add ( ( this.tabsSetting as IStateManager ).SaveViewState ( ) );
+			states.Add ( ( this.emptySetting as IStateManager ).SaveViewState ( ) );
 			return states;
 		}
 
@@ -2834,6 +4701,3442 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			WidgetSettingEdit setting = value as WidgetSettingEdit;
 
 			return string.Format ( "{0}`;", setting.Type );
+		}
+
+	}
+	#endregion
+
+	#region " ButtonSettingEdit "
+	/// <summary>
+	/// jQuery UI Button 的相关设置.
+	/// </summary>
+	[TypeConverter ( typeof ( ButtonSettingEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class ButtonSettingEdit
+		: IStateManager
+	{
+		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+
+		/// <summary>
+		/// 获取元素的 Button 设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "Button 相关的设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<OptionEdit> Options
+		{
+			get { return this.editHelper.InnerOptionEdits; }
+		}
+
+		/// <summary>
+		/// 获取元素的 Button 事件.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "Button 相关的事件" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( EventEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<EventEdit> Events
+		{
+			get { return this.editHelper.InnerEventEdits; }
+		}
+
+		#region " Option "
+		/// <summary>
+		/// 获取或设置按钮是否可用, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按钮是否可用, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Disabled
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置按钮是否显示文本, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按钮是否显示文本, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Text
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.text ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.text, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置按钮显示的图标, 比如: { primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s' }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按钮显示的图标, 比如: { primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s' }" )]
+		[NotifyParentProperty ( true )]
+		public string Icons
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.icons ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.icons, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置按钮显示的文本, 比如: 'ok'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按钮显示的文本, 比如: 'ok'" )]
+		[NotifyParentProperty ( true )]
+		public string Label
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.label ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.label, value ); }
+		}
+		#endregion
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置按钮被创建时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按钮被创建时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Create
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+		}
+		#endregion
+
+		/// <summary>
+		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// </summary>
+		[Browsable ( false )]
+		public SettingEditHelper EditHelper
+		{
+			get { return this.editHelper; }
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				( this.editHelper as IStateManager ).LoadViewState ( states[0] );
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+
+			states.Add ( ( this.editHelper as IStateManager ).SaveViewState ( ) );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " ButtonSettingEditConverter "
+	/// <summary>
+	/// jQuery UI Button 设置编辑器的转换器.
+	/// </summary>
+	public sealed class ButtonSettingEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			ButtonSettingEdit edit = new ButtonSettingEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
+				edit.EditHelper.FromString ( expressionHelper[0].Value );
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is ButtonSettingEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType ); ;
+
+			ButtonSettingEdit setting = value as ButtonSettingEdit;
+
+			return string.Format ( "{0}", setting.EditHelper );
+		}
+
+	}
+	#endregion
+
+	#region " AccordionSettingEdit "
+	/// <summary>
+	/// jQuery UI 折叠列表的相关设置.
+	/// </summary>
+	[TypeConverter ( typeof ( AccordionSettingEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class AccordionSettingEdit
+		: IStateManager
+	{
+		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+
+		/// <summary>
+		/// 获取元素的折叠列表设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "Button 相关的设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<OptionEdit> Options
+		{
+			get { return this.editHelper.InnerOptionEdits; }
+		}
+
+		/// <summary>
+		/// 获取元素的折叠列表事件.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "Button 相关的事件" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( EventEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<EventEdit> Events
+		{
+			get { return this.editHelper.InnerEventEdits; }
+		}
+
+		#region " Option "
+		/// <summary>
+		/// 获取或设置折叠列表是否可用, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示折叠列表是否可用, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Disabled
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置被激活的列表, 对应一个选择器, 元素, 数值或者布尔值.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示被激活的列表, 对应一个选择器, 元素, 数值或者布尔值" )]
+		[NotifyParentProperty ( true )]
+		public string Active
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.active ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.active, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置列表切换的动画, 比如: 'bounceslide', 'slide', 也可以设置为 false, 来禁止动画.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示列表切换的动画, 比如: 'bounceslide', 'slide', 也可以设置为 false, 来禁止动画" )]
+		[NotifyParentProperty ( true )]
+		public string Animated
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.animated ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.animated, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否自动调整与最高的列表同高, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否自动调整与最高的列表同高, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string AutoHeight
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.autoHeight ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.autoHeight, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否在动画结束后清除 height, overflow 样式, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否在动画结束后清除 height, overflow 样式, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string ClearStyle
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.clearStyle ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.clearStyle, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否关闭所有的列表, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否关闭所有的列表, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Collapsible
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.collapsible ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.collapsible, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置触发列表的事件, 比如: 'mouseover'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示触发列表的事件, 比如: 'mouseover'" )]
+		[NotifyParentProperty ( true )]
+		public string Event
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.@event ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.@event, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否以父容器填充高度, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否以父容器填充高度, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string FillSpace
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.fillSpace ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.fillSpace, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置作为标题的元素, 可以是选择器或者 jQuery 对象, 默认为 '> li > :first-child, > :not(li):even'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示作为标题的元素, 可以是选择器或者 jQuery 对象, 默认为 '> li > :first-child, > :not(li):even'" )]
+		[NotifyParentProperty ( true )]
+		public string Header
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.header ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.header, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置列表显示的图标, 默认为: { 'header': 'ui-icon-triangle-1-e', 'headerSelected': 'ui-icon-triangle-1-s' }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示列表显示的图标, 默认为: { 'header': 'ui-icon-triangle-1-e', 'headerSelected': 'ui-icon-triangle-1-s' }" )]
+		[NotifyParentProperty ( true )]
+		public string Icons
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.icons ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.icons, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否可以导航, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否可以导航, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Navigation
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.navigation ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.navigation, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置选择导航的函数.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示选择导航的函数" )]
+		[NotifyParentProperty ( true )]
+		public string NavigationFilter
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.navigationFilter ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.navigationFilter, value ); }
+		}
+		#endregion
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置列表被创建时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示列表被创建时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Create
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置列表改变时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示列表改变时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Change
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.change ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.change, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置列表开始改变时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示列表开始改变时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Changestart
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.changestart ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.changestart, value ); }
+		}
+		#endregion
+
+		/// <summary>
+		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// </summary>
+		[Browsable ( false )]
+		public SettingEditHelper EditHelper
+		{
+			get { return this.editHelper; }
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				( this.editHelper as IStateManager ).LoadViewState ( states[0] );
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+
+			states.Add ( ( this.editHelper as IStateManager ).SaveViewState ( ) );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " AccordionSettingEditConverter "
+	/// <summary>
+	/// jQuery UI 折叠列表设置编辑器的转换器.
+	/// </summary>
+	public sealed class AccordionSettingEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			AccordionSettingEdit edit = new AccordionSettingEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
+				edit.EditHelper.FromString ( expressionHelper[0].Value );
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is AccordionSettingEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType ); ;
+
+			AccordionSettingEdit setting = value as AccordionSettingEdit;
+
+			return string.Format ( "{0}", setting.EditHelper );
+		}
+
+	}
+	#endregion
+
+	#region " AutocompleteSettingEdit "
+	/// <summary>
+	/// jQuery UI 自动填充的相关设置.
+	/// </summary>
+	[TypeConverter ( typeof ( AutocompleteSettingEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class AutocompleteSettingEdit
+		: IStateManager
+	{
+		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+
+		/// <summary>
+		/// 获取元素的自动填充设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "自动填充相关的设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<OptionEdit> Options
+		{
+			get { return this.editHelper.InnerOptionEdits; }
+		}
+
+		/// <summary>
+		/// 获取元素的自动填充事件.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "自动填充相关的事件" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( EventEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<EventEdit> Events
+		{
+			get { return this.editHelper.InnerEventEdits; }
+		}
+
+		#region " Option "
+		/// <summary>
+		/// 获取或设置自动填充是否可用, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示自动填充是否可用, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Disabled
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置填充对应的元素, 是一个选择器.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示填充对应的元素, 是一个选择器" )]
+		[NotifyParentProperty ( true )]
+		public string AppendTo
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.appendTo ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.appendTo, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否自动对焦到第一个条目, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否自动对焦到第一个条目, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string AutoFocus
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.autoFocus ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.autoFocus, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置以毫秒为单位的激活自动填充的延迟, 比如: 300.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示以毫秒为单位的激活自动填充的延迟, 比如: 300" )]
+		[NotifyParentProperty ( true )]
+		public string Delay
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.delay ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.delay, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置激活填充需要最小的输入字符数, 比如: 3.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示激活填充需要最小的输入字符数, 比如: 3" )]
+		[NotifyParentProperty ( true )]
+		public string MinLength
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.minLength ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.minLength, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置填充列表的位置, 默认为: { my: 'left top', at: 'left bottom', collision: 'none' }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示填充列表的位置, 默认为: { my: 'left top', at: 'left bottom', collision: 'none' }" )]
+		[NotifyParentProperty ( true )]
+		public string Position
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.position ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.position, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置用于填充的源, 可以是数组, 比如: ['abc', 'def'], 也可以是函数.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示用于填充的源, 可以是数组, 比如: ['abc', 'def'], 也可以是函数" )]
+		[NotifyParentProperty ( true )]
+		public string Source
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.source ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.source, value ); }
+		}
+		#endregion
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置填充被创建时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示填充被创建时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Create
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置搜索匹配项时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示搜索匹配项时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Search
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.search ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.search, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置列表打开时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示列表打开时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Open
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.open ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.open, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置获得焦点时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示获得焦点时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Focus
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.focus ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.focus, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置选择某个条目的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示选择某个条目的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Select
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.select ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.select, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置列表关闭时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示列表关闭时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Close
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.close ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.close, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置选择的条目改变时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示选择的条目改变时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Change
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.change ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.change, value ); }
+		}
+		#endregion
+
+		/// <summary>
+		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// </summary>
+		[Browsable ( false )]
+		public SettingEditHelper EditHelper
+		{
+			get { return this.editHelper; }
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				( this.editHelper as IStateManager ).LoadViewState ( states[0] );
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+
+			states.Add ( ( this.editHelper as IStateManager ).SaveViewState ( ) );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " AutocompleteSettingEditConverter "
+	/// <summary>
+	/// jQuery UI 自动填充设置编辑器的转换器.
+	/// </summary>
+	public sealed class AutocompleteSettingEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			AutocompleteSettingEdit edit = new AutocompleteSettingEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
+				edit.EditHelper.FromString ( expressionHelper[0].Value );
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is AutocompleteSettingEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType ); ;
+
+			AutocompleteSettingEdit setting = value as AutocompleteSettingEdit;
+
+			return string.Format ( "{0}", setting.EditHelper );
+		}
+
+	}
+	#endregion
+
+	#region " DatepickerSettingEdit "
+	/// <summary>
+	/// jQuery UI 日期框的相关设置.
+	/// </summary>
+	[TypeConverter ( typeof ( DatepickerSettingEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class DatepickerSettingEdit
+		: IStateManager
+	{
+		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+
+		/// <summary>
+		/// 获取元素的日期框设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "日期框相关的设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<OptionEdit> Options
+		{
+			get { return this.editHelper.InnerOptionEdits; }
+		}
+
+		/// <summary>
+		/// 获取元素的日期框事件.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "日期框相关的事件" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( EventEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<EventEdit> Events
+		{
+			get { return this.editHelper.InnerEventEdits; }
+		}
+
+		#region " Option "
+		/// <summary>
+		/// 获取或设置日期框是否可用, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示日期框是否可用, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Disabled
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置备用字段, 是一个选择器.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示备用字段, 是一个选择器" )]
+		[NotifyParentProperty ( true )]
+		public string AltField
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.altField ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.altField, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置在备用字段显示的日期格式, 比如: 'yy-mm-dd'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示在备用字段显示的日期格式, 比如: 'yy-mm-dd'" )]
+		[NotifyParentProperty ( true )]
+		public string AltFormat
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.altFormat ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.altFormat, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置显示在日期字段后的文本, 比如: '...'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示显示在日期字段后的文本, 比如: '...'" )]
+		[NotifyParentProperty ( true )]
+		public string AppendText
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.appendText ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.appendText, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否自动调整输入框的大小, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否自动调整输入框的大小, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string AutoSize
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.autoSize ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.autoSize, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置按钮的图片, 比如: '/images/datepicker.gif'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按钮的图片, 比如: '/images/datepicker.gif'" )]
+		[NotifyParentProperty ( true )]
+		public string ButtonImage
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.buttonImage ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.buttonImage, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否按钮只显示图片, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否按钮只显示图片, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string ButtonImageOnly
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.buttonImageOnly ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.buttonImageOnly, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置按钮的文本, 默认 '...'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按钮的文本, 默认 '...'" )]
+		[NotifyParentProperty ( true )]
+		public string ButtonText
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.buttonText ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.buttonText, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置区域设置, 默认 $.datepicker.iso8601Week.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示区域设置, 默认 $.datepicker.iso8601Week" )]
+		[NotifyParentProperty ( true )]
+		public string CalculateWeek
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.calculateWeek ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.calculateWeek, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否允许使用下拉框改变月份, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否允许使用下拉框改变月份, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string ChangeMonth
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.changeMonth ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.changeMonth, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否允许使用下拉框改变年份, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否允许使用下拉框改变年份, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string ChangeYear
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.changeYear ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.changeYear, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置关闭链接的文本, 比如: 'X'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示关闭链接的文本, 比如: 'X'" )]
+		[NotifyParentProperty ( true )]
+		public string CloseText
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.closeText ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.closeText, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否限制输入的格式, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否限制输入的格式, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string ConstrainInput
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.constrainInput ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.constrainInput, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置当天链接的文本, 比如: '今天'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示当天链接的文本, 比如: '今天'" )]
+		[NotifyParentProperty ( true )]
+		public string CurrentText
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.currentText ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.currentText, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置日期的格式, 比如: 'mm/dd/yy'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示日期的格式, 比如: 'mm/dd/yy'" )]
+		[NotifyParentProperty ( true )]
+		public string DateFormat
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dateFormat ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dateFormat, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置天的名称, 比如: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示天的名称, 比如: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']" )]
+		[NotifyParentProperty ( true )]
+		public string DayNames
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dayNames ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dayNames, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置天的最短名称, 比如: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示天的最短名称, 比如: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']" )]
+		[NotifyParentProperty ( true )]
+		public string DayNamesMin
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dayNamesMin ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dayNamesMin, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置天的短名称, 比如: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示天的短名称, 比如: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']" )]
+		[NotifyParentProperty ( true )]
+		public string DayNamesShort
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dayNamesShort ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dayNamesShort, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置默认日期, 可以是日期, 数字或者字符串.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示默认日期, 可以是日期, 数字或者字符串" )]
+		[NotifyParentProperty ( true )]
+		public string DefaultDate
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.defaultDate ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.defaultDate, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置以毫秒为单位的日期显示速度, 或者使用 'slow', 'normal', 'fast' 中的一种.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示以毫秒为单位的日期显示速度, 或者使用 'slow', 'normal', 'fast' 中的一种" )]
+		[NotifyParentProperty ( true )]
+		public string Duration
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.duration ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.duration, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置哪一天作为一周的开始, 0 表示周日以此类推.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示哪一天作为一周的开始, 0 表示周日以此类推" )]
+		[NotifyParentProperty ( true )]
+		public string FirstDay
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.firstDay ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.firstDay, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否再点击当天链接后跳转到选中日期而不是当天, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否再点击当天链接后跳转到选中日期而不是当天, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string GotoCurrent
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.gotoCurrent ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.gotoCurrent, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否隐藏上一和下一链接, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否隐藏上一和下一链接, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string HideIfNoPrevNext
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.hideIfNoPrevNext ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.hideIfNoPrevNext, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否使用从右向左, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否使用从右向左, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string IsRTL
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.isRTL ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.isRTL, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置最大日期, 可以是日期, 数字或者字符串, 比如: '+1m +1w', 表示推后一月零一周.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示最大日期, 可以是日期, 数字或者字符串, 比如: '+1m +1w', 表示推后一月零一周" )]
+		[NotifyParentProperty ( true )]
+		public string MaxDate
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.maxDate ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.maxDate, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置最大日期, 可以是日期, 数字或者字符串, 比如: '+1m +1w', 表示推后一月零一周.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示最小日期, 可以是日期, 数字或者字符串, 比如: '-1m -1w', 表示推前一月零一周" )]
+		[NotifyParentProperty ( true )]
+		public string MinDate
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.minDate ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.minDate, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置月的名称, 比如: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示月的名称, 比如: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']" )]
+		[NotifyParentProperty ( true )]
+		public string MonthNames
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.monthNames ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.monthNames, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置月的短名称, 比如: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示月的短名称, 比如: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']" )]
+		[NotifyParentProperty ( true )]
+		public string MonthNamesShort
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.monthNamesShort ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.monthNamesShort, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置链接是否使用日期格式, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示链接是否使用日期格式, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string NavigationAsDateFormat
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.navigationAsDateFormat ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.navigationAsDateFormat, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置下一链接的文本, 比如: '...'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示下一链接的文本, 比如: '...'" )]
+		[NotifyParentProperty ( true )]
+		public string NextText
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.nextText ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.nextText, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置显示的月数, 默认为 1, 也可以是指示行数列数的数组, 比如: [2, 3].
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示显示的月数, 默认为 1, 也可以是指示行数列数的数组, 比如: [2, 3]" )]
+		[NotifyParentProperty ( true )]
+		public string NumberOfMonths
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.numberOfMonths ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.numberOfMonths, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置上一链接的文本, 比如: '...'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示上一链接的文本, 比如: '...'" )]
+		[NotifyParentProperty ( true )]
+		public string PrevText
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.prevText ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.prevText, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否可以选择其它的月份, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否可以选择其它的月份, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string SelectOtherMonths
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.selectOtherMonths ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.selectOtherMonths, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置短年份的设置, 可以是数字或者字符串.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示短年份的设置, 可以是数字或者字符串" )]
+		[NotifyParentProperty ( true )]
+		public string ShortYearCutoff
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.shortYearCutoff ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.shortYearCutoff, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置显示日期时的动画, 比如: 'show'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示显示日期时的动画, 比如: 'show'" )]
+		[NotifyParentProperty ( true )]
+		public string ShowAnim
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.showAnim ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showAnim, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否显示按钮面板, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否显示按钮面板, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string ShowButtonPanel
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.showButtonPanel ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showButtonPanel, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置当前月份的显示位置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示当前月份的显示位置" )]
+		[NotifyParentProperty ( true )]
+		public string ShowCurrentAtPos
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.showCurrentAtPos ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showCurrentAtPos, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否在年后显示月份, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否在年后显示月份, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string ShowMonthAfterYear
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.showMonthAfterYear ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showMonthAfterYear, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置日期框显示方式, 可以是 'focus', 'button' , 'both' 中的一种.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示日期框显示方式, 可以是 'focus', 'button' , 'both' 中的一种" )]
+		[NotifyParentProperty ( true )]
+		public string ShowOn
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.showOn ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showOn, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置显示选项, 比如: {direction: 'up' }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示显示选项, 比如: {direction: 'up' }" )]
+		[NotifyParentProperty ( true )]
+		public string ShowOptions
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.showOptions ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showOptions, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否显示其它月份, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否显示其它月份, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string ShowOtherMonths
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.showOtherMonths ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showOtherMonths, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否显示当前为一年中的第几周, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否显示当前为一年中的第几周, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string ShowWeek
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.showWeek ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showWeek, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置每一次跳转的月份数, 比如: 3.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示每一次跳转的月份数, 比如: 3" )]
+		[NotifyParentProperty ( true )]
+		public string StepMonths
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.stepMonths ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.stepMonths, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置周的标题设置, 默认: 'Wk'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示周的标题设置, 默认: 'Wk'" )]
+		[NotifyParentProperty ( true )]
+		public string WeekHeader
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.weekHeader ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.weekHeader, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置可选择的年份范围, 默认: 'c-10:c+10'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示可选择的年份范围, 默认: 'c-10:c+10'" )]
+		[NotifyParentProperty ( true )]
+		public string YearRange
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.yearRange ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.yearRange, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置跟随在年后的文本, 比如: 'Y'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示跟随在年后的文本, 比如: 'Y'" )]
+		[NotifyParentProperty ( true )]
+		public string YearSuffix
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.yearSuffix ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.yearSuffix, value ); }
+		}
+		#endregion
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置日期框被创建时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示日期框被创建时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Create
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置日期框显示时的事件, 类似于: function(input, inst) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示日期框显示时的事件, 类似于: function(input, inst) { }" )]
+		[NotifyParentProperty ( true )]
+		public string BeforeShow
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.beforeShow ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.beforeShow, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置日期框显示天时的事件, 类似于: function(date) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示日期框显示天时的事件, 类似于: function(date) { }" )]
+		[NotifyParentProperty ( true )]
+		public string BeforeShowDay
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.beforeShowDay ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.beforeShowDay, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置列表打开时的事件, 类似于: function(year, month, inst) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示年和月改变时的事件, 类似于: function(year, month, inst) { }" )]
+		[NotifyParentProperty ( true )]
+		public string OnChangeMonthYear
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.onChangeMonthYear ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.onChangeMonthYear, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置日期款关闭时的事件, 类似于: function(dateText, inst) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示日期款关闭时的事件, 类似于: function(dateText, inst) { }" )]
+		[NotifyParentProperty ( true )]
+		public string OnClose
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.onClose ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.onClose, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置日期选择时的事件, 类似于: function(dateText, inst) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示日期选择时的事件, 类似于: function(dateText, inst) { }" )]
+		[NotifyParentProperty ( true )]
+		public string OnSelect
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.onSelect ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.onSelect, value ); }
+		}
+		#endregion
+
+		/// <summary>
+		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// </summary>
+		[Browsable ( false )]
+		public SettingEditHelper EditHelper
+		{
+			get { return this.editHelper; }
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				( this.editHelper as IStateManager ).LoadViewState ( states[0] );
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+
+			states.Add ( ( this.editHelper as IStateManager ).SaveViewState ( ) );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " DatepickerSettingEditConverter "
+	/// <summary>
+	/// jQuery UI 日期框设置编辑器的转换器.
+	/// </summary>
+	public sealed class DatepickerSettingEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			DatepickerSettingEdit edit = new DatepickerSettingEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
+				edit.EditHelper.FromString ( expressionHelper[0].Value );
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is DatepickerSettingEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType ); ;
+
+			DatepickerSettingEdit setting = value as DatepickerSettingEdit;
+
+			return string.Format ( "{0}", setting.EditHelper );
+		}
+
+	}
+	#endregion
+
+	#region " DialogSettingEdit "
+	/// <summary>
+	/// jQuery UI 对话框的相关设置.
+	/// </summary>
+	[TypeConverter ( typeof ( DialogSettingEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class DialogSettingEdit
+		: IStateManager
+	{
+		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+
+		/// <summary>
+		/// 获取元素的对话框设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "对话框相关的设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<OptionEdit> Options
+		{
+			get { return this.editHelper.InnerOptionEdits; }
+		}
+
+		/// <summary>
+		/// 获取元素的对话框事件.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "对话框相关的事件" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( EventEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<EventEdit> Events
+		{
+			get { return this.editHelper.InnerEventEdits; }
+		}
+
+		#region " Option "
+		/// <summary>
+		/// 获取或设置对话框是否可用, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框是否可用, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Disabled
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框是否自动打开, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框是否自动打开, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string AutoOpen
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.autoOpen ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.autoOpen, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框上的按钮, 比如: { 'OK': function() { $(this).dialog('close'); } }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框上的按钮, 比如: { 'OK': function() { $(this).dialog('close'); } }" )]
+		[NotifyParentProperty ( true )]
+		public string Buttons
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.buttons ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.buttons, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否在按下 Esc 时关闭对话框, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否在按下 Esc 时关闭对话框, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string CloseOnEscape
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.closeOnEscape ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.closeOnEscape, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置关闭链接的文本, 默认 'close'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示关闭链接的文本, 默认 'close'" )]
+		[NotifyParentProperty ( true )]
+		public string CloseText
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.closeText ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.closeText, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框的样式, 比如: 'alert'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框的样式, 比如: 'alert'" )]
+		[NotifyParentProperty ( true )]
+		public string DialogClass
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dialogClass ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dialogClass, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否允许拖动, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否允许拖动, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Draggable
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.draggable ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.draggable, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框高度, 比如: 300.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框高度, 比如: 300" )]
+		[NotifyParentProperty ( true )]
+		public string Height
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.height ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.height, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置关闭对话框时的动画, 比如: 'slide'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示关闭对话框时的动画, 比如: 'slide'" )]
+		[NotifyParentProperty ( true )]
+		public string Hide
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.hide ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.hide, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置最大高度, 比如: 400.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示最大高度, 比如: 400" )]
+		[NotifyParentProperty ( true )]
+		public string MaxHeight
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.maxHeight ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.maxHeight, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置最大宽度, 比如: 400.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示最大宽度, 比如: 400" )]
+		[NotifyParentProperty ( true )]
+		public string MaxWidth
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.maxWidth ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.maxWidth, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置最小高度, 比如: 400.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示最小高度, 比如: 400" )]
+		[NotifyParentProperty ( true )]
+		public string MinHeight
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.minHeight ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.minHeight, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置最小宽度, 比如: 400.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示最小宽度, 比如: 400" )]
+		[NotifyParentProperty ( true )]
+		public string MinWidth
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.minWidth ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.minWidth, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否使用 modal 模式, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否使用 modal 模式, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Modal
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.modal ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.modal, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框的位置, 比如: ['right','top'], [100, 200].
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框的位置, 比如: ['right','top'], [100, 200]" )]
+		[NotifyParentProperty ( true )]
+		public string Position
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.position ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.position, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否允许缩放, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否允许缩放, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Resizable
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.resizable ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.resizable, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置显示时的动画, 比如: 'slide'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示显示时的动画, 比如: 'slide'" )]
+		[NotifyParentProperty ( true )]
+		public string Show
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.show ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.show, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否自动置顶, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否自动置顶, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Stack
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.stack ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.stack, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框标题, 比如: 'my title'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框标题, 比如: 'my title'" )]
+		[NotifyParentProperty ( true )]
+		public string Title
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.title ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.title, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框宽度, 比如: 300.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框宽度, 比如: 300" )]
+		[NotifyParentProperty ( true )]
+		public string Width
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.width ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.width, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框 Z 轴顺序, 比如: 2.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框 Z 轴顺序, 比如: 2" )]
+		[NotifyParentProperty ( true )]
+		public string ZIndex
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.zIndex ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.zIndex, value ); }
+		}
+		#endregion
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置对话框被创建时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框被创建时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Create
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框关闭之前的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框关闭之前的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string BeforeClose
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.beforeClose ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.beforeClose, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框打开时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框打开时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Open
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.open ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.open, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框获得焦点时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框获得焦点时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Focus
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.focus ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.focus, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框拖动开始时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框拖动开始时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string DragStart
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dragStart ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dragStart, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框拖动时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框拖动时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Drag
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.drag ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.drag, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框拖动结束时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框拖动结束时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string DragStop
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dragStop ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dragStop, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框缩放开始时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框缩放开始时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string ResizeStart
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.resizeStart ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.resizeStart, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框缩放时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框缩放时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Resize
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.resize ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.resize, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框缩放结束时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框缩放结束时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string ResizeStop
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.resizeStop ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.resizeStop, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置对话框关闭时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示对话框关闭时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Close
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.close ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.close, value ); }
+		}
+		#endregion
+
+		/// <summary>
+		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// </summary>
+		[Browsable ( false )]
+		public SettingEditHelper EditHelper
+		{
+			get { return this.editHelper; }
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				( this.editHelper as IStateManager ).LoadViewState ( states[0] );
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+
+			states.Add ( ( this.editHelper as IStateManager ).SaveViewState ( ) );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " DialogSettingEditConverter "
+	/// <summary>
+	/// jQuery UI 对话框设置编辑器的转换器.
+	/// </summary>
+	public sealed class DialogSettingEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			DialogSettingEdit edit = new DialogSettingEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
+				edit.EditHelper.FromString ( expressionHelper[0].Value );
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is DialogSettingEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType ); ;
+
+			DialogSettingEdit setting = value as DialogSettingEdit;
+
+			return string.Format ( "{0}", setting.EditHelper );
+		}
+
+	}
+	#endregion
+
+	#region " ProgressbarSettingEdit "
+	/// <summary>
+	/// jQuery UI 进度条的相关设置.
+	/// </summary>
+	[TypeConverter ( typeof ( ProgressbarSettingEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class ProgressbarSettingEdit
+		: IStateManager
+	{
+		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+
+		/// <summary>
+		/// 获取元素的进度条设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "进度条相关的设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<OptionEdit> Options
+		{
+			get { return this.editHelper.InnerOptionEdits; }
+		}
+
+		/// <summary>
+		/// 获取元素的进度条事件.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "进度条相关的事件" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( EventEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<EventEdit> Events
+		{
+			get { return this.editHelper.InnerEventEdits; }
+		}
+
+		#region " Option "
+		/// <summary>
+		/// 获取或设置进度条是否可用, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示进度条是否可用, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Disabled
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置进度条当前的值, 比如: 37.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示进度条当前的值, 比如: 37" )]
+		[NotifyParentProperty ( true )]
+		public string Value
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.value ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.value, value ); }
+		}
+		#endregion
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置进度条被创建时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示进度条被创建时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Create
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置进度条当前值改变时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示进度条当前值改变时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Change
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.change ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.change, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置进度条完成时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示进度条完成时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Complete
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.complete ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.complete, value ); }
+		}
+		#endregion
+
+		/// <summary>
+		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// </summary>
+		[Browsable ( false )]
+		public SettingEditHelper EditHelper
+		{
+			get { return this.editHelper; }
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				( this.editHelper as IStateManager ).LoadViewState ( states[0] );
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+
+			states.Add ( ( this.editHelper as IStateManager ).SaveViewState ( ) );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " ProgressbarSettingEditConverter "
+	/// <summary>
+	/// jQuery UI 进度条设置编辑器的转换器.
+	/// </summary>
+	public sealed class ProgressbarSettingEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			ProgressbarSettingEdit edit = new ProgressbarSettingEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
+				edit.EditHelper.FromString ( expressionHelper[0].Value );
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is ProgressbarSettingEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType ); ;
+
+			ProgressbarSettingEdit setting = value as ProgressbarSettingEdit;
+
+			return string.Format ( "{0}", setting.EditHelper );
+		}
+
+	}
+	#endregion
+
+	#region " SliderSettingEdit "
+	/// <summary>
+	/// jQuery UI 分割条的相关设置.
+	/// </summary>
+	[TypeConverter ( typeof ( SliderSettingEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class SliderSettingEdit
+		: IStateManager
+	{
+		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+
+		/// <summary>
+		/// 获取元素的分割条设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "分割条相关的设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<OptionEdit> Options
+		{
+			get { return this.editHelper.InnerOptionEdits; }
+		}
+
+		/// <summary>
+		/// 获取元素的分割条事件.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "分割条相关的事件" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( EventEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<EventEdit> Events
+		{
+			get { return this.editHelper.InnerEventEdits; }
+		}
+
+		#region " Option "
+		/// <summary>
+		/// 获取或设置分割条是否可用, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分割条是否可用, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Disabled
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否播放动画, 为 true 或者 false, 或者 'slow', 'normal', 'fast'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否播放动画, 为 true 或者 false, 或者 'slow', 'normal', 'fast'" )]
+		[NotifyParentProperty ( true )]
+		public string Animate
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.animate ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.animate, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置分割条最大值, 比如: 100.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分割条最大值, 比如: 100" )]
+		[NotifyParentProperty ( true )]
+		public string Max
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.max ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.max, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置分割条最小值, 比如: 0.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分割条最小值, 比如: 0" )]
+		[NotifyParentProperty ( true )]
+		public string Min
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.min ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.min, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置分割条的方向, 比如: 'horizontal', 'vertical'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分割条的方向, 比如: 'horizontal', 'vertical'" )]
+		[NotifyParentProperty ( true )]
+		public string Orientation
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.orientation ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.orientation, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置分割条是否使用范围, 或者为 'min', 'max' 中的一种.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分割条是否使用范围, 或者为 'min', 'max' 中的一种" )]
+		[NotifyParentProperty ( true )]
+		public string Range
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.range ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.range, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置分割条的步长, 比如: 3.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分割条的步长, 比如: 3" )]
+		[NotifyParentProperty ( true )]
+		public string Step
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.step ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.step, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置分割条的值, 比如: 30.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分割条的值, 比如: 30" )]
+		[NotifyParentProperty ( true )]
+		public string Value
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.value ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.value, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置分割条的范围值, 比如: [1, 4, 10].
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分割条的范围值, 比如: [1, 4, 10]" )]
+		[NotifyParentProperty ( true )]
+		public string Values
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.values ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.values, value ); }
+		}
+		#endregion
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置分割条被创建时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分割条被创建时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Create
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置分割条开始拖动时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分割条开始拖动时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Start
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.start ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.start, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置分割条拖动时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分割条拖动时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Slide
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.slide ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.slide, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置分割条改变时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分割条改变时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Change
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.change ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.change, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置分割条结束拖动时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分割条结束拖动时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Stop
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.stop ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.stop, value ); }
+		}
+		#endregion
+
+		/// <summary>
+		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// </summary>
+		[Browsable ( false )]
+		public SettingEditHelper EditHelper
+		{
+			get { return this.editHelper; }
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				( this.editHelper as IStateManager ).LoadViewState ( states[0] );
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+
+			states.Add ( ( this.editHelper as IStateManager ).SaveViewState ( ) );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " SliderSettingEditConverter "
+	/// <summary>
+	/// jQuery UI 分割条设置编辑器的转换器.
+	/// </summary>
+	public sealed class SliderSettingEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			SliderSettingEdit edit = new SliderSettingEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
+				edit.EditHelper.FromString ( expressionHelper[0].Value );
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is SliderSettingEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType ); ;
+
+			SliderSettingEdit setting = value as SliderSettingEdit;
+
+			return string.Format ( "{0}", setting.EditHelper );
+		}
+
+	}
+	#endregion
+
+	#region " TabsSettingEdit "
+	/// <summary>
+	/// jQuery UI 分组标签的相关设置.
+	/// </summary>
+	[TypeConverter ( typeof ( TabsSettingEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class TabsSettingEdit
+		: IStateManager
+	{
+		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+
+		/// <summary>
+		/// 获取元素的分组标签设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "分组标签相关的设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<OptionEdit> Options
+		{
+			get { return this.editHelper.InnerOptionEdits; }
+		}
+
+		/// <summary>
+		/// 获取元素的分组标签事件.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "分组标签相关的事件" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( EventEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<EventEdit> Events
+		{
+			get { return this.editHelper.InnerEventEdits; }
+		}
+
+		#region " Option "
+		/// <summary>
+		/// 获取或设置分组标签是否可用, 或者禁用的标签的索引, 可以设置为 true, false, 或者 [0, 1].
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分组标签是否可用, 或者禁用的标签的索引, 可以设置为 true, false, 或者 [0, 1]" )]
+		[NotifyParentProperty ( true )]
+		public string Disabled
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置标签内容的 Ajax 选项, 比如: { async: false }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示标签内容的 Ajax 选项, 比如: { async: false }" )]
+		[NotifyParentProperty ( true )]
+		public string AjaxOptions
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.ajaxOptions ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.ajaxOptions, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否使用缓存, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否使用缓存, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Cache
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.cache ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.cache, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置当再次选择已选中的标签时, 是否取消选中状态, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示当再次选择已选中的标签时, 是否取消选中状态, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public string Collapsible
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.collapsible ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.collapsible, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 cookie 的设置, 比如: { expires: 7, path: '/', domain: 'jquery.com', secure: true }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 cookie 的设置, 比如: { expires: 7, path: '/', domain: 'jquery.com', secure: true }" )]
+		[NotifyParentProperty ( true )]
+		public string Cookie
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.cookie ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.cookie, value ); }
+		}
+
+		/// <summary>
+		/// 请使用 Collapsible.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "请使用 Collapsible" )]
+		[NotifyParentProperty ( true )]
+		public string Deselectable
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.deselectable ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.deselectable, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置触发切换的事件名称, 默认: 'click'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示触发切换的事件名称, 默认: 'click'" )]
+		[NotifyParentProperty ( true )]
+		public string Event
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.@event ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.@event, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置显示或者隐藏的动画效果, 比如: { opacity: 'toggle' }, 'slow', 'normal', 'fast'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示显示或者隐藏的动画效果, 比如: { opacity: 'toggle' }, 'slow', 'normal', 'fast'" )]
+		[NotifyParentProperty ( true )]
+		public string Fx
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.fx ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.fx, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 id 的前缀, 默认为 'ui-tabs-'.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 id 的前缀, 默认为 'ui-tabs-'" )]
+		[NotifyParentProperty ( true )]
+		public string IdPrefix
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.idPrefix ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.idPrefix, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置面板的模板内容.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示面板的模板内容, 默认为 '<div></div>'" )]
+		[NotifyParentProperty ( true )]
+		public string PanelTemplate
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.panelTemplate ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.panelTemplate, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置选中的标签, 默认为 0.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示选中的标签, 默认为 0" )]
+		[NotifyParentProperty ( true )]
+		public string Selected
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.selected ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.selected, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置载入条的内容.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示载入条的内容" )]
+		[NotifyParentProperty ( true )]
+		public string Spinner
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.spinner ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.spinner, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置表头的模板内容.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示表头的模板内容, 默认为 '<li><a href=#{href}><span>#{label}</span></a></li>'" )]
+		[NotifyParentProperty ( true )]
+		public string TabTemplate
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.tabTemplate ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.tabTemplate, value ); }
+		}
+		#endregion
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置分组标签被创建时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分组标签被创建时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Create
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置分组标签被选中时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分组标签被选中时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Select
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.select ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.select, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置内容载入时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示内容载入时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Load
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.load ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.load, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置标签显示时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示标签显示时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Show
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.show ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.show, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置标签被添加时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示标签被添加时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Add
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.add ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.add, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置标签被删除时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示标签被删除时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Remove
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.remove ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.remove, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置标签被启用时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示标签被启用时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Enable
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.enable ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.enable, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置标签被禁用时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示标签被禁用时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Disable 
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disable ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disable, value ); }
+		}
+		#endregion
+
+		/// <summary>
+		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// </summary>
+		[Browsable ( false )]
+		public SettingEditHelper EditHelper
+		{
+			get { return this.editHelper; }
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				( this.editHelper as IStateManager ).LoadViewState ( states[0] );
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+
+			states.Add ( ( this.editHelper as IStateManager ).SaveViewState ( ) );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " TabsSettingEditConverter "
+	/// <summary>
+	/// jQuery UI 分组标签设置编辑器的转换器.
+	/// </summary>
+	public sealed class TabsSettingEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			TabsSettingEdit edit = new TabsSettingEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
+				edit.EditHelper.FromString ( expressionHelper[0].Value );
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is TabsSettingEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType ); ;
+
+			TabsSettingEdit setting = value as TabsSettingEdit;
+
+			return string.Format ( "{0}", setting.EditHelper );
+		}
+
+	}
+	#endregion
+
+	#region " EmptySettingEdit "
+	/// <summary>
+	/// jQuery UI 空的相关设置.
+	/// </summary>
+	[TypeConverter ( typeof ( EmptySettingEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class EmptySettingEdit
+		: IStateManager
+	{
+		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+
+		/// <summary>
+		/// 获取元素的空设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "空相关的设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( OptionEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<OptionEdit> Options
+		{
+			get { return this.editHelper.InnerOptionEdits; }
+		}
+
+		/// <summary>
+		/// 获取元素的空事件.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "空相关的事件" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[Editor ( typeof ( EventEditCollectionEditor ), typeof ( UITypeEditor ) )]
+		[NotifyParentProperty ( true )]
+		public List<EventEdit> Events
+		{
+			get { return this.editHelper.InnerEventEdits; }
+		}
+
+		/// <summary>
+		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// </summary>
+		[Browsable ( false )]
+		public SettingEditHelper EditHelper
+		{
+			get { return this.editHelper; }
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				( this.editHelper as IStateManager ).LoadViewState ( states[0] );
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+
+			states.Add ( ( this.editHelper as IStateManager ).SaveViewState ( ) );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " EmptySettingEditConverter "
+	/// <summary>
+	/// jQuery UI 空设置编辑器的转换器.
+	/// </summary>
+	public sealed class EmptySettingEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			EmptySettingEdit edit = new EmptySettingEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 1 && expressionHelper[0].Value != string.Empty )
+				edit.EditHelper.FromString ( expressionHelper[0].Value );
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is EmptySettingEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType ); ;
+
+			EmptySettingEdit setting = value as EmptySettingEdit;
+
+			return string.Format ( "{0}", setting.EditHelper );
 		}
 
 	}
@@ -3147,6 +8450,360 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 	}
 	#endregion
+
+}
+// ../.class/ui/jqueryui/SettingEditHelper.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUISettingEditHelper
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
+
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	/// <summary>
+	/// 编辑 OptionEdit, EventEdit 的辅助类.
+	/// </summary>
+	public sealed class SettingEditHelper
+		: IStateManager
+	{
+		/// <summary>
+		/// 内部的 OptionEdit 集合.
+		/// </summary>
+		public readonly List<OptionEdit> InnerOptionEdits = new List<OptionEdit> ( );
+		/// <summary>
+		/// 内部的 EventEdit 集合.
+		/// </summary>
+		public readonly List<EventEdit> InnerEventEdits = new List<EventEdit> ( );
+		/// <summary>
+		/// 外部的 OptionEdit 集合.
+		/// </summary>
+		public readonly List<OptionEdit> OuterOptionEdits = new List<OptionEdit> ( );
+		/// <summary>
+		/// 外部的 EventEdit 集合.
+		/// </summary>
+		public readonly List<EventEdit> OuterEventEdits = new List<EventEdit> ( );
+
+		/// <summary>
+		/// 创建对应的 Option 数组.
+		/// </summary>
+		/// <returns>Option 数组</returns>
+		public Option[] CreateOptions ( )
+		{
+			List<Option> options = new List<Option> ( );
+
+			foreach ( OptionEdit edit in this.InnerOptionEdits )
+				options.Add ( edit.CreateOption ( ) );
+
+			foreach ( OptionEdit edit in this.OuterOptionEdits )
+				options.Add ( edit.CreateOption ( ) );
+
+			return options.ToArray ( );
+		}
+
+		/// <summary>
+		/// 创建对应的 Event 数组.
+		/// </summary>
+		/// <returns>Event 数组</returns>
+		public Event[] CreateEvents ( )
+		{
+			List<Event> events = new List<Event> ( );
+
+			foreach ( EventEdit edit in this.OuterEventEdits )
+				events.Add ( edit.CreateEvent ( ) );
+
+			foreach ( EventEdit edit in this.InnerEventEdits )
+				events.Add ( edit.CreateEvent ( ) );
+
+			return events.ToArray ( );
+		}
+
+		/// <summary>
+		/// 得到外部 OptionEdit 的值.
+		/// </summary>
+		/// <param name="type">选项类型.</param>
+		/// <returns>选项值.</returns>
+		public string GetOuterOptionEditValue ( OptionType type )
+		{
+
+			foreach ( OptionEdit edit in this.OuterOptionEdits )
+				if ( edit.Type == type )
+					return edit.Value;
+
+			return string.Empty;
+		}
+
+		/// <summary>
+		/// 设置外部 OptionEdit 的值.
+		/// </summary>
+		/// <param name="type">选项类型.</param>
+		/// <param name="value">选项值.</param>
+		public void SetOuterOptionEditValue ( OptionType type, string value )
+		{
+
+			if ( null == value )
+				return;
+
+			bool isExist = false;
+
+			foreach ( OptionEdit edit in this.OuterOptionEdits )
+				if ( edit.Type == type )
+				{
+					edit.Value = value;
+					isExist = true;
+				}
+
+			if ( !isExist )
+			{
+				OptionEdit edit = new OptionEdit ( );
+				edit.Type = type;
+				edit.Value = value;
+
+				this.OuterOptionEdits.Add ( edit );
+			}
+
+		}
+
+		/// <summary>
+		/// 得到外部 EventEdit 的值.
+		/// </summary>
+		/// <param name="type">事件类型.</param>
+		/// <returns>事件值.</returns>
+		public string GetOuterEventEditValue ( EventType type )
+		{
+
+			foreach ( EventEdit edit in this.OuterEventEdits )
+				if ( edit.Type == type )
+					return edit.Value;
+
+			return string.Empty;
+		}
+
+		/// <summary>
+		/// 设置外部 EventEdit 的值.
+		/// </summary>
+		/// <param name="type">事件类型.</param>
+		/// <param name="value">事件值.</param>
+		public void SetOuterEventEditValue ( EventType type, string value )
+		{
+
+			if ( null == value )
+				return;
+
+			bool isExist = false;
+
+			foreach ( EventEdit edit in this.OuterEventEdits )
+				if ( edit.Type == type )
+				{
+					edit.Value = value;
+					break;
+				}
+
+			if ( !isExist )
+			{
+				EventEdit edit = new EventEdit ( );
+				edit.Type = type;
+				edit.Value = value;
+
+				this.OuterEventEdits.Add ( edit );
+			}
+
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>字符串</returns>
+		public override string ToString ( )
+		{
+			string optionExpression = string.Empty;
+
+			foreach ( OptionEdit edit in this.OuterOptionEdits )
+				if ( edit.Value != string.Empty )
+					optionExpression += string.Format ( "{0}={1}`;", edit.Type, edit.Value );
+
+			optionExpression = "{" + optionExpression + "}`;";
+
+			string eventExpression = string.Empty;
+
+			foreach ( EventEdit edit in this.OuterEventEdits )
+				if ( edit.Value != string.Empty )
+					eventExpression += string.Format ( "{0}={1}`;", edit.Type, edit.Value );
+
+			eventExpression = "{" + eventExpression + "}`;";
+
+			return optionExpression + eventExpression;
+		}
+
+		/// <summary>
+		/// 从字符串转化.
+		/// </summary>
+		/// <param name="expression">字符串.</param>
+		public void FromString ( string expression )
+		{
+
+			if ( string.IsNullOrEmpty ( expression ) )
+				return;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+
+			if ( expressionHelper.ChildCount == 2 )
+			{
+				this.OuterOptionEdits.Clear ( );
+
+				for ( int index = 0; index < expressionHelper[0].ChildCount; index++ )
+				{
+					string[] parts = expressionHelper[0][index].Value.Split ( '=' );
+
+					if ( parts.Length != 2 || parts[1] == string.Empty )
+						continue;
+
+					try
+					{ this.SetOuterOptionEditValue ( ( OptionType ) Enum.Parse ( typeof ( OptionType ), parts[0] ), parts[1] ); }
+					catch { }
+
+				}
+
+				this.OuterEventEdits.Clear ( );
+
+				for ( int index = 0; index < expressionHelper[1].ChildCount; index++ )
+				{
+					string[] parts = expressionHelper[1][index].Value.Split ( '=' );
+
+					if ( parts.Length != 2 || parts[1] == string.Empty )
+						continue;
+
+					try
+					{ this.SetOuterEventEditValue ( ( EventType ) Enum.Parse ( typeof ( EventType ), parts[0] ), parts[1] ); }
+					catch { }
+
+				}
+
+			}
+
+		}
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+			{
+				List<object> optionStates = states[0] as List<object>;
+
+				if ( null != optionStates )
+					for ( int index = 0; index < this.InnerOptionEdits.Count; index++ )
+						if ( index < optionStates.Count )
+							( this.InnerOptionEdits[index] as IStateManager ).LoadViewState ( optionStates[index] );
+						else
+							break;
+
+			}
+
+			if ( states.Count >= 2 )
+			{
+				List<object> eventStates = states[1] as List<object>;
+
+				if ( null != eventStates )
+					for ( int index = 0; index < this.InnerEventEdits.Count; index++ )
+						if ( index < eventStates.Count )
+							( this.InnerEventEdits[index] as IStateManager ).LoadViewState ( eventStates[index] );
+						else
+							break;
+
+			}
+
+			if ( states.Count >= 3 )
+			{
+				List<object> optionStates = states[2] as List<object>;
+
+				if ( null != optionStates )
+					for ( int index = 0; index < this.OuterOptionEdits.Count; index++ )
+						if ( index < optionStates.Count )
+							( this.OuterOptionEdits[index] as IStateManager ).LoadViewState ( optionStates[index] );
+						else
+							break;
+
+			}
+
+			if ( states.Count >= 4 )
+			{
+				List<object> eventStates = states[3] as List<object>;
+
+				if ( null != eventStates )
+					for ( int index = 0; index < this.OuterEventEdits.Count; index++ )
+						if ( index < eventStates.Count )
+							( this.OuterEventEdits[index] as IStateManager ).LoadViewState ( eventStates[index] );
+						else
+							break;
+
+			}
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+
+			List<object> optionStates = new List<object> ( );
+
+			foreach ( OptionEdit edit in this.InnerOptionEdits )
+				optionStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+
+			states.Add ( optionStates );
+
+			List<object> eventStates = new List<object> ( );
+
+			foreach ( EventEdit edit in this.InnerEventEdits )
+				eventStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+
+			states.Add ( eventStates );
+
+			optionStates = new List<object> ( );
+
+			foreach ( OptionEdit edit in this.OuterOptionEdits )
+				optionStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+
+			states.Add ( optionStates );
+
+			eventStates = new List<object> ( );
+
+			foreach ( EventEdit edit in this.OuterEventEdits )
+				eventStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
+
+			states.Add ( eventStates );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
 
 }
 // ../.class/ui/jqueryui/JQueryScript.cs
@@ -4269,7 +9926,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		refreshPositions = 17,
 
 		/// <summary>
-		/// 恢复原始状态, 对应一个 javascript 布尔值.
+		/// 恢复原始状态, 对应一个 javascript 布尔值, 或者恢复的毫秒数.
 		/// </summary>
 		revert = 18,
 
@@ -5273,6 +10930,18 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 在定义后执行.
 		/// </summary>
 		__init,
+		/// <summary>
+		/// 开始时.
+		/// </summary>
+		start,
+		/// <summary>
+		/// 停止时.
+		/// </summary>
+		stop,
+		/// <summary>
+		/// 发送时.
+		/// </summary>
+		send
 	}
 	#endregion
 

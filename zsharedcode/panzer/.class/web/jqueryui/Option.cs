@@ -109,7 +109,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		refreshPositions = 17,
 
 		/// <summary>
-		/// 恢复原始状态, 对应一个 javascript 布尔值.
+		/// 恢复原始状态, 对应一个 javascript 布尔值, 或者恢复的毫秒数.
 		/// </summary>
 		revert = 18,
 

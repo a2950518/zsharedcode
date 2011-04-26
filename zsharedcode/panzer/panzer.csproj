@@ -70,6 +70,7 @@
     <Compile Include=".class\ui\jqueryui\OptionEdit.cs" />
     <Compile Include=".class\ui\jqueryui\DraggableSettingEdit.cs" />
     <Compile Include=".class\ui\jqueryui\DroppableSettingEdit.cs" />
+    <Compile Include=".class\ui\jqueryui\SettingEditHelper.cs" />
     <Compile Include=".class\ui\jqueryui\SortableSettingEdit.cs" />
     <Compile Include=".class\ui\jqueryui\SelectableSettingEdit.cs" />
     <Compile Include=".class\ui\jqueryui\ResizableSettingEdit.cs" />
