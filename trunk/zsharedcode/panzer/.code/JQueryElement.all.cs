@@ -9532,7 +9532,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			string optionExpression = "{";
 
 			foreach ( Option option in options )
-				if ( null != option && option.Type != OptionType.none )
+				if ( null != option && option.Type != OptionType.none && option.Value != string.Empty )
 					optionExpression += string.Format ( " {0}: {1},", option.Type, option.Value );
 
 			return optionExpression.TrimEnd ( ',' ) + " }";
@@ -9547,7 +9547,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			string parameterExpression = "{";
 
 			foreach ( Parameter parameter in parameters )
-				if ( null != parameter )
+				if ( null != parameter && parameter.Value != string.Empty )
 					switch ( parameter.Type )
 					{
 						case ParameterType.Selector:
