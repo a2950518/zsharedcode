@@ -9,6 +9,7 @@
  * */
 
 using System.Reflection;
+using System.Web;
 using System.Web.UI;
 
 namespace zoyobar.shared.panzer.ui.jqueryui
@@ -71,6 +72,14 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 						if ( null != aimControl )
 							result = aimControl.ClientID;
+
+						break;
+
+					case "param":
+
+						try
+						{ result = HttpContext.Current.Request[commandParameter]; }
+						catch{ }
 
 						break;
 
