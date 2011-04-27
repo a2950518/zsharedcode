@@ -160,6 +160,18 @@
     <Compile Include="web\ib\FormIEBrowserDoc.Designer.cs">
       <DependentUpon>FormIEBrowserDoc.cs</DependentUpon>
     </Compile>
+    <Compile Include="web\ib\FormIEBrowserTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="web\ib\FormIEBrowserTest.Designer.cs">
+      <DependentUpon>FormIEBrowserTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="web\ib\FormVCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="web\ib\FormVCode.Designer.cs">
+      <DependentUpon>FormVCode.cs</DependentUpon>
+    </Compile>
     <Compile Include="web\ib\TestIEBrowser.cs" />
     <Compile Include="web\TestHtmlEditHelper.cs" />
   </ItemGroup>
@@ -292,6 +304,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="web\ib\FormIEBrowserDoc.resx">
       <DependentUpon>FormIEBrowserDoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="web\ib\FormIEBrowserTest.resx">
+      <DependentUpon>FormIEBrowserTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="web\ib\FormVCode.resx">
+      <DependentUpon>FormVCode.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
