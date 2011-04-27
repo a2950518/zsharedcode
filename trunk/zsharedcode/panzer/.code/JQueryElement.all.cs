@@ -15,6 +15,7 @@ using zoyobar.shared.panzer.code;
 using System.ComponentModel.Design;
 using NParameter = zoyobar.shared.panzer.web.jqueryui.Parameter;
 using System.Reflection;
+using System.Web;
 using NControl = System.Web.UI.Control;
 // ../.class/ui/jqueryui/JQueryElement.cs
 /*
@@ -9061,6 +9062,14 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 						if ( null != aimControl )
 							result = aimControl.ClientID;
+
+						break;
+
+					case "param":
+
+						try
+						{ result = HttpContext.Current.Request[commandParameter]; }
+						catch{ }
 
 						break;
 
