@@ -3,14 +3,6 @@
 <font face="microsoft yahei">
 === 代码 ===
 {{{
-<%--
-wiki 成员参考:
-http://code.google.com/p/zsharedcode/wiki/JQueryElement
-wiki 分析&示例:
-http://code.google.com/p/zsharedcode/wiki/JEAccordionEventDoc
-JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/zsharedcode/.
-所有项目源码托管地址: http://panzer.codeplex.com/.
---%>
 <%@ Page Language="C#" %>
 <%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
 
@@ -26,23 +18,39 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 	<form id="formJE" runat="server">
 	<je:JQueryElement ID="je" runat="server" ElementType="Div">
 		<WidgetSetting Type="accordion">
+			<%-- 2.3 之前版本的格式
 			<Options>
 				<je:OptionEdit Type="change" Value="function(event, ui){$('#message').html('改变');}" />
 			</Options>
+			--%>
+			<AccordionSetting Change="
+			function(event, ui){
+				$('#message').html('当前展开的为第 ' + (ui.options.active + 1) + ' 个列表');
+			}
+			"
+			Changestart="
+			function(event, ui){
+				$('#message').html('切换第 ' + (ui.options.active + 1) + ' 个列表');
+			}
+			"></AccordionSetting>
 		</WidgetSetting>
 		<Html>
-			<h3><a href="#">第一章</a></h3>
-			<div>第一节</div>
-			<h3><a href="#">第二章</a></h3>
-			<div>第二节</div>
-			<h3><a href="#">第三章</a></h3>
-			<div>第三节</div>
-			<h3><a href="#">第四章</a></h3>
-			<div>第四节</div>
+			<h1><a href="#">简介</a></h1>
+			<div><strong>accordion</strong> 是可以折叠的列表.</div>
+			<h1><a href="#">开始</a></h1>
+			<div>设置 WidgetSetting 为 accordion, 并添加 AccordionSetting 设置 Change, Changestart 属性.</div>
+			<h1><a href="#">总结</a></h1>
+			<div>点击列表, 将显示信息.</div>
 		</Html>
 	</je:JQueryElement>
-	<div id="message"></div>
-	<p>讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程)</p>
+	<p id="message"></p>
+	<p style="font-size: smaller; text-align: right;">版本 2.4, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<p style="font-size: smaller; text-align: right;">
+		<a href="http://code.google.com/p/zsharedcode/wiki/JEAccordionEventDoc">代码解释说明</a>
+		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
+		JE 是 panzer 项目的一部分, 您可以参考 <a href="http://code.google.com/p/zsharedcode/">http://code.google.com/p/zsharedcode/</a>.<br />
+		所有示例源码托管地址: <a href="http://panzer.codeplex.com/">http://panzer.codeplex.com/</a>.
+	</p>
 	</form>
 </body>
 </html>
@@ -52,7 +60,11 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
 
 === 说明 ===
- 设置 [JQueryElement JQueryElement] 的 WidgetSetting 添加 Type 属性为 change, Value 属性为 javascript 函数的 [JQueryUIOptionEdit OptionEdit], 为列表添加选择时的事件.
+ AccordionSetting 的 Change 属性表示列表切换完成时的事件, Changestart 表示列表切换开始前的事件.
+
+ 对于 2.3 之前的版本, 设置 [JQueryElement JQueryElement] 的 WidgetSetting 添加 Type 属性为 change, Value 属性为 javascript 函数的 [JQueryUIOptionEdit OptionEdit], 为列表添加选择时的事件.
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+*注意:* 可以将 javascript 事先写好, 然后在属性中引用.
 </font>
