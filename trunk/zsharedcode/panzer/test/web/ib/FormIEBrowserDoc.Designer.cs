@@ -37,6 +37,11 @@
 			this.cmdFlowNWPC = new System.Windows.Forms.Button ( );
 			this.cmdExecuteJQuery = new System.Windows.Forms.Button ( );
 			this.cmd163Blog = new System.Windows.Forms.Button ( );
+			this.cmdNoConflict = new System.Windows.Forms.Button ( );
+			this.cmdCopyImage = new System.Windows.Forms.Button ( );
+			this.pictureBox = new System.Windows.Forms.PictureBox ( );
+			this.cmdDZ = new System.Windows.Forms.Button ( );
+			( ( System.ComponentModel.ISupportInitialize ) ( this.pictureBox ) ).BeginInit ( );
 			this.SuspendLayout ( );
 			// 
 			// webBrowser
@@ -124,16 +129,59 @@
 			this.cmd163Blog.Name = "cmd163Blog";
 			this.cmd163Blog.Size = new System.Drawing.Size ( 130, 23 );
 			this.cmd163Blog.TabIndex = 1;
-			this.cmd163Blog.Text = "页面载入跳转";
+			this.cmd163Blog.Text = "发布 163 日志";
 			this.cmd163Blog.UseVisualStyleBackColor = true;
 			this.cmd163Blog.Click += new System.EventHandler ( this.cmd163Blog_Click );
+			// 
+			// cmdNoConflict
+			// 
+			this.cmdNoConflict.Location = new System.Drawing.Point ( 268, 244 );
+			this.cmdNoConflict.Name = "cmdNoConflict";
+			this.cmdNoConflict.Size = new System.Drawing.Size ( 130, 23 );
+			this.cmdNoConflict.TabIndex = 1;
+			this.cmdNoConflict.Text = "解决 $ 定义冲突";
+			this.cmdNoConflict.UseVisualStyleBackColor = true;
+			this.cmdNoConflict.Click += new System.EventHandler ( this.cmdNoConflict_Click );
+			// 
+			// cmdCopyImage
+			// 
+			this.cmdCopyImage.Location = new System.Drawing.Point ( 430, 12 );
+			this.cmdCopyImage.Name = "cmdCopyImage";
+			this.cmdCopyImage.Size = new System.Drawing.Size ( 130, 23 );
+			this.cmdCopyImage.TabIndex = 2;
+			this.cmdCopyImage.Text = "复制并获取图片";
+			this.cmdCopyImage.UseVisualStyleBackColor = true;
+			this.cmdCopyImage.Click += new System.EventHandler ( this.cmdCopyImage_Click );
+			// 
+			// pictureBox
+			// 
+			this.pictureBox.Location = new System.Drawing.Point ( 430, 43 );
+			this.pictureBox.Name = "pictureBox";
+			this.pictureBox.Size = new System.Drawing.Size ( 130, 50 );
+			this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+			this.pictureBox.TabIndex = 3;
+			this.pictureBox.TabStop = false;
+			// 
+			// cmdDZ
+			// 
+			this.cmdDZ.Location = new System.Drawing.Point ( 430, 99 );
+			this.cmdDZ.Name = "cmdDZ";
+			this.cmdDZ.Size = new System.Drawing.Size ( 130, 23 );
+			this.cmdDZ.TabIndex = 2;
+			this.cmdDZ.Text = "在 DZ 论坛发帖";
+			this.cmdDZ.UseVisualStyleBackColor = true;
+			this.cmdDZ.Click += new System.EventHandler ( this.cmdDZ_Click );
 			// 
 			// FormIEBrowserDoc
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF ( 6F, 12F );
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size ( 572, 324 );
+			this.Controls.Add ( this.pictureBox );
+			this.Controls.Add ( this.cmdDZ );
+			this.Controls.Add ( this.cmdCopyImage );
 			this.Controls.Add ( this.cmdExecuteJQuery );
+			this.Controls.Add ( this.cmdNoConflict );
 			this.Controls.Add ( this.cmd163Blog );
 			this.Controls.Add ( this.cmdFlowNWPC );
 			this.Controls.Add ( this.cmdInvokeJavascript );
@@ -144,6 +192,7 @@
 			this.Controls.Add ( this.webBrowser );
 			this.Name = "FormIEBrowserDoc";
 			this.Text = "FormIEBrowserDoc";
+			( ( System.ComponentModel.ISupportInitialize ) ( this.pictureBox ) ).EndInit ( );
 			this.ResumeLayout ( false );
 
 		}
@@ -159,5 +208,9 @@
 		private System.Windows.Forms.Button cmdFlowNWPC;
 		private System.Windows.Forms.Button cmdExecuteJQuery;
 		private System.Windows.Forms.Button cmd163Blog;
+		private System.Windows.Forms.Button cmdNoConflict;
+		private System.Windows.Forms.Button cmdCopyImage;
+		private System.Windows.Forms.PictureBox pictureBox;
+		private System.Windows.Forms.Button cmdDZ;
 	}
 }

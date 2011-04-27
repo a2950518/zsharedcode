@@ -244,6 +244,204 @@ namespace zoyobar.shared.panzer.test.web.ib
 			ie.ExecuteScript ( "document.getElementById('fb').click();" );
 		}
 
+		private void cmdNoConflict_Click ( object sender, EventArgs e )
+		{
+			// 从当前的 WebBrowser 控件创建 IEBrowser 对象.
+			IEBrowser ie = new IEBrowser ( this.webBrowser );
+
+			// 导航到页面 http://nt.discuz.net/, 此页面中已经定义了 $, 将和 jquery 的 $ 冲突.
+			ie.Navigate ( "http://nt.discuz.net/" );
+
+			// 等待 5 秒钟, 以便页面载入完毕.
+			ie.IEFlow.Wait ( 5 );
+
+			// 安装跟踪脚本, 这可以执行更多的 jquery 操作.
+			ie.InstallTrace ( );
+
+			// 安装资源中的 jquery 脚本.
+			ie.InstallScript ( Properties.Resources.jquery_1_5_2_min );
+
+			// 解除 jquery 的 $ 定义, 但仍然可以只用 jQuery 定义.
+			ie.ExecuteJQuery ( JQuery.Create ( false, true ).NoConflict ( ) );
+
+			// 执行 jquery 脚本 jQuery('*').length, 获得页面上总元素个数.
+			Console.WriteLine ( "页面上共有 {0} 个元素", ie.ExecuteJQuery ( JQuery.Create ( "'*'", false ).Length ( ) ) );
+		}
+
+		private void cmdCopyImage_Click ( object sender, EventArgs e )
+		{
+			// 从当前的 WebBrowser 控件创建 IEBrowser 对象.
+			IEBrowser ie = new IEBrowser ( this.webBrowser );
+
+			// 导航到页面 http://www.google.com.hk/imghp.
+			ie.Navigate ( "http://www.google.com.hk/imghp" );
+
+			// 等待 5 秒钟, 以便页面载入完毕.
+			ie.IEFlow.Wait ( 5 );
+
+			// 获取 id 为 hplogo 的 img 的图片.
+			this.pictureBox.Image = ie.CopyImage ( "'hplogo'" );
+		}
+
+		private void cmdDZ_Click ( object sender, EventArgs e )
+		{
+			Discuz ( new IEBrowser ( this.webBrowser ), "xueyu_zyc", "ads123", "http://nt.discuz.net/", "测试", "你好<br />" );
+		}
+
+		public static void Discuz ( IEBrowser ie, string userName, string password, string url, string title, string content )
+		{
+
+			// 导航到页面 dz 论坛的页面.
+			ie.Navigate ( url );
+
+			// 等待 10 秒钟, 以便页面载入完毕.
+			ie.IEFlow.Wait ( 10 );
+
+			// 安装跟踪脚本, 这可以执行更多的 jquery 操作.
+			ie.InstallTrace ( );
+
+			// 安装资源中的 jquery 脚本.
+			ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+
+			// 解除 jquery 的 $ 定义, 但仍然可以只用 jQuery 定义.
+			ie.ExecuteJQuery ( JQuery.Create ( false, true ).NoConflict ( ) );
+
+			// 安装 javascript 函数 clickLink, 根据超链接的文本点击超链接.
+			ie.InstallScript (
+				"function clickLink(text) {" +
+				"	links = document.getElementsByTagName('a');" +
+				"	for(var index = 0; index < links.length; index++)" +
+				"	{" +
+				"		if(links[index].innerText == text)" +
+				"		{" +
+				"			links[index].click();" +
+				"			break;" +
+				"		}" +
+				"	}" +
+				"}"
+				);
+
+			// 是否存在已经登录后显示的短消息.
+			if ( ie.ExecuteJQuery<int> ( JQuery.Create ( "'#pm_ntc'", false ).Length ( ) ) == 1 )
+			{
+				// 调用 javascript 函数 clickLink, 模拟点击退出链接.
+				ie.InvokeScript ( "clickLink", new object[] { "退出" } );
+
+				// 等待 3 秒钟, 以便退出完毕.
+				ie.IEFlow.Wait ( 3 );
+
+				// 重新调用自身.
+				Discuz ( ie, userName, password, url, title, content );
+				return;
+			}
+
+			// 设置用户名.
+			ie.ExecuteJQuery ( JQuery.Create ( "'#ls_username'", false ).Val ( "'"+userName+"'" ) );
+
+			// 设置密码.
+			ie.ExecuteJQuery ( JQuery.Create ( "'#ls_password'", false ).Val ( "'"+password+"'" ) );
+
+			// 密码框获得焦点.
+			ie.ExecuteJQuery ( JQuery.Create ( "'#ls_password'", false ).Focus ( ) );
+
+			// 等待 5 秒钟以显示验证码.
+			ie.IEFlow.Wait ( 5 );
+
+			// 获取验证码并显示给用户输入.
+			FormVCode vCodeWindow = new FormVCode (  );
+			vCodeWindow.Image = ie.CopyImage ( "'vcodeimg1'" );
+
+			// 用户是否确认.
+			if ( vCodeWindow.ShowDialog ( ) == DialogResult.OK )
+			{
+				// 验证码框获得焦点.
+				ie.ExecuteJQuery ( JQuery.Create ( "'#vcodetext_header1'", false ).Focus ( ) );
+				
+				// 填写验证码并多加 1.
+				ie.ExecuteJQuery ( JQuery.Create ( "'#vcodetext_header1'", false ).Val ( "'" + vCodeWindow.VCode + "1'" ) );
+
+				// 模拟一个退格键, 删除掉 1.
+				SendKeys.Send ( "{Backspace}" );
+
+				// 等待 2 秒.
+				ie.IEFlow.Wait ( 2 );
+
+				// 登录框提交.
+				ie.ExecuteJQuery ( JQuery.Create ( "'#lsform'", false ).Submit() );
+
+				// 等待 5 秒, 以便登录完成.
+				ie.IEFlow.Wait ( 5 );
+
+				// 是否是验证码错误.
+				if ( ie.ExecuteJQuery<int> ( JQuery.Create ( "'p:contains(验证码错误)'", false ).Length ( ) ) == 1 )
+				{
+					// 验证码错误重新登录.
+					Discuz ( ie, userName, password, url, title, content );
+					return;
+				}
+
+			TOPIC:
+				// 随机导航至某一话题.
+				ie.Navigate ( "http://nt.discuz.net/showtopic-" + new Random ( ).Next ( 11000, 18000 ).ToString() + ".html" );
+
+				// 等待 5 秒, 以便页面完成.
+				ie.IEFlow.Wait ( 5 );
+
+				// 安装 jquery 脚本的一系列操作.
+				ie.InstallTrace ( );
+				ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+				ie.ExecuteJQuery ( JQuery.Create ( false, true ).NoConflict ( ) );
+
+				// 话题不存在则重新选择.
+				if ( ie.ExecuteJQuery<int> ( JQuery.Create ( "'p:contains(该主题不存在)'", false ).Length ( ) ) == 1 )
+					goto TOPIC;
+
+				// 切换源码编辑方式.
+				ie.InvokeScript ( "clickLink", new object[] { "Code" } );
+
+				// 填写内容.
+				ie.ExecuteJQuery ( JQuery.Create ( "'#quickpostmessage'", false ).Val ( "'" + content + "'" ) );
+
+				// 验证码框获得焦点.
+				ie.ExecuteJQuery ( JQuery.Create ( "'#vcodetext1'", false ).Focus ( ) );
+
+				// 等待 5 秒钟以显示验证码.
+				ie.IEFlow.Wait ( 3 );
+
+				// 获取验证码并显示给用户输入.
+				vCodeWindow = new FormVCode ( );
+				vCodeWindow.Image = ie.CopyImage ( "'vcodeimg1'" );
+
+				// 用户是否确认.
+				if ( vCodeWindow.DialogResult == DialogResult.OK )
+				{
+					// 填写验证码并多加1.
+					ie.ExecuteJQuery ( JQuery.Create ( "'#vcodetext1'", false ).Val ( "'" + vCodeWindow.VCode + "1'" ) );
+
+					// 模拟一个退格键, 删除掉 1.
+					SendKeys.Send ( "{Backspace}" );
+
+					// 等待 2 秒.
+					ie.IEFlow.Wait ( 3 );
+
+					// 提交.
+					ie.ExecuteJQuery ( JQuery.Create ( "'#quickpostsubmit'", false ).Click ( ) );
+				}
+				else
+				{
+					Discuz ( ie, userName, password, url, title, content );
+					return;
+				}
+
+			}
+			else
+			{
+				Discuz ( ie, userName, password, url, title, content );
+				return;
+			}
+
+		}
+
 	}
 
 }

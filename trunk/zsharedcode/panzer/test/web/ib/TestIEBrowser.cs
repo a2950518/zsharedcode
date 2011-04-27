@@ -25,6 +25,7 @@ namespace zoyobar.shared.panzer.test.web
 			//new ib.FormIEBrowser2 ( ).ShowDialog ( );
 			//new ib.FormIEBrowser3 ( ).ShowDialog ( );
 			new ib.FormIEBrowserDoc ( ).ShowDialog ( );
+			//new ib.FormIEBrowserTest ( ).ShowDialog ( );
 		}
 
 
