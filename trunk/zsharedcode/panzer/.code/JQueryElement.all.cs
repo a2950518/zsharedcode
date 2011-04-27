@@ -9040,20 +9040,20 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 				string expression = code.Substring ( beginIndex, endIndex - beginIndex + 2 );
 
-				string command = expression.Replace ( "[%", string.Empty ).Replace ( "%]", string.Empty ).Trim();
+				string command = expression.Replace ( "[%", string.Empty ).Replace ( "%]", string.Empty ).Trim ( );
 
-				beginIndex = command.IndexOf(':');
+				beginIndex = command.IndexOf ( ':' );
 
-				if(beginIndex <= 0 || beginIndex == command.Length - 1)
+				if ( beginIndex <= 0 || beginIndex == command.Length - 1 )
 					break;
 
-				string commandName = command.Substring ( 0, beginIndex ).Trim ( ).ToLower();
+				string commandName = command.Substring ( 0, beginIndex ).Trim ( ).ToLower ( );
 				string commandParameter = command.Substring ( beginIndex + 1 ).Trim ( );
 
 				if ( commandName == string.Empty || commandParameter == string.Empty )
 					break;
 
-				string result = string.Empty;
+				string result = null;
 
 				switch ( commandName )
 				{
@@ -9069,7 +9069,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 						try
 						{ result = HttpContext.Current.Request[commandParameter]; }
-						catch{ }
+						catch { }
 
 						break;
 
@@ -9093,13 +9093,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 							else
 								result = methodInfo.Invoke ( currentControl, null ) as string;
 
-						if ( null == result )
-							result = string.Empty;
-
 						break;
 				}
 
-				code = code.Replace ( expression, result );
+				code = code.Replace ( expression, string.IsNullOrEmpty ( result ) ? "null" : result );
 			}
 
 			return code;
