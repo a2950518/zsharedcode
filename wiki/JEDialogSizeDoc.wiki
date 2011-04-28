@@ -3,15 +3,6 @@
 <font face="microsoft yahei">
 === 代码 ===
 {{{
-<%--
-wiki 成员参考:
-http://code.google.com/p/zsharedcode/wiki/JQueryElement
-wiki 分析&示例:
-http://code.google.com/p/zsharedcode/wiki/JEDialogSizeDoc
-JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/zsharedcode/.
-所有项目源码托管地址: http://panzer.codeplex.com/.
---%>
-
 <%@ Page Language="C#" %>
 
 <%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
@@ -28,6 +19,7 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 	<je:JQueryElement ID="je" runat="server" ElementType="Div" Attribute="title=对话框">
 		<Html>你好, 世界!!!</Html>
 		<WidgetSetting Type="dialog">
+			<%-- 2.3 之前版本的格式
 			<Options>
 				<je:OptionEdit Type="height" Value="200" />
 				<je:OptionEdit Type="width" Value="300" />
@@ -36,9 +28,17 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 				<je:OptionEdit Type="minHeight" Value="50" />
 				<je:OptionEdit Type="minWidth" Value="60" />
 			</Options>
+			--%>
+			<DialogSetting Height="200" Width="300" MaxHeight="300" MaxWidth="400" MinHeight="100" MinWidth="100"></DialogSetting>
 		</WidgetSetting>
 	</je:JQueryElement>
-	<p>讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程)</p>
+	<p style="font-size: smaller; text-align: right;">版本 2.4, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<p style="font-size: smaller; text-align: right;">
+		<a href="http://code.google.com/p/zsharedcode/wiki/JEDialogSizeDoc">代码解释说明</a>
+		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
+		JE 是 panzer 项目的一部分, 您可以参考 <a href="http://code.google.com/p/zsharedcode/">http://code.google.com/p/zsharedcode/</a>.<br />
+		所有示例源码托管地址: <a href="http://panzer.codeplex.com/">http://panzer.codeplex.com/</a>.
+	</p>
 	</form>
 </body>
 </html>
@@ -48,9 +48,11 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
 
 === 说明 ===
- 设置 [JQueryElement JQueryElement] 的 WidgetSetting 添加 Type 属性为 height, width, Value 属性为数值的 [JQueryUIOptionEdit OptionEdit], 指定对话框的大小.
+ DialogSetting 的 Width, Height, MaxWidth, MaxHeight, MinWidth, MinHeight 属性分别可以设置对话框的尺寸, 以及最大最小尺寸.
 
- 设置 [JQueryElement JQueryElement] 的 WidgetSetting 添加 Type 属性为 maxHeight, maxWidth, minHeight, minWidth, Value 属性为数值的 [JQueryUIOptionEdit OptionEdit], 指定对话框的最大尺寸和最小尺寸.
+ 对于 2.3 之前的版本, 设置 [JQueryElement JQueryElement] 的 WidgetSetting 添加 Type 属性为 height, width, Value 属性为数值的 [JQueryUIOptionEdit OptionEdit], 指定对话框的大小.
+
+ 对于 2.3 之前的版本, 设置 [JQueryElement JQueryElement] 的 WidgetSetting 添加 Type 属性为 maxHeight, maxWidth, minHeight, minWidth, Value 属性为数值的 [JQueryUIOptionEdit OptionEdit], 指定对话框的最大尺寸和最小尺寸.
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
 </font>

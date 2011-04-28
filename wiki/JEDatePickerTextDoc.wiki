@@ -3,15 +3,6 @@
 <font face="microsoft yahei">
 === 代码 ===
 {{{
-<%--
-wiki 成员参考:
-http://code.google.com/p/zsharedcode/wiki/JQueryElement
-wiki 分析&示例:
-http://code.google.com/p/zsharedcode/wiki/JEDatePickerTextDoc
-JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/zsharedcode/.
-所有项目源码托管地址: http://panzer.codeplex.com/.
---%>
-
 <%@ Page Language="C#" %>
 
 <%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
@@ -27,6 +18,7 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 	<form id="formJE" runat="server">
 	<je:JQueryElement ID="je" runat="server" ElementType="Div">
 		<WidgetSetting Type="datepicker">
+			<%-- 2.3 之前版本的格式
 			<Options>
 				<je:OptionEdit Type="showButtonPanel" Value="true" />
 				<je:OptionEdit Type="currentText" Value="'今天'" />
@@ -36,9 +28,17 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 				<je:OptionEdit Type="monthNames" Value="['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']" />
 				<je:OptionEdit Type="monthNamesShort" Value="['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']" />
 			</Options>
+			--%>
+			<DatepickerSetting ShowButtonPanel="true" CurrentText="'今天'" DayNames="['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']" DayNamesMin="['日', '一', '二', '三', '四', '五', '六']" DayNamesShort="['周日', '周一', '周二', '周三', '周四', '周五', '周六']" MonthNames="['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']" MonthNamesShort="['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']"></DatepickerSetting>
 		</WidgetSetting>
 	</je:JQueryElement>
-	<p>讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程)</p>
+	<p style="font-size: smaller; text-align: right;">版本 2.4, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<p style="font-size: smaller; text-align: right;">
+		<a href="http://code.google.com/p/zsharedcode/wiki/JEDatePickerTextDoc">代码解释说明</a>
+		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
+		JE 是 panzer 项目的一部分, 您可以参考 <a href="http://code.google.com/p/zsharedcode/">http://code.google.com/p/zsharedcode/</a>.<br />
+		所有示例源码托管地址: <a href="http://panzer.codeplex.com/">http://panzer.codeplex.com/</a>.
+	</p>
 	</form>
 </body>
 </html>
@@ -48,9 +48,13 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
 
 === 说明 ===
- 设置 [JQueryElement JQueryElement] 的 WidgetSetting 添加 Type 属性为 dayNames, dayNamesMin, dayNamesShort, monthNames, monthNamesShort, Value 属性为数组的 [JQueryUIOptionEdit OptionEdit], 指定日期框的周和月的显示名称.
+ DatepickerSetting 的 DayNames, DayNamesMin, DayNamesShort, MonthNames, MonthNamesShort 属性分别表示日期框天和月份的各种显示名称.
 
- 设置 [JQueryElement JQueryElement] 的 WidgetSetting 添加 Type 属性为 currentText, Value 属性为字符串的 [JQueryUIOptionEdit OptionEdit], 指定今天按钮的文本.
+ DatepickerSetting 的 CurrentText 属性则表示今天按钮的文本.
+
+ 对于 2.3 之前的版本, 设置 [JQueryElement JQueryElement] 的 WidgetSetting 添加 Type 属性为 dayNames, dayNamesMin, dayNamesShort, monthNames, monthNamesShort, Value 属性为数组的 [JQueryUIOptionEdit OptionEdit], 指定日期框的周和月的显示名称.
+
+ 对于 2.3 之前的版本, 设置 [JQueryElement JQueryElement] 的 WidgetSetting 添加 Type 属性为 currentText, Value 属性为字符串的 [JQueryUIOptionEdit OptionEdit], 指定今天按钮的文本.
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
 </font>
