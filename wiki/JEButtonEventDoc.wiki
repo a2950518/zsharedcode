@@ -3,15 +3,6 @@
 <font face="microsoft yahei">
 === 代码 ===
 {{{
-<%--
-wiki 成员参考:
-http://code.google.com/p/zsharedcode/wiki/JQueryElement
-wiki 分析&示例:
-http://code.google.com/p/zsharedcode/wiki/JEButtonEventDoc
-JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/zsharedcode/.
-所有项目源码托管地址: http://panzer.codeplex.com/.
---%>
-
 <%@ Page Language="C#" %>
 
 <%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
@@ -27,6 +18,7 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 	<form id="formJE" runat="server">
 	<je:JQueryElement ID="je" runat="server" ElementType="Div">
 		<WidgetSetting Type="button">
+			<%-- 2.3 之前版本的格式
 			<Options>
 				<je:OptionEdit Type="label" Value="'click me!'" />
 			</Options>
@@ -34,10 +26,23 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 				<je:EventEdit Type="click" Value="function(){alert();}" />
 				<je:EventEdit Type="mouseover" Value="function(){$('#message').text('mouse over');}" />
 			</Events>
+			--%>
+			<ButtonSetting Label="'click me!'">
+				<Events>
+					<je:EventEdit Type="click" Value="function(){alert('hello!');}" />
+					<je:EventEdit Type="mouseover" Value="function(){$('#message').text('鼠标滑过!!!');}" />
+				</Events>
+			</ButtonSetting>
 		</WidgetSetting>
 	</je:JQueryElement>
-	<div id="message"></div>
-	<p>讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程)</p>
+	<p id="message"></p>
+	<p style="font-size: smaller; text-align: right;">版本 2.4, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<p style="font-size: smaller; text-align: right;">
+		<a href="http://code.google.com/p/zsharedcode/wiki/JEButtonEventDoc">代码解释说明</a>
+		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
+		JE 是 panzer 项目的一部分, 您可以参考 <a href="http://code.google.com/p/zsharedcode/">http://code.google.com/p/zsharedcode/</a>.<br />
+		所有示例源码托管地址: <a href="http://panzer.codeplex.com/">http://panzer.codeplex.com/</a>.
+	</p>
 	</form>
 </body>
 </html>
@@ -47,7 +52,11 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
 
 === 说明 ===
- 设置 [JQueryElement JQueryElement] 的 WidgetSetting 添加 Type 属性为 click, mouseover, Value 属性为 javascript 函数的 [JQueryUIEventEdit EventEdit], 为按钮添加点击, 鼠标滑过时的事件.
+ ButtonSetting 的属性中并没有提供更多的按钮事件, 但你可以通过 EventEdit 来添加点击等事件.
+
+ 对于 2.3 之前的版本, 设置 [JQueryElement JQueryElement] 的 WidgetSetting 添加 Type 属性为 click, mouseover, Value 属性为 javascript 函数的 [JQueryUIEventEdit EventEdit], 为按钮添加点击, 鼠标滑过时的事件.
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+*注意:* 可以将 javascript 事先写好, 然后在属性中引用.
 </font>
