@@ -3,15 +3,6 @@
 <font face="microsoft yahei">
 === login/Default.aspx 代码 ===
 {{{
-<%--
-wiki 成员参考:
-http://code.google.com/p/zsharedcode/wiki/JQueryElement
-wiki 分析&示例:
-http://code.google.com/p/zsharedcode/wiki/JESLoginDoc
-JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/zsharedcode/.
-所有项目源码托管地址: http://panzer.codeplex.com/.
---%>
-
 <%@ Page Language="C#" %>
 
 <%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
@@ -21,7 +12,7 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 </script>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-	<title>登录</title>
+	<title>登录 - JQueryElement 示例</title>
 	<link rel="stylesheet" href="../../css/ui-lightness/jquery-ui-1.8.11.custom.css" />
 	<script type="text/javascript" src="../../js/jquery-1.5.1.min.js"></script>
 	<script type="text/javascript" src="../../js/jquery-ui-1.8.11.custom.min.js"></script>
@@ -32,19 +23,28 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 	<input id="password" type="password" />
 	<je:JQueryElement ID="je" runat="server" ElementType="Div">
 		<WidgetSetting Type="button">
+			<%-- 2.3 之前版本的格式
 			<Options>
 				<je:OptionEdit Type="label" Value="'登录'" />
 			</Options>
+			--%>
+			<ButtonSetting Label="'登录'">
+				<Events>
+					<je:EventEdit Type="click" Value="function(){$('#message').text('登录中...').css('color', '#0000ff');}" />
+				</Events>
+			</ButtonSetting>
 			<AjaxSettings>
-				<je:AjaxSettingEdit DataType="json" Url="../student/Login.ashx" WidgetEventType="click">
+				<je:AjaxSettingEdit DataType="json" Url="../student/Login.ashx" WidgetEventType="click" Error="loginError" Success="loginSuccess">
 					<Parameters>
 						<je:ParameterEdit Name="n" Type="Selector" Value="'#name'" />
 						<je:ParameterEdit Name="pw" Type="Selector" Value="'#password'" />
 					</Parameters>
+					<%-- 2.3 之前版本的格式
 					<Events>
 						<je:EventEdit Type="error" Value="loginError" />
 						<je:EventEdit Type="success" Value="loginSuccess" />
 					</Events>
+					--%>
 				</je:AjaxSettingEdit>
 			</AjaxSettings>
 		</WidgetSetting>
@@ -111,7 +111,13 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 		</script>
 		</Html>
 	</je:JQueryScript>
-	<p>讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程)</p>
+	<p style="font-size: smaller; text-align: right;">版本 2.4, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<p style="font-size: smaller; text-align: right;">
+		<a href="http://code.google.com/p/zsharedcode/wiki/JESLoginDoc">代码解释说明</a>
+		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
+		JE 是 panzer 项目的一部分, 您可以参考 <a href="http://code.google.com/p/zsharedcode/">http://code.google.com/p/zsharedcode/</a>.<br />
+		所有示例源码托管地址: <a href="http://panzer.codeplex.com/">http://panzer.codeplex.com/</a>.
+	</p>
 	</form>
 </body>
 </html>

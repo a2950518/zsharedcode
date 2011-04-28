@@ -3,15 +3,6 @@
 <font face="microsoft yahei">
 === register/Default.aspx 代码 ===
 {{{
-<%--
-wiki 成员参考:
-http://code.google.com/p/zsharedcode/wiki/JQueryElement
-wiki 分析&示例:
-http://code.google.com/p/zsharedcode/wiki/JESRegisterDoc
-JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/zsharedcode/.
-所有项目源码托管地址: http://panzer.codeplex.com/.
---%>
-
 <%@ Page Language="C#" %>
 
 <%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
@@ -34,10 +25,12 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 		<WidgetSetting Type="empty">
 			<AjaxSettings>
 				<je:AjaxSettingEdit WidgetEventType="change" Url="../student/CheckUserName.ashx"
-					DataType="json">
+					DataType="json" Success="checkUserName">
+					<%-- 2.3 之前版本的格式
 					<Events>
 						<je:EventEdit Type="success" Value="checkUserName" />
 					</Events>
+					--%>
 					<Parameters>
 						<je:ParameterEdit Name="n" Type="Selector" Value="'#[%id:txtUserName%]'" />
 					</Parameters>
@@ -54,10 +47,12 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 		<WidgetSetting Type="empty">
 			<AjaxSettings>
 				<je:AjaxSettingEdit WidgetEventType="change" Url="../student/CheckPassword.ashx"
-					DataType="json">
+					DataType="json" Success="checkPassword">
+					<%-- 2.3 之前版本的格式
 					<Events>
 						<je:EventEdit Type="success" Value="checkPassword" />
 					</Events>
+					--%>
 					<Parameters>
 						<je:ParameterEdit Name="pw" Type="Selector" Value="'#[%id:txtPassword%]'" />
 					</Parameters>
@@ -73,10 +68,12 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 		CssClass="ui-widget">
 		<WidgetSetting Type="empty">
 			<AjaxSettings>
-				<je:AjaxSettingEdit WidgetEventType="change" Url="../student/CheckEMail.ashx" DataType="json">
+				<je:AjaxSettingEdit WidgetEventType="change" Url="../student/CheckEMail.ashx" DataType="json" Success="checkEMail">
+					<%-- 2.3 之前版本的格式
 					<Events>
 						<je:EventEdit Type="success" Value="checkEMail" />
 					</Events>
+					--%>
 					<Parameters>
 						<je:ParameterEdit Name="em" Type="Selector" Value="'#[%id:txtEMail%]'" />
 					</Parameters>
@@ -89,15 +86,20 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 	<br />
 	<je:JQueryElement ID="cmdRegister" runat="server" ElementType="Div">
 		<WidgetSetting Type="button">
+			<%-- 2.3 之前版本的格式
 			<Options>
 				<je:OptionEdit Type="label" Value="'注册'" />
 				<je:OptionEdit Type="disabled" Value="true" />
 			</Options>
+			--%>
+			<ButtonSetting Label="'注册'" Disabled="true"></ButtonSetting>
 			<AjaxSettings>
-				<je:AjaxSettingEdit WidgetEventType="click" Url="../student/Register.ashx" DataType="json">
+				<je:AjaxSettingEdit WidgetEventType="click" Url="../student/Register.ashx" DataType="json" Success="register">
+					<%-- 2.3 之前版本的格式
 					<Events>
 						<je:EventEdit Type="success" Value="register" />
 					</Events>
+					--%>
 					<Parameters>
 						<je:ParameterEdit Name="n" Type="Selector" Value="'#[%id:txtUserName%]'" />
 						<je:ParameterEdit Name="pw" Type="Selector" Value="'#[%id:txtPassword%]'" />
@@ -248,7 +250,13 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 		</script>
 		</Html>
 	</je:JQueryScript>
-	<p>讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程)</p>
+	<p style="font-size: smaller; text-align: right;">版本 2.4, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<p style="font-size: smaller; text-align: right;">
+		<a href="http://code.google.com/p/zsharedcode/wiki/JESRegisterDoc">代码解释说明</a>
+		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
+		JE 是 panzer 项目的一部分, 您可以参考 <a href="http://code.google.com/p/zsharedcode/">http://code.google.com/p/zsharedcode/</a>.<br />
+		所有示例源码托管地址: <a href="http://panzer.codeplex.com/">http://panzer.codeplex.com/</a>.
+	</p>
 	</form>
 </body>
 </html>
@@ -456,11 +464,12 @@ public class StudentRegister : IHttpHandler
  所有示例代码将在以后加入示例代码 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 提供下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
 
 === 说明 ===
- register/Default.aspx 中的使用 [JQueryElement JQueryElement] 作为用户名, 密码和邮箱的输入框, 当输入框的内容改变时, 我们调用对应的 .ashx 来检查输入的内容是否合法, 以用户名为例, {{{<je:AjaxSettingEdit WidgetEventType="change" Url="../student/CheckUserName.ashx" DataType="json"> ... </je:AjaxSettingEdit>}}}, {{{Url="../student/CheckUserName.ashx"}}} 表示使用 ../student/CheckUserName.ashx 来检查用户名, {{{DataType="json"}}} 表示 CheckUserName.ashx 返回的数据是 json 格式, {{{WidgetEventType="change"}}} 表示当文本框值改变时触发检查.
+ register/Default.aspx 中的使用 [JQueryElement JQueryElement] 作为用户名, 密码和邮箱的输入框, 当输入框的内容改变时, 我们调用对应的 .ashx 来检查输入的内容是否合法, 以用户名为例, {{{<je:AjaxSettingEdit WidgetEventType="change" Url="../student/CheckUserName.ashx" DataType="json" Success="checkUserName"> ... </je:AjaxSettingEdit>}}}, {{{Url="../student/CheckUserName.ashx"}}} 表示使用 ../student/CheckUserName.ashx 来检查用户名, {{{DataType="json"}}} 表示 CheckUserName.ashx 返回的数据是 json 格式, {{{WidgetEventType="change"}}} 表示当文本框值改变时触发检查, {{{Success="checkUserName"}}} 则是用于 json 数据的 javascript 函数.
+
+ 对于 2.3 之前的版本, 通过 {{{<je:EventEdit Type="success" Value="checkUserName" />}}} 完成处理 json 数据, {{{Type="success"}}} 表示返回检查结果后, {{{Value="checkUserName"}}} 表示处理结果的是 javascript 函数 checkUserName, 这里你也可以直接书写 javascript 函数.
 
  当然, 要检查用户名还需要将用户名传递给 CheckUserName.ashx, 我们通过 {{{<je:ParameterEdit Name="n" Type="Selector" Value="'#[%id:txtUserName%]'" />}}} 来传递用户名, {{{Name="n"}}} 表示参数名, 将以如: &n=abc 这样的形式传递, {{{Type="Selector"}}} 表示使用选择器来选择输入用户名的文本框, {{{Value="'#[%id:txtUserName%]'"}}} 是选择用户名文本框的选择器, {{{[%id:txtUserName%]}}} 是内嵌语法, 表示 ID 为 txtUserName 的服务器控件的 ClientID, 这里也就是 [JQueryElement JQueryElement] 表示的用户名文本框的 ClientID.
 
- 最后, 我们需要接收检查的结果, 通过 {{{<je:EventEdit Type="success" Value="checkUserName" />}}} 完成, {{{Type="success"}}} 表示返回检查结果后, {{{Value="checkUserName"}}} 表示处理结果的是 javascript 函数 checkUserName, 这里你也可以直接书写 javascript 函数.
 
  在 js 函数 checkUserName 中, 我们根据 CheckUserName.ashx 返回的 json 来判断和显示结果, json 的结构很简单只有一个 result 属性, 函数的最后 {{{isUserNameOK = (data.result == 'ok'); checkOK();}}} 设置变量 isUserNameOK 是否为真, 以及调用 checkOK 函数检查 isUserNameOK, isPasswordOK, isEMailOK 三个变量, 来确定注册按钮是否可用.
 
