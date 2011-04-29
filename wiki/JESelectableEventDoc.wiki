@@ -3,15 +3,6 @@
 <font face="microsoft yahei">
 === 代码 ===
 {{{
-<%--
-wiki 成员参考:
-http://code.google.com/p/zsharedcode/wiki/JQueryElement
-wiki 分析&示例:
-http://code.google.com/p/zsharedcode/wiki/JESelectableEventDoc
-JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/zsharedcode/.
-所有项目源码托管地址: http://panzer.codeplex.com/.
---%>
-
 <%@ Page Language="C#" %>
 
 <%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
@@ -39,15 +30,32 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 		<Html>
 		<li>item 1</li><li>item 2</li><li>item 3</li>
 		</Html>
-		<SelectableSetting IsSelectable="true">
+		<SelectableSetting IsSelectable="true" Selected="
+		function(event, ui){
+			$('#message').html('选中了一个条目');
+		}
+		"
+		Selecting="
+		function(event, ui){
+			$('#message').html('选择了一个条目');
+		}
+		">
+			<%-- 2.3 之前版本的格式
 			<Options>
 				<je:OptionEdit Type="selecting" Value="function(event, ui){$('#message').html('选择');}" />
 				<je:OptionEdit Type="selected" Value="function(event, ui){$('#message').html('选中');}" />
 			</Options>
+			--%>
 		</SelectableSetting>
 	</je:JQueryElement>
-	<div id="message"></div>
-	<p>讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程)</p>
+	<p id="message"></p>
+	<p style="font-size: smaller; text-align: right;">版本 2.4, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<p style="font-size: smaller; text-align: right;">
+		<a href="http://code.google.com/p/zsharedcode/wiki/JESelectableEventDoc">代码解释说明</a>
+		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
+		JE 是 panzer 项目的一部分, 您可以参考 <a href="http://code.google.com/p/zsharedcode/">http://code.google.com/p/zsharedcode/</a>.<br />
+		所有示例源码托管地址: <a href="http://panzer.codeplex.com/">http://panzer.codeplex.com/</a>.
+	</p>
 	</form>
 </body>
 </html>
@@ -57,9 +65,13 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
 
 === 说明 ===
- 设置 [JQueryElement JQueryElement] 的 SelectableSetting 添加 Type 属性为 selecting, Value 属性为 javascript 函数的 [JQueryUIOptionEdit OptionEdit], 为元素添加选择时的事件.
+ AutocompleteSetting 的 Selecting, Selected 属性分别选择时和选择后的事件.
 
- 设置 [JQueryElement JQueryElement] 的 SelectableSetting 添加 Type 属性为 selected, Value 属性为 javascript 函数的 [JQueryUIOptionEdit OptionEdit], 为元素添加选中的事件.
+ 对于 2.3 之前的版本, 设置 [JQueryElement JQueryElement] 的 SelectableSetting 添加 Type 属性为 selecting, Value 属性为 javascript 函数的 [JQueryUIOptionEdit OptionEdit], 为元素添加选择时的事件.
+
+ 对于 2.3 之前的版本, 设置 [JQueryElement JQueryElement] 的 SelectableSetting 添加 Type 属性为 selected, Value 属性为 javascript 函数的 [JQueryUIOptionEdit OptionEdit], 为元素添加选中的事件.
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+*注意:* 可以将 javascript 事先写好, 然后在属性中引用.
 </font>

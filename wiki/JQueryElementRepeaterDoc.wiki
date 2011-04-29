@@ -3,15 +3,6 @@
 <font face="microsoft yahei">
 === 代码 ===
 {{{
-<%--
-wiki 成员参考:
-http://code.google.com/p/zsharedcode/wiki/JQueryElement
-wiki 分析&示例:
-http://code.google.com/p/zsharedcode/wiki/JQueryElementRepeaterDoc
-JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/zsharedcode/.
-所有项目源码托管地址: http://panzer.codeplex.com/.
---%>
-
 <%@ Page Language="C#" %>
 
 <%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
@@ -34,10 +25,12 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 	<je:JQueryElement ID="je" runat="server" ElementType="Div">
 		<WidgetSetting Type="empty">
 			<AjaxSettings>
-				<je:AjaxSettingEdit DataType="json" Url="Default.js" WidgetEventType="__init">
+				<je:AjaxSettingEdit DataType="json" Url="Default.js" WidgetEventType="__init" Success="function(data){[%id:je%].__bind(data);}">
+					<%-- 2.3 之前版本的格式
 					<Events>
 						<je:EventEdit Type="success" Value="function(data){[%id:je%].__bind(data);}" />
 					</Events>
+					--%>
 				</je:AjaxSettingEdit>
 			</AjaxSettings>
 		</WidgetSetting>
@@ -57,17 +50,37 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 			</Footer>
 		</RepeaterSetting>
 	</je:JQueryElement>
-	<p>讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程)</p>
+	<p style="font-size: smaller; text-align: right;">版本 2.4, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<p style="font-size: smaller; text-align: right;">
+		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElementRepeaterDoc">代码解释说明</a>
+		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
+		JE 是 panzer 项目的一部分, 您可以参考 <a href="http://code.google.com/p/zsharedcode/">http://code.google.com/p/zsharedcode/</a>.<br />
+		所有示例源码托管地址: <a href="http://panzer.codeplex.com/">http://panzer.codeplex.com/</a>.
+	</p>
 	</form>
 </body>
 </html>
+}}}
+
+{{{
+{ "rows": [
+	{ "name": "小明", "age": 11 },
+	{ "name": "小红", "age": 12 },
+	{ "name": "小飞", "age": 9 }
+], "count": 100, "message": "正常的数据" }
 }}}
 
 === 前提条件 ===
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
 
 === 说明 ===
- 由于时间原因, 尚未编写说明, 请大家谅解.
+ 首先设置 RepeaterSetting 的 IsRepeatable 属性为 true, 然后通过 Field 和 Attribute 属性说明可以用于绑定的字段和属性. Header, Footer 分别表示表头和表尾, Item 则表示行模板.
+
+ 在行模板中, 可以使用 # 加上字段名来绑定字段, 在任何模板中均可以使用 @ 加属性名来绑定属性.
+
+ 在 json 中, 默认将行数据保存在 "rows" 属性中.
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+*注意:* 如果 json 中存在的字段不在 Field 属性中声明, 则是无法绑定的, 属性也是同样的需要在 Attribute 中声明.
 </font>
