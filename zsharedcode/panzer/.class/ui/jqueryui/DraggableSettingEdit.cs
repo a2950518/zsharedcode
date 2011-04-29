@@ -242,6 +242,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 获取或设置是否使用副本 'original' 针对元素本身, 'clone' 针对元素的副本.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示是否使用副本 'original' 针对元素本身, 'clone' 针对元素的副本" )]
+		[NotifyParentProperty ( true )]
+		public string Helper
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.helper ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.helper, value ); }
+		}
+
+		/// <summary>
 		/// 获取或设置是否引发 iframe 中的事件, 对应一个 javascript 布尔值或选择器..
 		/// </summary>
 		[Category ( "jQuery UI" )]
