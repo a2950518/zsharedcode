@@ -3,14 +3,6 @@
 <font face="microsoft yahei">
 === 代码 ===
 {{{
-<%--
-wiki 成员参考:
-http://code.google.com/p/zsharedcode/wiki/JQueryElement
-wiki 分析&示例:
-http://code.google.com/p/zsharedcode/wiki/JEDraggableEventDoc
-JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/zsharedcode/.
-所有项目源码托管地址: http://panzer.codeplex.com/.
---%>
 <%@ Page Language="C#" %>
 <%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
 
@@ -35,16 +27,24 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 	<form id="formJE" runat="server">
 	<je:JQueryElement ID="je" runat="server" ElementType="Div" CssClass="draggable-box">
 		<Html><code>{ start: [function], drag: [function], stop: [function] }</code></Html>
-		<DraggableSetting IsDraggable="True">
+		<DraggableSetting IsDraggable="True" Start="function(event, ui){$('#message').html('拖动开始');}" Drag="function(event, ui){$('#message').html('拖动中...');}" Stop="function(event, ui){$('#message').html('拖动停止');}">
+			<%-- 2.3 之前版本的格式
 			<Options>
 				<je:OptionEdit Type="start" Value="function(event, ui){$('#message').html('拖动开始');}" />
 				<je:OptionEdit Type="drag" Value="function(event, ui){$('#message').html('拖动中...');}" />
 				<je:OptionEdit Type="stop" Value="function(event, ui){$('#message').html('拖动停止');}" />
 			</Options>
+			--%>
 		</DraggableSetting>
 	</je:JQueryElement>
 	<div id="message"></div>
-	<p>讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程)</p>
+	<p style="font-size: smaller; text-align: right;">版本 2.4, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<p style="font-size: smaller; text-align: right;">
+		<a href="http://code.google.com/p/zsharedcode/wiki/JEDraggableEventDoc">代码解释说明</a>
+		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
+		JE 是 panzer 项目的一部分, 您可以参考 <a href="http://code.google.com/p/zsharedcode/">http://code.google.com/p/zsharedcode/</a>.<br />
+		所有示例源码托管地址: <a href="http://panzer.codeplex.com/">http://panzer.codeplex.com/</a>.
+	</p>
 	</form>
 </body>
 </html>
@@ -54,11 +54,13 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
 
 === 说明 ===
- 设置 [JQueryElement JQueryElement] 的 DraggableSetting 添加 Type 属性为 start, Value 属性为 javascript 函数的 [JQueryUIOptionEdit OptionEdit], 为元素添加拖动开始的事件.
+ DraggableSetting 的 Start, Drag, Stop 属性可以设置拖动开始, 拖动时, 拖动结束的事件.
 
- 设置 [JQueryElement JQueryElement] 的 DraggableSetting 添加 Type 属性为 drag, Value 属性为 javascript 函数的 [JQueryUIOptionEdit OptionEdit], 为元素添加拖动中的事件.
+ 对于 2.3 之前的版本, 设置 [JQueryElement JQueryElement] 的 DraggableSetting 添加 Type 属性为 start, Value 属性为 javascript 函数的 [JQueryUIOptionEdit OptionEdit], 为元素添加拖动开始的事件.
 
- 设置 [JQueryElement JQueryElement] 的 DraggableSetting 添加 Type 属性为 stop, Value 属性为 javascript 函数的 [JQueryUIOptionEdit OptionEdit], 为元素添加拖动完成的事件.
+ 对于 2.3 之前的版本, 设置 [JQueryElement JQueryElement] 的 DraggableSetting 添加 Type 属性为 drag, Value 属性为 javascript 函数的 [JQueryUIOptionEdit OptionEdit], 为元素添加拖动中的事件.
+
+ 对于 2.3 之前的版本, 设置 [JQueryElement JQueryElement] 的 DraggableSetting 添加 Type 属性为 stop, Value 属性为 javascript 函数的 [JQueryUIOptionEdit OptionEdit], 为元素添加拖动完成的事件.
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
 </font>
