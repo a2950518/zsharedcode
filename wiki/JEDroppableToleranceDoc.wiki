@@ -3,14 +3,6 @@
 <font face="microsoft yahei">
 === 代码 ===
 {{{
-<%--
-wiki 成员参考:
-http://code.google.com/p/zsharedcode/wiki/JQueryElement
-wiki 分析&示例:
-http://code.google.com/p/zsharedcode/wiki/JEDroppableToleranceDoc
-JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/zsharedcode/.
-所有项目源码托管地址: http://panzer.codeplex.com/.
---%>
 <%@ Page Language="C#" %>
 <%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
 
@@ -47,14 +39,22 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 	</je:JQueryElement>
 	<je:JQueryElement ID="jeDrop" runat="server" ElementType="Div" CssClass="droppable-box">
 		<Html><code>{ tolerance: 'pointer' }</code></Html>
-		<DroppableSetting IsDroppable="true">
+		<DroppableSetting IsDroppable="true" Drop="function(event, ui){alert('ok');}" Tolerance="'pointer'">
+			<%-- 2.3 之前版本的格式
 			<Options>
 				<je:OptionEdit Type="drop" Value="function(event, ui){alert('ok');}" />
 				<je:OptionEdit Type="tolerance" Value="'pointer'" />
 			</Options>
+			--%>
 		</DroppableSetting>
 	</je:JQueryElement>
-	<p>讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程)</p>
+	<p style="font-size: smaller; text-align: right;">版本 2.4, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<p style="font-size: smaller; text-align: right;">
+		<a href="http://code.google.com/p/zsharedcode/wiki/JEDroppableToleranceDoc">代码解释说明</a>
+		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
+		JE 是 panzer 项目的一部分, 您可以参考 <a href="http://code.google.com/p/zsharedcode/">http://code.google.com/p/zsharedcode/</a>.<br />
+		所有示例源码托管地址: <a href="http://panzer.codeplex.com/">http://panzer.codeplex.com/</a>.
+	</p>
 	</form>
 </body>
 </html>
@@ -64,7 +64,9 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
 
 === 说明 ===
- 设置 [JQueryElement JQueryElement] 的 DroppableSetting 添加 Type 属性为 tolerance, Value 属性为 'fit', 'intersect', 'pointer', 'touch' 中的一种的 [JQueryUIOptionEdit OptionEdit], 即可设置判断拖放元素是否可以拖放的标准.
+ DroppableSetting 的 Tolerance, HoverClass 属性设置判断拖放元素是否可以拖放的标准.
+
+ 对于 2.3 之前的版本, 设置 [JQueryElement JQueryElement] 的 DroppableSetting 添加 Type 属性为 tolerance, Value 属性为 'fit', 'intersect', 'pointer', 'touch' 中的一种的 [JQueryUIOptionEdit OptionEdit], 即可设置判断拖放元素是否可以拖放的标准.
 
  'fit' 表示元素应该完全在拖放元素下才可以放下, 'intersect' 表示元素 50% 应该在拖放元素下就可以放下, 'pointer' 表示鼠标在拖放元素下才可以放下, 'touch' 表示元素接触到拖放元素就可以放下.
 
