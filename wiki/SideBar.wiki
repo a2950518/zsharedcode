@@ -1,11 +1,11 @@
 #labels Deprecated
 <wiki:toc max_depth="5" />
 <font face="microsoft yahei">
-  * 开始准备
+  * [Begin 开始准备]
     * [HowToDownloadAndUse 如何下载使用]
     * [HowToJoin 如何加入开发]
     * [PanzerLicense panzer 许可证]
-  * 使用注意事项
+  * [Notice 使用注意事项]
     * [AllInOneFile all.cs 文件]
     * [DefineDoc 编译符号参考]
   * [ClassDoc 类成员参考]

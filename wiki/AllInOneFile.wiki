@@ -1,7 +1,7 @@
 #summary all.cs 文件介绍
 #labels Phase-Implementation,Phase-Support,Phase-Deploy
 <font face="microsoft yahei">
-=== 简介 ===
+=== 开始准备 ===
  all.cs 文件是多个 cs 文件的集合, 可能包含了多个类, 结构或者枚举等类型的定义. 适合于更方便的引用某种类型.
 
 === 注意事项 ===
