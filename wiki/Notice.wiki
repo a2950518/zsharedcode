@@ -1,0 +1,7 @@
+#summary all.cs 文件介绍
+#labels Phase-Implementation,Phase-Support,Phase-Deploy
+<font face="microsoft yahei">
+=== 使用注意事项 ===
+ * [AllInOneFile all.cs 文件]
+ * [DefineDoc 编译符号参考]
+</font>
