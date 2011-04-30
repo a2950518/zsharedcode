@@ -1,0 +1,9 @@
+#summary all.cs 文件介绍
+#labels Phase-Implementation,Phase-Support,Phase-Deploy
+<font face="microsoft yahei">
+=== 按钮 ===
+ * [JQueryElementButtonDoc 按钮]
+ * [JEButtonIconDoc 按钮图标]
+ * [JEButtonTextDoc 按钮文本]
+ * [JEButtonEventDoc 按钮事件]
+</font>

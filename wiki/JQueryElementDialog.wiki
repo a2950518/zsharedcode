@@ -1,0 +1,14 @@
+#summary all.cs 文件介绍
+#labels Phase-Implementation,Phase-Support,Phase-Deploy
+<font face="microsoft yahei">
+=== 对话框 ===
+ * [JQueryElementDialogDoc 对话框]
+ * [JEDialogAutoOpenDoc 对话框自动弹出]
+ * [JEDialogButtonsDoc 对话框按钮]
+ * [JEDialogCloseOnEscapeDoc 对话框 Esc 关闭]
+ * [JEDialogFixDoc 对话框固定]
+ * [JEDialogPositionDoc 对话框位置]
+ * [JEDialogSizeDoc 对话框尺寸]
+ * [JEDialogTextDoc 对话框文本]
+ * [JEDialogEventDoc 对话框事件]
+</font>

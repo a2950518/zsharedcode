@@ -1,0 +1,11 @@
+#summary all.cs 文件介绍
+#labels Phase-Implementation,Phase-Support,Phase-Deploy
+<font face="microsoft yahei">
+=== 日期框 ===
+ * [JQueryElementDatePickerDoc 日期框]
+ * [JEDatePickerChangeDoc 日期框是否允许改变时间]
+ * [JEDatePickerNumberOfMonthsDoc 日期框显示多个月份]
+ * [JEDatePickerRangeDoc 日期框范围]
+ * [JEDatePickerSelectOtherMonthsDoc 日期框选择其它月份]
+ * [JEDatePickerTextDoc 日期框文字]
+</font>

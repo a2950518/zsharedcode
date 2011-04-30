@@ -1,0 +1,9 @@
+#summary all.cs 文件介绍
+#labels Phase-Implementation,Phase-Support,Phase-Deploy
+<font face="microsoft yahei">
+=== 分割条 ===
+ * [JQueryElementSliderDoc 分割条]
+ * [JESliderOrientationDoc 分割条方向]
+ * [JESliderValueDoc 分割条位置]
+ * [JESliderEventDoc 分割条事件]
+</font>
