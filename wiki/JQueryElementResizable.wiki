@@ -1,0 +1,16 @@
+#summary all.cs 文件介绍
+#labels Phase-Implementation,Phase-Support,Phase-Deploy
+<font face="microsoft yahei">
+=== 缩放 ===
+ * [JQueryElementResizableDoc 缩放基本操作]
+ * [JEResizableAlsoResizeDoc 缩放同时缩放]
+ * [JEResizableAnimateDoc 缩放动画]
+ * [JEResizableAspectRatioDoc 缩放宽高比例]
+ * [JEResizableContainmentDoc 缩放在指定区域]
+ * [JEResizableDelayDoc 缩放延迟]
+ * [JEResizableDistanceDoc 缩放有效距离]
+ * [JEResizableGhostDoc 缩放显示拖影]
+ * [JEResizableGridDoc 缩放按照点阵移动]
+ * [JEResizableSizeDoc 缩放最大最小尺寸]
+ * [JEResizableEventDoc 缩放事件]
+</font>

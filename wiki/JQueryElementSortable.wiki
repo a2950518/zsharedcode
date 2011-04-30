@@ -1,0 +1,19 @@
+#summary all.cs 文件介绍
+#labels Phase-Implementation,Phase-Support,Phase-Deploy
+<font face="microsoft yahei">
+=== 排列 ===
+ * [JQueryElementSortableDoc 排列基本操作]
+ * [JESortableAxisDoc 排列 x/y 轴排列]
+ * [JESortableConnectWithDoc 排列联合]
+ * [JESortableContainmentDoc 排列在指定区域]
+ * [JESortableCursorDoc 排列鼠标样式]
+ * [JESortableCursorAtDoc 排列鼠标位置]
+ * [JESortableDelayDoc 排列延迟]
+ * [JESortableDistanceDoc 排列有效距离]
+ * [JESortableDropOnEmptyDoc 排列拖放在空的排列中]
+ * [JESortableGridDoc 排列按照点阵移动]
+ * [JESortableItemsDoc 排列选择可以排列的目标]
+ * [JESortableOpacityDoc 排列透明度]
+ * [JESortableRevertDoc 排列恢复原位置]
+ * [JESortableEventDoc 排列事件]
+</font>
