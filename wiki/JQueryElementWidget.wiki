@@ -1,0 +1,13 @@
+#summary all.cs 文件介绍
+#labels Phase-Implementation,Phase-Support,Phase-Deploy
+<font face="microsoft yahei">
+=== Widget ===
+ * [JQueryElementAccordion 折叠列表]
+ * [JQueryElementAutoComplete 自动填充]
+ * [JQueryElementButton 按钮]
+ * [JQueryElementDatePicker 日期框]
+ * [JQueryElementDialog 对话框]
+ * [JQueryElementProgressBar 进度条]
+ * [JQueryElementSlider 分割条]
+ * [JQueryElementTabs 分组标签]
+</font>
