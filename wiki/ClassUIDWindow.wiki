@@ -1,0 +1,9 @@
+#labels Phase-Design,Phase-Implementation,Featured
+<font face="microsoft yahei">
+=== ui.dwindow ===
+ * [DataActionType DataActionType]
+ * [DataWindowCore DataWindowCore{`0,`1}]
+ * [DWCPagerSetting DWCPagerSetting]
+ * [PagerActionType PagerActionType]
+ * [DWCTableSetting TableSetting`1]
+</font>
