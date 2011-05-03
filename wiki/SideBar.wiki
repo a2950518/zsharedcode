@@ -42,7 +42,7 @@
         * [PagerActionType PagerActionType]
         * [DWCTableSetting TableSetting`1]
       * [EventHandlerType EventHandlerType]
-      * [ClassJQueryUI jqueryui]
+      * [ClassUIJQueryUI jqueryui]
         * [JQueryUIAccordionSettingEdit AccordionSettingEdit]
         * [JQueryUIAccordionSettingEditConverter AccordionSettingEditConverter]
         * [JQueryUIAjaxSettingEdit AjaxSettingEdit]
@@ -95,10 +95,10 @@
       * [WindowCore WindowCore`1]
     * [ValueKind ValueKind]
     * [ValueStamp ValueStamp]
-    * web
+    * [ClassWeb web]
       * [EMail EMail]
       * [HtmlEditHelper HtmlEditHelper]
-      * ib
+      * [ClassWebIB ib]
         * [WPAEmptyAction EmptyAction]
         * [ExecuteJavaScriptAction ExecuteJavaScriptAction]
         * [ExecuteJQueryAction ExecuteJQueryAction]
@@ -119,7 +119,7 @@
         * [WebPageNextStateSetting WebPageNextStateSetting]
         * [WebPageState WebPageState]
       * [JQuery JQuery]
-      * jqueryui
+      * [ClassWebJQueryUI jqueryui]
         * [JQueryUIAjaxSetting AjaxSetting]
         * [JQueryUIDataType DataType]
         * [JQueryUIDraggableSetting DraggableSetting]
@@ -141,7 +141,7 @@
       * [ScriptBuildOption ScriptBuildOption]
       * [ScriptHelper ScriptHelper]
       * [ScriptType ScriptType]
-    * xml
+    * [ClassXML xml]
       * [XmlDocumentHelper XmlDocumentHelper]
       * [XmlNodeHelper XmlNodeHelper`1]
   * [AnalysisNSampleDoc 分析&示例]
