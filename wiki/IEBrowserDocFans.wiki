@@ -1,4 +1,4 @@
-#summary all.cs 文件介绍
+#summary 爱好者编写代码示例分析
 #labels Phase-Implementation,Phase-Support,Phase-Deploy
 <font face="microsoft yahei">
 === 爱好者编写代码示例分析 ===
