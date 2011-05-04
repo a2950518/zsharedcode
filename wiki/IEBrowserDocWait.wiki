@@ -1,0 +1,32 @@
+#summary IEBrowser 等待页面载入
+#labels Phase-Implementation
+<font face="microsoft yahei">
+=== 代码 ===
+{{{
+// 从当前的 WebBrowser 控件创建 IEBrowser 对象.
+IEBrowser ie = new IEBrowser ( this.webBrowser );
+
+// 导航到页面 http://www.google.com.hk/.
+ie.Navigate ( "http://www.google.com.hk/" );
+
+// 等待页面载入完毕.
+ie.IEFlow.Wait ( new UrlCondition ( "wait", "http://www.google.com.hk", StringCompareMode.StartWith ) );
+
+MessageBox.Show ( "页面已经载入" );
+}}}
+
+=== 说明 ===
+ 通过使用 [IEBrowser IEBrowser] 的 Wait 方法, 传递一个 [UrlCondition UrlCondition] 作为参数, 当指定页面载入后, 代码将继续执行.
+
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+*注意:* 获取图片时, 可能页面上会弹出对话框.
+
+=== 使用 ===
+ 如果需要单独使用 [IEBrowser IEBrowser], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs].
+
+ 如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
+
+=== 需求 ===
+ 可能需要引用 System.Web 以及相关程序集.
+</font>
