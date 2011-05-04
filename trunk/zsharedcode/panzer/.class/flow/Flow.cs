@@ -474,7 +474,7 @@ namespace zoyobar.shared.panzer.flow
 		/// <param name="completedActions">状态完成后的行为.</param>
 		/// <param name="completedStateSetting">状态完成后会转到的状态的名称.</param>
 		/// <param name="conditions">成此状态的条件.</param>
-		public FlowState (string name, A[] startActions, A[] completedActions, NextStateSetting<A, C> completedStateSetting, C[] conditions)
+		public FlowState ( string name, A[] startActions, A[] completedActions, NextStateSetting<A, C> completedStateSetting, C[] conditions )
 			: this ( name, startActions, completedActions, completedStateSetting, null, null, conditions, 0 )
 		{ }
 #endif
@@ -488,7 +488,7 @@ namespace zoyobar.shared.panzer.flow
 	/// </summary>
 	/// <typeparam name="A">行为类型.</typeparam>
 	/// <typeparam name="C">条件类型.</typeparam>
-	public abstract class Flow<A, C>
+	public abstract partial class Flow<A, C>
 		where A : FlowAction
 		where C : FlowCondition
 	{
@@ -554,11 +554,38 @@ namespace zoyobar.shared.panzer.flow
 			this.checkTimeoutTimer.Tick += new EventHandler ( this.checkTimeout );
 		}
 
+#if PARAM
 		/// <summary>
-		/// 等待一段时间.
+		/// 等待条件的成立, 如果指定时间内没有成立则, 抛出异常.
+		/// </summary>
+		/// <param name="condition">等待成立的条件.</param>
+		/// <param name="second">等待的秒数, 默认 60 秒.</param>
+		public void Wait ( C condition, int second = 60 )
+#else
+		/// <summary>
+		/// 等待条件的成立, 如果指定时间内没有成立则, 抛出异常.
+		/// </summary>
+		/// <param name="condition">等待成立的条件.</param>
+		/// <param name="second">等待的秒数.</param>
+		public void Wait ( C condition, int second )
+#endif
+		{ this.Wait ( second, new C[] { condition } ); }
+
+#if PARAM
+		/// <summary>
+		/// 等待条件的成立, 如果指定时间内没有成立则, 抛出异常. 如果没有指定条件, 则只等待指定的时间, 不抛出异常.
+		/// </summary>
+		/// <param name="second">等待的秒数, 默认 60 秒.</param>
+		/// <param name="conditions">等待成立的条件.</param>
+		public void Wait ( int second = 60, C[] conditions = null )
+#else
+		/// <summary>
+		/// 等待条件的成立, 如果指定时间内没有成立则, 抛出异常.
 		/// </summary>
 		/// <param name="second">等待的秒数.</param>
-		public void Wait ( int second )
+		/// <param name="conditions">等待成立的条件.</param>
+		public void Wait ( int second, C[] conditions )
+#endif
 		{
 
 			if ( second <= 0 )
@@ -582,8 +609,27 @@ namespace zoyobar.shared.panzer.flow
 
 				Application.DoEvents ( );
 
+				if ( null != conditions )
+				{
+					bool isSuccess = true;
+
+					foreach ( C condition in conditions )
+						if ( !this.CheckState ( condition ) )
+						{
+							isSuccess = false;
+							break;
+						}
+
+					if ( isSuccess )
+						break;
+
+				}
+
 				if ( remainSecond <= 0 )
-					break;
+					if ( null == conditions )
+						break;
+					else
+						throw new TimeoutException ( string.Format ( "在 {0} 秒内条件没有达成", second ) );
 
 			}
 
@@ -670,7 +716,12 @@ namespace zoyobar.shared.panzer.flow
 			this.jumpToState ( this.states[stateName] );
 		}
 
-		protected abstract bool checkState ( C condition );
+		/// <summary>
+		/// 检测某个条件是否成立.
+		/// </summary>
+		/// <param name="condition">检测的条件.</param>
+		/// <returns>是否成立.</returns>
+		public abstract bool CheckState ( C condition );
 
 		private void checkState ( object sender, EventArgs e )
 		{
@@ -698,7 +749,7 @@ namespace zoyobar.shared.panzer.flow
 					if ( this.currentState.Conditions[condition] )
 						continue;
 
-					this.currentState.Conditions[condition] = this.checkState ( condition );
+					this.currentState.Conditions[condition] = this.CheckState ( condition );
 
 					if ( this.currentState.Conditions[condition] && null != this.ConditionCompleted )
 					{
@@ -778,6 +829,34 @@ namespace zoyobar.shared.panzer.flow
 		}
 
 	}
+
+	partial class Flow<A, C>
+	{
+
+#if !PARAM
+		/// <summary>
+		/// 等待条件的成立, 如果 60 秒内没有成立则, 抛出异常.
+		/// </summary>
+		/// <param name="conditions">等待成立的条件.</param>
+		public void Wait ( C[] conditions )
+		{ this.Wait ( 60, conditions ); }
+		/// <summary>
+		/// 等待指定时间.
+		/// </summary>
+		/// <param name="second">等待的秒数.</param>
+		public void Wait ( int second )
+		{ this.Wait ( second, null ); }
+
+		/// <summary>
+		/// 等待条件的成立, 如果 60 秒内没有成立则, 抛出异常.
+		/// </summary>
+		/// <param name="condition">等待成立的条件.</param>
+		public void Wait ( C condition )
+		{ this.Wait ( condition, 60 ); }
+#endif
+
+	}
+
 	#endregion
 
 }

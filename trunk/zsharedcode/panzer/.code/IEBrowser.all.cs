@@ -146,7 +146,12 @@ namespace zoyobar.shared.panzer.web.ib
 			this.completedUrls.Clear ( );
 		}
 
-		protected override bool checkState ( WebPageCondition condition )
+		/// <summary>
+		/// 检测某个条件是否成立.
+		/// </summary>
+		/// <param name="condition">检测的条件.</param>
+		/// <returns>是否成立.</returns>
+		public override bool CheckState ( WebPageCondition condition )
 		{
 
 			switch ( condition.Type )
@@ -264,20 +269,30 @@ namespace zoyobar.shared.panzer.web.ib
 			get { return this.ieFlow; }
 		}
 
+		/// <summary>
+		/// 获取用于在 javascript 中调用的 .NET 对象.
+		/// </summary>
+		public object Scripting
+		{
+			set { this.browser.ObjectForScripting = value; }
+		}
+
 #if PARAM
 		/// <summary>
 		/// 创建一个 IEBrowser.
 		/// </summary>
 		/// <param name="browser">WebBrowser 控件.</param>
 		/// <param name="states">页面状态数组, 默认为空.</param>
-		public IEBrowser ( WebBrowser browser, WebPageState[] states = null )
+		/// <param name="scripting">用于在 javascript 中调用的 .NET 对象.</param>
+		public IEBrowser ( WebBrowser browser, WebPageState[] states = null, object scripting = null )
 #else
 		/// <summary>
 		/// 创建一个 IEBrowser.
 		/// </summary>
 		/// <param name="browser">WebBrowser 控件.</param>
 		/// <param name="states">页面状态数组.</param>
-		public IEBrowser ( WebBrowser browser, WebPageState[] states )
+		/// <param name="scripting">用于在 javascript 中调用的 .NET 对象.</param>
+		public IEBrowser ( WebBrowser browser, WebPageState[] states, object scripting )
 #endif
 		{
 
@@ -288,6 +303,7 @@ namespace zoyobar.shared.panzer.web.ib
 
 			this.browser = browser;
 			this.ieFlow = new IEFlow ( this, states );
+			this.Scripting = scripting;
 		}
 
 		private void browserDocumentCompleted ( object sender, WebBrowserDocumentCompletedEventArgs e )
@@ -439,7 +455,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
 		/// <param name="resultName">保存 jQuery 执行结果的 javascript 变量名称, 默认不返回值到变量.</param>
 		/// <param name="framePath">执行 jQuery 的框架路径, 比如: "main.1.menu", 表示名称为 main 的框架中的第 2 个框架中的 menu 框架, 默认不指定路径.</param>
-		/// <returns>调用函数后的返回值.</returns>
+		/// <returns>执行 JQuery 后的返回值.</returns>
 		public T ExecuteJQuery<T> ( JQuery jQuery, string resultName = null, string framePath = null )
 #else
 		/// <summary>
@@ -449,7 +465,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// <param name="framePath">执行 jQuery 的框架路径, 比如: "main.1.menu", 表示名称为 main 的框架中的第 2 个框架中的 menu 框架.</param>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
 		/// <param name="resultName">保存 jQuery 执行结果的 javascript 变量名称.</param>
-		/// <returns>调用函数后的返回值.</returns>
+		/// <returns>执行 JQuery 后的返回值.</returns>
 		public T ExecuteJQuery<T> ( string framePath, JQuery jQuery, string resultName )
 #endif
 		{
@@ -581,6 +597,7 @@ namespace zoyobar.shared.panzer.web.ib
 				return;
 
 			this.url = url;
+			this.ieFlow.CompletedUrls.Clear ( );
 
 			try
 			{ this.browser.Navigate ( url ); }
@@ -613,6 +630,68 @@ namespace zoyobar.shared.panzer.web.ib
 			}
 			catch
 			{ return null; }
+		}
+
+#if PARAM
+		/// <summary>
+		/// 在 javascript 脚本中调用托管代码, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		/// <param name="methodName">托管对象的方法名称.</param>
+		/// <param name="resultName">保存托管代码执行结果的 javascript 变量名称, 默认不返回值到变量.</param>
+		/// <param name="parameters">传递给托管方法的参数, 比如: new string[] { "'jack'", "12" }</param>
+		/// <returns>调用托管代码后的返回值.</returns>
+		public object ExecuteManaged ( string methodName, string resultName = null, string[] parameters = null )
+#else
+		/// <summary>
+		/// 在 javascript 脚本中调用托管代码, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		/// <param name="methodName">托管对象的方法名称.</param>
+		/// <param name="resultName">保存托管代码执行结果的 javascript 变量名称, 默认不返回值到变量.</param>
+		/// <param name="parameters">传递给托管方法的参数, 比如: new string[] { "'jack'", "12" }</param>
+		/// <returns>调用托管代码后的返回值.</returns>
+		public object ExecuteManaged ( string methodName, string resultName, string[] parameters )
+#endif
+		{ return this.ExecuteManaged<object> ( methodName, resultName, parameters ); }
+
+#if PARAM
+		/// <summary>
+		/// 在 javascript 脚本中调用托管代码, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		/// <typeparam name="T">托管代码执行结果的类型.</typeparam>
+		/// <param name="methodName">托管对象的方法名称.</param>
+		/// <param name="resultName">保存托管代码执行结果的 javascript 变量名称, 默认不返回值到变量.</param>
+		/// <param name="parameters">传递给托管方法的参数, 比如: new string[] { "'jack'", "12" }</param>
+		/// <returns>调用托管代码后的返回值.</returns>
+		public T ExecuteManaged<T> ( string methodName, string resultName = null, string[] parameters = null )
+#else
+		/// <summary>
+		/// 在 javascript 脚本中调用托管代码, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		/// <typeparam name="T">托管代码执行结果的类型.</typeparam>
+		/// <param name="methodName">托管对象的方法名称.</param>
+		/// <param name="resultName">保存托管代码执行结果的 javascript 变量名称, 默认不返回值到变量.</param>
+		/// <param name="parameters">传递给托管方法的参数, 比如: new string[] { "'jack'", "12" }</param>
+		/// <returns>调用托管代码后的返回值.</returns>
+		public T ExecuteManaged<T> ( string methodName, string resultName, string[] parameters )
+#endif
+		{
+
+			if ( string.IsNullOrEmpty ( methodName ) )
+				return default(T);
+
+			if ( string.IsNullOrEmpty ( resultName ) )
+				resultName = "__tempManaged";
+
+			string parameterList = string.Empty;
+
+			if ( null != parameters )
+				foreach ( string parameter in parameters )
+					if ( !string.IsNullOrEmpty ( parameter ) )
+						parameterList += parameter + ",";
+
+			this.__Set ( resultName, string.Format ( "window.external.{0}({1});", methodName, parameterList.TrimEnd ( ',' ) ) );
+
+			return this.__Get<T> ( resultName );
 		}
 
 	}
@@ -654,7 +733,23 @@ namespace zoyobar.shared.panzer.web.ib
 		/// </summary>
 		/// <param name="browser">WebBrowser 控件.</param>
 		public IEBrowser ( WebBrowser browser )
-			: this ( browser, null )
+			: this ( browser, null, null )
+		{ }
+		/// <summary>
+		/// 创建一个 IEBrowser.
+		/// </summary>
+		/// <param name="browser">WebBrowser 控件.</param>
+		/// <param name="scripting">用于在 javascript 中调用的 .NET 对象.</param>
+		public IEBrowser ( WebBrowser browser, object scripting )
+			: this ( browser, null, scripting )
+		{ }
+		/// <summary>
+		/// 创建一个 IEBrowser.
+		/// </summary>
+		/// <param name="browser">WebBrowser 控件.</param>
+		/// <param name="states">页面状态数组.</param>
+		public IEBrowser ( WebBrowser browser, WebPageState[] states )
+			: this ( browser, states, null )
 		{ }
 
 		/// <summary>
@@ -701,7 +796,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// </summary>
 		/// <typeparam name="T">jQuery 执行结果的类型.</typeparam>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
-		/// <returns>调用函数后的返回值.</returns>
+		/// <returns>执行 JQuery 后的返回值.</returns>
 		public T ExecuteJQuery<T> ( JQuery jQuery )
 		{ return this.ExecuteJQuery<T> ( null, jQuery, null ); }
 		/// <summary>
@@ -710,7 +805,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// <typeparam name="T">jQuery 执行结果的类型.</typeparam>
 		/// <param name="framePath">执行 jQuery 的框架路径, 比如: "main.1.menu", 表示名称为 main 的框架中的第 2 个框架中的 menu 框架.</param>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
-		/// <returns>调用函数后的返回值.</returns>
+		/// <returns>执行 JQuery 后的返回值.</returns>
 		public T ExecuteJQuery<T> ( string framePath, JQuery jQuery )
 		{ return this.ExecuteJQuery<T> ( framePath, jQuery, null ); }
 		/// <summary>
@@ -719,7 +814,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// <typeparam name="T">jQuery 执行结果的类型.</typeparam>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
 		/// <param name="resultName">保存 jQuery 执行结果的 javascript 变量名称.</param>
-		/// <returns>调用函数后的返回值.</returns>
+		/// <returns>执行 JQuery 后的返回值.</returns>
 		public T ExecuteJQuery<T> ( JQuery jQuery, string resultName )
 		{ return this.ExecuteJQuery<T> ( null, jQuery, resultName ); }
 
@@ -727,7 +822,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallTrace 方法.
 		/// </summary>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
-		/// <returns>调用函数后的返回值.</returns>
+		/// <returns>执行 JQuery 后的返回值.</returns>
 		public object ExecuteJQuery ( JQuery jQuery )
 		{ return this.ExecuteJQuery<object> ( null, jQuery, null ); }
 		/// <summary>
@@ -735,7 +830,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// </summary>
 		/// <param name="framePath">执行 jQuery 的框架路径, 比如: "main.1.menu", 表示名称为 main 的框架中的第 2 个框架中的 menu 框架.</param>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
-		/// <returns>调用函数后的返回值.</returns>
+		/// <returns>执行 JQuery 后的返回值.</returns>
 		public object ExecuteJQuery ( string framePath, JQuery jQuery )
 		{ return this.ExecuteJQuery<object> ( framePath, jQuery, null ); }
 		/// <summary>
@@ -743,7 +838,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// </summary>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
 		/// <param name="resultName">保存 jQuery 执行结果的 javascript 变量名称.</param>
-		/// <returns>调用函数后的返回值.</returns>
+		/// <returns>执行 JQuery 后的返回值.</returns>
 		public object ExecuteJQuery ( JQuery jQuery, string resultName )
 		{ return this.ExecuteJQuery<object> ( null, jQuery, resultName ); }
 		/// <summary>
@@ -752,9 +847,60 @@ namespace zoyobar.shared.panzer.web.ib
 		/// <param name="framePath">执行 jQuery 的框架路径, 比如: "main.1.menu", 表示名称为 main 的框架中的第 2 个框架中的 menu 框架.</param>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
 		/// <param name="resultName">保存 jQuery 执行结果的 javascript 变量名称.</param>
-		/// <returns>调用函数后的返回值.</returns>
+		/// <returns>执行 JQuery 后的返回值.</returns>
 		public object ExecuteJQuery ( string framePath, JQuery jQuery, string resultName )
 		{ return this.ExecuteJQuery<object> ( framePath, jQuery, resultName ); }
+
+		/// <summary>
+		/// 在 javascript 脚本中调用托管代码, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		/// <typeparam name="T">托管代码执行结果的类型.</typeparam>
+		/// <param name="methodName">托管对象的方法名称.</param>
+		/// <returns>调用托管代码后的返回值.</returns>
+		public T ExecuteManaged<T> ( string methodName )
+		{ return this.ExecuteManaged<T> ( methodName, null, null ); }
+		/// <summary>
+		/// 在 javascript 脚本中调用托管代码, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		/// <typeparam name="T">托管代码执行结果的类型.</typeparam>
+		/// <param name="methodName">托管对象的方法名称.</param>
+		/// <param name="resultName">保存托管代码执行结果的 javascript 变量名称, 默认不返回值到变量.</param>
+		/// <returns>调用托管代码后的返回值.</returns>
+		public T ExecuteManaged<T> ( string methodName, string resultName )
+		{ return this.ExecuteManaged<T> ( methodName, resultName, null ); }
+		/// <summary>
+		/// 在 javascript 脚本中调用托管代码, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		/// <typeparam name="T">托管代码执行结果的类型.</typeparam>
+		/// <param name="methodName">托管对象的方法名称.</param>
+		/// <param name="parameters">传递给托管方法的参数, 比如: new string[] { "'jack'", "12" }</param>
+		/// <returns>调用托管代码后的返回值.</returns>
+		public T ExecuteManaged<T> ( string methodName, string[] parameters )
+		{ return this.ExecuteManaged<T> ( methodName, null, parameters ); }
+
+		/// <summary>
+		/// 在 javascript 脚本中调用托管代码, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		/// <param name="methodName">托管对象的方法名称.</param>
+		/// <returns>调用托管代码后的返回值.</returns>
+		public object ExecuteManaged ( string methodName )
+		{ return this.ExecuteManaged<object> ( methodName, null, null ); }
+		/// <summary>
+		/// 在 javascript 脚本中调用托管代码, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		/// <param name="methodName">托管对象的方法名称.</param>
+		/// <param name="resultName">保存托管代码执行结果的 javascript 变量名称, 默认不返回值到变量.</param>
+		/// <returns>调用托管代码后的返回值.</returns>
+		public object ExecuteManaged ( string methodName, string resultName )
+		{ return this.ExecuteManaged<object> ( methodName, resultName, null ); }
+		/// <summary>
+		/// 在 javascript 脚本中调用托管代码, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		/// <param name="methodName">托管对象的方法名称.</param>
+		/// <param name="parameters">传递给托管方法的参数, 比如: new string[] { "'jack'", "12" }</param>
+		/// <returns>调用托管代码后的返回值.</returns>
+		public object ExecuteManaged ( string methodName, string[] parameters )
+		{ return this.ExecuteManaged<object> ( methodName, null, parameters ); }
 #endif
 	}
 	#endregion
@@ -1234,7 +1380,7 @@ namespace zoyobar.shared.panzer.flow
 		/// <param name="completedActions">状态完成后的行为.</param>
 		/// <param name="completedStateSetting">状态完成后会转到的状态的名称.</param>
 		/// <param name="conditions">成此状态的条件.</param>
-		public FlowState (string name, A[] startActions, A[] completedActions, NextStateSetting<A, C> completedStateSetting, C[] conditions)
+		public FlowState ( string name, A[] startActions, A[] completedActions, NextStateSetting<A, C> completedStateSetting, C[] conditions )
 			: this ( name, startActions, completedActions, completedStateSetting, null, null, conditions, 0 )
 		{ }
 #endif
@@ -1248,7 +1394,7 @@ namespace zoyobar.shared.panzer.flow
 	/// </summary>
 	/// <typeparam name="A">行为类型.</typeparam>
 	/// <typeparam name="C">条件类型.</typeparam>
-	public abstract class Flow<A, C>
+	public abstract partial class Flow<A, C>
 		where A : FlowAction
 		where C : FlowCondition
 	{
@@ -1314,11 +1460,38 @@ namespace zoyobar.shared.panzer.flow
 			this.checkTimeoutTimer.Tick += new EventHandler ( this.checkTimeout );
 		}
 
+#if PARAM
 		/// <summary>
-		/// 等待一段时间.
+		/// 等待条件的成立, 如果指定时间内没有成立则, 抛出异常.
+		/// </summary>
+		/// <param name="condition">等待成立的条件.</param>
+		/// <param name="second">等待的秒数, 默认 60 秒.</param>
+		public void Wait ( C condition, int second = 60 )
+#else
+		/// <summary>
+		/// 等待条件的成立, 如果指定时间内没有成立则, 抛出异常.
+		/// </summary>
+		/// <param name="condition">等待成立的条件.</param>
+		/// <param name="second">等待的秒数.</param>
+		public void Wait ( C condition, int second )
+#endif
+		{ this.Wait ( second, new C[] { condition } ); }
+
+#if PARAM
+		/// <summary>
+		/// 等待条件的成立, 如果指定时间内没有成立则, 抛出异常. 如果没有指定条件, 则只等待指定的时间, 不抛出异常.
+		/// </summary>
+		/// <param name="second">等待的秒数, 默认 60 秒.</param>
+		/// <param name="conditions">等待成立的条件.</param>
+		public void Wait ( int second = 60, C[] conditions = null )
+#else
+		/// <summary>
+		/// 等待条件的成立, 如果指定时间内没有成立则, 抛出异常.
 		/// </summary>
 		/// <param name="second">等待的秒数.</param>
-		public void Wait ( int second )
+		/// <param name="conditions">等待成立的条件.</param>
+		public void Wait ( int second, C[] conditions )
+#endif
 		{
 
 			if ( second <= 0 )
@@ -1342,8 +1515,27 @@ namespace zoyobar.shared.panzer.flow
 
 				Application.DoEvents ( );
 
+				if ( null != conditions )
+				{
+					bool isSuccess = true;
+
+					foreach ( C condition in conditions )
+						if ( !this.CheckState ( condition ) )
+						{
+							isSuccess = false;
+							break;
+						}
+
+					if ( isSuccess )
+						break;
+
+				}
+
 				if ( remainSecond <= 0 )
-					break;
+					if ( null == conditions )
+						break;
+					else
+						throw new TimeoutException ( string.Format ( "在 {0} 秒内条件没有达成", second ) );
 
 			}
 
@@ -1430,7 +1622,12 @@ namespace zoyobar.shared.panzer.flow
 			this.jumpToState ( this.states[stateName] );
 		}
 
-		protected abstract bool checkState ( C condition );
+		/// <summary>
+		/// 检测某个条件是否成立.
+		/// </summary>
+		/// <param name="condition">检测的条件.</param>
+		/// <returns>是否成立.</returns>
+		public abstract bool CheckState ( C condition );
 
 		private void checkState ( object sender, EventArgs e )
 		{
@@ -1458,7 +1655,7 @@ namespace zoyobar.shared.panzer.flow
 					if ( this.currentState.Conditions[condition] )
 						continue;
 
-					this.currentState.Conditions[condition] = this.checkState ( condition );
+					this.currentState.Conditions[condition] = this.CheckState ( condition );
 
 					if ( this.currentState.Conditions[condition] && null != this.ConditionCompleted )
 					{
@@ -1538,6 +1735,34 @@ namespace zoyobar.shared.panzer.flow
 		}
 
 	}
+
+	partial class Flow<A, C>
+	{
+
+#if !PARAM
+		/// <summary>
+		/// 等待条件的成立, 如果 60 秒内没有成立则, 抛出异常.
+		/// </summary>
+		/// <param name="conditions">等待成立的条件.</param>
+		public void Wait ( C[] conditions )
+		{ this.Wait ( 60, conditions ); }
+		/// <summary>
+		/// 等待指定时间.
+		/// </summary>
+		/// <param name="second">等待的秒数.</param>
+		public void Wait ( int second )
+		{ this.Wait ( second, null ); }
+
+		/// <summary>
+		/// 等待条件的成立, 如果 60 秒内没有成立则, 抛出异常.
+		/// </summary>
+		/// <param name="condition">等待成立的条件.</param>
+		public void Wait ( C condition )
+		{ this.Wait ( condition, 60 ); }
+#endif
+
+	}
+
 	#endregion
 
 }
