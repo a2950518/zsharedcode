@@ -60,7 +60,6 @@
     <Compile Include=".class\data\DataSetHelper.cs" />
     <Compile Include=".class\debug\Tracer.cs" />
     <Compile Include=".class\flow\Flow.cs" />
-    <Compile Include=".class\flow\Flow.Design.cs" />
     <Compile Include=".class\io\StoreHelper.cs" />
     <Compile Include=".class\ui\dweb\DataWebCore.cs">
       <SubType>Code</SubType>
