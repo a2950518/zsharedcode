@@ -9,8 +9,8 @@ IEBrowser ie = new IEBrowser ( this.webBrowser );
 // 导航到页面 http://www.google.com.hk/.
 ie.Navigate ( "http://www.google.com.hk/" );
 
-// 等待 5 秒钟, 以便页面载入完毕.
-ie.IEFlow.Wait ( 5 );
+// 等待页面载入完毕.
+ie.IEFlow.Wait ( new UrlCondition ( "wait", "http://www.google.com.hk", StringCompareMode.StartWith ) );
 
 // 安装跟踪脚本, 执行 jquery 必需.
 ie.InstallTrace ( );

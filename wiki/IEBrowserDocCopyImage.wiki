@@ -9,8 +9,8 @@ IEBrowser ie = new IEBrowser ( this.webBrowser );
 // 导航到页面 http://www.google.com.hk/imghp.
 ie.Navigate ( "http://www.google.com.hk/imghp" );
 
-// 等待 5 秒钟, 以便页面载入完毕.
-ie.IEFlow.Wait ( 5 );
+// 等待页面载入完毕.
+ie.IEFlow.Wait ( new UrlCondition ( "wait", "http://www.google.com.hk/imghp", StringCompareMode.StartWith ) );
 
 // 获取 id 为 hplogo 的 img 的图片.
 this.pictureBox.Image = ie.CopyImage ( "'hplogo'" );
