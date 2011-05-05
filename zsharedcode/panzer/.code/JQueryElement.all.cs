@@ -11331,7 +11331,7 @@ namespace zoyobar.shared.panzer.web
 {
 
 	/// <summary>
-	/// JQuery 用于编写构造 jQuery 脚本, 包含了 jQuery 中的方法等. (尚未包含 Effects, Utilities 的部分方法)
+	/// JQuery 用于编写构造 jQuery 脚本, 包含了 jQuery 中的方法等, 支持 1.6 版本. (尚未包含 Effects, Utilities 的部分方法)
 	/// </summary>
 	public class JQuery
 		: ScriptHelper
@@ -11919,7 +11919,7 @@ namespace zoyobar.shared.panzer.web
 		/// <summary>
 		/// 获取当前 jQuery 中元素的第一个符合选择器的父元素, 从当前 jQuery 元素开始搜索. (需要 1.3 版本以上)
 		/// </summary>
-		/// <param name="expressionI">可以是一个选择器, 比如: "'strong'", 或者选择器的数组, 比如: "['body', 'ul']". (如果使用数组需要 1.4 版本以上)</param>
+		/// <param name="expressionI">可以是一个选择器, 比如: "'strong'", 或者选择器的数组, 比如: "['body', 'ul']", 也可以是一个 jQuery, 比如: "__myJQuery", 也可以是 DOM 元素, 比如: "document.getElementById('name')". (如果使用数组需要 1.4 版本以上, 如果使用 jQuery 或者 DOM 元素需要 1.6 版本以上)</param>
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Closest ( string expressionI )
 		{ return this.Closest ( expressionI, null ); }
@@ -12112,7 +12112,7 @@ namespace zoyobar.shared.panzer.web
 		/// <summary>
 		/// 选择当前 jQuery 中包含元素的符合选择器的子元素.
 		/// </summary>
-		/// <param name="expression">用于筛选子元素的选择器, 比如: "'strong'".</param>
+		/// <param name="expression">用于筛选子元素的选择器, 比如: "'strong'", 也可以是一个 jQuery, 比如: "__myJQuery", 也可以是 DOM 元素, 比如: "document.getElementById('name')". (如果使用 jQuery 或者 DOM 元素需要 1.6 版本以上)</param>
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Find ( string expression )
 		{ return this.Execute ( "find", expression ); }
@@ -12236,6 +12236,14 @@ namespace zoyobar.shared.panzer.web
 		{ return this.Execute ( "height", expression ); }
 
 		/// <summary>
+		/// 是否让 ready 等待执行. (需要 1.6 版本以上)
+		/// </summary>
+		/// <param name="expression">返回布尔值的表达式, 比如: "true", 表示阻止 ready 执行.</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery HoldReady ( string expression )
+		{ return this.Execute ( "holdReady", expression ); }
+
+		/// <summary>
 		/// 设置当前 jQuery 元素的鼠标进入和离开的事件. (需要 1.4 版本以上)
 		/// </summary>
 		/// <param name="expressionI">返回函数的表达式, 比如: "function(){ return false; }", 作为鼠标进入和离开的共同事件.</param>
@@ -12302,7 +12310,7 @@ namespace zoyobar.shared.panzer.web
 		/// <summary>
 		///判断当前 jQuery 元素是否符合选择器, 如果至少一个符合时, 将在 javascript 中返回 true.
 		/// </summary>
-		/// <param name="expression">选择器, 比如: "'.box'".</param>
+		/// <param name="expression">选择器, 比如: "'.box'", 也可以是一个 jQuery, 比如: "__myJQuery", 也可以是 DOM 元素, 比如: "document.getElementById('name')". (如果使用 jQuery 或者 DOM 元素需要 1.6 版本以上)</param>
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Is ( string expression )
 		{ return this.Execute ( "is", expression ); }
@@ -12455,10 +12463,18 @@ namespace zoyobar.shared.panzer.web
 		/// <summary>
 		/// 对当前 jQuery 中的元素执行函数, 并将执行的结果返回为一个 javascript 数组. (需要 1.2 版本以上)
 		/// </summary>
-		/// <param name="expression">返回调用函数的表达式, 比如: "function(i, o){ return 'my_' + i.toString(); }".</param>
+		/// <param name="expressionI">返回调用函数的表达式, 比如: "function(i, o){ return 'my_' + i.toString(); }".</param>
 		/// <returns>更新后的 JQuery 对象.</returns>
-		public JQuery Map ( string expression )
-		{ return this.Execute ( "map", expression ); }
+		public JQuery Map ( string expressionI )
+		{ return this.Map ( expressionI ); }
+		/// <summary>
+		/// 对一个数组或者对象执行函数.
+		/// </summary>
+		/// <param name="expressionI">返回对象或者数组的表达式, 比如: "['a', 'b', 'c']". (如果使用对象元素需要 1.6 版本以上)</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(elementOfArray, indexInArray){}" 或者 "function(value, indexOrKey){}". (如果使用后一个函数需要 1.6 版本以上)</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Map ( string expressionI, string expressionII )
+		{ return this.Execute ( "map", expressionI, expressionII ); }
 
 		/// <summary>
 		/// 触发 jQuery 中的元素的添加鼠标按下事件.
@@ -12899,6 +12915,44 @@ namespace zoyobar.shared.panzer.web
 		{ return this.Execute ( "prevUntil", expression ); }
 
 		/// <summary>
+		/// 返回承若对象. (需要 1.6 版本以上)
+		/// </summary>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Promise ( )
+		{ return this.Promise ( null, null ); }
+		/// <summary>
+		/// 返回承若对象. (需要 1.6 版本以上)
+		/// </summary>
+		/// <param name="expressionI">观察的类型.</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Promise ( string expressionI )
+		{ return this.Promise ( expressionI, null ); }
+		/// <summary>
+		/// 返回承若对象. (需要 1.6 版本以上)
+		/// </summary>
+		/// <param name="expressionI">观察的类型.</param>
+		/// <param name="expressionII">承若附加的对象.</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Promise ( string expressionI, string expressionII )
+		{ return this.Execute ( "promise", expressionI, expressionII ); }
+
+		/// <summary>
+		/// 获取 jQuery 中包含的第一个元素的属性, 与 Attr 不同的是返回的值不单单为字符串, 或者设置所有元素的多个属性. (需要 1.6 版本以上)
+		/// </summary>
+		/// <param name="expressionI">返回属性名称的表达式, 比如: "'title'", 也可以是属性集合, 比如: "{type: 'text', title: 'test'}".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Prop ( string expressionI )
+		{ return this.Prop ( expressionI, null ); }
+		/// <summary>
+		/// 设置 jQuery 中元素的属性. (需要 1.6 版本以上)
+		/// </summary>
+		/// <param name="expressionI">可以是属性名称, 比如: "'title'".</param>
+		/// <param name="expressionII">返回属性名称的表达式, 比如: "'just test'", 或者返回属性值的函数, 比如: "function(i, a){ return 'my_' + i.toString(); }".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Prop ( string expressionI, string expressionII )
+		{ return this.Execute ( "prop", expressionI, expressionII ); }
+
+		/// <summary>
 		/// 产生新的函数, 并指定新的上下文. (需要 1.4 版本以上)
 		/// </summary>
 		/// <param name="expressionI">函数的原型, 比如: "function(){ return this.toString(); }", 如果 expressionII 是函数名称, 也可以是新的上下文的表达式, 比如: "someobj".</param>
@@ -12954,6 +13008,22 @@ namespace zoyobar.shared.panzer.web
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery RemoveClass ( string expression )
 		{ return this.Execute ( "removeClass", expression ); }
+
+		/// <summary>
+		/// 删除通过 Prop 添加的属性. (需要 1.6 版本以上)
+		/// </summary>
+		/// <param name="expressionI">返回属性名称的表达式, 比如: "'title'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery RemoveProp ( string expressionI )
+		{ return this.RemoveProp ( expressionI, null ); }
+		/// <summary>
+		/// 删除通过 Prop 添加的属性. (需要 1.6 版本以上)
+		/// </summary>
+		/// <param name="expressionI">返回属性名称的表达式, 比如: "'title'".</param>
+		/// <param name="expressionII">用于匹配属性的值, 比如: "'happy.gif'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery RemoveProp ( string expressionI, string expressionII )
+		{ return this.Execute ( "removeProp", expressionI, expressionII ); }
 
 		/// <summary>
 		/// 使用当前 jQuery 中的元素替换符合选择器的元素. (需要 1.2 版本以上)
@@ -13244,6 +13314,13 @@ namespace zoyobar.shared.panzer.web
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Undelegate ( )
 		{ return this.Undelegate ( null, null ); }
+		/// <summary>
+		/// 为 jQuery 中的元素取消命名空间下的事件. (需要 1.6 版本以上)
+		/// </summary>
+		/// <param name="expressionI">事件所在的命名空间, 比如: "'.whatever'".</param>
+		/// <returns>更新后的 JQuery 对象.</returns>
+		public JQuery Undelegate ( string expressionI )
+		{ return this.Undelegate ( expressionI, null, null ); }
 		/// <summary>
 		/// 为 jQuery 中的元素取消事件. (需要 1.4.2 版本以上)
 		/// </summary>
