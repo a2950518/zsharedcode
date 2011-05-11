@@ -3673,8 +3673,8 @@ namespace zoyobar.shared.panzer.web
 		/// <summary>
 		/// 为 jQuery 中的元素添加处理错误的事件. (需要 1.4.3 版本以上)
 		/// </summary>
-		/// <param name="expressionII">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
-		/// <param name="expressionIII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Error ( string expressionI, string expressionII )
 		{ return this.Execute ( "error", expressionI, expressionII ); }
@@ -3778,7 +3778,7 @@ namespace zoyobar.shared.panzer.web
 		/// 使用 GET 获取请求 javascript 脚本并执行.
 		/// </summary>
 		/// <param name="expressionI">返回地址的表达式, 比如: "js/test.js".</param>
-		/// <param name="expressionIII">返回成功时回调函数的表达式, 比如: "function(d, t){alert('ajax');}".</param>
+		/// <param name="expressionII">返回成功时回调函数的表达式, 比如: "function(d, t){alert('ajax');}".</param>
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery GetScript ( string expressionI, string expressionII)
 		{ return this.Execute ( "getScript", expressionI, expressionII ); }
@@ -4023,8 +4023,8 @@ namespace zoyobar.shared.panzer.web
 		/// <summary>
 		/// 为 jQuery 中的元素添加载入的事件. (需要 1.4.3 版本以上)
 		/// </summary>
-		/// <param name="expressionII">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
-		/// <param name="expressionIII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Load ( string expressionI, string expressionII )
 		{ return this.Load ( expressionI, expressionII, null ); }
@@ -4931,8 +4931,8 @@ namespace zoyobar.shared.panzer.web
 		/// <summary>
 		/// 为 jQuery 中的元素添加卸载的事件. (需要 1.4.3 版本以上)
 		/// </summary>
-		/// <param name="expressionII">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
-		/// <param name="expressionIII">返回函数的表达式, 比如: "function(){ return false; }".</param>
+		/// <param name="expressionI">一个返回值的表达式, 比如: "{age: 10, name: 'lili'}", 值将传递给事件, 并通过 event.data 访问.</param>
+		/// <param name="expressionII">返回函数的表达式, 比如: "function(){ return false; }".</param>
 		/// <returns>更新后的 JQuery 对象.</returns>
 		public JQuery Unload ( string expressionI, string expressionII )
 		{ return this.Execute ( "unload", expressionI, expressionII ); }
