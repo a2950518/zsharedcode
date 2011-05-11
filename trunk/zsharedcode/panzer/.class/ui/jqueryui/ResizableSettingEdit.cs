@@ -47,7 +47,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取元素的缩放设置.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "基本" )]
 		[Description ( "元素相关的缩放设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
@@ -61,7 +61,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否可以缩放.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "基本" )]
 		[DefaultValue ( false )]
 		[Description ( "指示元素是否可以缩放" )]
 		[NotifyParentProperty ( true )]
@@ -75,7 +75,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置缩放是否可用, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示缩放是否可用, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -88,7 +88,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置同时缩放的内容, 对应一个 dom 元素, 选择器或者 jQuery.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示同时缩放的内容, 对应一个 dom 元素, 选择器或者 jQuery" )]
 		[NotifyParentProperty ( true )]
@@ -101,7 +101,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否播放缩放的动画, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "动画" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否播放缩放的动画, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -114,7 +114,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置以毫秒为单位的动画时长, 比如: 1000.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "动画" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示以毫秒为单位的动画时长, 比如: 1000" )]
 		[NotifyParentProperty ( true )]
@@ -127,7 +127,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置动画效果, 比如: 'swing'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "动画" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示动画效果, 比如: 'swing'" )]
 		[NotifyParentProperty ( true )]
@@ -140,7 +140,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置宽高比例, 比如: 9 / 16, 或者 true, false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "布局" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示宽高比例, 比如: 9 / 16, 或者 true, false" )]
 		[NotifyParentProperty ( true )]
@@ -153,7 +153,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否自动隐藏, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否自动隐藏, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -166,7 +166,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置不参加缩放的元素, 是一个选择器.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示不参加缩放的元素, 是一个选择器" )]
 		[NotifyParentProperty ( true )]
@@ -179,7 +179,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置缩放所在的容器, 对应选择器, dom 元素, 字符串, 'parent', 'document', 'window' 中的一种.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "布局" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示缩放的容器, 对应选择器, dom 元素, 字符串, 'parent', 'document', 'window' 中的一种" )]
 		[NotifyParentProperty ( true )]
@@ -192,7 +192,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置鼠标的延迟, 以毫秒计算.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示鼠标的延迟, 以毫秒计算" )]
 		[NotifyParentProperty ( true )]
@@ -205,7 +205,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置鼠标移动多少像素触发缩放, 比如: 20.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示鼠标移动多少像素触发缩放, 比如: 20" )]
 		[NotifyParentProperty ( true )]
@@ -218,7 +218,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否在缩放时使用阴影, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否在缩放时使用阴影, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -231,7 +231,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置按照矩阵来缩放, 为一个数组, 比如: [10, 30].
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示按照矩阵来缩放, 为一个数组, 比如: [10, 30]" )]
 		[NotifyParentProperty ( true )]
@@ -244,7 +244,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置缩放的方向, 为一个字符串, 比如: 'n, e, s, w', 可以从 'n, e, s, w, ne, se, sw, nw, all' 中取值.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示缩放的方向, 为一个字符串, 比如: 'n, e, s, w', 可以从 'n, e, s, w, ne, se, sw, nw, all' 中取值" )]
 		[NotifyParentProperty ( true )]
@@ -257,7 +257,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置 helper 的样式, 比如: 'ui-state-highlight'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示 helper 的样式, 比如: 'ui-state-highlight'" )]
 		[NotifyParentProperty ( true )]
@@ -270,7 +270,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置缩放的最大高度, 比如: 200.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "布局" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示缩放的最大高度, 比如: 200" )]
 		[NotifyParentProperty ( true )]
@@ -283,7 +283,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置缩放的最大宽度, 比如: 200.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "布局" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示缩放的最大宽度, 比如: 200" )]
 		[NotifyParentProperty ( true )]
@@ -296,7 +296,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置缩放的最小高度, 比如: 200.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "布局" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示缩放的最小高度, 比如: 200" )]
 		[NotifyParentProperty ( true )]
@@ -309,7 +309,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置缩放的最小宽度, 比如: 200.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "布局" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示缩放的最小宽度, 比如: 200" )]
 		[NotifyParentProperty ( true )]
@@ -324,7 +324,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置缩放被创建时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示缩放被创建时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -337,7 +337,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置缩放开始的时候的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示缩放开始的时候的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -350,7 +350,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置缩放时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示缩放时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -363,7 +363,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置缩放停止的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示缩放停止的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]

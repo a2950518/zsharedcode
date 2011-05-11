@@ -47,7 +47,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取元素的选中设置.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "基本" )]
 		[Description ( "元素相关的选中设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
@@ -61,7 +61,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否可以选中.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "基本" )]
 		[DefaultValue ( false )]
 		[Description ( "指示元素是否可以选中" )]
 		[NotifyParentProperty ( true )]
@@ -75,7 +75,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置选中是否可用, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示选中是否可用, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -88,7 +88,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置选中是否自动刷新, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示选中是否自动刷新, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -101,7 +101,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置不参加选中的元素, 是一个选择器.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示不参加选中的元素, 是一个选择器" )]
 		[NotifyParentProperty ( true )]
@@ -114,7 +114,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置鼠标的延迟, 以毫秒计算.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示鼠标的延迟, 以毫秒计算" )]
 		[NotifyParentProperty ( true )]
@@ -127,7 +127,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置鼠标移动多少像素触发选中, 比如: 20.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示鼠标移动多少像素触发选中, 比如: 20" )]
 		[NotifyParentProperty ( true )]
@@ -140,7 +140,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置参加选中的元素, 是一个选择器.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示参加选中的元素, 是一个选择器" )]
 		[NotifyParentProperty ( true )]
@@ -151,9 +151,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置排列中选中的触发方式, 可以是 'intersect' 或者 'pointer'.
+		/// 获取或设置排列中选中的触发方式, 可以是 'touch' 或者 'fit'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示排列中选中的触发方式, 可以是 'touch' 或者 'fit'" )]
 		[NotifyParentProperty ( true )]
@@ -168,7 +168,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置选中被创建时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示选中被创建时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -181,7 +181,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置选中后的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示选中后的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -194,7 +194,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置选中时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示选中时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -207,7 +207,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置选中开始时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示选中时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -220,7 +220,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置选中停止时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示选中时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -233,7 +233,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置取消选中的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示取消选中的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -246,7 +246,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置取消选中时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示取消选中时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
