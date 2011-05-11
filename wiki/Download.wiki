@@ -1,0 +1,13 @@
+#summary 下载资源
+#labels Featured,Phase-Deploy
+<font face="microsoft yahei">
+=== panzer.dll ===
+ 如果 [AllInOneFile all.cs 文件] 不能正常使用, 可能是由于 [OtherIDE 不同 Visual Studio 版本的差别], 请下载 dll 文件尝试解决问题.
+
+=== IEBrowser ===
+ [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs]
+ [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs]
+
+=== JQueryElement ===
+ [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/JQueryElement.all.cs JQueryElement.all.cs]
+</font>
