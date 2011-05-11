@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("zoyobar")]
 [assembly: AssemblyProduct("zoyobar.shared.panzer")]
-[assembly: AssemblyCopyright("© zoyobar 2004-2010")]
+[assembly: AssemblyCopyright ( "© zoyobar 2004-2011" )]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
