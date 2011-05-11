@@ -55,6 +55,7 @@ namespace zoyobar.shared.panzer.code
 			try
 			{
 
+				// HACK: 可能需要添加 V5
 #if V4
 				if ( type == typeof ( Guid ) )
 					return ( T ) ( object ) new Guid ( value );
