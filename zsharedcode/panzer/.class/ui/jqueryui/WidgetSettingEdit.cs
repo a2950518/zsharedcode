@@ -443,7 +443,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取元素的 Button 设置.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "基本" )]
 		[Description ( "Button 相关的设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
@@ -457,7 +457,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取元素的 Button 事件.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "基本" )]
 		[Description ( "Button 相关的事件" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
@@ -472,7 +472,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置按钮是否可用, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示按钮是否可用, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -485,7 +485,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置按钮是否显示文本, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示按钮是否显示文本, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -498,7 +498,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置按钮显示的图标, 比如: { primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s' }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示按钮显示的图标, 比如: { primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s' }" )]
 		[NotifyParentProperty ( true )]
@@ -511,7 +511,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置按钮显示的文本, 比如: 'ok'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示按钮显示的文本, 比如: 'ok'" )]
 		[NotifyParentProperty ( true )]
@@ -526,7 +526,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置按钮被创建时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示按钮被创建时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -662,7 +662,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取元素的折叠列表设置.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "基本" )]
 		[Description ( "Button 相关的设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
@@ -676,7 +676,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取元素的折叠列表事件.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "基本" )]
 		[Description ( "Button 相关的事件" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
@@ -691,7 +691,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置折叠列表是否可用, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示折叠列表是否可用, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -704,7 +704,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置被激活的列表, 对应一个选择器, 元素, 数值或者布尔值.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示被激活的列表, 对应一个选择器, 元素, 数值或者布尔值" )]
 		[NotifyParentProperty ( true )]
@@ -717,7 +717,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置列表切换的动画, 比如: 'bounceslide', 'slide', 也可以设置为 false, 来禁止动画.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "动画" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示列表切换的动画, 比如: 'bounceslide', 'slide', 也可以设置为 false, 来禁止动画" )]
 		[NotifyParentProperty ( true )]
@@ -730,7 +730,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否自动调整与最高的列表同高, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否自动调整与最高的列表同高, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -743,7 +743,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否在动画结束后清除 height, overflow 样式, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否在动画结束后清除 height, overflow 样式, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -756,7 +756,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否关闭所有的列表, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否关闭所有的列表, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -769,7 +769,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置触发列表的事件, 比如: 'mouseover'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示触发列表的事件, 比如: 'mouseover'" )]
 		[NotifyParentProperty ( true )]
@@ -782,7 +782,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否以父容器填充高度, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否以父容器填充高度, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -795,7 +795,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置作为标题的元素, 可以是选择器或者 jQuery 对象, 默认为 '> li > :first-child, > :not(li):even'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示作为标题的元素, 可以是选择器或者 jQuery 对象, 默认为 '> li > :first-child, > :not(li):even'" )]
 		[NotifyParentProperty ( true )]
@@ -808,7 +808,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置列表显示的图标, 默认为: { 'header': 'ui-icon-triangle-1-e', 'headerSelected': 'ui-icon-triangle-1-s' }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示列表显示的图标, 默认为: { 'header': 'ui-icon-triangle-1-e', 'headerSelected': 'ui-icon-triangle-1-s' }" )]
 		[NotifyParentProperty ( true )]
@@ -821,7 +821,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否可以导航, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否可以导航, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -834,7 +834,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置选择导航的函数.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示选择导航的函数" )]
 		[NotifyParentProperty ( true )]
@@ -849,7 +849,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置列表被创建时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示列表被创建时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -862,7 +862,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置列表改变时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示列表改变时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -875,7 +875,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置列表开始改变时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示列表开始改变时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -1011,7 +1011,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取元素的自动填充设置.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "基本" )]
 		[Description ( "自动填充相关的设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
@@ -1025,7 +1025,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取元素的自动填充事件.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "基本" )]
 		[Description ( "自动填充相关的事件" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
@@ -1040,7 +1040,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置自动填充是否可用, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示自动填充是否可用, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1053,7 +1053,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置填充对应的元素, 是一个选择器.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示填充对应的元素, 是一个选择器" )]
 		[NotifyParentProperty ( true )]
@@ -1066,7 +1066,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否自动对焦到第一个条目, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否自动对焦到第一个条目, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1079,7 +1079,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置以毫秒为单位的激活自动填充的延迟, 比如: 300.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示以毫秒为单位的激活自动填充的延迟, 比如: 300" )]
 		[NotifyParentProperty ( true )]
@@ -1092,7 +1092,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置激活填充需要最小的输入字符数, 比如: 3.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示激活填充需要最小的输入字符数, 比如: 3" )]
 		[NotifyParentProperty ( true )]
@@ -1105,7 +1105,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置填充列表的位置, 默认为: { my: 'left top', at: 'left bottom', collision: 'none' }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "布局" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示填充列表的位置, 默认为: { my: 'left top', at: 'left bottom', collision: 'none' }" )]
 		[NotifyParentProperty ( true )]
@@ -1118,7 +1118,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置用于填充的源, 可以是数组, 比如: ['abc', 'def'], 也可以是函数.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示用于填充的源, 可以是数组, 比如: ['abc', 'def'], 也可以是函数" )]
 		[NotifyParentProperty ( true )]
@@ -1133,7 +1133,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置填充被创建时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示填充被创建时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -1146,7 +1146,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置搜索匹配项时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示搜索匹配项时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -1159,7 +1159,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置列表打开时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示列表打开时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -1172,7 +1172,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置获得焦点时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示获得焦点时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -1185,7 +1185,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置选择某个条目的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示选择某个条目的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -1198,7 +1198,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置列表关闭时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示列表关闭时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -1211,7 +1211,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置选择的条目改变时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示选择的条目改变时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -1347,7 +1347,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取元素的日期框设置.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "基本" )]
 		[Description ( "日期框相关的设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
@@ -1361,7 +1361,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取元素的日期框事件.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "基本" )]
 		[Description ( "日期框相关的事件" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
@@ -1376,7 +1376,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置日期框是否可用, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示日期框是否可用, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1389,7 +1389,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置备用字段, 是一个选择器.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示备用字段, 是一个选择器" )]
 		[NotifyParentProperty ( true )]
@@ -1402,7 +1402,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置在备用字段显示的日期格式, 比如: 'yy-mm-dd'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示在备用字段显示的日期格式, 比如: 'yy-mm-dd'" )]
 		[NotifyParentProperty ( true )]
@@ -1415,7 +1415,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置显示在日期字段后的文本, 比如: '...'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示显示在日期字段后的文本, 比如: '...'" )]
 		[NotifyParentProperty ( true )]
@@ -1428,7 +1428,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否自动调整输入框的大小, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否自动调整输入框的大小, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1441,7 +1441,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置按钮的图片, 比如: '/images/datepicker.gif'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示按钮的图片, 比如: '/images/datepicker.gif'" )]
 		[NotifyParentProperty ( true )]
@@ -1454,7 +1454,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否按钮只显示图片, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否按钮只显示图片, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1467,7 +1467,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置按钮的文本, 默认 '...'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示按钮的文本, 默认 '...'" )]
 		[NotifyParentProperty ( true )]
@@ -1480,7 +1480,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置区域设置, 默认 $.datepicker.iso8601Week.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示区域设置, 默认 $.datepicker.iso8601Week" )]
 		[NotifyParentProperty ( true )]
@@ -1493,7 +1493,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否允许使用下拉框改变月份, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否允许使用下拉框改变月份, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1506,7 +1506,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否允许使用下拉框改变年份, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否允许使用下拉框改变年份, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1519,7 +1519,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置关闭链接的文本, 比如: 'X'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示关闭链接的文本, 比如: 'X'" )]
 		[NotifyParentProperty ( true )]
@@ -1532,7 +1532,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否限制输入的格式, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否限制输入的格式, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1545,7 +1545,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置当天链接的文本, 比如: '今天'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示当天链接的文本, 比如: '今天'" )]
 		[NotifyParentProperty ( true )]
@@ -1558,7 +1558,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置日期的格式, 比如: 'mm/dd/yy'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示日期的格式, 比如: 'mm/dd/yy'" )]
 		[NotifyParentProperty ( true )]
@@ -1571,7 +1571,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置天的名称, 比如: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示天的名称, 比如: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']" )]
 		[NotifyParentProperty ( true )]
@@ -1584,7 +1584,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置天的最短名称, 比如: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示天的最短名称, 比如: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']" )]
 		[NotifyParentProperty ( true )]
@@ -1597,7 +1597,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置天的短名称, 比如: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示天的短名称, 比如: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']" )]
 		[NotifyParentProperty ( true )]
@@ -1610,7 +1610,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置默认日期, 可以是日期, 数字或者字符串.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示默认日期, 可以是日期, 数字或者字符串" )]
 		[NotifyParentProperty ( true )]
@@ -1623,7 +1623,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置以毫秒为单位的日期显示速度, 或者使用 'slow', 'normal', 'fast' 中的一种.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "动画" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示以毫秒为单位的日期显示速度, 或者使用 'slow', 'normal', 'fast' 中的一种" )]
 		[NotifyParentProperty ( true )]
@@ -1636,7 +1636,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置哪一天作为一周的开始, 0 表示周日以此类推.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示哪一天作为一周的开始, 0 表示周日以此类推" )]
 		[NotifyParentProperty ( true )]
@@ -1649,7 +1649,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否再点击当天链接后跳转到选中日期而不是当天, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否再点击当天链接后跳转到选中日期而不是当天, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1662,7 +1662,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否隐藏上一和下一链接, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否隐藏上一和下一链接, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1675,7 +1675,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否使用从右向左, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否使用从右向左, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1688,7 +1688,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置最大日期, 可以是日期, 数字或者字符串, 比如: '+1m +1w', 表示推后一月零一周.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示最大日期, 可以是日期, 数字或者字符串, 比如: '+1m +1w', 表示推后一月零一周" )]
 		[NotifyParentProperty ( true )]
@@ -1701,7 +1701,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置最大日期, 可以是日期, 数字或者字符串, 比如: '+1m +1w', 表示推后一月零一周.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示最小日期, 可以是日期, 数字或者字符串, 比如: '-1m -1w', 表示推前一月零一周" )]
 		[NotifyParentProperty ( true )]
@@ -1714,7 +1714,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置月的名称, 比如: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示月的名称, 比如: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']" )]
 		[NotifyParentProperty ( true )]
@@ -1727,7 +1727,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置月的短名称, 比如: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示月的短名称, 比如: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']" )]
 		[NotifyParentProperty ( true )]
@@ -1740,7 +1740,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置链接是否使用日期格式, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示链接是否使用日期格式, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1753,7 +1753,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置下一链接的文本, 比如: '...'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示下一链接的文本, 比如: '...'" )]
 		[NotifyParentProperty ( true )]
@@ -1766,7 +1766,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置显示的月数, 默认为 1, 也可以是指示行数列数的数组, 比如: [2, 3].
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示显示的月数, 默认为 1, 也可以是指示行数列数的数组, 比如: [2, 3]" )]
 		[NotifyParentProperty ( true )]
@@ -1779,7 +1779,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置上一链接的文本, 比如: '...'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示上一链接的文本, 比如: '...'" )]
 		[NotifyParentProperty ( true )]
@@ -1792,7 +1792,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否可以选择其它的月份, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否可以选择其它的月份, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1805,7 +1805,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置短年份的设置, 可以是数字或者字符串.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示短年份的设置, 可以是数字或者字符串" )]
 		[NotifyParentProperty ( true )]
@@ -1818,7 +1818,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置显示日期时的动画, 比如: 'show'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "动画" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示显示日期时的动画, 比如: 'show'" )]
 		[NotifyParentProperty ( true )]
@@ -1831,7 +1831,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否显示按钮面板, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否显示按钮面板, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1844,7 +1844,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置当前月份的显示位置.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示当前月份的显示位置" )]
 		[NotifyParentProperty ( true )]
@@ -1857,7 +1857,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否在年后显示月份, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否在年后显示月份, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1870,7 +1870,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置日期框显示方式, 可以是 'focus', 'button' , 'both' 中的一种.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示日期框显示方式, 可以是 'focus', 'button' , 'both' 中的一种" )]
 		[NotifyParentProperty ( true )]
@@ -1883,7 +1883,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置显示选项, 比如: {direction: 'up' }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "动画" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示显示选项, 比如: {direction: 'up' }" )]
 		[NotifyParentProperty ( true )]
@@ -1896,7 +1896,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否显示其它月份, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否显示其它月份, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1909,7 +1909,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否显示当前为一年中的第几周, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否显示当前为一年中的第几周, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -1922,7 +1922,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置每一次跳转的月份数, 比如: 3.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示每一次跳转的月份数, 比如: 3" )]
 		[NotifyParentProperty ( true )]
@@ -1935,7 +1935,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置周的标题设置, 默认: 'Wk'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示周的标题设置, 默认: 'Wk'" )]
 		[NotifyParentProperty ( true )]
@@ -1948,7 +1948,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置可选择的年份范围, 默认: 'c-10:c+10'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示可选择的年份范围, 默认: 'c-10:c+10'" )]
 		[NotifyParentProperty ( true )]
@@ -1961,7 +1961,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置跟随在年后的文本, 比如: 'Y'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示跟随在年后的文本, 比如: 'Y'" )]
 		[NotifyParentProperty ( true )]
@@ -1976,7 +1976,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置日期框被创建时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示日期框被创建时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -1989,7 +1989,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置日期框显示时的事件, 类似于: function(input, inst) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示日期框显示时的事件, 类似于: function(input, inst) { }" )]
 		[NotifyParentProperty ( true )]
@@ -2002,7 +2002,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置日期框显示天时的事件, 类似于: function(date) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示日期框显示天时的事件, 类似于: function(date) { }" )]
 		[NotifyParentProperty ( true )]
@@ -2015,7 +2015,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置列表打开时的事件, 类似于: function(year, month, inst) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示年和月改变时的事件, 类似于: function(year, month, inst) { }" )]
 		[NotifyParentProperty ( true )]
@@ -2028,7 +2028,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置日期款关闭时的事件, 类似于: function(dateText, inst) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示日期款关闭时的事件, 类似于: function(dateText, inst) { }" )]
 		[NotifyParentProperty ( true )]
@@ -2041,7 +2041,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置日期选择时的事件, 类似于: function(dateText, inst) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示日期选择时的事件, 类似于: function(dateText, inst) { }" )]
 		[NotifyParentProperty ( true )]
