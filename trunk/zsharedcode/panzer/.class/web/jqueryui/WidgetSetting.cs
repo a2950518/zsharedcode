@@ -28,17 +28,17 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		none = 0,
 		/// <summary>
-		/// 按钮.
-		/// </summary>
-		button = 1,
-		/// <summary>
 		/// 折叠列表.
 		/// </summary>
-		accordion = 2,
+		accordion = 1,
 		/// <summary>
 		/// 自动填充.
 		/// </summary>
-		autocomplete = 3,
+		autocomplete = 2,
+		/// <summary>
+		/// 按钮.
+		/// </summary>
+		button = 3,
 		/// <summary>
 		/// 日期框.
 		/// </summary>

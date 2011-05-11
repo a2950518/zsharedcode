@@ -5128,6 +5128,7 @@ namespace zoyobar.shared.panzer.web
 			if ( null == page || null == page.ClientScript )
 				return false;
 
+			// HACK: 可能需要添加 V5
 #if V4
 			if ( option.HasFlag ( ScriptBuildOption.Startup ) )
 #else
@@ -5443,6 +5444,7 @@ namespace zoyobar.shared.panzer.web
 
 			string script;
 
+			// HACK: 可能需要添加 V5
 #if V4
 			if ( option.HasFlag ( ScriptBuildOption.OnlyCode ) )
 #else
@@ -5454,6 +5456,7 @@ namespace zoyobar.shared.panzer.web
 
 			key = MakeKey ( key );
 
+			// HACK: 可能需要添加 V5
 #if V4
 			if ( option.HasFlag ( ScriptBuildOption.Startup ) )
 #else
