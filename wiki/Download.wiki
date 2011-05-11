@@ -4,6 +4,11 @@
 === panzer.dll ===
  如果 [AllInOneFile all.cs 文件] 不能正常使用, 可能是由于 [OtherIDE 不同 Visual Studio 版本的差别], 请下载 dll 文件尝试解决问题.
 
+ [http://zsharedcode.googlecode.com/files/zoyobar.shared.panzer.4.0.zip panzer.dll for .NET 4.0]
+ [http://zsharedcode.googlecode.com/files/zoyobar.shared.panzer.3.5.zip panzer.dll for .NET 3.5]
+ [http://zsharedcode.googlecode.com/files/zoyobar.shared.panzer.3.0.zip panzer.dll for .NET 3.0]
+ [http://zsharedcode.googlecode.com/files/zoyobar.shared.panzer.2.0.zip panzer.dll for .NET 2.0]
+
 === IEBrowser ===
  [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs]
  [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs]
