@@ -47,7 +47,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取元素的拖动设置.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "基本" )]
 		[Description ( "元素相关的拖动设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
@@ -61,7 +61,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否可以拖动.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "基本" )]
 		[DefaultValue ( false )]
 		[Description ( "指示元素是否可以拖动" )]
 		[NotifyParentProperty ( true )]
@@ -75,7 +75,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置拖动是否可用, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示拖动是否可用, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -88,7 +88,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否添加样式, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否添加样式, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -101,7 +101,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置鼠标点击在何处拖动有效, 可以是 'parent', 'body' 等.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示鼠标点击在何处拖动有效, 可以是 'parent', 'body' 等" )]
 		[NotifyParentProperty ( true )]
@@ -114,7 +114,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置拖动的方向, 可以是 'x', 'y'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示拖动的方向, 可以是 'x', 'y'" )]
 		[NotifyParentProperty ( true )]
@@ -127,7 +127,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置不参加拖动的元素, 是一个选择器.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示不参加拖动的元素, 是一个选择器" )]
 		[NotifyParentProperty ( true )]
@@ -140,7 +140,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置关联的排列, 是一个选择器.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示关联的排列, 是一个选择器" )]
 		[NotifyParentProperty ( true )]
@@ -153,7 +153,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置拖动所在的容器, 对应选择器, dom 元素, 字符串, 'parent', 'document', 'window' 中的一种, 或者数组, 比如: [0, 0, 300, 400].
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "布局" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示拖动所在的容器, 对应选择器, dom 元素, 字符串, 'parent', 'document', 'window' 中的一种, 或者数组, 比如: [0, 0, 300, 400]" )]
 		[NotifyParentProperty ( true )]
@@ -166,7 +166,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置鼠标样式, 比如: 'auto'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示鼠标样式, 比如: 'auto'" )]
 		[NotifyParentProperty ( true )]
@@ -179,7 +179,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置鼠标的相对位置, 对应一个 javascript 对象, { top: 1, left: 2, right: 3, bottom: 4 }, 需要具有选择其中的一个或者两个属性.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "布局" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示鼠标的相对位置, 对应一个 javascript 对象, { top: 1, left: 2, right: 3, bottom: 4 }, 需要具有选择其中的一个或者两个属性" )]
 		[NotifyParentProperty ( true )]
@@ -192,7 +192,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置鼠标的延迟, 以毫秒计算.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示鼠标的延迟, 以毫秒计算" )]
 		[NotifyParentProperty ( true )]
@@ -205,7 +205,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置鼠标移动多少像素触发拖动, 比如: 20.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示鼠标移动多少像素触发排列, 比如: 20" )]
 		[NotifyParentProperty ( true )]
@@ -218,7 +218,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置按照矩阵来移动元素, 为一个数组, 比如: [10, 30].
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示按照矩阵来移动元素, 为一个数组, 比如: [10, 30]" )]
 		[NotifyParentProperty ( true )]
@@ -231,7 +231,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置用于点击的元素, 点击后拖动才有效, 对应一个 dom 元素或者选择器.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示用于点击的元素, 点击后拖动才有效, 对应一个 dom 元素或者选择器" )]
 		[NotifyParentProperty ( true )]
@@ -244,7 +244,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否使用副本 'original' 针对元素本身, 'clone' 针对元素的副本.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否使用副本 'original' 针对元素本身, 'clone' 针对元素的副本" )]
 		[NotifyParentProperty ( true )]
@@ -257,7 +257,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否引发 iframe 中的事件, 对应一个 javascript 布尔值或选择器..
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否引发 iframe 中的事件, 对应一个 javascript 布尔值或选择器" )]
 		[NotifyParentProperty ( true )]
@@ -270,7 +270,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置元素拖动时的透明度, 0 到 1 之间.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "外观" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示元素拖动时的透明度, 0 到 1 之间" )]
 		[NotifyParentProperty ( true )]
@@ -281,9 +281,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置元素拖动时的透明度, 0 到 1 之间.
+		/// 获取或设置是否刷新位置, 可以设置为 true 或者 false.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否刷新位置, 可以设置为 true 或者 false" )]
 		[NotifyParentProperty ( true )]
@@ -296,7 +296,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否在拖动后播放恢复原位的动画, 比如: true, 或者是 'valid', 'invalid'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "动画" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否在拖动后播放恢复原位的动画, 比如: true, 或者是 'valid', 'invalid'" )]
 		[NotifyParentProperty ( true )]
@@ -309,7 +309,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置以毫秒为单位的动画播放时间, 比如: 500.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "动画" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示以毫秒为单位的动画播放时间, 比如: 500" )]
 		[NotifyParentProperty ( true )]
@@ -322,7 +322,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置范围, 比如: 'default'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示范围, 比如: 'default'" )]
 		[NotifyParentProperty ( true )]
@@ -335,7 +335,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否可以显示滚动轴.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否可以显示滚动轴, 比如: true" )]
 		[NotifyParentProperty ( true )]
@@ -348,7 +348,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置滚动轴的灵敏度, 比如: 40.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示滚动轴的灵敏度, 比如: 40" )]
 		[NotifyParentProperty ( true )]
@@ -361,7 +361,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置滚动轴的速度, 比如: 40.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示滚动轴的速度, 比如: 40" )]
 		[NotifyParentProperty ( true )]
@@ -374,7 +374,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否附着, 比如: true, 或者附着的目标元素的选择器.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示是否附着, 比如: true, 或者附着的目标元素的选择器" )]
 		[NotifyParentProperty ( true )]
@@ -387,7 +387,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置附着模式, 可以是 'inner', 'outer', 'both'.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示附着模式, 可以是 'inner', 'outer', 'both'" )]
 		[NotifyParentProperty ( true )]
@@ -400,7 +400,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置附着发生的距离, 比如: 100.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示附着发生的距离, 比如: 100" )]
 		[NotifyParentProperty ( true )]
@@ -413,7 +413,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置控制 z 轴顺序, 对应一个选择器.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示控制 z 轴顺序, 对应一个选择器" )]
 		[NotifyParentProperty ( true )]
@@ -426,7 +426,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置 Z 轴顺序, 比如: 5.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "布局" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示 Z 轴顺序, 比如: 5" )]
 		[NotifyParentProperty ( true )]
@@ -441,7 +441,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置拖动被创建时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示拖动被创建时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -454,7 +454,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置拖动开始的时候的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示拖动开始的时候的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -467,7 +467,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置拖动完成时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示拖动完成时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
@@ -480,7 +480,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置拖动停止的事件, 类似于: function(event, ui) { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示拖动停止的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
