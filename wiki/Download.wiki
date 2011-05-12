@@ -4,7 +4,7 @@
 === panzer.dll ===
  如果 [AllInOneFile all.cs 文件] 不能正常使用, 可能是由于 [OtherIDE 不同 Visual Studio 版本的差别], 请下载 dll 文件尝试解决问题.
 
- 以下 dll 文件, 为 2011-5-12 上传, 可能没有依照最新的 panzer 代码编译.
+ 以下 dll 文件, 为 2011-5-12 上传, 可能没有依照最新的 panzer 代码编译. dll 文件中已经包含了 IEBrowser 和 JQueryElement.
  
  注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
 
