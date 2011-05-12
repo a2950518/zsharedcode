@@ -1,8 +1,0 @@
-#summary 开始准备
-#labels Phase-Implementation,Phase-Support,Phase-Deploy
-<font face="microsoft yahei">
-=== 开始准备 ===
- * [HowToDownloadAndUse 如何下载使用]
- * [HowToJoin 如何加入开发]
- * [PanzerLicense panzer 许可证]
-</font>
