@@ -1504,7 +1504,7 @@ namespace zoyobar.shared.panzer.flow
 
 			while ( true )
 			{
-				int remainSecond = ( time.AddSeconds ( second ) - DateTime.Now ).Seconds;
+				int remainSecond = ( int ) ( ( time.AddSeconds ( second ) - DateTime.Now ).TotalSeconds ) + 1;
 
 				if ( oldRemainSecond == -1 || oldRemainSecond != remainSecond )
 				{
