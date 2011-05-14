@@ -28,7 +28,7 @@
 			<AutocompleteSetting Source="['C#', 'C# .NET', 'VB', 'VB .NET', 'Visual Studio', 'Visual Studio 2005', 'Visual Studio 2008', 'Visual Studio 2010']" Position="{ my: 'left top', at: 'right bottom', collision: 'none' }"></AutocompleteSetting>
 		</WidgetSetting>
 	</je:JQueryElement>
-	<p style="font-size: smaller; text-align: right;">版本 2.4, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<p style="font-size: smaller; text-align: right;">版本 2.5, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
 	<p style="font-size: smaller; text-align: right;">
 		<a href="http://code.google.com/p/zsharedcode/wiki/JEAutoCompletePositionDoc">代码解释说明</a>
 		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />

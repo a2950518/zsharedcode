@@ -167,6 +167,8 @@
       * [JQueryElementHtmlDoc 设置 html 代码]
       * [JQueryElementElementDoc 设置元素的类型]
       * [JQueryElementNestDoc 嵌套]
+      * [JQueryElementVariableDoc 生成 javascript 变量]
+      * [JQueryElementSelectorDoc 控制页面任意标签]
       * [JQueryElementDraggable 拖动]
         * [JQueryElementDraggableDoc 拖动基本操作]
         * [JEDraggableAxisDoc 拖动 x/y 轴拖动]

@@ -32,7 +32,7 @@
 			<DatepickerSetting ShowButtonPanel="true" CurrentText="'今天'" DayNames="['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']" DayNamesMin="['日', '一', '二', '三', '四', '五', '六']" DayNamesShort="['周日', '周一', '周二', '周三', '周四', '周五', '周六']" MonthNames="['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']" MonthNamesShort="['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']"></DatepickerSetting>
 		</WidgetSetting>
 	</je:JQueryElement>
-	<p style="font-size: smaller; text-align: right;">版本 2.4, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<p style="font-size: smaller; text-align: right;">版本 2.5, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
 	<p style="font-size: smaller; text-align: right;">
 		<a href="http://code.google.com/p/zsharedcode/wiki/JEDatePickerTextDoc">代码解释说明</a>
 		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />

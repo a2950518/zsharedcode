@@ -3,15 +3,6 @@
 <font face="microsoft yahei">
 === 代码 ===
 {{{
-<%--
-wiki 成员参考:
-http://code.google.com/p/zsharedcode/wiki/JQueryElement
-wiki 分析&示例:
-http://code.google.com/p/zsharedcode/wiki/JEResizableEventDoc
-JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/zsharedcode/.
-所有项目源码托管地址: http://panzer.codeplex.com/.
---%>
-
 <%@ Page Language="C#" %>
 
 <%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
@@ -35,16 +26,17 @@ JE 是项目 zsharedcode 的一部分, 您可以参考 http://code.google.com/p/
 	<form id="formJE" runat="server">
 	<je:JQueryElement ID="je" runat="server" ElementType="Div" CssClass="resizable-box">
 		<Html>box</Html>
-		<ResizableSetting IsResizable="true">
-			<Options>
-				<je:OptionEdit Type="start" Value="function(event, ui){$('#message').html('开始');}" />
-				<je:OptionEdit Type="resize" Value="function(event, ui){$('#message').html('缩放...');}" />
-				<je:OptionEdit Type="stop" Value="function(event, ui){$('#message').html('停止');}" />
-			</Options>
+		<ResizableSetting IsResizable="true" Start="function(event, ui){$('#message').html('开始');}" Resize="function(event, ui){$('#message').html('缩放...');}" Stop="function(event, ui){$('#message').html('停止');}">
 		</ResizableSetting>
 	</je:JQueryElement>
 	<div id="message"></div>
-	<p>讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程)</p>
+	<p style="font-size: smaller; text-align: right;">版本 2.5, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<p style="font-size: smaller; text-align: right;">
+		<a href="http://code.google.com/p/zsharedcode/wiki/JEResizableEventDoc">代码解释说明</a>
+		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
+		JE 是 panzer 项目的一部分, 您可以参考 <a href="http://code.google.com/p/zsharedcode/">http://code.google.com/p/zsharedcode/</a>.<br />
+		所有示例源码托管地址: <a href="http://panzer.codeplex.com/">http://panzer.codeplex.com/</a>.
+	</p>
 	</form>
 </body>
 </html>
