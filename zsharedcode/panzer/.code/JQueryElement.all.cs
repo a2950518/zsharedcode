@@ -12787,6 +12787,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 
 
+// HACK: 避免在 allinone 文件中的名称冲突
+
 namespace zoyobar.shared.panzer.ui.jqueryui
 {
 
@@ -12853,9 +12855,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 在 JQueryScript 中无效.
 		/// </summary>
 		[Browsable ( false )]
-		public override BorderStyle BorderStyle
+		public override NBorderStyle BorderStyle
 		{
-			get { return BorderStyle.None; }
+			get { return NBorderStyle.None; }
 			set { }
 		}
 
