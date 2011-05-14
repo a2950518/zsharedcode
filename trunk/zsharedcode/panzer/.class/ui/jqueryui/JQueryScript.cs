@@ -17,6 +17,9 @@ using System.Web.UI.WebControls;
 using zoyobar.shared.panzer.web;
 using zoyobar.shared.panzer.web.jqueryui;
 
+// HACK: 避免在 allinone 文件中的名称冲突
+using NBorderStyle = System.Web.UI.WebControls.BorderStyle;
+
 namespace zoyobar.shared.panzer.ui.jqueryui
 {
 
@@ -83,9 +86,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 在 JQueryScript 中无效.
 		/// </summary>
 		[Browsable ( false )]
-		public override BorderStyle BorderStyle
+		public override NBorderStyle BorderStyle
 		{
-			get { return BorderStyle.None; }
+			get { return NBorderStyle.None; }
 			set { }
 		}
 
