@@ -12,6 +12,9 @@ using System.Reflection;
 using System.Web;
 using System.Web.UI;
 
+// HACK: 避免在 allinone 文件中的名称冲突
+using NControl = System.Web.UI.Control;
+
 namespace zoyobar.shared.panzer.ui.jqueryui
 {
 
@@ -27,7 +30,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <param name="control">控件.</param>
 		/// <param name="code">包含内嵌语法的代码.</param>
 		/// <returns>编码后的代码.</returns>
-		public static string Encode ( Control control, string code )
+		public static string Encode ( NControl control, string code )
 		{
 
 			if ( string.IsNullOrEmpty ( code ) || null == control || null == control.Page )
@@ -68,7 +71,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				switch ( commandName )
 				{
 					case "id":
-						Control aimControl = control.Page.FindControl ( commandParameter );
+						NControl aimControl = control.Page.FindControl ( commandParameter );
 
 						if ( null != aimControl )
 							result = aimControl.ClientID;
@@ -85,7 +88,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 					case "fun":
 						MethodInfo methodInfo;
-						Control currentControl = control;
+						NControl currentControl = control;
 
 						while ( true )
 						{
