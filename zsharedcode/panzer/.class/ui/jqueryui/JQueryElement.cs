@@ -138,6 +138,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private ElementType elementType = ElementType.None;
 		private string attribute;
 		private bool isVariable = false;
+		private string selector;
 
 		private DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
 		private DroppableSettingEdit droppableSetting = new DroppableSettingEdit ( );
@@ -322,6 +323,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 获取或设置选择器, 将针对此选择器对应的元素执行操作, 比如: "'#age'", 默认为自身.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "选择器, 将针对此选择器对应的元素执行操作, 比如: \"'#age'\", 默认为自身" )]
+		[DefaultValue ( "" )]
+		public string Selector
+		{
+			get { return this.selector; }
+			set { this.selector = value; }
+		}
+
+		/// <summary>
 		/// 获取或设置元素的属性.
 		/// </summary>
 		[Category ( "jQuery UI" )]
@@ -474,7 +487,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( !this.Visible )
 				return;
 
-			JQueryUI jquery = new JQueryUI ( string.Format ( "'#{0}'", this.ClientID ) );
+			JQueryUI jquery = new JQueryUI ( string.IsNullOrEmpty ( this.selector ) ? string.Format ( "'#{0}'", this.ClientID ) : this.selector );
 
 			if ( this.elementType != ElementType.None )
 			{
@@ -689,14 +702,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	{
 
 		/// <summary>
-		/// 获取是否允许改变尺寸.
-		/// </summary>
-		public override bool AllowResize
-		{
-			get { return false; }
-		}
-
-		/// <summary>
 		/// 获取行为列表.
 		/// </summary>
 		public override DesignerActionListCollection ActionLists
@@ -724,7 +729,26 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					case WidgetType.datepicker:
 						actions.Add ( new DatepickerDesignerAction ( this ) );
 						break;
+
+					case WidgetType.dialog:
+						actions.Add ( new DialogDesignerAction ( this ) );
+						break;
+
+					case WidgetType.progressbar:
+						actions.Add ( new ProgressbarDesignerAction ( this ) );
+						break;
+
+					case WidgetType.slider:
+						actions.Add ( new SliderDesignerAction ( this ) );
+						break;
+
+					case WidgetType.tabs:
+						actions.Add ( new TabsDesignerAction ( this ) );
+						break;
 				}
+
+				if ( this.JQueryElement.WidgetSetting.Type != WidgetType.none )
+					actions.Add ( new AjaxDesignerAction ( this ) );
 
 				if ( this.JQueryElement.DraggableSetting.IsDraggable )
 					actions.Add ( new DraggableDesignerAction ( this ) );
@@ -912,15 +936,15 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			{
 				DesignerActionItemCollection items = new DesignerActionItemCollection ( );
 				items.Add ( new DesignerActionHeaderItem ( "基本设置", "base" ) );
-				items.Add ( new DesignerActionTextItem ( "Dialog, Progressbar, Slider, Tabs 尚未增加设计器", "base" ) );
 				items.Add ( new DesignerActionPropertyItem ( "ElementType", "元素类型", "base" ) );
 				items.Add ( new DesignerActionPropertyItem ( "WidgetSettingType", "Widget 类型", "base" ) );
+				items.Add ( new DesignerActionPropertyItem ( "Selector", "选择器", "base", "选择器, 将针对此选择器对应的元素执行操作, 比如: \"'#age'\", 默认为自身" ) );
 				items.Add ( new DesignerActionPropertyItem ( "IsVariable", "生成 javascript 变量", "base" ) );
-				items.Add ( new DesignerActionPropertyItem ( "IsDraggable", "启用拖动", "base" ) );
-				items.Add ( new DesignerActionPropertyItem ( "IsDroppable", "启用拖放", "base" ) );
-				items.Add ( new DesignerActionPropertyItem ( "IsResizable", "启用缩放", "base" ) );
-				items.Add ( new DesignerActionPropertyItem ( "IsSelectable", "启用选中", "base" ) );
-				items.Add ( new DesignerActionPropertyItem ( "IsSortable", "启用排列", "base" ) );
+				items.Add ( new DesignerActionPropertyItem ( "IsDraggable", "启用拖动", "base-e" ) );
+				items.Add ( new DesignerActionPropertyItem ( "IsDroppable", "启用拖放", "base-e" ) );
+				items.Add ( new DesignerActionPropertyItem ( "IsResizable", "启用缩放", "base-e" ) );
+				items.Add ( new DesignerActionPropertyItem ( "IsSelectable", "启用选中", "base-e" ) );
+				items.Add ( new DesignerActionPropertyItem ( "IsSortable", "启用排列", "base-e" ) );
 
 				return items;
 			}
@@ -950,6 +974,20 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				{
 					this.JQueryElement.WidgetSetting.Type = value;
 					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置选择器.
+			/// </summary>
+			public string Selector
+			{
+				get
+				{ return this.JQueryElement.Selector; }
+				set
+				{
+					TypeDescriptor.GetProperties ( this.JQueryElement )["Selector"].SetValue ( this.JQueryElement, value );
+					this.designer.UpdateDesignTimeHtml ( );
 				}
 			}
 
@@ -3098,7 +3136,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				{ return this.JQueryElement.WidgetSetting.ButtonSetting.Label; }
 				set
 				{
-					this.JQueryElement.WidgetSetting.ButtonSetting.Label =value;
+					this.JQueryElement.WidgetSetting.ButtonSetting.Label = value;
 					this.refreshWidgetSetting ( );
 				}
 			}
@@ -3555,6 +3593,853 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 		#endregion
 
+		#region " DialogDesignerAction "
+		/// <summary>
+		/// 对话框的设计行为.
+		/// </summary>
+		public class DialogDesignerAction : JQueryElementDesignerAction
+		{
+
+			/// <summary>
+			/// 创建一个对话框设计行为.
+			/// </summary>
+			/// <param name="designer">设计器.</param>
+			public DialogDesignerAction ( JQueryElementDesigner designer )
+				: base ( designer )
+			{ }
+
+			/// <summary>
+			/// 获取行为.
+			/// </summary>
+			/// <returns>行为.</returns>
+			public override DesignerActionItemCollection GetSortedActionItems ( )
+			{
+				DesignerActionItemCollection items = new DesignerActionItemCollection ( );
+
+				items.Add ( new DesignerActionHeaderItem ( "对话框设置", "dialog" ) );
+
+				items.Add ( new DesignerActionPropertyItem ( "Buttons", "按钮", "dialog", "指示对话框上的按钮, 比如: { 'OK': function() { $(this).dialog('close'); } }" ) );
+				items.Add ( new DesignerActionPropertyItem ( "Title", "标题", "dialog", "指示对话框标题, 比如: 'my title'" ) );
+				items.Add ( new DesignerActionPropertyItem ( "Position", "位置", "dialog", "指示对话框的位置, 比如: ['right','top'], [100, 200]" ) );
+
+				int height;
+
+				if ( this.fetchInteger ( this.JQueryElement.WidgetSetting.DialogSetting.Height, 0, out height ) )
+					items.Add ( new DesignerActionPropertyItem ( "Height", "高度", "dialog" ) );
+				else
+					items.Add ( new DesignerActionPropertyItem ( "HeightText", "高度", "dialog" ) );
+
+				int width;
+
+				if ( this.fetchInteger ( this.JQueryElement.WidgetSetting.DialogSetting.Width, 0, out width ) )
+					items.Add ( new DesignerActionPropertyItem ( "Width", "宽度", "dialog" ) );
+				else
+					items.Add ( new DesignerActionPropertyItem ( "WidthText", "宽度", "dialog" ) );
+
+				bool isAutoOpen;
+
+				if ( this.JQueryElement.WidgetSetting.DialogSetting.AutoOpen == string.Empty || this.fetchBoolean ( this.JQueryElement.WidgetSetting.DialogSetting.AutoOpen, true, out isAutoOpen ) )
+					items.Add ( new DesignerActionPropertyItem ( "AutoOpen", "自动打开", "dialog" ) );
+				else
+					items.Add ( new DesignerActionPropertyItem ( "AutoOpenText", "自动打开", "dialog", "指示对话框是否自动打开, 可以设置为 true 或者 false" ) );
+
+				bool isCloseOnEscape;
+
+				if ( this.JQueryElement.WidgetSetting.DialogSetting.CloseOnEscape == string.Empty || this.fetchBoolean ( this.JQueryElement.WidgetSetting.DialogSetting.CloseOnEscape, true, out isCloseOnEscape ) )
+					items.Add ( new DesignerActionPropertyItem ( "CloseOnEscape", "Esc 关闭", "dialog" ) );
+				else
+					items.Add ( new DesignerActionPropertyItem ( "CloseOnEscapeText", "Esc 关闭", "dialog", "指示是否在按下 Esc 时关闭对话框, 可以设置为 true 或者 false" ) );
+
+				bool isDraggable;
+
+				if ( this.JQueryElement.WidgetSetting.DialogSetting.Draggable == string.Empty || this.fetchBoolean ( this.JQueryElement.WidgetSetting.DialogSetting.Draggable, true, out isDraggable ) )
+					items.Add ( new DesignerActionPropertyItem ( "Draggable", "可拖动", "dialog" ) );
+				else
+					items.Add ( new DesignerActionPropertyItem ( "DraggableText", "可拖动", "dialog", "指示是否允许拖动, 可以设置为 true 或者 false" ) );
+
+				bool isResizable;
+
+				if ( this.JQueryElement.WidgetSetting.DialogSetting.Resizable == string.Empty || this.fetchBoolean ( this.JQueryElement.WidgetSetting.DialogSetting.Resizable, true, out isResizable ) )
+					items.Add ( new DesignerActionPropertyItem ( "Resizable", "可缩放", "dialog" ) );
+				else
+					items.Add ( new DesignerActionPropertyItem ( "ResizableText", "可缩放", "dialog", "指示是否允许缩放, 可以设置为 true 或者 false" ) );
+
+				items.Add ( new DesignerActionMethodItem ( this, "DesignerWindow", "更多对话框设置...", "dialog" ) );
+				return items;
+			}
+
+			/// <summary>
+			/// 设置更多对话框设置.
+			/// </summary>
+			public void DesignerWindow ( )
+			{
+				new FormDesigner ( this.JQueryElement.WidgetSetting.DialogSetting, this.JQueryElement.ID + " 对话框设置" ).ShowDialog ( );
+				this.refreshWidgetSetting ( );
+			}
+
+			/// <summary>
+			/// 获取或设置对话框按钮.
+			/// </summary>
+			public string Buttons
+			{
+				get
+				{ return this.JQueryElement.WidgetSetting.DialogSetting.Buttons; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.DialogSetting.Buttons = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置对话框标题.
+			/// </summary>
+			public string Title
+			{
+				get
+				{ return this.JQueryElement.WidgetSetting.DialogSetting.Title; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.DialogSetting.Title = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置位置.
+			/// </summary>
+			public string Position
+			{
+				get
+				{ return this.JQueryElement.WidgetSetting.DialogSetting.Position; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.DialogSetting.Position = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置高度.
+			/// </summary>
+			public int Height
+			{
+				get
+				{
+					int height;
+					this.fetchInteger ( this.JQueryElement.WidgetSetting.DialogSetting.Height, 0, out height );
+
+					return height;
+				}
+				set
+				{
+					this.JQueryElement.WidgetSetting.DialogSetting.Height = ( value < 0 ? string.Empty : value.ToString ( ) );
+
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置高度.
+			/// </summary>
+			public string HeightText
+			{
+				get { return this.JQueryElement.WidgetSetting.DialogSetting.Height; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.DialogSetting.Height = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置宽度.
+			/// </summary>
+			public int Width
+			{
+				get
+				{
+					int width;
+					this.fetchInteger ( this.JQueryElement.WidgetSetting.DialogSetting.Width, 0, out width );
+
+					return width;
+				}
+				set
+				{
+					this.JQueryElement.WidgetSetting.DialogSetting.Width = ( value < 0 ? string.Empty : value.ToString ( ) );
+
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置宽度.
+			/// </summary>
+			public string WidthText
+			{
+				get { return this.JQueryElement.WidgetSetting.DialogSetting.Width; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.DialogSetting.Width = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置是否自动打开.
+			/// </summary>
+			public bool AutoOpen
+			{
+				get
+				{
+					bool isAutoOpen;
+					this.fetchBoolean ( this.JQueryElement.WidgetSetting.DialogSetting.AutoOpen, true, out isAutoOpen );
+
+					return isAutoOpen;
+				}
+				set
+				{
+					this.JQueryElement.WidgetSetting.DialogSetting.AutoOpen = ( value ? string.Empty : value.ToString ( ).ToLower ( ) );
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置是否自动打开.
+			/// </summary>
+			public string AutoOpenText
+			{
+				get
+				{ return this.JQueryElement.WidgetSetting.DialogSetting.AutoOpen; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.DialogSetting.AutoOpen = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置是否按下 Esc 关闭.
+			/// </summary>
+			public bool CloseOnEscape
+			{
+				get
+				{
+					bool isCloseOnEscape;
+					this.fetchBoolean ( this.JQueryElement.WidgetSetting.DialogSetting.CloseOnEscape, true, out isCloseOnEscape );
+
+					return isCloseOnEscape;
+				}
+				set
+				{
+					this.JQueryElement.WidgetSetting.DialogSetting.CloseOnEscape = ( value ? string.Empty : value.ToString ( ).ToLower ( ) );
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置是否按下 Esc 关闭.
+			/// </summary>
+			public string CloseOnEscapeText
+			{
+				get
+				{ return this.JQueryElement.WidgetSetting.DialogSetting.CloseOnEscape; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.DialogSetting.CloseOnEscape = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置是否可拖动.
+			/// </summary>
+			public bool Draggable
+			{
+				get
+				{
+					bool isDraggable;
+					this.fetchBoolean ( this.JQueryElement.WidgetSetting.DialogSetting.Draggable, true, out isDraggable );
+
+					return isDraggable;
+				}
+				set
+				{
+					this.JQueryElement.WidgetSetting.DialogSetting.Draggable = ( value ? string.Empty : value.ToString ( ).ToLower ( ) );
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置是否可拖动.
+			/// </summary>
+			public string DraggableText
+			{
+				get
+				{ return this.JQueryElement.WidgetSetting.DialogSetting.Draggable; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.DialogSetting.Draggable = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置是否可缩放.
+			/// </summary>
+			public bool Resizable
+			{
+				get
+				{
+					bool isResizable;
+					this.fetchBoolean ( this.JQueryElement.WidgetSetting.DialogSetting.Resizable, true, out isResizable );
+
+					return isResizable;
+				}
+				set
+				{
+					this.JQueryElement.WidgetSetting.DialogSetting.Resizable = ( value ? string.Empty : value.ToString ( ).ToLower ( ) );
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置是否可缩放.
+			/// </summary>
+			public string ResizableText
+			{
+				get
+				{ return this.JQueryElement.WidgetSetting.DialogSetting.Resizable; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.DialogSetting.Resizable = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+		}
+		#endregion
+
+		#region " ProgressbarDesignerAction "
+		/// <summary>
+		/// 进度条的设计行为.
+		/// </summary>
+		public class ProgressbarDesignerAction : JQueryElementDesignerAction
+		{
+
+			/// <summary>
+			/// 创建一个进度条设计行为.
+			/// </summary>
+			/// <param name="designer">设计器.</param>
+			public ProgressbarDesignerAction ( JQueryElementDesigner designer )
+				: base ( designer )
+			{ }
+
+			/// <summary>
+			/// 获取行为.
+			/// </summary>
+			/// <returns>行为.</returns>
+			public override DesignerActionItemCollection GetSortedActionItems ( )
+			{
+				DesignerActionItemCollection items = new DesignerActionItemCollection ( );
+
+				items.Add ( new DesignerActionHeaderItem ( "进度条设置", "progressbar" ) );
+
+				int value;
+
+				if ( this.fetchInteger ( this.JQueryElement.WidgetSetting.ProgressbarSetting.Value, 0, out value ) )
+					items.Add ( new DesignerActionPropertyItem ( "Value", "进度", "progressbar" ) );
+				else
+					items.Add ( new DesignerActionPropertyItem ( "ValueText", "进度", "progressbar" ) );
+
+				items.Add ( new DesignerActionMethodItem ( this, "DesignerWindow", "更多进度条设置...", "progressbar" ) );
+				return items;
+			}
+
+			/// <summary>
+			/// 设置更多进度条设置.
+			/// </summary>
+			public void DesignerWindow ( )
+			{
+				new FormDesigner ( this.JQueryElement.WidgetSetting.ProgressbarSetting, this.JQueryElement.ID + " 进度条设置" ).ShowDialog ( );
+				this.refreshWidgetSetting ( );
+			}
+
+			/// <summary>
+			/// 获取或设置进度.
+			/// </summary>
+			public int Value
+			{
+				get
+				{
+					int value;
+					this.fetchInteger ( this.JQueryElement.WidgetSetting.ProgressbarSetting.Value, 0, out value );
+
+					return value;
+				}
+				set
+				{
+					this.JQueryElement.WidgetSetting.ProgressbarSetting.Value = ( value < 0 ? string.Empty : value.ToString ( ) );
+
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置进度.
+			/// </summary>
+			public string ValueText
+			{
+				get { return this.JQueryElement.WidgetSetting.ProgressbarSetting.Value; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.ProgressbarSetting.Value = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+		}
+		#endregion
+
+		#region " SliderDesignerAction "
+		/// <summary>
+		/// 分割条的设计行为.
+		/// </summary>
+		public class SliderDesignerAction : JQueryElementDesignerAction
+		{
+
+			#region " Enum "
+			/// <summary>
+			/// Orientation 类型.
+			/// </summary>
+			public enum OrientationType
+			{
+				/// <summary>
+				/// 空.
+				/// </summary>
+				@null = 0,
+				/// <summary>
+				/// 水平.
+				/// </summary>
+				horizontal = 1,
+				/// <summary>
+				/// 垂直.
+				/// </summary>
+				vertical = 2,
+				/// <summary>
+				/// 无关的操作.
+				/// </summary>
+				other = -1,
+			}
+			#endregion
+
+			/// <summary>
+			/// 创建一个分割条设计行为.
+			/// </summary>
+			/// <param name="designer">设计器.</param>
+			public SliderDesignerAction ( JQueryElementDesigner designer )
+				: base ( designer )
+			{ }
+
+			/// <summary>
+			/// 获取行为.
+			/// </summary>
+			/// <returns>行为.</returns>
+			public override DesignerActionItemCollection GetSortedActionItems ( )
+			{
+				DesignerActionItemCollection items = new DesignerActionItemCollection ( );
+
+				items.Add ( new DesignerActionHeaderItem ( "分割条设置", "slider" ) );
+
+				int max;
+
+				if ( this.fetchInteger ( this.JQueryElement.WidgetSetting.SliderSetting.Max, 100, out max ) )
+					items.Add ( new DesignerActionPropertyItem ( "Max", "最大值", "slider" ) );
+				else
+					items.Add ( new DesignerActionPropertyItem ( "MaxText", "最大值", "slider" ) );
+
+				int min;
+
+				if ( this.fetchInteger ( this.JQueryElement.WidgetSetting.SliderSetting.Min, 0, out min ) )
+					items.Add ( new DesignerActionPropertyItem ( "Min", "最小值", "slider" ) );
+				else
+					items.Add ( new DesignerActionPropertyItem ( "MinText", "最小值", "slider" ) );
+
+				int step;
+
+				if ( this.fetchInteger ( this.JQueryElement.WidgetSetting.SliderSetting.Step, 1, out step ) )
+					items.Add ( new DesignerActionPropertyItem ( "Step", "步长", "slider" ) );
+				else
+					items.Add ( new DesignerActionPropertyItem ( "StepText", "步长", "slider" ) );
+
+				OrientationType orientationType;
+
+				if ( this.fetchEnum<OrientationType> ( this.JQueryElement.WidgetSetting.SliderSetting.Orientation, OrientationType.@null, out orientationType ) )
+					items.Add ( new DesignerActionPropertyItem ( "Orientation", "方向", "slider" ) );
+				else
+					items.Add ( new DesignerActionPropertyItem ( "OrientationText", "方向", "slider", "指示分割条的方向, 比如: 'horizontal', 'vertical'" ) );
+
+				bool isRange;
+
+				if ( this.JQueryElement.WidgetSetting.SliderSetting.Range == string.Empty || this.fetchBoolean ( this.JQueryElement.WidgetSetting.SliderSetting.Range, false, out isRange ) )
+				{
+
+					if ( this.Range )
+						items.Add ( new DesignerActionPropertyItem ( "Values", "范围值", "slider", "指示分割条的范围值, 比如: [1, 4, 10]" ) );
+					else
+					{
+						int value;
+
+						if ( this.fetchInteger ( this.JQueryElement.WidgetSetting.SliderSetting.Value, 0, out value ) )
+							items.Add ( new DesignerActionPropertyItem ( "Value", "值", "slider" ) );
+						else
+							items.Add ( new DesignerActionPropertyItem ( "ValueText", "值", "slider" ) );
+
+					}
+
+					items.Add ( new DesignerActionPropertyItem ( "Range", "使用范围", "slider" ) );
+				}
+				else
+				{
+					int value;
+
+					if ( this.fetchInteger ( this.JQueryElement.WidgetSetting.SliderSetting.Value, 0, out value ) )
+						items.Add ( new DesignerActionPropertyItem ( "Value", "值", "slider" ) );
+					else
+						items.Add ( new DesignerActionPropertyItem ( "ValueText", "值", "slider" ) );
+
+					items.Add ( new DesignerActionPropertyItem ( "Values", "范围值", "slider", "指示分割条的范围值, 比如: [1, 4, 10]" ) );
+
+					items.Add ( new DesignerActionPropertyItem ( "RangeText", "使用范围", "slider", "指示分割条是否使用范围, 或者为 'min', 'max' 中的一种" ) );
+				}
+
+				items.Add ( new DesignerActionMethodItem ( this, "DesignerWindow", "更多分割条设置...", "slider" ) );
+				return items;
+			}
+
+			/// <summary>
+			/// 设置更多分割条设置.
+			/// </summary>
+			public void DesignerWindow ( )
+			{
+				new FormDesigner ( this.JQueryElement.WidgetSetting.SliderSetting, this.JQueryElement.ID + " 分割条设置" ).ShowDialog ( );
+				this.refreshWidgetSetting ( );
+			}
+
+			/// <summary>
+			/// 获取或设置范围值.
+			/// </summary>
+			public string Values
+			{
+				get
+				{ return this.JQueryElement.WidgetSetting.SliderSetting.Values; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.SliderSetting.Values = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置值.
+			/// </summary>
+			public int Value
+			{
+				get
+				{
+					int value;
+					this.fetchInteger ( this.JQueryElement.WidgetSetting.SliderSetting.Value, 0, out value );
+
+					return value;
+				}
+				set
+				{
+					this.JQueryElement.WidgetSetting.SliderSetting.Value = ( value < 0 ? string.Empty : value.ToString ( ) );
+
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置值.
+			/// </summary>
+			public string ValueText
+			{
+				get { return this.JQueryElement.WidgetSetting.SliderSetting.Value; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.SliderSetting.Value = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置最大值.
+			/// </summary>
+			public int Max
+			{
+				get
+				{
+					int max;
+					this.fetchInteger ( this.JQueryElement.WidgetSetting.SliderSetting.Max, 100, out max );
+
+					return max;
+				}
+				set
+				{
+					this.JQueryElement.WidgetSetting.SliderSetting.Max = ( value < 0 || value == 100 ? string.Empty : value.ToString ( ) );
+
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置最大值.
+			/// </summary>
+			public string MaxText
+			{
+				get { return this.JQueryElement.WidgetSetting.SliderSetting.Max; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.SliderSetting.Max = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置最小值.
+			/// </summary>
+			public int Min
+			{
+				get
+				{
+					int min;
+					this.fetchInteger ( this.JQueryElement.WidgetSetting.SliderSetting.Min, 0, out min );
+
+					return min;
+				}
+				set
+				{
+					this.JQueryElement.WidgetSetting.SliderSetting.Min = ( value < 0 ? string.Empty : value.ToString ( ) );
+
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置最小值.
+			/// </summary>
+			public string MinText
+			{
+				get { return this.JQueryElement.WidgetSetting.SliderSetting.Min; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.SliderSetting.Min = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置步长.
+			/// </summary>
+			public int Step
+			{
+				get
+				{
+					int min;
+					this.fetchInteger ( this.JQueryElement.WidgetSetting.SliderSetting.Step, 1, out min );
+
+					return min;
+				}
+				set
+				{
+					this.JQueryElement.WidgetSetting.SliderSetting.Step = ( value < 0 || value == 1 ? string.Empty : value.ToString ( ) );
+
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置步长.
+			/// </summary>
+			public string StepText
+			{
+				get { return this.JQueryElement.WidgetSetting.SliderSetting.Step; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.SliderSetting.Step = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置方向.
+			/// </summary>
+			public OrientationType Orientation
+			{
+				get
+				{
+					OrientationType type;
+					this.fetchEnum<OrientationType> ( this.JQueryElement.WidgetSetting.SliderSetting.Orientation, OrientationType.@null, out type );
+
+					return type;
+				}
+				set
+				{
+
+					if ( value == OrientationType.other )
+						this.JQueryElement.WidgetSetting.SliderSetting.Orientation = "null /*javascript 代码*/";
+					else
+						this.JQueryElement.WidgetSetting.SliderSetting.Orientation = ( value == OrientationType.@null ) ? string.Empty : string.Format ( "'{0}'", value );
+
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置方向.
+			/// </summary>
+			public string OrientationText
+			{
+				get { return this.JQueryElement.WidgetSetting.SliderSetting.Orientation; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.SliderSetting.Orientation = value;
+					this.refreshSortableSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置是否使用范围.
+			/// </summary>
+			public bool Range
+			{
+				get
+				{
+					bool isRange;
+					this.fetchBoolean ( this.JQueryElement.WidgetSetting.SliderSetting.Range, false, out isRange );
+
+					return isRange;
+				}
+				set
+				{
+					this.JQueryElement.WidgetSetting.SliderSetting.Range = ( value ? value.ToString ( ).ToLower ( ) : string.Empty );
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置是否使用范围.
+			/// </summary>
+			public string RangeText
+			{
+				get
+				{ return this.JQueryElement.WidgetSetting.SliderSetting.Range; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.SliderSetting.Range = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+		}
+		#endregion
+
+		#region " TabsDesignerAction "
+		/// <summary>
+		/// 分组标签的设计行为.
+		/// </summary>
+		public class TabsDesignerAction : JQueryElementDesignerAction
+		{
+
+			/// <summary>
+			/// 创建一个分组标签设计行为.
+			/// </summary>
+			/// <param name="designer">设计器.</param>
+			public TabsDesignerAction ( JQueryElementDesigner designer )
+				: base ( designer )
+			{ }
+
+			/// <summary>
+			/// 获取行为.
+			/// </summary>
+			/// <returns>行为.</returns>
+			public override DesignerActionItemCollection GetSortedActionItems ( )
+			{
+				DesignerActionItemCollection items = new DesignerActionItemCollection ( );
+
+				items.Add ( new DesignerActionHeaderItem ( "分组标签设置", "tabs" ) );
+
+				int selected;
+
+				if ( this.fetchInteger ( this.JQueryElement.WidgetSetting.TabsSetting.Selected, 0, out selected ) )
+					items.Add ( new DesignerActionPropertyItem ( "Selected", "选中标签索引", "tabs" ) );
+				else
+					items.Add ( new DesignerActionPropertyItem ( "SelectedText", "选中标签索引", "tabs" ) );
+
+				items.Add ( new DesignerActionPropertyItem ( "Event", "触发事件", "tabs", "指示触发切换的事件名称, 默认: 'click'" ) );
+				items.Add ( new DesignerActionMethodItem ( this, "DesignerWindow", "更多分组标签设置...", "tabs" ) );
+				return items;
+			}
+
+			/// <summary>
+			/// 设置更多分组标签设置.
+			/// </summary>
+			public void DesignerWindow ( )
+			{
+				new FormDesigner ( this.JQueryElement.WidgetSetting.TabsSetting, this.JQueryElement.ID + " 分组标签设置" ).ShowDialog ( );
+				this.refreshWidgetSetting ( );
+			}
+
+			/// <summary>
+			/// 获取或设置选中标签索引.
+			/// </summary>
+			public int Selected
+			{
+				get
+				{
+					int value;
+					this.fetchInteger ( this.JQueryElement.WidgetSetting.TabsSetting.Selected, 0, out value );
+
+					return value;
+				}
+				set
+				{
+					this.JQueryElement.WidgetSetting.TabsSetting.Selected = ( value < 0 ? string.Empty : value.ToString ( ) );
+
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置选中标签索引.
+			/// </summary>
+			public string SelectedText
+			{
+				get { return this.JQueryElement.WidgetSetting.TabsSetting.Selected; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.TabsSetting.Selected = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+			/// <summary>
+			/// 获取或设置触发事件.
+			/// </summary>
+			public string Event
+			{
+				get { return this.JQueryElement.WidgetSetting.TabsSetting.Event; }
+				set
+				{
+					this.JQueryElement.WidgetSetting.TabsSetting.Event = value;
+					this.refreshWidgetSetting ( );
+				}
+			}
+
+		}
+		#endregion
+
 		#region " AjaxDesignerAction "
 		/// <summary>
 		/// Ajax 设计行为.
@@ -3578,19 +4463,58 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			{
 				DesignerActionItemCollection items = new DesignerActionItemCollection ( );
 
-				items.Add ( new DesignerActionHeaderItem ( "Ajax 设置", "button" ) );
+				items.Add ( new DesignerActionHeaderItem ( "Ajax 设置", "ajax" ) );
 
-				bool isText;
-				this.fetchBoolean ( this.JQueryElement.WidgetSetting.ButtonSetting.Text, true, out isText );
+				for ( int index = 0; index < 4 && index < this.JQueryElement.WidgetSetting.AjaxSettings.Count; index++ )
+					items.Add ( new DesignerActionMethodItem ( this, string.Format ( "DesignerWindow{0}", index + 1 ), string.Format ( "Ajax[{0}] 设置...", index + 1 ), "ajax" ) );
 
-				if ( isText )
-					items.Add ( new DesignerActionPropertyItem ( "Label", "文本", "button" ) );
-				else
-					items.Add ( new DesignerActionPropertyItem ( "Icons", "图标", "button" ) );
-
-				items.Add ( new DesignerActionPropertyItem ( "Text", "是否显示文本", "button" ) );
-
+				items.Add ( new DesignerActionTextItem ( "请在源视图中添加 Ajax 操作", "ajax" ) );
 				return items;
+			}
+
+			/// <summary>
+			/// 设置更多 Ajax 设置.
+			/// </summary>
+			public void DesignerWindow ( )
+			{
+				new FormDesigner ( this.JQueryElement.WidgetSetting.AjaxSettings, this.JQueryElement.ID + " Ajax 设置" ).ShowDialog ( );
+				this.refreshWidgetSetting ( );
+			}
+
+			/// <summary>
+			/// Ajax 1 设置.
+			/// </summary>
+			public void DesignerWindow1 ( )
+			{
+				new FormDesigner ( this.JQueryElement.WidgetSetting.AjaxSettings[0], this.JQueryElement.ID + " Ajax 1 设置" ).ShowDialog ( );
+				this.refreshWidgetSetting ( );
+			}
+
+			/// <summary>
+			/// Ajax 1 设置.
+			/// </summary>
+			public void DesignerWindow2 ( )
+			{
+				new FormDesigner ( this.JQueryElement.WidgetSetting.AjaxSettings[1], this.JQueryElement.ID + " Ajax 2 设置" ).ShowDialog ( );
+				this.refreshWidgetSetting ( );
+			}
+
+			/// <summary>
+			/// Ajax 1 设置.
+			/// </summary>
+			public void DesignerWindow3 ( )
+			{
+				new FormDesigner ( this.JQueryElement.WidgetSetting.AjaxSettings[2], this.JQueryElement.ID + " Ajax 3 设置" ).ShowDialog ( );
+				this.refreshWidgetSetting ( );
+			}
+
+			/// <summary>
+			/// Ajax 4 设置.
+			/// </summary>
+			public void DesignerWindow4 ( )
+			{
+				new FormDesigner ( this.JQueryElement.WidgetSetting.AjaxSettings[3], this.JQueryElement.ID + " Ajax 4 设置" ).ShowDialog ( );
+				this.refreshWidgetSetting ( );
 			}
 
 		}

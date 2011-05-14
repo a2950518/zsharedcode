@@ -59,7 +59,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取元素的 Ajax 事件.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "基本" )]
 		[Description ( "元素相关的 Ajax 事件" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
@@ -74,7 +74,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置 ajax 完成时的事件, 类似于: function() { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示 ajax 完成时的事件, 类似于: function() { }" )]
 		[NotifyParentProperty ( true )]
@@ -87,7 +87,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置 ajax 错误时的事件, 类似于: function() { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示 ajax 错误时的事件, 类似于: function() { }" )]
 		[NotifyParentProperty ( true )]
@@ -100,7 +100,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置 ajax 成功时的事件, 类似于: function() { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示 ajax 成功时的事件, 类似于: function() { }" )]
 		[NotifyParentProperty ( true )]
@@ -113,7 +113,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置 ajax 发送时的事件, 类似于: function() { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示 ajax 发送时的事件, 类似于: function() { }" )]
 		[NotifyParentProperty ( true )]
@@ -126,7 +126,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置 ajax 开始时的事件, 类似于: function() { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示 ajax 开始时的事件, 类似于: function() { }" )]
 		[NotifyParentProperty ( true )]
@@ -139,7 +139,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置 ajax 停止时的事件, 类似于: function() { }.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "事件" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示 ajax 停止时的事件, 类似于: function() { }" )]
 		[NotifyParentProperty ( true )]
@@ -162,7 +162,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置和 Widget 相关的触发事件.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( EventType.none )]
 		[Description ( "指示和 Widget 相关的触发事件" )]
 		[NotifyParentProperty ( true )]
@@ -175,7 +175,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置请求的地址.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示请求的地址" )]
 		[NotifyParentProperty ( true )]
@@ -195,7 +195,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置获取的数据类型.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( DataType.json )]
 		[Description ( "指示获取的数据类型" )]
 		[NotifyParentProperty ( true )]
@@ -208,7 +208,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置用作传递参数的表单.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示用作传递参数的表单, 可以是一个选择器或元素" )]
 		[NotifyParentProperty ( true )]
@@ -227,7 +227,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取用作传递的参数.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "基本" )]
 		[Description ( "用作传递的参数" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
@@ -241,7 +241,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置是否为字符串使用单引号.
 		/// </summary>
-		[Category ( "jQuery UI" )]
+		[Category ( "行为" )]
 		[DefaultValue ( true )]
 		[Description ( "指示是否为字符串使用单引号" )]
 		[NotifyParentProperty ( true )]
