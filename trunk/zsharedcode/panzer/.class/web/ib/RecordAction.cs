@@ -1,6 +1,6 @@
 ﻿/*
  * wiki:
- * http://code.google.com/p/zsharedcode/wiki/IBCustomAction
+ * http://code.google.com/p/zsharedcode/wiki/IBCustomRecordAction
  * http://code.google.com/p/zsharedcode/wiki/IBNavigateRecordAction
  * http://code.google.com/p/zsharedcode/wiki/IBRecordAction
  * http://code.google.com/p/zsharedcode/wiki/IBRecordActionType
