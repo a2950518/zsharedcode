@@ -4,13 +4,13 @@
 === panzer.dll ===
  如果 [AllInOneFile all.cs 文件] 不能正常使用, 可能是由于 [OtherIDE 不同 Visual Studio 版本的差别], 请下载 dll 文件尝试解决问题.
 
- 以下 dll 文件, 为 2011-5-12 上传, 可能没有依照最新的 panzer 代码编译. dll 文件中已经包含了 IEBrowser 和 JQueryElement.
+ 以下 dll 文件, 为 2011-5-19 上传, 可能没有依照最新的 panzer 代码编译. dll 文件中已经包含了 IEBrowser 和 JQueryElement.
  
  注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
 
- [http://zsharedcode.googlecode.com/files/panzer.2.1.1.Debug.PARAM.zip panzer.dll for .NET 4.0 (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/panzer.2.2.0.Debug.PARAM.zip panzer.dll for .NET 4.0 (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] (没有更新 dll 版本号)
 
- [http://zsharedcode.googlecode.com/files/panzer.2.1.1.Debug.NOPARAM.zip panzer.dll for .NET 4.0 (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/panzer.2.2.0.Debug.NOPARAM.zip panzer.dll for .NET 4.0 (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] (没有更新 dll 版本号)
 
 === IEBrowser ===
  [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs]
