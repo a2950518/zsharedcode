@@ -87,6 +87,7 @@
     <Compile Include=".class\web\ib\WebPageAction.cs" />
     <Compile Include=".class\web\ib\WebPageCondition.cs" />
     <Compile Include=".class\web\ib\WebPageState.cs" />
+    <Compile Include=".class\web\ib\RecordAction.cs" />
     <Compile Include=".class\web\JQuery.cs" />
     <Compile Include=".class\web\ib\IEBrowser.cs" />
     <Compile Include=".class\web\jqueryui\JQueryUI.cs" />
