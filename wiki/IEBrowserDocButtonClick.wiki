@@ -103,6 +103,6 @@ namespace zoyobar.shared.panzer.test.web.ib
 
  如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
 
-=== 需求 ===
+=== 讨论 ===
  版本 2.1, 讨论, 获取 IEBrowser 最新消息, 请加 QQ 群: 91824470 (IEBrowser 编程).
 </font>
