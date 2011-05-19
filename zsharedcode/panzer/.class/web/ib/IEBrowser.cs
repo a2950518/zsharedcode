@@ -2,11 +2,13 @@
  * wiki 成员参考:
  * http://code.google.com/p/zsharedcode/wiki/IEBrowser
  * http://code.google.com/p/zsharedcode/wiki/IEFlow
+ * http://code.google.com/p/zsharedcode/wiki/IERecord
  * wiki 分析&示例:
  * http://code.google.com/p/zsharedcode/wiki/IEBrowserDoc
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/IEBrowser.cs
  * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/RecordAction.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageAction.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageState.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageCondition.cs
@@ -36,6 +38,466 @@ using zoyobar.shared.panzer.flow;
 
 namespace zoyobar.shared.panzer.web.ib
 {
+
+	#region " IERecord "
+	/// <summary>
+	/// 操作记录类.
+	/// </summary>
+	public sealed class IERecord
+	{
+		private readonly IEBrowser ieBrowser;
+		private bool isRecording = false;
+		private bool isReplaying = false;
+		private string navigateUrl;
+		private readonly List<RecordAction> actions = new List<RecordAction> ( );
+		private readonly List<RecordAction> replayActions = new List<RecordAction> ( );
+
+		/// <summary>
+		/// 获取当前是否处于记录状态.
+		/// </summary>
+		public bool IsRecording
+		{
+			get { return this.isRecording; }
+		}
+
+		/// <summary>
+		/// 获取当前是否处于回放状态.
+		/// </summary>
+		public bool IsReplaying
+		{
+			get { return this.isReplaying; }
+		}
+
+		/// <summary>
+		/// 获取或设置导航到的地址.
+		/// </summary>
+		public string NavigateUrl
+		{
+			get { return this.navigateUrl; }
+			set { this.navigateUrl = value; }
+		}
+
+		/// <summary>
+		/// 获取记录的动作.
+		/// </summary>
+		public List<RecordAction> RecordActions
+		{
+			get { return this.actions; }
+		}
+
+		/// <summary>
+		/// 创建一个操作记录类.
+		/// </summary>
+		/// <param name="ieBrowser">用于记录的 IEBrowser.</param>
+		public IERecord ( IEBrowser ieBrowser )
+		{
+
+			if ( null == ieBrowser )
+				throw new ArgumentNullException ( "ieBrowser", "IEBrowser 不能为空" );
+
+			this.ieBrowser = ieBrowser;
+		}
+
+		/// <summary>
+		/// 追加一个操作.
+		/// </summary>
+		/// <param name="action">追加的操作.</param>
+		public void AppendAction ( RecordAction action )
+		{
+
+			if ( !this.isRecording || null == action )
+				return;
+
+			this.actions.Add ( action );
+		}
+
+		/// <summary>
+		/// 从当前页面读取已经记录的操作, 需要首先调用 BeginRecord 方法.
+		/// </summary>
+		public void RecordCustomAction ( )
+		{
+
+			if ( !this.isRecording )
+				return;
+
+			string actionExpression = this.ieBrowser.__Get<string> ( "__actionExpression" );
+
+			if ( string.IsNullOrEmpty ( actionExpression ) )
+				return;
+
+			foreach ( string expression in actionExpression.Split ( ';' ) )
+			{
+
+				if ( expression == string.Empty )
+					continue;
+
+				SortedList<string, string> attributes = new SortedList<string, string> ( );
+
+				foreach ( string attribute in expression.Split ( '&' ) )
+				{
+					string[] parts = attribute.Split ( '=' );
+
+					attributes.Add ( parts[0], parts[1] );
+				}
+
+				try
+				{ this.actions.Add ( new CustomRecordAction ( attributes["type"], attributes["member"], attributes["condition"], attributes["path"], attributes.ContainsKey ( "value" ) ? attributes["value"] : null, Convert.ToInt32 ( attributes["wait"] ), Convert.ToInt32 ( attributes["index"] ) ) ); }
+				catch { }
+
+			}
+
+		}
+
+		#region " InstallRecord "
+		/// <summary>
+		/// 安装记录脚本到 WebBrowser, 可以使用记录相关的 javascript 函数.
+		/// </summary>
+		public void InstallRecord ( )
+		{
+			// HACK: 也可以去掉安装跟踪脚本.
+			this.ieBrowser.InstallTrace ( );
+
+			this.ieBrowser.InstallScript (
+		"function __getElement(condition, document) {\n" +
+		"	var results = new Array();\n" +
+		"	var parts = condition.split('`');\n" +
+		"	var element = document.getElementById(parts[0]);\n" +
+
+		"	if (null != element)\n" +
+		"		results.push(element);\n" +
+		"	else {\n" +
+		"		var elements = document.getElementsByTagName(parts[1]);\n" +
+
+		"		for (var index = 0; index < elements.length; index++)\n" +
+		"			if ((elements[index].name == parts[2] || null == elements[index].name) && (elements[index].className == parts[3] || null == elements[index].className) && (elements[index].type == parts[4] || null == elements[index].type) && (elements[index].value == parts[5] || null == elements[index].value || elements[index].type.toLowerCase() == 'text' || elements[index].type.toLowerCase() == 'radio' || elements[index].type.toLowerCase() == 'checkbox' || elements[index].tagName == 'TEXTAREA') && (elements[index].href == parts[6] || null == elements[index].href))\n" +
+		"				results.push(elements[index]);\n" +
+
+		"	}\n" +
+
+		"	return results;\n" +
+		"}\n" +
+		"function __getElementIndex(condition, element, document) {\n" +
+		"	var elements = __getElement(condition, document);\n" +
+
+		"	for (var index = 0; index < elements.length; index++)\n" +
+		"		if (elements[index] == element)\n" +
+		"			return index;\n" +
+
+		"	return 0;\n" +
+		"}\n" +
+		"function __beginRecord() {\n" +
+		"	window.__actions = new Array();\n" +
+		"	window.__actionExpression = '';\n" +
+		"	window.__lastRecordTime = new Date();\n" +
+		"	__installRecord(window);\n" +
+		"}\n" +
+		"function __installRecord(frame) {\n" +
+
+		"	for (var index = 0; index < frame.document.all.length; index++)\n" +
+		"		if (frame.document.all[index].tagName == 'INPUT' || frame.document.all[index].tagName == 'SELECT' || frame.document.all[index].tagName == 'TEXTAREA')\n" +
+		"			frame.document.all[index].attachEvent('onchange', __window_onchange);\n" +
+
+		"	frame.document.attachEvent('onclick', __window_onclick);\n" +
+
+		"	for (index = 0; index < frame.frames.length; index++)\n" +
+		"		__installRecord(frame.frames[index]);\n" +
+
+		"}\n" +
+		"function __endRecord() {\n" +
+		"	__uninstallRecord(window);\n" +
+		"}\n" +
+		"function __uninstallRecord(frame) {\n" +
+
+		"	for (var index = 0; index < frame.document.all.length; index++)\n" +
+		"		if (frame.document.all[index].tagName == 'INPUT' || frame.document.all[index].tagName == 'SELECT' || frame.document.all[index].tagName == 'TEXTAREA')\n" +
+		"			frame.document.all[index].detachEvent('onchange', __window_onchange);\n" +
+
+		"	frame.document.detachEvent('onclick', __window_onclick);\n" +
+
+		"	for (index = 0; index < frame.frames.length; index++)\n" +
+		"		__uninstallRecord(frame.frames[index]);\n" +
+
+		"}\n" +
+		"function __getDocumentPath(element) {\n" +
+		"	var path = 'document';\n" +
+		"	var parent = element.document.parentWindow;\n" +
+
+		"	while (parent != parent.parent) {\n" +
+
+		"		for (var index = 0; index < parent.parent.frames.length; index++)\n" +
+		"			if (parent == parent.parent.frames[index]) {\n" +
+		"				path = 'window.frames[' + index + '].' + path;\n" +
+		"				break;\n" +
+		"			}\n" +
+
+		"		parent = parent.parent;\n" +
+		"	}\n" +
+
+		"	return path;\n" +
+		"}\n" +
+		"function __getCondition(element) {\n" +
+		"	return (null == element.id ? '' : element.id) + '`' + element.tagName + '`' + (null == element.name ? '' : element.name) + '`' + (null == element.className ? '' : element.className) + '`' + (null == element.type ? '' : element.type) + '`' + (null == element.value ? '' : element.value) + '`' + (null == element.href ? '' : element.href);\n" +
+		"}\n" +
+		"function __setActionExpression(expression) {\n" +
+		"	if (null == expression)\n" +
+		"		expression = '';\n" +
+
+		"	window.__actions = new Array();\n" +
+		"	window.__actionExpression = expression;\n" +
+
+		"	var actions = expression.split(';');\n" +
+
+		"	for (var actionIndex = 0; actionIndex < actions.length; actionIndex++) {\n" +
+
+		"		if (actions[actionIndex] == '')\n" +
+		"			continue;\n" +
+
+		"		var attributes = actions[actionIndex].split('&');\n" +
+		"		var action = new Object();\n" +
+
+		"		for (var attributeIndex = 0; attributeIndex < attributes.length; attributeIndex++) {\n" +
+		"			var parts = attributes[attributeIndex].split('=');\n" +
+
+		"			switch (parts[0]) {\n" +
+		"				case 'selectedIndex':\n" +
+		"					action[parts[0]] = new Number(parts[1]);\n" +
+		"					break;\n" +
+
+		"				default:\n" +
+		"					action[parts[0]] = parts[1];\n" +
+		"					break;\n" +
+		"			}\n" +
+
+		"		}\n" +
+
+		"		window.__actions.push(action);\n" +
+		"	}\n" +
+
+		"}\n" +
+		"function __window_onchange(e) {\n" +
+		"	var element = e.srcElement;\n" +
+		"	var action;\n" +
+
+		"	if (null == element)\n" +
+		"		return;\n" +
+
+		"	switch (element.tagName) {\n" +
+		"		case 'INPUT':\n" +
+
+		"			if (element.type.toLowerCase() == 'radio' || element.type.toLowerCase() == 'checkbox')\n" +
+		"				action = { type: 'property', member: 'checked', value: escape(element.checked) };\n" +
+		"			else\n" +
+		"				action = { type: 'property', member: 'value', value: escape(element.value) };\n" +
+
+		"			break;\n" +
+
+		"		case 'SELECT':\n" +
+		"			action = { type: 'property', member: 'selectedIndex', value: element.selectedIndex };\n" +
+		"			break;\n" +
+
+		"		case 'TEXTAREA':\n" +
+		"			action = { type: 'property', member: 'innerText', value: escape(element.value) };\n" +
+		"			break;\n" +
+		"	}\n" +
+
+		"	action.condition = __getCondition(element);\n" +
+		"	action.path = __getDocumentPath(element);\n" +
+		"	action.wait = new Date() - window.__lastRecordTime;\n" +
+		"	action.index = __getElementIndex(action.condition, element, eval(action.path));\n" +
+
+		"	if (null != action) {\n" +
+		"		window.__actions.push(action);\n" +
+		"		window.__actionExpression += 'type=' + action.type + '&member=' + action.member + '&condition=' + action.condition + '&path=' + action.path + '&value=' + action.value + '&wait=' + action.wait + '&index=' + action.index + ';';\n" +
+		"	}\n" +
+
+		"};\n" +
+		"function __window_onclick(e) {\n" +
+		"	var element = e.srcElement;\n" +
+
+		"	if (null == element)\n" +
+		"		return;\n" +
+
+		"	var action = { type: 'method', member: 'click' };\n" +
+
+		"	action.condition = __getCondition(element);\n" +
+		"	action.path = __getDocumentPath(element);\n" +
+		"	action.wait = new Date() - window.__lastRecordTime;\n" +
+		"	action.index = __getElementIndex(action.condition, element, eval(action.path));\n" +
+
+		"	window.__actions.push(action);\n" +
+		"	window.__actionExpression += 'type=' + action.type + '&member=' + action.member + '&condition=' + action.condition + '&path=' + action.path + '&wait=' + action.wait + '&index=' + action.index + ';';\n" +
+		"};\n" +
+		"function __replayRecord() {\n" +
+
+		"	if (null == window.__actions)\n" +
+		"		return;\n" +
+
+		"	var script = '';\n" +
+
+		"	for (var index = 0; index < window.__actions.length; index++) {\n" +
+		"		var action = window.__actions[index];\n" +
+
+		"		switch (action.type) {\n" +
+		"			case 'property':\n" +
+
+		"				switch (action.member) {\n" +
+		"					case 'checked':\n" +
+		"					case 'value':\n" +
+		"					case 'innerText':\n" +
+		"						script += 'setTimeout(\"__getElement(\\'' + action.condition + '\\', ' + action.path + ')[' + action.index + '].' + action.member + ' = unescape(\\'' + action.value + '\\');\", ' + action.wait + ');';\n" +
+		"						break;\n" +
+
+		"					case 'selectedIndex':\n" +
+		"						script += 'setTimeout(\"__getElement(\\'' + action.condition + '\\', ' + action.path + ')[' + action.index + '].' + action.member + ' = ' + action.value + ';\", ' + action.wait + ');';\n" +
+		"						break;\n" +
+		"				}\n" +
+
+		"				break;\n" +
+
+		"			case 'method':\n" +
+		"				script += 'setTimeout(\"__getElement(\\'' + action.condition + '\\', ' + action.path + ')[' + action.index + '].' + action.member + '();\", ' + action.wait + ');';\n" +
+		"				break;\n" +
+		"		}\n" +
+
+		"	}\n" +
+
+		"	eval(script);\n" +
+		"}",
+				"jsRecord"
+				);
+		}
+		#endregion
+
+		/// <summary>
+		/// 在当前页面上调用 __beginRecord 函数, 需要首先调用 InstallRecord 方法.
+		/// </summary>
+		public void __BeginRecord ( )
+		{ this.ieBrowser.InvokeScript ( "__beginRecord" ); }
+
+		/// <summary>
+		/// 开始执行记录操作, 将记录用户在 WebBrowser 上的相关操作, 需要首先调用 InstallRecord 方法.
+		/// </summary>
+		public void BeginRecord ( )
+		{
+
+			if ( this.isRecording || this.isReplaying )
+				return;
+
+			this.isRecording = true;
+			this.actions.Clear ( );
+			this.AppendAction ( new NavigateRecordAction ( this.ieBrowser.Url ) );
+			this.__BeginRecord ( );
+		}
+
+		/// <summary>
+		/// 在当前页面上调用 __endRecord 函数, 需要首先调用 InstallRecord 方法.
+		/// </summary>
+		public void __EndRecord ( )
+		{ this.ieBrowser.InvokeScript ( "__endRecord" ); }
+
+		/// <summary>
+		/// 结束执行记录操作, 将结束记录用户在 WebBrowser 上的相关操作, 需要首先调用 BeginRecord 方法.
+		/// </summary>
+		public void EndRecord ( )
+		{
+
+			if ( !this.isRecording )
+				return;
+
+			this.__EndRecord ( );
+			this.RecordCustomAction ( );
+			this.isRecording = false;
+		}
+
+		/// <summary>
+		/// 在当前页面上调用 __replayRecord 函数, 需要首先调用 InstallRecord 方法.
+		/// </summary>
+		public void __ReplayRecord ( )
+		{ this.ieBrowser.InvokeScript ( "__replayRecord" ); }
+
+		/// <summary>
+		/// 开始重播记录的用户在 WebBrowser 上的相关操作, 需要首先调用 EndRecord 方法.
+		/// </summary>
+		public void BeginReplay ( )
+		{
+
+			if ( this.isRecording || this.isReplaying || this.actions.Count == 0 || this.actions[0].Type != RecordActionType.Navigate )
+				return;
+
+			this.isReplaying = true;
+
+			this.replayActions.Clear ( );
+			this.replayActions.AddRange ( this.actions );
+
+			this.navigateUrl = ( this.replayActions[0] as NavigateRecordAction ).Url;
+			this.replayActions.RemoveAt ( 0 );
+			this.ieBrowser.Navigate ( this.navigateUrl );
+		}
+
+		/// <summary>
+		/// 结束重播记录.
+		/// </summary>
+		public void EndReplay ( )
+		{
+
+			if ( !this.isReplaying )
+				return;
+
+			this.isReplaying = false;
+		}
+
+		/// <summary>
+		/// 回放用户操作直到遇上一条导航操作, 需要首先调用 ReplayRecord 方法.
+		/// </summary>
+		public void ReplayCustomAction ( )
+		{
+
+			if ( !this.isReplaying )
+				return;
+
+			if ( this.replayActions.Count == 0 )
+			{
+				this.EndReplay ( );
+				return;
+			}
+
+			string expression = string.Empty;
+
+			for ( int index = 0; index < this.replayActions.Count; )
+			{
+
+				if ( this.replayActions[0].Type == RecordActionType.Navigate )
+					break;
+
+				CustomRecordAction customAction = this.replayActions[0] as CustomRecordAction;
+
+				expression += string.Format ( "type={0}&member={1}&condition={2}&path={3}&value={4}&wait={5}&index={6};", customAction.CustomType, customAction.Member, customAction.Condition, customAction.Path, customAction.Value, customAction.Wait, customAction.Index );
+
+				this.replayActions.RemoveAt ( 0 );
+			}
+
+			this.navigateUrl = string.Empty;
+
+			if ( this.replayActions.Count == 0 )
+				this.EndReplay ( );
+			else
+				for ( int index = 0; index < this.replayActions.Count; )
+				{
+
+					if ( this.replayActions[0].Type == RecordActionType.Custom )
+						break;
+
+					this.navigateUrl += ( this.replayActions[0] as NavigateRecordAction ).Url;
+
+					this.replayActions.RemoveAt ( 0 );
+				}
+
+			this.ieBrowser.InvokeScript ( "__setActionExpression", new object[] { expression } );
+			this.__ReplayRecord ( );
+		}
+
+	}
+	#endregion
 
 	#region " IEFlow "
 	/// <summary>
@@ -252,10 +714,18 @@ namespace zoyobar.shared.panzer.web.ib
 			return text.Replace ( "\\", "\\\\" ).Replace ( "\'", "\\'" );
 		}
 
-		private string url;
 		private readonly WebBrowser browser;
 
 		private readonly IEFlow ieFlow;
+		private readonly IERecord ieRecord;
+
+		/// <summary>
+		/// 获取当前页面地址.
+		/// </summary>
+		public string Url
+		{
+			get { return this.browser.Url.AbsoluteUri.ToLower ( ); }
+		}
 
 		/// <summary>
 		/// 获取页面流程类.
@@ -263,6 +733,14 @@ namespace zoyobar.shared.panzer.web.ib
 		public IEFlow IEFlow
 		{
 			get { return this.ieFlow; }
+		}
+
+		/// <summary>
+		/// 获取操作记录类.
+		/// </summary>
+		public IERecord IERecord
+		{
+			get { return this.ieRecord; }
 		}
 
 		/// <summary>
@@ -296,9 +774,12 @@ namespace zoyobar.shared.panzer.web.ib
 				throw new ArgumentNullException ( "browser", "浏览器控件不能为空" );
 
 			browser.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler ( this.browserDocumentCompleted );
+			browser.Navigating += new WebBrowserNavigatingEventHandler ( this.browserNavigating );
+			browser.Navigated += new WebBrowserNavigatedEventHandler ( this.browserNavigated );
 
 			this.browser = browser;
 			this.ieFlow = new IEFlow ( this, states );
+			this.ieRecord = new IERecord ( this );
 			this.Scripting = scripting;
 		}
 
@@ -310,6 +791,47 @@ namespace zoyobar.shared.panzer.web.ib
 
 			if ( this.ieFlow.CompletedUrls.Count < 100 )
 				this.ieFlow.CompletedUrls.Add ( e.Url.AbsoluteUri.ToLower ( ) );
+
+			if ( this.ieRecord.IsRecording )
+			{
+
+				if ( this.ieRecord.NavigateUrl == e.Url.AbsoluteUri.ToLower ( ) )
+				{
+					this.ieRecord.InstallRecord ( );
+					this.ieRecord.__BeginRecord ( );
+				}
+
+			}
+			else if ( this.ieRecord.IsReplaying )
+			{
+				this.ieRecord.NavigateUrl = this.ieRecord.NavigateUrl.Replace ( e.Url.AbsoluteUri.ToLower ( ), string.Empty );
+
+				if ( this.ieRecord.NavigateUrl == string.Empty )
+				{
+					this.ieRecord.InstallRecord ( );
+					this.ieRecord.ReplayCustomAction ( );
+				}
+
+			}
+
+		}
+
+		private void browserNavigating ( object sender, WebBrowserNavigatingEventArgs e )
+		{
+
+			if ( this.ieRecord.IsRecording )
+				this.ieRecord.RecordCustomAction ( );
+
+		}
+
+		private void browserNavigated ( object sender, WebBrowserNavigatedEventArgs e )
+		{
+
+			if ( this.ieRecord.IsRecording )
+			{
+				this.ieRecord.AppendAction ( new NavigateRecordAction ( e.Url.AbsoluteUri.ToLower ( ) ) );
+				this.ieRecord.NavigateUrl = e.Url.AbsoluteUri.ToLower ( );
+			}
 
 		}
 
@@ -592,7 +1114,6 @@ namespace zoyobar.shared.panzer.web.ib
 			if ( string.IsNullOrEmpty ( url ) )
 				return;
 
-			this.url = url;
 			this.ieFlow.CompletedUrls.Clear ( );
 
 			try
@@ -602,10 +1123,10 @@ namespace zoyobar.shared.panzer.web.ib
 		}
 
 		/// <summary>
-		/// 刷新使用 Navigate 导航的地址.
+		/// 刷新当前页面.
 		/// </summary>
 		public void Refresh ( )
-		{ this.Navigate ( this.url ); }
+		{ this.Navigate ( this.browser.Url.AbsoluteUri.ToLower ( ) ); }
 
 		/// <summary>
 		/// 复制并获取页面中的指定的图像.
@@ -673,7 +1194,7 @@ namespace zoyobar.shared.panzer.web.ib
 		{
 
 			if ( string.IsNullOrEmpty ( methodName ) )
-				return default(T);
+				return default ( T );
 
 			if ( string.IsNullOrEmpty ( resultName ) )
 				resultName = "__tempManaged";
