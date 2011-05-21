@@ -284,4 +284,5 @@
         * [JESRegisterDoc 注册]
         * [JESBookListDoc 图书列表]
   * [Member 项目成员]
+  * [SideBar wiki 地图]
 </font>
