@@ -65,6 +65,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include=".class\ui\dwindow\DataWindowCore.cs" />
+    <Compile Include=".class\ui\jqueryui\Button.cs" />
     <Compile Include=".class\ui\jqueryui\JQueryElement.cs" />
     <Compile Include=".class\ui\jqueryui\OptionEdit.cs" />
     <Compile Include=".class\ui\jqueryui\DraggableSettingEdit.cs" />
@@ -80,6 +81,8 @@
     <Compile Include=".class\ui\jqueryui\JQueryCoder.cs" />
     <Compile Include=".class\ui\jqueryui\JQueryScript.cs" />
     <Compile Include=".class\ui\jqueryui\RepeaterSettingEdit.cs" />
+    <Compile Include=".class\ui\jqueryui\Tabs.cs" />
+    <Compile Include=".class\ui\jqueryui\Progressbar.cs" />
     <Compile Include=".class\ui\UILoader.cs" />
     <Compile Include=".class\ui\WindowCore.cs" />
     <Compile Include=".class\web\EMail.cs" />

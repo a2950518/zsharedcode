@@ -107,12 +107,20 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 								result = methodInfo.Invoke ( currentControl, null ) as string;
 
 						break;
+
+					case "\\'":
+						result = "' + " + commandParameter + " + '";
+						break;
+
+					case "\\\"":
+						result = "\" + " + commandParameter + " + \"";
+						break;
 				}
 
 				code = code.Replace ( expression, string.IsNullOrEmpty ( result ) ? "null" : result );
 			}
 
-			return code;
+			return code.Replace ( "!sq!", "'" ).Replace ( "!dq!", "'" );
 		}
 
 	}

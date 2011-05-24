@@ -2,6 +2,7 @@
  * wiki:
  * http://code.google.com/p/zsharedcode/wiki/JQueryElement
  * http://code.google.com/p/zsharedcode/wiki/JQueryElementType
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIBaseWidget
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryElement.cs
  * 引用代码:
@@ -47,12 +48,12 @@ using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing;
 using System.IO;
-using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.Design;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using System.Xml;
 
 using zoyobar.shared.panzer.web;
 using zoyobar.shared.panzer.web.jqueryui;
@@ -97,6 +98,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// input 元素.
 		/// </summary>
 		Input = 6,
+		/// <summary>
+		/// button 元素.
+		/// </summary>
+		Button = 7,
 	}
 	#endregion
 
@@ -135,10 +140,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			return writer.ToString ( );
 		}
 
-		private ElementType elementType = ElementType.None;
-		private string attribute;
+		protected ElementType elementType = ElementType.None;
+		protected string attribute;
 		private bool isVariable = false;
-		private string selector;
+		protected string selector;
 
 		private DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
 		private DroppableSettingEdit droppableSetting = new DroppableSettingEdit ( );
@@ -146,11 +151,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private SelectableSettingEdit selectableSetting = new SelectableSettingEdit ( );
 		private ResizableSettingEdit resizableSetting = new ResizableSettingEdit ( );
 
-		private WidgetSettingEdit widgetSetting = new WidgetSettingEdit ( );
+		protected WidgetSettingEdit widgetSetting = new WidgetSettingEdit ( );
 
 		private RepeaterSettingEdit repeaterSetting = new RepeaterSettingEdit ( );
 
-		private readonly PlaceHolder html = new PlaceHolder ( );
+		protected readonly PlaceHolder html = new PlaceHolder ( );
 
 		/// <summary>
 		/// 获取或设置元素的拖动设置.
@@ -159,7 +164,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "元素相关的拖动设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public DraggableSettingEdit DraggableSetting
+		public virtual DraggableSettingEdit DraggableSetting
 		{
 			get { return this.draggableSetting; }
 			set
@@ -178,7 +183,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "元素相关的拖放设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public DroppableSettingEdit DroppableSetting
+		public virtual DroppableSettingEdit DroppableSetting
 		{
 			get { return this.droppableSetting; }
 			set
@@ -197,7 +202,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "元素相关的排列设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public SortableSettingEdit SortableSetting
+		public virtual SortableSettingEdit SortableSetting
 		{
 			get { return this.sortableSetting; }
 			set
@@ -216,7 +221,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "元素相关的选中设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public SelectableSettingEdit SelectableSetting
+		public virtual SelectableSettingEdit SelectableSetting
 		{
 			get { return this.selectableSetting; }
 			set
@@ -235,7 +240,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "元素相关的缩放设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public ResizableSettingEdit ResizableSetting
+		public virtual ResizableSettingEdit ResizableSetting
 		{
 			get { return this.resizableSetting; }
 			set
@@ -254,7 +259,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "元素相关的 Widget 设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public WidgetSettingEdit WidgetSetting
+		public virtual WidgetSettingEdit WidgetSetting
 		{
 			get { return this.widgetSetting; }
 			set
@@ -273,7 +278,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "元素相关的 Repeater 设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public RepeaterSettingEdit RepeaterSetting
+		public virtual RepeaterSettingEdit RepeaterSetting
 		{
 			get { return this.repeaterSetting; }
 			set
@@ -293,7 +298,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "设置元素中包含的 html 代码" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public PlaceHolder Html
+		public virtual PlaceHolder Html
 		{
 			get { return this.html; }
 		}
@@ -304,7 +309,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "jQuery UI" )]
 		[Description ( "最终在页面上生成的元素类型, 比如: Span, Div, 默认为 None, 不生成任何元素" )]
 		[DefaultValue ( ElementType.None )]
-		public ElementType ElementType
+		public virtual ElementType ElementType
 		{
 			get { return this.elementType; }
 			set { this.elementType = value; }
@@ -316,7 +321,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "jQuery UI" )]
 		[Description ( "是否以 ClientID 生成对应的 javascript 变量, 如果使用了 Repeater, 则在运行时自动调整为 true" )]
 		[DefaultValue ( false )]
-		public bool IsVariable
+		public virtual bool IsVariable
 		{
 			get { return this.isVariable; }
 			set { this.isVariable = value; }
@@ -328,7 +333,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "jQuery UI" )]
 		[Description ( "选择器, 将针对此选择器对应的元素执行操作, 比如: \"'#age'\", 默认为自身" )]
 		[DefaultValue ( "" )]
-		public string Selector
+		public virtual string Selector
 		{
 			get { return this.selector; }
 			set { this.selector = value; }
@@ -340,7 +345,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "jQuery UI" )]
 		[Description ( "最终在页面上生成的元素的属性" )]
 		[DefaultValue ( "" )]
-		public string Attribute
+		public virtual string Attribute
 		{
 			get { return this.attribute; }
 			set
@@ -499,30 +504,22 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				if ( this.Height != Unit.Empty )
 					style += string.Format ( "height:{0};", this.Height );
 
-				// HACK: 可能需要添加 V5
-#if V4
+				string attribute = string.Empty;
+
+				foreach ( string key in this.Attributes.Keys )
+					attribute += string.Format ( " {0}={1}", key, this.Attributes[key] );
+
 				writer.Write (
-					"<{0} id={1}{2}{3}{4}{5}{6}>",
-					this.elementType.ToString ( ).ToLower ( ),
-					this.ClientID,
-					string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : " class=" + WebUtility.HtmlEncode ( this.CssClass ),
-					string.IsNullOrEmpty ( this.ToolTip ) ? string.Empty : " title=" + WebUtility.HtmlEncode ( this.ToolTip ),
-					string.IsNullOrEmpty ( style ) ? string.Empty : " style=" + WebUtility.HtmlEncode ( style ),
-					string.IsNullOrEmpty ( this.attribute ) ? string.Empty : " " + this.attribute.Trim ( ),
-					( this.elementType == ElementType.Input ) ? " /" : string.Empty
-					);
-#else
-				writer.Write (
-					"<{0} id={1}{2}{3}{4}{5}{6}>",
+					"<{0} id={1}{2}{3}{4}{5}{6}{7}>",
 					this.elementType.ToString ( ).ToLower ( ),
 					this.ClientID,
 					string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : " class=" + HttpUtility.HtmlEncode ( this.CssClass ),
 					string.IsNullOrEmpty ( this.ToolTip ) ? string.Empty : " title=" + HttpUtility.HtmlEncode ( this.ToolTip ),
 					string.IsNullOrEmpty ( style ) ? string.Empty : " style=" + HttpUtility.HtmlEncode ( style ),
 					string.IsNullOrEmpty ( this.attribute ) ? string.Empty : " " + this.attribute.Trim ( ),
+					attribute,
 					( this.elementType == ElementType.Input ) ? " /" : string.Empty
 					);
-#endif
 			}
 
 			if ( this.elementType != ElementType.Input )
@@ -669,6 +666,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( states.Count >= 3 )
 				this.isVariable = ( bool ) states[2];
 
+			if ( states.Count >= 4 )
+				this.selector = states[3] as string;
+
 		}
 
 		protected override object SaveViewState ( )
@@ -685,6 +685,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			states.Add ( this.elementType );
 			states.Add ( this.attribute );
 			states.Add ( this.isVariable );
+			states.Add ( this.selector );
 
 			this.ViewState["JQueryElement"] = states;
 
@@ -4559,6 +4560,166 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		}
 		#endregion
+
+	}
+	#endregion
+
+	#region " BaseWidget "
+	/// <summary>
+	/// 插件的基础类.
+	/// </summary>
+	public class BaseWidget
+		: JQueryElement
+	{
+		protected readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+		protected readonly List<AjaxSettingEdit> ajaxSettings = new List<AjaxSettingEdit> ( );
+
+		#region " hide "
+
+		/// <summary>
+		/// 获取或设置元素的拖动设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override DraggableSettingEdit DraggableSetting
+		{
+			get { return base.DraggableSetting; }
+			set { base.DraggableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的拖放设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override DroppableSettingEdit DroppableSetting
+		{
+			get { return base.DroppableSetting; }
+			set { base.DroppableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的排列设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override SortableSettingEdit SortableSetting
+		{
+			get { return base.SortableSetting; }
+			set { base.SortableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的选中设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override SelectableSettingEdit SelectableSetting
+		{
+			get { return base.SelectableSetting; }
+			set { base.SelectableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的缩放设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override ResizableSettingEdit ResizableSetting
+		{
+			get { return base.ResizableSetting; }
+			set { base.ResizableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的 Widget 设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override WidgetSettingEdit WidgetSetting
+		{
+			get { return base.WidgetSetting; }
+			set { base.WidgetSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的 Repeater 设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override RepeaterSettingEdit RepeaterSetting
+		{
+			get { return base.RepeaterSetting; }
+			set { base.RepeaterSetting = value; }
+		}
+		#endregion
+
+		/// <summary>
+		/// 创建一个插件的基础类.
+		/// </summary>
+		/// <param name="type">插件的类型.</param>
+		public BaseWidget ( WidgetType type )
+			: base ( )
+		{ base.WidgetSetting.Type = type; }
+
+		protected T getEnum<T> ( string text, T defalutValue )
+			where T : struct
+		{
+			T value;
+
+			if ( string.IsNullOrEmpty ( text ) )
+				value = defalutValue;
+			// HACK: 可能需要添加 V5
+#if V4
+			else if ( !Enum.TryParse ( text, out value ) )
+				value = defalutValue;
+#else
+			else
+				try
+				{ value = ( T ) Enum.Parse ( typeof ( T ), text.Trim ( '\'' ).Trim ( '"' ), true ); }
+				catch
+				{ value = defalutValue; }
+#endif
+
+			return value;
+		}
+
+		protected decimal getDecimal ( string text, decimal defaultValue )
+		{
+			decimal value;
+
+			if ( string.IsNullOrEmpty ( text ) || !decimal.TryParse ( text, out value ) )
+				value = defaultValue;
+
+			return value;
+		}
+
+		protected bool getBoolean ( string text, bool defaultValue )
+		{
+			bool value;
+
+			if ( string.IsNullOrEmpty ( text ) || !bool.TryParse ( text, out value ) )
+				value = defaultValue;
+
+			return value;
+		}
+
+		protected int getInteger ( string text, int defaultValue )
+		{
+			int value;
+
+			if ( string.IsNullOrEmpty ( text ) || !int.TryParse ( text, out value ) )
+				value = defaultValue;
+
+			return value;
+		}
+
+		protected override void LoadViewState ( object savedState )
+		{
+			base.LoadViewState ( savedState );
+
+			( this.editHelper as IStateManager ).LoadViewState ( this.ViewState["EditHelper"] );
+		}
+
+		protected override object SaveViewState ( )
+		{
+			this.ViewState["EditHelper"] = ( this.editHelper as IStateManager ).SaveViewState ( );
+
+			return base.SaveViewState ( );
+		}
 
 	}
 	#endregion
