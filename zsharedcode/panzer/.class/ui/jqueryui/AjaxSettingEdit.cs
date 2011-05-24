@@ -183,13 +183,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public string Url
 		{
 			get { return this.url; }
-			set
-			{
-
-				if ( !string.IsNullOrEmpty ( value ) )
-					this.url = value;
-
-			}
+			set { this.url = value; }
 		}
 
 		/// <summary>
@@ -215,13 +209,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public string Form
 		{
 			get { return this.form; }
-			set
-			{
-
-				if ( !string.IsNullOrEmpty ( value ) )
-					this.form = value;
-
-			}
+			set { this.form = value; }
 		}
 
 		/// <summary>
@@ -262,7 +250,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			foreach ( ParameterEdit edit in this.parameters )
 				parameters.Add ( edit.CreateParameter ( ) );
 
-			return new AjaxSetting ( this.widgetEventType, this.url, this.dataType, this.form, parameters.ToArray ( ), this.editHelper.CreateEvents(), this.isSingleQuote );
+			return new AjaxSetting ( this.widgetEventType, this.url, this.dataType, this.form, parameters.ToArray ( ), this.editHelper.CreateEvents ( ), this.isSingleQuote );
 		}
 
 		/// <summary>

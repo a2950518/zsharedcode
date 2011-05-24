@@ -297,11 +297,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( states.Count >= 2 )
 			{
+				/*
 				List<object> ajaxSettingStates = states[1] as List<object>;
 
 				for ( int index = 0; index < ajaxSettingStates.Count; index++ )
 					( this.ajaxSettings[index] as IStateManager ).LoadViewState ( ajaxSettingStates[index] );
-
+				*/
 			}
 
 			if ( states.Count >= 3 )
@@ -343,7 +344,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			foreach ( AjaxSettingEdit edit in this.ajaxSettings )
 				ajaxSettingStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
 
-			states.Add ( ajaxSettingStates );
+			states.Add ( /*ajaxSettingStates*/ null );
 
 			states.Add ( ( this.buttonSetting as IStateManager ).SaveViewState ( ) );
 			states.Add ( ( this.accordionSetting as IStateManager ).SaveViewState ( ) );
@@ -438,7 +439,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class ButtonSettingEdit
 		: IStateManager
 	{
-		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+		private SettingEditHelper editHelper = new SettingEditHelper ( );
 
 		/// <summary>
 		/// 获取元素的 Button 设置.
@@ -538,12 +539,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		#endregion
 
 		/// <summary>
-		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// 获取或设置 OptionEdit, EventEdit 辅助类.
 		/// </summary>
 		[Browsable ( false )]
 		public SettingEditHelper EditHelper
 		{
 			get { return this.editHelper; }
+			set
+			{
+
+				if ( null != value )
+					this.editHelper = value;
+
+			}
 		}
 
 		/// <summary>
@@ -2742,7 +2750,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class ProgressbarSettingEdit
 		: IStateManager
 	{
-		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+		private SettingEditHelper editHelper = new SettingEditHelper ( );
 
 		/// <summary>
 		/// 获取元素的进度条设置.
@@ -2842,12 +2850,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		#endregion
 
 		/// <summary>
-		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// 获取或设置 OptionEdit, EventEdit 辅助类.
 		/// </summary>
 		[Browsable ( false )]
 		public SettingEditHelper EditHelper
 		{
 			get { return this.editHelper; }
+			set
+			{
+
+				if ( null != value )
+					this.editHelper = value;
+
+			}
 		}
 
 		/// <summary>
@@ -3297,7 +3312,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class TabsSettingEdit
 		: IStateManager
 	{
-		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+		private SettingEditHelper editHelper = new SettingEditHelper ( );
 
 		/// <summary>
 		/// 获取元素的分组标签设置.
@@ -3597,7 +3612,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[DefaultValue ( "" )]
 		[Description ( "指示标签被禁用时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
-		public string Disable 
+		public string Disable
 		{
 			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disable ); }
 			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disable, value ); }
@@ -3605,12 +3620,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		#endregion
 
 		/// <summary>
-		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// 获取或设置 OptionEdit, EventEdit 辅助类.
 		/// </summary>
 		[Browsable ( false )]
 		public SettingEditHelper EditHelper
 		{
 			get { return this.editHelper; }
+			set
+			{
+
+				if ( null != value )
+					this.editHelper = value;
+
+			}
 		}
 
 		/// <summary>

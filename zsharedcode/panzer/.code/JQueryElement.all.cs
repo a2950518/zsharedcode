@@ -1,30 +1,1107 @@
 ﻿/* allinone合并了多个文件,下载使用多个allinone代码,可能会遇到重复的类型定义,http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/JQueryElement.all.cs */
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using zoyobar.shared.panzer.web.jqueryui;
+using zoyobar.shared.panzer.code;
+using System.Xml;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Net;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.Design;
-using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using zoyobar.shared.panzer.web;
-using zoyobar.shared.panzer.web.jqueryui;
 using NBorderStyle = System.Web.UI.WebControls.BorderStyle;
 using System.Drawing.Design;
 using System.Globalization;
-using zoyobar.shared.panzer.code;
 using NParameter = zoyobar.shared.panzer.web.jqueryui.Parameter;
+using System.Net;
 using System.Reflection;
 using NControl = System.Web.UI.Control;
+// ../.class/ui/jqueryui/Button.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIButton
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Button.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/JQueryElement.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/RepeaterSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	/// <summary>
+	/// jQuery UI 按钮插件.
+	/// </summary>
+	[ToolboxData ( "<{0}:Button runat=server></{0}:Button>" )]
+	[DesignerAttribute ( typeof ( ButtonDesigner ) )]
+	public class Button
+		: BaseWidget, IPostBackEventHandler
+	{
+
+		/// <summary>
+		/// 创建一个 jQuery UI 按钮.
+		/// </summary>
+		public Button ( )
+			: base ( WidgetType.button )
+		{
+			this.elementType = ElementType.Span;
+
+			this.ajaxSettings.Add ( new AjaxSettingEdit ( ) );
+		}
+
+		#region " Option "
+		/// <summary>
+		/// 获取或设置按钮是否可用, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( false )]
+		[Description ( "指示按钮是否可用, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public bool Disabled
+		{
+			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+		}
+
+		/// <summary>
+		/// 获取或设置按钮是否显示文本, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "外观" )]
+		[DefaultValue ( true )]
+		[Description ( "指示按钮是否显示文本, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public bool Text
+		{
+			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.text ), true ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.text, value.ToString ( ).ToLower ( ) ); }
+		}
+
+		/// <summary>
+		/// 获取或设置按钮显示的图标, 比如: { primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s' }.
+		/// </summary>
+		[Category ( "外观" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按钮显示的图标, 比如: { primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s' }, 暂不支持设计时显示" )]
+		[NotifyParentProperty ( true )]
+		public string Icons
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.icons ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.icons, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置按钮显示的文本, 比如: ok.
+		/// </summary>
+		[Category ( "外观" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按钮显示的文本, 比如: ok" )]
+		[NotifyParentProperty ( true )]
+		public string Label
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.label ).Trim ( '\'' ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.label, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+		}
+		#endregion
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置按钮被创建时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按钮被创建时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Create
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+		}
+		#endregion
+
+		#region " Ajax "
+		/// <summary>
+		/// 获取 Click 操作相关的 Ajax 设置.
+		/// </summary>
+		[Category ( "Ajax" )]
+		[Description ( "Click 操作相关的 Ajax 设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.Attribute )]
+		public AjaxSettingEdit ClickAsync
+		{
+			get { return this.ajaxSettings[0]; }
+		}
+		#endregion
+
+		#region " Client "
+		/// <summary>
+		/// 获取或设置按钮被点击时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按钮被点击时的客户端事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Click
+		{
+			get { return this.editHelper.GetOuterEventEditValue ( EventType.click ); }
+			set { this.editHelper.SetOuterEventEditValue ( EventType.click, value ); }
+		}
+		#endregion
+
+		#region " Server "
+		/// <summary>
+		/// 在服务器端执行的点击事件.
+		/// </summary>
+		[Description ( "指示按钮被点击时的服务器端事件, 如果设置客户端事件将无效" )]
+		public event EventHandler ClickSync;
+		#endregion
+
+		protected override void Render ( HtmlTextWriter writer )
+		{
+
+			if ( !this.DesignMode )
+			{
+				this.widgetSetting.ButtonSetting.EditHelper = this.editHelper;
+
+				this.ajaxSettings[0].WidgetEventType = EventType.click;
+				this.widgetSetting.AjaxSettings.Clear ( );
+				this.widgetSetting.AjaxSettings.AddRange ( this.ajaxSettings );
+
+				if ( null != this.ClickSync )
+					this.Click = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "click" ) + "}";
+
+			}
+			else if ( string.IsNullOrEmpty ( this.selector ) )
+				switch ( this.widgetSetting.Type )
+				{
+					case WidgetType.button:
+						string style = string.Empty;
+
+						if ( this.Width != Unit.Empty )
+							style += string.Format ( "width:{0};", this.Width );
+
+						if ( this.Height != Unit.Empty )
+							style += string.Format ( "height:{0};", this.Height );
+
+						writer.Write (
+							"<{6} id=\"{0}\" class=\"{3}ui-button ui-widget ui-state-default ui-corner-all{2} ui-button-text-only\" style=\"{4}\" title=\"{5}\"><span class=\"ui-button-text\">{1}</span></{6}>",
+							this.ClientID,
+							this.Label,
+							this.Disabled ? " ui-button-disabled ui-state-disabled" : string.Empty,
+							string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : this.CssClass + " ",
+							style,
+							this.ToolTip,
+							this.elementType.ToString().ToLower()
+							);
+						return;
+				}
+
+			base.Render ( writer );
+		}
+
+		public void RaisePostBackEvent ( string eventArgument )
+		{
+
+			switch ( eventArgument )
+			{
+				case "click":
+
+					if ( null != this.ClickSync )
+						this.ClickSync ( this, new EventArgs ( ) );
+
+					break;
+			}
+
+		}
+
+	}
+
+	#region " ButtonDesigner "
+	/// <summary>
+	/// 按钮设计器.
+	/// </summary>
+	public class ButtonDesigner : JQueryElementDesigner
+	{
+
+		/// <summary>
+		/// 获取行为列表.
+		/// </summary>
+		public override DesignerActionListCollection ActionLists
+		{
+			get { return new DesignerActionListCollection ( ); }
+		}
+
+	}
+	#endregion
+
+}
+// ../.class/ui/jqueryui/Progressbar.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIProgressbar
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Progressbar.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/JQueryElement.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/RepeaterSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	/// <summary>
+	/// jQuery UI 进度条插件.
+	/// </summary>
+	[ToolboxData ( "<{0}:Progressbar runat=server></{0}:Progressbar>" )]
+	[DesignerAttribute ( typeof ( ProgressbarDesigner ) )]
+	public class Progressbar
+		: BaseWidget, IPostBackEventHandler
+	{
+
+		/// <summary>
+		/// 创建一个 jQuery UI 按钮.
+		/// </summary>
+		public Progressbar ( )
+			: base ( WidgetType.progressbar )
+		{
+			this.elementType = ElementType.Div;
+
+			this.ajaxSettings.Add ( new AjaxSettingEdit ( ) );
+			this.ajaxSettings.Add ( new AjaxSettingEdit ( ) );
+		}
+
+		#region " Option "
+		/// <summary>
+		/// 获取或设置进度条是否可用, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( false )]
+		[Description ( "指示进度条是否可用, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public bool Disabled
+		{
+			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+		}
+
+		/// <summary>
+		/// 获取或设置进度条当前的值, 比如: 37.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( 0 )]
+		[Description ( "指示进度条当前的值, 比如: 37" )]
+		[NotifyParentProperty ( true )]
+		public int Value
+		{
+			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.value ), 0 ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.value, value <= 0 ? string.Empty : value.ToString ( ) ); }
+		}
+		#endregion
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置进度条被创建时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示进度条被创建时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Create
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置进度条当前值改变时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示进度条当前值改变时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Change
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.change ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.change, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置进度条完成时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示进度条完成时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Complete
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.complete ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.complete, value ); }
+		}
+		#endregion
+
+		#region " Ajax "
+		/// <summary>
+		/// 获取 Change 操作相关的 Ajax 设置.
+		/// </summary>
+		[Category ( "Ajax" )]
+		[Description ( "Change 操作相关的 Ajax 设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.Attribute )]
+		public AjaxSettingEdit ChangeAsync
+		{
+			get { return this.ajaxSettings[0]; }
+		}
+		/// <summary>
+		/// 获取 Complete 操作相关的 Ajax 设置.
+		/// </summary>
+		[Category ( "Ajax" )]
+		[Description ( "Complete 操作相关的 Ajax 设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.Attribute )]
+		public AjaxSettingEdit CompleteAsync
+		{
+			get { return this.ajaxSettings[1]; }
+		}
+		#endregion
+
+		#region " Server "
+		/// <summary>
+		/// 在服务器端执行的值改变事件.
+		/// </summary>
+		[Description ( "指示值改变的服务器端事件, 如果设置客户端事件将无效" )]
+		public event ProgressbarChangeEventHandler ChangeSync;
+		/// <summary>
+		/// 在服务器端执行的完成事件.
+		/// </summary>
+		[Description ( "指示完成的服务器端事件, 如果设置客户端事件将无效" )]
+		public event ProgressbarCompleteEventHandler CompleteSync;
+		#endregion
+
+		protected override void Render ( HtmlTextWriter writer )
+		{
+
+			if ( !this.DesignMode )
+			{
+				this.widgetSetting.ProgressbarSetting.EditHelper = this.editHelper;
+				this.widgetSetting.AjaxSettings.Clear ( );
+				this.widgetSetting.AjaxSettings.AddRange ( this.ajaxSettings );
+
+				if ( null != this.ChangeSync )
+					this.Change = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "change;[%':$(this).progressbar(!sq!option!sq!, !sq!value!sq!)%]" ) + "}";
+
+				if ( null != this.CompleteSync )
+					this.Complete = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "complete;[%':$(this).progressbar(!sq!option!sq!, !sq!value!sq!)%]" ) + "}";
+
+			}
+			else if ( string.IsNullOrEmpty ( this.selector ) )
+				switch ( this.widgetSetting.Type )
+				{
+					case WidgetType.progressbar:
+						string style = string.Empty;
+
+						if ( this.Width != Unit.Empty )
+							style += string.Format ( "width:{0};", this.Width );
+
+						if ( this.Height != Unit.Empty )
+							style += string.Format ( "height:{0};", this.Height );
+
+						writer.Write (
+							"<{6} id=\"{0}\" class=\"{3}ui-progressbar ui-widget ui-widget-content ui-corner-all{2}\" style=\"{4}\" title=\"{5}\"><div style=\"width: {1}%;\" class=\"ui-progressbar-value ui-widget-header ui-corner-left\"></div></{6}>",
+							this.ClientID,
+							this.Value,
+							this.Disabled ? " ui-progressbase-disabled ui-state-disabled" : string.Empty,
+							string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : this.CssClass + " ",
+							style,
+							this.ToolTip,
+							this.elementType.ToString().ToLower()
+							);
+						return;
+				}
+
+			base.Render ( writer );
+		}
+
+		public void RaisePostBackEvent ( string eventArgument )
+		{
+
+			if ( string.IsNullOrEmpty ( eventArgument ) )
+				return;
+
+			string[] parts = eventArgument.Split ( ';' );
+
+			switch ( parts[0] )
+			{
+				case "change":
+
+					if ( null != this.ChangeSync )
+						try
+						{ this.ChangeSync ( this, new ProgressbarEventArgs ( StringConvert.ToObject<int> ( parts[1] ) ) ); }
+						catch { }
+
+					break;
+
+				case "complete":
+
+					if ( null != this.CompleteSync )
+						try
+						{ this.CompleteSync ( this, new ProgressbarEventArgs ( StringConvert.ToObject<int> ( parts[1] ) ) ); }
+						catch { }
+
+					break;
+			}
+
+		}
+
+	}
+
+	#region " ProgressbarDesigner "
+	/// <summary>
+	/// 进度条设计器.
+	/// </summary>
+	public class ProgressbarDesigner : JQueryElementDesigner
+	{
+
+		/// <summary>
+		/// 获取行为列表.
+		/// </summary>
+		public override DesignerActionListCollection ActionLists
+		{
+			get { return new DesignerActionListCollection ( ); }
+		}
+
+	}
+	#endregion
+
+	/// <summary>
+	/// 进度条值改变事件.
+	/// </summary>
+	/// <param name="sender">事件的发起者.</param>
+	/// <param name="e">事件的参数.</param>
+	public delegate void ProgressbarChangeEventHandler ( object sender, ProgressbarEventArgs e );
+
+	/// <summary>
+	/// 进度条完成事件.
+	/// </summary>
+	/// <param name="sender">事件的发起者.</param>
+	/// <param name="e">事件的参数.</param>
+	public delegate void ProgressbarCompleteEventHandler ( object sender, ProgressbarEventArgs e );
+
+	/// <summary>
+	/// 进度条事件参数.
+	/// </summary>
+	public sealed class ProgressbarEventArgs
+	{
+		/// <summary>
+		/// 值.
+		/// </summary>
+		public readonly int Value;
+
+		/// <summary>
+		/// 创建一个进度条事件参数.
+		/// </summary>
+		/// <param name="value">值.</param>
+		public ProgressbarEventArgs ( int value )
+		{
+
+			if ( value < 0 )
+				value = 0;
+
+			this.Value = value;
+		}
+
+	}
+
+}
+// ../.class/ui/jqueryui/Tabs.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUITabs
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Tabs.cs
+ * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/JQueryElement.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/RepeaterSettingEdit.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	/// <summary>
+	/// jQuery UI 分组标签插件.
+	/// </summary>
+	[ToolboxData ( "<{0}:Tabs runat=server></{0}:Tabs>" )]
+	[DesignerAttribute ( typeof ( TabsDesigner ) )]
+	public class Tabs
+		: BaseWidget, IPostBackEventHandler
+	{
+
+		/// <summary>
+		/// 创建一个 jQuery UI 按钮.
+		/// </summary>
+		public Tabs ( )
+			: base ( WidgetType.tabs )
+		{
+			this.elementType = ElementType.Div;
+
+			this.ajaxSettings.Add ( new AjaxSettingEdit ( ) );
+		}
+
+		#region " Option "
+		/// <summary>
+		/// 获取或设置分组标签是否可用, 或者禁用的标签的索引, 可以设置为 true, false, 或者 [0, 1].
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( false )]
+		[Description ( "指示分组标签是否可用, 或者禁用的标签的索引, 可以设置为 true, false, 或者 [0, 1]" )]
+		[NotifyParentProperty ( true )]
+		public bool Disabled
+		{
+			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+		}
+
+		/// <summary>
+		/// 获取或设置标签内容的 Ajax 选项, 比如: { async: false }.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示标签内容的 Ajax 选项, 比如: { async: false }" )]
+		[NotifyParentProperty ( true )]
+		public string AjaxOptions
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.ajaxOptions ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.ajaxOptions, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否使用缓存, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( false )]
+		[Description ( "指示是否使用缓存, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public bool Cache
+		{
+			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.cache ), false ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.cache, value.ToString ( ).ToLower ( ) ); }
+		}
+
+		/// <summary>
+		/// 获取或设置当再次选择已选中的标签时, 是否取消选中状态, 可以设置为 true 或者 false.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( false )]
+		[Description ( "指示当再次选择已选中的标签时, 是否取消选中状态, 可以设置为 true 或者 false" )]
+		[NotifyParentProperty ( true )]
+		public bool Collapsible
+		{
+			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.collapsible ), false ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.collapsible, value.ToString ( ).ToLower ( ) ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 cookie 的设置, 比如: { expires: 7, path: '/', domain: 'jquery.com', secure: true }.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 cookie 的设置, 比如: { expires: 7, path: '/', domain: 'jquery.com', secure: true }" )]
+		[NotifyParentProperty ( true )]
+		public string Cookie
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.cookie ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.cookie, value ); }
+		}
+
+		/// <summary>
+		/// 请使用 Collapsible.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( false )]
+		[Description ( "请使用 Collapsible" )]
+		[NotifyParentProperty ( true )]
+		public bool Deselectable
+		{
+			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.deselectable ), false ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.deselectable, value.ToString ( ).ToLower ( ) ); }
+		}
+
+		/// <summary>
+		/// 获取或设置触发切换的事件名称, 默认: click.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( EventType.click )]
+		[Description ( "指示触发切换的事件名称, 默认: click" )]
+		[NotifyParentProperty ( true )]
+		public EventType Event
+		{
+			get { return this.getEnum<EventType> ( this.editHelper.GetOuterOptionEditValue ( OptionType.@event ), EventType.click ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.@event, "'" + value + "'" ); }
+		}
+
+		/// <summary>
+		/// 获取或设置显示或者隐藏的动画效果, 比如: { opacity: 'toggle' }, 'slow', 'normal', 'fast'.
+		/// </summary>
+		[Category ( "动画" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示显示或者隐藏的动画效果, 比如: { opacity: 'toggle' }, 'slow', 'normal', 'fast'" )]
+		[NotifyParentProperty ( true )]
+		public string Fx
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.fx ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.fx, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 id 的前缀, 默认为 ui-tabs-.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 id 的前缀, 默认为 ui-tabs-" )]
+		[NotifyParentProperty ( true )]
+		public string IdPrefix
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.idPrefix ).Trim ( '\'' ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.idPrefix, string.IsNullOrEmpty ( value ) || value == "ui-tabs-" ? string.Empty : "'" + value + "'" ); }
+		}
+
+		/// <summary>
+		/// 获取或设置面板的模板内容.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示面板的模板内容, 默认为 <div></div>" )]
+		[NotifyParentProperty ( true )]
+		public string PanelTemplate
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.panelTemplate ).Trim ( '\'' ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.panelTemplate, string.IsNullOrEmpty ( value ) || value == "<div></div>" ? string.Empty : "'" + value + "'" ); }
+		}
+
+		/// <summary>
+		/// 获取或设置选中的标签, 默认为 0.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( 0 )]
+		[Description ( "指示选中的标签, 默认为 0" )]
+		[NotifyParentProperty ( true )]
+		public int Selected
+		{
+			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.selected ), 0 ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.selected, value <= 0 ? string.Empty : value.ToString ( ) ); }
+		}
+
+		/// <summary>
+		/// 获取或设置载入条的内容.
+		/// </summary>
+		[Category ( "外观" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示载入条的内容" )]
+		[NotifyParentProperty ( true )]
+		public string Spinner
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.spinner ).Trim ( '\'' ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.spinner, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+		}
+
+		/// <summary>
+		/// 获取或设置表头的模板内容.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示表头的模板内容, 默认为 '<li><a href=#{href}><span>#{label}</span></a></li>'" )]
+		[NotifyParentProperty ( true )]
+		public string TabTemplate
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.tabTemplate ).Trim ( '\'' ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.tabTemplate, string.IsNullOrEmpty ( value ) || value == "<li><a href=#{href}><span>#{label}</span></a></li>" ? string.Empty : "'" + value + "'" ); }
+		}
+		#endregion
+
+		#region " Event "
+		/// <summary>
+		/// 获取或设置分组标签被创建时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分组标签被创建时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Create
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置分组标签被选中时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示分组标签被选中时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Select
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.select ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.select, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置内容载入时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示内容载入时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Load
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.load ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.load, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置标签显示时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示标签显示时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Show
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.show ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.show, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置标签被添加时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示标签被添加时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Add
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.add ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.add, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置标签被删除时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示标签被删除时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Remove
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.remove ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.remove, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置标签被启用时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示标签被启用时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Enable
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.enable ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.enable, value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置标签被禁用时的事件, 类似于: function(event, ui) { }.
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示标签被禁用时的事件, 类似于: function(event, ui) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Disable
+		{
+			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disable ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disable, value ); }
+		}
+		#endregion
+
+		#region " Ajax "
+		/// <summary>
+		/// 获取 Select 操作相关的 Ajax 设置.
+		/// </summary>
+		[Category ( "Ajax" )]
+		[Description ( "Select 操作相关的 Ajax 设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.Attribute )]
+		public AjaxSettingEdit SelectAsync
+		{
+			get { return this.ajaxSettings[0]; }
+		}
+		#endregion
+
+		#region " Server "
+		/// <summary>
+		/// 在服务器端执行的选中索引改变事件.
+		/// </summary>
+		[Description ( "指示选中索引改变的服务器端事件, 如果设置客户端事件将无效" )]
+		public event TabsSelectEventHandler SelectSync;
+		#endregion
+
+		protected override void Render ( HtmlTextWriter writer )
+		{
+
+			if ( !this.DesignMode )
+			{
+				this.widgetSetting.TabsSetting.EditHelper = this.editHelper;
+				this.widgetSetting.AjaxSettings.Clear ( );
+				this.widgetSetting.AjaxSettings.AddRange ( this.ajaxSettings );
+
+				if ( null != this.SelectSync )
+					this.Select = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "select;[%':ui.index%]" ) + "}";
+
+			}
+			else if ( string.IsNullOrEmpty ( this.selector ) )
+				switch ( this.widgetSetting.Type )
+				{
+					case WidgetType.tabs:
+						string style = string.Empty;
+
+						if ( this.Width != Unit.Empty )
+							style += string.Format ( "width:{0};", this.Width );
+
+						if ( this.Height != Unit.Empty )
+							style += string.Format ( "height:{0};", this.Height );
+
+						string html = string.Empty;
+
+						if ( this.html.Controls.Count != 0 )
+							try
+							{
+								// HACK: 这里也可以使用 panzer 的 Xml 类.
+								html = ( this.html.Controls[0] as System.Web.UI.LiteralControl ).Text.Replace ( "__designer:", string.Empty );
+
+								XmlDocument xml = new XmlDocument ( );
+								xml.LoadXml ( string.Format ( "<html>{0}</html>", html ) );
+
+								XmlNode titleNode = xml.FirstChild.FirstChild;
+
+								titleNode.Attributes.Append ( xml.CreateAttribute ( "class" ) ).Value = "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all";
+
+								for ( int index = 0; index < titleNode.ChildNodes.Count; index++ )
+									titleNode.ChildNodes[index].Attributes.Append ( xml.CreateAttribute ( "class" ) ).Value = "ui-state-default ui-corner-top" + ( index == this.Selected ? " ui-tabs-selected ui-state-active" : string.Empty );
+
+								for ( int index = 1; index < xml.FirstChild.ChildNodes.Count; index++ )
+									xml.FirstChild.ChildNodes[index].Attributes.Append ( xml.CreateAttribute ( "class" ) ).Value = "ui-tabs-panel ui-widget-content ui-corner-bottom" + ( index - 1 == this.Selected ? string.Empty : " ui-tabs-hide" );
+
+								html = xml.FirstChild.InnerXml;
+							}
+							catch ( Exception err ) { html = err.Message; }
+
+						writer.Write (
+							"<{6} id=\"{0}\" class=\"{3}ui-tabs ui-widget ui-widget-content ui-corner-all{2}\" style=\"{4}\" title=\"{5}\">{1}</{6}>",
+							this.ClientID,
+							html,
+							this.Disabled ? " ui-tabs-disabled ui-state-disabled" : string.Empty,
+							string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : this.CssClass + " ",
+							style,
+							this.ToolTip,
+							this.elementType.ToString ( ).ToLower ( )
+							);
+						return;
+				}
+
+			base.Render ( writer );
+		}
+
+		public void RaisePostBackEvent ( string eventArgument )
+		{
+
+			if ( string.IsNullOrEmpty ( eventArgument ) )
+				return;
+
+			string[] parts = eventArgument.Split ( ';' );
+
+			switch ( parts[0] )
+			{
+				case "select":
+
+					if ( null != this.SelectSync )
+						try
+						{ this.SelectSync ( this, new TabsEventArgs ( StringConvert.ToObject<int> ( parts[1] ) ) ); }
+						catch { }
+
+					break;
+			}
+
+		}
+
+	}
+
+	#region " TabsDesigner "
+	/// <summary>
+	/// 分组标签设计器.
+	/// </summary>
+	public class TabsDesigner : JQueryElementDesigner
+	{
+
+		/// <summary>
+		/// 获取行为列表.
+		/// </summary>
+		public override DesignerActionListCollection ActionLists
+		{
+			get { return new DesignerActionListCollection ( ); }
+		}
+
+	}
+	#endregion
+
+	/// <summary>
+	/// 分组标签选中索引改变事件.
+	/// </summary>
+	/// <param name="sender">事件的发起者.</param>
+	/// <param name="e">事件的参数.</param>
+	public delegate void TabsSelectEventHandler ( object sender, TabsEventArgs e );
+
+	/// <summary>
+	/// 分组标签事件参数.
+	/// </summary>
+	public sealed class TabsEventArgs
+	{
+		/// <summary>
+		/// 索引.
+		/// </summary>
+		public readonly int Index;
+
+		/// <summary>
+		/// 创建一个分组标签事件参数.
+		/// </summary>
+		/// <param name="index">索引.</param>
+		public TabsEventArgs ( int index )
+		{
+
+			if ( index < 0 )
+				index = 0;
+
+			this.Index = index;
+		}
+
+	}
+
+}
 // ../.class/ui/jqueryui/JQueryElement.cs
 /*
  * wiki:
  * http://code.google.com/p/zsharedcode/wiki/JQueryElement
  * http://code.google.com/p/zsharedcode/wiki/JQueryElementType
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUIBaseWidget
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryElement.cs
  * 引用代码:
@@ -105,6 +1182,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// input 元素.
 		/// </summary>
 		Input = 6,
+		/// <summary>
+		/// button 元素.
+		/// </summary>
+		Button = 7,
 	}
 	#endregion
 
@@ -143,10 +1224,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			return writer.ToString ( );
 		}
 
-		private ElementType elementType = ElementType.None;
-		private string attribute;
+		protected ElementType elementType = ElementType.None;
+		protected string attribute;
 		private bool isVariable = false;
-		private string selector;
+		protected string selector;
 
 		private DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
 		private DroppableSettingEdit droppableSetting = new DroppableSettingEdit ( );
@@ -154,11 +1235,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private SelectableSettingEdit selectableSetting = new SelectableSettingEdit ( );
 		private ResizableSettingEdit resizableSetting = new ResizableSettingEdit ( );
 
-		private WidgetSettingEdit widgetSetting = new WidgetSettingEdit ( );
+		protected WidgetSettingEdit widgetSetting = new WidgetSettingEdit ( );
 
 		private RepeaterSettingEdit repeaterSetting = new RepeaterSettingEdit ( );
 
-		private readonly PlaceHolder html = new PlaceHolder ( );
+		protected readonly PlaceHolder html = new PlaceHolder ( );
 
 		/// <summary>
 		/// 获取或设置元素的拖动设置.
@@ -167,7 +1248,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "元素相关的拖动设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public DraggableSettingEdit DraggableSetting
+		public virtual DraggableSettingEdit DraggableSetting
 		{
 			get { return this.draggableSetting; }
 			set
@@ -186,7 +1267,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "元素相关的拖放设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public DroppableSettingEdit DroppableSetting
+		public virtual DroppableSettingEdit DroppableSetting
 		{
 			get { return this.droppableSetting; }
 			set
@@ -205,7 +1286,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "元素相关的排列设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public SortableSettingEdit SortableSetting
+		public virtual SortableSettingEdit SortableSetting
 		{
 			get { return this.sortableSetting; }
 			set
@@ -224,7 +1305,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "元素相关的选中设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public SelectableSettingEdit SelectableSetting
+		public virtual SelectableSettingEdit SelectableSetting
 		{
 			get { return this.selectableSetting; }
 			set
@@ -243,7 +1324,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "元素相关的缩放设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public ResizableSettingEdit ResizableSetting
+		public virtual ResizableSettingEdit ResizableSetting
 		{
 			get { return this.resizableSetting; }
 			set
@@ -262,7 +1343,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "元素相关的 Widget 设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public WidgetSettingEdit WidgetSetting
+		public virtual WidgetSettingEdit WidgetSetting
 		{
 			get { return this.widgetSetting; }
 			set
@@ -281,7 +1362,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "元素相关的 Repeater 设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public RepeaterSettingEdit RepeaterSetting
+		public virtual RepeaterSettingEdit RepeaterSetting
 		{
 			get { return this.repeaterSetting; }
 			set
@@ -301,7 +1382,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "设置元素中包含的 html 代码" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public PlaceHolder Html
+		public virtual PlaceHolder Html
 		{
 			get { return this.html; }
 		}
@@ -312,7 +1393,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "jQuery UI" )]
 		[Description ( "最终在页面上生成的元素类型, 比如: Span, Div, 默认为 None, 不生成任何元素" )]
 		[DefaultValue ( ElementType.None )]
-		public ElementType ElementType
+		public virtual ElementType ElementType
 		{
 			get { return this.elementType; }
 			set { this.elementType = value; }
@@ -324,7 +1405,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "jQuery UI" )]
 		[Description ( "是否以 ClientID 生成对应的 javascript 变量, 如果使用了 Repeater, 则在运行时自动调整为 true" )]
 		[DefaultValue ( false )]
-		public bool IsVariable
+		public virtual bool IsVariable
 		{
 			get { return this.isVariable; }
 			set { this.isVariable = value; }
@@ -336,7 +1417,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "jQuery UI" )]
 		[Description ( "选择器, 将针对此选择器对应的元素执行操作, 比如: \"'#age'\", 默认为自身" )]
 		[DefaultValue ( "" )]
-		public string Selector
+		public virtual string Selector
 		{
 			get { return this.selector; }
 			set { this.selector = value; }
@@ -348,7 +1429,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "jQuery UI" )]
 		[Description ( "最终在页面上生成的元素的属性" )]
 		[DefaultValue ( "" )]
-		public string Attribute
+		public virtual string Attribute
 		{
 			get { return this.attribute; }
 			set
@@ -507,30 +1588,22 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				if ( this.Height != Unit.Empty )
 					style += string.Format ( "height:{0};", this.Height );
 
-				// HACK: 可能需要添加 V5
-#if V4
+				string attribute = string.Empty;
+
+				foreach ( string key in this.Attributes.Keys )
+					attribute += string.Format ( " {0}={1}", key, this.Attributes[key] );
+
 				writer.Write (
-					"<{0} id={1}{2}{3}{4}{5}{6}>",
-					this.elementType.ToString ( ).ToLower ( ),
-					this.ClientID,
-					string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : " class=" + WebUtility.HtmlEncode ( this.CssClass ),
-					string.IsNullOrEmpty ( this.ToolTip ) ? string.Empty : " title=" + WebUtility.HtmlEncode ( this.ToolTip ),
-					string.IsNullOrEmpty ( style ) ? string.Empty : " style=" + WebUtility.HtmlEncode ( style ),
-					string.IsNullOrEmpty ( this.attribute ) ? string.Empty : " " + this.attribute.Trim ( ),
-					( this.elementType == ElementType.Input ) ? " /" : string.Empty
-					);
-#else
-				writer.Write (
-					"<{0} id={1}{2}{3}{4}{5}{6}>",
+					"<{0} id={1}{2}{3}{4}{5}{6}{7}>",
 					this.elementType.ToString ( ).ToLower ( ),
 					this.ClientID,
 					string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : " class=" + HttpUtility.HtmlEncode ( this.CssClass ),
 					string.IsNullOrEmpty ( this.ToolTip ) ? string.Empty : " title=" + HttpUtility.HtmlEncode ( this.ToolTip ),
 					string.IsNullOrEmpty ( style ) ? string.Empty : " style=" + HttpUtility.HtmlEncode ( style ),
 					string.IsNullOrEmpty ( this.attribute ) ? string.Empty : " " + this.attribute.Trim ( ),
+					attribute,
 					( this.elementType == ElementType.Input ) ? " /" : string.Empty
 					);
-#endif
 			}
 
 			if ( this.elementType != ElementType.Input )
@@ -677,6 +1750,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( states.Count >= 3 )
 				this.isVariable = ( bool ) states[2];
 
+			if ( states.Count >= 4 )
+				this.selector = states[3] as string;
+
 		}
 
 		protected override object SaveViewState ( )
@@ -693,6 +1769,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			states.Add ( this.elementType );
 			states.Add ( this.attribute );
 			states.Add ( this.isVariable );
+			states.Add ( this.selector );
 
 			this.ViewState["JQueryElement"] = states;
 
@@ -4571,6 +5648,166 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	}
 	#endregion
 
+	#region " BaseWidget "
+	/// <summary>
+	/// 插件的基础类.
+	/// </summary>
+	public class BaseWidget
+		: JQueryElement
+	{
+		protected readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+		protected readonly List<AjaxSettingEdit> ajaxSettings = new List<AjaxSettingEdit> ( );
+
+		#region " hide "
+
+		/// <summary>
+		/// 获取或设置元素的拖动设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override DraggableSettingEdit DraggableSetting
+		{
+			get { return base.DraggableSetting; }
+			set { base.DraggableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的拖放设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override DroppableSettingEdit DroppableSetting
+		{
+			get { return base.DroppableSetting; }
+			set { base.DroppableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的排列设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override SortableSettingEdit SortableSetting
+		{
+			get { return base.SortableSetting; }
+			set { base.SortableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的选中设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override SelectableSettingEdit SelectableSetting
+		{
+			get { return base.SelectableSetting; }
+			set { base.SelectableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的缩放设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override ResizableSettingEdit ResizableSetting
+		{
+			get { return base.ResizableSetting; }
+			set { base.ResizableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的 Widget 设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override WidgetSettingEdit WidgetSetting
+		{
+			get { return base.WidgetSetting; }
+			set { base.WidgetSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的 Repeater 设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override RepeaterSettingEdit RepeaterSetting
+		{
+			get { return base.RepeaterSetting; }
+			set { base.RepeaterSetting = value; }
+		}
+		#endregion
+
+		/// <summary>
+		/// 创建一个插件的基础类.
+		/// </summary>
+		/// <param name="type">插件的类型.</param>
+		public BaseWidget ( WidgetType type )
+			: base ( )
+		{ base.WidgetSetting.Type = type; }
+
+		protected T getEnum<T> ( string text, T defalutValue )
+			where T : struct
+		{
+			T value;
+
+			if ( string.IsNullOrEmpty ( text ) )
+				value = defalutValue;
+			// HACK: 可能需要添加 V5
+#if V4
+			else if ( !Enum.TryParse ( text, out value ) )
+				value = defalutValue;
+#else
+			else
+				try
+				{ value = ( T ) Enum.Parse ( typeof ( T ), text.Trim ( '\'' ).Trim ( '"' ), true ); }
+				catch
+				{ value = defalutValue; }
+#endif
+
+			return value;
+		}
+
+		protected decimal getDecimal ( string text, decimal defaultValue )
+		{
+			decimal value;
+
+			if ( string.IsNullOrEmpty ( text ) || !decimal.TryParse ( text, out value ) )
+				value = defaultValue;
+
+			return value;
+		}
+
+		protected bool getBoolean ( string text, bool defaultValue )
+		{
+			bool value;
+
+			if ( string.IsNullOrEmpty ( text ) || !bool.TryParse ( text, out value ) )
+				value = defaultValue;
+
+			return value;
+		}
+
+		protected int getInteger ( string text, int defaultValue )
+		{
+			int value;
+
+			if ( string.IsNullOrEmpty ( text ) || !int.TryParse ( text, out value ) )
+				value = defaultValue;
+
+			return value;
+		}
+
+		protected override void LoadViewState ( object savedState )
+		{
+			base.LoadViewState ( savedState );
+
+			( this.editHelper as IStateManager ).LoadViewState ( this.ViewState["EditHelper"] );
+		}
+
+		protected override object SaveViewState ( )
+		{
+			this.ViewState["EditHelper"] = ( this.editHelper as IStateManager ).SaveViewState ( );
+
+			return base.SaveViewState ( );
+		}
+
+	}
+	#endregion
+
 }
 // ../.class/ui/jqueryui/DraggableSettingEdit.cs
 /*
@@ -7989,13 +9226,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public string Url
 		{
 			get { return this.url; }
-			set
-			{
-
-				if ( !string.IsNullOrEmpty ( value ) )
-					this.url = value;
-
-			}
+			set { this.url = value; }
 		}
 
 		/// <summary>
@@ -8021,13 +9252,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public string Form
 		{
 			get { return this.form; }
-			set
-			{
-
-				if ( !string.IsNullOrEmpty ( value ) )
-					this.form = value;
-
-			}
+			set { this.form = value; }
 		}
 
 		/// <summary>
@@ -8068,7 +9293,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			foreach ( ParameterEdit edit in this.parameters )
 				parameters.Add ( edit.CreateParameter ( ) );
 
-			return new AjaxSetting ( this.widgetEventType, this.url, this.dataType, this.form, parameters.ToArray ( ), this.editHelper.CreateEvents(), this.isSingleQuote );
+			return new AjaxSetting ( this.widgetEventType, this.url, this.dataType, this.form, parameters.ToArray ( ), this.editHelper.CreateEvents ( ), this.isSingleQuote );
 		}
 
 		/// <summary>
@@ -8543,11 +9768,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( states.Count >= 2 )
 			{
+				/*
 				List<object> ajaxSettingStates = states[1] as List<object>;
 
 				for ( int index = 0; index < ajaxSettingStates.Count; index++ )
 					( this.ajaxSettings[index] as IStateManager ).LoadViewState ( ajaxSettingStates[index] );
-
+				*/
 			}
 
 			if ( states.Count >= 3 )
@@ -8589,7 +9815,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			foreach ( AjaxSettingEdit edit in this.ajaxSettings )
 				ajaxSettingStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
 
-			states.Add ( ajaxSettingStates );
+			states.Add ( /*ajaxSettingStates*/ null );
 
 			states.Add ( ( this.buttonSetting as IStateManager ).SaveViewState ( ) );
 			states.Add ( ( this.accordionSetting as IStateManager ).SaveViewState ( ) );
@@ -8684,7 +9910,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class ButtonSettingEdit
 		: IStateManager
 	{
-		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+		private SettingEditHelper editHelper = new SettingEditHelper ( );
 
 		/// <summary>
 		/// 获取元素的 Button 设置.
@@ -8784,12 +10010,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		#endregion
 
 		/// <summary>
-		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// 获取或设置 OptionEdit, EventEdit 辅助类.
 		/// </summary>
 		[Browsable ( false )]
 		public SettingEditHelper EditHelper
 		{
 			get { return this.editHelper; }
+			set
+			{
+
+				if ( null != value )
+					this.editHelper = value;
+
+			}
 		}
 
 		/// <summary>
@@ -10988,7 +12221,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class ProgressbarSettingEdit
 		: IStateManager
 	{
-		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+		private SettingEditHelper editHelper = new SettingEditHelper ( );
 
 		/// <summary>
 		/// 获取元素的进度条设置.
@@ -11088,12 +12321,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		#endregion
 
 		/// <summary>
-		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// 获取或设置 OptionEdit, EventEdit 辅助类.
 		/// </summary>
 		[Browsable ( false )]
 		public SettingEditHelper EditHelper
 		{
 			get { return this.editHelper; }
+			set
+			{
+
+				if ( null != value )
+					this.editHelper = value;
+
+			}
 		}
 
 		/// <summary>
@@ -11543,7 +12783,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class TabsSettingEdit
 		: IStateManager
 	{
-		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+		private SettingEditHelper editHelper = new SettingEditHelper ( );
 
 		/// <summary>
 		/// 获取元素的分组标签设置.
@@ -11843,7 +13083,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[DefaultValue ( "" )]
 		[Description ( "指示标签被禁用时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
-		public string Disable 
+		public string Disable
 		{
 			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disable ); }
 			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disable, value ); }
@@ -11851,12 +13091,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		#endregion
 
 		/// <summary>
-		/// 获取 OptionEdit, EventEdit 辅助类.
+		/// 获取或设置 OptionEdit, EventEdit 辅助类.
 		/// </summary>
 		[Browsable ( false )]
 		public SettingEditHelper EditHelper
 		{
 			get { return this.editHelper; }
+			set
+			{
+
+				if ( null != value )
+					this.editHelper = value;
+
+			}
 		}
 
 		/// <summary>
@@ -13065,12 +14312,20 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 								result = methodInfo.Invoke ( currentControl, null ) as string;
 
 						break;
+
+					case "\\'":
+						result = "' + " + commandParameter + " + '";
+						break;
+
+					case "\\\"":
+						result = "\" + " + commandParameter + " + \"";
+						break;
 				}
 
 				code = code.Replace ( expression, string.IsNullOrEmpty ( result ) ? "null" : result );
 			}
 
-			return code;
+			return code.Replace ( "!sq!", "'" ).Replace ( "!dq!", "'" );
 		}
 
 	}
