@@ -62,17 +62,14 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public class Tabs
 		: BaseWidget, IPostBackEventHandler
 	{
+		private readonly AjaxSettingEdit selectAjax = new AjaxSettingEdit ( );
 
 		/// <summary>
 		/// 创建一个 jQuery UI 按钮.
 		/// </summary>
 		public Tabs ( )
 			: base ( WidgetType.tabs )
-		{
-			this.elementType = ElementType.Div;
-
-			this.ajaxSettings.Add ( new AjaxSettingEdit ( ) );
-		}
+		{ this.elementType = ElementType.Div; }
 
 		#region " Option "
 		/// <summary>
@@ -358,10 +355,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "Ajax" )]
 		[Description ( "Select 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.Attribute )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
 		public AjaxSettingEdit SelectAsync
 		{
-			get { return this.ajaxSettings[0]; }
+			get { return this.selectAjax; }
 		}
 		#endregion
 
@@ -378,16 +375,25 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.TabsSetting.EditHelper = this.editHelper;
+				this.widgetSetting.Type = this.type;
+
+				this.widgetSetting.TabsSetting.SetEditHelper ( this.editHelper );
+
 				this.widgetSetting.AjaxSettings.Clear ( );
-				this.widgetSetting.AjaxSettings.AddRange ( this.ajaxSettings );
+
+				if ( this.selectAjax.Url != string.Empty )
+				{
+					this.selectAjax.WidgetEventType = EventType.select;
+					this.widgetSetting.AjaxSettings.Add ( this.selectAjax );
+				}
+
 
 				if ( null != this.SelectSync )
 					this.Select = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "select;[%':ui.index%]" ) + "}";
 
 			}
 			else if ( string.IsNullOrEmpty ( this.selector ) )
-				switch ( this.widgetSetting.Type )
+				switch ( this.type )
 				{
 					case WidgetType.tabs:
 						string style = string.Empty;

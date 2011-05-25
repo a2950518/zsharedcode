@@ -50,9 +50,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	{
 		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
 		private EventType widgetEventType = EventType.none;
-		private string url;
+		private string url = string.Empty;
 		private DataType dataType = DataType.json;
-		private string form;
+		private string form = string.Empty;
 		private readonly List<ParameterEdit> parameters = new List<ParameterEdit> ( );
 		private bool isSingleQuote = true;
 

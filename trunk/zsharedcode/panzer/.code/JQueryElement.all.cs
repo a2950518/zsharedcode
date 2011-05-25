@@ -78,17 +78,14 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public class Button
 		: BaseWidget, IPostBackEventHandler
 	{
+		private readonly AjaxSettingEdit clickAjax = new AjaxSettingEdit ( );
 
 		/// <summary>
 		/// 创建一个 jQuery UI 按钮.
 		/// </summary>
 		public Button ( )
 			: base ( WidgetType.button )
-		{
-			this.elementType = ElementType.Span;
-
-			this.ajaxSettings.Add ( new AjaxSettingEdit ( ) );
-		}
+		{ this.elementType = ElementType.Span; }
 
 		#region " Option "
 		/// <summary>
@@ -166,10 +163,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "Ajax" )]
 		[Description ( "Click 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.Attribute )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
 		public AjaxSettingEdit ClickAsync
 		{
-			get { return this.ajaxSettings[0]; }
+			get { return this.clickAjax; }
 		}
 		#endregion
 
@@ -201,18 +198,24 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.ButtonSetting.EditHelper = this.editHelper;
+				this.widgetSetting.Type = this.type;
 
-				this.ajaxSettings[0].WidgetEventType = EventType.click;
+				this.widgetSetting.ButtonSetting.SetEditHelper ( this.editHelper );
+
 				this.widgetSetting.AjaxSettings.Clear ( );
-				this.widgetSetting.AjaxSettings.AddRange ( this.ajaxSettings );
+
+				if ( this.clickAjax.Url != string.Empty )
+				{
+					this.clickAjax.WidgetEventType = EventType.click;
+					this.widgetSetting.AjaxSettings.Add ( this.clickAjax );
+				}
 
 				if ( null != this.ClickSync )
 					this.Click = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "click" ) + "}";
 
 			}
 			else if ( string.IsNullOrEmpty ( this.selector ) )
-				switch ( this.widgetSetting.Type )
+				switch ( this.type )
 				{
 					case WidgetType.button:
 						string style = string.Empty;
@@ -231,7 +234,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 							string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : this.CssClass + " ",
 							style,
 							this.ToolTip,
-							this.elementType.ToString().ToLower()
+							this.elementType.ToString ( ).ToLower ( )
 							);
 						return;
 				}
@@ -332,18 +335,15 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public class Progressbar
 		: BaseWidget, IPostBackEventHandler
 	{
+		private readonly AjaxSettingEdit changeAjax = new AjaxSettingEdit ( );
+		private readonly AjaxSettingEdit completeAjax = new AjaxSettingEdit ( );
 
 		/// <summary>
 		/// 创建一个 jQuery UI 按钮.
 		/// </summary>
 		public Progressbar ( )
 			: base ( WidgetType.progressbar )
-		{
-			this.elementType = ElementType.Div;
-
-			this.ajaxSettings.Add ( new AjaxSettingEdit ( ) );
-			this.ajaxSettings.Add ( new AjaxSettingEdit ( ) );
-		}
+		{ this.elementType = ElementType.Div; }
 
 		#region " Option "
 		/// <summary>
@@ -421,10 +421,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "Ajax" )]
 		[Description ( "Change 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.Attribute )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[NotifyParentProperty ( true )]
 		public AjaxSettingEdit ChangeAsync
 		{
-			get { return this.ajaxSettings[0]; }
+			get { return this.changeAjax; }
 		}
 		/// <summary>
 		/// 获取 Complete 操作相关的 Ajax 设置.
@@ -432,10 +433,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "Ajax" )]
 		[Description ( "Complete 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.Attribute )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[NotifyParentProperty ( true )]
 		public AjaxSettingEdit CompleteAsync
 		{
-			get { return this.ajaxSettings[1]; }
+			get { return this.completeAjax; }
 		}
 		#endregion
 
@@ -457,9 +459,24 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.ProgressbarSetting.EditHelper = this.editHelper;
+				this.widgetSetting.Type = this.type;
+
+				this.widgetSetting.ProgressbarSetting.SetEditHelper ( this.editHelper );
+
 				this.widgetSetting.AjaxSettings.Clear ( );
-				this.widgetSetting.AjaxSettings.AddRange ( this.ajaxSettings );
+
+				if ( this.changeAjax.Url != string.Empty )
+				{
+					this.changeAjax.WidgetEventType = EventType.change;
+					this.widgetSetting.AjaxSettings.Add ( this.changeAjax );
+				}
+
+				if ( this.completeAjax.Url != string.Empty )
+				{
+					this.completeAjax.WidgetEventType = EventType.complete;
+					this.widgetSetting.AjaxSettings.Add ( this.completeAjax );
+				}
+
 
 				if ( null != this.ChangeSync )
 					this.Change = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "change;[%':$(this).progressbar(!sq!option!sq!, !sq!value!sq!)%]" ) + "}";
@@ -469,7 +486,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 			else if ( string.IsNullOrEmpty ( this.selector ) )
-				switch ( this.widgetSetting.Type )
+				switch ( this.type )
 				{
 					case WidgetType.progressbar:
 						string style = string.Empty;
@@ -488,7 +505,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 							string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : this.CssClass + " ",
 							style,
 							this.ToolTip,
-							this.elementType.ToString().ToLower()
+							this.elementType.ToString ( ).ToLower ( )
 							);
 						return;
 				}
@@ -644,17 +661,14 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public class Tabs
 		: BaseWidget, IPostBackEventHandler
 	{
+		private readonly AjaxSettingEdit selectAjax = new AjaxSettingEdit ( );
 
 		/// <summary>
 		/// 创建一个 jQuery UI 按钮.
 		/// </summary>
 		public Tabs ( )
 			: base ( WidgetType.tabs )
-		{
-			this.elementType = ElementType.Div;
-
-			this.ajaxSettings.Add ( new AjaxSettingEdit ( ) );
-		}
+		{ this.elementType = ElementType.Div; }
 
 		#region " Option "
 		/// <summary>
@@ -940,10 +954,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "Ajax" )]
 		[Description ( "Select 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.Attribute )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
 		public AjaxSettingEdit SelectAsync
 		{
-			get { return this.ajaxSettings[0]; }
+			get { return this.selectAjax; }
 		}
 		#endregion
 
@@ -960,16 +974,25 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.TabsSetting.EditHelper = this.editHelper;
+				this.widgetSetting.Type = this.type;
+
+				this.widgetSetting.TabsSetting.SetEditHelper ( this.editHelper );
+
 				this.widgetSetting.AjaxSettings.Clear ( );
-				this.widgetSetting.AjaxSettings.AddRange ( this.ajaxSettings );
+
+				if ( this.selectAjax.Url != string.Empty )
+				{
+					this.selectAjax.WidgetEventType = EventType.select;
+					this.widgetSetting.AjaxSettings.Add ( this.selectAjax );
+				}
+
 
 				if ( null != this.SelectSync )
 					this.Select = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "select;[%':ui.index%]" ) + "}";
 
 			}
 			else if ( string.IsNullOrEmpty ( this.selector ) )
-				switch ( this.widgetSetting.Type )
+				switch ( this.type )
 				{
 					case WidgetType.tabs:
 						string style = string.Empty;
@@ -5656,7 +5679,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		: JQueryElement
 	{
 		protected readonly SettingEditHelper editHelper = new SettingEditHelper ( );
-		protected readonly List<AjaxSettingEdit> ajaxSettings = new List<AjaxSettingEdit> ( );
+		protected readonly WidgetType type;
 
 		#region " hide "
 
@@ -5737,7 +5760,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <param name="type">插件的类型.</param>
 		public BaseWidget ( WidgetType type )
 			: base ( )
-		{ base.WidgetSetting.Type = type; }
+		{ this.type = type; }
 
 		protected T getEnum<T> ( string text, T defalutValue )
 			where T : struct
@@ -9093,9 +9116,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	{
 		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
 		private EventType widgetEventType = EventType.none;
-		private string url;
+		private string url = string.Empty;
 		private DataType dataType = DataType.json;
-		private string form;
+		private string form = string.Empty;
 		private readonly List<ParameterEdit> parameters = new List<ParameterEdit> ( );
 		private bool isSingleQuote = true;
 
@@ -9745,7 +9768,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 转化为等效的字符串.
+		/// 转化为等效的字符串. (用于在程序集内容使用)
 		/// </summary>
 		/// <returns>等效字符串.</returns>
 		public override string ToString ( )
@@ -10010,19 +10033,24 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		#endregion
 
 		/// <summary>
-		/// 获取或设置 OptionEdit, EventEdit 辅助类.
+		/// 获取 OptionEdit, EventEdit 辅助类.
 		/// </summary>
 		[Browsable ( false )]
 		public SettingEditHelper EditHelper
 		{
 			get { return this.editHelper; }
-			set
-			{
+		}
 
-				if ( null != value )
-					this.editHelper = value;
+		/// <summary>
+		/// 设置 OptionEdit, EventEdit 辅助类. (用于在程序集内容使用)
+		/// </summary>
+		/// <param name="editHelper">辅助类.</param>
+		public void SetEditHelper ( SettingEditHelper editHelper )
+		{
 
-			}
+			if ( null != editHelper )
+				this.editHelper = editHelper;
+
 		}
 
 		/// <summary>
@@ -12321,19 +12349,24 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		#endregion
 
 		/// <summary>
-		/// 获取或设置 OptionEdit, EventEdit 辅助类.
+		/// 获取 OptionEdit, EventEdit 辅助类.
 		/// </summary>
 		[Browsable ( false )]
 		public SettingEditHelper EditHelper
 		{
 			get { return this.editHelper; }
-			set
-			{
+		}
 
-				if ( null != value )
-					this.editHelper = value;
+		/// <summary>
+		/// 设置 OptionEdit, EventEdit 辅助类. (用于在程序集内容使用)
+		/// </summary>
+		/// <param name="editHelper">辅助类.</param>
+		public void SetEditHelper ( SettingEditHelper editHelper )
+		{
 
-			}
+			if ( null != editHelper )
+				this.editHelper = editHelper;
+
 		}
 
 		/// <summary>
@@ -13091,19 +13124,24 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		#endregion
 
 		/// <summary>
-		/// 获取或设置 OptionEdit, EventEdit 辅助类.
+		/// 获取 OptionEdit, EventEdit 辅助类.
 		/// </summary>
 		[Browsable ( false )]
 		public SettingEditHelper EditHelper
 		{
 			get { return this.editHelper; }
-			set
-			{
+		}
 
-				if ( null != value )
-					this.editHelper = value;
+		/// <summary>
+		/// 设置 OptionEdit, EventEdit 辅助类. (用于在程序集内容使用)
+		/// </summary>
+		/// <param name="editHelper">辅助类.</param>
+		public void SetEditHelper ( SettingEditHelper editHelper )
+		{
 
-			}
+			if ( null != editHelper )
+				this.editHelper = editHelper;
+
 		}
 
 		/// <summary>

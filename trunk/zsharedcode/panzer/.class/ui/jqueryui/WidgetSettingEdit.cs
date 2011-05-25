@@ -274,7 +274,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 转化为等效的字符串.
+		/// 转化为等效的字符串. (用于在程序集内容使用)
 		/// </summary>
 		/// <returns>等效字符串.</returns>
 		public override string ToString ( )
@@ -539,19 +539,24 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		#endregion
 
 		/// <summary>
-		/// 获取或设置 OptionEdit, EventEdit 辅助类.
+		/// 获取 OptionEdit, EventEdit 辅助类.
 		/// </summary>
 		[Browsable ( false )]
 		public SettingEditHelper EditHelper
 		{
 			get { return this.editHelper; }
-			set
-			{
+		}
 
-				if ( null != value )
-					this.editHelper = value;
+		/// <summary>
+		/// 设置 OptionEdit, EventEdit 辅助类. (用于在程序集内容使用)
+		/// </summary>
+		/// <param name="editHelper">辅助类.</param>
+		public void SetEditHelper ( SettingEditHelper editHelper )
+		{
 
-			}
+			if ( null != editHelper )
+				this.editHelper = editHelper;
+
 		}
 
 		/// <summary>
@@ -2850,19 +2855,24 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		#endregion
 
 		/// <summary>
-		/// 获取或设置 OptionEdit, EventEdit 辅助类.
+		/// 获取 OptionEdit, EventEdit 辅助类.
 		/// </summary>
 		[Browsable ( false )]
 		public SettingEditHelper EditHelper
 		{
 			get { return this.editHelper; }
-			set
-			{
+		}
 
-				if ( null != value )
-					this.editHelper = value;
+		/// <summary>
+		/// 设置 OptionEdit, EventEdit 辅助类. (用于在程序集内容使用)
+		/// </summary>
+		/// <param name="editHelper">辅助类.</param>
+		public void SetEditHelper ( SettingEditHelper editHelper )
+		{
 
-			}
+			if ( null != editHelper )
+				this.editHelper = editHelper;
+
 		}
 
 		/// <summary>
@@ -3620,19 +3630,24 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		#endregion
 
 		/// <summary>
-		/// 获取或设置 OptionEdit, EventEdit 辅助类.
+		/// 获取 OptionEdit, EventEdit 辅助类.
 		/// </summary>
 		[Browsable ( false )]
 		public SettingEditHelper EditHelper
 		{
 			get { return this.editHelper; }
-			set
-			{
+		}
 
-				if ( null != value )
-					this.editHelper = value;
+		/// <summary>
+		/// 设置 OptionEdit, EventEdit 辅助类. (用于在程序集内容使用)
+		/// </summary>
+		/// <param name="editHelper">辅助类.</param>
+		public void SetEditHelper ( SettingEditHelper editHelper )
+		{
 
-			}
+			if ( null != editHelper )
+				this.editHelper = editHelper;
+
 		}
 
 		/// <summary>

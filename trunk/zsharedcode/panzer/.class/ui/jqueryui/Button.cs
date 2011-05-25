@@ -60,17 +60,14 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public class Button
 		: BaseWidget, IPostBackEventHandler
 	{
+		private readonly AjaxSettingEdit clickAjax = new AjaxSettingEdit ( );
 
 		/// <summary>
 		/// 创建一个 jQuery UI 按钮.
 		/// </summary>
 		public Button ( )
 			: base ( WidgetType.button )
-		{
-			this.elementType = ElementType.Span;
-
-			this.ajaxSettings.Add ( new AjaxSettingEdit ( ) );
-		}
+		{ this.elementType = ElementType.Span; }
 
 		#region " Option "
 		/// <summary>
@@ -148,10 +145,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "Ajax" )]
 		[Description ( "Click 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.Attribute )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
 		public AjaxSettingEdit ClickAsync
 		{
-			get { return this.ajaxSettings[0]; }
+			get { return this.clickAjax; }
 		}
 		#endregion
 
@@ -183,18 +180,24 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.ButtonSetting.EditHelper = this.editHelper;
+				this.widgetSetting.Type = this.type;
 
-				this.ajaxSettings[0].WidgetEventType = EventType.click;
+				this.widgetSetting.ButtonSetting.SetEditHelper ( this.editHelper );
+
 				this.widgetSetting.AjaxSettings.Clear ( );
-				this.widgetSetting.AjaxSettings.AddRange ( this.ajaxSettings );
+
+				if ( this.clickAjax.Url != string.Empty )
+				{
+					this.clickAjax.WidgetEventType = EventType.click;
+					this.widgetSetting.AjaxSettings.Add ( this.clickAjax );
+				}
 
 				if ( null != this.ClickSync )
 					this.Click = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "click" ) + "}";
 
 			}
 			else if ( string.IsNullOrEmpty ( this.selector ) )
-				switch ( this.widgetSetting.Type )
+				switch ( this.type )
 				{
 					case WidgetType.button:
 						string style = string.Empty;
@@ -213,7 +216,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 							string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : this.CssClass + " ",
 							style,
 							this.ToolTip,
-							this.elementType.ToString().ToLower()
+							this.elementType.ToString ( ).ToLower ( )
 							);
 						return;
 				}

@@ -60,18 +60,15 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public class Progressbar
 		: BaseWidget, IPostBackEventHandler
 	{
+		private readonly AjaxSettingEdit changeAjax = new AjaxSettingEdit ( );
+		private readonly AjaxSettingEdit completeAjax = new AjaxSettingEdit ( );
 
 		/// <summary>
 		/// 创建一个 jQuery UI 按钮.
 		/// </summary>
 		public Progressbar ( )
 			: base ( WidgetType.progressbar )
-		{
-			this.elementType = ElementType.Div;
-
-			this.ajaxSettings.Add ( new AjaxSettingEdit ( ) );
-			this.ajaxSettings.Add ( new AjaxSettingEdit ( ) );
-		}
+		{ this.elementType = ElementType.Div; }
 
 		#region " Option "
 		/// <summary>
@@ -149,10 +146,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "Ajax" )]
 		[Description ( "Change 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.Attribute )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[NotifyParentProperty ( true )]
 		public AjaxSettingEdit ChangeAsync
 		{
-			get { return this.ajaxSettings[0]; }
+			get { return this.changeAjax; }
 		}
 		/// <summary>
 		/// 获取 Complete 操作相关的 Ajax 设置.
@@ -160,10 +158,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "Ajax" )]
 		[Description ( "Complete 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.Attribute )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[NotifyParentProperty ( true )]
 		public AjaxSettingEdit CompleteAsync
 		{
-			get { return this.ajaxSettings[1]; }
+			get { return this.completeAjax; }
 		}
 		#endregion
 
@@ -185,9 +184,24 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.ProgressbarSetting.EditHelper = this.editHelper;
+				this.widgetSetting.Type = this.type;
+
+				this.widgetSetting.ProgressbarSetting.SetEditHelper ( this.editHelper );
+
 				this.widgetSetting.AjaxSettings.Clear ( );
-				this.widgetSetting.AjaxSettings.AddRange ( this.ajaxSettings );
+
+				if ( this.changeAjax.Url != string.Empty )
+				{
+					this.changeAjax.WidgetEventType = EventType.change;
+					this.widgetSetting.AjaxSettings.Add ( this.changeAjax );
+				}
+
+				if ( this.completeAjax.Url != string.Empty )
+				{
+					this.completeAjax.WidgetEventType = EventType.complete;
+					this.widgetSetting.AjaxSettings.Add ( this.completeAjax );
+				}
+
 
 				if ( null != this.ChangeSync )
 					this.Change = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "change;[%':$(this).progressbar(!sq!option!sq!, !sq!value!sq!)%]" ) + "}";
@@ -197,7 +211,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 			else if ( string.IsNullOrEmpty ( this.selector ) )
-				switch ( this.widgetSetting.Type )
+				switch ( this.type )
 				{
 					case WidgetType.progressbar:
 						string style = string.Empty;
@@ -216,7 +230,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 							string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : this.CssClass + " ",
 							style,
 							this.ToolTip,
-							this.elementType.ToString().ToLower()
+							this.elementType.ToString ( ).ToLower ( )
 							);
 						return;
 				}

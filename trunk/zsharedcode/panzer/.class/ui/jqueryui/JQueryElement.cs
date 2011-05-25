@@ -4572,7 +4572,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		: JQueryElement
 	{
 		protected readonly SettingEditHelper editHelper = new SettingEditHelper ( );
-		protected readonly List<AjaxSettingEdit> ajaxSettings = new List<AjaxSettingEdit> ( );
+		protected readonly WidgetType type;
 
 		#region " hide "
 
@@ -4653,7 +4653,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <param name="type">插件的类型.</param>
 		public BaseWidget ( WidgetType type )
 			: base ( )
-		{ base.WidgetSetting.Type = type; }
+		{ this.type = type; }
 
 		protected T getEnum<T> ( string text, T defalutValue )
 			where T : struct
