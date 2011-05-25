@@ -383,7 +383,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 				if ( this.selectAjax.Url != string.Empty )
 				{
-					this.selectAjax.WidgetEventType = EventType.select;
+					this.selectAjax.WidgetEventType = EventType.tabsselect;
 					this.widgetSetting.AjaxSettings.Add ( this.selectAjax );
 				}
 
@@ -392,7 +392,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					this.Select = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "select;[%':ui.index%]" ) + "}";
 
 			}
-			else if ( string.IsNullOrEmpty ( this.selector ) )
+			else if ( this.selector == string.Empty )
 				switch ( this.type )
 				{
 					case WidgetType.tabs:

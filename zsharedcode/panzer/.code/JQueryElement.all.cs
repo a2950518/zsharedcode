@@ -9,6 +9,7 @@ using zoyobar.shared.panzer.code;
 using System.Xml;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Web;
 using System.Web.UI.Design;
@@ -16,7 +17,6 @@ using System.Windows.Forms;
 using zoyobar.shared.panzer.web;
 using NBorderStyle = System.Web.UI.WebControls.BorderStyle;
 using System.Drawing.Design;
-using System.Globalization;
 using NParameter = zoyobar.shared.panzer.web.jqueryui.Parameter;
 using System.Net;
 using System.Reflection;
@@ -467,13 +467,13 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 				if ( this.changeAjax.Url != string.Empty )
 				{
-					this.changeAjax.WidgetEventType = EventType.change;
+					this.changeAjax.WidgetEventType = EventType.progressbarchange;
 					this.widgetSetting.AjaxSettings.Add ( this.changeAjax );
 				}
 
 				if ( this.completeAjax.Url != string.Empty )
 				{
-					this.completeAjax.WidgetEventType = EventType.complete;
+					this.completeAjax.WidgetEventType = EventType.progressbarcomplete;
 					this.widgetSetting.AjaxSettings.Add ( this.completeAjax );
 				}
 
@@ -485,7 +485,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					this.Complete = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "complete;[%':$(this).progressbar(!sq!option!sq!, !sq!value!sq!)%]" ) + "}";
 
 			}
-			else if ( string.IsNullOrEmpty ( this.selector ) )
+			else if ( this.selector == string.Empty )
 				switch ( this.type )
 				{
 					case WidgetType.progressbar:
@@ -982,7 +982,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 				if ( this.selectAjax.Url != string.Empty )
 				{
-					this.selectAjax.WidgetEventType = EventType.select;
+					this.selectAjax.WidgetEventType = EventType.tabsselect;
 					this.widgetSetting.AjaxSettings.Add ( this.selectAjax );
 				}
 
@@ -991,7 +991,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					this.Select = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "select;[%':ui.index%]" ) + "}";
 
 			}
-			else if ( string.IsNullOrEmpty ( this.selector ) )
+			else if ( this.selector == string.Empty )
 				switch ( this.type )
 				{
 					case WidgetType.tabs:
@@ -1123,6 +1123,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 /*
  * wiki:
  * http://code.google.com/p/zsharedcode/wiki/JQueryElement
+ * http://code.google.com/p/zsharedcode/wiki/JQueryElementConverter
  * http://code.google.com/p/zsharedcode/wiki/JQueryElementType
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIBaseWidget
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
@@ -1248,9 +1249,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		protected ElementType elementType = ElementType.None;
-		protected string attribute;
+		protected string attribute = string.Empty;
 		private bool isVariable = false;
-		protected string selector;
+		protected string selector = string.Empty;
 
 		private DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
 		private DroppableSettingEdit droppableSetting = new DroppableSettingEdit ( );
@@ -1263,6 +1264,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private RepeaterSettingEdit repeaterSetting = new RepeaterSettingEdit ( );
 
 		protected readonly PlaceHolder html = new PlaceHolder ( );
+
+		/// <summary>
+		/// 和设计时有关, 没有任何意义.
+		/// </summary>
+		[Browsable ( false )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public string Nothing
+		{
+			get { return string.Empty; }
+			set { }
+		}
 
 		/// <summary>
 		/// 获取或设置元素的拖动设置.
@@ -1443,7 +1456,13 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public virtual string Selector
 		{
 			get { return this.selector; }
-			set { this.selector = value; }
+			set
+			{
+
+				if ( null != value )
+					this.selector = value;
+
+			}
 		}
 
 		/// <summary>
@@ -1623,7 +1642,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : " class=" + HttpUtility.HtmlEncode ( this.CssClass ),
 					string.IsNullOrEmpty ( this.ToolTip ) ? string.Empty : " title=" + HttpUtility.HtmlEncode ( this.ToolTip ),
 					string.IsNullOrEmpty ( style ) ? string.Empty : " style=" + HttpUtility.HtmlEncode ( style ),
-					string.IsNullOrEmpty ( this.attribute ) ? string.Empty : " " + this.attribute.Trim ( ),
+					this.attribute == string.Empty ? string.Empty : " " + this.attribute.Trim ( ),
 					attribute,
 					( this.elementType == ElementType.Input ) ? " /" : string.Empty
 					);
@@ -15074,7 +15093,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
 				if ( ajaxSetting.WidgetEventType == EventType.__init )
 					this.EndLine ( ).AppendCode ( jQuery.Code );
 				else
-					this.Execute ( ajaxSetting.WidgetEventType.ToString ( ), "function(e){" + jQuery.Code + "}" );
+					this.Bind ( string.Format ( "'{0}'", ajaxSetting.WidgetEventType ), "function(e){" + jQuery.Code + "}" );
+					// this.Execute ( ajaxSetting.WidgetEventType.ToString ( ), "function(e){" + jQuery.Code + "}" );
+
 			}
 
 			return this;
@@ -16211,7 +16232,55 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 发送时.
 		/// </summary>
-		send
+		send,
+		/// <summary>
+		/// 按钮创建时.
+		/// </summary>
+		buttoncreate,
+		/// <summary>
+		/// 进度条创建时.
+		/// </summary>
+		progressbarcreate,
+		/// <summary>
+		/// 进度条改变时.
+		/// </summary>
+		progressbarchange,
+		/// <summary>
+		/// 进度条完成时.
+		/// </summary>
+		progressbarcomplete,
+		/// <summary>
+		/// 分组标签创建时.
+		/// </summary>
+		tabscreate,
+		/// <summary>
+		/// 分组标签选择时.
+		/// </summary>
+		tabsselect,
+		/// <summary>
+		/// 分组标签载入时.
+		/// </summary>
+		tabsload,
+		/// <summary>
+		/// 分组标签显示时.
+		/// </summary>
+		tabsshow,
+		/// <summary>
+		/// 分组标签添加时.
+		/// </summary>
+		tabsadd,
+		/// <summary>
+		/// 分组标签删除时.
+		/// </summary>
+		tabsremove,
+		/// <summary>
+		/// 分组标签可用时.
+		/// </summary>
+		tabsenable,
+		/// <summary>
+		/// 分组标签禁用时.
+		/// </summary>
+		tabsdisable,
 	}
 	#endregion
 

@@ -325,7 +325,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
 				if ( ajaxSetting.WidgetEventType == EventType.__init )
 					this.EndLine ( ).AppendCode ( jQuery.Code );
 				else
-					this.Execute ( ajaxSetting.WidgetEventType.ToString ( ), "function(e){" + jQuery.Code + "}" );
+					this.Bind ( string.Format ( "'{0}'", ajaxSetting.WidgetEventType ), "function(e){" + jQuery.Code + "}" );
+					// this.Execute ( ajaxSetting.WidgetEventType.ToString ( ), "function(e){" + jQuery.Code + "}" );
+
 			}
 
 			return this;
