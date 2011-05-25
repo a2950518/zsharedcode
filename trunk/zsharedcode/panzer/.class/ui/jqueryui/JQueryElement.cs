@@ -1,6 +1,7 @@
 ﻿/*
  * wiki:
  * http://code.google.com/p/zsharedcode/wiki/JQueryElement
+ * http://code.google.com/p/zsharedcode/wiki/JQueryElementConverter
  * http://code.google.com/p/zsharedcode/wiki/JQueryElementType
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIBaseWidget
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
@@ -47,6 +48,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Web;
 using System.Web.UI;
@@ -141,9 +143,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		protected ElementType elementType = ElementType.None;
-		protected string attribute;
+		protected string attribute = string.Empty;
 		private bool isVariable = false;
-		protected string selector;
+		protected string selector = string.Empty;
 
 		private DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
 		private DroppableSettingEdit droppableSetting = new DroppableSettingEdit ( );
@@ -156,6 +158,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private RepeaterSettingEdit repeaterSetting = new RepeaterSettingEdit ( );
 
 		protected readonly PlaceHolder html = new PlaceHolder ( );
+
+		/// <summary>
+		/// 和设计时有关, 没有任何意义.
+		/// </summary>
+		[Browsable ( false )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public string Nothing
+		{
+			get { return string.Empty; }
+			set { }
+		}
 
 		/// <summary>
 		/// 获取或设置元素的拖动设置.
@@ -336,7 +350,13 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public virtual string Selector
 		{
 			get { return this.selector; }
-			set { this.selector = value; }
+			set
+			{
+
+				if ( null != value )
+					this.selector = value;
+
+			}
 		}
 
 		/// <summary>
@@ -516,7 +536,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : " class=" + HttpUtility.HtmlEncode ( this.CssClass ),
 					string.IsNullOrEmpty ( this.ToolTip ) ? string.Empty : " title=" + HttpUtility.HtmlEncode ( this.ToolTip ),
 					string.IsNullOrEmpty ( style ) ? string.Empty : " style=" + HttpUtility.HtmlEncode ( style ),
-					string.IsNullOrEmpty ( this.attribute ) ? string.Empty : " " + this.attribute.Trim ( ),
+					this.attribute == string.Empty ? string.Empty : " " + this.attribute.Trim ( ),
 					attribute,
 					( this.elementType == ElementType.Input ) ? " /" : string.Empty
 					);

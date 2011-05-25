@@ -137,7 +137,55 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 发送时.
 		/// </summary>
-		send
+		send,
+		/// <summary>
+		/// 按钮创建时.
+		/// </summary>
+		buttoncreate,
+		/// <summary>
+		/// 进度条创建时.
+		/// </summary>
+		progressbarcreate,
+		/// <summary>
+		/// 进度条改变时.
+		/// </summary>
+		progressbarchange,
+		/// <summary>
+		/// 进度条完成时.
+		/// </summary>
+		progressbarcomplete,
+		/// <summary>
+		/// 分组标签创建时.
+		/// </summary>
+		tabscreate,
+		/// <summary>
+		/// 分组标签选择时.
+		/// </summary>
+		tabsselect,
+		/// <summary>
+		/// 分组标签载入时.
+		/// </summary>
+		tabsload,
+		/// <summary>
+		/// 分组标签显示时.
+		/// </summary>
+		tabsshow,
+		/// <summary>
+		/// 分组标签添加时.
+		/// </summary>
+		tabsadd,
+		/// <summary>
+		/// 分组标签删除时.
+		/// </summary>
+		tabsremove,
+		/// <summary>
+		/// 分组标签可用时.
+		/// </summary>
+		tabsenable,
+		/// <summary>
+		/// 分组标签禁用时.
+		/// </summary>
+		tabsdisable,
 	}
 	#endregion
 

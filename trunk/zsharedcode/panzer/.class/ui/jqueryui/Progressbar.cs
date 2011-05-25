@@ -192,13 +192,13 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 				if ( this.changeAjax.Url != string.Empty )
 				{
-					this.changeAjax.WidgetEventType = EventType.change;
+					this.changeAjax.WidgetEventType = EventType.progressbarchange;
 					this.widgetSetting.AjaxSettings.Add ( this.changeAjax );
 				}
 
 				if ( this.completeAjax.Url != string.Empty )
 				{
-					this.completeAjax.WidgetEventType = EventType.complete;
+					this.completeAjax.WidgetEventType = EventType.progressbarcomplete;
 					this.widgetSetting.AjaxSettings.Add ( this.completeAjax );
 				}
 
@@ -210,7 +210,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					this.Complete = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "complete;[%':$(this).progressbar(!sq!option!sq!, !sq!value!sq!)%]" ) + "}";
 
 			}
-			else if ( string.IsNullOrEmpty ( this.selector ) )
+			else if ( this.selector == string.Empty )
 				switch ( this.type )
 				{
 					case WidgetType.progressbar:
