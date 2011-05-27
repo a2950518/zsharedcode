@@ -670,7 +670,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class AccordionSettingEdit
 		: IStateManager
 	{
-		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+		private SettingEditHelper editHelper = new SettingEditHelper ( );
 
 		/// <summary>
 		/// 获取元素的折叠列表设置.
@@ -909,6 +909,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 设置 OptionEdit, EventEdit 辅助类. (用于在程序集内容使用)
+		/// </summary>
+		/// <param name="editHelper">辅助类.</param>
+		public void SetEditHelper ( SettingEditHelper editHelper )
+		{
+
+			if ( null != editHelper )
+				this.editHelper = editHelper;
+
+		}
+
+		/// <summary>
 		/// 转化为等效的字符串.
 		/// </summary>
 		/// <returns>等效字符串.</returns>
@@ -1019,7 +1031,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class AutocompleteSettingEdit
 		: IStateManager
 	{
-		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+		private SettingEditHelper editHelper = new SettingEditHelper ( );
 
 		/// <summary>
 		/// 获取元素的自动填充设置.
@@ -1245,6 +1257,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 设置 OptionEdit, EventEdit 辅助类. (用于在程序集内容使用)
+		/// </summary>
+		/// <param name="editHelper">辅助类.</param>
+		public void SetEditHelper ( SettingEditHelper editHelper )
+		{
+
+			if ( null != editHelper )
+				this.editHelper = editHelper;
+
+		}
+
+		/// <summary>
 		/// 转化为等效的字符串.
 		/// </summary>
 		/// <returns>等效字符串.</returns>
@@ -1355,7 +1379,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class DatepickerSettingEdit
 		: IStateManager
 	{
-		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+		private SettingEditHelper editHelper = new SettingEditHelper ( );
 
 		/// <summary>
 		/// 获取元素的日期框设置.
@@ -2075,6 +2099,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 设置 OptionEdit, EventEdit 辅助类. (用于在程序集内容使用)
+		/// </summary>
+		/// <param name="editHelper">辅助类.</param>
+		public void SetEditHelper ( SettingEditHelper editHelper )
+		{
+
+			if ( null != editHelper )
+				this.editHelper = editHelper;
+
+		}
+
+		/// <summary>
 		/// 转化为等效的字符串.
 		/// </summary>
 		/// <returns>等效字符串.</returns>
@@ -2185,7 +2221,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class DialogSettingEdit
 		: IStateManager
 	{
-		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+		private SettingEditHelper editHelper = new SettingEditHelper ( );
 
 		/// <summary>
 		/// 获取元素的对话框设置.
@@ -2645,6 +2681,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 设置 OptionEdit, EventEdit 辅助类. (用于在程序集内容使用)
+		/// </summary>
+		/// <param name="editHelper">辅助类.</param>
+		public void SetEditHelper ( SettingEditHelper editHelper )
+		{
+
+			if ( null != editHelper )
+				this.editHelper = editHelper;
+
+		}
+
+		/// <summary>
 		/// 转化为等效的字符串.
 		/// </summary>
 		/// <returns>等效字符串.</returns>
@@ -2986,7 +3034,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	public sealed class SliderSettingEdit
 		: IStateManager
 	{
-		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
+		private SettingEditHelper editHelper = new SettingEditHelper ( );
 
 		/// <summary>
 		/// 获取元素的分割条设置.
@@ -3209,6 +3257,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public SettingEditHelper EditHelper
 		{
 			get { return this.editHelper; }
+		}
+
+		/// <summary>
+		/// 设置 OptionEdit, EventEdit 辅助类. (用于在程序集内容使用)
+		/// </summary>
+		/// <param name="editHelper">辅助类.</param>
+		public void SetEditHelper ( SettingEditHelper editHelper )
+		{
+
+			if ( null != editHelper )
+				this.editHelper = editHelper;
+
 		}
 
 		/// <summary>

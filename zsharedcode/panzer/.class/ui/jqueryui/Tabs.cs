@@ -65,7 +65,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private readonly AjaxSettingEdit selectAjax = new AjaxSettingEdit ( );
 
 		/// <summary>
-		/// 创建一个 jQuery UI 按钮.
+		/// 创建一个 jQuery UI 分组标签.
 		/// </summary>
 		public Tabs ( )
 			: base ( WidgetType.tabs )
@@ -276,7 +276,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[DefaultValue ( "" )]
 		[Description ( "指示内容载入时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
-		public string Load
+		public new string Load
 		{
 			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.load ); }
 			set { this.editHelper.SetOuterOptionEditValue ( OptionType.load, value ); }
@@ -445,6 +445,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			base.Render ( writer );
 		}
 
+		private void onSelect ( TabsEventArgs e )
+		{ this.Selected = e.Index; }
+
 		public void RaisePostBackEvent ( string eventArgument )
 		{
 
@@ -458,9 +461,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				case "select":
 
 					if ( null != this.SelectSync )
-						try
-						{ this.SelectSync ( this, new TabsEventArgs ( StringConvert.ToObject<int> ( parts[1] ) ) ); }
-						catch { }
+					{
+						TabsEventArgs e = new TabsEventArgs ( StringConvert.ToObject<int> ( parts[1] ) );
+
+						this.onSelect ( e );
+						this.SelectSync ( this, e );
+					}
 
 					break;
 			}

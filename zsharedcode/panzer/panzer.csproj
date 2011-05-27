@@ -83,6 +83,11 @@
     <Compile Include=".class\ui\jqueryui\RepeaterSettingEdit.cs" />
     <Compile Include=".class\ui\jqueryui\Tabs.cs" />
     <Compile Include=".class\ui\jqueryui\Progressbar.cs" />
+    <Compile Include=".class\ui\jqueryui\Dialog.cs" />
+    <Compile Include=".class\ui\jqueryui\Slider.cs" />
+    <Compile Include=".class\ui\jqueryui\Accordion.cs" />
+    <Compile Include=".class\ui\jqueryui\Datepicker.cs" />
+    <Compile Include=".class\ui\jqueryui\Autocomplete.cs" />
     <Compile Include=".class\ui\UILoader.cs" />
     <Compile Include=".class\ui\WindowCore.cs" />
     <Compile Include=".class\web\EMail.cs" />
