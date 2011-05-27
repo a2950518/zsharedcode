@@ -4684,7 +4684,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				value = defalutValue;
 			// HACK: 可能需要添加 V5
 #if V4
-			else if ( !Enum.TryParse ( text, out value ) )
+			else if ( !Enum.TryParse ( text.Trim ( '\'' ).Trim ( '"' ), out value ) )
 				value = defalutValue;
 #else
 			else

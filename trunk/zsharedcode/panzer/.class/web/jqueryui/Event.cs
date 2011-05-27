@@ -186,6 +186,114 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 分组标签禁用时.
 		/// </summary>
 		tabsdisable,
+		/// <summary>
+		/// 对话框创建时.
+		/// </summary>
+		dialogcreate,
+		/// <summary>
+		/// 对话框关闭之前时.
+		/// </summary>
+		dialogbeforeclose,
+		/// <summary>
+		/// 对话框开始时.
+		/// </summary>
+		dialogopen,
+		/// <summary>
+		/// 对话框获得焦点时.
+		/// </summary>
+		dialogfocus,
+		/// <summary>
+		/// 对话框拖动开始时.
+		/// </summary>
+		dialogdragstart,
+		/// <summary>
+		/// 对话框拖动时.
+		/// </summary>
+		dialogdrag,
+		/// <summary>
+		/// 对话框拖动结束时.
+		/// </summary>
+		dialogdragstop,
+		/// <summary>
+		/// 对话框缩放开始时.
+		/// </summary>
+		dialogresizestart,
+		/// <summary>
+		/// 对话框缩放时.
+		/// </summary>
+		dialogresize,
+		/// <summary>
+		/// 对话框缩放结束时.
+		/// </summary>
+		dialogresizestop,
+		/// <summary>
+		/// 对话框关闭时.
+		/// </summary>
+		dialogclose,
+		/// <summary>
+		/// 分割条创建时.
+		/// </summary>
+		slidecreate,
+		/// <summary>
+		/// 分割条开始滑动时.
+		/// </summary>
+		slidestart,
+		/// <summary>
+		/// 分割条滑动时.
+		/// </summary>
+		slide,
+		/// <summary>
+		/// 分割条改变时.
+		/// </summary>
+		slidechange,
+		/// <summary>
+		/// 分割条停止滑动时.
+		/// </summary>
+		slidestop,
+		/// <summary>
+		/// 折叠列表创建时.
+		/// </summary>
+		accordioncreate,
+		/// <summary>
+		/// 折叠列表改变时.
+		/// </summary>
+		accordionchange,
+		/// <summary>
+		/// 折叠列表开始改变时.
+		/// </summary>
+		accordionchangestart,
+		/// <summary>
+		/// 日期框创建时.
+		/// </summary>
+		datepickercreate,
+		/// <summary>
+		/// 自动填充创建时.
+		/// </summary>
+		autocompletecreate,
+		/// <summary>
+		/// 自动填充搜索时.
+		/// </summary>
+		autocompletesearch,
+		/// <summary>
+		/// 自动填充打开时.
+		/// </summary>
+		autocompleteopen,
+		/// <summary>
+		/// 自动填充获得焦点时.
+		/// </summary>
+		autocompletefocus,
+		/// <summary>
+		/// 自动填充选择时时.
+		/// </summary>
+		autocompleteselect,
+		/// <summary>
+		/// 自动填充关闭时.
+		/// </summary>
+		autocompleteclose,
+		/// <summary>
+		/// 自动填充改变时.
+		/// </summary>
+		autocompletechange,
 	}
 	#endregion
 

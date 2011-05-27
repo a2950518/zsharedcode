@@ -765,7 +765,6 @@ namespace zoyobar.shared.panzer.xml
 		/// <summary>
 		/// 获取 XmlNode 的子节点的辅助类.
 		/// </summary>
-		/// <param name="nodeHelper">返回的子节点的辅助类.</param>
 		/// <param name="xPath">用于搜索的 xpath.</param>
 		/// <returns>是否搜索到子节点.</returns>
 		public bool FetchNodeHelper ( string xPath )
