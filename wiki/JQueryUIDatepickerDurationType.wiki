@@ -1,0 +1,3 @@
+﻿#summary DurationType 成员参考
+#labels Phase-Design,Phase-Implementation
+<font size="2" face="microsoft yahei"><h3>DurationType 成员参考</h3>[http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Datepicker.cs 查看代码]<br />说明: {{{Duration 类型.}}}<br /><font color="#003366" size="3"><strong>{{{fast}}}</strong></font><br /><ul><li><strong>简介:</strong> {{{迅速的.}}}</li><li><strong>类型:</strong> 字段</li></ul><br /><font color="#003366" size="3"><strong>{{{normal}}}</strong></font><br /><ul><li><strong>简介:</strong> {{{正常的.}}}</li><li><strong>类型:</strong> 字段</li></ul><br /><font color="#003366" size="3"><strong>{{{slow}}}</strong></font><br /><ul><li><strong>简介:</strong> {{{缓慢的.}}}</li><li><strong>类型:</strong> 字段</li></ul><br /></font>
