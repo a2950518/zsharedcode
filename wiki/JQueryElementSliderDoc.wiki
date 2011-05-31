@@ -1,7 +1,23 @@
 ﻿#summary JQueryElement 分割条 - 图片滚动显示
 #labels Phase-Implementation
 <font face="microsoft yahei">
-=== 代码 ===
+=== 说明 ===
+ 在此示例中, 设置两个 [JQueryUISlider Slider] 控件, 拖动两个分割条, 即可以在 div 元素中显示 9 个单元格中的一个. 但单元格中其实没有图片, 留给大家添加即可.
+
+ ==== 设置分割条的值 ====
+ [JQueryUISlider Slider] 的 Max, Min 属性对应了分割条的最大和最小值, Step 属性对应了滑动的步长, Value 属性指定当前值, 比如: {{{<je:Slider ID="sliderV" runat="server" ... Max="200" Step="100" Value="200" ...></je:Slider>}}}.
+
+ ==== 设置分割条方向 ====
+ [JQueryUISlider Slider] 的 Orientation 属性对应了分割条的方向, 默认为水平, 设置为 vertical 则表示垂直, 比如: {{{<je:Slider ID="sliderV" runat="server" ... Orientation="vertical" ...></je:Slider>}}}.
+
+ ==== 设置分割条客户端事件 ====
+ [JQueryUISlider Slider] 的 Change, Slide 属性分别对应了分割条值改变和正在滑动时的客户端事件, 示例中的垂直分割条在值改变后, 滚动显示到单元格, 水平分割条在滑动时, 滚动单元格.
+ 
+ ==== 参考图片 ====
+ [http://zsharedcode.googlecode.com/files/slider.design.png]
+ [http://zsharedcode.googlecode.com/files/slider.runtime.png]
+
+=== slider/Default.aspx ===
 {{{
 <%@ Page Language="C#" %>
 
@@ -9,18 +25,46 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-	<title>JQueryElement 分割条</title>
+	<title>JQueryElement 分割条 - 图片滚动显示</title>
 	<link rel="stylesheet" href="../css/ui-lightness/jquery-ui-1.8.11.custom.css" />
 	<script type="text/javascript" src="../js/jquery-1.5.1.min.js"></script>
 	<script type="text/javascript" src="../js/jquery-ui-1.8.11.custom.min.js"></script>
+	<style type="text/css">
+		.sliderV
+		{
+			float: left;
+		}
+	</style>
 </head>
 <body>
 	<form id="formJE" runat="server">
-	<je:JQueryElement ID="je" runat="server" ElementType="Div">
-		<WidgetSetting Type="slider">
-		</WidgetSetting>
-	</je:JQueryElement>
-	<p style="font-size: smaller; text-align: right;">版本 2.5, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<je:Slider ID="sliderV" runat="server" Height="100px" Orientation="vertical" 
+		Width="10px" CssClass="sliderV" Max="200" Step="100" 
+		Value="200" Change="
+		function(event, ui) {
+			$('#box')[0].scrollTop = 200 - ui.value;
+		}
+		"></je:Slider>
+	<div id="box" style="width: 200px; height: 100px; border: 1px solid #ff0000; overflow: hidden;">
+		<table style="width: 600px; height: 300px;">
+			<tr><td style="background-color: #3366FF; color: #FFFFFF;">图像 1_1</td>
+				<td style="background-color: #FF99FF;">图像 1_2</td>
+				<td style="background-color: #33CC33;">图像 1_3</td></tr>
+			<tr><td style="background-color: #009999">图像 2_1</td>
+				<td style="background-color: #6600FF; color: #FFFFFF">图像 2_2</td>
+				<td style="background-color: #003399; color: #FFFFFF">图像 2_3</td></tr>
+			<tr><td style="background-color: #99CCFF">图像 3_1</td>
+				<td style="background-color: #FFFF99">图像 3_2</td>
+				<td style="background-color: #666699">图像 3_3</td></tr>
+		</table>
+	</div>
+	<br />
+	<je:Slider ID="sliderH" runat="server" Height="10px" Width="200px" Max="400" Slide="
+		function(event, ui) {
+			$('#box')[0].scrollLeft = ui.value;
+		}
+		"></je:Slider>
+	<p style="font-size: smaller; text-align: right;">版本 2.6, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
 	<p style="font-size: smaller; text-align: right;">
 		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElementSliderDoc">代码解释说明</a>
 		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
@@ -35,8 +79,5 @@
 === 前提条件 ===
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
 
-=== 说明 ===
- 设置 [JQueryElement JQueryElement] 的 WidgetSetting 的 Type 为 slider, 元素将显示为分割条.
-
- _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+*注意:* 这里仅列出部分代码, 可能需要您自己创建窗口, 页面等.
 </font>
