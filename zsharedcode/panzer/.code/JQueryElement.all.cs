@@ -583,8 +583,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Delay
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.minLength ), 300 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.minLength, value <= 0 || value == 300 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.delay ), 300 ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.delay, value <= 0 || value == 300 ? string.Empty : value.ToString ( ) ); }
 		}
 
 		/// <summary>
@@ -1167,7 +1167,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			: base ( WidgetType.datepicker )
 		{ this.elementType = ElementType.Div; }
 
-		#region \" Option "
+		#region " Option "
 		/// <summary>
 		/// 获取或设置日期框是否可用, 可以设置为 true 或者 false.
 		/// </summary>
@@ -1767,7 +1767,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 		#endregion
 
-		#region \" Event "
+		#region " Event "
 		/// <summary>
 		/// 获取或设置日期框被创建时的事件, 类似于: function(event, ui) { }.
 		/// </summary>
@@ -1887,7 +1887,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 	}
 
-	#region \" DatepickerDesigner "
+	#region " DatepickerDesigner "
 	/// <summary>
 	/// 折叠列表设计器.
 	/// </summary>
@@ -2243,8 +2243,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int ZIndex
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.width ), 1000 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.width, value <= 0 || value == 1000 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.zIndex ), 1000 ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.zIndex, value <= 0 || value == 1000 ? string.Empty : value.ToString ( ) ); }
 		}
 		#endregion
 

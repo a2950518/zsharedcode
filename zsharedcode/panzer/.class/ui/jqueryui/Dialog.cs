@@ -342,8 +342,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int ZIndex
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.width ), 1000 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.width, value <= 0 || value == 1000 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.zIndex ), 1000 ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.zIndex, value <= 0 || value == 1000 ? string.Empty : value.ToString ( ) ); }
 		}
 		#endregion
 
