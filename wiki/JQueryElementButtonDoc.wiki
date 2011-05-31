@@ -16,7 +16,7 @@
  ==== 设置按钮点击时的 Ajax 操作 ====
  首先, 看一下示例中保存计算历史按钮的代码:
 {{{
-<je:Button ID="cmdSaveHistory" runat="server" Label="保存历史">
+<je:Button ID="cmdSaveHistory" runat="server" ...>
 	<ClickAsync Url="button.ashx" Success="
 	function() {
 		$('#lblMessage').html('已经保存历史到 Session 中').css('color', '#0000ff');

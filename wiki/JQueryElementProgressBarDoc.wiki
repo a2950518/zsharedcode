@@ -7,6 +7,34 @@
  ==== 设置进度条当前值 ====
  通过 [JQueryUIProgressbar Progressbar] 的 Value 属性设置其当前值, 比如: {{{<je:Progressbar ID="bar" runat="server" Value="0" ...></je:Progressbar>}}}, 这里设置当前值为 0, 其实可以不设置, 因为默认为 0.
 
+ ==== 设置进度条完成时的 Ajax 操作 ====
+ 下面是进度条的 Ajax 设置代码:
+{{{
+<je:Progressbar ID="bar" runat="server" ...>
+	<CompleteAsync Success="
+	function(data) {
+		$('#lblMessage').html(data.result);
+	}
+	" Url="progressbar.ashx">
+	</CompleteAsync>
+</je:Progressbar>
+}}}
+ 我们通过设置 CompleteAsync, 调用了 progressbar.ashx, 而 progressbar.ashx 返回了 json 格式的数据. Ajax 设置格式如下:
+{{{
+<CompleteAsync Success="
+<Ajax 调用成功处理的 javascript 函数>
+" Url="<Ajax 所调用的地址>">
+</CompleteAsync>
+}}}
+ Ajax 更多的设置这里不再讲述. 此外, 你还可以通过设置 Change, Complete, ChangeSync, CompleteSync 来设置改变和完成的客户端/服务器端事件.
+ 
+ ==== 生成 javascript 变量 ====
+ 可以设置 [JQueryUIButton Button] 的 IsVariable 属性为 True, 比如: {{{<je:Progressbar ID="bar" runat="server" ... IsVariable="true" ...></je:Progressbar>}}}, 将根据 ClientID 来生成同名的 javascript 变量来表示进度条. 之后可以使用内嵌语法 {{{eval('[%id:bar%]').progressbar('option', 'value', 100 - ((second * 100) / totalSecond));}}} 来访问此进度条.
+
+ ==== 参考图片 ====
+ [http://zsharedcode.googlecode.com/files/progressbar.design.png]
+ [http://zsharedcode.googlecode.com/files/progressbar.runtime.png]
+
 === progressbar/Default.aspx ===
 {{{
 <%@ Page Language="C#" %>
@@ -102,8 +130,5 @@ public class progressbar : IHttpHandler
 === 前提条件 ===
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
 
-=== 说明 ===
- 设置 [JQueryElement JQueryElement] 的 WidgetSetting 的 Type 为 progressbar, 元素将显示为进度条.
-
- _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+*注意:* 这里仅列出部分代码, 可能需要您自己创建窗口, 页面等.
 </font>
