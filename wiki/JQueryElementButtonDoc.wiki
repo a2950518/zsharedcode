@@ -8,7 +8,7 @@
  通过 [JQueryUIButton Button] 的 Label 属性就可以设置按钮的文本, 比如: {{{<je:Button ID="cmd1" runat="server" Label="1" ...></je:Button>}}}.
 
  ==== 设置按钮图标 ====
- [JQueryUIButton Button] 的 Icons 属性就可以设置按钮的图标, 比如: {{{<je:Button ID="cmdAdd" runat="server" Label="加" ... Icons="{ primary: 'ui-icon-calculator' }"></je:Button>}}}, 属性设置的形式为: ```{ primary: '<主图标样式>', secordary: '<副图标样式>' }```.  如果不需要副图标则不设置 secordary 即可, 在设置图标后, 文本和图标将同时显示, 可以设置 Text 属性为 False, 则将只显示图标. 图标目前还不支持设计时显示.
+ [JQueryUIButton Button] 的 Icons 属性就可以设置按钮的图标, 比如: {{{<je:Button ID="cmdAdd" runat="server" Label="加" ... Icons="{ primary: 'ui-icon-calculator' }"></je:Button>}}}, 属性设置的形式为: ``{ primary: '<主图标样式>', secordary: '<副图标样式>' }``.  如果不需要副图标则不设置 secordary 即可, 在设置图标后, 文本和图标将同时显示, 可以设置 Text 属性为 False, 则将只显示图标. 图标目前还不支持设计时显示.
 
  ==== 设置按钮客户端点击事件 ====
  将 [JQueryUIButton Button] 的 Click 属性设置为处理点击事件的 javascript 函数即可, {{{<je:Button ID="cmd0" runat="server" ... Click="function(event, ui){makeExpression('0');}"></je:Button>}}}, 计算器的示例中, 我们在 0, 1, 2 这样按钮的点击事件中调用了 javascript 函数 makeExpression, 用来生成计算的表达式.
@@ -287,5 +287,5 @@ public class button : IHttpHandler, IRequiresSessionState
 === 前提条件 ===
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
 
-*注意^1^:* 这里仅列出部分代码, 可能需要您自己创建窗口, 页面等.
+*注意:* 这里仅列出部分代码, 可能需要您自己创建窗口, 页面等.
 </font>
