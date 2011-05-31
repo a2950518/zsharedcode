@@ -1,7 +1,42 @@
 ﻿#summary JQueryElement 对话框 - 问题调查
 #labels Phase-Implementation
 <font face="microsoft yahei">
-=== 代码 ===
+=== 说明 ===
+ 这个例子中, 连续显示多个对话框, 以完成问题调查, 其实只加了一问. 通过不同的 [JQueryUIDialog Dialog] 设置, 说明了一些属性的用途.
+
+ ==== 设置对话框的文本 ====
+ 通过 [JQueryUIDialog Dialog] 的 Title, Html 属性设置对话框的标题和内容, 比如:
+ {{{
+<je:Dialog ID="dialog1" runat="server" Title="输入姓名" ...>
+	<Html>
+	请输入您的姓名: <input id="txtName" type="text" class="ui-widget" /> <span id="lblName"></span>
+	</Html>
+</je:Dialog>
+}}}
+ Html 中可以包含服务器控件, 你可以嵌套另一个 [JQueryElement JQueryElement] 控件, 比如: [JQueryUIButton Button].
+
+ ==== 设置对话框的按钮 ====
+ [JQueryUIDialog Dialog] 的 Button 属性代表对话框的按钮, 比如: {{{<je:Dialog ID="dialog1" runat="server" ... Buttons="{ '确定': inputName }" ...></je:Dialog>}}}, 这表示对话框拥有一个名为确定的按钮, 点击时执行 javascript 函数 inputName.
+
+ ==== 设置对话框的布居 ====
+ [JQueryUIDialog Dialog] 的 Width, Height, MaxWidth, MaxHeight, MinWidth, MinHeight 属性设置对话框的尺寸, 比如: {{{<je:Dialog ID="dialog2" runat="server" ... MaxHeight="400" MaxWidth="400" MinHeight="200" MinWidth="200"></je:Dialog>}}}. Position 属性表示对话框显示的位置, 设置为 {{{['right', 'bottom']}}} 表示在右下角显示.
+
+ ==== 生成 javascript 变量 ====
+ 设置 IsVariable 属性为 True, 比如: {{{<je:Dialog ID="dialog1" runat="server" ... IsVariable="true"></je:Dialog>}}}, 则将根据 ClientID 来生成同名的 javascript 变量. 使用内嵌语法 {{{eval('[%id:dialog1%]').dialog("close");}}} 就可以访问对话框.
+
+ ==== 对话框的其它设置 ====
+ AutoOpen - 是否自动打开.
+ CloseOnEscape - 是否在按下 Esc 时, 关闭对话框.
+ Draggable - 是否可以拖动.
+ Resizable - 是否可以缩放.
+ Close - 关闭事件.
+ Open - 打开事件.
+ 
+ ==== 参考图片 ====
+ [http://zsharedcode.googlecode.com/files/dialog.design.png]
+ [http://zsharedcode.googlecode.com/files/dialog.runtime.png]
+
+=== dialog/Default.aspx ===
 {{{
 <%@ Page Language="C#" %>
 
@@ -9,19 +44,69 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-	<title>JQueryElement 对话框</title>
+	<title>JQueryElement 对话框 - 问题调查</title>
 	<link rel="stylesheet" href="../css/ui-lightness/jquery-ui-1.8.11.custom.css" />
 	<script type="text/javascript" src="../js/jquery-1.5.1.min.js"></script>
 	<script type="text/javascript" src="../js/jquery-ui-1.8.11.custom.min.js"></script>
 </head>
 <body>
 	<form id="formJE" runat="server">
-	<je:JQueryElement ID="je" runat="server" ElementType="Div" Attribute="title=对话框">
-		<Html>你好, 世界!!!</Html>
-		<WidgetSetting Type="dialog">
-		</WidgetSetting>
-	</je:JQueryElement>
-	<p style="font-size: smaller; text-align: right;">版本 2.5, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<je:JQueryScript ID="script" runat="server">
+		<Html>
+		<script type="text/javascript">
+
+			function inputName() {
+				var name = $('#txtName').val();
+
+				if (name == '') {
+					$('#lblName').html('请输入姓名').css('color', '#ff0000');
+					return;
+				}
+
+				eval('[%id:dialog1%]').dialog("close");
+				$('#lblMessage').html($('#lblMessage').html() + '欢迎 ' + name + ', 开始答题<br />');
+
+				eval('[%id:dialog2%]').dialog("open");
+			}
+
+			function question1_1() {
+				eval('[%id:dialog2%]').dialog("close");
+				$('#lblMessage').html($('#lblMessage').html() + '第 1 题: 1 + 1 是否等于 2? 你回答是, 回答<span style="color: blue">正确!</span><br />');
+
+				eval('[%id:dialog3%]').dialog("open");
+			}
+
+			function question1_2() {
+				eval('[%id:dialog2%]').dialog("close");
+				$('#lblMessage').html($('#lblMessage').html() + '第 1 题: 1 + 1 是否等于 2? 你回答不是, 回答<span style="color: red">错误!</span><br />');
+
+				eval('[%id:dialog3%]').dialog("open");
+			}
+
+		</script>
+		</Html>
+	</je:JQueryScript>
+	<je:Dialog ID="dialog1" runat="server" Title="输入姓名" Buttons="{ '确定': inputName }" IsVariable="true">
+		<Html>
+		请输入您的姓名: <input id="txtName" type="text" class="ui-widget" /> <span id="lblName"></span>
+		</Html>
+	</je:Dialog>
+	<je:Dialog ID="dialog2" runat="server" Title="第 1 题" 
+		Buttons="{ '是的': question1_1, '不是': question1_2 }" IsVariable="true" 
+		AutoOpen="false" MaxHeight="400" MaxWidth="400" MinHeight="200" MinWidth="200">
+		<Html>
+		1 + 1 是否等于 2?
+		</Html>
+	</je:Dialog>
+	<je:Dialog ID="dialog3" runat="server" Title="结束" IsVariable="true" 
+		AutoOpen="false" CloseOnEscape="False" Draggable="False" 
+		Position="['right', 'bottom']" Resizable="False">
+		<Html>
+		恭喜您答题完毕!!!
+		</Html>
+	</je:Dialog>
+	<p id="lblMessage">代码中没有处理直接关闭对话框的情况.<br /></p>
+	<p style="font-size: smaller; text-align: right;">版本 2.6, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
 	<p style="font-size: smaller; text-align: right;">
 		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElementDialogDoc">代码解释说明</a>
 		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
@@ -36,8 +121,5 @@
 === 前提条件 ===
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
 
-=== 说明 ===
- 设置 [JQueryElement JQueryElement] 的 WidgetSetting 的 Type 为 dialog, 元素将显示为对话框.
-
- _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+*注意:* 这里仅列出部分代码, 可能需要您自己创建窗口, 页面等.
 </font>
