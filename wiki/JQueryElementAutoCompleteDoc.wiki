@@ -78,10 +78,10 @@
 		</script>
 		</Html>
 	</je:JQueryScript>
-	请在下面输入英文:
+	请在下面输入英文 (没有处理多行的情况):
 	<br />
 	<textarea id="txtWord" cols="50" rows="20" onchange="refreshKeyword()"></textarea><br />
-	请选择一个单词作为关键词 (没有过滤标点, 长度大于 1):
+	请选择一个单词作为关键词 (没有过滤标点, 长度大于 1, 点击选择):
 	<br />
 	<je:Autocomplete ID="auto" runat="server" 
 		Source="['C#', 'C# .NET', 'VB', 'VB .NET', 'Visual Studio', 'Visual Studio 2005', 'Visual Studio 2008', 'Visual Studio 2010']" 
@@ -109,9 +109,6 @@
 
 === 前提条件 ===
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
-
-=== 说明 ===
- 设置 [JQueryElement JQueryElement] 的 WidgetSetting 的 Type 为 autocomplete, 并添加 source 属性, 用于匹配的值是一个 javascript 数组. 在文本框中输入文字后, 将显示匹配的条目.
 
 *注意:* 这里仅列出部分代码, 可能需要您自己创建窗口, 页面等.
 </font>
