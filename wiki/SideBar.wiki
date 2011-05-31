@@ -275,7 +275,7 @@
           * [JEDialogSizeDoc 对话框尺寸]
           * [JEDialogTextDoc 对话框文本]
           * [JEDialogEventDoc 对话框事件]
-        * [JQueryElementProgressBar 进度条 - 计时器]
+        * [JQueryElementProgressBarDoc 进度条 - 计时器]
         * [JQueryElementSlider 分割条]
           * [JQueryElementSliderDoc 分割条]
           * [JESliderOrientationDoc 分割条方向]
