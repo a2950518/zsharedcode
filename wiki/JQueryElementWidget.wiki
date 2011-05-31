@@ -6,7 +6,7 @@
  * [JQueryElementAutoCompleteDoc 自动填充 - 提取单词]
  * [JQueryElementButtonDoc 按钮 - 简单计算器]
  * [JQueryElementDatePicker 日期框]
- * [JQueryElementDialog 对话框]
+ * [JQueryElementDialog 对话框 - 问题调查]
  * [JQueryElementProgressBarDoc 进度条 - 计时器]
  * [JQueryElementSliderDoc 分割条 - 图片滚动显示]
  * [JQueryElementTabs 分组标签]
