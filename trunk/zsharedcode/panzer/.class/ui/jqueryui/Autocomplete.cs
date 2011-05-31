@@ -118,8 +118,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Delay
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.minLength ), 300 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.minLength, value <= 0 || value == 300 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.delay ), 300 ); }
+			set { this.editHelper.SetOuterOptionEditValue ( OptionType.delay, value <= 0 || value == 300 ? string.Empty : value.ToString ( ) ); }
 		}
 
 		/// <summary>
