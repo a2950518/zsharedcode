@@ -11,6 +11,7 @@
  * [JQueryElementAutoCompleteDoc 自动填充 - 提取单词]
  * [JQueryElementButtonDoc 按钮 - 简单计算器]
  * [JQueryElementProgressBarDoc 进度条 - 计时器]
+ * [JQueryElementSliderDoc 分割条 - 图片滚动显示]
 
  * [JQueryElementHtmlDoc 设置 html 代码]
  * [JQueryElementElementDoc 设置元素的类型]
@@ -97,11 +98,6 @@
  * [JEDialogSizeDoc 对话框尺寸]
  * [JEDialogTextDoc 对话框文本]
  * [JEDialogEventDoc 对话框事件]
-
- * [JQueryElementSliderDoc 分割条]
- * [JESliderOrientationDoc 分割条方向]
- * [JESliderValueDoc 分割条位置]
- * [JESliderEventDoc 分割条事件]
 
  * [JQueryElementTabsDoc 分组标签]
  * [JETabsEventDoc 分组标签事件]

@@ -1,4 +1,4 @@
-﻿#summary JQueryElement 分割条
+﻿#summary JQueryElement 分割条 - 图片滚动显示
 #labels Phase-Implementation
 <font face="microsoft yahei">
 === 代码 ===

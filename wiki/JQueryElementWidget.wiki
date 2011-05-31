@@ -8,6 +8,6 @@
  * [JQueryElementDatePicker 日期框]
  * [JQueryElementDialog 对话框]
  * [JQueryElementProgressBarDoc 进度条 - 计时器]
- * [JQueryElementSlider 分割条]
+ * [JQueryElementSliderDoc 分割条 - 图片滚动显示]
  * [JQueryElementTabs 分组标签]
 </font>
