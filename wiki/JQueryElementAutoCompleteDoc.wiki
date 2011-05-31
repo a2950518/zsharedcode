@@ -1,7 +1,35 @@
-﻿#summary JQueryElement 折叠列表
+﻿#summary JQueryElement 自动填充 - 提取单词
 #labels Phase-Implementation
 <font face="microsoft yahei">
-=== 代码 ===
+=== 说明 ===
+ 此示例, 浏览者在文本框中输入一段英文, 然后将可以从 [JQueryUIAutocomplete Autocomplete] 控件选择一个单词作为关键词.
+
+ ==== 设置自动填充的数据源 ====
+ [JQueryUIAutocomplete Autocomplete] 的 Source 属性就可以设置用于自动填充的单词, 比如: {{{<je:Autocomplete ID="auto" runat="server" Source="['C#', 'C# .NET', 'VB', 'VB .NET', 'Visual Studio', 'Visual Studio 2005', 'Visual Studio 2008', 'Visual Studio 2010']" ...></je:Autocomplete>}}}. 这里设置了默认情况下可以用于自动填充的单词.
+
+ ==== 设置自动填充自动获得焦点 ====
+ 设置 [JQueryUIAutocomplete Autocomplete] 的 AutoFocus 属性为 True, 比如: {{{<je:Autocomplete ID="auto" runat="server" ... AutoFocus="True" ...></je:Autocomplete>}}}, 则第一个符合条件的条目将自动获得焦点.
+
+ ==== 设置自动填充延迟 ====
+ [JQueryUIAutocomplete Autocomplete] 的 Delay 属性表示条目出现的延迟时间, 以毫秒为单位, 比如: {{{<je:Autocomplete ID="auto" runat="server" ... Delay="100" ...></je:Autocomplete>}}}.
+
+ ==== 设置自动填充最小输入字符数 ====
+ [JQueryUIAutocomplete Autocomplete] 的 MinLength 属性指示最少输入多少个字符后, 才开始填充, 比如: {{{<je:Autocomplete ID="auto" runat="server" ... MinLength="2" ...></je:Autocomplete>}}}, 表示输入两个字符才会开始填充.
+
+ ==== 设置自动填充下拉框的位置 ====
+ [JQueryUIAutocomplete Autocomplete] 的 Position 属性指示下拉框的位置, 比如: {{{<je:Autocomplete ID="auto" runat="server" ... Position="{ my: 'left top', at: 'right top', collision: 'none' }" ...></je:Autocomplete>}}}, 表示输入两个字符才会开始填充. 位置的格式可以参考 [http://jqueryui.com jQuery UI].
+ 
+ ==== 设置自动填充客户端改变事件 ====
+ 将 [JQueryUIAutocomplete Autocomplete] 的 Change 属性设置为处理改变事件的 javascript 函数即可, 示例中, 我们在 Change 事件中将选择的条目显示在页面中.
+ 
+ ==== 生成 javascript 变量 ====
+ 设置 [JQueryUIAutocomplete Autocomplete] 的 IsVariable 属性为 True, 则将根据 ClientID 来生成同名的 javascript 变量. 然后可以使用内嵌语法 {{{eval('[%id:auto%]').autocomplete('option', 'source', keywords);}}} 来访问此自动填充, 设置其数据源.
+
+ ==== 参考图片 ====
+ [http://zsharedcode.googlecode.com/files/autocomplete.design.png]
+ [http://zsharedcode.googlecode.com/files/autocomplete.runtime.png]
+
+=== autocomplete/Default.aspx ===
 {{{
 <%@ Page Language="C#" %>
 
@@ -16,7 +44,7 @@
 </head>
 <body>
 	<form id="formJE" runat="server">
-	<je:JQueryScript ID="jsCalculator" runat="server">
+	<je:JQueryScript ID="script" runat="server">
 		<Html>
 		<script type="text/javascript">
 			var keywords = new Array();
@@ -85,5 +113,5 @@
 === 说明 ===
  设置 [JQueryElement JQueryElement] 的 WidgetSetting 的 Type 为 autocomplete, 并添加 source 属性, 用于匹配的值是一个 javascript 数组. 在文本框中输入文字后, 将显示匹配的条目.
 
- _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+*注意:* 这里仅列出部分代码, 可能需要您自己创建窗口, 页面等.
 </font>
