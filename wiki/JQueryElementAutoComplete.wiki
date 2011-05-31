@@ -2,10 +2,5 @@
 #labels Phase-Implementation,Phase-Support,Phase-Deploy
 <font face="microsoft yahei">
 === 自动填充 ===
- * [JQueryElementAutoCompleteDoc 自动填充]
- * [JEAutoCompleteAutoFocusDoc 自动填充自动焦点]
- * [JEAutoCompleteDelayDoc 自动填充延迟]
- * [JEAutoCompleteMinLengthDoc 自动填充最小输入字符数]
- * [JEAutoCompletePositionDoc 自动填充位置]
- * [JEAutoCompleteEventDoc 自动填充事件]
+ * [JQueryElementAutoCompleteDoc 自动填充 - 提取单词]
 </font>

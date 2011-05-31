@@ -8,8 +8,9 @@
  可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/JQueryElement.all.cs JQueryElement.all.cs], 也可以在 [Download 下载资源] 中下载 dll.
 
 === 示例 ===
+ * [JQueryElementAutoCompleteDoc 自动填充]
  * [JQueryElementButtonDoc 按钮 - 简单计算器]
- * [JQueryElementProgressBar 进度条 - 计时器]
+ * [JQueryElementProgressBarDoc 进度条 - 计时器]
 
  * [JQueryElementHtmlDoc 设置 html 代码]
  * [JQueryElementElementDoc 设置元素的类型]
@@ -79,13 +80,6 @@
  * [JEAccordionIconsDoc 折叠列表图标]
  * [JEAccordionOEventDoc 折叠列表触发事件]
  * [JEAccordionEventDoc 折叠列表事件]
-
- * [JQueryElementAutoCompleteDoc 自动填充]
- * [JEAutoCompleteAutoFocusDoc 自动填充自动焦点]
- * [JEAutoCompleteDelayDoc 自动填充延迟]
- * [JEAutoCompleteMinLengthDoc 自动填充最小输入字符数]
- * [JEAutoCompletePositionDoc 自动填充位置]
- * [JEAutoCompleteEventDoc 自动填充事件]
 
  * [JQueryElementDatePickerDoc 日期框]
  * [JEDatePickerChangeDoc 日期框是否允许改变时间]

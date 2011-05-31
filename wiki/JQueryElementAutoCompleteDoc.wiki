@@ -9,25 +9,65 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-	<title>JQueryElement 自动填充</title>
+	<title>JQueryElement 自动填充 - 提取单词</title>
 	<link rel="stylesheet" href="../css/ui-lightness/jquery-ui-1.8.11.custom.css" />
 	<script type="text/javascript" src="../js/jquery-1.5.1.min.js"></script>
 	<script type="text/javascript" src="../js/jquery-ui-1.8.11.custom.min.js"></script>
 </head>
 <body>
 	<form id="formJE" runat="server">
-	<je:JQueryElement ID="je" runat="server" ElementType="Input" Attribute="type=text"
-		CssClass="ui-widget-content">
-		<WidgetSetting Type="autocomplete">
-			<%-- 2.3 之前版本的格式
-			<Options>
-				<je:OptionEdit Type="source" Value="['Book', 'ABC', '你好']" />
-			</Options>
-			--%>
-			<AutocompleteSetting Source="['C#', 'C# .NET', 'VB', 'VB .NET', 'Visual Studio', 'Visual Studio 2005', 'Visual Studio 2008', 'Visual Studio 2010']"></AutocompleteSetting>
-		</WidgetSetting>
-	</je:JQueryElement>
-	<p style="font-size: smaller; text-align: right;">版本 2.5, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<je:JQueryScript ID="jsCalculator" runat="server">
+		<Html>
+		<script type="text/javascript">
+			var keywords = new Array();
+
+			function refreshKeyword() {
+				keywords.length = 0;
+
+				var words = $('#txtWord').text().split(' ');
+
+				for (var x = 0; x < words.length; x++)
+					if (words[x] != '' && words[x].length > 1) {
+						var exist = false;
+
+						for (var y = 0; y < keywords.length; y++)
+							if (words[x] == keywords[y]) {
+								exist = true;
+								break;
+							}
+
+						if (!exist)
+							keywords.push(words[x]);
+
+					}
+
+				if (keywords.length == 0)
+					keywords = ['C#', 'C# .NET', 'VB', 'VB .NET', 'Visual Studio', 'Visual Studio 2005', 'Visual Studio 2008', 'Visual Studio 2010'];
+
+				eval('[%id:auto%]').autocomplete('option', 'source', keywords);
+			}
+
+		</script>
+		</Html>
+	</je:JQueryScript>
+	请在下面输入英文:
+	<br />
+	<textarea id="txtWord" cols="50" rows="20" onchange="refreshKeyword()"></textarea><br />
+	请选择一个单词作为关键词 (没有过滤标点, 长度大于 1):
+	<br />
+	<je:Autocomplete ID="auto" runat="server" 
+		Source="['C#', 'C# .NET', 'VB', 'VB .NET', 'Visual Studio', 'Visual Studio 2005', 'Visual Studio 2008', 'Visual Studio 2010']" 
+		IsVariable="true" Change="
+		function(event, ui) {
+			if(null == ui.item)
+				$('#lblMessage').html('选择的内容不在任何条目中').css('color', '#ff0000');
+			else
+				$('#lblMessage').html('选择了条目 [' + ui.item.label + ']').css('color', '#0000ff');
+		}
+		" AutoFocus="True" Delay="100" MinLength="2" Position="{ my: 'left top', at: 'right top', collision: 'none' }">
+	</je:Autocomplete>
+	<p id="lblMessage"></p>
+	<p style="font-size: smaller; text-align: right;">版本 2.6, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
 	<p style="font-size: smaller; text-align: right;">
 		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElementAutoCompleteDoc">代码解释说明</a>
 		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />

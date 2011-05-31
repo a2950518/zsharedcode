@@ -3,7 +3,7 @@
 <font face="microsoft yahei">
 === Widget ===
  * [JQueryElementAccordion 折叠列表]
- * [JQueryElementAutoComplete 自动填充]
+ * [JQueryElementAutoCompleteDoc 自动填充 - 提取单词]
  * [JQueryElementButtonDoc 按钮 - 简单计算器]
  * [JQueryElementDatePicker 日期框]
  * [JQueryElementDialog 对话框]
