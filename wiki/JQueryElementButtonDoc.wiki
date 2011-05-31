@@ -1,27 +1,241 @@
-﻿#summary JQueryElement 按钮
+﻿#summary JQueryElement 按钮 - 简单计算器
 #labels Phase-Implementation
 <font face="microsoft yahei">
-=== 代码 ===
+=== 说明 ===
+ 这是一个简单的计算器示例, 演示了 [JQueryElement JQueryElement] 实现的 [JQueryUIButton Button] 控件的各种使用方法.
+
+ ==== 设置按钮文本 ====
+ 通过 [JQueryUIButton Button] 的 Label 属性就可以设置按钮的文本, 比如: {{{<je:Button ID="cmd1" runat="server" Label="1" ...></je:Button>}}}.
+
+ ==== 设置按钮图标 ====
+ [JQueryUIButton Button] 的 Icons 属性就可以设置按钮的图标, 比如: {{{<je:Button ID="cmdAdd" runat="server" Label="加" ... Icons="{ primary: 'ui-icon-calculator' }"></je:Button>}}}, 属性设置的形式为: ```{ primary: '<主图标样式>', secordary: '<副图标样式>' }```.  如果不需要副图标则不设置 secordary 即可, 在设置图标后, 文本和图标将同时显示, 可以设置 Text 属性为 False, 则将只显示图标. 图标目前还不支持设计时显示.
+
+ ==== 设置按钮客户端点击事件 ====
+ 将 [JQueryUIButton Button] 的 Click 属性设置为处理点击事件的 javascript 函数即可, {{{<je:Button ID="cmd0" runat="server" ... Click="function(event, ui){makeExpression('0');}"></je:Button>}}}, 计算器的示例中, 我们在 0, 1, 2 这样按钮的点击事件中调用了 javascript 函数 makeExpression, 用来生成计算的表达式.
+
+ ==== 设置按钮点击时的 Ajax 操作 ====
+ 首先, 看一下示例中保存计算历史按钮的代码:
+{{{
+<je:Button ID="cmdSaveHistory" runat="server" Label="保存历史">
+	<ClickAsync Url="button.ashx" Success="
+	function() {
+		$('#lblMessage').html('已经保存历史到 Session 中').css('color', '#0000ff');
+		[%id:cmdLoadHistory%].button('enable');
+	}
+	">
+		<Parameters>
+			<je:ParameterEdit Name="c" Type="Expression" Value="'sh'" />
+			<je:ParameterEdit Name="el" Type="Expression" Value="getHistory()" />
+		</Parameters>
+	</ClickAsync>
+</je:Button>
+}}}
+ 我们通过设置 ClickAsync, 传递计算历史给 button.ashx, 而 button.ashx 将历史保存在了 Session 中. Ajax 设置格式如下:
+{{{
+<ClickAsync Url="<Ajax 所调用的地址>" Success="
+<Ajax 调用成功处理的 javascript 函数>
+">
+	<Parameters>
+		<je:ParameterEdit Name="<参数名称>" Type="Expression" Value="<返回参数值的 javascript 表达式>" />
+	</Parameters>
+</ClickAsync>
+}}}
+ 参数的 Type 设置为 Selector, 则 Value 对应一个选择器, 选择器对应的元素的值将作为参数值, Ajax 更多的设置这里不再讲述.
+
+ ==== 设置按钮点击的服务器端事件 ====
+ 可以简单的通过在属性窗口中双击事件 ClickSync 来添加点击的服务器端事件, 或者编写代码: {{{<je:Button ID="cmdRefresh" runat="server" ... onclicksync="cmdRefresh_ClickSync"></je:Button>}}}.
+
+ ==== 生成 javascript 变量 ====
+ 为了更方便的在客户端使用 javascript 控制 [JQueryUIButton Button], 可以设置 IsVariable 属性为 True, 比如: {{{<je:Button ID="cmdLoadHistory" runat="server" ... IsVariable="True"></je:Button>}}}, 则将根据 ClientID 来生成同名的 javascript 变量. 而之后, 可以使用内嵌语法 {{{[%id:cmdLoadHistory%].button('enable');}}} 来访问此变量.
+
+ ==== 参考图片 ====
+ [http://zsharedcode.googlecode.com/files/button.design.png]
+ [http://zsharedcode.googlecode.com/files/button.runtime.png]
+
+=== button/Default.aspx ===
 {{{
 <%@ Page Language="C#" %>
-<%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
 
+<%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<script runat="server">
+
+	protected void cmdRefresh_ClickSync ( object sender, EventArgs e )
+	{
+		this.lblServerMessage.InnerHtml = "已经刷新";
+	}
+	
+</script>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-	<title>JQueryElement 按钮</title>
+	<title>JQueryElement 按钮 - 简单计算器</title>
 	<link rel="stylesheet" href="../css/ui-lightness/jquery-ui-1.8.11.custom.css" />
 	<script type="text/javascript" src="../js/jquery-1.5.1.min.js"></script>
 	<script type="text/javascript" src="../js/jquery-ui-1.8.11.custom.min.js"></script>
 </head>
 <body>
 	<form id="formJE" runat="server">
-	<je:JQueryElement ID="je" runat="server" ElementType="Div">
-		<Html>button</Html>
-		<WidgetSetting Type="button">
-		</WidgetSetting>
-	</je:JQueryElement>
-	<p style="font-size: smaller; text-align: right;">版本 2.5, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<je:JQueryScript ID="jsCalculator" runat="server">
+		<Html>
+		<script type="text/javascript">
+			var expression;
+			var expressions = new Array();
+			var operand;
+
+			function makeExpression(char) {
+				$('#lblMessage').html('');
+
+				if (null == expression)
+					expression = '';
+
+				if (null == operand) {
+
+					if ('0123456789'.indexOf(char) == -1) {
+						$('#lblMessage').html('应该为一个数字').css('color', '#ff0000');
+						return;
+					}
+
+					operand = char;
+					$('#lblExpression').html(expression + operand);
+				}
+				else if ('0123456789.'.indexOf(char) == -1) {
+					expression += new Number(operand).toString() + char;
+					operand = null;
+					$('#lblExpression').html(expression);
+				}
+				else {
+
+					if (char == '.' && operand.indexOf('.') != -1) {
+						$('#lblMessage').html('不能再次出现小数点').css('color', '#ff0000');
+						return;
+					}
+
+					operand += char;
+					$('#lblExpression').html(expression + operand);
+				}
+
+			}
+
+			function calculate() {
+				$('#lblMessage').html('');
+
+				if (null == operand) {
+					$('#lblMessage').html('当前计算式尚需要一个操作数').css('color', '#ff0000');
+					return;
+				}
+
+				if (null == expression)
+					expression = '';
+
+				expression += new Number(operand).toString();
+				operand = eval(expression).toString();
+
+				var result = expression + '=' + operand;
+				$('#lblExpression').html(result);
+
+				expressions.push(result);
+				$('#lblHistory').html($('#lblHistory').html() + '<br />[' + expressions.length.toString() + ']:' + result);
+				expression = null;
+			}
+
+			function clearExpression() {
+				$('#lblMessage').html('');
+				expression = null;
+				operand = null;
+				$('#lblExpression').html('');
+			}
+
+			function getHistory() {
+				var result = '';
+
+				for (var index = 0; index < expressions.length; index++)
+					if (result == '')
+						result = expressions[index];
+					else
+						result += ';' + expressions[index];
+
+				return encodeURIComponent(result);
+			}
+
+			function setHistory(history) {
+				var list = decodeURIComponent(history).split(';');
+				expressions.length = 0;
+				$('#lblHistory').html('');
+
+				for (var index = 0; index < list.length; index++) {
+
+					if (list[index] == '')
+						continue;
+
+					expressions.push(list[index]);
+					$('#lblHistory').html($('#lblHistory').html() + '<br />[' + index + ']:' + list[index]);
+				}
+
+			}
+
+		</script>
+		</Html>
+	</je:JQueryScript>
+	<je:Button ID="cmd1" runat="server" Label="1" Click="function(event, ui){makeExpression('1');}"></je:Button>
+	<je:Button ID="cmd2" runat="server" Label="2" Click="function(event, ui){makeExpression('2');}"></je:Button>
+	<je:Button ID="cmd3" runat="server" Label="3" Click="function(event, ui){makeExpression('3');}"></je:Button>
+	<br />
+	<je:Button ID="cmd4" runat="server" Label="4" Click="function(event, ui){makeExpression('4');}"></je:Button>
+	<je:Button ID="cmd5" runat="server" Label="5" Click="function(event, ui){makeExpression('5');}"></je:Button>
+	<je:Button ID="cmd6" runat="server" Label="6" Click="function(event, ui){makeExpression('6');}"></je:Button>
+	<br />
+	<je:Button ID="cmd7" runat="server" Label="7" Click="function(event, ui){makeExpression('7');}"></je:Button>
+	<je:Button ID="cmd8" runat="server" Label="8" Click="function(event, ui){makeExpression('8');}"></je:Button>
+	<je:Button ID="cmd9" runat="server" Label="9" Click="function(event, ui){makeExpression('9');}"></je:Button>
+	<br />
+	<je:Button ID="cmd0" runat="server" Label="0" Click="function(event, ui){makeExpression('0');}"></je:Button>
+	<je:Button ID="cmdDot" runat="server" Label="." Click="function(event, ui){makeExpression('.');}"></je:Button>
+	<je:Button ID="cmdCalculate" runat="server" Label="=" Click="function(event, ui){calculate();}"></je:Button>
+	<br />
+	<je:Button ID="cmdAdd" runat="server" Label="加" Click="function(event, ui){makeExpression('+');}" Icons="{ primary: 'ui-icon-calculator' }"></je:Button>
+	<je:Button ID="cmdSub" runat="server" Label="减" Click="function(event, ui){makeExpression('-');}" Icons="{ primary: 'ui-icon-calculator' }"></je:Button>
+	<je:Button ID="cmdMul" runat="server" Label="乘" Click="function(event, ui){makeExpression('*');}" Icons="{ primary: 'ui-icon-calculator' }"></je:Button>
+	<je:Button ID="cmdDiv" runat="server" Label="除" Click="function(event, ui){makeExpression('/');}" Icons="{ primary: 'ui-icon-calculator' }"></je:Button>
+	<br />
+	<je:Button ID="cmdClearExpression" runat="server" Label="C" Click="function(event, ui){clearExpression();}" ToolTip="清除当前计算式"></je:Button>
+	<je:Button ID="cmdSaveHistory" runat="server" Label="保存历史">
+		<ClickAsync Url="button.ashx" Success="
+		function() {
+			$('#lblMessage').html('已经保存历史到 Session 中').css('color', '#0000ff');
+			[%id:cmdLoadHistory%].button('enable');
+		}
+		">
+			<Parameters>
+				<je:ParameterEdit Name="c" Type="Expression" Value="'sh'" />
+				<je:ParameterEdit Name="el" Type="Expression" Value="getHistory()" />
+			</Parameters>
+		</ClickAsync>
+	</je:Button>
+	<je:Button ID="cmdLoadHistory" runat="server" Label="载入历史" Disabled="True" 
+		IsVariable="True">
+		<ClickAsync Url="button.ashx" Success="
+		function(data) {
+			setHistory(data.history);
+			$('#lblMessage').html('已经从 Session 中载入历史').css('color', '#0000ff');
+		}
+		">
+			<Parameters>
+				<je:ParameterEdit Name="c" Type="Expression" Value="'lh'" />
+			</Parameters>
+		</ClickAsync>
+	</je:Button>
+	<je:Button ID="cmdRefresh" runat="server" Label="刷新页面" onclicksync="cmdRefresh_ClickSync"></je:Button>
+	<p>
+		<span id="lblServerMessage" runat="server"></span>
+		<br />
+		当前计算式: <span id="lblExpression"></span>
+		<br />
+		消息: <span id="lblMessage"></span>
+		<br />
+		历史: <span id="lblHistory"></span>
+	</p>
+	<p style="color: #ff0000;">注意: 此计算器供学习参考使用, 但由于不完善不适用于真正使用.</p>
+	<p style="font-size: smaller; text-align: right;">版本 2.6, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
 	<p style="font-size: smaller; text-align: right;">
 		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElementButtonDoc">代码解释说明</a>
 		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
@@ -33,11 +247,45 @@
 </html>
 }}}
 
+=== button/button.ashx ===
+{{{
+<%@ WebHandler Language="C#" Class="button" %>
+
+using System;
+using System.Web;
+using System.Web.SessionState;
+
+public class button : IHttpHandler, IRequiresSessionState
+{
+
+	public void ProcessRequest ( HttpContext context )
+	{
+		context.Response.ContentType = "text/javascript";
+		context.Response.Cache.SetNoStore ( );
+
+		switch ( context.Request["c"] )
+		{
+			case "sh":
+				context.Session["el"] = context.Request["el"];
+				break;
+				
+			case "lh":
+				context.Response.Write ( "{\"history\":\"" + context.Session["el"] + "\"}" );
+				break;
+		}
+		
+	}
+
+	public bool IsReusable
+	{
+		get { return false; }
+	}
+
+}
+}}}
+
 === 前提条件 ===
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
 
-=== 说明 ===
- 设置 [JQueryElement JQueryElement] 的 WidgetSetting 的 Type 为 button, 元素将显示为按钮.
-
- _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+*注意^1^:* 这里仅列出部分代码, 可能需要您自己创建窗口, 页面等.
 </font>

@@ -1,12 +1,23 @@
 ﻿#summary JQueryElement 折叠列表设置活动的列表
 #labels Phase-Implementation
 <font face="microsoft yahei">
-=== 代码 ===
+=== active.aspx ===
 {{{
-<%@ Page Language="C#" %>
 <%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<script runat="server">
+
+	protected void Page_Load ( object sender, EventArgs e )
+	{
+
+		if(!string.IsNullOrEmpty(this.Request["i"]))
+			try
+			{ this.accordion.Active = Convert.ToInt32 ( this.Request["i"] ); }
+			catch { }
+		
+	}
+	
+</script>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 	<title>JQueryElement 折叠列表设置活动的列表</title>
@@ -16,30 +27,22 @@
 </head>
 <body>
 	<form id="formJE" runat="server">
-	<je:JQueryElement ID="je" runat="server" ElementType="Div">
-		<WidgetSetting Type="accordion">
-			<%-- 2.3 之前版本的格式
-			<Options>
-				<je:OptionEdit Type="active" Value="2" />
-			</Options>
-			--%>
-			<AccordionSetting Active="[%param:i%]"></AccordionSetting>
-		</WidgetSetting>
+	<je:Accordion ID="accordion" runat="server">
 		<Html>
-			<h1><a href="#">简介</a></h1>
-			<div><strong>accordion</strong> 是可以折叠的列表.</div>
-			<h1><a href="#">开始</a></h1>
-			<div>设置 WidgetSetting 为 accordion, 并添加 AccordionSetting 设置 Active 属性.</div>
-			<h1><a href="#">疑难</a></h1>
-			<div>[%param:i%] 表示获取请求中的 i 参数的值.</div>
-			<h1><a href="#">总结</a></h1>
-			<div>通过点击不同链接, 激活不同的列表, <strong>也可以不刷新通过 javascript 脚本来完成.</strong>.</div>
+		<h1><a href="#">简介</a></h1>
+		<div><strong>accordion</strong> 是可以折叠的列表.</div>
+		<h1><a href="#">开始</a></h1>
+		<div>添加 Accordion 控件.</div>
+		<h1><a href="#">疑难</a></h1>
+		<div>在页面的 Load 事件中, 设置了 Accordion 的 Active 属性.</div>
+		<h1><a href="#">总结</a></h1>
+		<div>通过点击不同链接, 激活不同的列表, <strong>也可以不刷新通过 javascript 脚本来完成.</strong>.</div>
 		</Html>
-	</je:JQueryElement>
+	</je:Accordion>
 	<p>
-	指向不同章节的链接: <a href="active.aspx?i=0">简介</a> <a href="active.aspx?i=1">开始</a> <a href="active.aspx?i=2">疑难</a> <a href="active.aspx?i=3">总结</a>
+		指向不同章节的链接: <a href="active.aspx?i=0">简介</a> <a href="active.aspx?i=1">开始</a> <a href="active.aspx?i=2">疑难</a> <a href="active.aspx?i=3">总结</a>
 	</p>
-	<p style="font-size: smaller; text-align: right;">版本 2.5, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<p style="font-size: smaller; text-align: right;">版本 2.6, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
 	<p style="font-size: smaller; text-align: right;">
 		<a href="http://code.google.com/p/zsharedcode/wiki/JEAccordionActiveDoc">代码解释说明</a>
 		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
@@ -53,6 +56,31 @@
 
 === 前提条件 ===
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
+ 
+=== 说明 ===
+ Accordion 控件的 Active 属性表示处于激活的列表的索引, 在示例中, 我们获取了地址中的参数作为索引赋值给 Active.
+
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+=== 更多形式 ===
+{{{
+	<je:JQueryElement ID="accordion" runat="server" ElementType="Div" Visible="False">
+		<WidgetSetting Type="accordion">
+			<AccordionSetting Active="[%param:i%]">
+			</AccordionSetting>
+		</WidgetSetting>
+		<Html>
+		<h1><a href="#">简介</a></h1>
+		<div><strong>accordion</strong> 是可以折叠的列表.</div>
+		<h1><a href="#">开始</a></h1>
+		<div>设置 WidgetSetting 为 accordion, 并添加 AccordionSetting 设置 Active 属性.</div>
+		<h1><a href="#">疑难</a></h1>
+		<div>[%param:i%] 表示获取请求中的 i 参数的值.</div>
+		<h1><a href="#">总结</a></h1>
+		<div>通过点击不同链接, 激活不同的列表, <strong>也可以不刷新通过 javascript 脚本来完成.</strong>.</div>
+		</Html>
+	</je:JQueryElement>
+}}}
 
 === 说明 ===
  AccordionSetting 中的 Active 属性表示哪个列表处于激活展开的状态, 0 表示第一个列表, [%param:i%] 表示获取请求中的 i 参数, 可以是 url 中或者表单中的 i.

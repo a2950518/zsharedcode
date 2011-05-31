@@ -1,7 +1,13 @@
-﻿#summary JQueryElement 进度条
+﻿#summary JQueryElement 进度条 - 计时器
 #labels Phase-Implementation
 <font face="microsoft yahei">
-=== 代码 ===
+=== 说明 ===
+ 这是一个简单的计时器, 在输入了计时秒数并点击计时开始按钮后, 进度条 [JQueryUIProgressbar Progressbar] 控件将显示时间进度, 在计时完成后, 将通过 Ajax 和服务器通信并返回消息.
+
+ ==== 设置进度条当前值 ====
+ 通过 [JQueryUIProgressbar Progressbar] 的 Value 属性设置其当前值, 比如: {{{<je:Progressbar ID="bar" runat="server" Value="0" ...></je:Progressbar>}}}, 这里设置当前值为 0, 其实可以不设置, 因为默认为 0.
+
+=== progressbar/Default.aspx ===
 {{{
 <%@ Page Language="C#" %>
 
@@ -9,24 +15,54 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-	<title>JQueryElement 进度条</title>
+	<title>JQueryElement 进度条 - 计时器</title>
 	<link rel="stylesheet" href="../css/ui-lightness/jquery-ui-1.8.11.custom.css" />
 	<script type="text/javascript" src="../js/jquery-1.5.1.min.js"></script>
 	<script type="text/javascript" src="../js/jquery-ui-1.8.11.custom.min.js"></script>
 </head>
 <body>
 	<form id="formJE" runat="server">
-	<je:JQueryElement ID="je" runat="server" ElementType="Div">
-		<WidgetSetting Type="progressbar">
-			<%-- 2.3 之前版本的格式
-			<Options>
-				<je:OptionEdit Type="value" Value="70" />
-			</Options>
-			--%>
-			<ProgressbarSetting Value="70"></ProgressbarSetting>
-		</WidgetSetting>
-	</je:JQueryElement>
-	<p style="font-size: smaller; text-align: right;">版本 2.5, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	<je:JQueryScript ID="script" runat="server">
+		<Html>
+		<script type="text/javascript">
+			var totalSecond;
+
+			function wait(second) {
+
+				if (second < 0)
+					return;
+
+				eval('[%id:bar%]').progressbar('option', 'value', 100 - ((second * 100) / totalSecond));
+				eval('[%id:cmd%]').button('option', 'label', second + ' 秒');
+				setTimeout("wait(" + (second - 1) + ")", 1000);
+			}
+
+			function start() {
+				totalSecond = new Number($('#txtSecond').val());
+
+				if (totalSecond <= 0 || isNaN(totalSecond)) {
+					$('#lblMessage').html('输入的秒数错误').css('color', '#ff0000');
+					return;
+				}
+
+				wait(totalSecond);
+			}
+		</script>
+		</Html>
+	</je:JQueryScript>
+	<je:Progressbar ID="bar" runat="server" Value="0" IsVariable="true" Width="300px">
+		<CompleteAsync Success="
+		function(data) {
+			$('#lblMessage').html(data.result);
+		}
+		" Url="progressbar.ashx">
+		</CompleteAsync>
+	</je:Progressbar>
+	秒数: <input id="txtSecond" type="text" value="10" class="ui-widget" />&nbsp;
+	<je:Button ID="cmd" runat="server" Label="计时开始" Click="start" IsVariable="True"></je:Button>
+	<p id="lblMessage"></p>
+	<p style="font-size: smaller; text-align: right;">
+		版本 2.6, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
 	<p style="font-size: smaller; text-align: right;">
 		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElementProgressBarDoc">代码解释说明</a>
 		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
@@ -36,6 +72,31 @@
 	</form>
 </body>
 </html>
+}}}
+
+=== progressbar/progressbar.aspx ===
+{{{
+<%@ WebHandler Language="C#" Class="progressbar" %>
+
+using System;
+using System.Web;
+
+public class progressbar : IHttpHandler
+{
+
+	public void ProcessRequest ( HttpContext context )
+	{
+		context.Response.ContentType = "text/javascript";
+		
+		context.Response.Write ( "{\"result\": \"这里是从服务器返回的消息: 计时已经完成\"}" );
+	}
+
+	public bool IsReusable
+	{
+		get { return false; }
+	}
+
+}
 }}}
 
 === 前提条件 ===

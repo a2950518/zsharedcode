@@ -16,26 +16,18 @@
 </head>
 <body>
 	<form id="formJE" runat="server">
-	<je:JQueryElement ID="je" runat="server" ElementType="Div">
-		<WidgetSetting Type="accordion">
-			<%-- 2.3 之前版本的格式
-			<Options>
-				<je:OptionEdit Type="animated" Value="'bounceslide'" />
-			</Options>
-			--%>
-			<AccordionSetting Animated="'bounceslide'"></AccordionSetting>
-		</WidgetSetting>
+	<je:Accordion ID="accordion" runat="server" Animated="bounceslide">
 		<Html>
-			<h1><a href="#">简介</a></h1>
-			<div><strong>accordion</strong> 是可以折叠的列表.</div>
-			<h1><a href="#">开始</a></h1>
-			<div>设置 WidgetSetting 为 accordion, 并添加 AccordionSetting 设置 Animated 属性为 'bounceslide'.</div>
-			<h1><a href="#">疑难</a></h1>
-			<div>'bounceslide' 为一种动画效果, 更多可参考 http://jqueryui.com.</div>
-			<h1><a href="#">总结</a></h1>
-			<div>点击上一列表, 将显示 'bounceslide' 的效果.</div>
+		<h1><a href="#">简介</a></h1>
+		<div><strong>accordion</strong> 是可以折叠的列表.</div>
+		<h1><a href="#">开始</a></h1>
+		<div>添加 Accordion 控件, 设置 Animated 属性为 bounceslide.</div>
+		<h1><a href="#">疑难</a></h1>
+		<div>bounceslide 为一种动画效果, 更多可参考 http://jqueryui.com.</div>
+		<h1><a href="#">总结</a></h1>
+		<div>点击上一列表, 将显示 'bounceslide' 的效果.</div>
 		</Html>
-	</je:JQueryElement>
+	</je:Accordion>
 	<p style="font-size: smaller; text-align: right;">版本 2.5, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
 	<p style="font-size: smaller; text-align: right;">
 		<a href="http://code.google.com/p/zsharedcode/wiki/JEAccordionAnimatedDoc">代码解释说明</a>
@@ -50,6 +42,30 @@
 
 === 前提条件 ===
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
+ 
+=== 说明 ===
+ Accordion 控件的 Animated 属性用于设置列表切换时的动画.
+
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+=== 更多形式 ===
+{{{
+	<je:JQueryElement ID="accordion" runat="server" ElementType="Div">
+		<WidgetSetting Type="accordion">
+			<AccordionSetting Animated="'bounceslide'"></AccordionSetting>
+		</WidgetSetting>
+		<Html>
+		<h1><a href="#">简介</a></h1>
+		<div><strong>accordion</strong> 是可以折叠的列表.</div>
+		<h1><a href="#">开始</a></h1>
+		<div>设置 WidgetSetting 为 accordion, 并添加 AccordionSetting 设置 Animated 属性为 'bounceslide'.</div>
+		<h1><a href="#">疑难</a></h1>
+		<div>'bounceslide' 为一种动画效果, 更多可参考 http://jqueryui.com.</div>
+		<h1><a href="#">总结</a></h1>
+		<div>点击上一列表, 将显示 'bounceslide' 的效果.</div>
+		</Html>
+	</je:JQueryElement>
+}}}
 
 === 说明 ===
  AccordionSetting 的 Animated 属性用于设置列表切换时的动画.
