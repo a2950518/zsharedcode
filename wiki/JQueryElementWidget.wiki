@@ -2,7 +2,7 @@
 #labels Phase-Implementation,Phase-Support,Phase-Deploy
 <font face="microsoft yahei">
 === Widget ===
- * [JQueryElementAccordion 折叠列表]
+ * [JQueryElementAccordionDoc 折叠列表 - 垂直导航栏]
  * [JQueryElementAutoCompleteDoc 自动填充 - 提取单词]
  * [JQueryElementButtonDoc 按钮 - 简单计算器]
  * [JQueryElementDatePickerDoc 日期框 - 日程表]

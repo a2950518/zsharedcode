@@ -8,6 +8,7 @@
  可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/JQueryElement.all.cs JQueryElement.all.cs], 也可以在 [Download 下载资源] 中下载 dll.
 
 === 示例 ===
+ * [JQueryElementAccordionDoc 折叠列表 - 垂直导航栏]
  * [JQueryElementAutoCompleteDoc 自动填充 - 提取单词]
  * [JQueryElementButtonDoc 按钮 - 简单计算器]
  * [JQueryElementDatePickerDoc 日期框 - 日程表]
@@ -73,17 +74,6 @@
  * [JESelectableDelayDoc 选中延迟]
  * [JESelectableDistanceDoc 选中有效距离]
  * [JESelectableEventDoc 选中事件]
-
- * [JQueryElementAccordionDoc 折叠列表]
- * [JEAccordionActiveDoc 折叠列表设置活动的列表]
- * [JEAccordionAnimatedDoc 折叠列表动画]
- * [JEAccordionAutoHeightDoc 折叠扩充高度]
- * [JEAccordionCollapsibleDoc 折叠关闭已展开列表]
- * [JEAccordionFillSpaceDoc 折叠填充为父容器高度]
- * [JEAccordionHeaderDoc 折叠列表指定标题元素]
- * [JEAccordionIconsDoc 折叠列表图标]
- * [JEAccordionOEventDoc 折叠列表触发事件]
- * [JEAccordionEventDoc 折叠列表事件]
 
  * [JQueryElementRepeaterDoc 数据绑定]
  
