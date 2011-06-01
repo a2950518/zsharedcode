@@ -2,6 +2,5 @@
 #labels Phase-Implementation,Phase-Support,Phase-Deploy
 <font face="microsoft yahei">
 === 分组标签 ===
- * [JQueryElementTabsDoc 分组标签]
- * [JETabsEventDoc 分组标签事件]
+ * [JQueryElementTabsDoc 分组标签 - 水平导航栏]
 </font>

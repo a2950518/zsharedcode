@@ -9,5 +9,5 @@
  * [JQueryElementDialogDoc 对话框 - 问题调查]
  * [JQueryElementProgressBarDoc 进度条 - 计时器]
  * [JQueryElementSliderDoc 分割条 - 图片滚动显示]
- * [JQueryElementTabs 分组标签]
+ * [JQueryElementTabsDoc 分组标签 - 水平导航栏]
 </font>

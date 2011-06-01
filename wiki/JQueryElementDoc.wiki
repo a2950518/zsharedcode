@@ -14,6 +14,7 @@
  * [JQueryElementDialogDoc 对话框 - 问题调查]
  * [JQueryElementProgressBarDoc 进度条 - 计时器]
  * [JQueryElementSliderDoc 分割条 - 图片滚动显示]
+ * [JQueryElementTabsDoc 分组标签 - 水平导航栏]
 
  * [JQueryElementHtmlDoc 设置 html 代码]
  * [JQueryElementElementDoc 设置元素的类型]
@@ -83,9 +84,6 @@
  * [JEAccordionIconsDoc 折叠列表图标]
  * [JEAccordionOEventDoc 折叠列表触发事件]
  * [JEAccordionEventDoc 折叠列表事件]
-
- * [JQueryElementTabsDoc 分组标签]
- * [JETabsEventDoc 分组标签事件]
 
  * [JQueryElementRepeaterDoc 数据绑定]
  

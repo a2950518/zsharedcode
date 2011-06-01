@@ -132,8 +132,8 @@ public class datepicker : IHttpHandler, IRequiresSessionState
 
 		string result = string.Empty;
 
-		if ( string.IsNullOrEmpty ( context.Request["d"] ) || string.IsNullOrEmpty ( context.Request["t"] ) )
-			result = "日期或者内容为空";
+		if ( string.IsNullOrEmpty ( context.Request["d"] ) )
+			result = "日期为空";
 		else
 			switch ( context.Request["c"] )
 			{

@@ -1,7 +1,34 @@
-﻿#summary JQueryElement 分组标签
+﻿#summary JQueryElement 分组标签 - 水平导航栏
 #labels Phase-Implementation
 <font face="microsoft yahei">
-=== 代码 ===
+=== 说明 ===
+ 这里使用 [JQueryUITabs Tabs] 控件制作了一个简单的水平导航栏.
+
+ ==== 设置分组标签的内容 ====
+ 你可以通过如下格式设置内容:
+{{{
+<ul>
+	<li><a href="<此标签对应的 div 元素 id>">欢迎</a></li>
+	<li><a href="<此标签对应的页面地址>">基本信息</a></li>
+	<li><a href="<此标签对应的 div 元素 id>">联系方式</a></li>
+</ul>
+<div id="<div 元素 id>">
+	<标签的内容>
+</div>
+<div id="<div 元素 id>">
+	<标签的内容>
+</div>
+}}}
+ 内容可以是写在页面中的, 也可以是另一个页面.
+
+ ==== 分组标签的其它设置 ====
+ Cache - 是否对标签对应的页面缓存.
+ 
+ ==== 参考图片 ====
+ [http://zsharedcode.googlecode.com/files/tabs.design.png]
+ [http://zsharedcode.googlecode.com/files/tabs.runtime.png]
+
+=== tabs/Default.aspx ===
 {{{
 <%@ Page Language="C#" %>
 
@@ -9,34 +36,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-	<title>JQueryElement 分组标签</title>
+	<title>JQueryElement 分组标签 - 水平导航栏</title>
 	<link rel="stylesheet" href="../css/ui-lightness/jquery-ui-1.8.11.custom.css" />
 	<script type="text/javascript" src="../js/jquery-1.5.1.min.js"></script>
 	<script type="text/javascript" src="../js/jquery-ui-1.8.11.custom.min.js"></script>
 </head>
 <body>
 	<form id="formJE" runat="server">
-	<je:JQueryElement ID="je" runat="server" ElementType="Div">
-		<WidgetSetting Type="tabs">
-		</WidgetSetting>
+	<je:Tabs ID="tabs" runat="server">
 		<Html>
 		<ul>
-			<li><a href="#tab1"><span>简介</span></a></li>
-			<li><a href="#tab2"><span>开始</span></a></li>
-			<li><a href="#tab3"><span>总结</span></a></li>
+			<li><a href="#tab1">欢迎</a></li>
+			<li><a href="base.htm">基本信息</a></li>
+			<li><a href="#tab3">联系方式</a></li>
 		</ul>
 		<div id="tab1">
-			<strong>tabs</strong> 是分组标签.
-		</div>
-		<div id="tab2">
-			设置 WidgetSetting 为 tabs, 让 a 的 href 和 div 的 id 关联.
+			<strong>welcome</strong>, 这是 Tabs.
 		</div>
 		<div id="tab3">
-			分组标签完成.
+			<strong>邮箱:</strong> ...
 		</div>
 		</Html>
-	</je:JQueryElement>
-	<p style="font-size: smaller; text-align: right;">版本 2.5, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
+	</je:Tabs>
+	<p style="font-size: smaller; text-align: right;">版本 2.6, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
 	<p style="font-size: smaller; text-align: right;">
 		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElementTabsDoc">代码解释说明</a>
 		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
@@ -48,11 +70,21 @@
 </html>
 }}}
 
+=== tabs/base.htm ===
+{{{
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>基本信息</title>
+</head>
+<body>
+	页面 base.htm 里显示您的基本信息, ...
+</body>
+</html>
+}}}
+
 === 前提条件 ===
  所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
 
-=== 说明 ===
- 设置 [JQueryElement JQueryElement] 的 WidgetSetting 的 Type 为 tabs, 并设置 Html 属性中的 html 代码, ul 元素可以为标签, 随后的 div 元素为标签的内容, 元素将显示为分组标签.
-
- _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+*注意:* 这里仅列出部分代码, 可能需要您自己创建窗口, 页面等.
 </font>
