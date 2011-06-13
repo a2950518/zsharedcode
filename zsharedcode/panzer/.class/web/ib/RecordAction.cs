@@ -82,10 +82,8 @@ namespace zoyobar.shared.panzer.web.ib
 			if ( string.IsNullOrEmpty ( expression ) )
 				return null;
 
-			string[] parts = expression.Split ( '&' );
-
 			try
-			{ return new NavigateRecordAction ( parts[1] ); }
+			{ return new NavigateRecordAction ( expression.Substring( expression.IndexOf('&') + 1) ); }
 			catch
 			{ return null; }
 

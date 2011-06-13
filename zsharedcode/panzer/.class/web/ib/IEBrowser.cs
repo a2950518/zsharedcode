@@ -241,7 +241,7 @@ namespace zoyobar.shared.panzer.web.ib
 		"		if (frame.document.all[index].tagName == 'INPUT' || frame.document.all[index].tagName == 'SELECT' || frame.document.all[index].tagName == 'TEXTAREA')\n" +
 		"			frame.document.all[index].attachEvent('onchange', __window_onchange);\n" +
 
-		"	frame.document.attachEvent('onclick', __window_onclick);\n" +
+		"		frame.document.attachEvent('onclick', __window_onclick);\n" +
 
 		"	for (index = 0; index < frame.frames.length; index++)\n" +
 		"		__installRecord(frame.frames[index]);\n" +
@@ -769,11 +769,12 @@ namespace zoyobar.shared.panzer.web.ib
 		/// </summary>
 		public string Url
 		{
-			get {
+			get
+			{
 
 				if ( null == this.browser.Url )
 					return string.Empty;
-	
+
 				return this.browser.Url.AbsoluteUri.ToLower ( );
 			}
 		}
@@ -855,7 +856,7 @@ namespace zoyobar.shared.panzer.web.ib
 			}
 			else if ( this.ieRecord.IsReplaying )
 			{
-				this.ieRecord.NavigateUrl = this.ieRecord.NavigateUrl.Replace ( e.Url.AbsoluteUri.ToLower ( ), string.Empty );
+				this.ieRecord.NavigateUrl = this.ieRecord.NavigateUrl.Replace ( e.Url.AbsoluteUri.ToLower ( ), string.Empty ).Replace ( e.Url.Host.ToLower ( ) + e.Url.AbsolutePath.ToLower ( ), string.Empty );
 
 				if ( this.ieRecord.NavigateUrl == string.Empty )
 				{
@@ -870,6 +871,7 @@ namespace zoyobar.shared.panzer.web.ib
 		private void browserNavigating ( object sender, WebBrowserNavigatingEventArgs e )
 		{
 
+			// 获取的方法转移到了 browserNavigated 中
 			if ( this.ieRecord.IsRecording )
 				this.ieRecord.RecordCustomAction ( );
 
@@ -880,7 +882,9 @@ namespace zoyobar.shared.panzer.web.ib
 
 			if ( this.ieRecord.IsRecording )
 			{
-				this.ieRecord.AppendAction ( new NavigateRecordAction ( e.Url.AbsoluteUri.ToLower ( ) ) );
+				//this.ieRecord.RecordCustomAction ( );
+
+				this.ieRecord.AppendAction ( new NavigateRecordAction ( e.Url.Host.ToLower ( ) + e.Url.AbsolutePath.ToLower ( ) ) );
 				this.ieRecord.NavigateUrl = e.Url.AbsoluteUri.ToLower ( );
 			}
 
