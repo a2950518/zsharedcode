@@ -18,6 +18,7 @@
  * [IEBrowserDocCopyImage 复制并获取图片]
  * [IEBrowserDocWait 等待页面载入]
  * [IEBrowserDocManaged 执行托管代码]
+ * [IEBrowserDocRecord 记录回放用户操作]
  * [IEBrowserDocFlow 页面流程控制]
    * [IEBrowserDocFlowNWPC 页面载入后跳转]
  * [IEBrowserDocFans 爱好者编写代码示例分析]
