@@ -15,6 +15,7 @@
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/io/StoreHelper.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
@@ -35,6 +36,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using zoyobar.shared.panzer.flow;
+using zoyobar.shared.panzer.io;
 
 namespace zoyobar.shared.panzer.web.ib
 {
@@ -80,7 +82,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// <summary>
 		/// 获取记录的动作.
 		/// </summary>
-		public List<RecordAction> RecordActions
+		public List<RecordAction> Actions
 		{
 			get { return this.actions; }
 		}
@@ -109,6 +111,48 @@ namespace zoyobar.shared.panzer.web.ib
 				return;
 
 			this.actions.Add ( action );
+		}
+
+		/// <summary>
+		/// 保存动作到文件, 在记录和回放时执行无效.
+		/// </summary>
+		/// <param name="filePath">文件地址.</param>
+		public void SaveAction ( string filePath )
+		{
+
+			if ( this.isRecording || this.isReplaying )
+				return;
+
+			string text = string.Empty;
+
+			foreach ( RecordAction action in this.actions )
+				text += action.ToString ( ) + ";";
+
+			StoreHelper.Write ( filePath, text );
+		}
+
+		/// <summary>
+		/// 从文件载入动作, 在记录和回放时执行无效.
+		/// </summary>
+		/// <param name="filePath">文件地址.</param>
+		public void LoadAction ( string filePath )
+		{
+
+			if ( this.isRecording || this.isReplaying )
+				return;
+
+			this.actions.Clear ( );
+			string text = StoreHelper.Read ( filePath );
+
+			if ( string.IsNullOrEmpty ( text ) )
+				return;
+
+			foreach ( string expression in text.Split ( ';' ) )
+				if ( expression.StartsWith ( RecordActionType.Navigate.ToString ( ) ) )
+					this.actions.Add ( NavigateRecordAction.Create ( expression ) );
+				else if ( expression.StartsWith ( RecordActionType.Custom.ToString ( ) ) )
+					this.actions.Add ( CustomRecordAction.Create ( expression ) );
+
 		}
 
 		/// <summary>
@@ -363,7 +407,8 @@ namespace zoyobar.shared.panzer.web.ib
 
 		"	eval(script);\n" +
 		"}",
-				"jsRecord"
+				"__jsRecord",
+				false
 				);
 		}
 		#endregion
@@ -380,7 +425,7 @@ namespace zoyobar.shared.panzer.web.ib
 		public void BeginRecord ( )
 		{
 
-			if ( this.isRecording || this.isReplaying )
+			if ( this.isRecording || this.isReplaying || this.ieBrowser.Url == string.Empty )
 				return;
 
 			this.isRecording = true;
@@ -724,7 +769,13 @@ namespace zoyobar.shared.panzer.web.ib
 		/// </summary>
 		public string Url
 		{
-			get { return this.browser.Url.AbsoluteUri.ToLower ( ); }
+			get {
+
+				if ( null == this.browser.Url )
+					return string.Empty;
+	
+				return this.browser.Url.AbsoluteUri.ToLower ( );
+			}
 		}
 
 		/// <summary>
@@ -835,7 +886,20 @@ namespace zoyobar.shared.panzer.web.ib
 
 		}
 
-		private void installScript ( string id, Uri scriptUrl, string code )
+		private bool isScriptElementExist ( string id )
+		{
+
+			if ( null == this.browser.Document || string.IsNullOrEmpty ( id ) )
+				return false;
+
+			foreach ( HtmlElement element in this.browser.Document.GetElementsByTagName ( "script" ) )
+				if ( element.Id == id )
+					return true;
+
+			return false;
+		}
+
+		private void installScript ( string id, Uri scriptUrl, string code, bool isOverWrite )
 		{
 
 			if ( null == this.browser.Document || ( null == scriptUrl && string.IsNullOrEmpty ( code ) ) )
@@ -848,10 +912,13 @@ namespace zoyobar.shared.panzer.web.ib
 
 			foreach ( HtmlElement element in this.browser.Document.GetElementsByTagName ( "script" ) )
 				if ( element.Id == id )
-				{
-					scriptElement = element;
-					break;
-				}
+					if ( isOverWrite )
+					{
+						scriptElement = element;
+						break;
+					}
+					else
+						return;
 
 			if ( null == scriptElement )
 			{
@@ -881,16 +948,18 @@ namespace zoyobar.shared.panzer.web.ib
 		/// </summary>
 		/// <param name="scriptUrl">脚本地址, 如: "http://www.google.com/xxx.js".</param>
 		/// <param name="id">脚本 script 标签的 id 属性, 默认自动生成.</param>
-		public void InstallScript ( Uri scriptUrl, string id = null )
+		/// <param name="isOverWrite">是否重写, 默认重写.</param>
+		public void InstallScript ( Uri scriptUrl, string id = null, bool isOverWrite = true )
 #else
 		/// <summary>
 		/// 在 WebBrowser 中增加 script 标签, 并指定脚本的地址.
 		/// </summary>
 		/// <param name="scriptUrl">脚本地址, 如: "http://www.google.com/xxx.js".</param>
 		/// <param name="id">脚本 script 标签的 id 属性.</param>
-		public void InstallScript ( Uri scriptUrl, string id )
+		/// <param name="isOverWrite">是否重写.</param>
+		public void InstallScript ( Uri scriptUrl, string id, bool isOverWrite )
 #endif
-		{ this.installScript ( id, scriptUrl, null ); }
+		{ this.installScript ( id, scriptUrl, null, isOverWrite ); }
 
 #if PARAM
 		/// <summary>
@@ -898,42 +967,60 @@ namespace zoyobar.shared.panzer.web.ib
 		/// </summary>
 		/// <param name="code">javascript 代码.</param>
 		/// <param name="id">脚本 script 标签的 id 属性, 默认自动生成.</param>
-		public void InstallScript ( string code, string id = null )
+		/// <param name="isOverWrite">是否重写, 默认重写.</param>
+		public void InstallScript ( string code, string id = null, bool isOverWrite = true )
 #else
 		/// <summary>
 		/// 在 WebBrowser 中增加 script 标签, 并添加定义的 javascript  代码.
 		/// </summary>
 		/// <param name="code">javascript 代码.</param>
 		/// <param name="id">脚本 script 标签的 id 属性.</param>
-		public void InstallScript ( string code, string id )
+		/// <param name="isOverWrite">是否重写.</param>
+		public void InstallScript ( string code, string id, bool isOverWrite )
 #endif
-		{ this.installScript ( id, null, code ); }
+		{ this.installScript ( id, null, code, isOverWrite ); }
 
 		/// <summary>
 		/// 安装跟踪脚本到 WebBrowser, 可以使用 __set(name, value) 和 __get(name) 两个 javascript 函数.
 		/// </summary>
 		public void InstallTrace ( )
-		{ this.installScript ( "jsTrace", null, "function __set(name, value){if(null == name){return;}window[name] = eval(value);}function __get(name){if(null == name){return null;}else{return window[name];}}" ); }
+		{ this.installScript ( "__jsTrace", null, "function __set(name, value){if(null == name){return;}window[name] = eval(value);}function __get(name){if(null == name){return null;}else{return window[name];}}", false ); }
 
 #if PARAM
 		/// <summary>
 		/// 安装指定地址的 jQuery 脚本到 WebBrowser 控件.
 		/// </summary>
 		/// <param name="jQueryUrl">jQuery 脚本地址, 默认安装网络地址.</param>
-		public void InstallJQuery ( Uri jQueryUrl = null )
+		/// <param name="isOverWrite">是否重写, 默认不重写.</param>
+		public void InstallJQuery ( Uri jQueryUrl = null, bool isOverWrite = false )
 #else
 		/// <summary>
 		/// 安装指定地址的 jQuery 脚本到 WebBrowser 控件.
 		/// </summary>
 		/// <param name="jQueryUrl">jQuery 脚本地址.</param>
-		public void InstallJQuery ( Uri jQueryUrl )
+		/// <param name="isOverWrite">是否重写.</param>
+		public void InstallJQuery ( Uri jQueryUrl, bool isOverWrite )
 #endif
 		{
+			// HACK: 也可以去掉安装跟踪脚本.
+			this.InstallTrace ( );
 
 			if ( null == jQueryUrl )
 				jQueryUrl = new Uri ( JQuery.Script_1_4_1_Url );
 
-			this.installScript ( "jsJQuery", jQueryUrl, null );
+			this.installScript ( "__jsJQuery", jQueryUrl, null, isOverWrite );
+		}
+
+		/// <summary>
+		/// 安装 jQuery 脚本到 WebBrowser 控件, 将覆盖已经安装的脚本.
+		/// </summary>
+		/// <param name="code">jQuery 脚本.</param>
+		public void InstallJQuery ( string code )
+		{
+			// HACK: 也可以去掉安装跟踪脚本.
+			this.InstallTrace ( );
+
+			this.installScript ( "__jsJQuery", null, code, true );
 		}
 
 		/// <summary>
@@ -941,11 +1028,11 @@ namespace zoyobar.shared.panzer.web.ib
 		/// </summary>
 		/// <param name="code">需要添加的 javascript 代码.</param>
 		public void ExecuteScript ( string code )
-		{ this.installScript ( "executeScript", null, code ); }
+		{ this.installScript ( "__executeScript", null, code, true ); }
 
 #if PARAM
 		/// <summary>
-		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallTrace 方法.
+		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallJQuery 方法.
 		/// </summary>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
 		/// <param name="resultName">保存 jQuery 执行结果的 javascript 变量名称, 默认不返回值到变量.</param>
@@ -955,7 +1042,7 @@ namespace zoyobar.shared.panzer.web.ib
 		{ return this.ExecuteJQuery<object> ( jQuery, resultName, framePath ); }
 #else
 		/// <summary>
-		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallTrace 方法.
+		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallJQuery 方法.
 		/// </summary>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
 		/// <param name="resultName">保存 jQuery 执行结果的 javascript 变量名称.</param>
@@ -967,7 +1054,7 @@ namespace zoyobar.shared.panzer.web.ib
 
 #if PARAM
 		/// <summary>
-		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallTrace 方法.
+		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallJQuery 方法.
 		/// </summary>
 		/// <typeparam name="T">jQuery 执行结果的类型.</typeparam>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
@@ -977,7 +1064,7 @@ namespace zoyobar.shared.panzer.web.ib
 		public T ExecuteJQuery<T> ( JQuery jQuery, string resultName = null, string framePath = null )
 #else
 		/// <summary>
-		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallTrace 方法.
+		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallJQuery 方法.
 		/// </summary>
 		/// <typeparam name="T">jQuery 执行结果的类型.</typeparam>
 		/// <param name="framePath">执行 jQuery 的框架路径, 比如: "main.1.menu", 表示名称为 main 的框架中的第 2 个框架中的 menu 框架.</param>
@@ -1226,24 +1313,54 @@ namespace zoyobar.shared.panzer.web.ib
 		{ return EscapeCharacter ( text, false ); }
 
 		/// <summary>
-		/// 安装网络版本的 jQuery 脚本到 WebBrowser 控件.
+		/// 安装网络版本的 jQuery 脚本到 WebBrowser 控件, 如果已经安装不再重新安装.
 		/// </summary>
 		public void InstallJQuery ( )
-		{ this.InstallJQuery ( null ); }
+		{ this.InstallJQuery ( null, false ); }
 
 		/// <summary>
-		/// 在 WebBrowser 中增加 script 标签, 并指定脚本的地址.
+		/// 安装网络版本的 jQuery 脚本到 WebBrowser 控件.
+		/// </summary>
+		/// <param name="isOverWrite">是否重写.</param>
+		public void InstallJQuery ( bool isOverWrite )
+		{ this.InstallJQuery ( null, isOverWrite ); }
+
+		/// <summary>
+		/// 安装指定地址的 jQuery 脚本到 WebBrowser 控件, 如果已经安装不再重新安装.
+		/// </summary>
+		/// <param name="jQueryUrl">jQuery 脚本地址.</param>
+		public void InstallJQuery ( Uri jQueryUrl )
+		{ this.InstallJQuery ( jQueryUrl, false ); }
+
+		/// <summary>
+		/// 在 WebBrowser 中增加 script 标签, 并指定脚本的地址, 如果已经安装则重新安装.
 		/// </summary>
 		/// <param name="scriptUrl">脚本地址, 如: "http://www.google.com/xxx.js".</param>
 		public void InstallScript ( Uri scriptUrl )
-		{ this.installScript ( null, scriptUrl, null ); }
+		{ this.installScript ( null, scriptUrl, null, true ); }
 
 		/// <summary>
-		/// 在 WebBrowser 中增加 script 标签, 并添加定义的 javascript  代码.
+		/// 在 WebBrowser 中增加 script 标签, 并指定脚本的地址, 如果已经安装则重新安装.
+		/// </summary>
+		/// <param name="scriptUrl">脚本地址, 如: "http://www.google.com/xxx.js".</param>
+		/// <param name="id">脚本 script 标签的 id 属性.</param>
+		public void InstallScript ( Uri scriptUrl, string id )
+		{ this.installScript ( id, scriptUrl, null, true ); }
+
+		/// <summary>
+		/// 在 WebBrowser 中增加 script 标签, 并添加定义的 javascript  代码, 如果已经安装则重新安装.
 		/// </summary>
 		/// <param name="code">javascript 代码.</param>
 		public void InstallScript ( string code )
-		{ this.installScript ( null, null, code ); }
+		{ this.installScript ( null, null, code, true ); }
+
+		/// <summary>
+		/// 在 WebBrowser 中增加 script 标签, 并添加定义的 javascript  代码, 如果已经安装则重新安装.
+		/// </summary>
+		/// <param name="code">javascript 代码.</param>
+		/// <param name="id">脚本 script 标签的 id 属性.</param>
+		public void InstallScript ( string code, string id )
+		{ this.installScript ( id, null, code, true ); }
 
 		/// <summary>
 		/// 创建一个 IEBrowser.
@@ -1309,7 +1426,7 @@ namespace zoyobar.shared.panzer.web.ib
 		{ return this.__Get<T> ( name, null ); }
 
 		/// <summary>
-		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallTrace 方法.
+		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallJQuery 方法.
 		/// </summary>
 		/// <typeparam name="T">jQuery 执行结果的类型.</typeparam>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
@@ -1317,7 +1434,7 @@ namespace zoyobar.shared.panzer.web.ib
 		public T ExecuteJQuery<T> ( JQuery jQuery )
 		{ return this.ExecuteJQuery<T> ( null, jQuery, null ); }
 		/// <summary>
-		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallTrace 方法.
+		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallJQuery 方法.
 		/// </summary>
 		/// <typeparam name="T">jQuery 执行结果的类型.</typeparam>
 		/// <param name="framePath">执行 jQuery 的框架路径, 比如: "main.1.menu", 表示名称为 main 的框架中的第 2 个框架中的 menu 框架.</param>
@@ -1326,7 +1443,7 @@ namespace zoyobar.shared.panzer.web.ib
 		public T ExecuteJQuery<T> ( string framePath, JQuery jQuery )
 		{ return this.ExecuteJQuery<T> ( framePath, jQuery, null ); }
 		/// <summary>
-		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallTrace 方法.
+		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallJQuery 方法.
 		/// </summary>
 		/// <typeparam name="T">jQuery 执行结果的类型.</typeparam>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
@@ -1336,14 +1453,14 @@ namespace zoyobar.shared.panzer.web.ib
 		{ return this.ExecuteJQuery<T> ( null, jQuery, resultName ); }
 
 		/// <summary>
-		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallTrace 方法.
+		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallJQuery 方法.
 		/// </summary>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
 		/// <returns>执行 JQuery 后的返回值.</returns>
 		public object ExecuteJQuery ( JQuery jQuery )
 		{ return this.ExecuteJQuery<object> ( null, jQuery, null ); }
 		/// <summary>
-		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallTrace 方法.
+		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallJQuery 方法.
 		/// </summary>
 		/// <param name="framePath">执行 jQuery 的框架路径, 比如: "main.1.menu", 表示名称为 main 的框架中的第 2 个框架中的 menu 框架.</param>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
@@ -1351,7 +1468,7 @@ namespace zoyobar.shared.panzer.web.ib
 		public object ExecuteJQuery ( string framePath, JQuery jQuery )
 		{ return this.ExecuteJQuery<object> ( framePath, jQuery, null ); }
 		/// <summary>
-		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallTrace 方法.
+		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallJQuery 方法.
 		/// </summary>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
 		/// <param name="resultName">保存 jQuery 执行结果的 javascript 变量名称.</param>
@@ -1359,7 +1476,7 @@ namespace zoyobar.shared.panzer.web.ib
 		public object ExecuteJQuery ( JQuery jQuery, string resultName )
 		{ return this.ExecuteJQuery<object> ( null, jQuery, resultName ); }
 		/// <summary>
-		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallTrace 方法.
+		/// 执行 JQuery 对象中包含的 jQuery 代码, 需要首先调用 InstallJQuery 方法.
 		/// </summary>
 		/// <param name="framePath">执行 jQuery 的框架路径, 比如: "main.1.menu", 表示名称为 main 的框架中的第 2 个框架中的 menu 框架.</param>
 		/// <param name="jQuery">包含 jQuery 代码的 JQuery 对象.</param>
