@@ -1,0 +1,44 @@
+#summary IEBrowser 记录回放用户操作
+#labels Phase-Implementation
+<font face="microsoft yahei">
+=== 代码 ===
+{{{
+// 在窗口的代码中定义 IEBrowser, 在窗口载入时初始化.
+private IEBrowser ie;
+this.ie = new IEBrowser ( this.webBrowser );
+
+...
+
+// 在某一个控件的事件中, 开始记录 WebBrowser 中的用户操作.
+ie.Navigate ( "http://www.google.com.hk/" );
+
+...
+
+// 在某一个控件的事件中, 结束记录 WebBrowser 中的用户操作, 并保存用户操作到文件.
+this.ie.IERecord.EndRecord ( );
+this.ie.IERecord.SaveAction ( @"iebrowser.record" );
+
+...
+
+// 在某一个控件的事件中, 载入记录 WebBrowser 中的用户操作并回放, 也可以直接回放.
+this.ie.IERecord.LoadAction ( @"iebrowser.record" );
+this.ie.IERecord.EndRecord ( );
+}}}
+
+=== 说明 ===
+ 当期望记录用户在 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 上的操作并可以回放这些操作时, 可以通过 [IERecord IERecord] 的相关方法来实现.
+
+ 实例代码中, 已经列举了一些 [IERecord IERecord] 的主要方法, 由于记录和回放功能目前还是测试阶段, 也尚不确定是否继续完善其功能, 有些站点上可能不能完成记录.
+
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+*注意^1^:* 在记录之前, 请确保 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 已经导航到某个页面.
+
+=== 使用 ===
+ 如果需要单独使用 [IEBrowser IEBrowser], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs], 也可以在 [Download 下载资源] 中下载 dll.
+
+ 如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
+
+=== 需求 ===
+ 可能需要引用 System.Web 以及相关程序集.
+ </font>
