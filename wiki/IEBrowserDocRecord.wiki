@@ -10,7 +10,7 @@ this.ie = new IEBrowser ( this.webBrowser );
 ...
 
 // 在某一个控件的事件中, 开始记录 WebBrowser 中的用户操作.
-ie.Navigate ( "http://www.google.com.hk/" );
+this.ie.IERecord.BeginRecord ( );
 
 ...
 
