@@ -3,6 +3,8 @@
 <font face="microsoft yahei">
 === 代码 ===
 {{{
+// 需要引用 using zoyobar.shared.panzer.web.ib;
+
 // 定义载入 google 的页面状态.
 WebPageState loadGoogle = new WebPageState (
 	"load google", // 状态的名称.

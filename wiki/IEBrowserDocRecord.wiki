@@ -3,6 +3,8 @@
 <font face="microsoft yahei">
 === 代码 ===
 {{{
+// 需要引用 using zoyobar.shared.panzer.web.ib;
+
 // 在窗口的代码中定义 IEBrowser, 在窗口载入时初始化.
 private IEBrowser ie;
 this.ie = new IEBrowser ( this.webBrowser );

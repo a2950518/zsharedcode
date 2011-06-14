@@ -3,6 +3,8 @@
 <font face="microsoft yahei">
 === 代码 ===
 {{{
+// 需要引用 using zoyobar.shared.panzer.web.ib;
+
 // 从当前的 WebBrowser 控件创建 IEBrowser 对象, WebBrowser 的 Url 属性已经设置为 "about:blank".
 IEBrowser ie = new IEBrowser ( this.webBrowser );
 

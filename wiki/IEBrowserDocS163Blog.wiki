@@ -10,6 +10,8 @@
 
 === 代码 ===
 {{{
+// 需要引用 using zoyobar.shared.panzer.web.ib;
+
 // 从当前的 WebBrowser 控件创建 IEBrowser 对象.
 IEBrowser ie = new IEBrowser ( this.webBrowser );
 

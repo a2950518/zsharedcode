@@ -10,6 +10,8 @@
 
 === 代码 ===
 {{{
+// 需要引用 using zoyobar.shared.panzer.web.ib;
+
 public static void Discuz ( IEBrowser ie, string userName, string password, string url, string title, string content )
 {
 
