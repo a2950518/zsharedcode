@@ -48,8 +48,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.Disabled, false ); }
+			set { this.widgetSetting.AccordionSetting.Disabled = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -61,8 +61,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Active
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.active ), 0 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.active, value <= 0 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.AccordionSetting.Active, 0 ); }
+			set { this.widgetSetting.AccordionSetting.Active = value <= 0 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -74,8 +74,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Animated
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.animated ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.animated, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.AccordionSetting.Animated.Trim ( '\'' ); }
+			set { this.widgetSetting.AccordionSetting.Animated = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -87,8 +87,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool AutoHeight
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.autoHeight ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.autoHeight, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.AutoHeight, true ); }
+			set { this.widgetSetting.AccordionSetting.AutoHeight = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -100,8 +100,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ClearStyle
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.clearStyle ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.clearStyle, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.ClearStyle, false ); }
+			set { this.widgetSetting.AccordionSetting.ClearStyle = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -113,8 +113,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Collapsible
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.collapsible ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.collapsible, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.Collapsible, false ); }
+			set { this.widgetSetting.AccordionSetting.Collapsible = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -126,8 +126,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public EventType Event
 		{
-			get { return this.getEnum<EventType> ( this.editHelper.GetOuterOptionEditValue ( OptionType.@event ), EventType.click ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.@event, "'" + value + "'" ); }
+			get { return this.getEnum<EventType> ( this.widgetSetting.AccordionSetting.Event, EventType.click ); }
+			set { this.widgetSetting.AccordionSetting.Event = "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -139,8 +139,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool FillSpace
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.fillSpace ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.fillSpace, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.FillSpace, false ); }
+			set { this.widgetSetting.AccordionSetting.FillSpace = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -152,8 +152,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Header
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.header ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.header, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.AccordionSetting.Header.Trim ( '\'' ); }
+			set { this.widgetSetting.AccordionSetting.Header = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -165,8 +165,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Icons
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.icons ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.icons, value ); }
+			get { return this.widgetSetting.AccordionSetting.Icons; }
+			set { this.widgetSetting.AccordionSetting.Icons = value; }
 		}
 
 		/// <summary>
@@ -178,8 +178,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Navigation
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.navigation ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.navigation, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.Navigation, false ); }
+			set { this.widgetSetting.AccordionSetting.Navigation = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -191,8 +191,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string NavigationFilter
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.navigationFilter ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.navigationFilter, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.AccordionSetting.NavigationFilter.Trim ( '\'' ); }
+			set { this.widgetSetting.AccordionSetting.NavigationFilter = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 		#endregion
 
@@ -206,8 +206,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+			get { return this.widgetSetting.AccordionSetting.Create; }
+			set { this.widgetSetting.AccordionSetting.Create = value; }
 		}
 
 		/// <summary>
@@ -219,8 +219,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Change
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.change ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.change, value ); }
+			get { return this.widgetSetting.AccordionSetting.Change; }
+			set { this.widgetSetting.AccordionSetting.Change = value; }
 		}
 
 		/// <summary>
@@ -232,8 +232,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Changestart
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.changestart ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.changestart, value ); }
+			get { return this.widgetSetting.AccordionSetting.Changestart; }
+			set { this.widgetSetting.AccordionSetting.Changestart = value; }
 		}
 		#endregion
 
@@ -264,9 +264,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.Type = this.type;
+				// this.widgetSetting.Type = this.type;
 
-				this.widgetSetting.AccordionSetting.SetEditHelper ( this.editHelper );
+				// this.widgetSetting.AccordionSetting.SetEditHelper ( this.editHelper );
 
 				this.widgetSetting.AjaxSettings.Clear ( );
 
@@ -281,7 +281,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 			else if ( this.selector == string.Empty )
-				switch ( this.type )
+				switch ( this.widgetSetting.Type )
 				{
 					case WidgetType.accordion:
 						string style = string.Empty;

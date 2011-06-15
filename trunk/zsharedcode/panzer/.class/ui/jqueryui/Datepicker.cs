@@ -32,7 +32,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		: BaseWidget
 	{
 
-		#region \" Enum "
+		#region " Enum "
 		/// <summary>
 		/// ShowOn 类型.
 		/// </summary>
@@ -72,7 +72,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 		#endregion
 
-
 		private readonly AjaxSettingEdit changeAjax = new AjaxSettingEdit ( );
 
 		/// <summary>
@@ -92,8 +91,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.Disabled, false ); }
+			set { this.widgetSetting.DatepickerSetting.Disabled = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -105,8 +104,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string AltField
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.altField ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.altField, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.AltField.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.AltField = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -118,8 +117,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string AltFormat
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.altFormat ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.altFormat, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.AltFormat.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.AltFormat = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -131,8 +130,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string AppendText
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.appendText ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.appendText, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.AppendText.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.AppendText = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -144,8 +143,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool AutoSize
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.autoSize ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.autoSize, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.AutoSize, false ); }
+			set { this.widgetSetting.DatepickerSetting.AutoSize = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -157,8 +156,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string ButtonImage
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.buttonImage ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.buttonImage, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.ButtonImage.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.ButtonImage = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -170,8 +169,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ButtonImageOnly
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.buttonImageOnly ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.buttonImageOnly, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.ButtonImageOnly, false ); }
+			set { this.widgetSetting.DatepickerSetting.ButtonImageOnly = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -183,8 +182,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string ButtonText
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.buttonText ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.buttonText, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.ButtonText.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.ButtonText = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -196,8 +195,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string CalculateWeek
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.calculateWeek ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.calculateWeek, value ); }
+			get { return this.widgetSetting.DatepickerSetting.CalculateWeek; }
+			set { this.widgetSetting.DatepickerSetting.CalculateWeek = value; }
 		}
 
 		/// <summary>
@@ -209,8 +208,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ChangeMonth
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.changeMonth ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.changeMonth, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.ChangeMonth, false ); }
+			set { this.widgetSetting.DatepickerSetting.ChangeMonth = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -222,8 +221,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ChangeYear
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.changeYear ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.changeYear, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.ChangeYear, false ); }
+			set { this.widgetSetting.DatepickerSetting.ChangeYear = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -235,8 +234,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string CloseText
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.closeText ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.closeText, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.CloseText.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.CloseText = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -248,8 +247,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ConstrainInput
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.constrainInput ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.constrainInput, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.ConstrainInput, true ); }
+			set { this.widgetSetting.DatepickerSetting.ConstrainInput = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -261,8 +260,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string CurrentText
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.currentText ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.currentText, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.CurrentText.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.CurrentText = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -274,8 +273,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string DateFormat
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dateFormat ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dateFormat, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.DateFormat.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.DateFormat = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -287,8 +286,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string DayNames
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dayNames ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dayNames, value ); }
+			get { return this.widgetSetting.DatepickerSetting.DayNames; }
+			set { this.widgetSetting.DatepickerSetting.DayNames = value; }
 		}
 
 		/// <summary>
@@ -300,8 +299,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string DayNamesMin
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dayNamesMin ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dayNamesMin, value ); }
+			get { return this.widgetSetting.DatepickerSetting.DayNamesMin; }
+			set { this.widgetSetting.DatepickerSetting.DayNamesMin = value; }
 		}
 
 		/// <summary>
@@ -313,8 +312,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string DayNamesShort
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dayNamesShort ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dayNamesShort, value ); }
+			get { return this.widgetSetting.DatepickerSetting.DayNamesShort; }
+			set { this.widgetSetting.DatepickerSetting.DayNamesShort = value; }
 		}
 
 		/// <summary>
@@ -326,8 +325,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string DefaultDate
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.defaultDate ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.defaultDate, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.DefaultDate.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.DefaultDate = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -339,8 +338,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public DurationType Duration
 		{
-			get { return this.getEnum<DurationType> ( this.editHelper.GetOuterOptionEditValue ( OptionType.duration ), DurationType.normal ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.duration, value == DurationType.normal ? string.Empty : "'" + value + "'" ); }
+			get { return this.getEnum<DurationType> ( this.widgetSetting.DatepickerSetting.Duration, DurationType.normal ); }
+			set { this.widgetSetting.DatepickerSetting.Duration = value == DurationType.normal ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -352,8 +351,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int FirstDay
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.firstDay ), 0 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.firstDay, value <= 0 || value > 6 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DatepickerSetting.FirstDay, 0 ); }
+			set { this.widgetSetting.DatepickerSetting.FirstDay = value <= 0 || value > 6 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -365,8 +364,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool GotoCurrent
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.gotoCurrent ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.gotoCurrent, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.GotoCurrent, false ); }
+			set { this.widgetSetting.DatepickerSetting.GotoCurrent = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -378,8 +377,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool HideIfNoPrevNext
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.hideIfNoPrevNext ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.hideIfNoPrevNext, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.HideIfNoPrevNext, false ); }
+			set { this.widgetSetting.DatepickerSetting.HideIfNoPrevNext = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -391,8 +390,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool IsRTL
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.isRTL ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.isRTL, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.IsRTL, false ); }
+			set { this.widgetSetting.DatepickerSetting.IsRTL = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -404,8 +403,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string MaxDate
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.maxDate ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.maxDate, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.MaxDate.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.MaxDate = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -417,8 +416,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string MinDate
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.minDate ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.minDate, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.MinDate.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.MinDate = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -430,8 +429,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string MonthNames
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.monthNames ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.monthNames, value ); }
+			get { return this.widgetSetting.DatepickerSetting.MonthNames; }
+			set { this.widgetSetting.DatepickerSetting.MonthNames = value; }
 		}
 
 		/// <summary>
@@ -443,8 +442,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string MonthNamesShort
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.monthNamesShort ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.monthNamesShort, value ); }
+			get { return this.widgetSetting.DatepickerSetting.MonthNamesShort; }
+			set { this.widgetSetting.DatepickerSetting.MonthNamesShort = value; }
 		}
 
 		/// <summary>
@@ -456,8 +455,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool NavigationAsDateFormat
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.navigationAsDateFormat ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.navigationAsDateFormat, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.NavigationAsDateFormat, false ); }
+			set { this.widgetSetting.DatepickerSetting.NavigationAsDateFormat = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -469,8 +468,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string NextText
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.nextText ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.nextText, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.NextText.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.NextText = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -482,8 +481,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int NumberOfMonths
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.numberOfMonths ), 1 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.numberOfMonths, value <= 1 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DatepickerSetting.NumberOfMonths, 1 ); }
+			set { this.widgetSetting.DatepickerSetting.NumberOfMonths = value <= 1 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -495,8 +494,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string PrevText
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.prevText ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.prevText, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.PrevText.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.PrevText = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -508,8 +507,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool SelectOtherMonths
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.selectOtherMonths ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.selectOtherMonths, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.SelectOtherMonths, false ); }
+			set { this.widgetSetting.DatepickerSetting.SelectOtherMonths = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -521,8 +520,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string ShortYearCutoff
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.shortYearCutoff ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.shortYearCutoff, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.ShortYearCutoff.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.ShortYearCutoff = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -534,8 +533,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string ShowAnim
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.showAnim ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showAnim, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.ShowAnim.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.ShowAnim = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -547,8 +546,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ShowButtonPanel
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.showButtonPanel ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showButtonPanel, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.ShowButtonPanel, false ); }
+			set { this.widgetSetting.DatepickerSetting.ShowButtonPanel = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -560,8 +559,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int ShowCurrentAtPos
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.showCurrentAtPos ), 0 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showCurrentAtPos, value <= 0 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DatepickerSetting.ShowCurrentAtPos, 0 ); }
+			set { this.widgetSetting.DatepickerSetting.ShowCurrentAtPos = value <= 0 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -573,8 +572,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ShowMonthAfterYear
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.showMonthAfterYear ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showMonthAfterYear, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.ShowMonthAfterYear, false ); }
+			set { this.widgetSetting.DatepickerSetting.ShowMonthAfterYear = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -586,8 +585,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public ShowOnType ShowOn
 		{
-			get { return this.getEnum<ShowOnType> ( this.editHelper.GetOuterOptionEditValue ( OptionType.showOn ), ShowOnType.focus ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showOn, value == ShowOnType.focus ? string.Empty : "'" + value + "'" ); }
+			get { return this.getEnum<ShowOnType> ( this.widgetSetting.DatepickerSetting.ShowOn, ShowOnType.focus ); }
+			set { this.widgetSetting.DatepickerSetting.ShowOn = value == ShowOnType.focus ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -599,8 +598,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string ShowOptions
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.showOptions ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showOptions, value ); }
+			get { return this.widgetSetting.DatepickerSetting.ShowOptions; }
+			set { this.widgetSetting.DatepickerSetting.ShowOptions = value; }
 		}
 
 		/// <summary>
@@ -612,8 +611,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ShowOtherMonths
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.showOtherMonths ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showOtherMonths, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.ShowOtherMonths, false ); }
+			set { this.widgetSetting.DatepickerSetting.ShowOtherMonths = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -625,8 +624,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ShowWeek
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.showWeek ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showWeek, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.ShowWeek, false ); }
+			set { this.widgetSetting.DatepickerSetting.ShowWeek = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -638,8 +637,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int StepMonths
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.stepMonths ), 1 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.stepMonths, value <= 1 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DatepickerSetting.StepMonths, 1 ); }
+			set { this.widgetSetting.DatepickerSetting.StepMonths = value <= 1 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -651,8 +650,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string WeekHeader
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.weekHeader ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.weekHeader, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.WeekHeader.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.WeekHeader = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -664,8 +663,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string YearRange
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.yearRange ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.yearRange, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.YearRange.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.YearRange = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -677,8 +676,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string YearSuffix
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.yearSuffix ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.yearSuffix, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.YearSuffix.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.YearSuffix = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 		#endregion
 
@@ -692,8 +691,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+			get { return this.widgetSetting.DatepickerSetting.Create; }
+			set { this.widgetSetting.DatepickerSetting.Create = value; }
 		}
 
 		/// <summary>
@@ -705,8 +704,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string BeforeShow
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.beforeShow ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.beforeShow, value ); }
+			get { return this.widgetSetting.DatepickerSetting.BeforeShow; }
+			set { this.widgetSetting.DatepickerSetting.BeforeShow = value; }
 		}
 
 		/// <summary>
@@ -718,8 +717,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string BeforeShowDay
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.beforeShowDay ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.beforeShowDay, value ); }
+			get { return this.widgetSetting.DatepickerSetting.BeforeShowDay; }
+			set { this.widgetSetting.DatepickerSetting.BeforeShowDay = value; }
 		}
 
 		/// <summary>
@@ -731,8 +730,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string OnChangeMonthYear
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.onChangeMonthYear ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.onChangeMonthYear, value ); }
+			get { return this.widgetSetting.DatepickerSetting.OnChangeMonthYear; }
+			set { this.widgetSetting.DatepickerSetting.OnChangeMonthYear = value; }
 		}
 
 		/// <summary>
@@ -744,8 +743,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string OnClose
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.onClose ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.onClose, value ); }
+			get { return this.widgetSetting.DatepickerSetting.OnClose; }
+			set { this.widgetSetting.DatepickerSetting.OnClose = value; }
 		}
 
 		/// <summary>
@@ -757,8 +756,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string OnSelect
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.onSelect ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.onSelect, value ); }
+			get { return this.widgetSetting.DatepickerSetting.OnSelect; }
+			set { this.widgetSetting.DatepickerSetting.OnSelect = value; }
 		}
 		#endregion
 
@@ -767,12 +766,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.Type = this.type;
+				// this.widgetSetting.Type = this.type;
 
-				this.widgetSetting.DatepickerSetting.SetEditHelper ( this.editHelper );
+				// this.widgetSetting.DatepickerSetting.SetEditHelper ( this.editHelper );
 			}
 			else if ( this.selector == string.Empty )
-				switch ( this.type )
+				switch ( this.widgetSetting.Type )
 				{
 					case WidgetType.datepicker:
 						string style = string.Empty;

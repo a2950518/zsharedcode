@@ -47,8 +47,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.ProgressbarSetting.Disabled, false ); }
+			set { this.widgetSetting.ProgressbarSetting.Disabled = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -60,8 +60,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Value
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.value ), 0 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.value, value <= 0 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.ProgressbarSetting.Value, 0 ); }
+			set { this.widgetSetting.ProgressbarSetting.Value = value <= 0 ? string.Empty : value.ToString ( ); }
 		}
 		#endregion
 
@@ -75,8 +75,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+			get { return this.widgetSetting.ProgressbarSetting.Create; }
+			set { this.widgetSetting.ProgressbarSetting.Create = value; }
 		}
 
 		/// <summary>
@@ -88,8 +88,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Change
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.change ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.change, value ); }
+			get { return this.widgetSetting.ProgressbarSetting.Change; }
+			set { this.widgetSetting.ProgressbarSetting.Change = value; }
 		}
 
 		/// <summary>
@@ -101,8 +101,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Complete
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.complete ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.complete, value ); }
+			get { return this.widgetSetting.ProgressbarSetting.Complete; }
+			set { this.widgetSetting.ProgressbarSetting.Complete = value; }
 		}
 		#endregion
 
@@ -151,9 +151,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.Type = this.type;
+				// this.widgetSetting.Type = this.type;
 
-				this.widgetSetting.ProgressbarSetting.SetEditHelper ( this.editHelper );
+				// this.widgetSetting.ProgressbarSetting.SetEditHelper ( this.editHelper );
 
 				this.widgetSetting.AjaxSettings.Clear ( );
 
@@ -177,7 +177,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 			else if ( this.selector == string.Empty )
-				switch ( this.type )
+				switch ( this.widgetSetting.Type )
 				{
 					case WidgetType.progressbar:
 						string style = string.Empty;
