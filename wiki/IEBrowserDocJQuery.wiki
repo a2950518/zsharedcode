@@ -14,9 +14,6 @@ ie.Navigate ( "http://www.google.com.hk/" );
 // 等待页面载入完毕.
 ie.IEFlow.Wait ( new UrlCondition ( "wait", "http://www.google.com.hk", StringCompareMode.StartWith ) );
 
-// 安装跟踪脚本, 执行 jquery 必需.
-ie.InstallTrace ( );
-
 // 安装本地的 jquery 脚本.
 ie.InstallJQuery ( new Uri ( Path.Combine ( AppDomain.CurrentDomain.BaseDirectory, @"jquery-1.5.min.js" ) ) );
 
@@ -50,7 +47,7 @@ for ( int index = 0; index < count; index++ )
 
  使用 [IEBrowser IEBrowser] 的 ExecuteJQuery 方法可以在页面上执行 jquery 命令, 比如: {{{int count = ie.ExecuteJQuery<int> ( JQuery.Create ( "'a'" ).Length ( ) );}}}, 这行代码将返回页面中 a 标签的个数. 使用 [JQuery JQuery] 类可以创建一条 jquery 命令并提供给 [IEBrowser IEBrowser] 执行.
 
- 在执行 ExecuteJQuery 方法前, 需要先执行 InstallJQuery 和 InstallTrace 方法. InstallTrace 方法是 [IEBrowser IEBrowser] 使用 jquery 必需的. InstallJQuery 可以从本地或者网络地址载入 jquery 脚本.
+ 在执行 ExecuteJQuery 方法前, 需要先执行 InstallJQuery 方法. InstallJQuery 可以从本地或者网络地址载入 jquery 脚本. [IEBrowser IEBrowser] 2.3 之后版本不需要载调用 InstallTrace 方法.
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
 

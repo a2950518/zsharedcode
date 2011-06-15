@@ -20,8 +20,7 @@ ie.Navigate ( "http://<163 博客地址>" );
 ie.IEFlow.Wait ( 3 );
 
 // 安装 jquery 脚本.
-ie.InstallTrace ( );
-ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+ie.InstallJQuery ( Properties.Resources.jquery_1_5_2_min );
 
 // 弹出登录框.
 ie.ExecuteJQuery ( JQuery.Create ( "'a:contains(登录)'" ).Attr ( "'id'", "'denglu'" ) );
@@ -35,8 +34,7 @@ ie.ExecuteScript ( "document.getElementById('dl').click();" );
 ie.IEFlow.Wait ( 5 );
 
 // 安装 jquery 脚本.
-ie.InstallTrace ( );
-ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+ie.InstallJQuery ( Properties.Resources.jquery_1_5_2_min );
 
 // 跳转到日志页面.
 ie.ExecuteJQuery ( JQuery.Create ( "'a:contains(日志)' " ).Attr ( "'id'", "'rz'" ) );
@@ -44,8 +42,7 @@ ie.ExecuteScript ( "document.getElementById('rz').click();" );
 ie.IEFlow.Wait ( 5 );
 
 // 安装 jquery 脚本.
-ie.InstallTrace ( );
-ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+ie.InstallJQuery ( Properties.Resources.jquery_1_5_2_min );
 
 // 跳转到编辑日志页面.
 ie.ExecuteJQuery ( JQuery.Create ( "'a:contains(写日志)' " ).Attr ( "'id'", "'xrz'" ) );
@@ -53,8 +50,7 @@ ie.ExecuteScript ( "document.getElementById('xrz').click();" );
 ie.IEFlow.Wait ( 5 );
 
 // 安装 jquery 脚本.
-ie.InstallTrace ( );
-ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+ie.InstallJQuery ( Properties.Resources.jquery_1_5_2_min );
 
 // 填写日志内容.
 ie.ExecuteJQuery ( JQuery.Create ( "'.ztag:text'" ).Val ( "'<标题>'" ) );
@@ -79,7 +75,7 @@ ie.ExecuteScript ( "document.getElementById('fb').click();" );
 
  接着, 代码让 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 导航到某个 163 博客的首页, 您可以填写为自己博客的地址, {{{ie.Navigate ( "http://<163 博客地址>" ); ie.IEFlow.Wait ( 3 );}}}, 在跳转之后使用了 Wait 方法, 主要是等待页面的载入, 否则代码将继续向下执行, 这会导致不期望的结果.
 
- 然后, 代码为载入的博客首页安装了 jquery 脚本, 这里 jquery 脚本是导入到了资源当中并作为 jquery_1_5_2_min 属性访问, {{{ie.InstallTrace ( ); ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );}}}, 雪鱼是希望在页面上使用 jquery 了, 载入 jquery 的方式有多种, 也可以使用 InstallJQuery 方法. 更多可以参照 [IEBrowserDocJQuery 执行 jquery].
+ 然后, 代码为载入的博客首页安装了 jquery 脚本, 这里 jquery 脚本是导入到了资源当中并作为 jquery_1_5_2_min 属性访问, {{{ie.InstallJQuery ( Properties.Resources.jquery_1_5_2_min );}}}, 雪鱼是希望在页面上使用 jquery 了, 载入 jquery 的方式有多种. 更多可以参照 [IEBrowserDocJQuery 执行 jquery].
 
  再下来, 代码找到了名字包含日志的 a 标签, 然后模拟了 a 的点击, {{{ie.ExecuteJQuery ( JQuery.Create ( "'a:contains(日志)' " ).Attr ( "'id'", "'rz'" ) ); ie.ExecuteScript ( "document.getElementById('rz').click();" );}}}, 这里需要说明的是 1.5 的 jquery 脚本可能无法使用 trigger 来模拟 a 标签的点击, 所以代码是通过 ExecuteScript 来完成的点击超链接, 而第一句执行的 jquery 是为了给 a 标签增加一个 id 属性, 以提供给下面的 getElementById 使用. 其实你也可以直接 Navigate 导航到指定页面, 这里只是为了演示更多的代码.
 
