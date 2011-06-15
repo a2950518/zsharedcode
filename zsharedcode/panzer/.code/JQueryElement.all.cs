@@ -7,19 +7,18 @@ using System.Web.UI.WebControls;
 using System.Xml;
 using zoyobar.shared.panzer.code;
 using zoyobar.shared.panzer.web.jqueryui;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
-using System.IO;
-using System.Web;
 using System.Web.UI.Design;
 using System.Windows.Forms;
-using zoyobar.shared.panzer.web;
-using NBorderStyle = System.Web.UI.WebControls.BorderStyle;
+using System.Collections.Generic;
 using System.Drawing.Design;
+using System.Globalization;
 using NParameter = zoyobar.shared.panzer.web.jqueryui.Parameter;
 using System.Net;
+using zoyobar.shared.panzer.web;
+using NBorderStyle = System.Web.UI.WebControls.BorderStyle;
 using System.Reflection;
+using System.Web;
 using NControl = System.Web.UI.Control;
 // ../.class/ui/jqueryui/Accordion.cs
 /*
@@ -27,39 +26,6 @@ using NControl = System.Web.UI.Control;
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIAccordion
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Accordion.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/JQueryElement.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/RepeaterSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -74,7 +40,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 折叠列表插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Accordion runat=server></{0}:Accordion>" )]
-	[DesignerAttribute ( typeof ( AccordionDesigner ) )]
+	[Designer ( typeof ( AccordionDesigner ) )]
 	public class Accordion
 		: BaseWidget, IPostBackEventHandler
 	{
@@ -97,8 +63,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.Disabled, false ); }
+			set { this.widgetSetting.AccordionSetting.Disabled = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -110,8 +76,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Active
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.active ), 0 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.active, value <= 0 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.AccordionSetting.Active, 0 ); }
+			set { this.widgetSetting.AccordionSetting.Active = value <= 0 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -123,8 +89,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Animated
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.animated ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.animated, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.AccordionSetting.Animated.Trim ( '\'' ); }
+			set { this.widgetSetting.AccordionSetting.Animated = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -136,8 +102,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool AutoHeight
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.autoHeight ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.autoHeight, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.AutoHeight, true ); }
+			set { this.widgetSetting.AccordionSetting.AutoHeight = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -149,8 +115,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ClearStyle
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.clearStyle ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.clearStyle, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.ClearStyle, false ); }
+			set { this.widgetSetting.AccordionSetting.ClearStyle = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -162,8 +128,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Collapsible
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.collapsible ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.collapsible, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.Collapsible, false ); }
+			set { this.widgetSetting.AccordionSetting.Collapsible = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -175,8 +141,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public EventType Event
 		{
-			get { return this.getEnum<EventType> ( this.editHelper.GetOuterOptionEditValue ( OptionType.@event ), EventType.click ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.@event, "'" + value + "'" ); }
+			get { return this.getEnum<EventType> ( this.widgetSetting.AccordionSetting.Event, EventType.click ); }
+			set { this.widgetSetting.AccordionSetting.Event = "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -188,8 +154,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool FillSpace
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.fillSpace ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.fillSpace, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.FillSpace, false ); }
+			set { this.widgetSetting.AccordionSetting.FillSpace = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -201,8 +167,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Header
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.header ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.header, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.AccordionSetting.Header.Trim ( '\'' ); }
+			set { this.widgetSetting.AccordionSetting.Header = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -214,8 +180,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Icons
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.icons ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.icons, value ); }
+			get { return this.widgetSetting.AccordionSetting.Icons; }
+			set { this.widgetSetting.AccordionSetting.Icons = value; }
 		}
 
 		/// <summary>
@@ -227,8 +193,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Navigation
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.navigation ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.navigation, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.Navigation, false ); }
+			set { this.widgetSetting.AccordionSetting.Navigation = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -240,8 +206,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string NavigationFilter
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.navigationFilter ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.navigationFilter, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.AccordionSetting.NavigationFilter.Trim ( '\'' ); }
+			set { this.widgetSetting.AccordionSetting.NavigationFilter = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 		#endregion
 
@@ -255,8 +221,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+			get { return this.widgetSetting.AccordionSetting.Create; }
+			set { this.widgetSetting.AccordionSetting.Create = value; }
 		}
 
 		/// <summary>
@@ -268,8 +234,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Change
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.change ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.change, value ); }
+			get { return this.widgetSetting.AccordionSetting.Change; }
+			set { this.widgetSetting.AccordionSetting.Change = value; }
 		}
 
 		/// <summary>
@@ -281,8 +247,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Changestart
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.changestart ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.changestart, value ); }
+			get { return this.widgetSetting.AccordionSetting.Changestart; }
+			set { this.widgetSetting.AccordionSetting.Changestart = value; }
 		}
 		#endregion
 
@@ -313,9 +279,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.Type = this.type;
+				// this.widgetSetting.Type = this.type;
 
-				this.widgetSetting.AccordionSetting.SetEditHelper ( this.editHelper );
+				// this.widgetSetting.AccordionSetting.SetEditHelper ( this.editHelper );
 
 				this.widgetSetting.AjaxSettings.Clear ( );
 
@@ -330,7 +296,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 			else if ( this.selector == string.Empty )
-				switch ( this.type )
+				switch ( this.widgetSetting.Type )
 				{
 					case WidgetType.accordion:
 						string style = string.Empty;
@@ -455,7 +421,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 创建一个折叠列表事件参数.
 		/// </summary>
-		/// <param name="index">索引.</param>
+		/// <param name="active">索引.</param>
 		public AccordionEventArgs ( int active )
 		{
 
@@ -474,39 +440,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIAutocomplete
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Autocomplete.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/JQueryElement.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/RepeaterSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -521,7 +454,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 自动填充插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Autocomplete runat=server></{0}:Autocomplete>" )]
-	[DesignerAttribute ( typeof ( AutocompleteDesigner ) )]
+	[Designer ( typeof ( AutocompleteDesigner ) )]
 	public class Autocomplete
 		: BaseWidget
 	{
@@ -544,8 +477,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.AutocompleteSetting.Disabled, false ); }
+			set { this.widgetSetting.AutocompleteSetting.Disabled = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -557,8 +490,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string AppendTo
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.appendTo ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.appendTo, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.AutocompleteSetting.AppendTo.Trim ( '\'' ); }
+			set { this.widgetSetting.AutocompleteSetting.AppendTo = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -570,8 +503,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool AutoFocus
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.autoFocus ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.autoFocus, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.AutocompleteSetting.AutoFocus, false ); }
+			set { this.widgetSetting.AutocompleteSetting.AutoFocus = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -583,8 +516,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Delay
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.delay ), 300 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.delay, value <= 0 || value == 300 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.AutocompleteSetting.Delay, 300 ); }
+			set { this.widgetSetting.AutocompleteSetting.Delay = value <= 0 || value == 300 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -596,8 +529,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int MinLength
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.minLength ), 1 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.minLength, value <= 1 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.AutocompleteSetting.MinLength, 1 ); }
+			set { this.widgetSetting.AutocompleteSetting.MinLength = value <= 1 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -609,8 +542,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Position
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.position ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.position, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Position; }
+			set { this.widgetSetting.AutocompleteSetting.Position = value; }
 		}
 
 		/// <summary>
@@ -622,8 +555,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Source
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.source ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.source, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Source; }
+			set { this.widgetSetting.AutocompleteSetting.Source = value; }
 		}
 		#endregion
 
@@ -637,8 +570,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Create; }
+			set { this.widgetSetting.AutocompleteSetting.Create = value; }
 		}
 
 		/// <summary>
@@ -650,8 +583,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Search
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.search ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.search, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Search; }
+			set { this.widgetSetting.AutocompleteSetting.Search = value; }
 		}
 
 		/// <summary>
@@ -663,8 +596,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Open
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.open ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.open, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Open; }
+			set { this.widgetSetting.AutocompleteSetting.Open = value; }
 		}
 
 		/// <summary>
@@ -674,10 +607,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[DefaultValue ( "" )]
 		[Description ( "指示获得焦点时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
-		public string Focus
+		public new string Focus
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.focus ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.focus, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Focus; }
+			set { this.widgetSetting.AutocompleteSetting.Focus = value; }
 		}
 
 		/// <summary>
@@ -689,8 +622,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Select
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.select ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.select, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Select; }
+			set { this.widgetSetting.AutocompleteSetting.Select = value; }
 		}
 
 		/// <summary>
@@ -702,8 +635,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Close
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.close ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.close, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Close; }
+			set { this.widgetSetting.AutocompleteSetting.Close = value; }
 		}
 
 		/// <summary>
@@ -715,8 +648,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Change
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.change ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.change, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Change; }
+			set { this.widgetSetting.AutocompleteSetting.Change = value; }
 		}
 		#endregion
 
@@ -739,9 +672,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.Type = this.type;
+				// this.widgetSetting.Type = this.type;
 
-				this.widgetSetting.AutocompleteSetting.SetEditHelper ( this.editHelper );
+				// this.widgetSetting.AutocompleteSetting.SetEditHelper ( this.editHelper );
 
 				this.widgetSetting.AjaxSettings.Clear ( );
 
@@ -753,7 +686,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 			else if ( string.IsNullOrEmpty ( this.selector ) )
-				switch ( this.type )
+				switch ( this.widgetSetting.Type )
 				{
 					case WidgetType.autocomplete:
 						string style = string.Empty;
@@ -806,39 +739,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIButton
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Button.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/JQueryElement.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/RepeaterSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -853,7 +753,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 按钮插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Button runat=server></{0}:Button>" )]
-	[DesignerAttribute ( typeof ( ButtonDesigner ) )]
+	[Designer ( typeof ( ButtonDesigner ) )]
 	public class Button
 		: BaseWidget, IPostBackEventHandler
 	{
@@ -876,8 +776,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.ButtonSetting.Disabled, false ); }
+			set { this.widgetSetting.ButtonSetting.Disabled = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -889,8 +789,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Text
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.text ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.text, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.ButtonSetting.Text, true ); }
+			set { this.widgetSetting.ButtonSetting.Text = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -902,8 +802,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Icons
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.icons ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.icons, value ); }
+			get { return this.widgetSetting.ButtonSetting.Icons; }
+			set { this.widgetSetting.ButtonSetting.Icons = value; }
 		}
 
 		/// <summary>
@@ -915,8 +815,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Label
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.label ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.label, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.ButtonSetting.Label.Trim ( '\'' ); }
+			set { this.widgetSetting.ButtonSetting.Label = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 		#endregion
 
@@ -930,8 +830,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+			get { return this.widgetSetting.ButtonSetting.Create; }
+			set { this.widgetSetting.ButtonSetting.Create = value; }
 		}
 		#endregion
 
@@ -959,8 +859,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Click
 		{
-			get { return this.editHelper.GetOuterEventEditValue ( EventType.click ); }
-			set { this.editHelper.SetOuterEventEditValue ( EventType.click, value ); }
+			get { return this.widgetSetting.ButtonSetting.EditHelper.GetOuterEventEditValue ( EventType.click ); }
+			set { this.widgetSetting.ButtonSetting.EditHelper.SetOuterEventEditValue ( EventType.click, value ); }
 		}
 		#endregion
 
@@ -977,9 +877,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.Type = this.type;
+				// this.widgetSetting.Type = this.type;
 
-				this.widgetSetting.ButtonSetting.SetEditHelper ( this.editHelper );
+				// this.widgetSetting.ButtonSetting.SetEditHelper ( this.editHelper );
 
 				this.widgetSetting.AjaxSettings.Clear ( );
 
@@ -993,30 +893,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					this.Click = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "click" ) + "}";
 
 			}
-			else if ( string.IsNullOrEmpty ( this.selector ) )
-				switch ( this.type )
-				{
-					case WidgetType.button:
-						string style = string.Empty;
-
-						if ( this.Width != Unit.Empty )
-							style += string.Format ( "width:{0};", this.Width );
-
-						if ( this.Height != Unit.Empty )
-							style += string.Format ( "height:{0};", this.Height );
-
-						writer.Write (
-							"<{6} id=\"{0}\" class=\"{3}ui-button ui-widget ui-state-default ui-corner-all{2} ui-button-text-only\" style=\"{4}\" title=\"{5}\"><span class=\"ui-button-text\">{1}</span></{6}>",
-							this.ClientID,
-							this.Label,
-							this.Disabled ? " ui-button-disabled ui-state-disabled" : string.Empty,
-							string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : this.CssClass + " ",
-							style,
-							this.ToolTip,
-							this.elementType.ToString ( ).ToLower ( )
-							);
-						return;
-				}
 
 			base.Render ( writer );
 		}
@@ -1065,39 +941,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIDatepickerShowOnType
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Datepicker.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/JQueryElement.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/RepeaterSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -1112,12 +955,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 折叠列表插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Datepicker runat=server></{0}:Datepicker>" )]
-	[DesignerAttribute ( typeof ( DatepickerDesigner ) )]
+	[Designer ( typeof ( DatepickerDesigner ) )]
 	public class Datepicker
 		: BaseWidget
 	{
 
-		#region \" Enum "
+		#region " Enum "
 		/// <summary>
 		/// ShowOn 类型.
 		/// </summary>
@@ -1157,7 +1000,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 		#endregion
 
-
 		private readonly AjaxSettingEdit changeAjax = new AjaxSettingEdit ( );
 
 		/// <summary>
@@ -1177,8 +1019,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.Disabled, false ); }
+			set { this.widgetSetting.DatepickerSetting.Disabled = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -1190,8 +1032,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string AltField
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.altField ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.altField, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.AltField.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.AltField = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1203,8 +1045,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string AltFormat
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.altFormat ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.altFormat, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.AltFormat.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.AltFormat = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1216,8 +1058,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string AppendText
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.appendText ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.appendText, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.AppendText.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.AppendText = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1229,8 +1071,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool AutoSize
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.autoSize ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.autoSize, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.AutoSize, false ); }
+			set { this.widgetSetting.DatepickerSetting.AutoSize = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -1242,8 +1084,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string ButtonImage
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.buttonImage ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.buttonImage, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.ButtonImage.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.ButtonImage = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1255,8 +1097,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ButtonImageOnly
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.buttonImageOnly ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.buttonImageOnly, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.ButtonImageOnly, false ); }
+			set { this.widgetSetting.DatepickerSetting.ButtonImageOnly = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -1268,8 +1110,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string ButtonText
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.buttonText ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.buttonText, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.ButtonText.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.ButtonText = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1281,8 +1123,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string CalculateWeek
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.calculateWeek ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.calculateWeek, value ); }
+			get { return this.widgetSetting.DatepickerSetting.CalculateWeek; }
+			set { this.widgetSetting.DatepickerSetting.CalculateWeek = value; }
 		}
 
 		/// <summary>
@@ -1294,8 +1136,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ChangeMonth
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.changeMonth ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.changeMonth, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.ChangeMonth, false ); }
+			set { this.widgetSetting.DatepickerSetting.ChangeMonth = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -1307,8 +1149,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ChangeYear
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.changeYear ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.changeYear, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.ChangeYear, false ); }
+			set { this.widgetSetting.DatepickerSetting.ChangeYear = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -1320,8 +1162,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string CloseText
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.closeText ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.closeText, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.CloseText.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.CloseText = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1333,8 +1175,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ConstrainInput
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.constrainInput ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.constrainInput, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.ConstrainInput, true ); }
+			set { this.widgetSetting.DatepickerSetting.ConstrainInput = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -1346,8 +1188,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string CurrentText
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.currentText ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.currentText, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.CurrentText.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.CurrentText = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1359,8 +1201,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string DateFormat
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dateFormat ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dateFormat, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.DateFormat.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.DateFormat = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1372,8 +1214,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string DayNames
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dayNames ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dayNames, value ); }
+			get { return this.widgetSetting.DatepickerSetting.DayNames; }
+			set { this.widgetSetting.DatepickerSetting.DayNames = value; }
 		}
 
 		/// <summary>
@@ -1385,8 +1227,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string DayNamesMin
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dayNamesMin ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dayNamesMin, value ); }
+			get { return this.widgetSetting.DatepickerSetting.DayNamesMin; }
+			set { this.widgetSetting.DatepickerSetting.DayNamesMin = value; }
 		}
 
 		/// <summary>
@@ -1398,8 +1240,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string DayNamesShort
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dayNamesShort ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dayNamesShort, value ); }
+			get { return this.widgetSetting.DatepickerSetting.DayNamesShort; }
+			set { this.widgetSetting.DatepickerSetting.DayNamesShort = value; }
 		}
 
 		/// <summary>
@@ -1411,8 +1253,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string DefaultDate
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.defaultDate ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.defaultDate, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.DefaultDate.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.DefaultDate = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1424,8 +1266,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public DurationType Duration
 		{
-			get { return this.getEnum<DurationType> ( this.editHelper.GetOuterOptionEditValue ( OptionType.duration ), DurationType.normal ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.duration, value == DurationType.normal ? string.Empty : "'" + value + "'" ); }
+			get { return this.getEnum<DurationType> ( this.widgetSetting.DatepickerSetting.Duration, DurationType.normal ); }
+			set { this.widgetSetting.DatepickerSetting.Duration = value == DurationType.normal ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1437,8 +1279,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int FirstDay
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.firstDay ), 0 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.firstDay, value <= 0 || value > 6 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DatepickerSetting.FirstDay, 0 ); }
+			set { this.widgetSetting.DatepickerSetting.FirstDay = value <= 0 || value > 6 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -1450,8 +1292,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool GotoCurrent
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.gotoCurrent ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.gotoCurrent, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.GotoCurrent, false ); }
+			set { this.widgetSetting.DatepickerSetting.GotoCurrent = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -1463,8 +1305,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool HideIfNoPrevNext
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.hideIfNoPrevNext ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.hideIfNoPrevNext, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.HideIfNoPrevNext, false ); }
+			set { this.widgetSetting.DatepickerSetting.HideIfNoPrevNext = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -1476,8 +1318,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool IsRTL
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.isRTL ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.isRTL, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.IsRTL, false ); }
+			set { this.widgetSetting.DatepickerSetting.IsRTL = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -1489,8 +1331,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string MaxDate
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.maxDate ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.maxDate, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.MaxDate.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.MaxDate = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1502,8 +1344,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string MinDate
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.minDate ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.minDate, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.MinDate.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.MinDate = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1515,8 +1357,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string MonthNames
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.monthNames ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.monthNames, value ); }
+			get { return this.widgetSetting.DatepickerSetting.MonthNames; }
+			set { this.widgetSetting.DatepickerSetting.MonthNames = value; }
 		}
 
 		/// <summary>
@@ -1528,8 +1370,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string MonthNamesShort
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.monthNamesShort ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.monthNamesShort, value ); }
+			get { return this.widgetSetting.DatepickerSetting.MonthNamesShort; }
+			set { this.widgetSetting.DatepickerSetting.MonthNamesShort = value; }
 		}
 
 		/// <summary>
@@ -1541,8 +1383,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool NavigationAsDateFormat
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.navigationAsDateFormat ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.navigationAsDateFormat, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.NavigationAsDateFormat, false ); }
+			set { this.widgetSetting.DatepickerSetting.NavigationAsDateFormat = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -1554,8 +1396,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string NextText
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.nextText ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.nextText, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.NextText.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.NextText = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1567,8 +1409,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int NumberOfMonths
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.numberOfMonths ), 1 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.numberOfMonths, value <= 1 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DatepickerSetting.NumberOfMonths, 1 ); }
+			set { this.widgetSetting.DatepickerSetting.NumberOfMonths = value <= 1 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -1580,8 +1422,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string PrevText
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.prevText ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.prevText, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.PrevText.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.PrevText = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1593,8 +1435,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool SelectOtherMonths
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.selectOtherMonths ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.selectOtherMonths, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.SelectOtherMonths, false ); }
+			set { this.widgetSetting.DatepickerSetting.SelectOtherMonths = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -1606,8 +1448,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string ShortYearCutoff
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.shortYearCutoff ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.shortYearCutoff, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.ShortYearCutoff.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.ShortYearCutoff = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1619,8 +1461,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string ShowAnim
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.showAnim ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showAnim, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.ShowAnim.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.ShowAnim = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1632,8 +1474,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ShowButtonPanel
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.showButtonPanel ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showButtonPanel, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.ShowButtonPanel, false ); }
+			set { this.widgetSetting.DatepickerSetting.ShowButtonPanel = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -1645,8 +1487,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int ShowCurrentAtPos
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.showCurrentAtPos ), 0 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showCurrentAtPos, value <= 0 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DatepickerSetting.ShowCurrentAtPos, 0 ); }
+			set { this.widgetSetting.DatepickerSetting.ShowCurrentAtPos = value <= 0 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -1658,8 +1500,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ShowMonthAfterYear
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.showMonthAfterYear ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showMonthAfterYear, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.ShowMonthAfterYear, false ); }
+			set { this.widgetSetting.DatepickerSetting.ShowMonthAfterYear = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -1671,8 +1513,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public ShowOnType ShowOn
 		{
-			get { return this.getEnum<ShowOnType> ( this.editHelper.GetOuterOptionEditValue ( OptionType.showOn ), ShowOnType.focus ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showOn, value == ShowOnType.focus ? string.Empty : "'" + value + "'" ); }
+			get { return this.getEnum<ShowOnType> ( this.widgetSetting.DatepickerSetting.ShowOn, ShowOnType.focus ); }
+			set { this.widgetSetting.DatepickerSetting.ShowOn = value == ShowOnType.focus ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1684,8 +1526,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string ShowOptions
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.showOptions ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showOptions, value ); }
+			get { return this.widgetSetting.DatepickerSetting.ShowOptions; }
+			set { this.widgetSetting.DatepickerSetting.ShowOptions = value; }
 		}
 
 		/// <summary>
@@ -1697,8 +1539,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ShowOtherMonths
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.showOtherMonths ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showOtherMonths, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.ShowOtherMonths, false ); }
+			set { this.widgetSetting.DatepickerSetting.ShowOtherMonths = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -1710,8 +1552,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool ShowWeek
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.showWeek ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.showWeek, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DatepickerSetting.ShowWeek, false ); }
+			set { this.widgetSetting.DatepickerSetting.ShowWeek = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -1723,8 +1565,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int StepMonths
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.stepMonths ), 1 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.stepMonths, value <= 1 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DatepickerSetting.StepMonths, 1 ); }
+			set { this.widgetSetting.DatepickerSetting.StepMonths = value <= 1 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -1736,8 +1578,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string WeekHeader
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.weekHeader ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.weekHeader, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.WeekHeader.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.WeekHeader = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1749,8 +1591,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string YearRange
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.yearRange ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.yearRange, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.YearRange.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.YearRange = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -1762,8 +1604,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string YearSuffix
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.yearSuffix ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.yearSuffix, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DatepickerSetting.YearSuffix.Trim ( '\'' ); }
+			set { this.widgetSetting.DatepickerSetting.YearSuffix = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 		#endregion
 
@@ -1777,8 +1619,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+			get { return this.widgetSetting.DatepickerSetting.Create; }
+			set { this.widgetSetting.DatepickerSetting.Create = value; }
 		}
 
 		/// <summary>
@@ -1790,8 +1632,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string BeforeShow
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.beforeShow ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.beforeShow, value ); }
+			get { return this.widgetSetting.DatepickerSetting.BeforeShow; }
+			set { this.widgetSetting.DatepickerSetting.BeforeShow = value; }
 		}
 
 		/// <summary>
@@ -1803,8 +1645,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string BeforeShowDay
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.beforeShowDay ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.beforeShowDay, value ); }
+			get { return this.widgetSetting.DatepickerSetting.BeforeShowDay; }
+			set { this.widgetSetting.DatepickerSetting.BeforeShowDay = value; }
 		}
 
 		/// <summary>
@@ -1816,8 +1658,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string OnChangeMonthYear
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.onChangeMonthYear ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.onChangeMonthYear, value ); }
+			get { return this.widgetSetting.DatepickerSetting.OnChangeMonthYear; }
+			set { this.widgetSetting.DatepickerSetting.OnChangeMonthYear = value; }
 		}
 
 		/// <summary>
@@ -1829,8 +1671,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string OnClose
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.onClose ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.onClose, value ); }
+			get { return this.widgetSetting.DatepickerSetting.OnClose; }
+			set { this.widgetSetting.DatepickerSetting.OnClose = value; }
 		}
 
 		/// <summary>
@@ -1842,8 +1684,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string OnSelect
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.onSelect ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.onSelect, value ); }
+			get { return this.widgetSetting.DatepickerSetting.OnSelect; }
+			set { this.widgetSetting.DatepickerSetting.OnSelect = value; }
 		}
 		#endregion
 
@@ -1852,12 +1694,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.Type = this.type;
+				// this.widgetSetting.Type = this.type;
 
-				this.widgetSetting.DatepickerSetting.SetEditHelper ( this.editHelper );
+				// this.widgetSetting.DatepickerSetting.SetEditHelper ( this.editHelper );
 			}
 			else if ( this.selector == string.Empty )
-				switch ( this.type )
+				switch ( this.widgetSetting.Type )
 				{
 					case WidgetType.datepicker:
 						string style = string.Empty;
@@ -1912,39 +1754,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIDialog
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Dialog.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/JQueryElement.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/RepeaterSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -1959,7 +1768,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 对话框插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Dialog runat=server></{0}:Dialog>" )]
-	[DesignerAttribute ( typeof ( DialogDesigner ) )]
+	[Designer ( typeof ( DialogDesigner ) )]
 	public class Dialog
 		: BaseWidget
 	{
@@ -1983,8 +1792,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DialogSetting.Disabled, false ); }
+			set { this.widgetSetting.DialogSetting.Disabled = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -1996,8 +1805,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool AutoOpen
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.autoOpen ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.autoOpen, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DialogSetting.AutoOpen, true ); }
+			set { this.widgetSetting.DialogSetting.AutoOpen = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -2009,8 +1818,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Buttons
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.buttons ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.buttons, value ); }
+			get { return this.widgetSetting.DialogSetting.Buttons; }
+			set { this.widgetSetting.DialogSetting.Buttons = value; }
 		}
 
 		/// <summary>
@@ -2022,8 +1831,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool CloseOnEscape
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.closeOnEscape ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.closeOnEscape, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DialogSetting.CloseOnEscape, true ); }
+			set { this.widgetSetting.DialogSetting.CloseOnEscape = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -2035,8 +1844,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string CloseText
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.closeText ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.closeText, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DialogSetting.CloseText.Trim ( '\'' ); }
+			set { this.widgetSetting.DialogSetting.CloseText = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -2048,8 +1857,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string DialogClass
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dialogClass ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dialogClass, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DialogSetting.DialogClass.Trim ( '\'' ); }
+			set { this.widgetSetting.DialogSetting.DialogClass = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -2061,8 +1870,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Draggable
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.draggable ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.draggable, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DialogSetting.Draggable, true ); }
+			set { this.widgetSetting.DialogSetting.Draggable = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -2074,8 +1883,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public new int Height
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.height ), -1 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.height, value <= -1 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DialogSetting.Height, -1 ); }
+			set { this.widgetSetting.DialogSetting.Height = value <= -1 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -2087,8 +1896,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Hide
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.hide ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.hide, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DialogSetting.Hide.Trim ( '\'' ); }
+			set { this.widgetSetting.DialogSetting.Hide = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -2100,8 +1909,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int MaxHeight
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.maxHeight ), -1 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.maxHeight, value <= -1 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DialogSetting.MaxHeight, -1 ); }
+			set { this.widgetSetting.DialogSetting.MaxHeight = value <= -1 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -2113,8 +1922,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int MaxWidth
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.maxWidth ), -1 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.maxWidth, value <= -1 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DialogSetting.MaxWidth, -1 ); }
+			set { this.widgetSetting.DialogSetting.MaxWidth = value <= -1 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -2126,8 +1935,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int MinHeight
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.minHeight ), 150 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.minHeight, value <= 0 || value == 150 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DialogSetting.MinHeight, 150 ); }
+			set { this.widgetSetting.DialogSetting.MinHeight = value <= 0 || value == 150 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -2139,8 +1948,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int MinWidth
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.minWidth ), 150 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.minWidth, value <= 0 || value == 150 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DialogSetting.MinWidth, 150 ); }
+			set { this.widgetSetting.DialogSetting.MinWidth = value <= 0 || value == 150 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -2152,8 +1961,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Modal
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.modal ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.modal, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DialogSetting.Modal, true ); }
+			set { this.widgetSetting.DialogSetting.Modal = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -2165,8 +1974,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Position
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.position ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.position, value ); }
+			get { return this.widgetSetting.DialogSetting.Position; }
+			set { this.widgetSetting.DialogSetting.Position = value; }
 		}
 
 		/// <summary>
@@ -2178,8 +1987,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Resizable
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.resizable ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.resizable, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DialogSetting.Resizable, true ); }
+			set { this.widgetSetting.DialogSetting.Resizable = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -2191,8 +2000,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Show
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.show ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.show, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DialogSetting.Show.Trim ( '\'' ); }
+			set { this.widgetSetting.DialogSetting.Show = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -2204,8 +2013,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Stack
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.stack ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.stack, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DialogSetting.Stack, true ); }
+			set { this.widgetSetting.DialogSetting.Stack = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -2217,8 +2026,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Title
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.title ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.title, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DialogSetting.Title.Trim ( '\'' ); }
+			set { this.widgetSetting.DialogSetting.Title = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -2230,8 +2039,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public new int Width
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.width ), 300 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.width, value <= 0 || value == 300 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DialogSetting.Width, 300 ); }
+			set { this.widgetSetting.DialogSetting.Width = value <= 0 || value == 300 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -2243,8 +2052,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int ZIndex
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.zIndex ), 1000 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.zIndex, value <= 0 || value == 1000 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DialogSetting.ZIndex, 1000 ); }
+			set { this.widgetSetting.DialogSetting.ZIndex = value <= 0 || value == 1000 ? string.Empty : value.ToString ( ); }
 		}
 		#endregion
 
@@ -2258,8 +2067,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+			get { return this.widgetSetting.DialogSetting.Create; }
+			set { this.widgetSetting.DialogSetting.Create = value; }
 		}
 
 		/// <summary>
@@ -2271,8 +2080,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string BeforeClose
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.beforeClose ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.beforeClose, value ); }
+			get { return this.widgetSetting.DialogSetting.BeforeClose; }
+			set { this.widgetSetting.DialogSetting.BeforeClose = value; }
 		}
 
 		/// <summary>
@@ -2284,8 +2093,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Open
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.open ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.open, value ); }
+			get { return this.widgetSetting.DialogSetting.Open; }
+			set { this.widgetSetting.DialogSetting.Open = value; }
 		}
 
 		/// <summary>
@@ -2297,8 +2106,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public new string Focus
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.focus ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.focus, value ); }
+			get { return this.widgetSetting.DialogSetting.Focus; }
+			set { this.widgetSetting.DialogSetting.Focus = value; }
 		}
 
 		/// <summary>
@@ -2310,8 +2119,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string DragStart
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dragStart ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dragStart, value ); }
+			get { return this.widgetSetting.DialogSetting.DragStart; }
+			set { this.widgetSetting.DialogSetting.DragStart = value; }
 		}
 
 		/// <summary>
@@ -2323,8 +2132,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Drag
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.drag ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.drag, value ); }
+			get { return this.widgetSetting.DialogSetting.Drag; }
+			set { this.widgetSetting.DialogSetting.Drag = value; }
 		}
 
 		/// <summary>
@@ -2336,8 +2145,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string DragStop
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dragStop ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dragStop, value ); }
+			get { return this.widgetSetting.DialogSetting.DragStop; }
+			set { this.widgetSetting.DialogSetting.DragStop = value; }
 		}
 
 		/// <summary>
@@ -2349,8 +2158,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string ResizeStart
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.resizeStart ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.resizeStart, value ); }
+			get { return this.widgetSetting.DialogSetting.ResizeStart; }
+			set { this.widgetSetting.DialogSetting.ResizeStart = value; }
 		}
 
 		/// <summary>
@@ -2362,8 +2171,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Resize
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.resize ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.resize, value ); }
+			get { return this.widgetSetting.DialogSetting.Resize; }
+			set { this.widgetSetting.DialogSetting.Resize = value; }
 		}
 
 		/// <summary>
@@ -2375,8 +2184,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string ResizeStop
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.resizeStop ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.resizeStop, value ); }
+			get { return this.widgetSetting.DialogSetting.ResizeStop; }
+			set { this.widgetSetting.DialogSetting.ResizeStop = value; }
 		}
 
 		/// <summary>
@@ -2388,8 +2197,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Close
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.close ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.close, value ); }
+			get { return this.widgetSetting.DialogSetting.Close; }
+			set { this.widgetSetting.DialogSetting.Close = value; }
 		}
 		#endregion
 
@@ -2424,9 +2233,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.Type = this.type;
+				// this.widgetSetting.Type = this.type;
 
-				this.widgetSetting.DialogSetting.SetEditHelper ( this.editHelper );
+				// this.widgetSetting.DialogSetting.SetEditHelper ( this.editHelper );
 
 				this.widgetSetting.AjaxSettings.Clear ( );
 
@@ -2444,7 +2253,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 			else if ( this.selector == string.Empty )
-				switch ( this.type )
+				switch ( this.widgetSetting.Type )
 				{
 					case WidgetType.dialog:
 						string style = string.Empty;
@@ -2513,39 +2322,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIProgressbar
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Progressbar.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/JQueryElement.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/RepeaterSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -2560,7 +2336,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 进度条插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Progressbar runat=server></{0}:Progressbar>" )]
-	[DesignerAttribute ( typeof ( ProgressbarDesigner ) )]
+	[Designer ( typeof ( ProgressbarDesigner ) )]
 	public class Progressbar
 		: BaseWidget, IPostBackEventHandler
 	{
@@ -2584,8 +2360,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.ProgressbarSetting.Disabled, false ); }
+			set { this.widgetSetting.ProgressbarSetting.Disabled = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -2597,8 +2373,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Value
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.value ), 0 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.value, value <= 0 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.ProgressbarSetting.Value, 0 ); }
+			set { this.widgetSetting.ProgressbarSetting.Value = value <= 0 ? string.Empty : value.ToString ( ); }
 		}
 		#endregion
 
@@ -2612,8 +2388,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+			get { return this.widgetSetting.ProgressbarSetting.Create; }
+			set { this.widgetSetting.ProgressbarSetting.Create = value; }
 		}
 
 		/// <summary>
@@ -2625,8 +2401,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Change
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.change ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.change, value ); }
+			get { return this.widgetSetting.ProgressbarSetting.Change; }
+			set { this.widgetSetting.ProgressbarSetting.Change = value; }
 		}
 
 		/// <summary>
@@ -2638,8 +2414,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Complete
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.complete ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.complete, value ); }
+			get { return this.widgetSetting.ProgressbarSetting.Complete; }
+			set { this.widgetSetting.ProgressbarSetting.Complete = value; }
 		}
 		#endregion
 
@@ -2688,9 +2464,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.Type = this.type;
+				// this.widgetSetting.Type = this.type;
 
-				this.widgetSetting.ProgressbarSetting.SetEditHelper ( this.editHelper );
+				// this.widgetSetting.ProgressbarSetting.SetEditHelper ( this.editHelper );
 
 				this.widgetSetting.AjaxSettings.Clear ( );
 
@@ -2714,7 +2490,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 			else if ( this.selector == string.Empty )
-				switch ( this.type )
+				switch ( this.widgetSetting.Type )
 				{
 					case WidgetType.progressbar:
 						string style = string.Empty;
@@ -2852,39 +2628,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUISliderOrientationType
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Slider.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/JQueryElement.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/RepeaterSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -2899,7 +2642,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 分割条插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Slider runat=server></{0}:Slider>" )]
-	[DesignerAttribute ( typeof ( SliderDesigner ) )]
+	[Designer ( typeof ( SliderDesigner ) )]
 	public class Slider
 		: BaseWidget, IPostBackEventHandler
 	{
@@ -2942,8 +2685,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.SliderSetting.Disabled, false ); }
+			set { this.widgetSetting.SliderSetting.Disabled = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -2955,8 +2698,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Animate
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.animate ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.animate, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.SliderSetting.Animate, false ); }
+			set { this.widgetSetting.SliderSetting.Animate = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -2968,8 +2711,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Max
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.max ), 100 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.max, value <= 0 || value == 100 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.SliderSetting.Max, 100 ); }
+			set { this.widgetSetting.SliderSetting.Max = value <= 0 || value == 100 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -2981,8 +2724,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Min
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.min ), 0 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.min, value <= 0 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.SliderSetting.Min, 0 ); }
+			set { this.widgetSetting.SliderSetting.Min = value <= 0 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -2994,8 +2737,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public OrientationType Orientation
 		{
-			get { return this.getEnum<OrientationType> ( this.editHelper.GetOuterOptionEditValue ( OptionType.orientation ), OrientationType.horizontal ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.orientation, value == OrientationType.horizontal ? string.Empty : "'" + value.ToString ( ) + "'" ); }
+			get { return this.getEnum<OrientationType> ( this.widgetSetting.SliderSetting.Orientation, OrientationType.horizontal ); }
+			set { this.widgetSetting.SliderSetting.Orientation = value == OrientationType.horizontal ? string.Empty : "'" + value.ToString ( ) + "'"; }
 		}
 
 		/// <summary>
@@ -3007,8 +2750,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Range
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.range ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.range, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.SliderSetting.Range, false ); }
+			set { this.widgetSetting.SliderSetting.Range = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -3020,8 +2763,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Step
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.step ), 1 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.step, value <= 1 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.SliderSetting.Step, 1 ); }
+			set { this.widgetSetting.SliderSetting.Step = value <= 1 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -3033,8 +2776,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Value
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.value ), 0 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.value, value <= 0 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.SliderSetting.Value, 0 ); }
+			set { this.widgetSetting.SliderSetting.Value = value <= 0 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -3046,8 +2789,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Values
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.values ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.values, value ); }
+			get { return this.widgetSetting.SliderSetting.Values; }
+			set { this.widgetSetting.SliderSetting.Values = value; }
 		}
 		#endregion
 
@@ -3061,8 +2804,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+			get { return this.widgetSetting.SliderSetting.Create; }
+			set { this.widgetSetting.SliderSetting.Create = value; }
 		}
 
 		/// <summary>
@@ -3074,8 +2817,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Start
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.start ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.start, value ); }
+			get { return this.widgetSetting.SliderSetting.Start; }
+			set { this.widgetSetting.SliderSetting.Start = value; }
 		}
 
 		/// <summary>
@@ -3087,8 +2830,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Slide
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.slide ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.slide, value ); }
+			get { return this.widgetSetting.SliderSetting.Slide; }
+			set { this.widgetSetting.SliderSetting.Slide = value; }
 		}
 
 		/// <summary>
@@ -3100,8 +2843,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Change
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.change ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.change, value ); }
+			get { return this.widgetSetting.SliderSetting.Change; }
+			set { this.widgetSetting.SliderSetting.Change = value; }
 		}
 
 		/// <summary>
@@ -3113,8 +2856,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Stop
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.stop ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.stop, value ); }
+			get { return this.widgetSetting.SliderSetting.Stop; }
+			set { this.widgetSetting.SliderSetting.Stop = value; }
 		}
 		#endregion
 
@@ -3146,9 +2889,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.Type = this.type;
+				// this.widgetSetting.Type = this.type;
 
-				this.widgetSetting.SliderSetting.SetEditHelper ( this.editHelper );
+				// this.widgetSetting.SliderSetting.SetEditHelper ( this.editHelper );
 
 				this.widgetSetting.AjaxSettings.Clear ( );
 
@@ -3163,7 +2906,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 			else if ( this.selector == string.Empty )
-				switch ( this.type )
+				switch ( this.widgetSetting.Type )
 				{
 					case WidgetType.slider:
 						string style = string.Empty;
@@ -3279,39 +3022,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUITabs
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Tabs.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/JQueryElement.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/RepeaterSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -3326,7 +3036,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 分组标签插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Tabs runat=server></{0}:Tabs>" )]
-	[DesignerAttribute ( typeof ( TabsDesigner ) )]
+	[Designer ( typeof ( TabsDesigner ) )]
 	public class Tabs
 		: BaseWidget, IPostBackEventHandler
 	{
@@ -3349,8 +3059,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.TabsSetting.Disabled, false ); }
+			set { this.widgetSetting.TabsSetting.Disabled = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -3362,8 +3072,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string AjaxOptions
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.ajaxOptions ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.ajaxOptions, value ); }
+			get { return this.widgetSetting.TabsSetting.AjaxOptions; }
+			set { this.widgetSetting.TabsSetting.AjaxOptions = value; }
 		}
 
 		/// <summary>
@@ -3375,8 +3085,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Cache
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.cache ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.cache, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.TabsSetting.Cache, false ); }
+			set { this.widgetSetting.TabsSetting.Cache = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -3388,8 +3098,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Collapsible
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.collapsible ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.collapsible, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.TabsSetting.Collapsible, false ); }
+			set { this.widgetSetting.TabsSetting.Collapsible = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -3401,8 +3111,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Cookie
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.cookie ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.cookie, value ); }
+			get { return this.widgetSetting.TabsSetting.Cookie; }
+			set { this.widgetSetting.TabsSetting.Cookie = value; }
 		}
 
 		/// <summary>
@@ -3414,8 +3124,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Deselectable
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.deselectable ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.deselectable, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.TabsSetting.Deselectable, false ); }
+			set { this.widgetSetting.TabsSetting.Deselectable = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -3427,8 +3137,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public EventType Event
 		{
-			get { return this.getEnum<EventType> ( this.editHelper.GetOuterOptionEditValue ( OptionType.@event ), EventType.click ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.@event, "'" + value + "'" ); }
+			get { return this.getEnum<EventType> ( this.widgetSetting.TabsSetting.Event, EventType.click ); }
+			set { this.widgetSetting.TabsSetting.Event = "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -3440,8 +3150,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Fx
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.fx ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.fx, value ); }
+			get { return this.widgetSetting.TabsSetting.Fx; }
+			set { this.widgetSetting.TabsSetting.Fx = value; }
 		}
 
 		/// <summary>
@@ -3453,8 +3163,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string IdPrefix
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.idPrefix ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.idPrefix, string.IsNullOrEmpty ( value ) || value == "ui-tabs-" ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.TabsSetting.IdPrefix.Trim ( '\'' ); }
+			set { this.widgetSetting.TabsSetting.IdPrefix = string.IsNullOrEmpty ( value ) || value == "ui-tabs-" ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -3466,8 +3176,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string PanelTemplate
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.panelTemplate ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.panelTemplate, string.IsNullOrEmpty ( value ) || value == "<div></div>" ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.TabsSetting.PanelTemplate.Trim ( '\'' ); }
+			set { this.widgetSetting.TabsSetting.PanelTemplate = string.IsNullOrEmpty ( value ) || value == "<div></div>" ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -3479,8 +3189,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Selected
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.selected ), 0 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.selected, value <= 0 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.TabsSetting.Selected, 0 ); }
+			set { this.widgetSetting.TabsSetting.Selected = value <= 0 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -3492,8 +3202,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Spinner
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.spinner ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.spinner, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.TabsSetting.Spinner.Trim ( '\'' ); }
+			set { this.widgetSetting.TabsSetting.Spinner = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -3505,8 +3215,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string TabTemplate
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.tabTemplate ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.tabTemplate, string.IsNullOrEmpty ( value ) || value == "<li><a href=#{href}><span>#{label}</span></a></li>" ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.TabsSetting.TabTemplate.Trim ( '\'' ); }
+			set { this.widgetSetting.TabsSetting.TabTemplate = string.IsNullOrEmpty ( value ) || value == "<li><a href=#{href}><span>#{label}</span></a></li>" ? string.Empty : "'" + value + "'"; }
 		}
 		#endregion
 
@@ -3520,8 +3230,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+			get { return this.widgetSetting.TabsSetting.Create; }
+			set { this.widgetSetting.TabsSetting.Create = value; }
 		}
 
 		/// <summary>
@@ -3533,8 +3243,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Select
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.select ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.select, value ); }
+			get { return this.widgetSetting.TabsSetting.Select; }
+			set { this.widgetSetting.TabsSetting.Select = value; }
 		}
 
 		/// <summary>
@@ -3546,8 +3256,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public new string Load
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.load ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.load, value ); }
+			get { return this.widgetSetting.TabsSetting.Load; }
+			set { this.widgetSetting.TabsSetting.Load = value; }
 		}
 
 		/// <summary>
@@ -3559,8 +3269,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Show
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.show ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.show, value ); }
+			get { return this.widgetSetting.TabsSetting.Show; }
+			set { this.widgetSetting.TabsSetting.Show = value; }
 		}
 
 		/// <summary>
@@ -3572,8 +3282,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Add
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.add ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.add, value ); }
+			get { return this.widgetSetting.TabsSetting.Add; }
+			set { this.widgetSetting.TabsSetting.Add = value; }
 		}
 
 		/// <summary>
@@ -3585,8 +3295,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Remove
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.remove ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.remove, value ); }
+			get { return this.widgetSetting.TabsSetting.Remove; }
+			set { this.widgetSetting.TabsSetting.Remove = value; }
 		}
 
 		/// <summary>
@@ -3598,8 +3308,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Enable
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.enable ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.enable, value ); }
+			get { return this.widgetSetting.TabsSetting.Enable; }
+			set { this.widgetSetting.TabsSetting.Enable = value; }
 		}
 
 		/// <summary>
@@ -3611,8 +3321,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Disable
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disable ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disable, value ); }
+			get { return this.widgetSetting.TabsSetting.Disable; }
+			set { this.widgetSetting.TabsSetting.Disable = value; }
 		}
 		#endregion
 
@@ -3643,9 +3353,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.Type = this.type;
+				// this.widgetSetting.Type = this.type;
 
-				this.widgetSetting.TabsSetting.SetEditHelper ( this.editHelper );
+				// this.widgetSetting.TabsSetting.SetEditHelper ( this.editHelper );
 
 				this.widgetSetting.AjaxSettings.Clear ( );
 
@@ -3661,7 +3371,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 			else if ( this.selector == string.Empty )
-				switch ( this.type )
+				switch ( this.widgetSetting.Type )
 				{
 					case WidgetType.tabs:
 						string style = string.Empty;
@@ -3803,38 +3513,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIBaseWidget
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryElement.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/RepeaterSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -3842,51 +3520,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 
 
-// HACK: 避免在 allinone 文件中的名称冲突
-
 namespace zoyobar.shared.panzer.ui.jqueryui
 {
-
-	#region " ElementType "
-	/// <summary>
-	/// 页面元素的类型.
-	/// </summary>
-	public enum ElementType
-	{
-		/// <summary>
-		/// 没有任何页面元素.
-		/// </summary>
-		None = 0,
-		/// <summary>
-		/// div 元素.
-		/// </summary>
-		Div = 1,
-		/// <summary>
-		/// span 元素.
-		/// </summary>
-		Span = 2,
-		/// <summary>
-		/// p 元素.
-		/// </summary>
-		P = 3,
-		/// <summary>
-		/// ul 元素.
-		/// </summary>
-		Ul = 4,
-		/// <summary>
-		/// li 元素.
-		/// </summary>
-		Li = 5,
-		/// <summary>
-		/// input 元素.
-		/// </summary>
-		Input = 6,
-		/// <summary>
-		/// button 元素.
-		/// </summary>
-		Button = 7,
-	}
-	#endregion
 
 	#region " JQueryElement "
 	/// <summary>
@@ -3894,604 +3529,104 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// </summary>
 	// [DefaultProperty ( "Html" )]
 	[ToolboxData ( "<{0}:JQueryElement runat=server></{0}:JQueryElement>" )]
-	[ParseChildren ( true )]
-	[PersistChildren ( false )]
 	[DesignerAttribute ( typeof ( JQueryElementDesigner ) )]
 	public class JQueryElement
-		: WebControl, INamingContainer
+		: BaseJQueryElement
 	{
-
-		private static string escapeCharacter ( string text )
-		{
-
-			if ( string.IsNullOrEmpty ( text ) )
-				return string.Empty;
-
-			return text.Replace ( "\\", "\\\\" ).Replace ( "\'", "\\'" ).Replace ( "\"", "\\\"" ).Replace ( "\n", "\\n" ).Replace ( "\t", "\\t" ).Replace ( "\r", "\\r" );
-		}
-
-		public static string renderTemplate ( PlaceHolder holder )
-		{
-
-			if ( null == holder )
-				return string.Empty;
-
-			StringWriter writer = new StringWriter ( );
-
-			holder.RenderControl ( new HtmlTextWriter ( writer ) );
-
-			return writer.ToString ( );
-		}
-
-		protected ElementType elementType = ElementType.None;
-		protected string attribute = string.Empty;
-		private bool isVariable = false;
-		protected string selector = string.Empty;
-
-		private DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
-		private DroppableSettingEdit droppableSetting = new DroppableSettingEdit ( );
-		private SortableSettingEdit sortableSetting = new SortableSettingEdit ( );
-		private SelectableSettingEdit selectableSetting = new SelectableSettingEdit ( );
-		private ResizableSettingEdit resizableSetting = new ResizableSettingEdit ( );
-
-		protected WidgetSettingEdit widgetSetting = new WidgetSettingEdit ( );
-
-		private RepeaterSettingEdit repeaterSetting = new RepeaterSettingEdit ( );
-
-		protected readonly PlaceHolder html = new PlaceHolder ( );
-
-		/// <summary>
-		/// 和设计时有关, 没有任何意义.
-		/// </summary>
-		[Browsable ( false )]
-		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public string Nothing
-		{
-			get { return string.Empty; }
-			set { }
-		}
 
 		/// <summary>
 		/// 获取或设置元素的拖动设置.
 		/// </summary>
-		[Category ( "jQuery UI" )]
-		[Description ( "元素相关的拖动设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public virtual DraggableSettingEdit DraggableSetting
+		public override DraggableSettingEdit DraggableSetting
 		{
-			get { return this.draggableSetting; }
-			set
-			{
-
-				if ( null != value )
-					this.draggableSetting = value;
-
-			}
+			get { return base.DraggableSetting; }
+			set { base.DraggableSetting = value; }
 		}
 
 		/// <summary>
 		/// 获取或设置元素的拖放设置.
 		/// </summary>
-		[Category ( "jQuery UI" )]
-		[Description ( "元素相关的拖放设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public virtual DroppableSettingEdit DroppableSetting
+		public override DroppableSettingEdit DroppableSetting
 		{
-			get { return this.droppableSetting; }
-			set
-			{
-
-				if ( null != value )
-					this.droppableSetting = value;
-
-			}
+			get { return base.DroppableSetting; }
+			set { base.DroppableSetting = value; }
 		}
 
 		/// <summary>
 		/// 获取或设置元素的排列设置.
 		/// </summary>
-		[Category ( "jQuery UI" )]
-		[Description ( "元素相关的排列设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public virtual SortableSettingEdit SortableSetting
+		public override SortableSettingEdit SortableSetting
 		{
-			get { return this.sortableSetting; }
-			set
-			{
-
-				if ( null != value )
-					this.sortableSetting = value;
-
-			}
+			get { return base.SortableSetting; }
+			set { base.SortableSetting = value; }
 		}
 
 		/// <summary>
 		/// 获取或设置元素的选中设置.
 		/// </summary>
-		[Category ( "jQuery UI" )]
-		[Description ( "元素相关的选中设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public virtual SelectableSettingEdit SelectableSetting
+		public override SelectableSettingEdit SelectableSetting
 		{
-			get { return this.selectableSetting; }
-			set
-			{
-
-				if ( null != value )
-					this.selectableSetting = value;
-
-			}
+			get { return base.SelectableSetting; }
+			set { base.SelectableSetting = value; }
 		}
 
 		/// <summary>
 		/// 获取或设置元素的缩放设置.
 		/// </summary>
-		[Category ( "jQuery UI" )]
-		[Description ( "元素相关的缩放设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public virtual ResizableSettingEdit ResizableSetting
+		public override ResizableSettingEdit ResizableSetting
 		{
-			get { return this.resizableSetting; }
-			set
-			{
-
-				if ( null != value )
-					this.resizableSetting = value;
-
-			}
+			get { return base.ResizableSetting; }
+			set { base.ResizableSetting = value; }
 		}
 
 		/// <summary>
 		/// 获取或设置元素的 Widget 设置.
 		/// </summary>
-		[Category ( "jQuery UI" )]
-		[Description ( "元素相关的 Widget 设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public virtual WidgetSettingEdit WidgetSetting
+		public override WidgetSettingEdit WidgetSetting
 		{
-			get { return this.widgetSetting; }
-			set
-			{
-
-				if ( null != value )
-					this.widgetSetting = value;
-
-			}
+			get { return base.WidgetSetting; }
+			set { base.WidgetSetting = value; }
 		}
 
 		/// <summary>
 		/// 获取或设置元素的 Repeater 设置.
 		/// </summary>
-		[Category ( "jQuery UI" )]
-		[Description ( "元素相关的 Repeater 设置, 前提 ElementType 不能为 None" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public virtual RepeaterSettingEdit RepeaterSetting
+		public override RepeaterSettingEdit RepeaterSetting
 		{
-			get { return this.repeaterSetting; }
-			set
-			{
-
-				if ( null != value )
-					this.repeaterSetting = value;
-
-			}
+			get { return base.RepeaterSetting; }
+			set { base.RepeaterSetting = value; }
 		}
 
 		/// <summary>
 		/// 获取 PlaceHolder 控件, 其中包含了元素中包含的 html 代码. 
 		/// </summary>
-		[Browsable ( false )]
-		[Category ( "jQuery UI" )]
-		[Description ( "设置元素中包含的 html 代码" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public virtual PlaceHolder Html
+		public override PlaceHolder Html
 		{
-			get { return this.html; }
+			get { return base.Html; }
 		}
-
-		/// <summary>
-		/// 获取或设置元素的类型.
-		/// </summary>
-		[Category ( "jQuery UI" )]
-		[Description ( "最终在页面上生成的元素类型, 比如: Span, Div, 默认为 None, 不生成任何元素" )]
-		[DefaultValue ( ElementType.None )]
-		public virtual ElementType ElementType
-		{
-			get { return this.elementType; }
-			set { this.elementType = value; }
-		}
-
-		/// <summary>
-		/// 获取或设置是否生成 jquery 对应的 javascript 变量, 如果使用了 Repeater, 则在运行时自动调整为 true.
-		/// </summary>
-		[Category ( "jQuery UI" )]
-		[Description ( "是否以 ClientID 生成对应的 javascript 变量, 如果使用了 Repeater, 则在运行时自动调整为 true" )]
-		[DefaultValue ( false )]
-		public virtual bool IsVariable
-		{
-			get { return this.isVariable; }
-			set { this.isVariable = value; }
-		}
-
-		/// <summary>
-		/// 获取或设置选择器, 将针对此选择器对应的元素执行操作, 比如: "'#age'", 默认为自身.
-		/// </summary>
-		[Category ( "jQuery UI" )]
-		[Description ( "选择器, 将针对此选择器对应的元素执行操作, 比如: \"'#age'\", 默认为自身" )]
-		[DefaultValue ( "" )]
-		public virtual string Selector
-		{
-			get { return this.selector; }
-			set
-			{
-
-				if ( null != value )
-					this.selector = value;
-
-			}
-		}
-
-		/// <summary>
-		/// 获取或设置元素的属性.
-		/// </summary>
-		[Category ( "jQuery UI" )]
-		[Description ( "最终在页面上生成的元素的属性" )]
-		[DefaultValue ( "" )]
-		public virtual string Attribute
-		{
-			get { return this.attribute; }
-			set
-			{
-
-				if ( null != value )
-					this.attribute = value;
-
-			}
-		}
-
-		#region " hide "
-
-		/// <summary>
-		/// 在 JQueryElement 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override string AccessKey
-		{
-			get { return string.Empty; }
-			set { }
-		}
-
-		/// <summary>
-		/// 在 JQueryElement 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override Color BackColor
-		{
-			get { return Color.Empty; }
-			set { }
-		}
-
-		/// <summary>
-		/// 在 JQueryElement 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override Color BorderColor
-		{
-			get { return Color.Empty; }
-			set { }
-		}
-
-		/// <summary>
-		/// 在 JQueryElement 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override NBorderStyle BorderStyle
-		{
-			get { return NBorderStyle.None; }
-			set { }
-		}
-
-		/// <summary>
-		/// 在 JQueryElement 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override Unit BorderWidth
-		{
-			get { return Unit.Empty; }
-			set { }
-		}
-
-		/// <summary>
-		/// 在 JQueryElement 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override bool Enabled
-		{
-			get { return true; }
-			set { }
-		}
-
-		/// <summary>
-		/// 在 JQueryElement 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override bool EnableTheming
-		{
-			get { return false; }
-			set { }
-		}
-
-		/// <summary>
-		/// 在 JQueryElement 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override FontInfo Font
-		{
-			get { return base.Font; }
-		}
-
-		/// <summary>
-		/// 在 JQueryElement 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override Color ForeColor
-		{
-			get { return Color.Empty; }
-			set { }
-		}
-
-		/// <summary>
-		/// 在 JQueryElement 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override string SkinID
-		{
-			get { return string.Empty; }
-			set { }
-		}
-
-		/// <summary>
-		/// 在 JQueryElement 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override short TabIndex
-		{
-			get { return -1; }
-			set { }
-		}
-
-		#endregion
 
 		/// <summary>
 		/// 创建一个 JQueryElement.
 		/// </summary>
 		public JQueryElement ( )
 			: base ( )
-		{
-			this.EnableViewState = false;
-
-			this.Controls.Add ( this.html );
-			this.Controls.Add ( this.repeaterSetting.Header );
-			this.Controls.Add ( this.repeaterSetting.Item );
-			this.Controls.Add ( this.repeaterSetting.EditItem );
-			this.Controls.Add ( this.repeaterSetting.Empty );
-			this.Controls.Add ( this.repeaterSetting.Footer );
-		}
-
-		protected override void Render ( HtmlTextWriter writer )
-		{
-
-			if ( !this.Visible )
-				return;
-
-			JQueryUI jquery = new JQueryUI ( string.IsNullOrEmpty ( this.selector ) ? string.Format ( "'#{0}'", this.ClientID ) : this.selector );
-
-			if ( this.elementType != ElementType.None )
-			{
-				string style = string.Empty;
-
-				if ( this.Width != Unit.Empty )
-					style += string.Format ( "width:{0};", this.Width );
-
-				if ( this.Height != Unit.Empty )
-					style += string.Format ( "height:{0};", this.Height );
-
-				string attribute = string.Empty;
-
-				foreach ( string key in this.Attributes.Keys )
-					attribute += string.Format ( " {0}={1}", key, this.Attributes[key] );
-
-				writer.Write (
-					"<{0} id={1}{2}{3}{4}{5}{6}{7}>",
-					this.elementType.ToString ( ).ToLower ( ),
-					this.ClientID,
-					string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : " class=" + HttpUtility.HtmlEncode ( this.CssClass ),
-					string.IsNullOrEmpty ( this.ToolTip ) ? string.Empty : " title=" + HttpUtility.HtmlEncode ( this.ToolTip ),
-					string.IsNullOrEmpty ( style ) ? string.Empty : " style=" + HttpUtility.HtmlEncode ( style ),
-					this.attribute == string.Empty ? string.Empty : " " + this.attribute.Trim ( ),
-					attribute,
-					( this.elementType == ElementType.Input ) ? " /" : string.Empty
-					);
-			}
-
-			if ( this.elementType != ElementType.Input )
-			{
-				// base.Render ( writer );
-
-				if ( this.html.Controls.Count != 0 )
-					this.html.RenderControl ( writer );
-				else if ( this.DesignMode )
-					writer.Write ( "<span style='font-size: 12px;'>[<strong>JE:</strong> {0}]</span>", this.ClientID );
-
-				if ( this.elementType != ElementType.None )
-					writer.Write ( "</{0}>", this.elementType.ToString ( ).ToLower ( ) );
-
-			}
-
-			jquery.Draggable ( this.draggableSetting.CreateDraggableSetting ( ) );
-			jquery.Droppable ( this.droppableSetting.CreateDroppableSetting ( ) );
-			jquery.Sortable ( this.sortableSetting.CreateSortableSetting ( ) );
-			jquery.Selectable ( this.selectableSetting.CreateSelectableSetting ( ) );
-			jquery.Resizable ( this.resizableSetting.CreateResizableSetting ( ) );
-
-			jquery.Widget ( this.widgetSetting.CreateWidgetSetting ( ) );
-
-			#region " repeater "
-			string repeaterCode = string.Empty;
-
-			if ( this.repeaterSetting.IsRepeatable )
-			{
-				this.isVariable = true;
-
-				if ( !ScriptHelper.IsBuilt ( this, "__jsRepeater" ) )
-				{
-					ScriptHelper script = new ScriptHelper ( );
-
-					script.AppendCode ( "function repeater(je, fields, attribute, header, footer, item, editItem, empty, rowsName) {\n" +
-
-						"	if (null == je)\n" +
-						"		return;\n" +
-
-						"	je.__fields = (null == fields) ? [] : fields;\n" +
-						"	je.__attributes = (null == attribute) ? [] : attribute;\n" +
-						"	je.__template = { header: (null == header) ? '' : header, footer: (null == footer) ? '' : footer, item: (null == item) ? '' : item, editItem: (null == editItem) ? '' : editItem, empty: (null == empty) ? '' : empty };\n" +
-						"	je.__setting = { rowsName: (null == rowsName) ? 'rows' : rowsName };\n" +
-
-						"	je.__bind = function (data) {\n" +
-						"		var html = '';\n" +
-						"		var isEmpty = false;\n" +
-						"		html += je.__template.header;\n" +
-
-						"		if (null == data)\n" +
-						"			isEmpty = true;\n" +
-						"		else {\n" +
-						"			var rows = data[je.__setting.rowsName];\n" +
-
-						"			if (null == rows || rows.length == 0)\n" +
-						"				isEmpty = true;\n" +
-						"			else\n" +
-						"				try {\n" +
-
-						"					for (var x = 0; x < rows.length; x++) {\n" +
-						"						var row = rows[x];\n" +
-						"						var rowHtml = je.__template.item;\n" +
-
-						"						for (var y = 0; y < je.__fields.length; y++)\n" +
-						"							rowHtml = rowHtml.replace(eval('/#' + je.__fields[y] + '/g'), row[je.__fields[y]]);\n" +
-
-						"							html += rowHtml;\n" +
-						"					}\n" +
-
-						"				}\n" +
-						"				catch (err) {\n" +
-						"					isEmpty = true;\n" +
-						"				}\n" +
-
-						"		}\n" +
-
-						"		if (isEmpty)\n" +
-						"			html += je.__template.empty;\n" +
-
-						"		html += je.__template.footer;\n" +
-
-						"		for (var x = 0; x < je.__attributes.length; x++)\n" +
-						"			html = html.replace(eval('/\\@' + je.__attributes[x] + '/g'), data[je.__attributes[x]]);\n" +
-
-						"		je.html(html);\n" +
-						"	};\n" +
-
-						"}"
-						);
-
-					script.Build ( this, "__jsRepeater", ScriptBuildOption.Startup );
-				}
-
-				string fieldsCode = string.Empty;
-				string attributesCode = string.Empty;
-
-				foreach ( string field in this.repeaterSetting.Field.Split ( ';' ) )
-					fieldsCode += "'" + escapeCharacter ( field.Trim ( ) ) + "',";
-
-				foreach ( string attribute in this.repeaterSetting.Attribute.Split ( ';' ) )
-					attributesCode += "'" + escapeCharacter ( attribute.Trim ( ) ) + "',";
-
-				repeaterCode += "repeater(window['" + this.ClientID + "'], " +
-					( fieldsCode == string.Empty ? "null" : "[" + fieldsCode.TrimEnd ( ',' ) + "]" ) + "," +
-					( attributesCode == string.Empty ? "null" : "[" + attributesCode.TrimEnd ( ',' ) + "]" ) + "," +
-					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Header ) ) + "'," +
-					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Footer ) ) + "'," +
-					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Item ) ) + "'," +
-					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.EditItem ) ) + "'," +
-					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Empty ) ) + "'," +
-					"'" + this.repeaterSetting.RowsName + "'" +
-					");";
-			}
-			#endregion
-
-			jquery.Code = "$(function(){" + ( this.isVariable ? ( "window['" + this.ClientID + "'] = " ) : string.Empty ) + JQueryCoder.Encode ( this, jquery.Code ) + ";" + JQueryCoder.Encode ( this, repeaterCode ) + "});";
-			jquery.Build ( this, this.ClientID, ScriptBuildOption.Startup );
-		}
-
-		protected override void LoadViewState ( object savedState )
-		{
-			base.LoadViewState ( savedState );
-
-			( this.draggableSetting as IStateManager ).LoadViewState ( this.ViewState["DraggableSetting"] );
-			( this.droppableSetting as IStateManager ).LoadViewState ( this.ViewState["DroppableSetting"] );
-			( this.sortableSetting as IStateManager ).LoadViewState ( this.ViewState["SortableSetting"] );
-			( this.selectableSetting as IStateManager ).LoadViewState ( this.ViewState["SelectableSetting"] );
-			( this.resizableSetting as IStateManager ).LoadViewState ( this.ViewState["ResizableSetting"] );
-
-			( this.widgetSetting as IStateManager ).LoadViewState ( this.ViewState["WidgetSetting"] );
-
-			List<object> states = this.ViewState["JQueryElement"] as List<object>;
-
-			if ( null == states )
-				return;
-
-			if ( states.Count >= 1 )
-				this.elementType = ( ElementType ) states[0];
-
-			if ( states.Count >= 2 )
-				this.attribute = states[1] as string;
-
-			if ( states.Count >= 3 )
-				this.isVariable = ( bool ) states[2];
-
-			if ( states.Count >= 4 )
-				this.selector = states[3] as string;
-
-		}
-
-		protected override object SaveViewState ( )
-		{
-			this.ViewState["DraggableSetting"] = ( this.draggableSetting as IStateManager ).SaveViewState ( );
-			this.ViewState["DroppableSetting"] = ( this.droppableSetting as IStateManager ).SaveViewState ( );
-			this.ViewState["SortableSetting"] = ( this.sortableSetting as IStateManager ).SaveViewState ( );
-			this.ViewState["SelectableSetting"] = ( this.selectableSetting as IStateManager ).SaveViewState ( );
-			this.ViewState["ResizableSetting"] = ( this.resizableSetting as IStateManager ).SaveViewState ( );
-
-			this.ViewState["WidgetSetting"] = ( this.widgetSetting as IStateManager ).SaveViewState ( );
-
-			List<object> states = new List<object> ( );
-			states.Add ( this.elementType );
-			states.Add ( this.attribute );
-			states.Add ( this.isVariable );
-			states.Add ( this.selector );
-
-			this.ViewState["JQueryElement"] = states;
-
-			return base.SaveViewState ( );
-		}
+		{ }
 
 	}
 	#endregion
@@ -8370,10 +7505,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// 插件的基础类.
 	/// </summary>
 	public class BaseWidget
-		: JQueryElement
+		: BaseJQueryElement
 	{
-		protected readonly SettingEditHelper editHelper = new SettingEditHelper ( );
-		protected readonly WidgetType type;
 
 		#region " hide "
 
@@ -8381,6 +7514,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 获取或设置元素的拖动设置.
 		/// </summary>
 		[Browsable ( false )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
 		public override DraggableSettingEdit DraggableSetting
 		{
 			get { return base.DraggableSetting; }
@@ -8391,6 +7526,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 获取或设置元素的拖放设置.
 		/// </summary>
 		[Browsable ( false )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
 		public override DroppableSettingEdit DroppableSetting
 		{
 			get { return base.DroppableSetting; }
@@ -8401,6 +7538,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 获取或设置元素的排列设置.
 		/// </summary>
 		[Browsable ( false )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
 		public override SortableSettingEdit SortableSetting
 		{
 			get { return base.SortableSetting; }
@@ -8411,6 +7550,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 获取或设置元素的选中设置.
 		/// </summary>
 		[Browsable ( false )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
 		public override SelectableSettingEdit SelectableSetting
 		{
 			get { return base.SelectableSetting; }
@@ -8421,6 +7562,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 获取或设置元素的缩放设置.
 		/// </summary>
 		[Browsable ( false )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
 		public override ResizableSettingEdit ResizableSetting
 		{
 			get { return base.ResizableSetting; }
@@ -8431,6 +7574,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 获取或设置元素的 Widget 设置.
 		/// </summary>
 		[Browsable ( false )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
 		public override WidgetSettingEdit WidgetSetting
 		{
 			get { return base.WidgetSetting; }
@@ -8452,9 +7597,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 创建一个插件的基础类.
 		/// </summary>
 		/// <param name="type">插件的类型.</param>
-		public BaseWidget ( WidgetType type )
+		protected BaseWidget ( WidgetType type )
 			: base ( )
-		{ this.type = type; }
+		{ this.widgetSetting.Type = type; }
 
 		protected T getEnum<T> ( string text, T defalutValue )
 			where T : struct
@@ -8508,20 +7653,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			return value;
 		}
 
-		protected override void LoadViewState ( object savedState )
-		{
-			base.LoadViewState ( savedState );
-
-			( this.editHelper as IStateManager ).LoadViewState ( this.ViewState["EditHelper"] );
-		}
-
-		protected override object SaveViewState ( )
-		{
-			this.ViewState["EditHelper"] = ( this.editHelper as IStateManager ).SaveViewState ( );
-
-			return base.SaveViewState ( );
-		}
-
 	}
 	#endregion
 
@@ -8533,15 +7664,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIDraggableSettingEditConverter
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DraggableSettingEdit.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -9149,15 +8271,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIDroppableSettingEditConverter
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/DroppableSettingEdit.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -9531,15 +8644,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIResizableSettingEditConverter
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ResizableSettingEdit.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -10030,15 +9134,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUISelectableSettingEditConverter
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SelectableSettingEdit.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -10412,15 +9507,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUISortableSettingEditConverter
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SortableSettingEdit.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -11107,9 +10193,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIOptionEditCollectionEditor
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -11320,9 +10403,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIEventEditCollectionEditor
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -11533,9 +10613,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIParameterEditCollectionEditor
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -11775,17 +10852,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIAjaxSettingEditCollectionEditor
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/ParameterEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -12218,16 +11284,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIEmptySettingEditConverter
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/WidgetSettingEdit.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/AjaxSettingEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -16157,9 +15213,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIRepeaterSettingEditConverter
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/RepeaterSettingEdit.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/StringConvert.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -16465,14 +15518,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUISettingEditHelper
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/OptionEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/EventEdit.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/SettingEditHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
-
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -17128,8 +16173,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * wiki: http://code.google.com/p/zsharedcode/wiki/JQueryUIDraggableSetting
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -17179,8 +16222,6 @@ namespace zoyobar.shared.panzer.web.jqueryui
  * wiki: http://code.google.com/p/zsharedcode/wiki/JQueryUIDroppableSetting
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -17230,8 +16271,6 @@ namespace zoyobar.shared.panzer.web.jqueryui
  * wiki: http://code.google.com/p/zsharedcode/wiki/JQueryUIResizableSetting
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -17281,8 +16320,6 @@ namespace zoyobar.shared.panzer.web.jqueryui
  * wiki: http://code.google.com/p/zsharedcode/wiki/JQueryUISelectableSetting
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -17332,8 +16369,6 @@ namespace zoyobar.shared.panzer.web.jqueryui
  * wiki: http://code.google.com/p/zsharedcode/wiki/JQueryUISortableSetting
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -17506,21 +16541,6 @@ namespace zoyobar.shared.panzer.web.jqueryui
  * wiki: http://code.google.com/p/zsharedcode/wiki/JQueryUI
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/JQueryUI.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DraggableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/DroppableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SortableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/SelectableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ResizableSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -19242,9 +18262,6 @@ namespace zoyobar.shared.panzer.web.jqueryui
  * wiki: http://code.google.com/p/zsharedcode/wiki/JQueryUIAjaxSetting
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Parameter.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -19358,10 +18375,6 @@ namespace zoyobar.shared.panzer.web.jqueryui
  * wiki: http://code.google.com/p/zsharedcode/wiki/JQueryUIWidgetSetting
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AjaxSetting.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Option.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -19480,11 +18493,6 @@ namespace zoyobar.shared.panzer.web.jqueryui
  * wiki: http://code.google.com/p/zsharedcode/wiki/JQuery
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -21603,10 +20611,6 @@ namespace zoyobar.shared.panzer.web
  * wiki: http://code.google.com/p/zsharedcode/wiki/ScriptHelper
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
  * 测试文件:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/test/testsite/TestScriptHelper.aspx
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/test/testsite/TestScriptHelper.aspx.cs

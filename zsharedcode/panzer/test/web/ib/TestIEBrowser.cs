@@ -24,12 +24,12 @@ namespace zoyobar.shared.panzer.test.web
 			//new ib.FormIEBrowser ( ).ShowDialog ( );
 			//new ib.FormIEBrowser2 ( ).ShowDialog ( );
 			//new ib.FormIEBrowser3 ( ).ShowDialog ( );
-			//new ib.FormIEBrowserDoc ( ).ShowDialog ( );
+			new ib.FormIEBrowserDoc ( ).ShowDialog ( );
 			//new ib.FormIEBrowserTemp ( ).ShowDialog ( );
 			//new ib.FormIEBrowserManaged ( ).ShowDialog ( );
 			//new ib.FormIEBrowser4 ( ).ShowDialog ( );
 			//new ib.FormIEBrowser5 ( ).ShowDialog ( );
-			new ib.ieplus.FormMain ( ).ShowDialog ( );
+			//new ib.ieplus.FormMain ( ).ShowDialog ( );
 			//new ib.FormIEBrowserButtonClick ( ).ShowDialog ( );
 		}
 
