@@ -990,6 +990,12 @@ namespace zoyobar.shared.panzer.web.ib
 		public void InstallTrace ( )
 		{ this.installScript ( "__jsTrace", null, "function __set(name, value){if(null == name){return;}window[name] = eval(value);}function __get(name){if(null == name){return null;}else{return window[name];}}", false ); }
 
+		/// <summary>
+		/// 安装智能脚本到 WebBrowser, 可以进行一些智能的编辑.
+		/// </summary>
+		public void InstallSmart ( )
+		{ this.installScript ( "__jsSmart", null, "function __set(name, value){if(null == name){return;}window[name] = eval(value);}function __get(name){if(null == name){return null;}else{return window[name];}}", false ); }
+
 #if PARAM
 		/// <summary>
 		/// 安装指定地址的 jQuery 脚本到 WebBrowser 控件.

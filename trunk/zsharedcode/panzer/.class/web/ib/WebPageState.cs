@@ -5,6 +5,8 @@
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageCondition.cs
  * 引用代码:
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageAction.cs
+ * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageCondition.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * 版本: 1.2, .net 4.0, 其它版本可能有所不同
  * 
@@ -51,7 +53,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startActions">地址跳转行为.</param>
+		/// <param name="startActions">开始时的行为.</param>
 		/// <param name="completedAction">页面状态完成后的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="failedAction">页面状态失败后的行为.</param>
@@ -68,7 +70,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startAction">地址跳转行为.</param>
+		/// <param name="startAction">开始时的行为.</param>
 		/// <param name="completedAction">页面状态完成后的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="failedAction">页面状态失败后的行为.</param>
@@ -85,7 +87,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startActions">地址跳转行为.</param>
+		/// <param name="startActions">开始时的行为.</param>
 		/// <param name="completedActions">页面状态完成后的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="failedActions">页面状态失败后的行为.</param>
@@ -98,7 +100,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startActions">地址跳转行为.</param>
+		/// <param name="startActions">开始时的行为.</param>
 		/// <param name="completedActions">页面状态完成后的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="failedActions">页面状态失败后的行为.</param>
@@ -120,7 +122,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startActions">地址跳转行为.</param>
+		/// <param name="startActions">开始时的行为.</param>
 		public WebPageState ( string name, WebPageAction[] startActions )
 			: this ( name, startActions, null, null, null, null, null, 0 )
 		{ }
@@ -128,7 +130,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startAction">地址跳转行为.</param>
+		/// <param name="startAction">开始时的行为.</param>
 		public WebPageState ( string name, WebPageAction startAction )
 			: this ( name, new WebPageAction[] { startAction }, null, null, null, null, null, 0 )
 		{ }
@@ -147,7 +149,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startAction">地址跳转行为.</param>
+		/// <param name="startAction">开始时的行为.</param>
 		/// <param name="condition">成此页面状态的条件.</param>
 		/// <param name="timeout">超时秒数.</param>
 		public WebPageState ( string name, WebPageAction startAction, WebPageCondition condition, int timeout )
@@ -157,7 +159,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startActions">地址跳转行为.</param>
+		/// <param name="startActions">开始时的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="condition">成此页面状态的条件.</param>
 		public WebPageState ( string name, WebPageAction[] startActions, WebPageNextStateSetting completedStateSetting, WebPageCondition condition )
@@ -167,7 +169,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startActions">地址跳转行为.</param>
+		/// <param name="startActions">开始时的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="failedStateSetting">页面状态失败后会转到的状态的名称.</param>
 		/// <param name="condition">成此页面状态的条件.</param>
@@ -180,7 +182,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startAction">地址跳转行为.</param>
+		/// <param name="startAction">开始时的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		public WebPageState ( string name, WebPageAction startAction, WebPageNextStateSetting completedStateSetting )
 			: this ( name, new WebPageAction[] { startAction }, null, completedStateSetting, null, null, null, 0 )
@@ -189,7 +191,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startAction">地址跳转行为.</param>
+		/// <param name="startAction">开始时的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="failedStateSetting">页面状态失败后会转到的状态的名称.</param>
 		/// <param name="timeout">超时秒数.</param>
@@ -211,7 +213,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startAction">地址跳转行为.</param>
+		/// <param name="startAction">开始时的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="failedStateSetting">页面状态失败后会转到的状态的名称.</param>
 		/// <param name="condition">成此页面状态的条件.</param>
@@ -223,7 +225,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startAction">地址跳转行为.</param>
+		/// <param name="startAction">开始时的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="condition">成此页面状态的条件.</param>
 		public WebPageState ( string name, WebPageAction startAction, WebPageNextStateSetting completedStateSetting, WebPageCondition condition )
@@ -234,7 +236,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startActions">地址跳转行为.</param>
+		/// <param name="startActions">开始时的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		public WebPageState ( string name, WebPageAction[] startActions, WebPageNextStateSetting completedStateSetting )
 			: this ( name, startActions, null, completedStateSetting, null, null, null, 0 )
@@ -244,7 +246,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startActions">地址跳转行为.</param>
+		/// <param name="startActions">开始时的行为.</param>
 		/// <param name="completedActions">页面状态完成后的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="conditions">成此页面状态的条件.</param>

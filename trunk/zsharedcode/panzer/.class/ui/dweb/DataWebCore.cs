@@ -8,12 +8,6 @@
  * http://code.google.com/p/zsharedcode/wiki/QuerySetting
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/dweb/DataWebCore.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.interface/ui/dweb/IDataWeb.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/dwindow/DataWindowCore.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.interface/ui/dwindow/IDataWindow.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/Window.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.interface/ui/IWindow.cs
  * 合并下载:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/DataWebCore.all.cs
  * 版本: 1.1, .net 4.0, 其它版本可能有所不同
