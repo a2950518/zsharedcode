@@ -49,8 +49,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DialogSetting.Disabled, false ); }
+			set { this.widgetSetting.DialogSetting.Disabled = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -62,8 +62,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool AutoOpen
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.autoOpen ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.autoOpen, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DialogSetting.AutoOpen, true ); }
+			set { this.widgetSetting.DialogSetting.AutoOpen = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -75,8 +75,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Buttons
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.buttons ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.buttons, value ); }
+			get { return this.widgetSetting.DialogSetting.Buttons; }
+			set { this.widgetSetting.DialogSetting.Buttons = value; }
 		}
 
 		/// <summary>
@@ -88,8 +88,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool CloseOnEscape
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.closeOnEscape ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.closeOnEscape, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DialogSetting.CloseOnEscape, true ); }
+			set { this.widgetSetting.DialogSetting.CloseOnEscape = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -101,8 +101,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string CloseText
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.closeText ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.closeText, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DialogSetting.CloseText.Trim ( '\'' ); }
+			set { this.widgetSetting.DialogSetting.CloseText = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -114,8 +114,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string DialogClass
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dialogClass ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dialogClass, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DialogSetting.DialogClass.Trim ( '\'' ); }
+			set { this.widgetSetting.DialogSetting.DialogClass = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -127,8 +127,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Draggable
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.draggable ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.draggable, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DialogSetting.Draggable, true ); }
+			set { this.widgetSetting.DialogSetting.Draggable = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -140,8 +140,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public new int Height
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.height ), -1 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.height, value <= -1 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DialogSetting.Height, -1 ); }
+			set { this.widgetSetting.DialogSetting.Height = value <= -1 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -153,8 +153,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Hide
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.hide ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.hide, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DialogSetting.Hide.Trim ( '\'' ); }
+			set { this.widgetSetting.DialogSetting.Hide = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -166,8 +166,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int MaxHeight
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.maxHeight ), -1 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.maxHeight, value <= -1 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DialogSetting.MaxHeight, -1 ); }
+			set { this.widgetSetting.DialogSetting.MaxHeight = value <= -1 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -179,8 +179,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int MaxWidth
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.maxWidth ), -1 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.maxWidth, value <= -1 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DialogSetting.MaxWidth, -1 ); }
+			set { this.widgetSetting.DialogSetting.MaxWidth = value <= -1 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -192,8 +192,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int MinHeight
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.minHeight ), 150 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.minHeight, value <= 0 || value == 150 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DialogSetting.MinHeight, 150 ); }
+			set { this.widgetSetting.DialogSetting.MinHeight = value <= 0 || value == 150 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -205,8 +205,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int MinWidth
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.minWidth ), 150 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.minWidth, value <= 0 || value == 150 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DialogSetting.MinWidth, 150 ); }
+			set { this.widgetSetting.DialogSetting.MinWidth = value <= 0 || value == 150 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -218,8 +218,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Modal
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.modal ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.modal, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DialogSetting.Modal, true ); }
+			set { this.widgetSetting.DialogSetting.Modal = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -231,8 +231,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Position
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.position ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.position, value ); }
+			get { return this.widgetSetting.DialogSetting.Position; }
+			set { this.widgetSetting.DialogSetting.Position = value; }
 		}
 
 		/// <summary>
@@ -244,8 +244,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Resizable
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.resizable ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.resizable, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DialogSetting.Resizable, true ); }
+			set { this.widgetSetting.DialogSetting.Resizable = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -257,8 +257,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Show
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.show ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.show, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DialogSetting.Show.Trim ( '\'' ); }
+			set { this.widgetSetting.DialogSetting.Show = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -270,8 +270,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Stack
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.stack ), true ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.stack, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.DialogSetting.Stack, true ); }
+			set { this.widgetSetting.DialogSetting.Stack = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -283,8 +283,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Title
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.title ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.title, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.DialogSetting.Title.Trim ( '\'' ); }
+			set { this.widgetSetting.DialogSetting.Title = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -296,8 +296,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public new int Width
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.width ), 300 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.width, value <= 0 || value == 300 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DialogSetting.Width, 300 ); }
+			set { this.widgetSetting.DialogSetting.Width = value <= 0 || value == 300 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -309,8 +309,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int ZIndex
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.zIndex ), 1000 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.zIndex, value <= 0 || value == 1000 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.DialogSetting.ZIndex, 1000 ); }
+			set { this.widgetSetting.DialogSetting.ZIndex = value <= 0 || value == 1000 ? string.Empty : value.ToString ( ); }
 		}
 		#endregion
 
@@ -324,8 +324,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+			get { return this.widgetSetting.DialogSetting.Create; }
+			set { this.widgetSetting.DialogSetting.Create = value; }
 		}
 
 		/// <summary>
@@ -337,8 +337,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string BeforeClose
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.beforeClose ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.beforeClose, value ); }
+			get { return this.widgetSetting.DialogSetting.BeforeClose; }
+			set { this.widgetSetting.DialogSetting.BeforeClose = value; }
 		}
 
 		/// <summary>
@@ -350,8 +350,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Open
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.open ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.open, value ); }
+			get { return this.widgetSetting.DialogSetting.Open; }
+			set { this.widgetSetting.DialogSetting.Open = value; }
 		}
 
 		/// <summary>
@@ -363,8 +363,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public new string Focus
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.focus ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.focus, value ); }
+			get { return this.widgetSetting.DialogSetting.Focus; }
+			set { this.widgetSetting.DialogSetting.Focus = value; }
 		}
 
 		/// <summary>
@@ -376,8 +376,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string DragStart
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dragStart ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dragStart, value ); }
+			get { return this.widgetSetting.DialogSetting.DragStart; }
+			set { this.widgetSetting.DialogSetting.DragStart = value; }
 		}
 
 		/// <summary>
@@ -389,8 +389,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Drag
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.drag ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.drag, value ); }
+			get { return this.widgetSetting.DialogSetting.Drag; }
+			set { this.widgetSetting.DialogSetting.Drag = value; }
 		}
 
 		/// <summary>
@@ -402,8 +402,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string DragStop
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.dragStop ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.dragStop, value ); }
+			get { return this.widgetSetting.DialogSetting.DragStop; }
+			set { this.widgetSetting.DialogSetting.DragStop = value; }
 		}
 
 		/// <summary>
@@ -415,8 +415,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string ResizeStart
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.resizeStart ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.resizeStart, value ); }
+			get { return this.widgetSetting.DialogSetting.ResizeStart; }
+			set { this.widgetSetting.DialogSetting.ResizeStart = value; }
 		}
 
 		/// <summary>
@@ -428,8 +428,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Resize
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.resize ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.resize, value ); }
+			get { return this.widgetSetting.DialogSetting.Resize; }
+			set { this.widgetSetting.DialogSetting.Resize = value; }
 		}
 
 		/// <summary>
@@ -441,8 +441,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string ResizeStop
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.resizeStop ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.resizeStop, value ); }
+			get { return this.widgetSetting.DialogSetting.ResizeStop; }
+			set { this.widgetSetting.DialogSetting.ResizeStop = value; }
 		}
 
 		/// <summary>
@@ -454,8 +454,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Close
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.close ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.close, value ); }
+			get { return this.widgetSetting.DialogSetting.Close; }
+			set { this.widgetSetting.DialogSetting.Close = value; }
 		}
 		#endregion
 
@@ -490,9 +490,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.Type = this.type;
+				// this.widgetSetting.Type = this.type;
 
-				this.widgetSetting.DialogSetting.SetEditHelper ( this.editHelper );
+				// this.widgetSetting.DialogSetting.SetEditHelper ( this.editHelper );
 
 				this.widgetSetting.AjaxSettings.Clear ( );
 
@@ -510,7 +510,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 			else if ( this.selector == string.Empty )
-				switch ( this.type )
+				switch ( this.widgetSetting.Type )
 				{
 					case WidgetType.dialog:
 						string style = string.Empty;

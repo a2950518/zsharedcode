@@ -46,8 +46,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.AutocompleteSetting.Disabled, false ); }
+			set { this.widgetSetting.AutocompleteSetting.Disabled = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -59,8 +59,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string AppendTo
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.appendTo ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.appendTo, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.AutocompleteSetting.AppendTo.Trim ( '\'' ); }
+			set { this.widgetSetting.AutocompleteSetting.AppendTo = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -72,8 +72,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool AutoFocus
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.autoFocus ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.autoFocus, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.AutocompleteSetting.AutoFocus, false ); }
+			set { this.widgetSetting.AutocompleteSetting.AutoFocus = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -85,8 +85,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Delay
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.delay ), 300 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.delay, value <= 0 || value == 300 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.AutocompleteSetting.Delay, 300 ); }
+			set { this.widgetSetting.AutocompleteSetting.Delay = value <= 0 || value == 300 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -98,8 +98,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int MinLength
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.minLength ), 1 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.minLength, value <= 1 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.AutocompleteSetting.MinLength, 1 ); }
+			set { this.widgetSetting.AutocompleteSetting.MinLength = value <= 1 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -111,8 +111,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Position
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.position ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.position, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Position; }
+			set { this.widgetSetting.AutocompleteSetting.Position = value; }
 		}
 
 		/// <summary>
@@ -124,8 +124,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Source
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.source ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.source, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Source; }
+			set { this.widgetSetting.AutocompleteSetting.Source = value; }
 		}
 		#endregion
 
@@ -139,8 +139,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Create; }
+			set { this.widgetSetting.AutocompleteSetting.Create = value; }
 		}
 
 		/// <summary>
@@ -152,8 +152,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Search
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.search ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.search, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Search; }
+			set { this.widgetSetting.AutocompleteSetting.Search = value; }
 		}
 
 		/// <summary>
@@ -165,8 +165,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Open
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.open ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.open, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Open; }
+			set { this.widgetSetting.AutocompleteSetting.Open = value; }
 		}
 
 		/// <summary>
@@ -178,8 +178,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public new string Focus
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.focus ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.focus, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Focus; }
+			set { this.widgetSetting.AutocompleteSetting.Focus = value; }
 		}
 
 		/// <summary>
@@ -191,8 +191,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Select
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.select ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.select, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Select; }
+			set { this.widgetSetting.AutocompleteSetting.Select = value; }
 		}
 
 		/// <summary>
@@ -204,8 +204,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Close
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.close ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.close, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Close; }
+			set { this.widgetSetting.AutocompleteSetting.Close = value; }
 		}
 
 		/// <summary>
@@ -217,8 +217,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Change
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.change ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.change, value ); }
+			get { return this.widgetSetting.AutocompleteSetting.Change; }
+			set { this.widgetSetting.AutocompleteSetting.Change = value; }
 		}
 		#endregion
 
@@ -241,9 +241,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.Type = this.type;
+				// this.widgetSetting.Type = this.type;
 
-				this.widgetSetting.AutocompleteSetting.SetEditHelper ( this.editHelper );
+				// this.widgetSetting.AutocompleteSetting.SetEditHelper ( this.editHelper );
 
 				this.widgetSetting.AjaxSettings.Clear ( );
 
@@ -255,7 +255,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 			else if ( string.IsNullOrEmpty ( this.selector ) )
-				switch ( this.type )
+				switch ( this.widgetSetting.Type )
 				{
 					case WidgetType.autocomplete:
 						string style = string.Empty;

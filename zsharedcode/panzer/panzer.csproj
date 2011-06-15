@@ -65,6 +65,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include=".class\ui\dwindow\DataWindowCore.cs" />
+    <Compile Include=".class\ui\jqueryui\BaseJQueryElement.cs" />
     <Compile Include=".class\ui\jqueryui\Button.cs" />
     <Compile Include=".class\ui\jqueryui\JQueryElement.cs" />
     <Compile Include=".class\ui\jqueryui\OptionEdit.cs" />
@@ -150,6 +151,7 @@
     <Content Include="panzer.license.txt" />
     <Content Include="read.me.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

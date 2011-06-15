@@ -48,8 +48,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.TabsSetting.Disabled, false ); }
+			set { this.widgetSetting.TabsSetting.Disabled = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -61,8 +61,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string AjaxOptions
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.ajaxOptions ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.ajaxOptions, value ); }
+			get { return this.widgetSetting.TabsSetting.AjaxOptions; }
+			set { this.widgetSetting.TabsSetting.AjaxOptions = value; }
 		}
 
 		/// <summary>
@@ -74,8 +74,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Cache
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.cache ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.cache, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.TabsSetting.Cache, false ); }
+			set { this.widgetSetting.TabsSetting.Cache = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -87,8 +87,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Collapsible
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.collapsible ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.collapsible, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.TabsSetting.Collapsible, false ); }
+			set { this.widgetSetting.TabsSetting.Collapsible = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -100,8 +100,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Cookie
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.cookie ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.cookie, value ); }
+			get { return this.widgetSetting.TabsSetting.Cookie; }
+			set { this.widgetSetting.TabsSetting.Cookie = value; }
 		}
 
 		/// <summary>
@@ -113,8 +113,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Deselectable
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.deselectable ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.deselectable, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.TabsSetting.Deselectable, false ); }
+			set { this.widgetSetting.TabsSetting.Deselectable = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -126,8 +126,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public EventType Event
 		{
-			get { return this.getEnum<EventType> ( this.editHelper.GetOuterOptionEditValue ( OptionType.@event ), EventType.click ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.@event, "'" + value + "'" ); }
+			get { return this.getEnum<EventType> ( this.widgetSetting.TabsSetting.Event, EventType.click ); }
+			set { this.widgetSetting.TabsSetting.Event = "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -139,8 +139,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Fx
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.fx ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.fx, value ); }
+			get { return this.widgetSetting.TabsSetting.Fx; }
+			set { this.widgetSetting.TabsSetting.Fx = value; }
 		}
 
 		/// <summary>
@@ -152,8 +152,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string IdPrefix
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.idPrefix ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.idPrefix, string.IsNullOrEmpty ( value ) || value == "ui-tabs-" ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.TabsSetting.IdPrefix.Trim ( '\'' ); }
+			set { this.widgetSetting.TabsSetting.IdPrefix = string.IsNullOrEmpty ( value ) || value == "ui-tabs-" ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -165,8 +165,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string PanelTemplate
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.panelTemplate ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.panelTemplate, string.IsNullOrEmpty ( value ) || value == "<div></div>" ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.TabsSetting.PanelTemplate.Trim ( '\'' ); }
+			set { this.widgetSetting.TabsSetting.PanelTemplate = string.IsNullOrEmpty ( value ) || value == "<div></div>" ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -178,8 +178,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Selected
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.selected ), 0 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.selected, value <= 0 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.TabsSetting.Selected, 0 ); }
+			set { this.widgetSetting.TabsSetting.Selected = value <= 0 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -191,8 +191,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Spinner
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.spinner ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.spinner, string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.TabsSetting.Spinner.Trim ( '\'' ); }
+			set { this.widgetSetting.TabsSetting.Spinner = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
 		}
 
 		/// <summary>
@@ -204,8 +204,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string TabTemplate
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.tabTemplate ).Trim ( '\'' ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.tabTemplate, string.IsNullOrEmpty ( value ) || value == "<li><a href=#{href}><span>#{label}</span></a></li>" ? string.Empty : "'" + value + "'" ); }
+			get { return this.widgetSetting.TabsSetting.TabTemplate.Trim ( '\'' ); }
+			set { this.widgetSetting.TabsSetting.TabTemplate = string.IsNullOrEmpty ( value ) || value == "<li><a href=#{href}><span>#{label}</span></a></li>" ? string.Empty : "'" + value + "'"; }
 		}
 		#endregion
 
@@ -219,8 +219,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+			get { return this.widgetSetting.TabsSetting.Create; }
+			set { this.widgetSetting.TabsSetting.Create = value; }
 		}
 
 		/// <summary>
@@ -232,8 +232,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Select
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.select ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.select, value ); }
+			get { return this.widgetSetting.TabsSetting.Select; }
+			set { this.widgetSetting.TabsSetting.Select = value; }
 		}
 
 		/// <summary>
@@ -245,8 +245,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public new string Load
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.load ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.load, value ); }
+			get { return this.widgetSetting.TabsSetting.Load; }
+			set { this.widgetSetting.TabsSetting.Load = value; }
 		}
 
 		/// <summary>
@@ -258,8 +258,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Show
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.show ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.show, value ); }
+			get { return this.widgetSetting.TabsSetting.Show; }
+			set { this.widgetSetting.TabsSetting.Show = value; }
 		}
 
 		/// <summary>
@@ -271,8 +271,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Add
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.add ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.add, value ); }
+			get { return this.widgetSetting.TabsSetting.Add; }
+			set { this.widgetSetting.TabsSetting.Add = value; }
 		}
 
 		/// <summary>
@@ -284,8 +284,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Remove
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.remove ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.remove, value ); }
+			get { return this.widgetSetting.TabsSetting.Remove; }
+			set { this.widgetSetting.TabsSetting.Remove = value; }
 		}
 
 		/// <summary>
@@ -297,8 +297,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Enable
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.enable ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.enable, value ); }
+			get { return this.widgetSetting.TabsSetting.Enable; }
+			set { this.widgetSetting.TabsSetting.Enable = value; }
 		}
 
 		/// <summary>
@@ -310,8 +310,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Disable
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.disable ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disable, value ); }
+			get { return this.widgetSetting.TabsSetting.Disable; }
+			set { this.widgetSetting.TabsSetting.Disable = value; }
 		}
 		#endregion
 
@@ -342,9 +342,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.Type = this.type;
+				// this.widgetSetting.Type = this.type;
 
-				this.widgetSetting.TabsSetting.SetEditHelper ( this.editHelper );
+				// this.widgetSetting.TabsSetting.SetEditHelper ( this.editHelper );
 
 				this.widgetSetting.AjaxSettings.Clear ( );
 
@@ -360,7 +360,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 			else if ( this.selector == string.Empty )
-				switch ( this.type )
+				switch ( this.widgetSetting.Type )
 				{
 					case WidgetType.tabs:
 						string style = string.Empty;

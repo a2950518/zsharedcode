@@ -67,8 +67,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.disabled ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.disabled, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.SliderSetting.Disabled, false ); }
+			set { this.widgetSetting.SliderSetting.Disabled = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -80,8 +80,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Animate
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.animate ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.animate, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.SliderSetting.Animate, false ); }
+			set { this.widgetSetting.SliderSetting.Animate = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -93,8 +93,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Max
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.max ), 100 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.max, value <= 0 || value == 100 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.SliderSetting.Max, 100 ); }
+			set { this.widgetSetting.SliderSetting.Max = value <= 0 || value == 100 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -106,8 +106,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Min
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.min ), 0 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.min, value <= 0 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.SliderSetting.Min, 0 ); }
+			set { this.widgetSetting.SliderSetting.Min = value <= 0 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -119,8 +119,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public OrientationType Orientation
 		{
-			get { return this.getEnum<OrientationType> ( this.editHelper.GetOuterOptionEditValue ( OptionType.orientation ), OrientationType.horizontal ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.orientation, value == OrientationType.horizontal ? string.Empty : "'" + value.ToString ( ) + "'" ); }
+			get { return this.getEnum<OrientationType> ( this.widgetSetting.SliderSetting.Orientation, OrientationType.horizontal ); }
+			set { this.widgetSetting.SliderSetting.Orientation = value == OrientationType.horizontal ? string.Empty : "'" + value.ToString ( ) + "'"; }
 		}
 
 		/// <summary>
@@ -132,8 +132,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Range
 		{
-			get { return this.getBoolean ( this.editHelper.GetOuterOptionEditValue ( OptionType.range ), false ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.range, value.ToString ( ).ToLower ( ) ); }
+			get { return this.getBoolean ( this.widgetSetting.SliderSetting.Range, false ); }
+			set { this.widgetSetting.SliderSetting.Range = value.ToString ( ).ToLower ( ); }
 		}
 
 		/// <summary>
@@ -145,8 +145,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Step
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.step ), 1 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.step, value <= 1 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.SliderSetting.Step, 1 ); }
+			set { this.widgetSetting.SliderSetting.Step = value <= 1 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -158,8 +158,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Value
 		{
-			get { return this.getInteger ( this.editHelper.GetOuterOptionEditValue ( OptionType.value ), 0 ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.value, value <= 0 ? string.Empty : value.ToString ( ) ); }
+			get { return this.getInteger ( this.widgetSetting.SliderSetting.Value, 0 ); }
+			set { this.widgetSetting.SliderSetting.Value = value <= 0 ? string.Empty : value.ToString ( ); }
 		}
 
 		/// <summary>
@@ -171,8 +171,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Values
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.values ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.values, value ); }
+			get { return this.widgetSetting.SliderSetting.Values; }
+			set { this.widgetSetting.SliderSetting.Values = value; }
 		}
 		#endregion
 
@@ -186,8 +186,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.create ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.create, value ); }
+			get { return this.widgetSetting.SliderSetting.Create; }
+			set { this.widgetSetting.SliderSetting.Create = value; }
 		}
 
 		/// <summary>
@@ -199,8 +199,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Start
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.start ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.start, value ); }
+			get { return this.widgetSetting.SliderSetting.Start; }
+			set { this.widgetSetting.SliderSetting.Start = value; }
 		}
 
 		/// <summary>
@@ -212,8 +212,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Slide
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.slide ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.slide, value ); }
+			get { return this.widgetSetting.SliderSetting.Slide; }
+			set { this.widgetSetting.SliderSetting.Slide = value; }
 		}
 
 		/// <summary>
@@ -225,8 +225,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Change
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.change ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.change, value ); }
+			get { return this.widgetSetting.SliderSetting.Change; }
+			set { this.widgetSetting.SliderSetting.Change = value; }
 		}
 
 		/// <summary>
@@ -238,8 +238,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Stop
 		{
-			get { return this.editHelper.GetOuterOptionEditValue ( OptionType.stop ); }
-			set { this.editHelper.SetOuterOptionEditValue ( OptionType.stop, value ); }
+			get { return this.widgetSetting.SliderSetting.Stop; }
+			set { this.widgetSetting.SliderSetting.Stop = value; }
 		}
 		#endregion
 
@@ -271,9 +271,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !this.DesignMode )
 			{
-				this.widgetSetting.Type = this.type;
+				// this.widgetSetting.Type = this.type;
 
-				this.widgetSetting.SliderSetting.SetEditHelper ( this.editHelper );
+				// this.widgetSetting.SliderSetting.SetEditHelper ( this.editHelper );
 
 				this.widgetSetting.AjaxSettings.Clear ( );
 
@@ -288,7 +288,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 			else if ( this.selector == string.Empty )
-				switch ( this.type )
+				switch ( this.widgetSetting.Type )
 				{
 					case WidgetType.slider:
 						string style = string.Empty;
