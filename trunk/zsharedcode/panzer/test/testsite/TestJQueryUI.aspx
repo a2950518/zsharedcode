@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TestJQueryUI.aspx.cs" Inherits="TestJQueryUI" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TestJQueryUI.aspx.cs" Inherits="TestJQueryUI"
+	UICulture="af" %>
 
 <%@ Register Assembly="zoyobar.shared.panzer" Namespace="zoyobar.shared.panzer.ui.jqueryui"
 	TagPrefix="ui" %>
@@ -9,18 +10,36 @@
 	<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.11.custom.css" />
 	<script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui-1.8.11.custom.min.js"></script>
+	<style type="text/css">
+		.draggable-box
+		{
+			padding: 10px;
+			width: 80px;
+			height: 60px;
+			background-color: #cccccc;
+		}
+		.droppable-box
+		{
+			padding: 10px;
+			width: 160px;
+			height: 120px;
+			background-color: #aaaaaa;
+		}
+	</style>
 </head>
 <body>
 	<form id="formTestJQueryUI" runat="server">
-	<div>
-		<asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
-		<asp:Button ID="Button2" runat="server" Text="Button" OnClick="Button2_Click" /><asp:DropDownList
-			ID="DropDownList1" runat="server">
-			<asp:ListItem></asp:ListItem>
-		</asp:DropDownList>
-		<ui:JQueryElement ID="JQueryElement1" runat="server">
-		</ui:JQueryElement>
-	</div>
+	<ui:Autocomplete ID="a" runat="server" Source="['a','aa']" Change="
+	function()
+	{
+	alert();
+	}
+	">
+	</ui:Autocomplete>
+	<ui:JQueryElement ID="aa" runat="server">
+	</ui:JQueryElement>
+	<ui:Progressbar ID="Progressbar1" runat="server" IsVariable="True" Value="20">
+	</ui:Progressbar>
 	</form>
 </body>
 </html>

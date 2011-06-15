@@ -23,7 +23,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 自动填充插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Autocomplete runat=server></{0}:Autocomplete>" )]
-	[DesignerAttribute ( typeof ( AutocompleteDesigner ) )]
+	[Designer ( typeof ( AutocompleteDesigner ) )]
 	public class Autocomplete
 		: BaseWidget
 	{

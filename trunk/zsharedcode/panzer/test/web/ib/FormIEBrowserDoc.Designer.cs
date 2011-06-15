@@ -41,6 +41,7 @@
 			this.cmdCopyImage = new System.Windows.Forms.Button ( );
 			this.pictureBox = new System.Windows.Forms.PictureBox ( );
 			this.cmdDZ = new System.Windows.Forms.Button ( );
+			this.cmdRecord = new System.Windows.Forms.Button ( );
 			( ( System.ComponentModel.ISupportInitialize ) ( this.pictureBox ) ).BeginInit ( );
 			this.SuspendLayout ( );
 			// 
@@ -172,6 +173,16 @@
 			this.cmdDZ.UseVisualStyleBackColor = true;
 			this.cmdDZ.Click += new System.EventHandler ( this.cmdDZ_Click );
 			// 
+			// cmdRecord
+			// 
+			this.cmdRecord.Location = new System.Drawing.Point ( 268, 273 );
+			this.cmdRecord.Name = "cmdRecord";
+			this.cmdRecord.Size = new System.Drawing.Size ( 130, 23 );
+			this.cmdRecord.TabIndex = 1;
+			this.cmdRecord.Text = "记录和回放";
+			this.cmdRecord.UseVisualStyleBackColor = true;
+			this.cmdRecord.Click += new System.EventHandler ( this.cmdRecord_Click );
+			// 
 			// FormIEBrowserDoc
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF ( 6F, 12F );
@@ -181,6 +192,7 @@
 			this.Controls.Add ( this.cmdDZ );
 			this.Controls.Add ( this.cmdCopyImage );
 			this.Controls.Add ( this.cmdExecuteJQuery );
+			this.Controls.Add ( this.cmdRecord );
 			this.Controls.Add ( this.cmdNoConflict );
 			this.Controls.Add ( this.cmd163Blog );
 			this.Controls.Add ( this.cmdFlowNWPC );
@@ -212,5 +224,6 @@
 		private System.Windows.Forms.Button cmdCopyImage;
 		private System.Windows.Forms.PictureBox pictureBox;
 		private System.Windows.Forms.Button cmdDZ;
+		private System.Windows.Forms.Button cmdRecord;
 	}
 }

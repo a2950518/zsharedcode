@@ -1,18 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-# SharpDevelop 4.0.0.7070
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "panzer", "panzer", "{9F82E6A2-6D6D-41A9-9056-4C33B55C7C74}"
-	ProjectSection(SolutionItems) = postProject
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "databook", "databook", "{E8C9A6D7-1D55-4DF3-B623-FDF2CE9C2ABC}"
-	ProjectSection(SolutionItems) = postProject
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql server", "sql server", "{C64843FA-A2FB-49C1-BF8D-D3D20B6B2504}"
-	ProjectSection(SolutionItems) = postProject
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{087A24BC-4F79-4635-8A76-5C92258B5803}"
 	ProjectSection(SolutionItems) = preProject
@@ -28,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "panzer", "panzer\panzer.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "panzer\test\test.csproj", "{0D365980-C848-4D4D-B642-B2E269472C50}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "testsite", "panzer\test\testsite", "{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "testsite", "panzer\test\testsite\", "{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}"
 	ProjectSection(WebsiteProperties) = preProject
 		SccProjectName = "Svn"
 		SccAuxPath = "Svn"
@@ -54,6 +47,12 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "testsite", "panzer\test\tes
 		VWDDynamicPort = "false"
 		VWDVirtualPath = "/"
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "part", "part", "{A7DD1F72-753C-48A7-A1B0-11F611F6A253}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IEBrowser", "panzer\part\IEBrowser\IEBrowser.csproj", "{D7917ED2-3694-4111-9F24-BD22F725F42B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JQueryElement", "panzer\part\JQueryElement\JQueryElement.csproj", "{E7B62842-1849-434F-950B-739E6FD91F97}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -107,16 +106,43 @@ Global
 		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}.Release|Win32.ActiveCfg = Debug|Any CPU
 		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF}.Release|x86.ActiveCfg = Debug|Any CPU
+		{D7917ED2-3694-4111-9F24-BD22F725F42B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7917ED2-3694-4111-9F24-BD22F725F42B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7917ED2-3694-4111-9F24-BD22F725F42B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D7917ED2-3694-4111-9F24-BD22F725F42B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D7917ED2-3694-4111-9F24-BD22F725F42B}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{D7917ED2-3694-4111-9F24-BD22F725F42B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D7917ED2-3694-4111-9F24-BD22F725F42B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7917ED2-3694-4111-9F24-BD22F725F42B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7917ED2-3694-4111-9F24-BD22F725F42B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D7917ED2-3694-4111-9F24-BD22F725F42B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D7917ED2-3694-4111-9F24-BD22F725F42B}.Release|Win32.ActiveCfg = Release|Any CPU
+		{D7917ED2-3694-4111-9F24-BD22F725F42B}.Release|x86.ActiveCfg = Release|Any CPU
+		{E7B62842-1849-434F-950B-739E6FD91F97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7B62842-1849-434F-950B-739E6FD91F97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7B62842-1849-434F-950B-739E6FD91F97}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E7B62842-1849-434F-950B-739E6FD91F97}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E7B62842-1849-434F-950B-739E6FD91F97}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{E7B62842-1849-434F-950B-739E6FD91F97}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E7B62842-1849-434F-950B-739E6FD91F97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7B62842-1849-434F-950B-739E6FD91F97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7B62842-1849-434F-950B-739E6FD91F97}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E7B62842-1849-434F-950B-739E6FD91F97}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E7B62842-1849-434F-950B-739E6FD91F97}.Release|Win32.ActiveCfg = Release|Any CPU
+		{E7B62842-1849-434F-950B-739E6FD91F97}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF} = {9F82E6A2-6D6D-41A9-9056-4C33B55C7C74}
-		{0D365980-C848-4D4D-B642-B2E269472C50} = {9F82E6A2-6D6D-41A9-9056-4C33B55C7C74}
-		{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444} = {9F82E6A2-6D6D-41A9-9056-4C33B55C7C74}
 		{E8C9A6D7-1D55-4DF3-B623-FDF2CE9C2ABC} = {9F82E6A2-6D6D-41A9-9056-4C33B55C7C74}
+		{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444} = {9F82E6A2-6D6D-41A9-9056-4C33B55C7C74}
+		{0D365980-C848-4D4D-B642-B2E269472C50} = {9F82E6A2-6D6D-41A9-9056-4C33B55C7C74}
+		{0F631BAB-E6D6-4385-A364-5E7AAE514FDF} = {9F82E6A2-6D6D-41A9-9056-4C33B55C7C74}
+		{A7DD1F72-753C-48A7-A1B0-11F611F6A253} = {9F82E6A2-6D6D-41A9-9056-4C33B55C7C74}
 		{C64843FA-A2FB-49C1-BF8D-D3D20B6B2504} = {E8C9A6D7-1D55-4DF3-B623-FDF2CE9C2ABC}
 		{087A24BC-4F79-4635-8A76-5C92258B5803} = {C64843FA-A2FB-49C1-BF8D-D3D20B6B2504}
+		{D7917ED2-3694-4111-9F24-BD22F725F42B} = {A7DD1F72-753C-48A7-A1B0-11F611F6A253}
+		{E7B62842-1849-434F-950B-739E6FD91F97} = {A7DD1F72-753C-48A7-A1B0-11F611F6A253}
 	EndGlobalSection
 EndGlobal

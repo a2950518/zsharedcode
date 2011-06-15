@@ -24,7 +24,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 分割条插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Slider runat=server></{0}:Slider>" )]
-	[DesignerAttribute ( typeof ( SliderDesigner ) )]
+	[Designer ( typeof ( SliderDesigner ) )]
 	public class Slider
 		: BaseWidget, IPostBackEventHandler
 	{

@@ -6,15 +6,244 @@
 	<script type="text/javascript" src="js/jquery-ui-1.8.11.custom.min.js"></script>
 </head>
 <body>
-	<div id="draggable" class="ui-button">draggable</div>
-	<div id="Div1" class="ui-button">Div1</div>
+	<input type="button" value="begin" onclick="__beginRecord()" /><input type="button"
+		value="end" onclick="__endRecord()" /><input type="button" value="replay" onclick="__replayRecord()" />
+	<input id="aaa" type="text" value="123" />
+	<input type="text" value="123" />
+	<input type="button" value="click me!" onclick="alert('click');" />
+	<input type="radio" value="goole 搜索!" onclick="alert('click');"  checked="checked" />
+	<input type="checkbox" value="click me!" onclick="alert('click');" checked="checked" />
+	<select id="aaaa">
+		<option>dsf</option>
+		<option>sdfdf</option>
+		<option>ddd</option>
+	</select>
+	<textarea rows="11" cols="11">sdfdfesdfdf</textarea>
+	<iframe src="test2.htm"></iframe>
 	<script type="text/javascript">
-		$(function () {
-			$("#draggable").draggable();
-		});
-		$(function () {
-			$("#Div1").draggable();
-		});
+		function add(num1, num2) {
+			return num1 + num2;
+		}
+	</script>
+	<script type="text/javascript">
+		function __getElement(condition, document) {
+			// id`tag`name`className`type`value`href
+			var results = new Array();
+			var parts = condition.split('`');
+			var element = document.getElementById(parts[0]);
+
+			if (null != element)
+				results.push(element);
+			else {
+				var elements = document.getElementsByTagName(parts[1]);
+
+				for (var index = 0; index < elements.length; index++)
+					if ((elements[index].name == parts[2] || null == elements[index].name) && (elements[index].className == parts[3] || null == elements[index].className) && (elements[index].type == parts[4] || null == elements[index].type) && (elements[index].value == parts[5] || null == elements[index].value || elements[index].type.toLowerCase() == 'text' || elements[index].type.toLowerCase() == 'radio' || elements[index].type.toLowerCase() == 'checkbox' || elements[index].tagName == 'TEXTAREA') && (elements[index].href == parts[6] || null == elements[index].href))
+						results.push(elements[index]);
+
+			}
+
+			return results;
+		}
+		function __getElementIndex(condition, element, document) {
+			var elements = __getElement(condition, document);
+
+			for (var index = 0; index < elements.length; index++)
+				if (elements[index] == element)
+					return index;
+
+			return 0;
+		}
+		function __beginRecord() {
+			window.__actions = new Array();
+			window.__actionExpression = '';
+			window.__lastRecordTime = new Date();
+			__installRecord(window);
+		}
+		function __installRecord(frame) {
+
+			for (var index = 0; index < frame.document.all.length; index++)
+				if (frame.document.all[index].tagName == 'INPUT' || frame.document.all[index].tagName == 'SELECT' || frame.document.all[index].tagName == 'TEXTAREA')
+					frame.document.all[index].attachEvent('onchange', __window_onchange);
+
+			frame.document.attachEvent('onclick', __window_onclick);
+
+			for (index = 0; index < frame.frames.length; index++)
+				__installRecord(frame.frames[index]);
+
+		}
+		function __endRecord() {
+			__uninstallRecord(window);
+		}
+		function __uninstallRecord(frame) {
+
+			for (var index = 0; index < frame.document.all.length; index++)
+				if (frame.document.all[index].tagName == 'INPUT' || frame.document.all[index].tagName == 'SELECT' || frame.document.all[index].tagName == 'TEXTAREA')
+					frame.document.all[index].detachEvent('onchange', __window_onchange);
+
+			frame.document.detachEvent('onclick', __window_onclick);
+
+			for (index = 0; index < frame.frames.length; index++)
+				__uninstallRecord(frame.frames[index]);
+
+		}
+		function __getDocumentPath(element) {
+			var path = 'document';
+			var parent = element.document.parentWindow;
+
+			while (parent != parent.parent) {
+
+				for (var index = 0; index < parent.parent.frames.length; index++)
+					if (parent == parent.parent.frames[index]) {
+						path = 'window.frames[' + index + '].' + path;
+						break;
+					}
+
+				parent = parent.parent;
+			}
+
+			return path;
+		}
+		function __getCondition(element) {
+			return (null == element.id ? '' : element.id) + '`' + element.tagName + '`' + (null == element.name ? '' : element.name) + '`' + (null == element.className ? '' : element.className) + '`' + (null == element.type ? '' : element.type) + '`' + (null == element.value ? '' : element.value) + '`' + (null == element.href ? '' : element.href);
+		}
+		function __setActionExpression(expression) {
+			if (null == expression)
+				expression = '';
+
+			window.__actions = new Array();
+			window.__actionExpression = expression;
+
+			var actions = expression.split(';');
+
+			for (var actionIndex = 0; actionIndex < actions.length; actionIndex++) {
+
+				if (actions[actionIndex] == '')
+					continue;
+
+				var attributes = actions[actionIndex].split('&');
+				var action = new Object();
+
+				for (var attributeIndex = 0; attributeIndex < attributes.length; attributeIndex++) {
+					var parts = attributes[attributeIndex].split('=');
+
+					switch (parts[0]) {
+						case 'selectedIndex':
+							action[parts[0]] = new Number(parts[1]);
+							break;
+
+						default:
+							action[parts[0]] = parts[1];
+							break;
+					}
+
+				}
+
+				window.__actions.push(action);
+			}
+
+		}
+		function __window_onchange(e) {
+			var element = e.srcElement;
+			var action;
+
+			if (null == element)
+				return;
+
+			switch (element.tagName) {
+				case 'INPUT':
+
+					if (element.type.toLowerCase() == 'radio' || element.type.toLowerCase() == 'checkbox')
+						action = { type: 'property', member: 'checked', value: escape(element.checked) };
+					else
+						action = { type: 'property', member: 'value', value: escape(element.value) };
+
+					break;
+
+				case 'SELECT':
+					action = { type: 'property', member: 'selectedIndex', value: element.selectedIndex };
+					break;
+
+				case 'TEXTAREA':
+					action = { type: 'property', member: 'innerText', value: escape(element.value) };
+					break;
+			}
+
+			action.condition = __getCondition(element);
+			action.path = __getDocumentPath(element);
+			action.wait = new Date() - window.__lastRecordTime;
+			action.index = __getElementIndex(action.condition, element, eval(action.path));
+
+			if (null != action) {
+				window.__actions.push(action);
+				window.__actionExpression += 'type=' + action.type + '&member=' + action.member + '&condition=' + action.condition + '&path=' + action.path + '&value=' + action.value + '&wait=' + action.wait + '&index=' + action.index + ';';
+			}
+
+		};
+		function __window_onclick(e) {
+			var element = e.srcElement;
+
+			if (null == element)
+				return;
+
+			var action = { type: 'method', member: 'click' };
+
+			action.condition = __getCondition(element);
+			action.path = __getDocumentPath(element);
+			action.wait = new Date() - window.__lastRecordTime;
+			action.index = __getElementIndex(action.condition, element, eval(action.path));
+
+			window.__actions.push(action);
+			window.__actionExpression += 'type=' + action.type + '&member=' + action.member + '&condition=' + action.condition + '&path=' + action.path + '&wait=' + action.wait + '&index=' + action.index + ';';
+		};
+		function __replayRecord() {
+
+			if (null == window.__actions)
+				return;
+
+			var script = '';
+
+			for (var index = 0; index < window.__actions.length; index++) {
+				var action = window.__actions[index];
+
+				switch (action.type) {
+					case 'property':
+
+						switch (action.member) {
+							case 'checked':
+							case 'value':
+							case 'innerText':
+								script += 'setTimeout("__getElement(\'' + action.condition + '\', ' + action.path + ')[' + action.index + '].' + action.member + ' = unescape(\'' + action.value + '\');", ' + action.wait + ');';
+								break;
+
+							case 'selectedIndex':
+								script += 'setTimeout("__getElement(\'' + action.condition + '\', ' + action.path + ')[' + action.index + '].' + action.member + ' = ' + action.value + ';", ' + action.wait + ');';
+								break;
+						}
+
+						break;
+
+					case 'method':
+						script += 'setTimeout("__getElement(\'' + action.condition + '\', ' + action.path + ')[' + action.index + '].' + action.member + '();", ' + action.wait + ');';
+						break;
+				}
+
+			}
+
+			eval(script);
+		}
+	</script>
+
+	<script type="text/javascript">
+		document.onmousemove = function (e) {
+
+			if (null != window.__currentSmartElement)
+				window.__currentSmartElement.style.border = window.__currentSmartElement.style.oldBorder;
+
+			window.__currentSmartElement = e.srcElement;
+			e.srcElement.style.oldBorder = e.srcElement.style.border;
+			e.srcElement.style.border = 'solid 1px #0000ff';
+		}
 	</script>
 </body>
 </html>

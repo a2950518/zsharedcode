@@ -12,10 +12,6 @@ public partial class TestJQueryUI : System.Web.UI.Page
 
 	public void D ( ExpressionHelper h )
 	{
-		this.Response.Write ( string.Format ( "{2}{0}={1}<br/>", h.Name, h.Value, h.IsHasChild ) );
-
-		foreach ( ExpressionHelper sh in h.ChildExpressionHelpers )
-			this.D ( sh );
 	}
 
 	protected void Page_Load(object sender, EventArgs e)
@@ -26,12 +22,33 @@ public partial class TestJQueryUI : System.Web.UI.Page
 		//new ListItem ( );
 		//this.Response.Write(this.jqueryUI.DraggableSetting.Options.Count);
 		//this.Response.Write ( this.jqueryUI.DraggableSetting.Options[0].Value );
+		zoyobar.shared.panzer.web.ScriptHelper s = new zoyobar.shared.panzer.web.ScriptHelper ( );
+
+		s.Alert ( "'abc'" );
+		//s.Build ( this );
+		new System.Web.UI.WebControls.Button();
+		//new System.Web.UI.Desi
+	}
+	protected void Progressbar1_CompleteSync ( object sender, zoyobar.shared.panzer.ui.jqueryui.ProgressbarEventArgs e )
+	{
+		this.Response.Write ( e.Value.ToString ( ) + "sdfdfe" );
+	}
+	protected void Progressbar1_ChangeSync ( object sender, zoyobar.shared.panzer.ui.jqueryui.ProgressbarEventArgs e )
+	{
 
 	}
-	protected void Button1_Click ( object sender, EventArgs e )
-	{ this.jqueryUI.DraggableSetting.IsDraggable = true; }
-	protected void Button2_Click ( object sender, EventArgs e )
+	protected void Sd_ChangeSync ( object sender, zoyobar.shared.panzer.ui.jqueryui.SliderEventArgs e )
 	{
-		//this.jqueryUI.DraggableSetting.Options[0].Value = "Button2_Click";
+		this.Response.Write ( e.Value.ToString ( ) + "sdfdfe" );
+	}
+	protected void A_ChangeSync ( object sender, zoyobar.shared.panzer.ui.jqueryui.AccordionEventArgs e )
+	{
+		//this.Response.Write ( e.Index.ToString ( ) + "sdfdfe" );
+
+	}
+	protected void A_ChangeSync1 ( object sender, zoyobar.shared.panzer.ui.jqueryui.AccordionEventArgs e )
+	{
+		this.Response.Write ( e.Active.ToString ( ) + "sdfdfe" );
+
 	}
 }

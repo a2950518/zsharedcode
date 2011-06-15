@@ -15,10 +15,15 @@ namespace zoyobar.shared.panzer.test.web.ib
 
 	public partial class FormIEBrowserDoc : Form
 	{
+		// 在窗口的代码中定义 IEBrowser, 在窗口载入时初始化.
+		private IEBrowser ie;
 
 		public FormIEBrowserDoc ( )
 		{
 			InitializeComponent ( );
+
+			// 从当前的 WebBrowser 控件创建 IEBrowser 对象.
+			this.ie = new IEBrowser ( this.webBrowser );
 		}
 
 		private void cmdNavigate_Click ( object sender, EventArgs e )
@@ -114,10 +119,10 @@ namespace zoyobar.shared.panzer.test.web.ib
 			// 导航到页面 http://www.google.com.hk/.
 			ie.Navigate ( "http://www.google.com.hk/" );
 
-			// 等待 5 秒钟, 以便页面载入完毕.
-			ie.IEFlow.Wait ( 5 );
+			// 等待页面载入完毕.
+			ie.IEFlow.Wait ( new UrlCondition ( "wait", "http://www.google.com.hk", StringCompareMode.StartWith ) );
 
-			// 安装跟踪脚本, 这可以执行更多的 jquery 操作.
+			// 安装跟踪脚本, 执行 jquery 必需.
 			ie.InstallTrace ( );
 
 			// 安装本地的 jquery 脚本.
@@ -440,6 +445,20 @@ namespace zoyobar.shared.panzer.test.web.ib
 				return;
 			}
 
+		}
+
+		private void cmdRecord_Click ( object sender, EventArgs e )
+		{
+			// 在某一个控件的事件中, 开始记录 WebBrowser 中的用户操作.
+			this.ie.IERecord.BeginRecord ( );
+
+			// 在某一个控件的事件中, 结束记录 WebBrowser 中的用户操作, 并保存用户操作到文件.
+			this.ie.IERecord.EndRecord ( );
+			this.ie.IERecord.SaveAction ( @"iebrowser.record" );
+
+			// 在某一个控件的事件中, 载入记录 WebBrowser 中的用户操作并回放.
+			this.ie.IERecord.LoadAction ( @"iebrowser.record" );
+			this.ie.IERecord.EndRecord ( );
 		}
 
 	}
