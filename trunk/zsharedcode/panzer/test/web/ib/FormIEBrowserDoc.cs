@@ -122,11 +122,8 @@ namespace zoyobar.shared.panzer.test.web.ib
 			// 等待页面载入完毕.
 			ie.IEFlow.Wait ( new UrlCondition ( "wait", "http://www.google.com.hk", StringCompareMode.StartWith ) );
 
-			// 安装跟踪脚本, 执行 jquery 必需.
-			ie.InstallTrace ( );
-
 			// 安装本地的 jquery 脚本.
-			ie.InstallJQuery ( new Uri ( Path.Combine ( AppDomain.CurrentDomain.BaseDirectory, @"jquery-1.5.min.js" ) ) );
+			ie.InstallJQuery ( JQuery.CodeMin );
 
 			// 执行 jquery 脚本 $('*').length, 获得页面上总元素个数.
 			Console.WriteLine ( "页面上共有 {0} 个元素", ie.ExecuteJQuery ( JQuery.Create ( "'*'" ).Length ( ) ) );
@@ -197,8 +194,7 @@ namespace zoyobar.shared.panzer.test.web.ib
 			ie.IEFlow.Wait ( 3 );
 
 			// 安装 jquery 脚本.
-			ie.InstallTrace ( );
-			ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+			ie.InstallJQuery ( Properties.Resources.jquery_1_5_2_min );
 
 			// 弹出登录框.
 			ie.ExecuteJQuery ( JQuery.Create ( "'a:contains(登录)'" ).Attr ( "'id'", "'denglu'" ) );
@@ -212,8 +208,7 @@ namespace zoyobar.shared.panzer.test.web.ib
 			ie.IEFlow.Wait ( 5 );
 
 			// 安装 jquery 脚本.
-			ie.InstallTrace ( );
-			ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+			ie.InstallJQuery ( Properties.Resources.jquery_1_5_2_min );
 
 			// 跳转到日志页面.
 			ie.ExecuteJQuery ( JQuery.Create ( "'a:contains(日志)' " ).Attr ( "'id'", "'rz'" ) );
@@ -221,8 +216,7 @@ namespace zoyobar.shared.panzer.test.web.ib
 			ie.IEFlow.Wait ( 5 );
 
 			// 安装 jquery 脚本.
-			ie.InstallTrace ( );
-			ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+			ie.InstallJQuery ( Properties.Resources.jquery_1_5_2_min );
 
 			// 跳转到编辑日志页面.
 			ie.ExecuteJQuery ( JQuery.Create ( "'a:contains(写日志)' " ).Attr ( "'id'", "'xrz'" ) );
@@ -230,8 +224,7 @@ namespace zoyobar.shared.panzer.test.web.ib
 			ie.IEFlow.Wait ( 5 );
 
 			// 安装 jquery 脚本.
-			ie.InstallTrace ( );
-			ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+			ie.InstallJQuery ( Properties.Resources.jquery_1_5_2_min );
 
 			// 填写日志内容.
 			ie.ExecuteJQuery ( JQuery.Create ( "'.ztag:text'" ).Val ( "'<标题>'" ) );
@@ -260,11 +253,8 @@ namespace zoyobar.shared.panzer.test.web.ib
 			// 等待 5 秒钟, 以便页面载入完毕.
 			ie.IEFlow.Wait ( 5 );
 
-			// 安装跟踪脚本, 这可以执行更多的 jquery 操作.
-			ie.InstallTrace ( );
-
 			// 安装资源中的 jquery 脚本.
-			ie.InstallScript ( Properties.Resources.jquery_1_5_2_min );
+			ie.InstallJQuery ( Properties.Resources.jquery_1_5_2_min );
 
 			// 解除 jquery 的 $ 定义, 但仍然可以只用 jQuery 定义.
 			ie.ExecuteJQuery ( JQuery.Create ( false, true ).NoConflict ( ) );
@@ -302,11 +292,8 @@ namespace zoyobar.shared.panzer.test.web.ib
 			// 等待 10 秒钟, 以便页面载入完毕.
 			ie.IEFlow.Wait ( 10 );
 
-			// 安装跟踪脚本, 这可以执行更多的 jquery 操作.
-			ie.InstallTrace ( );
-
 			// 安装资源中的 jquery 脚本.
-			ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+			ie.InstallJQuery ( Properties.Resources.jquery_1_5_2_min );
 
 			// 解除 jquery 的 $ 定义, 但仍然可以只用 jQuery 定义.
 			ie.ExecuteJQuery ( JQuery.Create ( false, true ).NoConflict ( ) );
@@ -393,8 +380,7 @@ namespace zoyobar.shared.panzer.test.web.ib
 				ie.IEFlow.Wait ( 5 );
 
 				// 安装 jquery 脚本的一系列操作.
-				ie.InstallTrace ( );
-				ie.InstallScript ( Properties.Resources.jquery_1_5_2_min, "jsJQuery" );
+				ie.InstallJQuery ( Properties.Resources.jquery_1_5_2_min );
 				ie.ExecuteJQuery ( JQuery.Create ( false, true ).NoConflict ( ) );
 
 				// 话题不存在则重新选择.
