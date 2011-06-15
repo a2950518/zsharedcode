@@ -20,19 +20,6 @@ using System.Text;
  * http://code.google.com/p/zsharedcode/wiki/IEBrowserDoc
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/IEBrowser.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/RecordAction.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageAction.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageState.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageCondition.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/io/StoreHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/StringCompareMode.cs
  * 合并下载:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs.cs (包含 HtmlEditHelper 类)
@@ -996,6 +983,12 @@ namespace zoyobar.shared.panzer.web.ib
 		/// </summary>
 		public void InstallTrace ( )
 		{ this.installScript ( "__jsTrace", null, "function __set(name, value){if(null == name){return;}window[name] = eval(value);}function __get(name){if(null == name){return null;}else{return window[name];}}", false ); }
+
+		/// <summary>
+		/// 安装智能脚本到 WebBrowser, 可以进行一些智能的编辑.
+		/// </summary>
+		public void InstallSmart ( )
+		{ this.installScript ( "__jsSmart", null, "function __set(name, value){if(null == name){return;}window[name] = eval(value);}function __get(name){if(null == name){return null;}else{return window[name];}}", false ); }
 
 #if PARAM
 		/// <summary>
@@ -2752,8 +2745,6 @@ namespace zoyobar.shared.panzer.flow
  * http://code.google.com/p/zsharedcode/wiki/WebPageAction
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageAction.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -3485,8 +3476,6 @@ namespace zoyobar.shared.panzer.web.ib
  * http://code.google.com/p/zsharedcode/wiki/WebPageCondition
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageCondition.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -3613,8 +3602,6 @@ namespace zoyobar.shared.panzer.web.ib
  * http://code.google.com/p/zsharedcode/wiki/WebPageState
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/WebPageCondition.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/flow/Flow.cs
  * 版本: 1.2, .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -3659,7 +3646,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startActions">地址跳转行为.</param>
+		/// <param name="startActions">开始时的行为.</param>
 		/// <param name="completedAction">页面状态完成后的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="failedAction">页面状态失败后的行为.</param>
@@ -3676,7 +3663,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startAction">地址跳转行为.</param>
+		/// <param name="startAction">开始时的行为.</param>
 		/// <param name="completedAction">页面状态完成后的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="failedAction">页面状态失败后的行为.</param>
@@ -3693,7 +3680,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startActions">地址跳转行为.</param>
+		/// <param name="startActions">开始时的行为.</param>
 		/// <param name="completedActions">页面状态完成后的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="failedActions">页面状态失败后的行为.</param>
@@ -3706,7 +3693,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startActions">地址跳转行为.</param>
+		/// <param name="startActions">开始时的行为.</param>
 		/// <param name="completedActions">页面状态完成后的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="failedActions">页面状态失败后的行为.</param>
@@ -3728,7 +3715,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startActions">地址跳转行为.</param>
+		/// <param name="startActions">开始时的行为.</param>
 		public WebPageState ( string name, WebPageAction[] startActions )
 			: this ( name, startActions, null, null, null, null, null, 0 )
 		{ }
@@ -3736,7 +3723,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startAction">地址跳转行为.</param>
+		/// <param name="startAction">开始时的行为.</param>
 		public WebPageState ( string name, WebPageAction startAction )
 			: this ( name, new WebPageAction[] { startAction }, null, null, null, null, null, 0 )
 		{ }
@@ -3755,7 +3742,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startAction">地址跳转行为.</param>
+		/// <param name="startAction">开始时的行为.</param>
 		/// <param name="condition">成此页面状态的条件.</param>
 		/// <param name="timeout">超时秒数.</param>
 		public WebPageState ( string name, WebPageAction startAction, WebPageCondition condition, int timeout )
@@ -3765,7 +3752,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startActions">地址跳转行为.</param>
+		/// <param name="startActions">开始时的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="condition">成此页面状态的条件.</param>
 		public WebPageState ( string name, WebPageAction[] startActions, WebPageNextStateSetting completedStateSetting, WebPageCondition condition )
@@ -3775,7 +3762,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startActions">地址跳转行为.</param>
+		/// <param name="startActions">开始时的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="failedStateSetting">页面状态失败后会转到的状态的名称.</param>
 		/// <param name="condition">成此页面状态的条件.</param>
@@ -3788,7 +3775,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startAction">地址跳转行为.</param>
+		/// <param name="startAction">开始时的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		public WebPageState ( string name, WebPageAction startAction, WebPageNextStateSetting completedStateSetting )
 			: this ( name, new WebPageAction[] { startAction }, null, completedStateSetting, null, null, null, 0 )
@@ -3797,7 +3784,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startAction">地址跳转行为.</param>
+		/// <param name="startAction">开始时的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="failedStateSetting">页面状态失败后会转到的状态的名称.</param>
 		/// <param name="timeout">超时秒数.</param>
@@ -3819,7 +3806,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startAction">地址跳转行为.</param>
+		/// <param name="startAction">开始时的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="failedStateSetting">页面状态失败后会转到的状态的名称.</param>
 		/// <param name="condition">成此页面状态的条件.</param>
@@ -3831,7 +3818,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startAction">地址跳转行为.</param>
+		/// <param name="startAction">开始时的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="condition">成此页面状态的条件.</param>
 		public WebPageState ( string name, WebPageAction startAction, WebPageNextStateSetting completedStateSetting, WebPageCondition condition )
@@ -3842,7 +3829,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startActions">地址跳转行为.</param>
+		/// <param name="startActions">开始时的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		public WebPageState ( string name, WebPageAction[] startActions, WebPageNextStateSetting completedStateSetting )
 			: this ( name, startActions, null, completedStateSetting, null, null, null, 0 )
@@ -3852,7 +3839,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 创建一个页面状态.
 		/// </summary>
 		/// <param name="name">页面状态的名称.</param>
-		/// <param name="startActions">地址跳转行为.</param>
+		/// <param name="startActions">开始时的行为.</param>
 		/// <param name="completedActions">页面状态完成后的行为.</param>
 		/// <param name="completedStateSetting">页面状态完成后会转到的状态的名称.</param>
 		/// <param name="conditions">成此页面状态的条件.</param>
@@ -3869,11 +3856,6 @@ namespace zoyobar.shared.panzer.web.ib
  * wiki: http://code.google.com/p/zsharedcode/wiki/JQuery
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JQuery.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
@@ -5992,10 +5974,6 @@ namespace zoyobar.shared.panzer.web
  * wiki: http://code.google.com/p/zsharedcode/wiki/ScriptHelper
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
- * 引用代码:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptBuildOption.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/ScriptType.cs
  * 测试文件:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/test/testsite/TestScriptHelper.aspx
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/test/testsite/TestScriptHelper.aspx.cs

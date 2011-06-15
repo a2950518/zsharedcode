@@ -23,7 +23,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 按钮插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Button runat=server></{0}:Button>" )]
-	[DesignerAttribute ( typeof ( ButtonDesigner ) )]
+	[Designer ( typeof ( ButtonDesigner ) )]
 	public class Button
 		: BaseWidget, IPostBackEventHandler
 	{
@@ -163,30 +163,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					this.Click = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "click" ) + "}";
 
 			}
-			else if ( string.IsNullOrEmpty ( this.selector ) )
-				switch ( this.widgetSetting.Type )
-				{
-					case WidgetType.button:
-						string style = string.Empty;
-
-						if ( this.Width != Unit.Empty )
-							style += string.Format ( "width:{0};", this.Width );
-
-						if ( this.Height != Unit.Empty )
-							style += string.Format ( "height:{0};", this.Height );
-
-						writer.Write (
-							"<{6} id=\"{0}\" class=\"{3}ui-button ui-widget ui-state-default ui-corner-all{2} ui-button-text-only\" style=\"{4}\" title=\"{5}\"><span class=\"ui-button-text\">{1}</span></{6}>",
-							this.ClientID,
-							this.Label,
-							this.Disabled ? " ui-button-disabled ui-state-disabled" : string.Empty,
-							string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : this.CssClass + " ",
-							style,
-							this.ToolTip,
-							this.elementType.ToString ( ).ToLower ( )
-							);
-						return;
-				}
 
 			base.Render ( writer );
 		}

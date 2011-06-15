@@ -25,7 +25,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 分组标签插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Tabs runat=server></{0}:Tabs>" )]
-	[DesignerAttribute ( typeof ( TabsDesigner ) )]
+	[Designer ( typeof ( TabsDesigner ) )]
 	public class Tabs
 		: BaseWidget, IPostBackEventHandler
 	{

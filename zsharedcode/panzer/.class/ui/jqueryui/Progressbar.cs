@@ -23,7 +23,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 进度条插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Progressbar runat=server></{0}:Progressbar>" )]
-	[DesignerAttribute ( typeof ( ProgressbarDesigner ) )]
+	[Designer ( typeof ( ProgressbarDesigner ) )]
 	public class Progressbar
 		: BaseWidget, IPostBackEventHandler
 	{

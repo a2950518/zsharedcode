@@ -27,7 +27,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 折叠列表插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Datepicker runat=server></{0}:Datepicker>" )]
-	[DesignerAttribute ( typeof ( DatepickerDesigner ) )]
+	[Designer ( typeof ( DatepickerDesigner ) )]
 	public class Datepicker
 		: BaseWidget
 	{

@@ -25,7 +25,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 对话框插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Dialog runat=server></{0}:Dialog>" )]
-	[DesignerAttribute ( typeof ( DialogDesigner ) )]
+	[Designer ( typeof ( DialogDesigner ) )]
 	public class Dialog
 		: BaseWidget
 	{

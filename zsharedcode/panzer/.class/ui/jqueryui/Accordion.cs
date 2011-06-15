@@ -25,7 +25,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 折叠列表插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Accordion runat=server></{0}:Accordion>" )]
-	[DesignerAttribute ( typeof ( AccordionDesigner ) )]
+	[Designer ( typeof ( AccordionDesigner ) )]
 	public class Accordion
 		: BaseWidget, IPostBackEventHandler
 	{

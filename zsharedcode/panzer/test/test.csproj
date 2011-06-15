@@ -56,6 +56,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>MySite.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -160,19 +163,67 @@
     <Compile Include="web\ib\FormIEBrowserDoc.Designer.cs">
       <DependentUpon>FormIEBrowserDoc.cs</DependentUpon>
     </Compile>
-    <Compile Include="web\ib\FormIEBrowserTest.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="web\ib\FormIEBrowserTest.Designer.cs">
-      <DependentUpon>FormIEBrowserTest.cs</DependentUpon>
-    </Compile>
     <Compile Include="web\ib\FormVCode.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="web\ib\FormVCode.Designer.cs">
       <DependentUpon>FormVCode.cs</DependentUpon>
     </Compile>
+    <Compile Include="web\ib\ieplus\FormHome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="web\ib\ieplus\FormHome.Designer.cs">
+      <DependentUpon>FormHome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="web\ib\ieplus\FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="web\ib\ieplus\FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="web\ib\ieplus\FormPlus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="web\ib\ieplus\FormPlus.Designer.cs">
+      <DependentUpon>FormPlus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="web\ib\ieplus\FormRecord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="web\ib\ieplus\FormRecord.Designer.cs">
+      <DependentUpon>FormRecord.cs</DependentUpon>
+    </Compile>
     <Compile Include="web\ib\TestIEBrowser.cs" />
+    <Compile Include="web\ib\FormIEBrowserManaged.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="web\ib\FormIEBrowserManaged.Designer.cs">
+      <DependentUpon>FormIEBrowserManaged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="web\ib\FormIEBrowser4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="web\ib\FormIEBrowser4.Designer.cs">
+      <DependentUpon>FormIEBrowser4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="web\ib\FormIEBrowserTemp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="web\ib\FormIEBrowserTemp.Designer.cs">
+      <DependentUpon>FormIEBrowserTemp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="web\ib\FormIEBrowser5.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="web\ib\FormIEBrowser5.Designer.cs">
+      <DependentUpon>FormIEBrowser5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="web\ib\FormIEBrowserButtonClick.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="web\ib\FormIEBrowserButtonClick.Designer.cs">
+      <DependentUpon>FormIEBrowserButtonClick.cs</DependentUpon>
+    </Compile>
     <Compile Include="web\TestHtmlEditHelper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -182,7 +233,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="web\ib\ButtonClick.htm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\jquery-1.5.2.min.js" />
+    <Content Include="MySite.ico" />
     <Content Include="seriation.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -305,11 +360,35 @@
     <EmbeddedResource Include="web\ib\FormIEBrowserDoc.resx">
       <DependentUpon>FormIEBrowserDoc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="web\ib\FormIEBrowserTest.resx">
-      <DependentUpon>FormIEBrowserTest.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="web\ib\FormVCode.resx">
       <DependentUpon>FormVCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="web\ib\FormIEBrowserManaged.resx">
+      <DependentUpon>FormIEBrowserManaged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="web\ib\FormIEBrowser4.resx">
+      <DependentUpon>FormIEBrowser4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="web\ib\FormIEBrowserTemp.resx">
+      <DependentUpon>FormIEBrowserTemp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="web\ib\FormIEBrowser5.resx">
+      <DependentUpon>FormIEBrowser5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="web\ib\ieplus\FormHome.resx">
+      <DependentUpon>FormHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="web\ib\ieplus\FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="web\ib\ieplus\FormPlus.resx">
+      <DependentUpon>FormPlus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="web\ib\FormIEBrowserButtonClick.resx">
+      <DependentUpon>FormIEBrowserButtonClick.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="web\ib\ieplus\FormRecord.resx">
+      <DependentUpon>FormRecord.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
