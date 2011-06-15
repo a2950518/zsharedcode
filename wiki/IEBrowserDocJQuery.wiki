@@ -3,6 +3,7 @@
 <font face="microsoft yahei">
 === 代码 ===
 {{{
+// 需要引用 using zoyobar.shared.panzer.web;
 // 需要引用 using zoyobar.shared.panzer.web.ib;
 
 // 从当前的 WebBrowser 控件创建 IEBrowser 对象.
@@ -15,7 +16,7 @@ ie.Navigate ( "http://www.google.com.hk/" );
 ie.IEFlow.Wait ( new UrlCondition ( "wait", "http://www.google.com.hk", StringCompareMode.StartWith ) );
 
 // 安装本地的 jquery 脚本.
-ie.InstallJQuery ( new Uri ( Path.Combine ( AppDomain.CurrentDomain.BaseDirectory, @"jquery-1.5.min.js" ) ) );
+ie.InstallJQuery ( JQuery.CodeMin );
 
 // 执行 jquery 脚本 $('*').length, 获得页面上总元素个数.
 Console.WriteLine ( "页面上共有 {0} 个元素", ie.ExecuteJQuery ( JQuery.Create ( "'*'" ).Length ( ) ) );
