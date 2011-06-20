@@ -255,4 +255,6 @@
         * [JESBookListDoc 图书列表]
   * [Member 项目成员]
   * [SideBar wiki 地图]
+  * [Video 视频教程]
+    * [VideoIEBrowser IEBrowser 视频]
 </font>

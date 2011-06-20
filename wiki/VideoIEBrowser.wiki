@@ -1,0 +1,7 @@
+#summary IEBrowser 视频
+#labels Phase-Implementation,Phase-Support,Phase-Deploy
+<font face="microsoft yahei">
+=== IEBrowser 视频 ===
+ * [http://www.tudou.com/programs/view/luCeHgfPqxc/ IEBrowser 第一个实验]
+ * [http://www.tudou.com/programs/view/BMsVPKBgrtM/ IEBrowser 执行安装调用 javascript]
+</font>
