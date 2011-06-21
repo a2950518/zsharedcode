@@ -798,6 +798,35 @@ namespace zoyobar.shared.panzer.web
 			page.ClientScript.RegisterClientScriptInclude ( page.GetType ( ), key, url );
 		}
 
+		/// <summary>
+		/// 将资源中脚本注册到控件所在的页面中.
+		/// </summary>
+		/// <param name="control">控件, 其所在页面将添加脚本包含.</param>
+		/// <param name="resourceType">资源所在的类型.</param>
+		/// <param name="resourceName">资源的名称.</param>
+		public static void RegisterResource ( NControl control, Type resourceType, string resourceName )
+		{
+
+			if ( null == control )
+				return;
+
+			RegisterResource ( control.Page, resourceType, resourceName );
+		}
+
+		/// <summary>
+		/// 将资源中脚本注册到页面中.
+		/// </summary>
+		/// <param name="page">添加脚本包含的页面.</param>
+		/// <param name="resourceType">资源所在的类型.</param>
+		/// <param name="resourceName">资源的名称.</param>
+		public static void RegisterResource ( Page page, Type resourceType, string resourceName )
+		{
+
+			if ( null == page || null == page.ClientScript || null == resourceType || string.IsNullOrEmpty ( resourceName ) )
+				return;
+
+			page.ClientScript.RegisterClientScriptResource ( resourceType, resourceName );
+		}
 
 		/// <summary>
 		/// 添加设置标签属性的脚本到控件所在页面, 不需要使用 Build 方法, 也不影响 Code 属性, 但不能对同一标签的同一属性设置两次.
