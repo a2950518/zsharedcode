@@ -173,7 +173,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		protected override void Render ( HtmlTextWriter writer )
 		{
 
-			if ( !this.Visible || this.html.Controls.Count != 1)
+			if ( !this.Visible || this.html.Controls.Count != 1 )
 				return;
 
 			LiteralControl literal = this.html.Controls[0] as LiteralControl;
