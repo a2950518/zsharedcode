@@ -15,7 +15,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows.Forms;
+
+// HACK: 避免在 allinone 文件中的名称冲突
+using NTimer = System.Windows.Forms.Timer;
 
 namespace zoyobar.shared.panzer.flow
 {
@@ -516,8 +520,8 @@ namespace zoyobar.shared.panzer.flow
 		private readonly SortedList<string, FlowState<A, C>> states = new SortedList<string, FlowState<A, C>> ( );
 		private FlowState<A, C> currentState;
 
-		private Timer checkStateTimer = new Timer ( );
-		private Timer checkTimeoutTimer = new Timer ( );
+		private NTimer checkStateTimer = new NTimer ( );
+		private NTimer checkTimeoutTimer = new NTimer ( );
 		private bool checkStateTimerLocker;
 		private bool checkTimeoutTimerLocker;
 
@@ -591,12 +595,12 @@ namespace zoyobar.shared.panzer.flow
 			if ( second <= 0 )
 				return;
 
-			DateTime time = DateTime.Now;
+			int time = Environment.TickCount + ( second * 1000 );
 			int oldRemainSecond = -1;
 
 			while ( true )
 			{
-				int remainSecond = ( int ) ( ( time.AddSeconds ( second ) - DateTime.Now ).TotalSeconds ) + 1;
+				int remainSecond = ( int ) ( ( time - Environment.TickCount ) / 1000 ) + 1;
 
 				if ( oldRemainSecond == -1 || oldRemainSecond != remainSecond )
 				{
@@ -608,6 +612,7 @@ namespace zoyobar.shared.panzer.flow
 				}
 
 				Application.DoEvents ( );
+				Thread.Sleep ( 100 );
 
 				if ( null != conditions )
 				{
