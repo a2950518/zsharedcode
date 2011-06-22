@@ -4,4 +4,5 @@
 === IEBrowser 视频 ===
  * [http://www.tudou.com/programs/view/luCeHgfPqxc/ IEBrowser 第一个实验]
  * [http://www.tudou.com/programs/view/BMsVPKBgrtM/ IEBrowser 执行安装调用 javascript]
+ * [http://www.tudou.com/programs/view/WTTv2hCmLyc/ IEBrowser 安装执行 jQuery 模拟搜索百度]
 </font>
