@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\.class\code\StringConvert.cs">
+      <Link>.class\StringConvert.cs</Link>
+    </Compile>
     <Compile Include="..\..\.class\flow\Flow.cs">
       <Link>.class\Flow.cs</Link>
     </Compile>
@@ -67,6 +70,9 @@
     </Compile>
     <Compile Include="..\..\.class\web\JQuery.cs">
       <Link>.class\JQuery.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\JSON.cs">
+      <Link>.class\JSON.cs</Link>
     </Compile>
     <Compile Include="..\..\.class\web\ScriptHelper.cs">
       <Link>.class\ScriptHelper.cs</Link>
