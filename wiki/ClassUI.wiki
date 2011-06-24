@@ -5,6 +5,6 @@
  * [ClassUIDWeb dweb]
  * [ClassUIDWindow dwindow]
  * [EventHandlerType EventHandlerType]
- * [ClassJQueryUI jqueryui]
+ * [ClassUIJQueryUI jqueryui]
  * [WindowCore WindowCore`1]
 </font>
