@@ -111,6 +111,7 @@
     <Compile Include=".class\web\jqueryui\AjaxSetting.cs" />
     <Compile Include=".class\web\jqueryui\WidgetSetting.cs" />
     <Compile Include=".class\web\jqueryui\Parameter.cs" />
+    <Compile Include=".class\web\JSON.cs" />
     <Compile Include=".class\web\ScriptHelper.cs" />
     <None Include=".code\DataWebCore.all.cs" />
     <None Include=".code\DataWindowCore.all.cs" />
