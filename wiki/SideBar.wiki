@@ -137,6 +137,7 @@
         * [WebPageNextStateSetting WebPageNextStateSetting]
         * [WebPageState WebPageState]
       * [JQuery JQuery]
+      * [JSON JSON]
       * [ClassWebJQueryUI jqueryui]
         * [JQueryUIAjaxSetting AjaxSetting]
         * [JQueryUIDataType DataType]
