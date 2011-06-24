@@ -20740,6 +20740,36 @@ namespace zoyobar.shared.panzer.web
 
 		}
 
+#if PARAM
+		/// <summary>
+		/// 对字符串编码, 以进行接下来的操作.
+		/// </summary>
+		/// <param name="text">需要编码的字符串.</param>
+		/// <param name="isRemove">是否删除某些特殊字符, 如: 换行, 默认为 false.</param>
+		/// <returns>编码后的字符串.</returns>
+		public static string EscapeCharacter ( string text, bool isRemove = false )
+#else
+		/// <summary>
+		/// 对字符串编码, 以进行接下来的操作.
+		/// </summary>
+		/// <param name="text">需要编码的字符串.</param>
+		/// <param name="isRemove">是否删除某些特殊字符, 如: 换行.</param>
+		/// <returns>编码后的字符串.</returns>
+		public static string EscapeCharacter ( string text, bool isRemove )
+#endif
+		{
+
+			if ( string.IsNullOrEmpty ( text ) )
+				return string.Empty;
+
+			if ( isRemove )
+				text = text.Replace ( "\n", string.Empty ).Replace ( "\r", string.Empty ).Replace ( "\t", string.Empty );
+			else
+				text = text.Replace ( "\n", "\\n" ).Replace ( "\r", "\\r" ).Replace ( "\t", "\\t" );
+
+			return text.Replace ( "\\", "\\\\" ).Replace ( "\'", "\\'" );
+		}
+
 		protected string code = string.Empty;
 
 		protected readonly ScriptType scriptType;
@@ -21576,6 +21606,14 @@ namespace zoyobar.shared.panzer.web
 	partial class ScriptHelper
 	{
 #if !PARAM
+		/// <summary>
+		/// 对字符串编码, 不删除特殊字符, 如: 换行, 以进行接下来的操作.
+		/// </summary>
+		/// <param name="text">需要编码的字符串.</param>
+		/// <returns>编码后的字符串.</returns>
+		public static string EscapeCharacter ( string text )
+		{ return EscapeCharacter ( text, false ); }
+
 		/// <summary>
 		/// 添加脚本包含到页面, 不需要使用 Build 方法, 也不影响 Code 属性.
 		/// </summary>

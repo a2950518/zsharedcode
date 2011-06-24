@@ -716,36 +716,6 @@ namespace zoyobar.shared.panzer.web.ib
 	{
 		private static readonly string comObjectFullName = "System.__ComObject";
 
-#if PARAM
-		/// <summary>
-		/// 对字符串编码, 以进行接下来的操作.
-		/// </summary>
-		/// <param name="text">需要编码的字符串.</param>
-		/// <param name="isRemove">是否删除某些特殊字符, 如: 换行, 默认为 false.</param>
-		/// <returns>编码后的字符串.</returns>
-		public static string EscapeCharacter ( string text, bool isRemove = false )
-#else
-		/// <summary>
-		/// 对字符串编码, 以进行接下来的操作.
-		/// </summary>
-		/// <param name="text">需要编码的字符串.</param>
-		/// <param name="isRemove">是否删除某些特殊字符, 如: 换行.</param>
-		/// <returns>编码后的字符串.</returns>
-		public static string EscapeCharacter ( string text, bool isRemove )
-#endif
-		{
-
-			if ( string.IsNullOrEmpty ( text ) )
-				return string.Empty;
-
-			if ( isRemove )
-				text = text.Replace ( "\n", string.Empty ).Replace ( "\r", string.Empty ).Replace ( "\t", string.Empty );
-			else
-				text = text.Replace ( "\n", "\\n" ).Replace ( "\r", "\\r" ).Replace ( "\t", "\\t" );
-
-			return text.Replace ( "\\", "\\\\" ).Replace ( "\'", "\\'" );
-		}
-
 		private readonly WebBrowser browser;
 
 		private readonly IEFlow ieFlow;
@@ -972,10 +942,83 @@ namespace zoyobar.shared.panzer.web.ib
 		{ this.installScript ( id, null, code, isOverWrite ); }
 
 		/// <summary>
-		/// 安装跟踪脚本到 WebBrowser, 可以使用 __set(name, value) 和 __get(name) 两个 javascript 函数.
+		/// 安装跟踪脚本到 WebBrowser, 可以使用 __set(name, value) 和 __get(name), __getJSON(name) javascript 函数.
 		/// </summary>
 		public void InstallTrace ( )
-		{ this.installScript ( "__jsTrace", null, "function __set(name, value){if(null == name){return;}window[name] = eval(value);}function __get(name){if(null == name){return null;}else{return window[name];}}", false ); }
+		{
+			this.installScript (
+				"__jsTrace",
+				null,
+				"function __set(name, value){if(null == name){return;}window[name] = eval(value);}function __get(name){if(null == name){return null;}else{return window[name];}}" +
+				"function __getJSON(name) {\n" +
+
+				"	if (null == name) { return null; }\n" +
+
+				"	return __jsonToString(window[name]);\n" +
+				"}\n" +
+				"function __getType(value) {\n" +
+
+				"	if (typeof (value) != 'object')\n" +
+				"		return typeof (value);\n" +
+
+				"	if (value instanceof Number)\n" +
+				"		return 'number';\n" +
+				"	else if (value instanceof String)\n" +
+				"		return 'string';\n" +
+				"	else if (value instanceof Boolean)\n" +
+				"		return 'boolean';\n" +
+				"	else if (value instanceof Date)\n" +
+				"		return 'date';\n" +
+				"	else\n" +
+				"		return 'undefined';\n" +
+
+				"}\n" +
+				"function __jsonToString(json, name) {\n" +
+
+				"	if (null == json) { return ''; }\n" +
+
+				"	var expression = '';\n" +
+
+				"	if (json instanceof Array) {\n" +
+
+				"		if (null == name)\n" +
+				"			expression += 'create-array`;`';\n" +
+				"		else\n" +
+				"			expression += 'create-array`:``:`' + name + '`;`';\n" +
+
+				"		for (var index in json)\n" +
+				"			if (json[index] instanceof Object && !(json[index] instanceof Number) && !(json[index] instanceof String) && !(json[index] instanceof Date) && !(json[index] instanceof RegExp) && !(json[index] instanceof Boolean))\n" +
+				"				expression += __jsonToString(json[index]);\n" +
+				"			else if (json[index] instanceof Date)\n" +
+				"				expression += 'add-' + __getType(json[index]) + '`:`' + (null == json[index] ? '' : json[index].getFullYear().toString() + '-' + (json[index].getMonth() + 1).toString() + '-' + json[index].getDate().toString() + ' ' + json[index].getHours().toString() + ':' + json[index].getMinutes().toString() + ':' + json[index].getSeconds().toString()) + '`;`';\n" +
+				"			else\n" +
+				"				expression += 'add-' + __getType(json[index]) + '`:`' + (null == json[index] ? '' : json[index].toString()) + '`;`';\n" +
+
+				"		expression += 'add-array`;`';\n" +
+				"	}\n" +
+				"	else if (json instanceof Object) {\n" +
+
+				"		if (null == name)\n" +
+				"			expression += 'create-object`;`';\n" +
+				"		else\n" +
+				"			expression += 'create-object`:``:`' + name + '`;`';\n" +
+
+				"		for (var key in json)\n" +
+				"			if (json[key] instanceof Object && !(json[key] instanceof Number) && !(json[key] instanceof String) && !(json[key] instanceof Date) && !(json[key] instanceof RegExp) && !(json[key] instanceof Boolean))\n" +
+				"				expression += __jsonToString(json[key], key.toString());\n" +
+				"			else if (json[index] instanceof Date)\n" +
+				"				expression += 'add-' + __getType(json[key]) + '`:`' + (null == json[key] ? '' : json[key].getFullYear().toString() + '-' + (json[key].getMonth() + 1).toString() + '-' + json[key].getDate().toString() + ' ' + json[key].getHours().toString() + ':' + json[key].getMinutes().toString() + ':' + json[key].getSeconds().toString()) + '`:`' + key.toString() + '`;`';\n" +
+				"			else\n" +
+				"				expression += 'add-' + __getType(json[key]) + '`:`' + (null == json[key] ? '' : json[key].toString()) + '`:`' + key.toString() + '`;`';\n" +
+
+				"		expression += 'add-object`;`';\n" +
+				"	}\n" +
+
+				"	return expression;\n" +
+				"}",
+				false
+				);
+		}
 
 		/// <summary>
 		/// 安装智能脚本到 WebBrowser, 可以进行一些智能的编辑.
@@ -1133,10 +1176,70 @@ namespace zoyobar.shared.panzer.web.ib
 
 #if PARAM
 		/// <summary>
+		/// 调用 __getJSON 函数, 获取页面中的 JSON 对象, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		/// <param name="name">值的名称.</param>
+		/// <param name="framePath">__getJSON 函数所在框架的路径, 默认不使用路径.</param>
+		/// <returns>JSON 对象.</returns>
+		public JSON __GetJSON ( string name, string framePath = null )
+#else
+		/// <summary>
+		/// 调用 __getJSON 函数, 获取页面中的 JSON 对象, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		/// <param name="name">值的名称.</param>
+		/// <param name="framePath">__getJSON 函数所在框架的路径.</param>
+		/// <returns>JSON 对象.</returns>
+		public JSON __GetJSON ( string name, string framePath )
+#endif
+		{
+
+			if ( string.IsNullOrEmpty ( name ) )
+				return null;
+
+			object value = this.InvokeScript ( "__getJSON", new object[] { name }, framePath );
+
+			if ( null == value )
+				return null;
+
+			try
+			{ return JSON.Create ( value.ToString ( ) ); }
+			catch
+			{ return null; }
+
+		}
+
+#if PARAM
+		/// <summary>
+		/// 调用 eval 函数, 设置 JSON 对象到页面, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		/// <param name="name">值的名称.</param>
+		/// <param name="json">JSON 对象.</param>
+		/// <param name="framePath">eval 函数所在框架的路径, 默认不使用路径.</param>
+		public void __SetJSON ( string name, JSON json, string framePath = null )
+#else
+		/// <summary>
+		/// 调用 __set 函数, 设置 JSON 对象到页面, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		/// <param name="name">值的名称.</param>
+		/// <param name="json">JSON 对象.</param>
+		/// <param name="framePath">eval 函数所在框架的路径.</param>
+		public void __SetJSON ( string name, JSON json, string framePath )
+#endif
+		{
+
+			if ( string.IsNullOrEmpty ( name ) || null == json )
+				return;
+
+			this.InvokeScript ( "eval", new object[] { string.Format ( "window['{0}'] = {1}", name, json.ToString ( ) ) }, framePath );
+		}
+
+#if PARAM
+		/// <summary>
 		/// 调用 __get 函数, 获得一个值, 需要首先调用 InstallTrace 方法.
 		/// </summary>
 		/// <param name="name">值的名称.</param>
 		/// <param name="framePath">__get 函数所在框架的路径, 默认不使用路径.</param>
+		/// <returns>值.</returns>
 		public T __Get<T> ( string name, string framePath = null )
 #else
 		/// <summary>
@@ -1144,6 +1247,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// </summary>
 		/// <param name="name">值的名称.</param>
 		/// <param name="framePath">__get 函数所在框架的路径.</param>
+		/// <returns>值.</returns>
 		public T __Get<T> ( string name, string framePath )
 #endif
 		{
@@ -1302,14 +1406,6 @@ namespace zoyobar.shared.panzer.web.ib
 #if !PARAM
 
 		/// <summary>
-		/// 对字符串编码, 不删除特殊字符, 如: 换行, 以进行接下来的操作.
-		/// </summary>
-		/// <param name="text">需要编码的字符串.</param>
-		/// <returns>编码后的字符串.</returns>
-		public static string EscapeCharacter ( string text )
-		{ return EscapeCharacter ( text, false ); }
-
-		/// <summary>
 		/// 安装网络版本的 jQuery 脚本到 WebBrowser 控件, 如果已经安装不再重新安装.
 		/// </summary>
 		public void InstallJQuery ( )
@@ -1406,6 +1502,22 @@ namespace zoyobar.shared.panzer.web.ib
 		/// <returns>调用函数后的返回值.</returns>
 		public object InvokeScript ( string methodName, object[] parameters )
 		{ return this.InvokeScript ( methodName, parameters, null ); }
+		
+		/// <summary>
+		/// 调用 eval 函数, 设置 JSON 对象到页面, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		/// <param name="name">值的名称.</param>
+		/// <param name="json">JSON 对象.</param>
+		public void __SetJSON ( string name, JSON json )
+		{ this.__SetJSON ( name, json, null ); }
+
+		/// <summary>
+		/// 调用 __getJSON 函数, 获取页面中的 JSON 对象, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		/// <param name="name">值的名称.</param>
+		/// <returns>JSON 对象.</returns>
+		public JSON __GetJSON ( string name )
+		{ return this.__GetJSON ( name, null ); }
 
 		/// <summary>
 		/// 调用 __set 函数, 设置一个值, 需要首先调用 InstallTrace 方法.
@@ -1419,6 +1531,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// 调用 __get 函数, 获得一个值, 需要首先调用 InstallTrace 方法.
 		/// </summary>
 		/// <param name="name">值的名称.</param>
+		/// <returns>值.</returns>
 		public T __Get<T> ( string name )
 		{ return this.__Get<T> ( name, null ); }
 
