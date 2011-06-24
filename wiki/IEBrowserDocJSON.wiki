@@ -1,0 +1,54 @@
+#summary IEBrowser 获取设置 json 数据
+#labels Phase-Implementation
+<font face="microsoft yahei">
+=== 代码 ===
+{{{
+// 需要引用 using zoyobar.shared.panzer.web;
+// 需要引用 using zoyobar.shared.panzer.web.ib;
+
+// 从当前的 WebBrowser 控件创建 IEBrowser 对象.
+IEBrowser ie = new IEBrowser ( this.webBrowser );
+
+// 向页面添加一个 json 数据.
+ie.ExecuteScript ( "var student = { name: '小小', age: 10, scores: [90, 89, 100] }" );
+
+// 安装跟踪脚本, 以便获取设置 json 数据.
+ie.InstallTrace();
+
+// 获取页面中的 student 并作为 JSON 对象返回.
+JSON json = ie.__GetJSON ( "student" );
+
+// 显示 json 数据.
+Console.WriteLine ( "修改前, 姓名: {0}, 年龄: {1}, 分数1: {2}, 分数2: {3}, 分数3: {4}", json.Attributes["name"].Value, json.Attributes["age"].Value, json.Attributes["scores"].Values[0].Value, json.Attributes["scores"].Values[1].Value, json.Attributes["scores"].Values[2].Value );
+
+// 修改 json 中的数据.
+json.Attributes["name"].Value = "'小红'";
+json.Attributes["age"].Value = 12;
+
+// 将修改后的 json 数据返回到页面中.
+ie.__SetJSON ( "student", json );
+
+// 重新从页面获取刚才修改的 json.
+json = ie.__GetJSON ( "student" );
+
+// 显示修改后的 json 数据.
+Console.WriteLine ( "修改后, 姓名: {0}, 年龄: {1}, 分数1: {2}, 分数2: {3}, 分数3: {4}", json.Attributes["name"].Value, json.Attributes["age"].Value, json.Attributes["scores"].Values[0].Value, json.Attributes["scores"].Values[1].Value, json.Attributes["scores"].Values[2].Value );
+}}}
+
+=== 说明 ===
+ 由于使用 __Get, __Set 方法不针对复杂的 javascript 数据, 所以 [IEBrowser IEBrowser] 另外提供了 __GetJSON 和 __SetJSON 方法来获取和设置 json 格式的数据.
+
+ 使用 [IEBrowser IEBrowser] 的 __GetJSON 方法可以获取页面中的 json 数据, 并返回对应的 [JSON JSON], 比如: {{{JSON json = ie.__GetJSON ( "student" );}}}, 而 __SetJSON 则是将 json 数据写回到页面中, 比如: {{{ie.__SetJSON ( "student", json );}}}, 其中的 student 也就是变量的名称.
+
+ 在执行 __SetJSON 或者 __GetJSON 方法前, 需要先执行 InstallTrace 方法.
+
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+=== 使用 ===
+ 如果需要单独使用 [IEBrowser IEBrowser], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs], 也可以在 [Download 下载资源] 中下载 dll.
+
+ 如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
+
+=== 需求 ===
+ 可能需要引用 System.Web 以及相关程序集.
+</font>
