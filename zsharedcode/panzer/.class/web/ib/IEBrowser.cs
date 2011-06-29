@@ -753,7 +753,7 @@ namespace zoyobar.shared.panzer.web.ib
 		}
 
 		/// <summary>
-		/// 获取用于在 javascript 中调用的 .NET 对象.
+		/// 设置用于在 javascript 中调用的 .NET 对象.
 		/// </summary>
 		public object Scripting
 		{
