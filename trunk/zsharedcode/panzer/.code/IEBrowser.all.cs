@@ -763,7 +763,7 @@ namespace zoyobar.shared.panzer.web.ib
 		}
 
 		/// <summary>
-		/// 获取用于在 javascript 中调用的 .NET 对象.
+		/// 设置用于在 javascript 中调用的 .NET 对象.
 		/// </summary>
 		public object Scripting
 		{
@@ -6365,6 +6365,25 @@ namespace zoyobar.shared.panzer.web
 				return this.values;
 			}
 		}
+
+		/*
+		public JSON this[object key]
+		{
+			get
+			{
+
+				switch ( this.type )
+				{
+					case JSONType.Array:
+
+						if(!(key is int))
+
+
+				}
+
+			}
+		}
+		*/
 
 		/// <summary>
 		/// 获取或设置 JSON 中的值, Type 不应该为 Object, Array.
