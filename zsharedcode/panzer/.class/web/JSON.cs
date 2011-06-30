@@ -1,5 +1,7 @@
 ﻿/*
- * wiki: http://code.google.com/p/zsharedcode/wiki/JQuery
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JSON
+ * http://code.google.com/p/zsharedcode/wiki/JSONType
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/JSON.cs
  * 版本: .net 4.0, 其它版本可能有所不同
@@ -262,6 +264,25 @@ namespace zoyobar.shared.panzer.web
 				return this.values;
 			}
 		}
+
+		/*
+		public JSON this[object key]
+		{
+			get
+			{
+
+				switch ( this.type )
+				{
+					case JSONType.Array:
+
+						if(!(key is int))
+
+
+				}
+
+			}
+		}
+		*/
 
 		/// <summary>
 		/// 获取或设置 JSON 中的值, Type 不应该为 Object, Array.
