@@ -125,6 +125,7 @@
  * [WebPageState web.ib.WebPageState]
  * [JQuery web.JQuery]
  * [JSON web.JSON]
+ * [JSONType web.JSONType]
  * [JQueryUIAjaxSetting web.jqueryui.AjaxSetting]
  * [JQueryUIDataType web.jqueryui.DataType]
  * [JQueryUIDraggableSetting web.jqueryui.DraggableSetting]

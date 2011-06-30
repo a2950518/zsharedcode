@@ -138,6 +138,7 @@
         * [WebPageState WebPageState]
       * [JQuery JQuery]
       * [JSON JSON]
+      * [JSONType JSONType]
       * [ClassWebJQueryUI jqueryui]
         * [JQueryUIAjaxSetting AjaxSetting]
         * [JQueryUIDataType DataType]

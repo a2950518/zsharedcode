@@ -7,6 +7,7 @@
  * [ClassWebIB ib]
  * [JQuery JQuery]
  * [JSON JSON]
+ * [JSONType JSONType]
  * [ClassWebJQueryUI jqueryui]
  * [NavigateOption NavigateOption]
  * [ScriptBuildOption ScriptBuildOption]
