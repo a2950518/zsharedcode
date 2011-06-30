@@ -265,7 +265,11 @@ namespace zoyobar.shared.panzer.web
 			}
 		}
 
-		/*
+		/// <summary>
+		/// 获取 JSON 中的数组或属性.
+		/// </summary>
+		/// <param name="key">索引或者属性名称.</param>
+		/// <returns>值.</returns>
 		public JSON this[object key]
 		{
 			get
@@ -275,14 +279,24 @@ namespace zoyobar.shared.panzer.web
 				{
 					case JSONType.Array:
 
-						if(!(key is int))
+						if ( !( key is int ) || ( int ) key >= this.values.Count )
+							return null;
 
+						return this.values[( int ) key];
 
+					case JSONType.Object:
+
+						if ( !( key is string ) || !this.attributes.ContainsKey ( key as string ) )
+							return null;
+
+						return this.attributes[key as string];
+
+					default:
+						throw new Exception ( "JSONType 不为 Object, Array 的 JSON 不能访问 this 属性" );
 				}
 
 			}
 		}
-		*/
 
 		/// <summary>
 		/// 获取或设置 JSON 中的值, Type 不应该为 Object, Array.
