@@ -24,9 +24,9 @@
  
  注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
 
- [http://zsharedcode.googlecode.com/files/IEBrowser.2.4.0.Debug.PARAM.zip IEBrowser 2.4.0 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/IEBrowser.2.4.1.Debug.PARAM.zip IEBrowser 2.4.1 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
- [http://zsharedcode.googlecode.com/files/IEBrowser.2.4.0.Debug.NOPARAM.zip IEBrowser 2.4.0 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/IEBrowser.2.4.1.Debug.NOPARAM.zip IEBrowser 2.4.1 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
 === JQueryElement.dll ===
  [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/JQueryElement.all.cs JQueryElement.all.cs]
