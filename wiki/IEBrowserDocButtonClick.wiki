@@ -40,7 +40,7 @@ namespace zoyobar.shared.panzer.test.web.ib
 			// 创建 IEBrowser 对象, 用来控制窗口的 WebBrowser 控件.
 			IEBrowser ie = new IEBrowser ( this.webBrowser );
 			// 载入已经放在运行目录的页面 ButtonClick.htm.
-			ie.Navigate ( Path.Combine ( AppDomain.CurrentDomain.BaseDirectory + "ButtonClick.htm" ) );
+			ie.Navigate ( Path.Combine ( AppDomain.CurrentDomain.BaseDirectory, "ButtonClick.htm" ) );
 
 			// 等待 ButtonClick.htm 完全载入.
 			ie.IEFlow.Wait ( new UrlCondition ( "wait", "ButtonClick.htm", StringCompareMode.EndWith ) );
@@ -64,7 +64,7 @@ namespace zoyobar.shared.panzer.test.web.ib
 			// 创建 IEBrowser 对象, 用来控制窗口的 WebBrowser 控件.
 			IEBrowser ie = new IEBrowser ( this.webBrowser );
 			// 载入已经放在运行目录的页面 ButtonClick.htm.
-			ie.Navigate ( Path.Combine ( AppDomain.CurrentDomain.BaseDirectory + "ButtonClick.htm" ) );
+			ie.Navigate ( Path.Combine ( AppDomain.CurrentDomain.BaseDirectory, "ButtonClick.htm" ) );
 
 			// 等待 ButtonClick.htm 完全载入.
 			ie.IEFlow.Wait ( new UrlCondition ( "wait", "ButtonClick.htm", StringCompareMode.EndWith ) );

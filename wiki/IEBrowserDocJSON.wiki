@@ -19,11 +19,11 @@ ie.InstallTrace();
 JSON json = ie.__GetJSON ( "student" );
 
 // 显示 json 数据.
-Console.WriteLine ( "修改前, 姓名: {0}, 年龄: {1}, 分数1: {2}, 分数2: {3}, 分数3: {4}", json.Attributes["name"].Value, json.Attributes["age"].Value, json.Attributes["scores"].Values[0].Value, json.Attributes["scores"].Values[1].Value, json.Attributes["scores"].Values[2].Value );
+Console.WriteLine ( "修改前, 姓名: {0}, 年龄: {1}, 分数1: {2}, 分数2: {3}, 分数3: {4}", json["name"].Value, json["age"].Value, json["scores"][0].Value, json["scores"][1].Value, json["scores"][2].Value );
 
 // 修改 json 中的数据.
-json.Attributes["name"].Value = "'小红'";
-json.Attributes["age"].Value = 12;
+json["name"].Value = "'小红'";
+json["age"].Value = 12;
 
 // 将修改后的 json 数据返回到页面中.
 ie.__SetJSON ( "student", json );
@@ -32,7 +32,7 @@ ie.__SetJSON ( "student", json );
 json = ie.__GetJSON ( "student" );
 
 // 显示修改后的 json 数据.
-Console.WriteLine ( "修改后, 姓名: {0}, 年龄: {1}, 分数1: {2}, 分数2: {3}, 分数3: {4}", json.Attributes["name"].Value, json.Attributes["age"].Value, json.Attributes["scores"].Values[0].Value, json.Attributes["scores"].Values[1].Value, json.Attributes["scores"].Values[2].Value );
+Console.WriteLine ( "修改后, 姓名: {0}, 年龄: {1}, 分数1: {2}, 分数2: {3}, 分数3: {4}", json["name"].Value, json["age"].Value, json["scores"][0].Value, json["scores"][1].Value, json["scores"][2].Value );
 }}}
 
 === 说明 ===
