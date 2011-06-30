@@ -5,5 +5,7 @@
  * [http://www.tudou.com/programs/view/luCeHgfPqxc/ IEBrowser 第一个实验]
  * [http://www.tudou.com/programs/view/BMsVPKBgrtM/ IEBrowser 执行安装调用 javascript]
  * [http://www.tudou.com/programs/view/WTTv2hCmLyc/ IEBrowser 安装执行 jQuery 模拟搜索百度]
- * [http://www.tudou.com/programs/view/GGRC9M5i5d0/ IEBrowser IEBrowser 记录和回放用户在 WebBrowser 中的操作]
+ * [http://www.tudou.com/programs/view/GGRC9M5i5d0/ IEBrowser 记录和回放用户在 WebBrowser 中的操作]
+ * [http://www.tudou.com/programs/view/E8-79ot9JTA/ IEBrowser WebBrowser 页面与程序变量 json 互交]
+ * [http://www.tudou.com/programs/view/hqeEZIFfoxg/ IEBrowser 页面 js 脚本调用 .NET 完成注册]
 </font>
