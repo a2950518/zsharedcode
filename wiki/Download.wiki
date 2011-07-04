@@ -30,5 +30,23 @@
 
 === panzer.dll ===
  我们已经不再提供 panzer.dll 的下载链接, 请下载上面提供的 dll.
+ 
+=== IEBrowser 更新历史 ===
+2.3.1 版本改动:
+ a. 调整 IEFlow.Wait 方法, 降低了执行此方法的 CPU 占用率.
+
+2.4.0 版本改动:
+ a. 增加 IEBrowser.__GetJSON 和 IEBrowser.__SetJSON 方法, 用于获取和设置 json 数据.
+
+2.4.1 版本改动:
+ a. 增加 JSON 的 this[object key] 索引器.
+
+2.5.0 版本改动:
+ a. 增加判断页面是否安装 jQuery 脚本的 IsJQueryInstalled 属性.
+ b. 增加构造参数 isNewWindowEnabled 和 IsNewWindowEnabled 属性, 当设置为 false 时, 用鼠标点击的超链接在自身打开.
+ c. 增加 Dispose 方法, 明确释放为 WebBrowser 添加的事件.
+ d. IEBrowser 增加了 GetDocument, GetFramePath, GetElement 等方法.
+ e. 修改 IERecord 的功能, 增加了 ElementMark 类.
+ f. 增加了 AttachEvent 和 DetachEvent 系列方法, 用于为页面元素注册 .NET 事件.
 
 </font>
