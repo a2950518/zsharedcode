@@ -101,6 +101,7 @@
  * [HtmlEditHelper web.HtmlEditHelper]
  * [IBCustomRecordAction web.ib.CustomRecordAction]
  * [WPAEmptyAction web.ib.EmptyAction]
+ * [ElementMark web.ib.ElementMark]
  * [ExecuteJavaScriptAction web.ib.ExecuteJavaScriptAction]
  * [ExecuteJQueryAction web.ib.ExecuteJQueryAction]
  * [IEBrowser web.ib.IEBrowser]
