@@ -53,6 +53,9 @@
     <Compile Include="..\..\.class\web\HtmlEditHelper.cs">
       <Link>.class\HtmlEditHelper.cs</Link>
     </Compile>
+    <Compile Include="..\..\.class\web\ib\ElementMark.cs">
+      <Link>.class\ElementMark.cs</Link>
+    </Compile>
     <Compile Include="..\..\.class\web\ib\IEBrowser.cs">
       <Link>.class\IEBrowser.cs</Link>
     </Compile>
