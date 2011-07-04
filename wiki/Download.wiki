@@ -42,11 +42,16 @@
  a. 增加 JSON 的 this[object key] 索引器.
 
 2.5.0 版本改动:
- a. 增加判断页面是否安装 jQuery 脚本的 IsJQueryInstalled 属性.<br/ >
- b. 增加构造参数 isNewWindowEnabled 和 IsNewWindowEnabled 属性, 当设置为 false 时, 用鼠标点击的超链接在自身打开.<br/ >
- c. 增加 Dispose 方法, 明确释放为 WebBrowser 添加的事件.<br/ >
- d. IEBrowser 增加了 GetDocument, GetFramePath, GetElement 等方法.<br/ >
- e. 修改 IERecord 的功能, 增加了 ElementMark 类.<br/ >
+ a. 增加判断页面是否安装 jQuery 脚本的 IsJQueryInstalled 属性.
+
+ b. 增加构造参数 isNewWindowEnabled 和 IsNewWindowEnabled 属性, 当设置为 false 时, 用鼠标点击的超链接在自身打开.
+
+ c. 增加 Dispose 方法, 明确释放为 WebBrowser 添加的事件.
+
+ d. IEBrowser 增加了 GetDocument, GetFramePath, GetElement 等方法.
+
+ e. 修改 IERecord 的功能, 增加了 ElementMark 类.
+
  f. 增加了 AttachEvent 和 DetachEvent 系列方法, 用于为页面元素注册 .NET 事件.
 
 </font>
