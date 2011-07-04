@@ -80,13 +80,14 @@ namespace zoyobar.shared.panzer.web.ib
 		{
 
 			if ( string.IsNullOrEmpty ( expression ) )
-				return null;
+				throw new ArgumentNullException ( "expression", "表达式不能为空" );
 
-			try
-			{ return new NavigateRecordAction ( expression.Substring( expression.IndexOf('&') + 1) ); }
-			catch
-			{ return null; }
+			string[] parts = expression.Split ( new string[] { "`,`" }, StringSplitOptions.RemoveEmptyEntries );
 
+			if ( parts.Length < 2 )
+				throw new ArgumentException ( "表达式应至少包含 2 项内容", "expression" );
+
+			return new NavigateRecordAction ( parts[1] );
 		}
 
 		private string url;
@@ -128,7 +129,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// <returns>字符串.</returns>
 		public override string ToString ( )
 		{
-			return string.Format ( "{0}&{1}", RecordActionType.Navigate, this.url );
+			return string.Format ( "{0}`&`{1}", RecordActionType.Navigate, this.url );
 		}
 
 	}
@@ -151,24 +152,24 @@ namespace zoyobar.shared.panzer.web.ib
 		{
 
 			if ( string.IsNullOrEmpty ( expression ) )
-				return null;
+				throw new ArgumentNullException ( "expression", "表达式不能为空" );
 
-			string[] parts = expression.Split ( '&' );
+			string[] parts = expression.Split ( new string[] { "`,`" }, StringSplitOptions.RemoveEmptyEntries );
+
+			if ( parts.Length < 2 )
+				throw new ArgumentException ( "表达式应至少包含 2 项内容", "expression" );
 
 			try
-			{ return new CustomRecordAction ( parts[1], parts[2], parts[3], parts[4], parts[5], Convert.ToInt32 ( parts[6] ), Convert.ToInt32 ( parts[7] ) ); }
+			{ return new CustomRecordAction ( parts[1], parts[2], parts[3], Convert.ToInt32 ( parts[4] ), ElementMark.Create ( parts[5] ) ); }
 			catch
-			{ return null; }
-
+			{ throw new ArgumentException ( "wait, mark", "表达式中的格式可能不正确" ); }
 		}
 
 		private string customType;
 		private string member;
-		private int index;
-		private string path;
 		private string value;
 		private int wait;
-		private string condition;
+		private ElementMark mark;
 
 		/// <summary>
 		/// 获取或设置用户操作的类型.
@@ -200,40 +201,6 @@ namespace zoyobar.shared.panzer.web.ib
 
 				if ( !string.IsNullOrEmpty ( value ) )
 					this.member = value;
-
-			}
-		}
-
-		/// <summary>
-		/// 获取或设置操作目标的索引.
-		/// </summary>
-		[Category ( "基本" )]
-		[Description ( "目标的索引" )]
-		public int Index
-		{
-			get { return this.index; }
-			set
-			{
-
-				if ( value >= 0 )
-					this.index = value;
-
-			}
-		}
-
-		/// <summary>
-		/// 获取或设置操作目标的路径.
-		/// </summary>
-		[Category ( "基本" )]
-		[Description ( "操作目标的路径" )]
-		public string Path
-		{
-			get { return this.path; }
-			set
-			{
-
-				if ( !string.IsNullOrEmpty ( value ) )
-					this.path = value;
 
 			}
 		}
@@ -273,20 +240,13 @@ namespace zoyobar.shared.panzer.web.ib
 		}
 
 		/// <summary>
-		/// 获取或设置确定搜索目标的条件.
+		/// 获取确定搜索目标的条件.
 		/// </summary>
 		[Category ( "基本" )]
 		[Description ( "确定搜索目标的条件" )]
-		public string Condition
+		public ElementMark Mark
 		{
-			get { return this.condition; }
-			set
-			{
-
-				if ( !string.IsNullOrEmpty ( value ) )
-					this.condition = value;
-
-			}
+			get { return this.mark; }
 		}
 
 		/// <summary>
@@ -294,25 +254,21 @@ namespace zoyobar.shared.panzer.web.ib
 		/// </summary>
 		/// <param name="customType">用户操作的类型.</param>
 		/// <param name="memeber">操作的成员.</param>
-		/// <param name="condition">确定搜索目标的条件.</param>
-		/// <param name="path">操作目标的路径.</param>
 		/// <param name="value">操作的值.</param>
 		/// <param name="wait">操作的等待时间.</param>
-		/// <param name="index">操作目标的索引.</param>
-		public CustomRecordAction ( string customType, string memeber, string condition, string path, string value, int wait, int index )
+		/// <param name="mark">确定搜索目标的条件.</param>
+		public CustomRecordAction ( string customType, string memeber, string value, int wait, ElementMark mark )
 			: base ( RecordActionType.Custom )
 		{
 
-			if ( string.IsNullOrEmpty ( customType ) || string.IsNullOrEmpty ( memeber ) || string.IsNullOrEmpty ( condition ) || string.IsNullOrEmpty ( path ) )
-				throw new ArgumentNullException ( "customType, memeber, condition, path", "相关参数不能为空" );
+			if ( string.IsNullOrEmpty ( customType ) || string.IsNullOrEmpty ( memeber ) || null == mark )
+				throw new ArgumentNullException ( "customType, memeber, mark", "相关参数不能为空" );
 
 			this.customType = customType;
 			this.member = memeber;
-			this.condition = condition;
-			this.path = path;
 			this.value = string.IsNullOrEmpty ( value ) ? "null" : value;
-			this.wait = wait < 1 ? 1 : wait;
-			this.index = index < 0 ? 0 : index;
+			this.wait = wait < 0 ? 0 : wait;
+			this.mark = mark;
 		}
 
 		/// <summary>
@@ -320,7 +276,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// </summary>
 		/// <returns>字符串.</returns>
 		public override string ToString ( )
-		{ return string.Format ( "{0}&{1}&{2}&{3}&{4}&{5}&{6}&{7}", RecordActionType.Custom, this.customType, this.member, this.condition, this.path, this.value, this.wait, this.index ); }
+		{ return string.Format ( "{0}`&`{1}`&`{2}`&`{3}`&`{4}`&`{5}", RecordActionType.Custom, this.customType, this.member, this.value, this.wait, this.mark ); }
 
 	}
 	#endregion

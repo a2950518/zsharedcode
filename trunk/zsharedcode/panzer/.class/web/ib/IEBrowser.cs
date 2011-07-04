@@ -10,7 +10,7 @@
  * 合并下载:
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs
  * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs.cs (包含 HtmlEditHelper 类)
- * 版本: 2.1, .net 4.0, 其它版本可能有所不同
+ * 版本: 2.5.0, .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
  * */
@@ -19,7 +19,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
+using System.Web;
 using System.Windows.Forms;
 
 using zoyobar.shared.panzer.flow;
@@ -40,6 +42,9 @@ namespace zoyobar.shared.panzer.web.ib
 		private string navigateUrl;
 		private readonly List<RecordAction> actions = new List<RecordAction> ( );
 		private readonly List<RecordAction> replayActions = new List<RecordAction> ( );
+
+		private int lastRecordTime;
+		private string clickEventTagName = "INPUT;SELECT;TEXTAREA;A";
 
 		/// <summary>
 		/// 获取当前是否处于记录状态.
@@ -72,6 +77,20 @@ namespace zoyobar.shared.panzer.web.ib
 		public List<RecordAction> Actions
 		{
 			get { return this.actions; }
+		}
+
+		/// <summary>
+		/// 设置参与记录点击的元素的 tagName 属性, 可用 ; 号分隔, 默认为 "INPUT;SELECT;TEXTAREA;A".
+		/// </summary>
+		public string ClickEventTagName
+		{
+			set
+			{
+
+				if ( !string.IsNullOrEmpty ( value ) )
+					this.clickEventTagName = value;
+
+			}
 		}
 
 		/// <summary>
@@ -142,272 +161,113 @@ namespace zoyobar.shared.panzer.web.ib
 
 		}
 
+		private void elementChange ( object sender, EventArgs e )
+		{
+			HtmlElement element = sender as HtmlElement;
+
+			string member = string.Empty;
+			string value = string.Empty;
+
+			switch ( element.TagName )
+			{
+				case "INPUT":
+
+					if ( element.GetAttribute ( "type" ).ToLower ( ) == "radio" || element.GetAttribute ( "type" ).ToLower ( ) == "checkbox" )
+					{
+						member = "checked";
+						value = HttpUtility.HtmlEncode ( element.GetAttribute ( "checked" ) );
+					}
+					else
+					{
+						member = "value";
+						value = HttpUtility.HtmlEncode ( element.GetAttribute ( "value" ) );
+					}
+
+					break;
+
+				case "SELECT":
+					member = "selectedIndex";
+					value = element.GetAttribute ( "selectedIndex" );
+					break;
+
+				case "TEXTAREA":
+					member = "innerText";
+					value = element.InnerText;
+					break;
+			}
+
+			int wait = ( int ) ( ( Environment.TickCount - this.lastRecordTime ) / 1000 );
+
+			this.lastRecordTime = Environment.TickCount;
+
+			this.actions.Add ( new CustomRecordAction ( "property", member, value, wait, ElementMark.Create ( element ) ) );
+		}
+
+		private void elementClick ( object sender, EventArgs e )
+		{
+			HtmlElement element = sender as HtmlElement;
+
+			int wait = ( int ) ( ( Environment.TickCount - this.lastRecordTime ) / 1000 );
+
+			this.lastRecordTime = Environment.TickCount;
+
+			this.actions.Add ( new CustomRecordAction ( "method", "click", string.Empty, wait, ElementMark.Create ( element ) ) );
+		}
+
+		private void installRecord ( HtmlDocument document )
+		{
+
+			if ( null == document )
+				return;
+
+			this.ieBrowser.AttachEventByTagName ( "INPUT", "onchange", this.elementChange, document );
+			this.ieBrowser.AttachEventByTagName ( "SELECT", "onchange", this.elementChange, document );
+			this.ieBrowser.AttachEventByTagName ( "TEXTAREA", "onchange", this.elementChange, document );
+
+			foreach ( string tagName in this.clickEventTagName.Split ( ';' ) )
+				this.ieBrowser.AttachEventByTagName ( tagName.Trim ( ), "onclick", this.elementClick, document );
+
+			foreach ( HtmlWindow window in document.Window.Frames )
+				try
+				{ this.installRecord ( window.Document ); }
+				catch { }
+
+		}
+
+		private void uninstallRecord ( HtmlDocument document )
+		{
+
+			if ( null == document )
+				return;
+
+			this.ieBrowser.DetachEventByTagName ( "INPUT", "onchange", this.elementChange, document );
+			this.ieBrowser.DetachEventByTagName ( "SELECT", "onchange", this.elementChange, document );
+			this.ieBrowser.DetachEventByTagName ( "TEXTAREA", "onchange", this.elementChange, document );
+
+			foreach ( string tagName in this.clickEventTagName.Split ( ';' ) )
+				this.ieBrowser.DetachEventByTagName ( tagName.Trim ( ), "onclick", this.elementClick, document );
+
+			foreach ( HtmlWindow window in document.Window.Frames )
+				try
+				{ this.uninstallRecord ( window.Document ); }
+				catch { }
+
+		}
+
 		/// <summary>
-		/// 从当前页面读取已经记录的操作, 需要首先调用 BeginRecord 方法.
+		/// 使当前页面具有记录操作的功能.
 		/// </summary>
-		public void RecordCustomAction ( )
+		public void InstallRecord ( )
 		{
 
 			if ( !this.isRecording )
 				return;
 
-			string actionExpression = this.ieBrowser.__Get<string> ( "__actionExpression" );
-
-			if ( string.IsNullOrEmpty ( actionExpression ) )
-				return;
-
-			foreach ( string expression in actionExpression.Split ( ';' ) )
-			{
-
-				if ( expression == string.Empty )
-					continue;
-
-				SortedList<string, string> attributes = new SortedList<string, string> ( );
-
-				foreach ( string attribute in expression.Split ( '&' ) )
-				{
-					string[] parts = attribute.Split ( '=' );
-
-					attributes.Add ( parts[0], parts[1] );
-				}
-
-				try
-				{ this.actions.Add ( new CustomRecordAction ( attributes["type"], attributes["member"], attributes["condition"], attributes["path"], attributes.ContainsKey ( "value" ) ? attributes["value"] : null, Convert.ToInt32 ( attributes["wait"] ), Convert.ToInt32 ( attributes["index"] ) ) ); }
-				catch { }
-
-			}
-
+			this.installRecord ( this.ieBrowser.Document );
 		}
 
-		#region " InstallRecord "
 		/// <summary>
-		/// 安装记录脚本到 WebBrowser, 可以使用记录相关的 javascript 函数.
-		/// </summary>
-		public void InstallRecord ( )
-		{
-			// HACK: 也可以去掉安装跟踪脚本.
-			this.ieBrowser.InstallTrace ( );
-
-			this.ieBrowser.InstallScript (
-		"function __getElement(condition, document) {\n" +
-		"	var results = new Array();\n" +
-		"	var parts = condition.split('`');\n" +
-		"	var element = document.getElementById(parts[0]);\n" +
-
-		"	if (null != element)\n" +
-		"		results.push(element);\n" +
-		"	else {\n" +
-		"		var elements = document.getElementsByTagName(parts[1]);\n" +
-
-		"		for (var index = 0; index < elements.length; index++)\n" +
-		"			if ((elements[index].name == parts[2] || null == elements[index].name) && (elements[index].className == parts[3] || null == elements[index].className) && (elements[index].type == parts[4] || null == elements[index].type) && (elements[index].value == parts[5] || null == elements[index].value || elements[index].type.toLowerCase() == 'text' || elements[index].type.toLowerCase() == 'radio' || elements[index].type.toLowerCase() == 'checkbox' || elements[index].tagName == 'TEXTAREA') && (elements[index].href == parts[6] || null == elements[index].href))\n" +
-		"				results.push(elements[index]);\n" +
-
-		"	}\n" +
-
-		"	return results;\n" +
-		"}\n" +
-		"function __getElementIndex(condition, element, document) {\n" +
-		"	var elements = __getElement(condition, document);\n" +
-
-		"	for (var index = 0; index < elements.length; index++)\n" +
-		"		if (elements[index] == element)\n" +
-		"			return index;\n" +
-
-		"	return 0;\n" +
-		"}\n" +
-		"function __beginRecord() {\n" +
-		"	window.__actions = new Array();\n" +
-		"	window.__actionExpression = '';\n" +
-		"	window.__lastRecordTime = new Date();\n" +
-		"	__installRecord(window);\n" +
-		"}\n" +
-		"function __installRecord(frame) {\n" +
-
-		"	for (var index = 0; index < frame.document.all.length; index++)\n" +
-		"		if (frame.document.all[index].tagName == 'INPUT' || frame.document.all[index].tagName == 'SELECT' || frame.document.all[index].tagName == 'TEXTAREA')\n" +
-		"			frame.document.all[index].attachEvent('onchange', __window_onchange);\n" +
-
-		"		frame.document.attachEvent('onclick', __window_onclick);\n" +
-
-		"	for (index = 0; index < frame.frames.length; index++)\n" +
-		"		__installRecord(frame.frames[index]);\n" +
-
-		"}\n" +
-		"function __endRecord() {\n" +
-		"	__uninstallRecord(window);\n" +
-		"}\n" +
-		"function __uninstallRecord(frame) {\n" +
-
-		"	for (var index = 0; index < frame.document.all.length; index++)\n" +
-		"		if (frame.document.all[index].tagName == 'INPUT' || frame.document.all[index].tagName == 'SELECT' || frame.document.all[index].tagName == 'TEXTAREA')\n" +
-		"			frame.document.all[index].detachEvent('onchange', __window_onchange);\n" +
-
-		"	frame.document.detachEvent('onclick', __window_onclick);\n" +
-
-		"	for (index = 0; index < frame.frames.length; index++)\n" +
-		"		__uninstallRecord(frame.frames[index]);\n" +
-
-		"}\n" +
-		"function __getDocumentPath(element) {\n" +
-		"	var path = 'document';\n" +
-		"	var parent = element.document.parentWindow;\n" +
-
-		"	while (parent != parent.parent) {\n" +
-
-		"		for (var index = 0; index < parent.parent.frames.length; index++)\n" +
-		"			if (parent == parent.parent.frames[index]) {\n" +
-		"				path = 'window.frames[' + index + '].' + path;\n" +
-		"				break;\n" +
-		"			}\n" +
-
-		"		parent = parent.parent;\n" +
-		"	}\n" +
-
-		"	return path;\n" +
-		"}\n" +
-		"function __getCondition(element) {\n" +
-		"	return (null == element.id ? '' : element.id) + '`' + element.tagName + '`' + (null == element.name ? '' : element.name) + '`' + (null == element.className ? '' : element.className) + '`' + (null == element.type ? '' : element.type) + '`' + (null == element.value ? '' : element.value) + '`' + (null == element.href ? '' : element.href);\n" +
-		"}\n" +
-		"function __setActionExpression(expression) {\n" +
-		"	if (null == expression)\n" +
-		"		expression = '';\n" +
-
-		"	window.__actions = new Array();\n" +
-		"	window.__actionExpression = expression;\n" +
-
-		"	var actions = expression.split(';');\n" +
-
-		"	for (var actionIndex = 0; actionIndex < actions.length; actionIndex++) {\n" +
-
-		"		if (actions[actionIndex] == '')\n" +
-		"			continue;\n" +
-
-		"		var attributes = actions[actionIndex].split('&');\n" +
-		"		var action = new Object();\n" +
-
-		"		for (var attributeIndex = 0; attributeIndex < attributes.length; attributeIndex++) {\n" +
-		"			var parts = attributes[attributeIndex].split('=');\n" +
-
-		"			switch (parts[0]) {\n" +
-		"				case 'selectedIndex':\n" +
-		"					action[parts[0]] = new Number(parts[1]);\n" +
-		"					break;\n" +
-
-		"				default:\n" +
-		"					action[parts[0]] = parts[1];\n" +
-		"					break;\n" +
-		"			}\n" +
-
-		"		}\n" +
-
-		"		window.__actions.push(action);\n" +
-		"	}\n" +
-
-		"}\n" +
-		"function __window_onchange(e) {\n" +
-		"	var element = e.srcElement;\n" +
-		"	var action;\n" +
-
-		"	if (null == element)\n" +
-		"		return;\n" +
-
-		"	switch (element.tagName) {\n" +
-		"		case 'INPUT':\n" +
-
-		"			if (element.type.toLowerCase() == 'radio' || element.type.toLowerCase() == 'checkbox')\n" +
-		"				action = { type: 'property', member: 'checked', value: escape(element.checked) };\n" +
-		"			else\n" +
-		"				action = { type: 'property', member: 'value', value: escape(element.value) };\n" +
-
-		"			break;\n" +
-
-		"		case 'SELECT':\n" +
-		"			action = { type: 'property', member: 'selectedIndex', value: element.selectedIndex };\n" +
-		"			break;\n" +
-
-		"		case 'TEXTAREA':\n" +
-		"			action = { type: 'property', member: 'innerText', value: escape(element.value) };\n" +
-		"			break;\n" +
-		"	}\n" +
-
-		"	action.condition = __getCondition(element);\n" +
-		"	action.path = __getDocumentPath(element);\n" +
-		"	action.wait = new Date() - window.__lastRecordTime;\n" +
-		"	action.index = __getElementIndex(action.condition, element, eval(action.path));\n" +
-
-		"	if (null != action) {\n" +
-		"		window.__actions.push(action);\n" +
-		"		window.__actionExpression += 'type=' + action.type + '&member=' + action.member + '&condition=' + action.condition + '&path=' + action.path + '&value=' + action.value + '&wait=' + action.wait + '&index=' + action.index + ';';\n" +
-		"	}\n" +
-
-		"};\n" +
-		"function __window_onclick(e) {\n" +
-		"	var element = e.srcElement;\n" +
-
-		"	if (null == element)\n" +
-		"		return;\n" +
-
-		"	var action = { type: 'method', member: 'click' };\n" +
-
-		"	action.condition = __getCondition(element);\n" +
-		"	action.path = __getDocumentPath(element);\n" +
-		"	action.wait = new Date() - window.__lastRecordTime;\n" +
-		"	action.index = __getElementIndex(action.condition, element, eval(action.path));\n" +
-
-		"	window.__actions.push(action);\n" +
-		"	window.__actionExpression += 'type=' + action.type + '&member=' + action.member + '&condition=' + action.condition + '&path=' + action.path + '&wait=' + action.wait + '&index=' + action.index + ';';\n" +
-		"};\n" +
-		"function __replayRecord() {\n" +
-
-		"	if (null == window.__actions)\n" +
-		"		return;\n" +
-
-		"	var script = '';\n" +
-
-		"	for (var index = 0; index < window.__actions.length; index++) {\n" +
-		"		var action = window.__actions[index];\n" +
-
-		"		switch (action.type) {\n" +
-		"			case 'property':\n" +
-
-		"				switch (action.member) {\n" +
-		"					case 'checked':\n" +
-		"					case 'value':\n" +
-		"					case 'innerText':\n" +
-		"						script += 'setTimeout(\"__getElement(\\'' + action.condition + '\\', ' + action.path + ')[' + action.index + '].' + action.member + ' = unescape(\\'' + action.value + '\\');\", ' + action.wait + ');';\n" +
-		"						break;\n" +
-
-		"					case 'selectedIndex':\n" +
-		"						script += 'setTimeout(\"__getElement(\\'' + action.condition + '\\', ' + action.path + ')[' + action.index + '].' + action.member + ' = ' + action.value + ';\", ' + action.wait + ');';\n" +
-		"						break;\n" +
-		"				}\n" +
-
-		"				break;\n" +
-
-		"			case 'method':\n" +
-		"				script += 'setTimeout(\"__getElement(\\'' + action.condition + '\\', ' + action.path + ')[' + action.index + '].' + action.member + '();\", ' + action.wait + ');';\n" +
-		"				break;\n" +
-		"		}\n" +
-
-		"	}\n" +
-
-		"	eval(script);\n" +
-		"}",
-				"__jsRecord",
-				false
-				);
-		}
-		#endregion
-
-		/// <summary>
-		/// 在当前页面上调用 __beginRecord 函数, 需要首先调用 InstallRecord 方法.
-		/// </summary>
-		public void __BeginRecord ( )
-		{ this.ieBrowser.InvokeScript ( "__beginRecord" ); }
-
-		/// <summary>
-		/// 开始执行记录操作, 将记录用户在 WebBrowser 上的相关操作, 需要首先调用 InstallRecord 方法.
+		/// 开始执行记录操作, 将记录用户在 WebBrowser 上的相关操作.
 		/// </summary>
 		public void BeginRecord ( )
 		{
@@ -416,16 +276,11 @@ namespace zoyobar.shared.panzer.web.ib
 				return;
 
 			this.isRecording = true;
+			this.lastRecordTime = Environment.TickCount;
 			this.actions.Clear ( );
 			this.AppendAction ( new NavigateRecordAction ( this.ieBrowser.Url ) );
-			this.__BeginRecord ( );
+			this.InstallRecord ( );
 		}
-
-		/// <summary>
-		/// 在当前页面上调用 __endRecord 函数, 需要首先调用 InstallRecord 方法.
-		/// </summary>
-		public void __EndRecord ( )
-		{ this.ieBrowser.InvokeScript ( "__endRecord" ); }
 
 		/// <summary>
 		/// 结束执行记录操作, 将结束记录用户在 WebBrowser 上的相关操作, 需要首先调用 BeginRecord 方法.
@@ -436,16 +291,9 @@ namespace zoyobar.shared.panzer.web.ib
 			if ( !this.isRecording )
 				return;
 
-			this.__EndRecord ( );
-			this.RecordCustomAction ( );
+			this.uninstallRecord ( this.ieBrowser.Document );
 			this.isRecording = false;
 		}
-
-		/// <summary>
-		/// 在当前页面上调用 __replayRecord 函数, 需要首先调用 InstallRecord 方法.
-		/// </summary>
-		public void __ReplayRecord ( )
-		{ this.ieBrowser.InvokeScript ( "__replayRecord" ); }
 
 		/// <summary>
 		/// 开始重播记录的用户在 WebBrowser 上的相关操作, 需要首先调用 EndRecord 方法.
@@ -503,9 +351,39 @@ namespace zoyobar.shared.panzer.web.ib
 
 				CustomRecordAction customAction = this.replayActions[0] as CustomRecordAction;
 
-				expression += string.Format ( "type={0}&member={1}&condition={2}&path={3}&value={4}&wait={5}&index={6};", customAction.CustomType, customAction.Member, customAction.Condition, customAction.Path, customAction.Value, customAction.Wait, customAction.Index );
-
 				this.replayActions.RemoveAt ( 0 );
+
+				HtmlElement element = this.ieBrowser.GetElement ( customAction.Mark );
+
+				if ( null == element )
+					continue;
+
+				switch ( customAction.CustomType )
+				{
+					case "property":
+
+						switch ( customAction.Member )
+						{
+							case "checked":
+							case "value":
+							case "selectedIndex":
+								element.SetAttribute ( customAction.Member, HttpUtility.HtmlDecode ( customAction.Value ) );
+								break;
+
+							case "innerText":
+								element.InnerText = HttpUtility.HtmlDecode ( customAction.Value );
+								break;
+						}
+
+						break;
+
+					case "method":
+						this.ieBrowser.IEFlow.Wait ( customAction.Wait );
+
+						element.InvokeMember ( customAction.Member );
+						break;
+				}
+
 			}
 
 			this.navigateUrl = string.Empty;
@@ -524,8 +402,6 @@ namespace zoyobar.shared.panzer.web.ib
 					this.replayActions.RemoveAt ( 0 );
 				}
 
-			this.ieBrowser.InvokeScript ( "__setActionExpression", new object[] { expression } );
-			this.__ReplayRecord ( );
 		}
 
 	}
@@ -712,14 +588,44 @@ namespace zoyobar.shared.panzer.web.ib
 	/// <summary>
 	/// IEBrowser 类用于控制调试 WebBrowser 浏览器控件, 可实现 jQuery 等功能.
 	/// </summary>
-	public sealed partial class IEBrowser
+	public sealed partial class IEBrowser : IDisposable
 	{
 		private static readonly string comObjectFullName = "System.__ComObject";
+
+		/// <summary>
+		/// 得到 HtmlElement 对应的路径.
+		/// </summary>
+		/// <param name="element">用于获取路径的 HtmlElement 对象.</param>
+		/// <returns>路径.</returns>
+		public static string GetFramePath ( HtmlElement element )
+		{
+
+			if ( null == element )
+				return string.Empty;
+
+			string framePath = string.Empty;
+
+			HtmlWindow window = element.Document.Window;
+
+			while ( window != window.Parent )
+			{
+
+				for ( int index = 0; index < window.Parent.Frames.Count; index++ )
+					if ( window == window.Parent.Frames[index] )
+						framePath = index.ToString ( ) + framePath;
+
+				window = window.Parent;
+			}
+
+			return framePath;
+		}
 
 		private readonly WebBrowser browser;
 
 		private readonly IEFlow ieFlow;
 		private readonly IERecord ieRecord;
+
+		private bool isNewWindowEnabled;
 
 		/// <summary>
 		/// 获取当前页面地址.
@@ -734,6 +640,27 @@ namespace zoyobar.shared.panzer.web.ib
 
 				return this.browser.Url.AbsoluteUri.ToLower ( );
 			}
+		}
+
+		/// <summary>
+		/// 获取当前页面是否安装了 jQuery 脚本, 需要首先调用 InstallTrace 方法.
+		/// </summary>
+		public bool IsJQueryInstalled
+		{
+			get
+			{
+				this.__Set ( "__isJQueryInstalled", "(typeof(jQuery) != 'undefined')" );
+				return this.__Get<bool> ( "__isJQueryInstalled" );
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置是否允许鼠标点击的页面在新窗口中打开, 如果为 false, 则在自身打开.
+		/// </summary>
+		public bool IsNewWindowEnabled
+		{
+			get { return this.isNewWindowEnabled; }
+			set { this.isNewWindowEnabled = value; }
 		}
 
 		/// <summary>
@@ -760,6 +687,14 @@ namespace zoyobar.shared.panzer.web.ib
 			set { this.browser.ObjectForScripting = value; }
 		}
 
+		/// <summary>
+		/// 获取当前页面的 HtmlDocument 对象.
+		/// </summary>
+		public HtmlDocument Document
+		{
+			get { return this.browser.Document; }
+		}
+
 #if PARAM
 		/// <summary>
 		/// 创建一个 IEBrowser.
@@ -767,7 +702,8 @@ namespace zoyobar.shared.panzer.web.ib
 		/// <param name="browser">WebBrowser 控件.</param>
 		/// <param name="states">页面状态数组, 默认为空.</param>
 		/// <param name="scripting">用于在 javascript 中调用的 .NET 对象.</param>
-		public IEBrowser ( WebBrowser browser, WebPageState[] states = null, object scripting = null )
+		/// <param name="isNewWindowEnabled">是否允许鼠标点击的超链接在新窗口中打开, 如果为 false, 则新窗口在当前 WebBrowser 中打开, 默认为 true.</param>
+		public IEBrowser ( WebBrowser browser, WebPageState[] states = null, object scripting = null, bool isNewWindowEnabled = true )
 #else
 		/// <summary>
 		/// 创建一个 IEBrowser.
@@ -775,21 +711,23 @@ namespace zoyobar.shared.panzer.web.ib
 		/// <param name="browser">WebBrowser 控件.</param>
 		/// <param name="states">页面状态数组.</param>
 		/// <param name="scripting">用于在 javascript 中调用的 .NET 对象.</param>
-		public IEBrowser ( WebBrowser browser, WebPageState[] states, object scripting )
+		/// <param name="isNewWindowEnabled">是否允许鼠标点击的超链接在新窗口中打开, 如果为 false, 则新窗口在当前 WebBrowser 中打开.</param>
+		public IEBrowser ( WebBrowser browser, WebPageState[] states, object scripting, bool isNewWindowEnabled )
 #endif
 		{
 
 			if ( null == browser )
 				throw new ArgumentNullException ( "browser", "浏览器控件不能为空" );
 
-			browser.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler ( this.browserDocumentCompleted );
-			browser.Navigating += new WebBrowserNavigatingEventHandler ( this.browserNavigating );
-			browser.Navigated += new WebBrowserNavigatedEventHandler ( this.browserNavigated );
-
 			this.browser = browser;
+			this.isNewWindowEnabled = isNewWindowEnabled;
 			this.ieFlow = new IEFlow ( this, states );
 			this.ieRecord = new IERecord ( this );
 			this.Scripting = scripting;
+
+			browser.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler ( this.browserDocumentCompleted );
+			browser.Navigated += new WebBrowserNavigatedEventHandler ( this.browserNavigated );
+			browser.NewWindow += new CancelEventHandler ( this.browserNewWindow );
 		}
 
 		private void browserDocumentCompleted ( object sender, WebBrowserDocumentCompletedEventArgs e )
@@ -805,10 +743,7 @@ namespace zoyobar.shared.panzer.web.ib
 			{
 
 				if ( this.ieRecord.NavigateUrl == e.Url.AbsoluteUri.ToLower ( ) )
-				{
 					this.ieRecord.InstallRecord ( );
-					this.ieRecord.__BeginRecord ( );
-				}
 
 			}
 			else if ( this.ieRecord.IsReplaying )
@@ -816,21 +751,9 @@ namespace zoyobar.shared.panzer.web.ib
 				this.ieRecord.NavigateUrl = this.ieRecord.NavigateUrl.Replace ( e.Url.AbsoluteUri.ToLower ( ), string.Empty ).Replace ( e.Url.Host.ToLower ( ) + e.Url.AbsolutePath.ToLower ( ), string.Empty );
 
 				if ( this.ieRecord.NavigateUrl == string.Empty )
-				{
-					this.ieRecord.InstallRecord ( );
 					this.ieRecord.ReplayCustomAction ( );
-				}
 
 			}
-
-		}
-
-		private void browserNavigating ( object sender, WebBrowserNavigatingEventArgs e )
-		{
-
-			// 获取的方法转移到了 browserNavigated 中
-			if ( this.ieRecord.IsRecording )
-				this.ieRecord.RecordCustomAction ( );
 
 		}
 
@@ -843,6 +766,17 @@ namespace zoyobar.shared.panzer.web.ib
 
 				this.ieRecord.AppendAction ( new NavigateRecordAction ( e.Url.Host.ToLower ( ) + e.Url.AbsolutePath.ToLower ( ) ) );
 				this.ieRecord.NavigateUrl = e.Url.AbsoluteUri.ToLower ( );
+			}
+
+		}
+
+		private void browserNewWindow ( object sender, CancelEventArgs e )
+		{
+
+			if ( !this.isNewWindowEnabled && Uri.IsWellFormedUriString ( this.browser.StatusText, UriKind.Absolute ) )
+			{
+				e.Cancel = true;
+				this.Navigate ( this.browser.StatusText );
 			}
 
 		}
@@ -1149,29 +1083,67 @@ namespace zoyobar.shared.panzer.web.ib
 			if ( null == this.browser.Document || string.IsNullOrEmpty ( methodName ) )
 				return null;
 
-			HtmlDocument document = this.browser.Document;
-
-			if ( !string.IsNullOrEmpty ( framePath ) )
-				foreach ( string path in framePath.Split ( '.' ) )
-					if ( path != string.Empty )
-					{
-						int index;
-
-						if ( int.TryParse ( path, out index ) )
-							document = document.Window.Frames[index].Document;
-						else
-							document = document.Window.Frames[path].Document;
-
-						if ( null == document )
-							return null;
-
-					}
+			HtmlDocument document = this.GetDocument ( framePath );
 
 			try
 			{ return document.InvokeScript ( methodName, parameters ); }
 			catch
 			{ return null; }
 
+		}
+
+		/// <summary>
+		/// 根据条件获取 HtmlElement 对象.
+		/// </summary>
+		/// <param name="mark">用于标记 HtmlElement 的对象.</param>
+		/// <returns>符合条件的 HtmlElement 对象.</returns>
+		public HtmlElement GetElement ( ElementMark mark )
+		{
+
+			if ( null == mark )
+				return null;
+
+			HtmlDocument document = this.GetDocument ( mark.FramePath );
+
+			if ( null == document )
+				return null;
+
+			foreach ( HtmlElement element in document.GetElementsByTagName ( mark.TagName ) )
+				if ( ( string.IsNullOrEmpty ( mark.ID ) || element.Id == mark.ID ) && ( string.IsNullOrEmpty ( mark.Name ) || element.Name == mark.Name ) && ( string.IsNullOrEmpty ( mark.Class ) || element.GetAttribute ( "class" ) == mark.Class ) && ( string.IsNullOrEmpty ( mark.Type ) || element.GetAttribute ( "type" ) == mark.Type ) && ( string.IsNullOrEmpty ( mark.Value ) || element.GetAttribute ( "value" ) == mark.Value ) && ( string.IsNullOrEmpty ( mark.Href ) || element.GetAttribute ( "href" ) == mark.Href ) )
+					return element;
+
+			return null;
+		}
+
+		/// <summary>
+		/// 根据路径得到 HtmlDocument 对象.
+		/// </summary>
+		/// <param name="framePath">HtmlDocument 的路径, 比如: "1.main.menu".</param>
+		/// <returns>HtmlDocument 对象.</returns>
+		public HtmlDocument GetDocument ( string framePath )
+		{
+
+			if ( null == this.browser.Document )
+				return null;
+
+			HtmlDocument document = this.browser.Document;
+
+			if ( string.IsNullOrEmpty ( framePath ) )
+				return document;
+
+			foreach ( string path in framePath.Split ( '.' ) )
+				if ( path != string.Empty )
+				{
+					int index;
+
+					if ( int.TryParse ( path, out index ) )
+						document = document.Window.Frames[index].Document;
+					else
+						document = document.Window.Frames[path].Document;
+
+				}
+
+			return document;
 		}
 
 #if PARAM
@@ -1399,6 +1371,240 @@ namespace zoyobar.shared.panzer.web.ib
 			return this.__Get<T> ( resultName );
 		}
 
+		/// <summary>
+		/// 根据提供的 JQuery 对象选择元素并添加事件, 需要首先调用 InstallJQuery 方法.
+		/// </summary>
+		/// <param name="selector">用于选择元素的 JQuery 对象.</param>
+		/// <param name="eventName">事件的名称.</param>
+		/// <param name="eventHandler">事件的句柄.</param>
+		public void AttachEventByJQuery ( JQuery selector, string eventName, EventHandler eventHandler )
+		{
+			// HACK: AttachEventByJQuery 与 DetachEventByJQuery 类似, 可以考虑合并.
+
+			if ( null == selector )
+				return;
+
+			this.ExecuteJQuery ( selector, "__jqAttachEventByJQueryElements" );
+
+			int count = this.ExecuteJQuery<int> ( JQuery.Create ( "__jqAttachEventByJQueryElements" ).Length ( ) );
+
+			for ( int index = 0; index < count; index++ )
+			{
+				this.ExecuteJQuery ( JQuery.Create ( "__jqAttachEventByJQueryElements" ).Eq ( index.ToString ( ) ), "__jqAttachEventByJQueryElement" );
+
+				string id = this.ExecuteJQuery<string> ( JQuery.Create ( "__jqAttachEventByJQueryElement" ).Attr ( "'id'" ) );
+
+				if ( string.IsNullOrEmpty ( id ) )
+				{
+					id = ScriptHelper.MakeKey ( );
+
+					this.ExecuteJQuery ( JQuery.Create ( "__jqAttachEventByJQueryElement" ).Attr ( "'id'", string.Format ( "'{0}'", id ) ) );
+				}
+
+				this.AttachEventByID ( id, eventName, eventHandler );
+			}
+
+		}
+
+#if PARAM
+		/// <summary>
+		/// 为页面中指定 id 的元素添加事件.
+		/// </summary>
+		/// <param name="id">添加事件的元素的 id.</param>
+		/// <param name="eventName">事件的名称.</param>
+		/// <param name="eventHandler">事件的句柄.</param>
+		/// <param name="document">元素所在的 HtmlDocument 对象, 默认为顶层的 HtmlDocument.</param>
+		public void AttachEventByID ( string id, string eventName, EventHandler eventHandler, HtmlDocument document = null )
+#else
+		/// <summary>
+		/// 为页面中指定 id 的元素添加事件.
+		/// </summary>
+		/// <param name="id">添加事件的元素的 id.</param>
+		/// <param name="eventName">事件的名称.</param>
+		/// <param name="eventHandler">事件的句柄.</param>
+		/// <param name="document">元素所在的 HtmlDocument 对象.</param>
+		public void AttachEventByID ( string id, string eventName, EventHandler eventHandler, HtmlDocument document )
+#endif
+		{
+
+			if ( null == document )
+				document = this.browser.Document;
+
+			if ( null == document || string.IsNullOrEmpty ( id ) )
+				return;
+
+			this.AttachEvent ( document.GetElementById ( id ), eventName, eventHandler );
+		}
+
+#if PARAM
+		/// <summary>
+		/// 为页面中指定 tagName 的元素添加事件.
+		/// </summary>
+		/// <param name="tagName">添加事件的元素的 tagName.</param>
+		/// <param name="eventName">事件的名称.</param>
+		/// <param name="eventHandler">事件的句柄.</param>
+		/// <param name="document">元素所在的 HtmlDocument 对象, 默认为顶层的 HtmlDocument.</param>
+		public void AttachEventByTagName ( string tagName, string eventName, EventHandler eventHandler, HtmlDocument document = null )
+#else
+		/// <summary>
+		/// 为页面中指定 tagName 的元素添加事件.
+		/// </summary>
+		/// <param name="tagName">添加事件的元素的 tagName.</param>
+		/// <param name="eventName">事件的名称.</param>
+		/// <param name="eventHandler">事件的句柄.</param>
+		/// <param name="document">元素所在的 HtmlDocument 对象.</param>
+		public void AttachEventByTagName ( string tagName, string eventName, EventHandler eventHandler, HtmlDocument document )
+#endif
+		{
+
+			if ( null == document )
+				document = this.browser.Document;
+
+			if ( null == document || string.IsNullOrEmpty ( tagName ) )
+				return;
+
+			foreach ( HtmlElement element in document.GetElementsByTagName ( tagName ) )
+				this.AttachEvent ( element, eventName, eventHandler );
+
+		}
+
+		/// <summary>
+		/// 为 HtmlElement 添加事件.
+		/// </summary>
+		/// <param name="element">添加事件的 HtmlElement 对象.</param>
+		/// <param name="eventName">事件的名称.</param>
+		/// <param name="eventHandler">事件的句柄.</param>
+		public void AttachEvent ( HtmlElement element, string eventName, EventHandler eventHandler )
+		{
+
+			if ( null == element || string.IsNullOrEmpty ( eventName ) || null == eventHandler )
+				return;
+
+			element.AttachEventHandler ( eventName, delegate { eventHandler ( element, EventArgs.Empty ); } );
+		}
+
+		/// <summary>
+		/// 根据提供的 JQuery 对象选择元素并删除事件, 需要首先调用 InstallJQuery 方法.
+		/// </summary>
+		/// <param name="selector">用于选择元素的 JQuery 对象.</param>
+		/// <param name="eventName">事件的名称.</param>
+		/// <param name="eventHandler">事件的句柄.</param>
+		public void DetachEventByJQuery ( JQuery selector, string eventName, EventHandler eventHandler )
+		{
+			// HACK: AttachEventByJQuery 与 DetachEventByJQuery 类似, 可以考虑合并.
+
+			if ( null == selector )
+				return;
+
+			this.ExecuteJQuery ( selector, "__jqDetachEventByJQueryElements" );
+
+			int count = this.ExecuteJQuery<int> ( JQuery.Create ( "__jqDetachEventByJQueryElements" ).Length ( ) );
+
+			for ( int index = 0; index < count; index++ )
+			{
+				this.ExecuteJQuery ( JQuery.Create ( "__jqDetachEventByJQueryElements" ).Eq ( index.ToString ( ) ), "__jqDetachEventByJQueryElement" );
+
+				string id = this.ExecuteJQuery<string> ( JQuery.Create ( "__jqDetachEventByJQueryElement" ).Attr ( "'id'" ) );
+
+				if ( string.IsNullOrEmpty ( id ) )
+				{
+					id = ScriptHelper.MakeKey ( );
+
+					this.ExecuteJQuery ( JQuery.Create ( "__jqDetachEventByJQueryElement" ).Attr ( "'id'", string.Format ( "'{0}'", id ) ) );
+				}
+
+				this.DetachEventByID ( id, eventName, eventHandler );
+			}
+
+		}
+
+#if PARAM
+		/// <summary>
+		/// 为页面中指定 id 的元素删除事件.
+		/// </summary>
+		/// <param name="id">删除事件的元素的 id.</param>
+		/// <param name="eventName">事件的名称.</param>
+		/// <param name="eventHandler">事件的句柄.</param>
+		/// <param name="document">元素所在的 HtmlDocument 对象, 默认为顶层的 HtmlDocument.</param>
+		public void DetachEventByID ( string id, string eventName, EventHandler eventHandler, HtmlDocument document = null )
+#else
+		/// <summary>
+		/// 为页面中指定 id 的元素删除事件.
+		/// </summary>
+		/// <param name="id">删除事件的元素的 id.</param>
+		/// <param name="eventName">事件的名称.</param>
+		/// <param name="eventHandler">事件的句柄.</param>
+		/// <param name="document">元素所在的 HtmlDocument 对象.</param>
+		public void DetachEventByID ( string id, string eventName, EventHandler eventHandler, HtmlDocument document )
+#endif
+		{
+
+			if ( null == document )
+				document = this.browser.Document;
+
+			if ( null == document || string.IsNullOrEmpty ( id ) )
+				return;
+
+			this.DetachEvent ( document.GetElementById ( id ), eventName, eventHandler );
+		}
+
+#if PARAM
+		/// <summary>
+		/// 为页面中指定 tagName 的元素删除事件.
+		/// </summary>
+		/// <param name="tagName">删除事件的元素的 tagName.</param>
+		/// <param name="eventName">事件的名称.</param>
+		/// <param name="eventHandler">事件的句柄.</param>
+		/// <param name="document">元素所在的 HtmlDocument 对象, 默认为顶层的 HtmlDocument.</param>
+		public void DetachEventByTagName ( string tagName, string eventName, EventHandler eventHandler, HtmlDocument document = null )
+#else
+		/// <summary>
+		/// 为页面中指定 tagName 的元素删除事件.
+		/// </summary>
+		/// <param name="tagName">删除事件的元素的 tagName.</param>
+		/// <param name="eventName">事件的名称.</param>
+		/// <param name="eventHandler">事件的句柄.</param>
+		/// <param name="document">元素所在的 HtmlDocument 对象.</param>
+		public void DetachEventByTagName ( string tagName, string eventName, EventHandler eventHandler, HtmlDocument document )
+#endif
+		{
+
+			if ( null == document )
+				document = this.browser.Document;
+
+			if ( null == document || string.IsNullOrEmpty ( tagName ) )
+				return;
+
+			foreach ( HtmlElement element in document.GetElementsByTagName ( tagName ) )
+				this.DetachEvent ( element, eventName, eventHandler );
+
+		}
+
+		/// <summary>
+		/// 为 HtmlElement 删除事件.
+		/// </summary>
+		/// <param name="element">删除事件的 HtmlElement 对象.</param>
+		/// <param name="eventName">事件的名称.</param>
+		/// <param name="eventHandler">事件的句柄.</param>
+		public void DetachEvent ( HtmlElement element, string eventName, EventHandler eventHandler )
+		{
+
+			if ( null == element || string.IsNullOrEmpty ( eventName ) || null == eventHandler )
+				return;
+
+			element.DetachEventHandler ( eventName, delegate { eventHandler ( element, EventArgs.Empty ); } );
+		}
+
+		/// <summary>
+		/// 释放对为 WebBrowser 添加的事件.
+		/// </summary>
+		public void Dispose ( )
+		{
+			browser.DocumentCompleted -= new WebBrowserDocumentCompletedEventHandler ( this.browserDocumentCompleted );
+			browser.Navigated -= new WebBrowserNavigatedEventHandler ( this.browserNavigated );
+			browser.NewWindow -= new CancelEventHandler ( this.browserNewWindow );
+		}
+
 	}
 
 	partial class IEBrowser
@@ -1460,7 +1666,15 @@ namespace zoyobar.shared.panzer.web.ib
 		/// </summary>
 		/// <param name="browser">WebBrowser 控件.</param>
 		public IEBrowser ( WebBrowser browser )
-			: this ( browser, null, null )
+			: this ( browser, null, null, true )
+		{ }
+		/// <summary>
+		/// 创建一个 IEBrowser.
+		/// </summary>
+		/// <param name="browser">WebBrowser 控件.</param>
+		/// <param name="isNewWindowEnabled">是否允许鼠标点击的超链接在新窗口中打开, 如果为 false, 则新窗口在当前 WebBrowser 中打开.</param>
+		public IEBrowser ( WebBrowser browser, bool isNewWindowEnabled )
+			: this ( browser, null, null, isNewWindowEnabled )
 		{ }
 		/// <summary>
 		/// 创建一个 IEBrowser.
@@ -1468,7 +1682,16 @@ namespace zoyobar.shared.panzer.web.ib
 		/// <param name="browser">WebBrowser 控件.</param>
 		/// <param name="scripting">用于在 javascript 中调用的 .NET 对象.</param>
 		public IEBrowser ( WebBrowser browser, object scripting )
-			: this ( browser, null, scripting )
+			: this ( browser, null, scripting, true )
+		{ }
+		/// <summary>
+		/// 创建一个 IEBrowser.
+		/// </summary>
+		/// <param name="browser">WebBrowser 控件.</param>
+		/// <param name="scripting">用于在 javascript 中调用的 .NET 对象.</param>
+		/// <param name="isNewWindowEnabled">是否允许鼠标点击的超链接在新窗口中打开, 如果为 false, 则新窗口在当前 WebBrowser 中打开.</param>
+		public IEBrowser ( WebBrowser browser, object scripting, bool isNewWindowEnabled )
+			: this ( browser, null, scripting, isNewWindowEnabled )
 		{ }
 		/// <summary>
 		/// 创建一个 IEBrowser.
@@ -1476,7 +1699,25 @@ namespace zoyobar.shared.panzer.web.ib
 		/// <param name="browser">WebBrowser 控件.</param>
 		/// <param name="states">页面状态数组.</param>
 		public IEBrowser ( WebBrowser browser, WebPageState[] states )
-			: this ( browser, states, null )
+			: this ( browser, states, null, true )
+		{ }
+		/// <summary>
+		/// 创建一个 IEBrowser.
+		/// </summary>
+		/// <param name="browser">WebBrowser 控件.</param>
+		/// <param name="states">页面状态数组.</param>
+		/// <param name="isNewWindowEnabled">是否允许鼠标点击的超链接在新窗口中打开, 如果为 false, 则新窗口在当前 WebBrowser 中打开.</param>
+		public IEBrowser ( WebBrowser browser, WebPageState[] states, bool isNewWindowEnabled )
+			: this ( browser, states, null, isNewWindowEnabled )
+		{ }
+		/// <summary>
+		/// 创建一个 IEBrowser.
+		/// </summary>
+		/// <param name="browser">WebBrowser 控件.</param>
+		/// <param name="states">页面状态数组.</param>
+		/// <param name="scripting">用于在 javascript 中调用的 .NET 对象.</param>
+		public IEBrowser ( WebBrowser browser, WebPageState[] states, object scripting )
+			: this ( browser, states, scripting, true )
 		{ }
 
 		/// <summary>
@@ -1502,7 +1743,7 @@ namespace zoyobar.shared.panzer.web.ib
 		/// <returns>调用函数后的返回值.</returns>
 		public object InvokeScript ( string methodName, object[] parameters )
 		{ return this.InvokeScript ( methodName, parameters, null ); }
-		
+
 		/// <summary>
 		/// 调用 eval 函数, 设置 JSON 对象到页面, 需要首先调用 InstallTrace 方法.
 		/// </summary>
@@ -1645,6 +1886,42 @@ namespace zoyobar.shared.panzer.web.ib
 		/// <returns>调用托管代码后的返回值.</returns>
 		public object ExecuteManaged ( string methodName, string[] parameters )
 		{ return this.ExecuteManaged<object> ( methodName, null, parameters ); }
+
+		/// <summary>
+		/// 为页面中指定 id 的元素添加事件.
+		/// </summary>
+		/// <param name="id">添加事件的元素的 id.</param>
+		/// <param name="eventName">事件的名称.</param>
+		/// <param name="eventHandler">事件的句柄.</param>
+		public void AttachEventByID ( string id, string eventName, EventHandler eventHandler )
+		{ this.AttachEventByID ( id, eventName, eventHandler, null ); }
+
+		/// <summary>
+		/// 为页面中指定 tagName 的元素添加事件.
+		/// </summary>
+		/// <param name="tagName">添加事件的元素的 tagName.</param>
+		/// <param name="eventName">事件的名称.</param>
+		/// <param name="eventHandler">事件的句柄.</param>
+		public void AttachEventByTagName ( string tagName, string eventName, EventHandler eventHandler )
+		{ this.AttachEventByTagName ( tagName, eventName, eventHandler, null ); }
+
+		/// <summary>
+		/// 为页面中指定 id 的元素删除事件.
+		/// </summary>
+		/// <param name="id">删除事件的元素的 id.</param>
+		/// <param name="eventName">事件的名称.</param>
+		/// <param name="eventHandler">事件的句柄.</param>
+		public void DetachEventByID ( string id, string eventName, EventHandler eventHandler )
+		{ this.DetachEventByID ( id, eventName, eventHandler, null ); }
+
+		/// <summary>
+		/// 为页面中指定 tagName 的元素删除事件.
+		/// </summary>
+		/// <param name="tagName">删除事件的元素的 tagName.</param>
+		/// <param name="eventName">事件的名称.</param>
+		/// <param name="eventHandler">事件的句柄.</param>
+		public void DetachEventByTagName ( string tagName, string eventName, EventHandler eventHandler )
+		{ this.DetachEventByTagName ( tagName, eventName, eventHandler, null ); }
 #endif
 	}
 	#endregion
