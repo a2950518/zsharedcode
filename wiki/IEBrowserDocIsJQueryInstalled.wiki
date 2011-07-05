@@ -1,0 +1,39 @@
+#summary IEBrowser 判断是否安装了 jQuery 脚本
+#labels Phase-Implementation
+<font face="microsoft yahei">
+=== 代码 ===
+{{{
+// 需要引用 using zoyobar.shared.panzer.web;
+// 需要引用 using zoyobar.shared.panzer.web.ib;
+
+// 从当前的 WebBrowser 控件创建 IEBrowser 对象, WebBrowser 的 Url 属性已经设置为 "about:blank".
+IEBrowser ie = new IEBrowser ( this.webBrowser );
+
+// 安装跟踪脚本, 以便检测是否安装了 jQuery 脚本.
+ie.InstallTrace ( );
+
+// 显示是否安装了 jQuery 脚本.
+Console.WriteLine ( "是否安装了 jQuery ? {0}", ie.IsJQueryInstalled );
+
+// 安装 jQuery 脚本.
+ie.InstallJQuery ( JQuery.CodeMin );
+
+// 再次显示是否安装了 jQuery 脚本.
+Console.WriteLine ( "是否安装了 jQuery ? {0}", ie.IsJQueryInstalled );
+}}}
+
+=== 说明 ===
+ 使用 [IEBrowser IEBrowser] 的 IsJQueryInstalled 属性可以判断当前页面是否安装了 jQuery 脚本.
+
+ 在示例中, 两次使用了 IsJQueryInstalled 属性, 第一次页面没有 jQuery 脚本, 所以返回 false, 而第二次安装了 jQuery 脚本, 因此返回 true.
+
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+=== 使用 ===
+ 如果需要单独使用 [IEBrowser IEBrowser], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs], 也可以在 [Download 下载资源] 中下载 dll.
+
+ 如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
+
+=== 需求 ===
+ 可能需要引用 System.Web 以及相关程序集.
+</font>

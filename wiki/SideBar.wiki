@@ -174,6 +174,7 @@
       * [IEBrowserDocDataExchange 与页面进行数据交互]
       * [IEBrowserDocJQuery 执行 jquery]
       * [IEBrowserDocNoConflict 解决 $ 定义冲突]
+      * [IEBrowserDocIsJQueryInstalled 判断是否安装了 jQuery 脚本]
       * [IEBrowserDocCopyImage 复制并获取图片]
       * [IEBrowserDocWait 等待页面载入]
       * [IEBrowserDocManaged 执行托管代码]
