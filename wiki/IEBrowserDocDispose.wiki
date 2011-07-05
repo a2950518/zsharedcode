@@ -1,0 +1,29 @@
+#summary IEBrowser 释放 WebBrowser 的相关事件
+#labels Phase-Implementation
+<font face="microsoft yahei">
+=== 代码 ===
+{{{
+// 需要引用 using zoyobar.shared.panzer.web.ib;
+
+// 从当前的 WebBrowser 控件创建 IEBrowser 对象, 则将为 webBrowser 添加相应的事件.
+IEBrowser ie = new IEBrowser ( this.webBrowser );
+
+// 即便, 是在 cmdDispose_Click 声明的 ie, 在声明时为 webBrowser 添加的事件不会在 cmdDispose_Click 执行结束后自动删除.
+
+// 释放 ie 实例为 webBrowser 添加的事件.
+ie.Dispose ( );
+}}}
+
+=== 说明 ===
+ 当每声明一个 [IEBrowser IEBrowser] 对象时, 都会为对应的 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 添加事件, 比如: DocumentCompleted, Navigated. 而在对象不再使用后, 这些添加的事件可能仍然存在. 对于这种情况, 可以调用 [IEBrowser IEBrowser] 的 Dispose 方法, 删除这些添加的事件.
+
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+=== 使用 ===
+ 如果需要单独使用 [IEBrowser IEBrowser], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs], 也可以在 [Download 下载资源] 中下载 dll.
+
+ 如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
+
+=== 需求 ===
+ 可能需要引用 System.Web 以及相关程序集.
+</font>
