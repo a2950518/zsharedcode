@@ -1,0 +1,34 @@
+#summary IEBrowser 在 WebBrowser 自身打开新页面
+#labels Phase-Implementation
+<font face="microsoft yahei">
+=== 代码 ===
+{{{
+// 需要引用 using zoyobar.shared.panzer.web.ib;
+
+// 从当前的 WebBrowser 控件创建 IEBrowser 对象, 默认情况下允许在新窗口中打开链接, WebBrowser 的 Url 属性已经设置为 "about:blank".
+IEBrowser ie = new IEBrowser ( this.webBrowser );
+
+// 在页面中添加一个超链接并将 target 设置为在新窗口中打开.
+this.webBrowser.Document.Body.InnerHtml = "<a id='linkGoogle' href='http://www.google.com.hk/' target='_blank'>在新窗口中打开 Google</a>";
+
+// 设置 IsNewWindowEnabled 为 false, 不允许在新窗口中打开页面.
+ie.IsNewWindowEnabled = false;
+
+// 用鼠标点击链接, 结果将在自身打开页面.
+}}}
+
+=== 说明 ===
+ 如果页面中的超链接的 target 属性为 _blank, 则点击链接后, 可能会在新的 IE 中打开窗口, 为了在 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 自身打开这个新的页面, 可以将 IsNewWindowEnabled 属性设置为 false, 则在鼠标点击此链接时, 将在 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 打开页面.
+
+ 使用 [IEBrowser IEBrowser] 的 IsJQueryInstalled 属性可以判断当前页面是否安装了 jQuery 脚本.
+
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+
+=== 使用 ===
+ 如果需要单独使用 [IEBrowser IEBrowser], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs], 也可以在 [Download 下载资源] 中下载 dll.
+
+ 如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
+
+=== 需求 ===
+ 可能需要引用 System.Web 以及相关程序集.
+</font>

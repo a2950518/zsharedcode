@@ -176,6 +176,7 @@
       * [IEBrowserDocNoConflict 解决 $ 定义冲突]
       * [IEBrowserDocIsJQueryInstalled 判断是否安装了 jQuery 脚本]
       * [IEBrowserDocCopyImage 复制并获取图片]
+      * [IEBrowserDocIsNewWindowEnabled 在 WebBrowser 自身打开新页面]
       * [IEBrowserDocWait 等待页面载入]
       * [IEBrowserDocManaged 执行托管代码]
       * [IEBrowserDocRecord 记录回放用户操作]
