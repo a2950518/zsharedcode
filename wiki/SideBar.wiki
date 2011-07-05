@@ -181,6 +181,7 @@
       * [IEBrowserDocManaged 执行托管代码]
       * [IEBrowserDocRecord 记录回放用户操作]
       * [IEBrowserDocJSON 获取设置 json 数据]
+      * [IEBrowserDocAttachEvent 为页面元素添加 .NET 事件]
       * [IEBrowserDocFlow 页面流程控制]
         * [IEBrowserDocFlowNWPC 页面载入后跳转]
       * [IEBrowserDocFans 爱好者编写代码示例分析]
