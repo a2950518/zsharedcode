@@ -20,7 +20,7 @@ ie.IsNewWindowEnabled = false;
 === 说明 ===
  如果页面中的超链接的 target 属性为 {{{_}}}blank, 则点击链接后, 可能会在新的 IE 中打开窗口, 为了在 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 自身打开这个新的页面, 可以将 IsNewWindowEnabled 属性设置为 false, 则在鼠标点击此链接时, 将在 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 打开页面.
 
- 使用 [IEBrowser IEBrowser] 的 IsJQueryInstalled 属性可以判断当前页面是否安装了 jQuery 脚本.
+ 也可以在创建 [IEBrowser IEBrowser] 对象时, 传递 isNewWindowEnabled 参数, 和设置 IsNewWindowEnabled 属性是相同的作用, 而默认情况下 isNewWindowEnabled 参数为 true.
 
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
 
