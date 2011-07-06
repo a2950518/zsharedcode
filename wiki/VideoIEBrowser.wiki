@@ -8,4 +8,5 @@
  * [http://www.tudou.com/programs/view/GGRC9M5i5d0/ IEBrowser 记录和回放用户在 WebBrowser 中的操作]
  * [http://www.tudou.com/programs/view/E8-79ot9JTA/ IEBrowser WebBrowser 页面与程序变量 json 互交]
  * [http://www.tudou.com/programs/view/hqeEZIFfoxg/ IEBrowser 页面 js 脚本调用 .NET 完成注册]
+ * [http://www.tudou.com/programs/view/xfQiXQcr5xw/ IEBrowser 为页面元素编写在 .NET 中执行的事件]
 </font>

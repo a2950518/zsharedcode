@@ -8,7 +8,7 @@
 // 从当前的 WebBrowser 控件创建 IEBrowser 对象, 则将为 webBrowser 添加相应的事件.
 IEBrowser ie = new IEBrowser ( this.webBrowser );
 
-// 即便, 是在 cmdDispose_Click 声明的 ie, 在声明时为 webBrowser 添加的事件不会在 cmdDispose_Click 执行结束后自动删除.
+// 即使是在 cmdDispose_Click 声明的 ie, 在声明时为 webBrowser 添加的事件不会在 cmdDispose_Click 执行结束后自动删除.
 
 // 释放 ie 实例为 webBrowser 添加的事件.
 ie.Dispose ( );
