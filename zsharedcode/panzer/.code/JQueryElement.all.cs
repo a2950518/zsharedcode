@@ -7,10 +7,10 @@ using System.Web.UI.WebControls;
 using System.Xml;
 using zoyobar.shared.panzer.code;
 using zoyobar.shared.panzer.web.jqueryui;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Web.UI.Design;
 using System.Windows.Forms;
-using System.Collections.Generic;
 using System.Drawing.Design;
 using System.Globalization;
 using NParameter = zoyobar.shared.panzer.web.jqueryui.Parameter;
@@ -779,7 +779,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					return;
 
 				this.primaryIcon = value;
-				this.Icons = "{" + string.Format ( " primary: '{0}', secondary: '{1}' ", this.primaryIcon, this.secondaryIcon ) + "}";
 			}
 		}
 
@@ -801,7 +800,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					return;
 
 				this.secondaryIcon = value;
-				this.Icons = "{" + string.Format ( " primary: '{0}', secondary: '{1}' ", this.primaryIcon, this.secondaryIcon ) + "}";
 			}
 		}
 
@@ -938,6 +936,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				if ( null != this.ClickSync )
 					this.Click = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "click" ) + "}";
 
+				this.Icons = "{" + string.Format ( " primary: '{0}', secondary: '{1}' ", this.primaryIcon, this.secondaryIcon ) + "}";
 			}
 			else if ( this.selector == string.Empty )
 			{
@@ -995,6 +994,35 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			}
 
 		}
+
+		protected override void LoadViewState ( object savedState )
+		{
+			base.LoadViewState ( savedState );
+
+			List<object> states = this.ViewState["Button"] as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				this.primaryIcon = states[0] as string;
+
+			if ( states.Count >= 2 )
+				this.secondaryIcon = states[1] as string;
+
+		}
+
+		protected override object SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+			states.Add ( this.primaryIcon );
+			states.Add ( this.secondaryIcon );
+
+			this.ViewState["Button"] = states;
+
+			return base.SaveViewState ( );
+		}
+
 
 	}
 
