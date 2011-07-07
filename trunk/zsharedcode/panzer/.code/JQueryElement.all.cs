@@ -758,6 +758,52 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		: BaseWidget, IPostBackEventHandler
 	{
 		private readonly AjaxSettingEdit clickAjax = new AjaxSettingEdit ( );
+		private string primaryIcon = string.Empty;
+		private string secondaryIcon = string.Empty;
+
+		/// <summary>
+		/// 获取或设置按钮显示的主图标, 比如: ui-icon-gear, 也可以通过 Icons 属性设置.
+		/// </summary>
+		[Category ( "外观" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按钮显示的主图标, 比如: ui-icon-gear, 也可以通过 Icons 属性设置" )]
+		[NotifyParentProperty ( true )]
+		[CssClassProperty ( )]
+		public string PrimaryIcon
+		{
+			get { return this.primaryIcon; }
+			set
+			{
+
+				if ( null == value )
+					return;
+
+				this.primaryIcon = value;
+				this.Icons = "{" + string.Format ( " primary: '{0}', secondary: '{1}' ", this.primaryIcon, this.secondaryIcon ) + "}";
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置按钮显示的第二图标, 比如: ui-icon-triangle-1-s, 也可以通过 Icons 属性设置.
+		/// </summary>
+		[Category ( "外观" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按钮显示的第二图标, 比如: ui-icon-triangle-1-s, 也可以通过 Icons 属性设置" )]
+		[NotifyParentProperty ( true )]
+		[CssClassProperty ( )]
+		public string SecondaryIcon
+		{
+			get { return this.secondaryIcon; }
+			set
+			{
+
+				if ( null == value )
+					return;
+
+				this.secondaryIcon = value;
+				this.Icons = "{" + string.Format ( " primary: '{0}', secondary: '{1}' ", this.primaryIcon, this.secondaryIcon ) + "}";
+			}
+		}
 
 		/// <summary>
 		/// 创建一个 jQuery UI 按钮.
@@ -798,7 +844,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// </summary>
 		[Category ( "外观" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示按钮显示的图标, 比如: { primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s' }, 暂不支持设计时显示" )]
+		[Description ( "指示按钮显示的图标, 比如: { primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s' }" )]
 		[NotifyParentProperty ( true )]
 		public string Icons
 		{
@@ -892,6 +938,44 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				if ( null != this.ClickSync )
 					this.Click = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "click" ) + "}";
 
+			}
+			else if ( this.selector == string.Empty )
+			{
+				string style = string.Empty;
+
+				if ( this.Width != Unit.Empty )
+					style += string.Format ( "width:{0};", this.Width );
+
+				if ( this.Height != Unit.Empty )
+					style += string.Format ( "height:{0};", this.Height );
+
+				string css = string.Empty;
+
+				if ( !this.Text )
+					css = " ui-button-icon-only";
+				else if ( this.primaryIcon != string.Empty && this.secondaryIcon == string.Empty )
+					css = " ui-button-text-icon-primary";
+				else if ( this.secondaryIcon != string.Empty && this.primaryIcon == string.Empty )
+					css = " ui-button-text-icon-secondary";
+				else if ( this.primaryIcon != string.Empty && this.secondaryIcon != string.Empty )
+					css = " ui-button-text-icons";
+				else
+					css = " ui-button-text-only";
+
+				writer.Write (
+					"<{6} id=\"{0}\" class=\"{3}ui-button ui-widget ui-state-default ui-corner-all{2}{9}\" style=\"{4}\" title=\"{5}\">{7}<span class=\"ui-button-text\">{1}</span>{8}</{6}>",
+					this.ClientID,
+					this.Label,
+					this.Disabled ? " ui-button-disabled ui-state-disabled" : string.Empty,
+					string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : this.CssClass + " ",
+					style,
+					this.ToolTip,
+					this.elementType.ToString ( ).ToLower ( ),
+					this.primaryIcon == string.Empty ? string.Empty : string.Format ( "<span class=\"ui-button-icon-primary ui-icon {0}\" style=\"top: 15px;position: absolute;\"></span>", this.primaryIcon ),
+					this.secondaryIcon == string.Empty ? string.Empty : string.Format ( "<span class=\"ui-button-icon-secondary ui-icon {0}\" style=\"top: 15px;position: absolute;\"></span>", this.secondaryIcon ),
+					css
+					);
+				return;
 			}
 
 			base.Render ( writer );
@@ -3513,7 +3597,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIBaseWidget
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryElement.cs
- * 版本: .net 4.0, 其它版本可能有所不同
+ * 版本: 2.6.1, .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
  * */
@@ -7574,8 +7658,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 获取或设置元素的 Widget 设置.
 		/// </summary>
 		[Browsable ( false )]
-		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.InnerProperty )]
 		public override WidgetSettingEdit WidgetSetting
 		{
 			get { return base.WidgetSetting; }
