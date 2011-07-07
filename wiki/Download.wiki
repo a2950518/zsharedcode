@@ -20,13 +20,13 @@
  
  如果 [AllInOneFile all.cs 文件] 不能正常使用, 可能是由于 [OtherIDE 不同 Visual Studio 版本的差别], 请下载 dll 文件尝试解决问题.
 
- 以下 dll 文件, 为 2011-6-15 上传, 可能没有依照最新的 panzer 代码编译.
+ 以下 dll 文件, 为 2011-7-7 上传, 可能没有依照最新的 panzer 代码编译.
  
  注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.2.6.Debug.PARAM.zip JQueryElement.dll for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/JQueryElement.2.6.1.Debug.PARAM.zip JQueryElement 2.6.1 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.2.6.Debug.NOPARAM.zip JQueryElement.dll for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/JQueryElement.2.6.1.Debug.NOPARAM.zip JQueryElement 2.6.1 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
 === panzer.dll ===
  我们已经不再提供 panzer.dll 的下载链接, 请下载上面提供的 dll.
@@ -53,5 +53,11 @@
  e. 修改 IERecord 的功能, 增加了 ElementMark 类.
 
  f. 增加了 AttachEvent 和 DetachEvent 系列方法, 用于为页面元素注册 .NET 事件.
+ 
+=== JQueryElement 更新历史 ===
+2.6.1 版本改动:
+ a. 为按钮增加 PrimaryIcon 和 SecondaryIcon 属性.
+ 
+ b. 按钮设计时可以显示图标.
 
 </font>
