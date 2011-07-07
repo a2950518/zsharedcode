@@ -111,9 +111,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Browsable ( false )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public string Nothing
+		public object Nothing
 		{
-			get { return string.Empty; }
+			get { return null; }
 			set { }
 		}
 
