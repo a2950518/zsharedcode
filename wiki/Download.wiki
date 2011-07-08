@@ -10,6 +10,8 @@
  以下 dll 文件, 为 2011-7-4 上传, 可能没有依照最新的 panzer 代码编译.
  
  注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
+ 
+ 讨论: <font color="#000099">欢迎加入 qq 群: 91824470</font>.
 
  [http://zsharedcode.googlecode.com/files/IEBrowser.2.5.0.Debug.PARAM.zip IEBrowser 2.5.0 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
@@ -23,6 +25,8 @@
  以下 dll 文件, 为 2011-7-7 上传, 可能没有依照最新的 panzer 代码编译.
  
  注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
+ 
+ 讨论: <font color="#000099">欢迎加入 qq 群: 149829251</font>.
 
  [http://zsharedcode.googlecode.com/files/JQueryElement.2.6.1.Debug.PARAM.zip JQueryElement 2.6.1 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
