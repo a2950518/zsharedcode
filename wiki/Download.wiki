@@ -11,7 +11,7 @@
  
  注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
  
- 讨论: <font color="#990099">欢迎加入 qq 群: 91824470, IEBrowser 编程</font>, <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/91824470"><img border="0" src="http://cgi.qun.qq.com/gscgi/s1/gp.do?gid=91824470" /></a>.
+ 讨论: <font color="#990099">欢迎加入 qq 群: 91824470, IEBrowser 编程</font>, <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/91824470" target="_blank">加入 qq 群</a>.
 
  [http://zsharedcode.googlecode.com/files/IEBrowser.2.5.0.Debug.PARAM.zip IEBrowser 2.5.0 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
@@ -26,7 +26,7 @@
  
  注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
  
- 讨论: <font color="#990099">欢迎加入 qq 群: 149829251, JQueryElement 编程</font>, [http://qun.qq.com/#jointhegroup/gid/149829251 加入 qq 群].
+ 讨论: <font color="#990099">欢迎加入 qq 群: 149829251, JQueryElement 编程</font>, <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/149829251" target="_blank">加入 qq 群</a>.
 
  [http://zsharedcode.googlecode.com/files/JQueryElement.2.6.1.Debug.PARAM.zip JQueryElement 2.6.1 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
