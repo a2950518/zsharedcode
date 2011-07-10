@@ -272,4 +272,6 @@
       * [http://www.tudou.com/programs/view/E8-79ot9JTA/ IEBrowser WebBrowser 页面与程序变量 json 互交]
       * [http://www.tudou.com/programs/view/hqeEZIFfoxg/ IEBrowser 页面 js 脚本调用 .NET 完成注册]
       * [http://www.tudou.com/programs/view/xfQiXQcr5xw/ IEBrowser 为页面元素编写在 .NET 中执行的事件]
+    * [VideoJQueryElement JQueryElement 视频]
+      * [http://www.tudou.com/programs/view/Ptz07sq2KcI/ JQueryElement 按钮轻松调用 Ajax]
 </font>

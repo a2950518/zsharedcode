@@ -1,0 +1,6 @@
+#summary JQueryElement 视频
+#labels Phase-Implementation,Phase-Support,Phase-Deploy
+<font face="microsoft yahei">
+=== JQueryElement 视频 ===
+ * [http://www.tudou.com/programs/view/Ptz07sq2KcI/ JQueryElement 按钮轻松调用 Ajax]
+</font>

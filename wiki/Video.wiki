@@ -3,4 +3,5 @@
 <font face="microsoft yahei">
 === 视频教程 ===
  * [VideoIEBrowser IEBrowser 视频]
+ * [VideoJQueryElement JQueryElement 视频]
 </font>
