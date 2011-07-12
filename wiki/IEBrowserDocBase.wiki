@@ -1,0 +1,12 @@
+#summary IEBrowser WebBrowser 操作
+#labels Phase-Implementation
+<font face="microsoft yahei">
+=== WebBrowser 操作 ===
+ * [IEBrowserDocNavigate 页面跳转]
+ * [IEBrowserDocWait 等待页面载入]
+ * [IEBrowserDocCopyImage 复制并获取图片]
+ * [IEBrowserDocIsNewWindowEnabled 在 WebBrowser 自身打开新页面]
+ * [IEBrowserDocDispose 释放 WebBrowser 的相关事件]
+ * [IEBrowserDocAttachEvent 为页面元素添加 .NET 事件]
+ * [IEBrowserDocRecord 记录回放用户操作]
+</font>
