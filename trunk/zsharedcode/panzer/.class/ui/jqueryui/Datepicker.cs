@@ -13,6 +13,7 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml;
@@ -73,13 +74,16 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		#endregion
 
 		private readonly AjaxSettingEdit changeAjax = new AjaxSettingEdit ( );
+		private DateTime defaultDate = DateTime.Today;
+		private DateTime maxDate = DateTime.MaxValue;
+		private DateTime minDate = DateTime.MinValue;
 
 		/// <summary>
 		/// 创建一个 jQuery UI 折叠列表.
 		/// </summary>
 		public Datepicker ( )
 			: base ( WidgetType.datepicker )
-		{ this.elementType = ElementType.Div; }
+		{ this.elementType = ElementType.Span; }
 
 		#region " Option "
 		/// <summary>
@@ -317,16 +321,15 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置默认日期, 可以是日期, 数字或者字符串.
+		/// 获取或设置默认日期.
 		/// </summary>
 		[Category ( "外观" )]
-		[DefaultValue ( "" )]
-		[Description ( "指示默认日期, 可以是日期, 数字或者字符串" )]
+		[Description ( "指示默认日期" )]
 		[NotifyParentProperty ( true )]
-		public string DefaultDate
+		public DateTime DefaultDate
 		{
-			get { return this.widgetSetting.DatepickerSetting.DefaultDate.Trim ( '\'' ); }
-			set { this.widgetSetting.DatepickerSetting.DefaultDate = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
+			get { return this.defaultDate; }
+			set { this.defaultDate = value; }
 		}
 
 		/// <summary>
@@ -395,29 +398,27 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置最大日期, 可以是日期, 数字或者字符串, 比如: +1m +1w, 表示推后一月零一周.
+		/// 获取或设置最大日期.
 		/// </summary>
 		[Category ( "行为" )]
-		[DefaultValue ( "" )]
-		[Description ( "指示最大日期, 可以是日期, 数字或者字符串, 比如: +1m +1w', 表示推后一月零一周" )]
+		[Description ( "指示最大日期" )]
 		[NotifyParentProperty ( true )]
-		public string MaxDate
+		public DateTime MaxDate
 		{
-			get { return this.widgetSetting.DatepickerSetting.MaxDate.Trim ( '\'' ); }
-			set { this.widgetSetting.DatepickerSetting.MaxDate = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
+			get { return this.maxDate; }
+			set { this.maxDate = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置最大日期, 可以是日期, 数字或者字符串, 比如: +1m +1w, 表示推后一月零一周.
+		/// 获取或设置最大日期.
 		/// </summary>
 		[Category ( "行为" )]
-		[DefaultValue ( "" )]
-		[Description ( "指示最小日期, 可以是日期, 数字或者字符串, 比如: -1m -1w, 表示推前一月零一周" )]
+		[Description ( "指示最小日期" )]
 		[NotifyParentProperty ( true )]
-		public string MinDate
+		public DateTime MinDate
 		{
-			get { return this.widgetSetting.DatepickerSetting.MinDate.Trim ( '\'' ); }
-			set { this.widgetSetting.DatepickerSetting.MinDate = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
+			get { return this.minDate; }
+			set { this.minDate = value; }
 		}
 
 		/// <summary>
@@ -769,6 +770,16 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				// this.widgetSetting.Type = this.type;
 
 				// this.widgetSetting.DatepickerSetting.SetEditHelper ( this.editHelper );
+
+				if ( this.defaultDate.ToString ( "yyyy-MM-dd" ) != DateTime.Today.ToString ( "yyyy-MM-dd" ) )
+					this.widgetSetting.DatepickerSetting.DefaultDate = string.Format ( "new Date({0}, {1}, {2})", this.defaultDate.Year, this.defaultDate.Month, this.defaultDate.Day );
+
+				if ( this.maxDate.ToString ( "yyyy-MM-dd" ) != DateTime.MaxValue.ToString ( "yyyy-MM-dd" ) )
+					this.widgetSetting.DatepickerSetting.MaxDate = string.Format ( "new Date({0}, {1}, {2})", this.maxDate.Year, this.maxDate.Month, this.maxDate.Day );
+
+				if ( this.minDate.ToString ( "yyyy-MM-dd" ) != DateTime.MinValue.ToString ( "yyyy-MM-dd" ) )
+					this.widgetSetting.DatepickerSetting.MinDate = string.Format ( "new Date({0}, {1}, {2})", this.minDate.Year, this.minDate.Month, this.minDate.Day );
+
 			}
 			else if ( this.selector == string.Empty )
 				switch ( this.widgetSetting.Type )
@@ -782,11 +793,67 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 						if ( this.Height != Unit.Empty )
 							style += string.Format ( "height:{0};", this.Height );
 
+						string title;
+
+						if ( this.ShowMonthAfterYear )
+							title = "{1}&nbsp;{0}";
+						else
+							title = "{0}&nbsp;{1}";
+
+						string[] dayNames;
+
+						switch ( this.FirstDay )
+						{
+							case 1:
+								dayNames = new string[] { "[Mo]", "[Tu]", "[We]", "[Th]", "[Fr]", "[Sa]", "[Su]" };
+								break;
+
+							case 2:
+								dayNames = new string[] { "[Tu]", "[We]", "[Th]", "[Fr]", "[Sa]", "[Su]", "[Mo]" };
+								break;
+
+							case 3:
+								dayNames = new string[] { "[We]", "[Th]", "[Fr]", "[Sa]", "[Su]", "[Mo]", "[Tu]" };
+								break;
+
+							case 4:
+								dayNames = new string[] { "[Th]", "[Fr]", "[Sa]", "[Su]", "[Mo]", "[Tu]", "[We]" };
+								break;
+
+							case 5:
+								dayNames = new string[] { "[Fr]", "[Sa]", "[Su]", "[Mo]", "[Tu]", "[We]", "[Th]" };
+								break;
+
+							case 6:
+								dayNames = new string[] { "[Sa]", "[Su]", "[Mo]", "[Tu]", "[We]", "[Th]", "[Fr]" };
+								break;
+
+							case 0:
+							default:
+								dayNames = new string[] { "[Su]", "[Mo]", "[Tu]", "[We]", "[Th]", "[Fr]", "[Sa]" };
+								break;
+						}
+
+						string head = string.Format ( "<tr>{7}<th class=\"ui-datepicker-week-end\"><span>{0}</span></th><th><span>{1}</span></th><th><span>{2}</span></th><th><span>{3}</span></th><th><span>{4}</span></th><th><span>{5}</span></th><th class=\"ui-datepicker-week-end\"><span>{6}</span></th></tr>", dayNames[0], dayNames[1], dayNames[2], dayNames[3], dayNames[4], dayNames[5], dayNames[6], this.ShowWeek ? "<th class=\"ui-datepicker-week-col\">" + ( this.WeekHeader == string.Empty ? "[Wk]" : this.WeekHeader ) + "</th>" : string.Empty );
+
+						string table = string.Format (
+							"<div style=\"display: block;{4}\" class=\"ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all\"><div class=\"ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all\"><a class=\"ui-datepicker-prev ui-corner-all\" title=\"Prev\"><span class=\"ui-icon ui-icon-circle-triangle-w\">Prev</span></a><a class=\"ui-datepicker-next ui-corner-all\" title=\"Next\"><span class=\"ui-icon ui-icon-circle-triangle-e\">Next</span></a><div class=\"ui-datepicker-title\">" + title + "</div></div><table class=\"ui-datepicker-calendar\"><thead>" + head + "</thead><tbody><tr>{3}<td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default ui-state-highlight ui-state-active\">1</a></td><td><a class=\"ui-state-default\">2</a></td><td><a class=\"ui-state-default\">3</a></td><td><a class=\"ui-state-default\">4</a></td><td><a class=\"ui-state-default\">5</a></td><td><a class=\"ui-state-default\">6</a></td><td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default\">7</a></td></tr><tr>{3}<td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default\">8</a></td><td><a class=\"ui-state-default\">9</a></td><td><a class=\"ui-state-default\">10</a></td><td><a class=\"ui-state-default\">11</a></td><td><a class=\"ui-state-default\">12</a></td><td><a class=\"ui-state-default\">13</a></td><td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default\">14</a></td></tr><tr>{3}<td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default\">15</a></td><td><a class=\"ui-state-default\">16</a></td><td><a class=\"ui-state-default\">17</a></td><td><a class=\"ui-state-default\">18</a></td><td><a class=\"ui-state-default\">19</a></td><td><a class=\"ui-state-default\">20</a></td><td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default\">21</a></td></tr><tr>{3}<td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default\">22</a></td><td><a class=\"ui-state-default\">23</a></td><td><a class=\"ui-state-default\">24</a></td><td><a class=\"ui-state-default\">25</a></td><td><a class=\"ui-state-default\">26</a></td><td class=\"ui-datepicker-days-cell-over ui-datepicker-current-day ui-datepicker-today\"><a class=\"ui-state-default\">27</a></td><td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default\">28</a></td></tr><tr>{3}<td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default\">29</a></td><td><a class=\"ui-state-default\">30</a></td><td><a class=\"ui-state-default\">31</a></td><td class=\"ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled\">{5}</td><td class=\"ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled\">{6}</td><td class=\"ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled\">{7}</td><td class=\"ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled\">{8}</td></tr></tbody></table>{2}</div>",
+							this.ChangeMonth ? "<select class=\"ui-datepicker-month\" style=\"position: relative; top: 3px; width: 100px;height: 22px;\"><option value=\"xxx\">{xxx}</option></select>" : "<span class=\"ui-datepicker-month\">{xxx}</span>",
+							this.ChangeYear ? "<select class=\"ui-datepicker-year\" style=\"position: relative; top: 3px; width: 100px;height: 22px;\"><option value=\"20xx\">{20xx}</option></select>" : "<span class=\"ui-datepicker-year\">{20xx}</span>",
+							this.ShowButtonPanel ? "<div class=\"ui-datepicker-buttonpane ui-widget-content\"><button class=\"ui-datepicker-current ui-state-default ui-priority-secondary ui-corner-all\">" + ( this.CurrentText == string.Empty ? "{Txx}" : this.CurrentText ) + "</button></div>" : string.Empty,
+							this.ShowWeek ? "<td class=\"ui-datepicker-week-col\">xx</td>" : string.Empty,
+							this.ShowWeek ? "width: 330px;" : string.Empty,
+							this.ShowOtherMonths ? "<span class=\"ui-state-default\">1</span>" : "&nbsp;",
+							this.ShowOtherMonths ? "<span class=\"ui-state-default\">2</span>" : "&nbsp;",
+							this.ShowOtherMonths ? "<span class=\"ui-state-default\">3</span>" : "&nbsp;",
+							this.ShowOtherMonths ? "<span class=\"ui-state-default\">4</span>" : "&nbsp;"
+							);
+
 						//<div id=\"Dp\" class=\"hasDatepicker\"></div>
 						writer.Write (
 							"<{6} id=\"{0}\" class=\"{3}hasDatepicker{2}\" style=\"{4}\" title=\"{5}\">{1}</{6}>",
 							this.ClientID,
-							"<div style=\"display: block;\" class=\"ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all\"><div class=\"ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all\"><a class=\"ui-datepicker-prev ui-corner-all\" title=\"Prev\"><span class=\"ui-icon ui-icon-circle-triangle-w\">Prev</span></a><a class=\"ui-datepicker-next ui-corner-all\" title=\"Next\"><span class=\"ui-icon ui-icon-circle-triangle-e\">Next</span></a><div class=\"ui-datepicker-title\"><span class=\"ui-datepicker-month\">xxx</span>&nbsp;<span class=\"ui-datepicker-year\">20xx</span></div></div><table class=\"ui-datepicker-calendar\"><thead><tr><th class=\"ui-datepicker-week-end\"><span title=\"Sunday\">Su</span></th><th><span title=\"Monday\">Mo</span></th><th><span title=\"Tuesday\">Tu</span></th><th><span title=\"Wednesday\">We</span></th><th><span title=\"Thursday\">Th</span></th><th><span title=\"Friday\">Fr</span></th><th class=\"ui-datepicker-week-end\"><span title=\"Saturday\">Sa</span></th></tr></thead><tbody><tr><td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default ui-state-highlight ui-state-active\">1</a></td><td><a class=\"ui-state-default\">2</a></td><td><a class=\"ui-state-default\">3</a></td><td><a class=\"ui-state-default\">4</a></td><td><a class=\"ui-state-default\">5</a></td><td><a class=\"ui-state-default\">6</a></td><td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default\">7</a></td></tr><tr><td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default\">8</a></td><td><a class=\"ui-state-default\">9</a></td><td><a class=\"ui-state-default\">10</a></td><td><a class=\"ui-state-default\">11</a></td><td><a class=\"ui-state-default\">12</a></td><td><a class=\"ui-state-default\">13</a></td><td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default\">14</a></td></tr><tr><td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default\">15</a></td><td><a class=\"ui-state-default\">16</a></td><td><a class=\"ui-state-default\">17</a></td><td><a class=\"ui-state-default\">18</a></td><td><a class=\"ui-state-default\">19</a></td><td><a class=\"ui-state-default\">20</a></td><td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default\">21</a></td></tr><tr><td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default\">22</a></td><td><a class=\"ui-state-default\">23</a></td><td><a class=\"ui-state-default\">24</a></td><td><a class=\"ui-state-default\">25</a></td><td><a class=\"ui-state-default\">26</a></td><td class=\"ui-datepicker-days-cell-over ui-datepicker-current-day ui-datepicker-today\"><a class=\"ui-state-default\">27</a></td><td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default\">28</a></td></tr><tr><td class=\"ui-datepicker-week-end\"><a class=\"ui-state-default\">29</a></td><td><a class=\"ui-state-default\">30</a></td><td><a class=\"ui-state-default\">31</a></td><td class=\"ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled\">&nbsp;</td><td class=\"ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled\">&nbsp;</td><td class=\"ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled\">&nbsp;</td><td class=\"ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled\">&nbsp;</td></tr></tbody></table></div>",
+							table,
 							this.Disabled ? " ui-datepicker-disabled ui-state-disabled" : string.Empty,
 							string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : this.CssClass + " ",
 							style,
@@ -797,6 +864,38 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				}
 
 			base.Render ( writer );
+		}
+
+		protected override void LoadViewState ( object savedState )
+		{
+			base.LoadViewState ( savedState );
+
+			List<object> states = this.ViewState["Datepicker"] as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				this.defaultDate = ( DateTime ) states[0];
+
+			if ( states.Count >= 2 )
+				this.maxDate = ( DateTime ) states[1];
+
+			if ( states.Count >= 3 )
+				this.minDate = ( DateTime ) states[2];
+
+		}
+
+		protected override object SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+			states.Add ( this.defaultDate );
+			states.Add ( this.maxDate );
+			states.Add ( this.minDate );
+
+			this.ViewState["Datepicker"] = states;
+
+			return base.SaveViewState ( );
 		}
 
 	}
