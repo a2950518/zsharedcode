@@ -772,13 +772,13 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				// this.widgetSetting.DatepickerSetting.SetEditHelper ( this.editHelper );
 
 				if ( this.defaultDate.ToString ( "yyyy-MM-dd" ) != DateTime.Today.ToString ( "yyyy-MM-dd" ) )
-					this.widgetSetting.DatepickerSetting.DefaultDate = string.Format ( "new Date({0}, {1}, {2})", this.defaultDate.Year, this.defaultDate.Month, this.defaultDate.Day );
+					this.widgetSetting.DatepickerSetting.DefaultDate = string.Format ( "new Date({0}, {1}, {2})", this.defaultDate.Year, this.defaultDate.Month - 1, this.defaultDate.Day );
 
 				if ( this.maxDate.ToString ( "yyyy-MM-dd" ) != DateTime.MaxValue.ToString ( "yyyy-MM-dd" ) )
-					this.widgetSetting.DatepickerSetting.MaxDate = string.Format ( "new Date({0}, {1}, {2})", this.maxDate.Year, this.maxDate.Month, this.maxDate.Day );
+					this.widgetSetting.DatepickerSetting.MaxDate = string.Format ( "new Date({0}, {1}, {2})", this.maxDate.Year, this.maxDate.Month - 1, this.maxDate.Day );
 
 				if ( this.minDate.ToString ( "yyyy-MM-dd" ) != DateTime.MinValue.ToString ( "yyyy-MM-dd" ) )
-					this.widgetSetting.DatepickerSetting.MinDate = string.Format ( "new Date({0}, {1}, {2})", this.minDate.Year, this.minDate.Month, this.minDate.Day );
+					this.widgetSetting.DatepickerSetting.MinDate = string.Format ( "new Date({0}, {1}, {2})", this.minDate.Year, this.minDate.Month - 1, this.minDate.Day );
 
 			}
 			else if ( this.selector == string.Empty )
