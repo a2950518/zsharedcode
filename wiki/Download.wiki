@@ -63,5 +63,10 @@
  a. 为按钮增加 PrimaryIcon 和 SecondaryIcon 属性.
  
  b. 按钮设计时可以显示图标.
+  
+2.6.2 版本改动:
+ a. 修改 Datepicker 的 DefaultDate, MaxDate, MinDate 为 DateTime 类型.
+ 
+ b. 增强 Datepicker 的设计时支持.
 
 </font>
