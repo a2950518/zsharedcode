@@ -207,7 +207,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				if ( null != this.ClickSync )
 					this.Click = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "click" ) + "}";
 
-				this.Icons = "{" + string.Format ( " primary: '{0}', secondary: '{1}' ", this.primaryIcon, this.secondaryIcon ) + "}";
+				if ( !string.IsNullOrEmpty ( this.primaryIcon ) || !string.IsNullOrEmpty ( this.secondaryIcon ) )
+					this.Icons = "{" + string.Format ( " primary: '{0}', secondary: '{1}' ", this.primaryIcon, this.secondaryIcon ) + "}";
+
 			}
 			else if ( this.selector == string.Empty )
 			{
