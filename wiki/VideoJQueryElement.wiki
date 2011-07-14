@@ -3,4 +3,5 @@
 <font face="microsoft yahei">
 === JQueryElement 视频 ===
  * [http://www.tudou.com/programs/view/Ptz07sq2KcI/ JQueryElement 按钮轻松调用 Ajax]
+ * [http://www.tudou.com/programs/view/OAsr2XseOdU/ JQueryElement 功能完善的 jqueryui 日期框控件]
 </font>

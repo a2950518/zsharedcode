@@ -277,4 +277,5 @@
       * [http://www.tudou.com/programs/view/xfQiXQcr5xw/ IEBrowser 为页面元素编写在 .NET 中执行的事件]
     * [VideoJQueryElement JQueryElement 视频]
       * [http://www.tudou.com/programs/view/Ptz07sq2KcI/ JQueryElement 按钮轻松调用 Ajax]
+      * [http://www.tudou.com/programs/view/OAsr2XseOdU/ JQueryElement 功能完善的 jqueryui 日期框控件]
 </font>
