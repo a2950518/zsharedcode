@@ -11,6 +11,7 @@
         * [JQueryUIAutocomplete Autocomplete]
         * [JQueryUIAutocompleteSettingEdit AutocompleteSettingEdit]
         * [JQueryUIAutocompleteSettingEditConverter AutocompleteSettingEditConverter]
+        * [JQueryUIBaseJQueryElement BaseJQueryElement]
         * [JQueryUIBaseWidget BaseWidget]
         * [JQueryUIButton Button]
         * [JQueryUIButtonSettingEdit ButtonSettingEdit]
@@ -60,6 +61,9 @@
         * [JQueryUITabs Tabs]
         * [JQueryUITabsSettingEdit TabsSettingEdit]
         * [JQueryUITabsSettingEditConverter TabsSettingEditConverter]
+        * [JQueryUITimer Timer]
+        * [JQueryUITimerSettingEdit TimerSettingEdit]
+        * [JQueryUITimerSettingEditConverter TimerSettingEditConverter]
         * [JQueryUIWidgetSettingEdit WidgetSettingEdit]
         * [JQueryUIWidgetSettingEditConverter WidgetSettingEditConverter]
 </font>
