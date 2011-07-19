@@ -28,9 +28,9 @@
  
  讨论: <font color="#990099">欢迎加入 qq 群: 149829251, JQueryElement 编程</font>, <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/149829251" target="_blank">加入 qq 群</a>.
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.2.6.2.Debug.PARAM.zip JQueryElement 2.6.2 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/JQueryElement.2.6.3.Debug.PARAM.zip JQueryElement 2.6.3 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.2.6.2.Debug.NOPARAM.zip JQueryElement 2.6.2 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/JQueryElement.2.6.3.Debug.NOPARAM.zip JQueryElement 2.6.3 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
 === panzer.dll ===
  我们已经不再提供 panzer.dll 的下载链接, 请下载上面提供的 dll.
@@ -68,5 +68,10 @@
  a. 修改 Datepicker 的 DefaultDate, MaxDate, MinDate 为 DateTime 类型.
  
  b. 增强 Datepicker 的设计时支持.
+
+2.6.3 版本改动:
+ a. 修改 AjaxSettingEdit, 增加 MethodName, ContentType 等属性, 可以更方便的调用 WebService.
+ 
+ b. 增加了 Timer 时钟控件.
 
 </font>
