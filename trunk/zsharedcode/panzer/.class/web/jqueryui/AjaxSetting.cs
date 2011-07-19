@@ -13,31 +13,6 @@ using System.Collections.Generic;
 namespace zoyobar.shared.panzer.web.jqueryui
 {
 
-	#region " DataType "
-	/// <summary>
-	/// Ajax 获取的数据类型.
-	/// </summary>
-	public enum DataType
-	{
-		/// <summary>
-		/// json 数据.
-		/// </summary>
-		json = 1,
-		/// <summary>
-		/// 脚本代码.
-		/// </summary>
-		script = 2,
-		/// <summary>
-		/// xml 数据.
-		/// </summary>
-		xml = 3,
-		/// <summary>
-		/// html 代码.
-		/// </summary>
-		html = 4,
-	}
-	#endregion
-
 	#region " AjaxSetting "
 	/// <summary>
 	/// jQuery UI Ajax 设置.
@@ -61,6 +36,18 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public readonly DataType DataType;
 		/// <summary>
+		/// 请求的类型.
+		/// </summary>
+		public readonly RequestType Type;
+		/// <summary>
+		/// 请求的内容类型.
+		/// </summary>
+		public readonly string ContentType;
+		/// <summary>
+		/// 调用的 WebService 的方法名称.
+		/// </summary>
+		public readonly string MethodName;
+		/// <summary>
 		/// 用作传递参数的表单.
 		/// </summary>
 		public readonly string Form;
@@ -78,16 +65,16 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		/// <param name="widgetEventType">和 Widget 相关的触发事件.</param>
 		/// <param name="url">请求的地址, 比如: "''".</param>
+		/// <param name="methodName">调用的 WebService 的方法名称.</param>
 		/// <param name="dataType">获取的数据类型.</param>
+		/// <param name="type">请求的类型.</param>
+		/// <param name="contentType">请求的内容类型.</param>
 		/// <param name="form">用作传递参数的表单.</param>
 		/// <param name="parameters">用作传递的参数, 如果指定了 form 参数, 则忽略 parameters.</param>
 		/// <param name="events">Ajax 相关事件.</param>
 		/// <param name="isSingleQuote">是否为字符串使用单引号.</param>
-		public AjaxSetting ( EventType widgetEventType, string url, DataType dataType, string form, Parameter[] parameters, Event[] events, bool isSingleQuote )
+		public AjaxSetting ( EventType widgetEventType, string url, string methodName, DataType dataType, RequestType type, string contentType, string form, Parameter[] parameters, Event[] events, bool isSingleQuote )
 		{
-
-			if ( string.IsNullOrEmpty ( url ) )
-				url = "/";
 
 			if ( string.IsNullOrEmpty ( form ) )
 				if ( null != parameters )
@@ -101,7 +88,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 						this.Events.Add ( @event );
 
 			this.Url = url;
+			this.MethodName = methodName;
 			this.DataType = dataType;
+			this.Type = type;
+			this.ContentType = contentType;
 			this.WidgetEventType = widgetEventType;
 			this.Form = form;
 
