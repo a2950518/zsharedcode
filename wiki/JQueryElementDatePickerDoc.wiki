@@ -8,7 +8,7 @@
  通过 [JQueryUIDatepicker Datepicker] 的 DayNames, DayNamesMin, DayNamesShort, MonthNames, MonthNamesShort 属性可以设置日期框的天和月的显示, CurrentText 属性表示转到当前日期按钮的文本, 如果需要显示此按钮还需要将 ShowButtonPanel 属性设置为 True.
 
  ==== 设置日期框范围 ====
- [JQueryUIDatepicker Datepicker] 的 MaxDate, MinDate 分别表示日期框的可选的最大和最小日期, 比如: {{{<je:Datepicker ID="dp" runat="server" ... MaxDate="+2w" MinDate="-1y"></je:Datepicker>}}}, 这里表示最大日期为当前日期后的 2 周, 最小日期为当前日期前的 1 年.
+ [JQueryUIDatepicker Datepicker] 的 MaxDate, MinDate 分别表示日期框的可选的最大和最小日期, 比如: {{{<je:Datepicker ID="dp" runat="server" ... MaxDate="2011-11-11" MinDate="2011-1-1"></je:Datepicker>}}}.
  
  ==== 设置日期框客户端选择日期事件 ====
  [JQueryUIDatepicker Datepicker] 的 OnSelect 属性为处理选择日期选择事件的 javascript 函数, {{{<je:Datepicker ID="dp" runat="server"... onselect="function(dateText, inst){setDay(inst);}" ...></je:Datepicker>}}}.
@@ -60,7 +60,7 @@
 		DayNamesShort="['周日', '周一', '周二', '周三', '周四', '周五', '周六']" 
 		MonthNames="['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']" 
 		MonthNamesShort="['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']" 
-		MaxDate="+2w" MinDate="-1y">
+		MaxDate="2011-11-11" MinDate="2011-1-1">
 	</je:Datepicker>
 	<textarea id="txtNote" rows="20" cols="30"></textarea>
 	<je:Button ID="cmdSave" runat="server" Label="保存">

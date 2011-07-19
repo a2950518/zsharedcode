@@ -17,6 +17,8 @@
  * [JQueryElementSliderDoc 分割条 - 图片滚动显示]
  * [JQueryElementTabsDoc 分组标签 - 水平导航栏]
 
+ * [JQueryElementTimerDoc 时钟 - 定时从服务器获取时间]
+
  * [JQueryElementHtmlDoc 设置 html 代码]
  * [JQueryElementElementDoc 设置元素的类型]
  * [JQueryElementNestDoc 嵌套]
