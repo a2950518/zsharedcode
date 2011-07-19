@@ -45,7 +45,7 @@
  * [JQueryUIAutocomplete ui.jqueryui.Autocomplete]
  * [JQueryUIAutocompleteSettingEdit ui.jqueryui.AutocompleteSettingEdit]
  * [JQueryUIAutocompleteSettingEditConverter ui.jqueryui.AutocompleteSettingEditConverter]
- * [JQueryUIBaseJQueryElement ui.jqueryui.BaseJQueryElement]
+ * [BaseJQueryElement ui.jqueryui.BaseJQueryElement]
  * [JQueryUIBaseWidget ui.jqueryui.BaseWidget]
  * [JQueryUIButton ui.jqueryui.Button]
  * [JQueryUIButtonSettingEdit ui.jqueryui.ButtonSettingEdit]

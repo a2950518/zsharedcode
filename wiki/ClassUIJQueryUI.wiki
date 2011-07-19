@@ -11,7 +11,7 @@
         * [JQueryUIAutocomplete Autocomplete]
         * [JQueryUIAutocompleteSettingEdit AutocompleteSettingEdit]
         * [JQueryUIAutocompleteSettingEditConverter AutocompleteSettingEditConverter]
-        * [JQueryUIBaseJQueryElement BaseJQueryElement]
+        * [BaseJQueryElement BaseJQueryElement]
         * [JQueryUIBaseWidget BaseWidget]
         * [JQueryUIButton Button]
         * [JQueryUIButtonSettingEdit ButtonSettingEdit]
