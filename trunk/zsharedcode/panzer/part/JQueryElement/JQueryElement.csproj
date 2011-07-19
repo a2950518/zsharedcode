@@ -114,6 +114,12 @@
     <Compile Include="..\..\.class\ui\jqueryui\Tabs.cs">
       <Link>.class\Tabs.cs</Link>
     </Compile>
+    <Compile Include="..\..\.class\ui\jqueryui\Timer.cs">
+      <Link>.class\Timer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\ui\jqueryui\TimerSettingEdit.cs">
+      <Link>.class\TimerSettingEdit.cs</Link>
+    </Compile>
     <Compile Include="..\..\.class\ui\jqueryui\WidgetSettingEdit.cs">
       <Link>.class\WidgetSettingEdit.cs</Link>
     </Compile>
