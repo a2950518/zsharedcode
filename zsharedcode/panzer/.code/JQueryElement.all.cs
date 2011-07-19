@@ -18006,28 +18006,62 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			return optionExpression.TrimEnd ( ',' ) + " }";
 		}
 
-		private static string makeParameterExpression ( List<Parameter> parameters )
+		private static string makeParameterExpression ( List<Parameter> parameters, bool isWebService, string quote )
 		{
 
-			if ( null == parameters || parameters.Count == 0 )
-				return string.Empty;
+			if ( null == quote )
+				quote = string.Empty;
 
-			string parameterExpression = "{";
+			if ( null == parameters || parameters.Count == 0 )
+				if ( isWebService )
+					return quote + "{ }" + quote;
+				else
+					return "{ }";
+
+
+			string parameterExpression = string.Empty;
 
 			foreach ( Parameter parameter in parameters )
 				if ( null != parameter && parameter.Value != string.Empty )
 					switch ( parameter.Type )
 					{
 						case ParameterType.Selector:
-							parameterExpression += string.Format ( " {0}: {1},", parameter.Name, JQuery.Create ( parameter.Value ).Val ( ).Code );
+
+							if ( isWebService )
+							{
+
+								if ( parameterExpression != string.Empty )
+									parameterExpression += string.Format ( " + {0} ,{0}", quote );
+
+								parameterExpression += string.Format ( " + {0}{1}: {0} + {0}\\{0}{0} + {2} + {0}\\{0}{0}", quote, parameter.Name, JQuery.Create ( parameter.Value ).Val ( ).Code );
+							}
+							else
+								parameterExpression += string.Format ( " {0}: {1},", parameter.Name, JQuery.Create ( parameter.Value ).Val ( ).Code );
+
 							break;
 
 						case ParameterType.Expression:
-							parameterExpression += string.Format ( " {0}: {1},", parameter.Name, parameter.Value );
+
+							if ( isWebService )
+							{
+
+								if ( parameterExpression != string.Empty )
+									parameterExpression += string.Format ( " + {0} ,{0}", quote );
+
+								parameterExpression += string.Format ( " + {0}{1}: {0} + {2}", quote, parameter.Name, parameter.Value );
+							}
+							else
+								parameterExpression += string.Format ( " {0}: {1},", parameter.Name, parameter.Value );
+
 							break;
 					}
 
-			return parameterExpression.TrimEnd ( ',' ) + " }";
+			if ( isWebService )
+				parameterExpression = quote + "{" + quote + parameterExpression + " + " + quote + "}" + quote;
+			else
+				parameterExpression = "{" + parameterExpression.TrimEnd ( ',' ) + "}";
+
+			return parameterExpression;
 		}
 
 		/// <summary>
@@ -18049,17 +18083,18 @@ namespace zoyobar.shared.panzer.web.jqueryui
 				quote = "\"";
 
 			string data;
+			bool isWebService = !string.IsNullOrEmpty ( setting.MethodName );
 
 			if ( string.IsNullOrEmpty ( setting.Form ) )
-				data = makeParameterExpression ( setting.Parameters );
+				data = makeParameterExpression ( setting.Parameters, isWebService, quote );
 			else
 				data = JQuery.Create ( setting.Form ).Serialize ( ).Code;
 
 			string map = string.Format ( "url: {0}{1}{0}, dataType: {0}{2}{0}, data: {3}, type: {0}{4}{0}",
 				quote,
-				setting.Url + ( string.IsNullOrEmpty ( setting.MethodName ) ? string.Empty : "/" + setting.MethodName ),
+				setting.Url + ( isWebService ? "/" + setting.MethodName : string.Empty ),
 				setting.DataType,
-				string.IsNullOrEmpty ( data ) ? "{ }" : data,
+				data,
 				setting.Type
 				);
 
