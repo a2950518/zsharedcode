@@ -19,6 +19,7 @@ using System.Globalization;
 using System.Web.UI;
 
 using zoyobar.shared.panzer.code;
+using zoyobar.shared.panzer.web;
 using zoyobar.shared.panzer.web.jqueryui;
 
 // HACK: 避免在 allinone 文件中的名称冲突
@@ -40,7 +41,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
 		private EventType widgetEventType = EventType.none;
 		private string url = string.Empty;
+		private string methodName = string.Empty;
 		private DataType dataType = DataType.json;
+		private RequestType type = RequestType.GET;
+		private string contentType = string.Empty;
 		private string form = string.Empty;
 		private readonly List<ParameterEdit> parameters = new List<ParameterEdit> ( );
 		private bool isSingleQuote = true;
@@ -176,6 +180,33 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 获取或设置 WebService 的方法名称, 设置将可能修改 Type, ContentType 以及 DataType 属性.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 WebService 的方法名称, 设置将可能修改 Type, ContentType 以及 DataType 属性" )]
+		[NotifyParentProperty ( true )]
+		public string MethodName
+		{
+			get { return this.methodName; }
+			set
+			{
+
+				if ( !string.IsNullOrEmpty ( value ) )
+				{
+					this.type = RequestType.POST;
+					this.dataType = DataType.json;
+
+					if ( string.IsNullOrEmpty ( this.contentType ) )
+						this.contentType = "application/json;charset=utf-8";
+
+				}
+
+				this.methodName = value;
+			}
+		}
+
+		/// <summary>
 		/// 获取或设置获取的数据类型.
 		/// </summary>
 		[Category ( "行为" )]
@@ -186,6 +217,32 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			get { return this.dataType; }
 			set { this.dataType = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置请求的类型.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( RequestType.GET )]
+		[Description ( "指示请求的类型" )]
+		[NotifyParentProperty ( true )]
+		public RequestType Type
+		{
+			get { return this.type; }
+			set { this.type = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置请求内容的类型.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示请求内容的类型" )]
+		[NotifyParentProperty ( true )]
+		public string ContentType
+		{
+			get { return this.contentType; }
+			set { this.contentType = value; }
 		}
 
 		/// <summary>
@@ -239,7 +296,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			foreach ( ParameterEdit edit in this.parameters )
 				parameters.Add ( edit.CreateParameter ( ) );
 
-			return new AjaxSetting ( this.widgetEventType, this.url, this.dataType, this.form, parameters.ToArray ( ), this.editHelper.CreateEvents ( ), this.isSingleQuote );
+			return new AjaxSetting ( this.widgetEventType, this.url, this.methodName, this.dataType, this.type, this.contentType, this.form, parameters.ToArray ( ), this.editHelper.CreateEvents ( ), this.isSingleQuote );
 		}
 
 		/// <summary>
@@ -288,6 +345,15 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 
+			if ( states.Count >= 8 )
+				this.type = ( RequestType ) states[7];
+
+			if ( states.Count >= 9 )
+				this.contentType = states[8] as string;
+
+			if ( states.Count >= 10 )
+				this.contentType = states[9] as string;
+
 		}
 
 		object IStateManager.SaveViewState ( )
@@ -307,6 +373,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				parameterStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
 
 			states.Add ( parameterStates );
+			states.Add ( this.type );
+			states.Add ( this.contentType );
+			states.Add ( this.methodName );
 
 			return states;
 		}
@@ -359,7 +428,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
-			if ( expressionHelper.ChildCount == 6 )
+			if ( expressionHelper.ChildCount == 9 )
 				try
 				{
 
@@ -381,6 +450,15 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					if ( expressionHelper[5].Value != string.Empty )
 						edit.EditHelper.FromString ( expressionHelper[5].Value );
 
+					if ( expressionHelper[6].Value != string.Empty )
+						edit.Type = ( RequestType ) Enum.Parse ( typeof ( RequestType ), expressionHelper[6].Value );
+
+					if ( expressionHelper[7].Value != string.Empty )
+						edit.ContentType = expressionHelper[7].Value;
+
+					if ( expressionHelper[8].Value != string.Empty )
+						edit.MethodName = expressionHelper[8].Value;
+
 				}
 				catch { }
 
@@ -395,7 +473,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			AjaxSettingEdit setting = value as AjaxSettingEdit;
 
-			return string.Format ( "{0}`;{1}`;{2}`;{3}`;{4}`;{5}", setting.WidgetEventType, setting.Url, setting.DataType, setting.Form, setting.IsSingleQuote, setting.EditHelper );
+			return string.Format ( "{0}`;{1}`;{2}`;{3}`;{4}`;{5}`;{6}`;{7}`;{8}", setting.WidgetEventType, setting.Url, setting.DataType, setting.Form, setting.IsSingleQuote, setting.EditHelper, setting.Type, setting.ContentType, setting.MethodName );
 		}
 
 	}

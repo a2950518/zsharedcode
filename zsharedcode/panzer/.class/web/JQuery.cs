@@ -10,6 +10,48 @@
 namespace zoyobar.shared.panzer.web
 {
 
+	#region " DataType "
+	/// <summary>
+	/// 获取的数据类型.
+	/// </summary>
+	public enum DataType
+	{
+		/// <summary>
+		/// json 数据.
+		/// </summary>
+		json = 1,
+		/// <summary>
+		/// 脚本代码.
+		/// </summary>
+		script = 2,
+		/// <summary>
+		/// xml 数据.
+		/// </summary>
+		xml = 3,
+		/// <summary>
+		/// html 代码.
+		/// </summary>
+		html = 4,
+	}
+	#endregion
+
+	#region " RequestType "
+	/// <summary>
+	/// 请求的类型.
+	/// </summary>
+	public enum RequestType
+	{
+		/// <summary>
+		/// GET 方法.
+		/// </summary>
+		GET = 0,
+		/// <summary>
+		/// POST 方法.
+		/// </summary>
+		POST = 1,
+	}
+	#endregion
+
 	/// <summary>
 	/// JQuery 用于编写构造 jQuery 脚本, 包含了 jQuery 中的方法等, 支持 1.6 版本. (尚未包含 Effects, Utilities 的部分方法)
 	/// </summary>

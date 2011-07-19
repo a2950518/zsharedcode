@@ -1,4 +1,14 @@
-﻿using System.Collections.Generic;
+﻿/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/BaseJQueryElement
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/BaseJQueryElement.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
@@ -101,7 +111,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		protected WidgetSettingEdit widgetSetting = new WidgetSettingEdit ( );
 
-		private RepeaterSettingEdit repeaterSetting = new RepeaterSettingEdit ( );
+		protected RepeaterSettingEdit repeaterSetting = new RepeaterSettingEdit ( );
+		protected TimerSettingEdit timerSetting = new TimerSettingEdit ( );
 
 		protected readonly PlaceHolder html = new PlaceHolder ( );
 
@@ -232,6 +243,23 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 				if ( null != value )
 					this.repeaterSetting = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置元素的 Timer 设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的 Timer 设置" )]
+		public virtual TimerSettingEdit TimerSetting
+		{
+			get { return this.timerSetting; }
+			set
+			{
+
+				if ( null != value )
+					this.timerSetting = value;
 
 			}
 		}
@@ -494,100 +522,152 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			jquery.Widget ( this.widgetSetting.CreateWidgetSetting ( ) );
 
-			#region " repeater "
-			string repeaterCode = string.Empty;
+			string repeaterCode = this.renderRepeater ( );
+			string timerCode = this.renderTimer ( );
 
-			if ( this.repeaterSetting.IsRepeatable )
-			{
-				this.isVariable = true;
-
-				if ( !ScriptHelper.IsBuilt ( this, "__jsRepeater" ) )
-				{
-					ScriptHelper script = new ScriptHelper ( );
-
-					script.AppendCode ( "function repeater(je, fields, attribute, header, footer, item, editItem, empty, rowsName) {\n" +
-
-						"	if (null == je)\n" +
-						"		return;\n" +
-
-						"	je.__fields = (null == fields) ? [] : fields;\n" +
-						"	je.__attributes = (null == attribute) ? [] : attribute;\n" +
-						"	je.__template = { header: (null == header) ? '' : header, footer: (null == footer) ? '' : footer, item: (null == item) ? '' : item, editItem: (null == editItem) ? '' : editItem, empty: (null == empty) ? '' : empty };\n" +
-						"	je.__setting = { rowsName: (null == rowsName) ? 'rows' : rowsName };\n" +
-
-						"	je.__bind = function (data) {\n" +
-						"		var html = '';\n" +
-						"		var isEmpty = false;\n" +
-						"		html += je.__template.header;\n" +
-
-						"		if (null == data)\n" +
-						"			isEmpty = true;\n" +
-						"		else {\n" +
-						"			var rows = data[je.__setting.rowsName];\n" +
-
-						"			if (null == rows || rows.length == 0)\n" +
-						"				isEmpty = true;\n" +
-						"			else\n" +
-						"				try {\n" +
-
-						"					for (var x = 0; x < rows.length; x++) {\n" +
-						"						var row = rows[x];\n" +
-						"						var rowHtml = je.__template.item;\n" +
-
-						"						for (var y = 0; y < je.__fields.length; y++)\n" +
-						"							rowHtml = rowHtml.replace(eval('/#' + je.__fields[y] + '/g'), row[je.__fields[y]]);\n" +
-
-						"							html += rowHtml;\n" +
-						"					}\n" +
-
-						"				}\n" +
-						"				catch (err) {\n" +
-						"					isEmpty = true;\n" +
-						"				}\n" +
-
-						"		}\n" +
-
-						"		if (isEmpty)\n" +
-						"			html += je.__template.empty;\n" +
-
-						"		html += je.__template.footer;\n" +
-
-						"		for (var x = 0; x < je.__attributes.length; x++)\n" +
-						"			html = html.replace(eval('/\\@' + je.__attributes[x] + '/g'), data[je.__attributes[x]]);\n" +
-
-						"		je.html(html);\n" +
-						"	};\n" +
-
-						"}"
-						);
-
-					script.Build ( this, "__jsRepeater", ScriptBuildOption.Startup );
-				}
-
-				string fieldsCode = string.Empty;
-				string attributesCode = string.Empty;
-
-				foreach ( string field in this.repeaterSetting.Field.Split ( ';' ) )
-					fieldsCode += "'" + escapeCharacter ( field.Trim ( ) ) + "',";
-
-				foreach ( string attribute in this.repeaterSetting.Attribute.Split ( ';' ) )
-					attributesCode += "'" + escapeCharacter ( attribute.Trim ( ) ) + "',";
-
-				repeaterCode += "repeater(window['" + this.ClientID + "'], " +
-					( fieldsCode == string.Empty ? "null" : "[" + fieldsCode.TrimEnd ( ',' ) + "]" ) + "," +
-					( attributesCode == string.Empty ? "null" : "[" + attributesCode.TrimEnd ( ',' ) + "]" ) + "," +
-					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Header ) ) + "'," +
-					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Footer ) ) + "'," +
-					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Item ) ) + "'," +
-					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.EditItem ) ) + "'," +
-					"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Empty ) ) + "'," +
-					"'" + this.repeaterSetting.RowsName + "'" +
-					");";
-			}
-			#endregion
-
-			jquery.Code = "$(function(){" + ( this.isVariable ? ( "window['" + this.ClientID + "'] = " ) : string.Empty ) + JQueryCoder.Encode ( this, jquery.Code ) + ";" + JQueryCoder.Encode ( this, repeaterCode ) + "});";
+			jquery.Code = "$(function(){" + ( this.isVariable ? ( "window['" + this.ClientID + "'] = " ) : string.Empty ) + JQueryCoder.Encode ( this, jquery.Code ) +
+				( repeaterCode == string.Empty ? string.Empty : ";" + JQueryCoder.Encode ( this, repeaterCode ) ) +
+				( timerCode == string.Empty ? string.Empty : ";" + JQueryCoder.Encode ( this, timerCode ) ) +
+				"});";
 			jquery.Build ( this, this.ClientID, ScriptBuildOption.Startup );
+		}
+
+		private string renderRepeater ( )
+		{
+
+			if ( !this.repeaterSetting.IsRepeatable )
+				return string.Empty;
+
+			this.isVariable = true;
+
+			if ( !ScriptHelper.IsBuilt ( this, "__jsRepeater" ) )
+			{
+				ScriptHelper script = new ScriptHelper ( );
+
+				script.AppendCode ( "function __je_repeater(je, fields, attribute, header, footer, item, editItem, empty, rowsName) {\n" +
+
+					"	if (null == je)\n" +
+					"		return;\n" +
+
+					"	je.__fields = (null == fields) ? [] : fields;\n" +
+					"	je.__attributes = (null == attribute) ? [] : attribute;\n" +
+					"	je.__template = { header: (null == header) ? '' : header, footer: (null == footer) ? '' : footer, item: (null == item) ? '' : item, editItem: (null == editItem) ? '' : editItem, empty: (null == empty) ? '' : empty };\n" +
+					"	je.__setting = { rowsName: (null == rowsName) ? 'rows' : rowsName };\n" +
+
+					"	je.__bind = function (data) {\n" +
+					"		var html = '';\n" +
+					"		var isEmpty = false;\n" +
+					"		html += je.__template.header;\n" +
+
+					"		if (null == data)\n" +
+					"			isEmpty = true;\n" +
+					"		else {\n" +
+					"			var rows = data[je.__setting.rowsName];\n" +
+
+					"			if (null == rows || rows.length == 0)\n" +
+					"				isEmpty = true;\n" +
+					"			else\n" +
+					"				try {\n" +
+
+					"					for (var x = 0; x < rows.length; x++) {\n" +
+					"						var row = rows[x];\n" +
+					"						var rowHtml = je.__template.item;\n" +
+
+					"						for (var y = 0; y < je.__fields.length; y++)\n" +
+					"							rowHtml = rowHtml.replace(eval('/#' + je.__fields[y] + '/g'), row[je.__fields[y]]);\n" +
+
+					"							html += rowHtml;\n" +
+					"					}\n" +
+
+					"				}\n" +
+					"				catch (err) {\n" +
+					"					isEmpty = true;\n" +
+					"				}\n" +
+
+					"		}\n" +
+
+					"		if (isEmpty)\n" +
+					"			html += je.__template.empty;\n" +
+
+					"		html += je.__template.footer;\n" +
+
+					"		for (var x = 0; x < je.__attributes.length; x++)\n" +
+					"			html = html.replace(eval('/\\@' + je.__attributes[x] + '/g'), data[je.__attributes[x]]);\n" +
+
+					"		je.html(html);\n" +
+					"	};\n" +
+
+					"}"
+					);
+
+				script.Build ( this, "__jsRepeater", ScriptBuildOption.Startup );
+			}
+
+			string fieldsCode = string.Empty;
+			string attributesCode = string.Empty;
+
+			foreach ( string field in this.repeaterSetting.Field.Split ( ';' ) )
+				fieldsCode += "'" + escapeCharacter ( field.Trim ( ) ) + "',";
+
+			foreach ( string attribute in this.repeaterSetting.Attribute.Split ( ';' ) )
+				attributesCode += "'" + escapeCharacter ( attribute.Trim ( ) ) + "',";
+
+			return "__je_repeater(window['" + this.ClientID + "'], " +
+				( fieldsCode == string.Empty ? "null" : "[" + fieldsCode.TrimEnd ( ',' ) + "]" ) + "," +
+				( attributesCode == string.Empty ? "null" : "[" + attributesCode.TrimEnd ( ',' ) + "]" ) + "," +
+				"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Header ) ) + "'," +
+				"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Footer ) ) + "'," +
+				"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Item ) ) + "'," +
+				"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.EditItem ) ) + "'," +
+				"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Empty ) ) + "'," +
+				"'" + this.repeaterSetting.RowsName + "'" +
+				");";
+		}
+
+		private string renderTimer ( )
+		{
+
+			if ( !this.timerSetting.IsTimable )
+				return string.Empty;
+
+			this.isVariable = true;
+
+			if ( !ScriptHelper.IsBuilt ( this, "__jsTimer" ) )
+			{
+				ScriptHelper script = new ScriptHelper ( );
+
+				script.AppendCode ( "function __je_timer(je, interval, tick, tickAjax) {\n" +
+
+					"	if (null == je)\n" +
+					"		return;\n" +
+
+					"	je.__interval = (null == interval || interval <= 0) ? 100 : interval;\n" +
+					"	je.__tick = tick;\n" +
+					"	je.__tickAjax = tickAjax;\n" +
+					"	je.__handler = null;\n" +
+
+					"	je.__start = function () {\n" +
+					"		je.__stop();\n" +
+					"		je.__handler = setInterval(function(){ if(null != je.__tick) { je.__tick(); } if(null != je.__tickAjax) { je.__tickAjax(); } }, je.__interval);\n" +
+					"	};\n" +
+
+					"	je.__stop = function () {\n" +
+					"		if(null != je.__handler) {clearInterval(je.__handler);}\n" +
+					"	};\n" +
+
+					"}"
+					);
+
+				script.Build ( this, "__jsTimer", ScriptBuildOption.Startup );
+			}
+
+			JQuery ajax = JQueryUI.Ajax ( this.timerSetting.TickAsync.CreateAjaxSetting ( ) );
+
+			return "__je_timer(window['" + this.ClientID + "'], " +
+				this.timerSetting.Interval.ToString ( ) + "," +
+				( this.timerSetting.Tick == string.Empty ? "null" : this.timerSetting.Tick ) + "," +
+				( null == ajax ? "null" : "function() {" + ajax.Code + "}" ) +
+				");";
 		}
 
 		protected override void LoadViewState ( object savedState )
@@ -601,6 +681,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			( this.resizableSetting as IStateManager ).LoadViewState ( this.ViewState["ResizableSetting"] );
 
 			( this.widgetSetting as IStateManager ).LoadViewState ( this.ViewState["WidgetSetting"] );
+
+			( this.repeaterSetting as IStateManager ).LoadViewState ( this.ViewState["RepeaterSetting"] );
+			( this.timerSetting as IStateManager ).LoadViewState ( this.ViewState["TimerSetting"] );
 
 			List<object> states = this.ViewState["BaseJQueryElement"] as List<object>;
 
@@ -630,6 +713,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			this.ViewState["ResizableSetting"] = ( this.resizableSetting as IStateManager ).SaveViewState ( );
 
 			this.ViewState["WidgetSetting"] = ( this.widgetSetting as IStateManager ).SaveViewState ( );
+
+			this.ViewState["RepeaterSetting"] = ( this.repeaterSetting as IStateManager ).SaveViewState ( );
+			this.ViewState["TimerSetting"] = ( this.timerSetting as IStateManager ).SaveViewState ( );
 
 			List<object> states = new List<object> ( );
 			states.Add ( this.elementType );

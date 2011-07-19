@@ -1,7 +1,6 @@
 ﻿/*
  * wiki:
  * http://code.google.com/p/zsharedcode/wiki/JQueryElement
- * http://code.google.com/p/zsharedcode/wiki/JQueryElementConverter
  * http://code.google.com/p/zsharedcode/wiki/JQueryElementType
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIBaseWidget
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
@@ -111,6 +110,17 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			get { return base.RepeaterSetting; }
 			set { base.RepeaterSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的 Timer 设置.
+		/// </summary>
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public override TimerSettingEdit TimerSetting
+		{
+			get { return base.TimerSetting; }
+			set { base.TimerSetting = value; }
 		}
 
 		/// <summary>
@@ -4090,6 +4100,16 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			get { return base.RepeaterSetting; }
 			set { base.RepeaterSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的 Timer 设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override TimerSettingEdit TimerSetting
+		{
+			get { return base.TimerSetting; }
+			set { base.TimerSetting = value; }
 		}
 		#endregion
 

@@ -59,6 +59,49 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			return parameterExpression.TrimEnd ( ',' ) + " }";
 		}
 
+		/// <summary>
+		/// Ajax 操作.
+		/// </summary>
+		/// <param name="setting">Ajax 相关设置.</param>
+		/// <returns>更新后的 JQueryUI 对象.</returns>
+		public static JQuery Ajax ( AjaxSetting setting )
+		{
+
+			if ( string.IsNullOrEmpty ( setting.Url ) )
+				return null;
+
+			string quote;
+
+			if ( setting.IsSingleQuote )
+				quote = "'";
+			else
+				quote = "\"";
+
+			string data;
+
+			if ( string.IsNullOrEmpty ( setting.Form ) )
+				data = makeParameterExpression ( setting.Parameters );
+			else
+				data = JQuery.Create ( setting.Form ).Serialize ( ).Code;
+
+			string map = string.Format ( "url: {0}{1}{0}, dataType: {0}{2}{0}, data: {3}, type: {0}{4}{0}",
+				quote,
+				setting.Url + ( string.IsNullOrEmpty ( setting.MethodName ) ? string.Empty : "/" + setting.MethodName ),
+				setting.DataType,
+				string.IsNullOrEmpty ( data ) ? "{ }" : data,
+				setting.Type
+				);
+
+			if ( !string.IsNullOrEmpty ( setting.ContentType ) )
+				map += string.Format ( ", contentType: {0}{1}{0}", quote, setting.ContentType );
+
+			foreach ( Event @event in setting.Events )
+				if ( @event.Type != EventType.none && @event.Type != EventType.__init )
+					map += ", " + @event.Type + ": " + @event.Value;
+
+			return JQuery.Create ( false, true ).Ajax ( "{" + map + "}" );
+		}
+
 		#region " 构造 "
 
 		/// <summary>
@@ -284,34 +327,17 @@ namespace zoyobar.shared.panzer.web.jqueryui
 				if ( ajaxSetting.WidgetEventType == EventType.none )
 					continue;
 
-				string quote;
+				JQuery ajax = Ajax ( ajaxSetting );
 
-				if ( ajaxSetting.IsSingleQuote )
-					quote = "'";
-				else
-					quote = "\"";
-
-				string data;
-
-				if ( string.IsNullOrEmpty ( ajaxSetting.Form ) )
-					data = makeParameterExpression ( ajaxSetting.Parameters );
-				else
-					data = JQuery.Create ( ajaxSetting.Form ).Serialize ( ).Code;
-
-				JQuery jQuery = JQuery.Create ( false, true );
-				string map = string.Format ( "url: {0}{1}{0}, dataType: {0}{2}{0}, data: {3}", quote, ajaxSetting.Url, ajaxSetting.DataType, string.IsNullOrEmpty ( data ) ? "{ }" : data );
-
-				foreach ( Event @event in ajaxSetting.Events )
-					if ( @event.Type != EventType.none && @event.Type != EventType.__init )
-						map += ", " + @event.Type + ": " + @event.Value;
-
-				jQuery.Ajax ( "{" + map + "}" );
+				if ( null == ajax )
+					continue;
 
 				if ( ajaxSetting.WidgetEventType == EventType.__init )
-					this.EndLine ( ).AppendCode ( jQuery.Code );
+					this.EndLine ( ).AppendCode ( ajax.Code );
 				else
-					this.Bind ( string.Format ( "'{0}'", ajaxSetting.WidgetEventType ), "function(e){" + jQuery.Code + "}" );
-				// this.Execute ( ajaxSetting.WidgetEventType.ToString ( ), "function(e){" + jQuery.Code + "}" );
+					this.Bind ( string.Format ( "'{0}'", ajaxSetting.WidgetEventType ), "function(e){" + ajax.Code + "}" );
+
+				return this;
 
 			}
 

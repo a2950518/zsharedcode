@@ -8,17 +8,18 @@ using System.Xml;
 using zoyobar.shared.panzer.code;
 using zoyobar.shared.panzer.web.jqueryui;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Drawing;
+using System.IO;
+using System.Web;
+using zoyobar.shared.panzer.web;
+using NBorderStyle = System.Web.UI.WebControls.BorderStyle;
 using System.Web.UI.Design;
 using System.Windows.Forms;
 using System.Drawing.Design;
-using System.Globalization;
 using NParameter = zoyobar.shared.panzer.web.jqueryui.Parameter;
 using System.Net;
-using zoyobar.shared.panzer.web;
-using NBorderStyle = System.Web.UI.WebControls.BorderStyle;
 using System.Reflection;
-using System.Web;
 using NControl = System.Web.UI.Control;
 // ../.class/ui/jqueryui/Accordion.cs
 /*
@@ -3716,11 +3717,1135 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	}
 
 }
+// ../.class/ui/jqueryui/TimerSettingEdit.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUITimerSettingEdit
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUITimerSettingEditConverter
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/TimerSettingEdit.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+
+// HACK: 避免在 allinone 文件中的名称冲突
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	#region " TimerSettingEdit "
+	/// <summary>
+	/// jQuery UI Timer 的相关设置.
+	/// </summary>
+	[TypeConverter ( typeof ( TimerSettingEditConverter ) )]
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public sealed class TimerSettingEdit
+		: IStateManager
+	{
+		private readonly AjaxSettingEdit tickAjax = new AjaxSettingEdit ( );
+		private string tick = string.Empty;
+		private int interval = 100;
+
+		private bool isTimable = false;
+
+		/// <summary>
+		/// 获取或设置是否可以使用 Timer.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[DefaultValue ( false )]
+		[Description ( "指示 Timer 是否可用" )]
+		[NotifyParentProperty ( true )]
+		public bool IsTimable
+		{
+			get { return this.isTimable; }
+			set { this.isTimable = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置时钟触发的客户端事件.
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示按钮被点击时的客户端事件, 类似于: function() { }" )]
+		[NotifyParentProperty ( true )]
+		public string Tick
+		{
+			get { return this.tick; }
+			set
+			{
+
+				if ( null != value )
+					this.tick = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置时钟触发的间隔, 以毫秒为单位.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( 100 )]
+		[Description ( "指示时钟触发的间隔, 以毫秒为单位" )]
+		[NotifyParentProperty ( true )]
+		public int Interval
+		{
+			get { return this.interval; }
+			set
+			{
+
+				if ( value > 0 )
+					this.interval = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取 Tick 操作相关的 Ajax 设置.
+		/// </summary>
+		[Category ( "Ajax" )]
+		[Description ( "Tick 操作相关的 Ajax 设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public AjaxSettingEdit TickAsync
+		{
+			get { return this.tickAjax; }
+		}
+
+		/// <summary>
+		/// 转化为等效的字符串.
+		/// </summary>
+		/// <returns>等效字符串.</returns>
+		public override string ToString ( )
+		{ return TypeDescriptor.GetConverter ( this.GetType ( ) ).ConvertToString ( this ); }
+
+		bool IStateManager.IsTrackingViewState
+		{
+			get { return false; }
+		}
+
+		void IStateManager.LoadViewState ( object state )
+		{
+			List<object> states = state as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				this.Interval = (int) states[0];
+
+			if ( states.Count >= 2 )
+				this.isTimable = (bool) states[1];
+
+			if ( states.Count >= 3 )
+				this.Tick = states[2] as string;
+
+		}
+
+		object IStateManager.SaveViewState ( )
+		{
+			List<object> states = new List<object> ( );
+			states.Add ( this.interval );
+			states.Add ( this.isTimable );
+			states.Add ( this.tick );
+
+			return states;
+		}
+
+		void IStateManager.TrackViewState ( )
+		{ }
+
+	}
+	#endregion
+
+	#region " TimerSettingEditConverter "
+	/// <summary>
+	/// jQuery UI Timer 设置编辑器的转换器.
+	/// </summary>
+	public sealed class TimerSettingEditConverter : ExpandableObjectConverter
+	{
+
+		public override bool CanConvertFrom ( ITypeDescriptorContext context, Type sourceType )
+		{
+
+			if ( sourceType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertFrom ( context, sourceType );
+		}
+
+		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType )
+		{
+
+			if ( destinationType == typeof ( string ) )
+				return true;
+
+			return base.CanConvertTo ( context, destinationType );
+		}
+
+		public override object ConvertFrom ( ITypeDescriptorContext context, CultureInfo culture, object value )
+		{
+			TimerSettingEdit edit = new TimerSettingEdit ( );
+
+			if ( null == value )
+				return edit;
+
+			if ( !( value is string ) )
+				return base.ConvertFrom ( context, culture, value );
+
+			string expression = value as string;
+
+			if ( expression == string.Empty )
+				return edit;
+
+			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
+
+			if ( expressionHelper.ChildCount == 3 )
+				try
+				{
+
+					if ( expressionHelper[0].Value != string.Empty )
+						edit.IsTimable = StringConvert.ToObject<bool> ( expressionHelper[0].Value );
+
+					if ( expressionHelper[1].Value != string.Empty )
+						edit.Interval = StringConvert.ToObject<int> ( expressionHelper[1].Value );
+
+					if ( expressionHelper[2].Value != string.Empty )
+						edit.Tick = expressionHelper[2].Value;
+
+				}
+				catch { }
+
+			return edit;
+		}
+
+		public override object ConvertTo ( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
+		{
+
+			if ( null == value || !( value is TimerSettingEdit ) || destinationType != typeof ( string ) )
+				return base.ConvertTo ( context, culture, value, destinationType ); ;
+
+			TimerSettingEdit setting = value as TimerSettingEdit;
+
+			return string.Format ( "{0}`;{1}`;{2}", setting.IsTimable, setting.Interval, setting.Tick );
+		}
+
+	}
+	#endregion
+
+}
+// ../.class/ui/jqueryui/Timer.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/JQueryUITimer
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Timer.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	/// <summary>
+	/// JQueryElement 的时钟插件.
+	/// </summary>
+	[ToolboxData ( "<{0}:Timer runat=server></{0}:Timer>" )]
+	[Designer ( typeof ( TimerDesigner ) )]
+	public class Timer
+		: BaseJQueryElement
+	{
+
+		#region " hide "
+		/// <summary>
+		/// 获取或设置元素的拖动设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override DraggableSettingEdit DraggableSetting
+		{
+			get { return base.DraggableSetting; }
+			set { base.DraggableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的拖放设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override DroppableSettingEdit DroppableSetting
+		{
+			get { return base.DroppableSetting; }
+			set { base.DroppableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的排列设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override SortableSettingEdit SortableSetting
+		{
+			get { return base.SortableSetting; }
+			set { base.SortableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的选中设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override SelectableSettingEdit SelectableSetting
+		{
+			get { return base.SelectableSetting; }
+			set { base.SelectableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的缩放设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override ResizableSettingEdit ResizableSetting
+		{
+			get { return base.ResizableSetting; }
+			set { base.ResizableSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的 Widget 设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override WidgetSettingEdit WidgetSetting
+		{
+			get { return base.WidgetSetting; }
+			set { base.WidgetSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的 Repeater 设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override RepeaterSettingEdit RepeaterSetting
+		{
+			get { return base.RepeaterSetting; }
+			set { base.RepeaterSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的 Timer 设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override TimerSettingEdit TimerSetting
+		{
+			get { return base.TimerSetting; }
+			set { base.TimerSetting = value; }
+		}
+		#endregion
+
+		/// <summary>
+		/// 获取或设置时钟触发的间隔, 以毫秒为单位.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( 100 )]
+		[Description ( "指示时钟触发的间隔, 以毫秒为单位" )]
+		[NotifyParentProperty ( true )]
+		public int Interval
+		{
+			get { return this.timerSetting.Interval; }
+			set { this.timerSetting.Interval = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置时钟触发时的事件.
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示时钟触发时的事件, 类似于: function() { }" )]
+		[NotifyParentProperty ( true )]
+		public string Tick
+		{
+			get { return this.timerSetting.Tick; }
+			set { this.timerSetting.Tick = value; }
+		}
+
+		/// <summary>
+		/// 获取 Tick 操作相关的 Ajax 设置.
+		/// </summary>
+		[Category ( "Ajax" )]
+		[Description ( "Tick 操作相关的 Ajax 设置" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public AjaxSettingEdit TickAjax
+		{
+			get { return this.timerSetting.TickAsync; }
+		}
+
+		/// <summary>
+		/// 创建一个 jQuery UI 按钮.
+		/// </summary>
+		public Timer ( )
+			: base ( )
+		{ this.elementType = ElementType.None; }
+
+		protected override void Render ( HtmlTextWriter writer )
+		{
+			this.timerSetting.IsTimable = true;
+
+			base.Render ( writer );
+		}
+
+	}
+
+	#region " TimerDesigner "
+	/// <summary>
+	/// 按钮设计器.
+	/// </summary>
+	public class TimerDesigner : JQueryElementDesigner
+	{
+
+		/// <summary>
+		/// 获取行为列表.
+		/// </summary>
+		public override DesignerActionListCollection ActionLists
+		{
+			get { return new DesignerActionListCollection ( ); }
+		}
+
+	}
+	#endregion
+
+}
+// ../.class/ui/jqueryui/BaseJQueryElement.cs
+/*
+ * wiki:
+ * http://code.google.com/p/zsharedcode/wiki/BaseJQueryElement
+ * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/BaseJQueryElement.cs
+ * 版本: .net 4.0, 其它版本可能有所不同
+ * 
+ * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * */
+
+
+
+// HACK: 避免在 allinone 文件中的名称冲突
+
+namespace zoyobar.shared.panzer.ui.jqueryui
+{
+
+	#region " ElementType "
+	/// <summary>
+	/// 页面元素的类型.
+	/// </summary>
+	public enum ElementType
+	{
+		/// <summary>
+		/// 没有任何页面元素.
+		/// </summary>
+		None = 0,
+		/// <summary>
+		/// div 元素.
+		/// </summary>
+		Div = 1,
+		/// <summary>
+		/// span 元素.
+		/// </summary>
+		Span = 2,
+		/// <summary>
+		/// p 元素.
+		/// </summary>
+		P = 3,
+		/// <summary>
+		/// ul 元素.
+		/// </summary>
+		Ul = 4,
+		/// <summary>
+		/// li 元素.
+		/// </summary>
+		Li = 5,
+		/// <summary>
+		/// input 元素.
+		/// </summary>
+		Input = 6,
+		/// <summary>
+		/// button 元素.
+		/// </summary>
+		Button = 7,
+	}
+	#endregion
+
+	#region " BaseJQueryElement "
+	/// <summary>
+	/// 实现 jQuery UI 的服务器基础控件.
+	/// </summary>
+	[ParseChildren ( true )]
+	[PersistChildren ( false )]
+	public class BaseJQueryElement
+		: WebControl, INamingContainer
+	{
+
+		private static string escapeCharacter ( string text )
+		{
+
+			if ( string.IsNullOrEmpty ( text ) )
+				return string.Empty;
+
+			return text.Replace ( "\\", "\\\\" ).Replace ( "\'", "\\'" ).Replace ( "\"", "\\\"" ).Replace ( "\n", "\\n" ).Replace ( "\t", "\\t" ).Replace ( "\r", "\\r" );
+		}
+
+		private static string renderTemplate ( PlaceHolder holder )
+		{
+
+			if ( null == holder )
+				return string.Empty;
+
+			StringWriter writer = new StringWriter ( );
+
+			holder.RenderControl ( new HtmlTextWriter ( writer ) );
+
+			return writer.ToString ( );
+		}
+
+		protected ElementType elementType = ElementType.None;
+		protected string attribute = string.Empty;
+		private bool isVariable = false;
+		protected string selector = string.Empty;
+
+		private DraggableSettingEdit draggableSetting = new DraggableSettingEdit ( );
+		private DroppableSettingEdit droppableSetting = new DroppableSettingEdit ( );
+		private SortableSettingEdit sortableSetting = new SortableSettingEdit ( );
+		private SelectableSettingEdit selectableSetting = new SelectableSettingEdit ( );
+		private ResizableSettingEdit resizableSetting = new ResizableSettingEdit ( );
+
+		protected WidgetSettingEdit widgetSetting = new WidgetSettingEdit ( );
+
+		protected RepeaterSettingEdit repeaterSetting = new RepeaterSettingEdit ( );
+		protected TimerSettingEdit timerSetting = new TimerSettingEdit ( );
+
+		protected readonly PlaceHolder html = new PlaceHolder ( );
+
+		/// <summary>
+		/// 和设计时有关, 没有任何意义.
+		/// </summary>
+		[Browsable ( false )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public object Nothing
+		{
+			get { return null; }
+			set { }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的拖动设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的拖动设置, 前提 ElementType 不能为 None" )]
+		public virtual DraggableSettingEdit DraggableSetting
+		{
+			get { return this.draggableSetting; }
+			set
+			{
+
+				if ( null != value )
+					this.draggableSetting = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置元素的拖放设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的拖放设置, 前提 ElementType 不能为 None" )]
+		public virtual DroppableSettingEdit DroppableSetting
+		{
+			get { return this.droppableSetting; }
+			set
+			{
+
+				if ( null != value )
+					this.droppableSetting = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置元素的排列设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的排列设置, 前提 ElementType 不能为 None" )]
+		public virtual SortableSettingEdit SortableSetting
+		{
+			get { return this.sortableSetting; }
+			set
+			{
+
+				if ( null != value )
+					this.sortableSetting = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置元素的选中设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的选中设置, 前提 ElementType 不能为 None" )]
+		public virtual SelectableSettingEdit SelectableSetting
+		{
+			get { return this.selectableSetting; }
+			set
+			{
+
+				if ( null != value )
+					this.selectableSetting = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置元素的缩放设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的缩放设置, 前提 ElementType 不能为 None" )]
+		public virtual ResizableSettingEdit ResizableSetting
+		{
+			get { return this.resizableSetting; }
+			set
+			{
+
+				if ( null != value )
+					this.resizableSetting = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置元素的 Widget 设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的 Widget 设置, 前提 ElementType 不能为 None" )]
+		public virtual WidgetSettingEdit WidgetSetting
+		{
+			get { return this.widgetSetting; }
+			set
+			{
+
+				if ( null != value )
+					this.widgetSetting = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置元素的 Repeater 设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的 Repeater 设置, 前提 ElementType 不能为 None" )]
+		public virtual RepeaterSettingEdit RepeaterSetting
+		{
+			get { return this.repeaterSetting; }
+			set
+			{
+
+				if ( null != value )
+					this.repeaterSetting = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置元素的 Timer 设置.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "元素相关的 Timer 设置" )]
+		public virtual TimerSettingEdit TimerSetting
+		{
+			get { return this.timerSetting; }
+			set
+			{
+
+				if ( null != value )
+					this.timerSetting = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取 PlaceHolder 控件, 其中包含了元素中包含的 html 代码. 
+		/// </summary>
+		[Browsable ( false )]
+		[Category ( "jQuery UI" )]
+		[Description ( "设置元素中包含的 html 代码" )]
+		public virtual PlaceHolder Html
+		{
+			get { return this.html; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的类型.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "最终在页面上生成的元素类型, 比如: Span, Div, 默认为 None, 不生成任何元素" )]
+		[DefaultValue ( ElementType.None )]
+		public virtual ElementType ElementType
+		{
+			get { return this.elementType; }
+			set { this.elementType = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置是否生成 jquery 对应的 javascript 变量, 如果使用了 Repeater, 则在运行时自动调整为 true.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "是否以 ClientID 生成对应的 javascript 变量, 如果使用了 Repeater, 则在运行时自动调整为 true" )]
+		[DefaultValue ( false )]
+		public virtual bool IsVariable
+		{
+			get { return this.isVariable; }
+			set { this.isVariable = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置选择器, 将针对此选择器对应的元素执行操作, 比如: "'#age'", 默认为自身.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "选择器, 将针对此选择器对应的元素执行操作, 比如: \"'#age'\", 默认为自身" )]
+		[DefaultValue ( "" )]
+		public virtual string Selector
+		{
+			get { return this.selector; }
+			set
+			{
+
+				if ( null != value )
+					this.selector = value;
+
+			}
+		}
+
+		/// <summary>
+		/// 获取或设置元素的属性.
+		/// </summary>
+		[Category ( "jQuery UI" )]
+		[Description ( "最终在页面上生成的元素的属性" )]
+		[DefaultValue ( "" )]
+		public virtual string Attribute
+		{
+			get { return this.attribute; }
+			set
+			{
+
+				if ( null != value )
+					this.attribute = value;
+
+			}
+		}
+
+		#region " hide "
+
+		/// <summary>
+		/// 在 BaseJQueryElement 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override string AccessKey
+		{
+			get { return string.Empty; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 BaseJQueryElement 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override Color BackColor
+		{
+			get { return Color.Empty; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 BaseJQueryElement 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override Color BorderColor
+		{
+			get { return Color.Empty; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 BaseJQueryElement 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override NBorderStyle BorderStyle
+		{
+			get { return NBorderStyle.None; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 BaseJQueryElement 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override Unit BorderWidth
+		{
+			get { return Unit.Empty; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 BaseJQueryElement 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override bool Enabled
+		{
+			get { return true; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 BaseJQueryElement 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override bool EnableTheming
+		{
+			get { return false; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 BaseJQueryElement 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override FontInfo Font
+		{
+			get { return base.Font; }
+		}
+
+		/// <summary>
+		/// 在 BaseJQueryElement 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override Color ForeColor
+		{
+			get { return Color.Empty; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 BaseJQueryElement 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override string SkinID
+		{
+			get { return string.Empty; }
+			set { }
+		}
+
+		/// <summary>
+		/// 在 BaseJQueryElement 中无效.
+		/// </summary>
+		[Browsable ( false )]
+		public override short TabIndex
+		{
+			get { return -1; }
+			set { }
+		}
+
+		#endregion
+
+		/// <summary>
+		/// 创建一个 BaseJQueryElement.
+		/// </summary>
+		protected BaseJQueryElement ( )
+			: base ( )
+		{
+			this.EnableViewState = false;
+
+			this.Controls.Add ( this.html );
+			this.Controls.Add ( this.repeaterSetting.Header );
+			this.Controls.Add ( this.repeaterSetting.Item );
+			this.Controls.Add ( this.repeaterSetting.EditItem );
+			this.Controls.Add ( this.repeaterSetting.Empty );
+			this.Controls.Add ( this.repeaterSetting.Footer );
+		}
+
+		protected override void Render ( HtmlTextWriter writer )
+		{
+
+			if ( !this.Visible )
+				return;
+
+			JQueryUI jquery = new JQueryUI ( string.IsNullOrEmpty ( this.selector ) ? string.Format ( "'#{0}'", this.ClientID ) : this.selector );
+
+			if ( this.elementType != ElementType.None )
+			{
+				string style = string.Empty;
+
+				if ( this.Width != Unit.Empty )
+					style += string.Format ( "width:{0};", this.Width );
+
+				if ( this.Height != Unit.Empty )
+					style += string.Format ( "height:{0};", this.Height );
+
+				string attribute = string.Empty;
+
+				foreach ( string key in this.Attributes.Keys )
+					attribute += string.Format ( " {0}={1}", key, this.Attributes[key] );
+
+				writer.Write (
+					"<{0} id={1}{2}{3}{4}{5}{6}{7}>",
+					this.elementType.ToString ( ).ToLower ( ),
+					this.ClientID,
+					string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : " class=" + HttpUtility.HtmlEncode ( this.CssClass ),
+					string.IsNullOrEmpty ( this.ToolTip ) ? string.Empty : " title=" + HttpUtility.HtmlEncode ( this.ToolTip ),
+					string.IsNullOrEmpty ( style ) ? string.Empty : " style=" + HttpUtility.HtmlEncode ( style ),
+					this.attribute == string.Empty ? string.Empty : " " + this.attribute.Trim ( ),
+					attribute,
+					( this.elementType == ElementType.Input ) ? " /" : string.Empty
+					);
+			}
+
+			if ( this.elementType != ElementType.Input )
+			{
+				// base.Render ( writer );
+
+				if ( this.html.Controls.Count != 0 )
+					this.html.RenderControl ( writer );
+				else if ( this.DesignMode )
+					writer.Write ( "<span style='font-size: 12px;'>[<strong>JE:</strong> {0}]</span>", this.ClientID );
+
+				if ( this.elementType != ElementType.None )
+					writer.Write ( "</{0}>", this.elementType.ToString ( ).ToLower ( ) );
+
+			}
+
+			jquery.Draggable ( this.draggableSetting.CreateDraggableSetting ( ) );
+			jquery.Droppable ( this.droppableSetting.CreateDroppableSetting ( ) );
+			jquery.Sortable ( this.sortableSetting.CreateSortableSetting ( ) );
+			jquery.Selectable ( this.selectableSetting.CreateSelectableSetting ( ) );
+			jquery.Resizable ( this.resizableSetting.CreateResizableSetting ( ) );
+
+			jquery.Widget ( this.widgetSetting.CreateWidgetSetting ( ) );
+
+			string repeaterCode = this.renderRepeater ( );
+			string timerCode = this.renderTimer ( );
+
+			jquery.Code = "$(function(){" + ( this.isVariable ? ( "window['" + this.ClientID + "'] = " ) : string.Empty ) + JQueryCoder.Encode ( this, jquery.Code ) +
+				( repeaterCode == string.Empty ? string.Empty : ";" + JQueryCoder.Encode ( this, repeaterCode ) ) +
+				( timerCode == string.Empty ? string.Empty : ";" + JQueryCoder.Encode ( this, timerCode ) ) +
+				"});";
+			jquery.Build ( this, this.ClientID, ScriptBuildOption.Startup );
+		}
+
+		private string renderRepeater ( )
+		{
+
+			if ( !this.repeaterSetting.IsRepeatable )
+				return string.Empty;
+
+			this.isVariable = true;
+
+			if ( !ScriptHelper.IsBuilt ( this, "__jsRepeater" ) )
+			{
+				ScriptHelper script = new ScriptHelper ( );
+
+				script.AppendCode ( "function __je_repeater(je, fields, attribute, header, footer, item, editItem, empty, rowsName) {\n" +
+
+					"	if (null == je)\n" +
+					"		return;\n" +
+
+					"	je.__fields = (null == fields) ? [] : fields;\n" +
+					"	je.__attributes = (null == attribute) ? [] : attribute;\n" +
+					"	je.__template = { header: (null == header) ? '' : header, footer: (null == footer) ? '' : footer, item: (null == item) ? '' : item, editItem: (null == editItem) ? '' : editItem, empty: (null == empty) ? '' : empty };\n" +
+					"	je.__setting = { rowsName: (null == rowsName) ? 'rows' : rowsName };\n" +
+
+					"	je.__bind = function (data) {\n" +
+					"		var html = '';\n" +
+					"		var isEmpty = false;\n" +
+					"		html += je.__template.header;\n" +
+
+					"		if (null == data)\n" +
+					"			isEmpty = true;\n" +
+					"		else {\n" +
+					"			var rows = data[je.__setting.rowsName];\n" +
+
+					"			if (null == rows || rows.length == 0)\n" +
+					"				isEmpty = true;\n" +
+					"			else\n" +
+					"				try {\n" +
+
+					"					for (var x = 0; x < rows.length; x++) {\n" +
+					"						var row = rows[x];\n" +
+					"						var rowHtml = je.__template.item;\n" +
+
+					"						for (var y = 0; y < je.__fields.length; y++)\n" +
+					"							rowHtml = rowHtml.replace(eval('/#' + je.__fields[y] + '/g'), row[je.__fields[y]]);\n" +
+
+					"							html += rowHtml;\n" +
+					"					}\n" +
+
+					"				}\n" +
+					"				catch (err) {\n" +
+					"					isEmpty = true;\n" +
+					"				}\n" +
+
+					"		}\n" +
+
+					"		if (isEmpty)\n" +
+					"			html += je.__template.empty;\n" +
+
+					"		html += je.__template.footer;\n" +
+
+					"		for (var x = 0; x < je.__attributes.length; x++)\n" +
+					"			html = html.replace(eval('/\\@' + je.__attributes[x] + '/g'), data[je.__attributes[x]]);\n" +
+
+					"		je.html(html);\n" +
+					"	};\n" +
+
+					"}"
+					);
+
+				script.Build ( this, "__jsRepeater", ScriptBuildOption.Startup );
+			}
+
+			string fieldsCode = string.Empty;
+			string attributesCode = string.Empty;
+
+			foreach ( string field in this.repeaterSetting.Field.Split ( ';' ) )
+				fieldsCode += "'" + escapeCharacter ( field.Trim ( ) ) + "',";
+
+			foreach ( string attribute in this.repeaterSetting.Attribute.Split ( ';' ) )
+				attributesCode += "'" + escapeCharacter ( attribute.Trim ( ) ) + "',";
+
+			return "__je_repeater(window['" + this.ClientID + "'], " +
+				( fieldsCode == string.Empty ? "null" : "[" + fieldsCode.TrimEnd ( ',' ) + "]" ) + "," +
+				( attributesCode == string.Empty ? "null" : "[" + attributesCode.TrimEnd ( ',' ) + "]" ) + "," +
+				"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Header ) ) + "'," +
+				"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Footer ) ) + "'," +
+				"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Item ) ) + "'," +
+				"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.EditItem ) ) + "'," +
+				"'" + escapeCharacter ( renderTemplate ( this.repeaterSetting.Empty ) ) + "'," +
+				"'" + this.repeaterSetting.RowsName + "'" +
+				");";
+		}
+
+		private string renderTimer ( )
+		{
+
+			if ( !this.timerSetting.IsTimable )
+				return string.Empty;
+
+			this.isVariable = true;
+
+			if ( !ScriptHelper.IsBuilt ( this, "__jsTimer" ) )
+			{
+				ScriptHelper script = new ScriptHelper ( );
+
+				script.AppendCode ( "function __je_timer(je, interval, tick, tickAjax) {\n" +
+
+					"	if (null == je)\n" +
+					"		return;\n" +
+
+					"	je.__interval = (null == interval || interval <= 0) ? 100 : interval;\n" +
+					"	je.__tick = tick;\n" +
+					"	je.__tickAjax = tickAjax;\n" +
+					"	je.__handler = null;\n" +
+
+					"	je.__start = function () {\n" +
+					"		je.__stop();\n" +
+					"		je.__handler = setInterval(function(){ if(null != je.__tick) { je.__tick(); } if(null != je.__tickAjax) { je.__tickAjax(); } }, je.__interval);\n" +
+					"	};\n" +
+
+					"	je.__stop = function () {\n" +
+					"		if(null != je.__handler) {clearInterval(je.__handler);}\n" +
+					"	};\n" +
+
+					"}"
+					);
+
+				script.Build ( this, "__jsTimer", ScriptBuildOption.Startup );
+			}
+
+			JQuery ajax = JQueryUI.Ajax ( this.timerSetting.TickAsync.CreateAjaxSetting ( ) );
+
+			return "__je_timer(window['" + this.ClientID + "'], " +
+				this.timerSetting.Interval.ToString ( ) + "," +
+				( this.timerSetting.Tick == string.Empty ? "null" : this.timerSetting.Tick ) + "," +
+				( null == ajax ? "null" : "function() {" + ajax.Code + "}" ) +
+				");";
+		}
+
+		protected override void LoadViewState ( object savedState )
+		{
+			base.LoadViewState ( savedState );
+
+			( this.draggableSetting as IStateManager ).LoadViewState ( this.ViewState["DraggableSetting"] );
+			( this.droppableSetting as IStateManager ).LoadViewState ( this.ViewState["DroppableSetting"] );
+			( this.sortableSetting as IStateManager ).LoadViewState ( this.ViewState["SortableSetting"] );
+			( this.selectableSetting as IStateManager ).LoadViewState ( this.ViewState["SelectableSetting"] );
+			( this.resizableSetting as IStateManager ).LoadViewState ( this.ViewState["ResizableSetting"] );
+
+			( this.widgetSetting as IStateManager ).LoadViewState ( this.ViewState["WidgetSetting"] );
+
+			( this.repeaterSetting as IStateManager ).LoadViewState ( this.ViewState["RepeaterSetting"] );
+			( this.timerSetting as IStateManager ).LoadViewState ( this.ViewState["TimerSetting"] );
+
+			List<object> states = this.ViewState["BaseJQueryElement"] as List<object>;
+
+			if ( null == states )
+				return;
+
+			if ( states.Count >= 1 )
+				this.elementType = ( ElementType ) states[0];
+
+			if ( states.Count >= 2 )
+				this.attribute = states[1] as string;
+
+			if ( states.Count >= 3 )
+				this.isVariable = ( bool ) states[2];
+
+			if ( states.Count >= 4 )
+				this.selector = states[3] as string;
+
+		}
+
+		protected override object SaveViewState ( )
+		{
+			this.ViewState["DraggableSetting"] = ( this.draggableSetting as IStateManager ).SaveViewState ( );
+			this.ViewState["DroppableSetting"] = ( this.droppableSetting as IStateManager ).SaveViewState ( );
+			this.ViewState["SortableSetting"] = ( this.sortableSetting as IStateManager ).SaveViewState ( );
+			this.ViewState["SelectableSetting"] = ( this.selectableSetting as IStateManager ).SaveViewState ( );
+			this.ViewState["ResizableSetting"] = ( this.resizableSetting as IStateManager ).SaveViewState ( );
+
+			this.ViewState["WidgetSetting"] = ( this.widgetSetting as IStateManager ).SaveViewState ( );
+
+			this.ViewState["RepeaterSetting"] = ( this.repeaterSetting as IStateManager ).SaveViewState ( );
+			this.ViewState["TimerSetting"] = ( this.timerSetting as IStateManager ).SaveViewState ( );
+
+			List<object> states = new List<object> ( );
+			states.Add ( this.elementType );
+			states.Add ( this.attribute );
+			states.Add ( this.isVariable );
+			states.Add ( this.selector );
+
+			this.ViewState["BaseJQueryElement"] = states;
+
+			return base.SaveViewState ( );
+		}
+
+	}
+	#endregion
+
+}
 // ../.class/ui/jqueryui/JQueryElement.cs
 /*
  * wiki:
  * http://code.google.com/p/zsharedcode/wiki/JQueryElement
- * http://code.google.com/p/zsharedcode/wiki/JQueryElementConverter
  * http://code.google.com/p/zsharedcode/wiki/JQueryElementType
  * http://code.google.com/p/zsharedcode/wiki/JQueryUIBaseWidget
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
@@ -3821,6 +4946,17 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			get { return base.RepeaterSetting; }
 			set { base.RepeaterSetting = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置元素的 Timer 设置.
+		/// </summary>
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public override TimerSettingEdit TimerSetting
+		{
+			get { return base.TimerSetting; }
+			set { base.TimerSetting = value; }
 		}
 
 		/// <summary>
@@ -7801,6 +8937,16 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			get { return base.RepeaterSetting; }
 			set { base.RepeaterSetting = value; }
 		}
+
+		/// <summary>
+		/// 获取或设置元素的 Timer 设置.
+		/// </summary>
+		[Browsable ( false )]
+		public override TimerSettingEdit TimerSetting
+		{
+			get { return base.TimerSetting; }
+			set { base.TimerSetting = value; }
+		}
 		#endregion
 
 		/// <summary>
@@ -11087,7 +12233,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private readonly SettingEditHelper editHelper = new SettingEditHelper ( );
 		private EventType widgetEventType = EventType.none;
 		private string url = string.Empty;
+		private string methodName = string.Empty;
 		private DataType dataType = DataType.json;
+		private RequestType type = RequestType.GET;
+		private string contentType = string.Empty;
 		private string form = string.Empty;
 		private readonly List<ParameterEdit> parameters = new List<ParameterEdit> ( );
 		private bool isSingleQuote = true;
@@ -11223,6 +12372,33 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 获取或设置 WebService 的方法名称, 设置将可能修改 Type, ContentType 以及 DataType 属性.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示 WebService 的方法名称, 设置将可能修改 Type, ContentType 以及 DataType 属性" )]
+		[NotifyParentProperty ( true )]
+		public string MethodName
+		{
+			get { return this.methodName; }
+			set
+			{
+
+				if ( !string.IsNullOrEmpty ( value ) )
+				{
+					this.type = RequestType.POST;
+					this.dataType = DataType.json;
+
+					if ( string.IsNullOrEmpty ( this.contentType ) )
+						this.contentType = "application/json;charset=utf-8";
+
+				}
+
+				this.methodName = value;
+			}
+		}
+
+		/// <summary>
 		/// 获取或设置获取的数据类型.
 		/// </summary>
 		[Category ( "行为" )]
@@ -11233,6 +12409,32 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			get { return this.dataType; }
 			set { this.dataType = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置请求的类型.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( RequestType.GET )]
+		[Description ( "指示请求的类型" )]
+		[NotifyParentProperty ( true )]
+		public RequestType Type
+		{
+			get { return this.type; }
+			set { this.type = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置请求内容的类型.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示请求内容的类型" )]
+		[NotifyParentProperty ( true )]
+		public string ContentType
+		{
+			get { return this.contentType; }
+			set { this.contentType = value; }
 		}
 
 		/// <summary>
@@ -11286,7 +12488,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			foreach ( ParameterEdit edit in this.parameters )
 				parameters.Add ( edit.CreateParameter ( ) );
 
-			return new AjaxSetting ( this.widgetEventType, this.url, this.dataType, this.form, parameters.ToArray ( ), this.editHelper.CreateEvents ( ), this.isSingleQuote );
+			return new AjaxSetting ( this.widgetEventType, this.url, this.methodName, this.dataType, this.type, this.contentType, this.form, parameters.ToArray ( ), this.editHelper.CreateEvents ( ), this.isSingleQuote );
 		}
 
 		/// <summary>
@@ -11335,6 +12537,15 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 
+			if ( states.Count >= 8 )
+				this.type = ( RequestType ) states[7];
+
+			if ( states.Count >= 9 )
+				this.contentType = states[8] as string;
+
+			if ( states.Count >= 10 )
+				this.contentType = states[9] as string;
+
 		}
 
 		object IStateManager.SaveViewState ( )
@@ -11354,6 +12565,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				parameterStates.Add ( ( edit as IStateManager ).SaveViewState ( ) );
 
 			states.Add ( parameterStates );
+			states.Add ( this.type );
+			states.Add ( this.contentType );
+			states.Add ( this.methodName );
 
 			return states;
 		}
@@ -11406,7 +12620,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ExpressionHelper expressionHelper = new ExpressionHelper ( expression );
 
-			if ( expressionHelper.ChildCount == 6 )
+			if ( expressionHelper.ChildCount == 9 )
 				try
 				{
 
@@ -11428,6 +12642,15 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					if ( expressionHelper[5].Value != string.Empty )
 						edit.EditHelper.FromString ( expressionHelper[5].Value );
 
+					if ( expressionHelper[6].Value != string.Empty )
+						edit.Type = ( RequestType ) Enum.Parse ( typeof ( RequestType ), expressionHelper[6].Value );
+
+					if ( expressionHelper[7].Value != string.Empty )
+						edit.ContentType = expressionHelper[7].Value;
+
+					if ( expressionHelper[8].Value != string.Empty )
+						edit.MethodName = expressionHelper[8].Value;
+
 				}
 				catch { }
 
@@ -11442,7 +12665,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			AjaxSettingEdit setting = value as AjaxSettingEdit;
 
-			return string.Format ( "{0}`;{1}`;{2}`;{3}`;{4}`;{5}", setting.WidgetEventType, setting.Url, setting.DataType, setting.Form, setting.IsSingleQuote, setting.EditHelper );
+			return string.Format ( "{0}`;{1}`;{2}`;{3}`;{4}`;{5}`;{6}`;{7}`;{8}", setting.WidgetEventType, setting.Url, setting.DataType, setting.Form, setting.IsSingleQuote, setting.EditHelper, setting.Type, setting.ContentType, setting.MethodName );
 		}
 
 	}
@@ -16807,6 +18030,49 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			return parameterExpression.TrimEnd ( ',' ) + " }";
 		}
 
+		/// <summary>
+		/// Ajax 操作.
+		/// </summary>
+		/// <param name="setting">Ajax 相关设置.</param>
+		/// <returns>更新后的 JQueryUI 对象.</returns>
+		public static JQuery Ajax ( AjaxSetting setting )
+		{
+
+			if ( string.IsNullOrEmpty ( setting.Url ) )
+				return null;
+
+			string quote;
+
+			if ( setting.IsSingleQuote )
+				quote = "'";
+			else
+				quote = "\"";
+
+			string data;
+
+			if ( string.IsNullOrEmpty ( setting.Form ) )
+				data = makeParameterExpression ( setting.Parameters );
+			else
+				data = JQuery.Create ( setting.Form ).Serialize ( ).Code;
+
+			string map = string.Format ( "url: {0}{1}{0}, dataType: {0}{2}{0}, data: {3}, type: {0}{4}{0}",
+				quote,
+				setting.Url + ( string.IsNullOrEmpty ( setting.MethodName ) ? string.Empty : "/" + setting.MethodName ),
+				setting.DataType,
+				string.IsNullOrEmpty ( data ) ? "{ }" : data,
+				setting.Type
+				);
+
+			if ( !string.IsNullOrEmpty ( setting.ContentType ) )
+				map += string.Format ( ", contentType: {0}{1}{0}", quote, setting.ContentType );
+
+			foreach ( Event @event in setting.Events )
+				if ( @event.Type != EventType.none && @event.Type != EventType.__init )
+					map += ", " + @event.Type + ": " + @event.Value;
+
+			return JQuery.Create ( false, true ).Ajax ( "{" + map + "}" );
+		}
+
 		#region " 构造 "
 
 		/// <summary>
@@ -17032,34 +18298,17 @@ namespace zoyobar.shared.panzer.web.jqueryui
 				if ( ajaxSetting.WidgetEventType == EventType.none )
 					continue;
 
-				string quote;
+				JQuery ajax = Ajax ( ajaxSetting );
 
-				if ( ajaxSetting.IsSingleQuote )
-					quote = "'";
-				else
-					quote = "\"";
-
-				string data;
-
-				if ( string.IsNullOrEmpty ( ajaxSetting.Form ) )
-					data = makeParameterExpression ( ajaxSetting.Parameters );
-				else
-					data = JQuery.Create ( ajaxSetting.Form ).Serialize ( ).Code;
-
-				JQuery jQuery = JQuery.Create ( false, true );
-				string map = string.Format ( "url: {0}{1}{0}, dataType: {0}{2}{0}, data: {3}", quote, ajaxSetting.Url, ajaxSetting.DataType, string.IsNullOrEmpty ( data ) ? "{ }" : data );
-
-				foreach ( Event @event in ajaxSetting.Events )
-					if ( @event.Type != EventType.none && @event.Type != EventType.__init )
-						map += ", " + @event.Type + ": " + @event.Value;
-
-				jQuery.Ajax ( "{" + map + "}" );
+				if ( null == ajax )
+					continue;
 
 				if ( ajaxSetting.WidgetEventType == EventType.__init )
-					this.EndLine ( ).AppendCode ( jQuery.Code );
+					this.EndLine ( ).AppendCode ( ajax.Code );
 				else
-					this.Bind ( string.Format ( "'{0}'", ajaxSetting.WidgetEventType ), "function(e){" + jQuery.Code + "}" );
-				// this.Execute ( ajaxSetting.WidgetEventType.ToString ( ), "function(e){" + jQuery.Code + "}" );
+					this.Bind ( string.Format ( "'{0}'", ajaxSetting.WidgetEventType ), "function(e){" + ajax.Code + "}" );
+
+				return this;
 
 			}
 
@@ -18481,31 +19730,6 @@ namespace zoyobar.shared.panzer.web.jqueryui
 namespace zoyobar.shared.panzer.web.jqueryui
 {
 
-	#region " DataType "
-	/// <summary>
-	/// Ajax 获取的数据类型.
-	/// </summary>
-	public enum DataType
-	{
-		/// <summary>
-		/// json 数据.
-		/// </summary>
-		json = 1,
-		/// <summary>
-		/// 脚本代码.
-		/// </summary>
-		script = 2,
-		/// <summary>
-		/// xml 数据.
-		/// </summary>
-		xml = 3,
-		/// <summary>
-		/// html 代码.
-		/// </summary>
-		html = 4,
-	}
-	#endregion
-
 	#region " AjaxSetting "
 	/// <summary>
 	/// jQuery UI Ajax 设置.
@@ -18529,6 +19753,18 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public readonly DataType DataType;
 		/// <summary>
+		/// 请求的类型.
+		/// </summary>
+		public readonly RequestType Type;
+		/// <summary>
+		/// 请求的内容类型.
+		/// </summary>
+		public readonly string ContentType;
+		/// <summary>
+		/// 调用的 WebService 的方法名称.
+		/// </summary>
+		public readonly string MethodName;
+		/// <summary>
 		/// 用作传递参数的表单.
 		/// </summary>
 		public readonly string Form;
@@ -18546,16 +19782,16 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		/// <param name="widgetEventType">和 Widget 相关的触发事件.</param>
 		/// <param name="url">请求的地址, 比如: "''".</param>
+		/// <param name="methodName">调用的 WebService 的方法名称.</param>
 		/// <param name="dataType">获取的数据类型.</param>
+		/// <param name="type">请求的类型.</param>
+		/// <param name="contentType">请求的内容类型.</param>
 		/// <param name="form">用作传递参数的表单.</param>
 		/// <param name="parameters">用作传递的参数, 如果指定了 form 参数, 则忽略 parameters.</param>
 		/// <param name="events">Ajax 相关事件.</param>
 		/// <param name="isSingleQuote">是否为字符串使用单引号.</param>
-		public AjaxSetting ( EventType widgetEventType, string url, DataType dataType, string form, Parameter[] parameters, Event[] events, bool isSingleQuote )
+		public AjaxSetting ( EventType widgetEventType, string url, string methodName, DataType dataType, RequestType type, string contentType, string form, Parameter[] parameters, Event[] events, bool isSingleQuote )
 		{
-
-			if ( string.IsNullOrEmpty ( url ) )
-				url = "/";
 
 			if ( string.IsNullOrEmpty ( form ) )
 				if ( null != parameters )
@@ -18569,7 +19805,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 						this.Events.Add ( @event );
 
 			this.Url = url;
+			this.MethodName = methodName;
 			this.DataType = dataType;
+			this.Type = type;
+			this.ContentType = contentType;
 			this.WidgetEventType = widgetEventType;
 			this.Form = form;
 
@@ -18710,6 +19949,48 @@ namespace zoyobar.shared.panzer.web.jqueryui
 
 namespace zoyobar.shared.panzer.web
 {
+
+	#region " DataType "
+	/// <summary>
+	/// 获取的数据类型.
+	/// </summary>
+	public enum DataType
+	{
+		/// <summary>
+		/// json 数据.
+		/// </summary>
+		json = 1,
+		/// <summary>
+		/// 脚本代码.
+		/// </summary>
+		script = 2,
+		/// <summary>
+		/// xml 数据.
+		/// </summary>
+		xml = 3,
+		/// <summary>
+		/// html 代码.
+		/// </summary>
+		html = 4,
+	}
+	#endregion
+
+	#region " RequestType "
+	/// <summary>
+	/// 请求的类型.
+	/// </summary>
+	public enum RequestType
+	{
+		/// <summary>
+		/// GET 方法.
+		/// </summary>
+		GET = 0,
+		/// <summary>
+		/// POST 方法.
+		/// </summary>
+		POST = 1,
+	}
+	#endregion
 
 	/// <summary>
 	/// JQuery 用于编写构造 jQuery 脚本, 包含了 jQuery 中的方法等, 支持 1.6 版本. (尚未包含 Effects, Utilities 的部分方法)
