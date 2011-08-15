@@ -34,7 +34,7 @@
  a. 增加 IEBrowser.__GetJSON 和 IEBrowser.__SetJSON 方法, 用于获取和设置 json 数据.
 
 2.4.1 版本改动:
- a. 增加 JSON 的 this[object key] 索引器.
+ a. 增加 JSON 的 {{{this[object key]}}} 索引器.
 
 2.5.0 版本改动:
  a. 增加判断页面是否安装 jQuery 脚本的 IsJQueryInstalled 属性.
