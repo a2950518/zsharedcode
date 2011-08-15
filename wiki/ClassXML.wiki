@@ -1,7 +1,0 @@
-#summary xml
-#labels Phase-Design,Phase-Implementation
-<font face="microsoft yahei">
-=== xml ===
- * [XmlDocumentHelper XmlDocumentHelper]
- * [XmlNodeHelper XmlNodeHelper`1]
-</font>
