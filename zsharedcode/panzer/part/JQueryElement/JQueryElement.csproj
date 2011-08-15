@@ -171,7 +171,7 @@
       <Link>.class\SelectableSetting.cs</Link>
     </Compile>
     <Compile Include="..\..\.class\web\jqueryui\SettingHelper.cs">
-      <Link>SettingHelper.cs</Link>
+      <Link>.class\SettingHelper.cs</Link>
     </Compile>
     <Compile Include="..\..\.class\web\jqueryui\SliderSetting.cs">
       <Link>.class\SliderSetting.cs</Link>
