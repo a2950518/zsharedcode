@@ -1,6 +1,0 @@
-#summary data
-#labels Phase-Design,Phase-Implementation
-<font face="microsoft yahei">
-=== data ===
- * [DataSetHelper DataSetHelper]
-</font>
