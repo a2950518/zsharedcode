@@ -1,18 +1,9 @@
 ﻿/*
- * wiki:
- * http://code.google.com/p/zsharedcode/wiki/EventHandlerType
- * http://code.google.com/p/zsharedcode/wiki/WindowCore
- * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 作者: M.S.cxc
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/WindowCore.cs
- * 测试文件:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/test/ui/wc/TestWindowCore.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/test/ui/wc/FormStudent.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/test/ui/wc/FormStudent.Designer.cs
- * 合并下载:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/WindowCore.all.cs
  * 版本: 2.0, .net 4.0, 其它版本可能有所不同
  * 
- * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
 * */
 
 // HACK: 如果代码不能编译, 请尝试在项目中定义编译符号 V4, V3_5, V3, V2 以表示不同的 .NET 版本
