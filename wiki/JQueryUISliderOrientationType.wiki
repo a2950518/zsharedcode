@@ -1,3 +1,0 @@
-﻿#summary OrientationType 成员参考
-#labels Phase-Design,Phase-Implementation
-<font size="2" face="microsoft yahei"><h3>OrientationType 成员参考</h3>[http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Slider.cs 查看代码]<br />说明: {{{Orientation 类型.}}}<br /><font color="#003366" size="3"><strong>{{{horizontal}}}</strong></font><br /><ul><li><strong>简介:</strong> {{{水平.}}}</li><li><strong>类型:</strong> 字段</li></ul><br /><font color="#003366" size="3"><strong>{{{vertical}}}</strong></font><br /><ul><li><strong>简介:</strong> {{{垂直.}}}</li><li><strong>类型:</strong> 字段</li></ul><br /></font>
