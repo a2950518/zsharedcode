@@ -1,18 +1,11 @@
 ﻿/*
- * wiki 成员参考:
- * http://code.google.com/p/zsharedcode/wiki/IEBrowser
- * http://code.google.com/p/zsharedcode/wiki/IEFlow
- * http://code.google.com/p/zsharedcode/wiki/IERecord
+ * 作者: M.S.cxc
  * wiki 分析&示例:
  * http://code.google.com/p/zsharedcode/wiki/IEBrowserDoc
- * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ib/IEBrowser.cs
- * 合并下载:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs.cs (包含 HtmlEditHelper 类)
  * 版本: 2.5.0, .net 4.0, 其它版本可能有所不同
  * 
- * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
  * */
 
 // HACK: 在项目中定义编译符号 PARAM, 使用提供默认参数的方法.
