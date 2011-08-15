@@ -1,11 +1,9 @@
 ﻿/*
- * wiki:
- * http://code.google.com/p/zsharedcode/wiki/ExpressionHelper
- * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 作者: M.S.cxc
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/ExpressionHelper.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
- * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
  * */
 
 using System;
@@ -16,7 +14,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 
 	#region " ExpressionHelper "
 	/// <summary>
-	/// jQuery UI 的 ViewState 数据转换辅助类.
+	/// jQuery UI 的表达式辅助类, 可将字符串解析为一个树形结构.
 	/// </summary>
 	public sealed class ExpressionHelper
 	{
@@ -26,7 +24,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		private readonly string name = string.Empty;
 
 		/// <summary>
-		/// 子数据转换辅助类.
+		/// 子表达式辅助类, 也就是叶子结点.
 		/// </summary>
 		public List<ExpressionHelper> ChildExpressionHelpers
 		{
@@ -50,7 +48,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取是否有子数据.
+		/// 获取是否有叶子结点.
 		/// </summary>
 		public bool IsHasChild
 		{
@@ -58,7 +56,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取子数据数量.
+		/// 获取叶子结点个数.
 		/// </summary>
 		public int ChildCount
 		{
@@ -66,10 +64,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取子数据的辅助类.
+		/// 获取叶子结点, 每个结点为一个 ExpressionHelper.
 		/// </summary>
-		/// <param name="index">子数据的索引.</param>
-		/// <returns>子数据的辅助类.</returns>
+		/// <param name="index">子结点的索引.</param>
+		/// <returns>ExpressionHelper 辅助类.</returns>
 		public ExpressionHelper this[int index]
 		{
 			get
@@ -83,9 +81,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 创建一个 jQuery UI 的 ViewState 数据转换辅助类.
+		/// 创建一个 jQuery UI 的表达式辅助类.
 		/// </summary>
-		/// <param name="expression">数据字符串.</param>
+		/// <param name="expression">需要解析的为树结构的字符串.</param>
 		public ExpressionHelper ( string expression )
 		{
 

@@ -1,19 +1,14 @@
 ﻿/*
- * wiki:
- * http://code.google.com/p/zsharedcode/wiki/JQueryUIButton
- * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 作者: M.S.cxc
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Button.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
- * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
  * */
 
 using System;
 using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Collections.Generic;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 using zoyobar.shared.panzer.web.jqueryui;
 
@@ -24,13 +19,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 按钮插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Button runat=server></{0}:Button>" )]
-	[Designer ( typeof ( ButtonDesigner ) )]
 	public class Button
-		: BaseWidget, IPostBackEventHandler
+		: JQueryWidget<ButtonSetting>, IPostBackEventHandler
 	{
-		private readonly AjaxSettingEdit clickAjax = new AjaxSettingEdit ( );
-		private string primaryIcon = string.Empty;
-		private string secondaryIcon = string.Empty;
 
 		/// <summary>
 		/// 获取或设置按钮显示的主图标, 比如: ui-icon-gear, 也可以通过 Icons 属性设置.
@@ -42,15 +33,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[CssClassProperty ( )]
 		public string PrimaryIcon
 		{
-			get { return this.primaryIcon; }
-			set
-			{
-
-				if ( null == value )
-					return;
-
-				this.primaryIcon = value;
-			}
+			get { return this.uiSetting.PrimaryIcon; }
+			set { this.uiSetting.PrimaryIcon = value; }
 		}
 
 		/// <summary>
@@ -63,81 +47,74 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[CssClassProperty ( )]
 		public string SecondaryIcon
 		{
-			get { return this.secondaryIcon; }
-			set
-			{
-
-				if ( null == value )
-					return;
-
-				this.secondaryIcon = value;
-			}
+			get { return this.uiSetting.SecondaryIcon; }
+			set { this.uiSetting.SecondaryIcon = value; }
 		}
 
 		/// <summary>
 		/// 创建一个 jQuery UI 按钮.
 		/// </summary>
 		public Button ( )
-			: base ( WidgetType.button )
-		{ this.elementType = ElementType.Span; }
+			: base ( new ButtonSetting ( ), HtmlTextWriterTag.Button )
+		{ }
 
-		#region " Option "
+		#region " option "
 		/// <summary>
-		/// 获取或设置按钮是否可用, 可以设置为 true 或者 false.
+		/// 获取或设置按钮是否可用, 默认为 false.
 		/// </summary>
 		[Category ( "行为" )]
 		[DefaultValue ( false )]
-		[Description ( "指示按钮是否可用, 可以设置为 true 或者 false" )]
+		[Description ( "指示按钮是否可用, 默认为 false" )]
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.widgetSetting.ButtonSetting.Disabled, false ); }
-			set { this.widgetSetting.ButtonSetting.Disabled = value.ToString ( ).ToLower ( ); }
+			get { return this.uiSetting.Disabled; }
+			set { this.uiSetting.Disabled = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置按钮是否显示文本, 可以设置为 true 或者 false.
+		/// 获取或设置按钮是否显示文本, 默认为 true.
 		/// </summary>
 		[Category ( "外观" )]
 		[DefaultValue ( true )]
-		[Description ( "指示按钮是否显示文本, 可以设置为 true 或者 false" )]
+		[Description ( "指示按钮是否显示文本, 默认为 true" )]
 		[NotifyParentProperty ( true )]
-		public bool Text
+		public new bool Text
 		{
-			get { return this.getBoolean ( this.widgetSetting.ButtonSetting.Text, true ); }
-			set { this.widgetSetting.ButtonSetting.Text = value.ToString ( ).ToLower ( ); }
+			get { return this.uiSetting.Text; }
+			set { this.uiSetting.Text = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置按钮显示的图标, 比如: { primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s' }.
+		/// 获取或设置按钮显示的图标, 默认为 { primary: null, secondary: null }.
 		/// </summary>
 		[Category ( "外观" )]
-		[DefaultValue ( "" )]
-		[Description ( "指示按钮显示的图标, 比如: { primary: 'ui-icon-gear', secondary: 'ui-icon-triangle-1-s' }" )]
+		[DefaultValue ( "{ primary: null, secondary: null }" )]
+		[Description ( "指示按钮显示的图标, 默认为 { primary: null, secondary: null }" )]
 		[NotifyParentProperty ( true )]
 		public string Icons
 		{
-			get { return this.widgetSetting.ButtonSetting.Icons; }
-			set { this.widgetSetting.ButtonSetting.Icons = value; }
+			get { return this.uiSetting.Icons; }
+			set { this.uiSetting.Icons = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置按钮显示的文本, 比如: ok.
+		/// 获取或设置按钮显示的文本, 默认为空字符串.
 		/// </summary>
 		[Category ( "外观" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示按钮显示的文本, 比如: ok" )]
+		[Description ( "指示按钮显示的文本, 默认为空字符串" )]
 		[NotifyParentProperty ( true )]
 		public string Label
 		{
-			get { return this.widgetSetting.ButtonSetting.Label.Trim ( '\'' ); }
-			set { this.widgetSetting.ButtonSetting.Label = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
+			get { return this.uiSetting.Label; }
+			set { this.uiSetting.Label = value; }
 		}
 		#endregion
 
-		#region " Event "
+		#region " event "
 		/// <summary>
-		/// 获取或设置按钮被创建时的事件, 类似于: function(event, ui) { }.
+		/// 获取或设置按钮被创建时的事件, 类似于: "function(event, ui) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
@@ -145,28 +122,29 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.widgetSetting.ButtonSetting.Create; }
-			set { this.widgetSetting.ButtonSetting.Create = value; }
+			get { return this.uiSetting.Create; }
+			set { this.uiSetting.Create = value; }
 		}
 		#endregion
 
-		#region " Ajax "
+		#region " ajax "
 		/// <summary>
 		/// 获取 Click 操作相关的 Ajax 设置.
 		/// </summary>
+		[Browsable ( false )]
 		[Category ( "Ajax" )]
 		[Description ( "Click 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public AjaxSettingEdit ClickAsync
+		public AjaxSetting ClickAsync
 		{
-			get { return this.clickAjax; }
+			get { return this.uiSetting.ClickAsync; }
 		}
 		#endregion
 
-		#region " Client "
+		#region " client "
 		/// <summary>
-		/// 获取或设置按钮被点击时的事件, 类似于: function(event, ui) { }.
+		/// 获取或设置按钮被点击时的事件, 类似于: "function(event, ui) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
@@ -174,12 +152,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Click
 		{
-			get { return this.widgetSetting.ButtonSetting.EditHelper.GetOuterEventEditValue ( EventType.click ); }
-			set { this.widgetSetting.ButtonSetting.EditHelper.SetOuterEventEditValue ( EventType.click, value ); }
+			get { return this.uiSetting.Click; }
+			set { this.uiSetting.Click = value; }
 		}
 		#endregion
 
-		#region " Server "
+		#region " server "
 		/// <summary>
 		/// 在服务器端执行的点击事件.
 		/// </summary>
@@ -187,70 +165,80 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public event EventHandler ClickSync;
 		#endregion
 
-		protected override void Render ( HtmlTextWriter writer )
+		protected override string facelessPrefix ( )
+		{ return "Button"; }
+
+		protected override string facelessPostfix ( )
 		{
+			string postfix = string.Empty;
 
-			if ( !this.DesignMode )
+			if ( this.Label != string.Empty )
+				postfix += string.Format ( " <span style=\"color: #660066\">{0}</span>", this.Label );
+
+			if ( this.PrimaryIcon != string.Empty )
+				postfix += string.Format ( " <span style=\"color: #660066\">{0}</span>", this.PrimaryIcon );
+
+			if ( this.SecondaryIcon != string.Empty )
+				postfix += string.Format ( " <span style=\"color: #660066\">{0}</span>", this.SecondaryIcon );
+
+			return base.facelessPostfix ( ) + postfix;
+		}
+
+		protected override void AddAttributesToRender ( HtmlTextWriter writer )
+		{
+			base.AddAttributesToRender ( writer );
+
+			if ( this.isFace ( ) )
 			{
-				// this.widgetSetting.Type = this.type;
-
-				// this.widgetSetting.ButtonSetting.SetEditHelper ( this.editHelper );
-
-				this.widgetSetting.AjaxSettings.Clear ( );
-
-				if ( this.clickAjax.Url != string.Empty )
-				{
-					this.clickAjax.WidgetEventType = EventType.click;
-					this.widgetSetting.AjaxSettings.Add ( this.clickAjax );
-				}
-
-				if ( null != this.ClickSync )
-					this.Click = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "click" ) + "}";
-
-				if ( !string.IsNullOrEmpty ( this.primaryIcon ) || !string.IsNullOrEmpty ( this.secondaryIcon ) )
-					this.Icons = "{" + string.Format ( " primary: '{0}', secondary: '{1}' ", this.primaryIcon, this.secondaryIcon ) + "}";
-
-			}
-			else if ( this.selector == string.Empty )
-			{
-				string style = string.Empty;
-
-				if ( this.Width != Unit.Empty )
-					style += string.Format ( "width:{0};", this.Width );
-
-				if ( this.Height != Unit.Empty )
-					style += string.Format ( "height:{0};", this.Height );
-
 				string css = string.Empty;
 
 				if ( !this.Text )
 					css = " ui-button-icon-only";
-				else if ( this.primaryIcon != string.Empty && this.secondaryIcon == string.Empty )
+				else if ( !string.IsNullOrEmpty ( this.PrimaryIcon ) && string.IsNullOrEmpty ( this.SecondaryIcon ) )
 					css = " ui-button-text-icon-primary";
-				else if ( this.secondaryIcon != string.Empty && this.primaryIcon == string.Empty )
+				else if ( !string.IsNullOrEmpty ( this.SecondaryIcon ) && string.IsNullOrEmpty ( this.PrimaryIcon ) )
 					css = " ui-button-text-icon-secondary";
-				else if ( this.primaryIcon != string.Empty && this.secondaryIcon != string.Empty )
+				else if ( !string.IsNullOrEmpty ( this.PrimaryIcon ) && !string.IsNullOrEmpty ( this.SecondaryIcon ) )
 					css = " ui-button-text-icons";
 				else
 					css = " ui-button-text-only";
 
-				writer.Write (
-					"<{6} id=\"{0}\" class=\"{3}ui-button ui-widget ui-state-default ui-corner-all{2}{9}\" style=\"{4}\" title=\"{5}\">{7}<span class=\"ui-button-text\">{1}</span>{8}</{6}>",
-					this.ClientID,
-					this.Label,
+				writer.AddAttribute ( HtmlTextWriterAttribute.Class,
+					string.Format (
+					"ui-button ui-widget ui-state-default ui-corner-all{0}{1}",
 					this.Disabled ? " ui-button-disabled ui-state-disabled" : string.Empty,
-					string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : this.CssClass + " ",
-					style,
-					this.ToolTip,
-					this.elementType.ToString ( ).ToLower ( ),
-					this.primaryIcon == string.Empty ? string.Empty : string.Format ( "<span class=\"ui-button-icon-primary ui-icon {0}\" style=\"top: 15px;position: absolute;\"></span>", this.primaryIcon ),
-					this.secondaryIcon == string.Empty ? string.Empty : string.Format ( "<span class=\"ui-button-icon-secondary ui-icon {0}\" style=\"top: 15px;position: absolute;\"></span>", this.secondaryIcon ),
 					css
+					)
 					);
-				return;
 			}
 
-			base.Render ( writer );
+		}
+
+		protected override void RenderContents ( HtmlTextWriter writer )
+		{
+			base.RenderContents ( writer );
+
+			if ( this.isFace ( ) )
+			{
+				writer.RenderBeginTag ( HtmlTextWriterTag.Span );
+				writer.AddAttribute ( HtmlTextWriterAttribute.Class, "ui-button-text" );
+				if ( !string.IsNullOrEmpty ( this.PrimaryIcon ) )
+					writer.Write ( "[p] " );
+
+				if ( this.Label == string.Empty )
+					writer.Write ( this.ID );
+				else
+					writer.Write ( this.Label );
+
+				if ( !string.IsNullOrEmpty ( this.SecondaryIcon ) )
+					writer.Write ( " [s]" );
+
+				writer.RenderEndTag ( );
+			}
+
+			if ( null != this.ClickSync )
+				this.Click = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "click" ) + "}";
+
 		}
 
 		public void RaisePostBackEvent ( string eventArgument )
@@ -268,53 +256,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		}
 
-		protected override void LoadViewState ( object savedState )
-		{
-			base.LoadViewState ( savedState );
-
-			List<object> states = this.ViewState["Button"] as List<object>;
-
-			if ( null == states )
-				return;
-
-			if ( states.Count >= 1 )
-				this.primaryIcon = states[0] as string;
-
-			if ( states.Count >= 2 )
-				this.secondaryIcon = states[1] as string;
-
-		}
-
-		protected override object SaveViewState ( )
-		{
-			List<object> states = new List<object> ( );
-			states.Add ( this.primaryIcon );
-			states.Add ( this.secondaryIcon );
-
-			this.ViewState["Button"] = states;
-
-			return base.SaveViewState ( );
-		}
-
-
 	}
-
-	#region " ButtonDesigner "
-	/// <summary>
-	/// 按钮设计器.
-	/// </summary>
-	public class ButtonDesigner : JQueryElementDesigner
-	{
-
-		/// <summary>
-		/// 获取行为列表.
-		/// </summary>
-		public override DesignerActionListCollection ActionLists
-		{
-			get { return new DesignerActionListCollection ( ); }
-		}
-
-	}
-	#endregion
 
 }

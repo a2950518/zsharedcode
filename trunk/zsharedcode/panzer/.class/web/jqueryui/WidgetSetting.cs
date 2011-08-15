@@ -1,28 +1,24 @@
 ﻿/*
- * wiki: http://code.google.com/p/zsharedcode/wiki/JQueryUIWidgetSetting
- * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 作者: M.S.cxc
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/WidgetSetting.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
- * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
  * */
-
-using System;
-using System.Collections.Generic;
 
 namespace zoyobar.shared.panzer.web.jqueryui
 {
 
 	#region " WidgetType "
 	/// <summary>
-	/// Widget 类型.
+	/// 插件类型.
 	/// </summary>
 	public enum WidgetType
 	{
 		/// <summary>
-		/// 没有任何类型.
+		/// 自定义插件.
 		/// </summary>
-		none = 0,
+		custom = 0,
 		/// <summary>
 		/// 折叠列表.
 		/// </summary>
@@ -55,62 +51,49 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 分组标签.
 		/// </summary>
 		tabs = 8,
-		/// <summary>
-		/// 空的 Widget.
-		/// </summary>
-		empty = 9,
 	}
 	#endregion
 
 	#region " WidgetSetting "
 	/// <summary>
-	/// jQuery UI Widget 设置.
+	/// 派生所有 jQuery UI 插件设置的基础类.
 	/// </summary>
-	public sealed class WidgetSetting
+	public abstract class WidgetSetting
+		: UISetting
 	{
-		/// <summary>
-		/// Widget 相关事件.
-		/// </summary>
-		public readonly List<Event> Events = new List<Event> ( );
-		/// <summary>
-		/// Widget 相关设置.
-		/// </summary>
-		public readonly List<Option> Options = new List<Option> ( );
-		/// <summary>
-		/// Widget 类型.
-		/// </summary>
-		public readonly WidgetType WidgetType;
-		/// <summary>
-		/// Ajax 相关设置.
-		/// </summary>
-		public readonly List<AjaxSetting> AjaxSettings = new List<AjaxSetting> ( );
+
+		#region " property "
+		private WidgetType widgetType;
+		protected readonly AjaxSetting[] ajaxs;
 
 		/// <summary>
-		/// 创建 jQuery UI Widget 设置.
+		/// 获取或设置插件的类型.
 		/// </summary>
-		/// <param name="widgetEventType">和 Widget 相关的触发事件.</param>
-		/// <param name="options">Widget 相关设置.</param>
-		/// <param name="events">Widget 相关事件.</param>
-		/// <param name="ajaxSettings">Ajax 相关设置.</param>
-		public WidgetSetting ( WidgetType widgetEventType, Option[] options, Event[] events, AjaxSetting[] ajaxSettings )
+		public WidgetType WidgetType
 		{
+			get { return this.widgetType; }
+			set { this.widgetType = value; }
+		}
 
-			if ( null != options )
-				foreach ( Option option in options )
-					if ( null != option )
-						this.Options.Add ( option );
+		/// <summary>
+		/// 获取 Ajax 设置数组.
+		/// </summary>
+		public AjaxSetting[] Ajaxs
+		{
+			get { return this.ajaxs; }
+		}
+		#endregion
 
-			if ( null != events )
-				foreach ( Event @event in events )
-					if ( null != @event )
-						this.Events.Add ( @event );
+		protected WidgetSetting ( WidgetType widgetType, int ajaxCount )
+			: base ( )
+		{
+			this.widgetType = widgetType;
 
-			if ( null != ajaxSettings )
-				foreach ( AjaxSetting ajaxSetting in ajaxSettings )
-					if ( null != ajaxSetting )
-						this.AjaxSettings.Add ( ajaxSetting );
+			this.ajaxs = new AjaxSetting[ajaxCount < 0 ? 0 : ajaxCount];
 
-			this.WidgetType = widgetEventType;
+			for ( int index = 0; index < ajaxCount; index++ )
+				this.ajaxs[index] = new AjaxSetting ( );
+
 		}
 
 	}

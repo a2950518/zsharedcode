@@ -1,13 +1,15 @@
 ﻿/*
- * wiki:
- * http://code.google.com/p/zsharedcode/wiki/JQueryUIEvent
- * http://code.google.com/p/zsharedcode/wiki/JQueryUIEventType
- * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 作者: M.S.cxc
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/Event.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
- * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
  * */
+
+using System;
+using System.ComponentModel;
+using System.Globalization;
+using System.Web.UI;
 
 namespace zoyobar.shared.panzer.web.jqueryui
 {
@@ -21,7 +23,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 没有任何事件.
 		/// </summary>
-		none = 0,
+		none,
 		/// <summary>
 		/// 完成时.
 		/// </summary>
@@ -294,6 +296,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 自动填充改变时.
 		/// </summary>
 		autocompletechange,
+		/// <summary>
+		/// 时钟触发时.
+		/// </summary>
+		tick,
 	}
 	#endregion
 
@@ -303,15 +309,33 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	/// </summary>
 	public sealed class Event
 	{
-		/// <summary>
-		/// 事件类型.
-		/// </summary>
-		public readonly EventType Type;
-		/// <summary>
-		/// 事件内容.
-		/// </summary>
-		public readonly string Value;
+		private EventType type;
+		private string value;
 
+		/// <summary>
+		/// 获取或设置事件类型.
+		/// </summary>
+		public EventType Type
+		{
+			get { return this.type; }
+			set { this.type = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置事件内容.
+		/// </summary>
+		public string Value
+		{
+			get { return this.value; }
+			set { this.value = ( null == value ? string.Empty : value ); }
+		}
+
+		/// <summary>
+		/// 创建一个 jQuery UI 事件.
+		/// </summary>
+		public Event ( )
+			: this ( EventType.none, null )
+		{ }
 		/// <summary>
 		/// 创建一个 jQuery UI 事件.
 		/// </summary>
@@ -319,11 +343,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <param name="value">事件内容.</param>
 		public Event ( EventType type, string value )
 		{
+			this.type = type;
 
-			if ( null == value )
-				value = string.Empty;
-
-			this.Type = type;
 			this.Value = value;
 		}
 
