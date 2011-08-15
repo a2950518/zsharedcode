@@ -5,7 +5,7 @@
  [JQueryElement JQueryElement] 是可以在 Visual Studio 中使用的 jQuery UI 控件, 实现了 jQuery UI 的各种效果以及插件.
 
 === 使用 ===
- 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/JQueryElement.all.cs JQueryElement.all.cs], 也可以在 [Download 下载资源] 中下载 dll.
+ 可以在 [Download 下载资源] 中下载 dll.
 
 === 示例 ===
  * [JQueryElementAccordionDoc 折叠列表 - 垂直导航栏]
