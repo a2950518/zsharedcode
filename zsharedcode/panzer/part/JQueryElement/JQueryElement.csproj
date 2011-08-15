@@ -34,12 +34,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\.class\code\StringConvert.cs">
@@ -48,14 +47,8 @@
     <Compile Include="..\..\.class\ui\jqueryui\Accordion.cs">
       <Link>.class\Accordion.cs</Link>
     </Compile>
-    <Compile Include="..\..\.class\ui\jqueryui\AjaxSettingEdit.cs">
-      <Link>.class\AjaxSettingEdit.cs</Link>
-    </Compile>
     <Compile Include="..\..\.class\ui\jqueryui\Autocomplete.cs">
       <Link>.class\Autocomplete.cs</Link>
-    </Compile>
-    <Compile Include="..\..\.class\ui\jqueryui\BaseJQueryElement.cs">
-      <Link>.class\BaseJQueryElement.cs</Link>
     </Compile>
     <Compile Include="..\..\.class\ui\jqueryui\Button.cs">
       <Link>.class\Button.cs</Link>
@@ -66,14 +59,11 @@
     <Compile Include="..\..\.class\ui\jqueryui\Dialog.cs">
       <Link>.class\Dialog.cs</Link>
     </Compile>
-    <Compile Include="..\..\.class\ui\jqueryui\DraggableSettingEdit.cs">
-      <Link>.class\DraggableSettingEdit.cs</Link>
+    <Compile Include="..\..\.class\ui\jqueryui\Draggable.cs">
+      <Link>.class\Draggable.cs</Link>
     </Compile>
-    <Compile Include="..\..\.class\ui\jqueryui\DroppableSettingEdit.cs">
-      <Link>.class\DroppableSettingEdit.cs</Link>
-    </Compile>
-    <Compile Include="..\..\.class\ui\jqueryui\EventEdit.cs">
-      <Link>.class\EventEdit.cs</Link>
+    <Compile Include="..\..\.class\ui\jqueryui\Droppable.cs">
+      <Link>.class\Droppable.cs</Link>
     </Compile>
     <Compile Include="..\..\.class\ui\jqueryui\JQueryCoder.cs">
       <Link>.class\JQueryCoder.cs</Link>
@@ -81,35 +71,38 @@
     <Compile Include="..\..\.class\ui\jqueryui\JQueryElement.cs">
       <Link>.class\JQueryElement.cs</Link>
     </Compile>
+    <Compile Include="..\..\.class\ui\jqueryui\JQueryInteraction.cs">
+      <Link>.class\JQueryInteraction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\ui\jqueryui\JQueryPlusin.cs">
+      <Link>.class\JQueryPlusin.cs</Link>
+    </Compile>
     <Compile Include="..\..\.class\ui\jqueryui\JQueryScript.cs">
       <Link>.class\JQueryScript.cs</Link>
     </Compile>
-    <Compile Include="..\..\.class\ui\jqueryui\OptionEdit.cs">
-      <Link>.class\OptionEdit.cs</Link>
-    </Compile>
-    <Compile Include="..\..\.class\ui\jqueryui\ParameterEdit.cs">
-      <Link>.class\ParameterEdit.cs</Link>
+    <Compile Include="..\..\.class\ui\jqueryui\JQueryWidget.cs">
+      <Link>.class\JQueryWidget.cs</Link>
     </Compile>
     <Compile Include="..\..\.class\ui\jqueryui\Progressbar.cs">
       <Link>.class\Progressbar.cs</Link>
     </Compile>
-    <Compile Include="..\..\.class\ui\jqueryui\RepeaterSettingEdit.cs">
-      <Link>.class\RepeaterSettingEdit.cs</Link>
+    <Compile Include="..\..\.class\ui\jqueryui\Repeater.cs">
+      <Link>.class\Repeater.cs</Link>
     </Compile>
-    <Compile Include="..\..\.class\ui\jqueryui\ResizableSettingEdit.cs">
-      <Link>.class\ResizableSettingEdit.cs</Link>
+    <Compile Include="..\..\.class\ui\jqueryui\Resizable.cs">
+      <Link>.class\Resizable.cs</Link>
     </Compile>
-    <Compile Include="..\..\.class\ui\jqueryui\SelectableSettingEdit.cs">
-      <Link>.class\SelectableSettingEdit.cs</Link>
+    <Compile Include="..\..\.class\ui\jqueryui\ScriptPackage.cs">
+      <Link>.class\ScriptPackage.cs</Link>
     </Compile>
-    <Compile Include="..\..\.class\ui\jqueryui\SettingEditHelper.cs">
-      <Link>.class\SettingEditHelper.cs</Link>
+    <Compile Include="..\..\.class\ui\jqueryui\Selectable.cs">
+      <Link>.class\Selectable.cs</Link>
     </Compile>
     <Compile Include="..\..\.class\ui\jqueryui\Slider.cs">
       <Link>.class\Slider.cs</Link>
     </Compile>
-    <Compile Include="..\..\.class\ui\jqueryui\SortableSettingEdit.cs">
-      <Link>.class\SortableSettingEdit.cs</Link>
+    <Compile Include="..\..\.class\ui\jqueryui\Sortable.cs">
+      <Link>.class\Sortable.cs</Link>
     </Compile>
     <Compile Include="..\..\.class\ui\jqueryui\Tabs.cs">
       <Link>.class\Tabs.cs</Link>
@@ -117,17 +110,29 @@
     <Compile Include="..\..\.class\ui\jqueryui\Timer.cs">
       <Link>.class\Timer.cs</Link>
     </Compile>
-    <Compile Include="..\..\.class\ui\jqueryui\TimerSettingEdit.cs">
-      <Link>.class\TimerSettingEdit.cs</Link>
-    </Compile>
-    <Compile Include="..\..\.class\ui\jqueryui\WidgetSettingEdit.cs">
-      <Link>.class\WidgetSettingEdit.cs</Link>
+    <Compile Include="..\..\.class\web\ASPXScriptHolder.cs">
+      <Link>.class\ASPXScriptHolder.cs</Link>
     </Compile>
     <Compile Include="..\..\.class\web\JQuery.cs">
       <Link>.class\JQuery.cs</Link>
     </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\AccordionSetting.cs">
+      <Link>.class\AccordionSetting.cs</Link>
+    </Compile>
     <Compile Include="..\..\.class\web\jqueryui\AjaxSetting.cs">
       <Link>.class\AjaxSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\AutocompleteSetting.cs">
+      <Link>.class\AutocompleteSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\ButtonSetting.cs">
+      <Link>.class\ButtonSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\DatepickerSetting.cs">
+      <Link>.class\DatepickerSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\DialogSetting.cs">
+      <Link>.class\DialogSetting.cs</Link>
     </Compile>
     <Compile Include="..\..\.class\web\jqueryui\DraggableSetting.cs">
       <Link>.class\DraggableSetting.cs</Link>
@@ -150,20 +155,50 @@
     <Compile Include="..\..\.class\web\jqueryui\Parameter.cs">
       <Link>.class\Parameter.cs</Link>
     </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\PlusinSetting.cs">
+      <Link>.class\PlusinSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\ProgressbarSetting.cs">
+      <Link>.class\ProgressbarSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\RepeaterSetting.cs">
+      <Link>.class\RepeaterSetting.cs</Link>
+    </Compile>
     <Compile Include="..\..\.class\web\jqueryui\ResizableSetting.cs">
       <Link>.class\ResizableSetting.cs</Link>
     </Compile>
     <Compile Include="..\..\.class\web\jqueryui\SelectableSetting.cs">
       <Link>.class\SelectableSetting.cs</Link>
     </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\SettingHelper.cs">
+      <Link>SettingHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\SliderSetting.cs">
+      <Link>.class\SliderSetting.cs</Link>
+    </Compile>
     <Compile Include="..\..\.class\web\jqueryui\SortableSetting.cs">
       <Link>.class\SortableSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\TabsSetting.cs">
+      <Link>.class\TabsSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\TimerSetting.cs">
+      <Link>.class\TimerSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\UISetting.cs">
+      <Link>.class\UISetting.cs</Link>
     </Compile>
     <Compile Include="..\..\.class\web\jqueryui\WidgetSetting.cs">
       <Link>.class\WidgetSetting.cs</Link>
     </Compile>
     <Compile Include="..\..\.class\web\ScriptHelper.cs">
       <Link>.class\ScriptHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\ScriptHolder.cs">
+      <Link>.class\ScriptHolder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\ViewStateHelper.cs">
+      <Link>.class\ViewStateHelper.cs</Link>
     </Compile>
     <Compile Include="..\..\.enum\web\NavigateOption.cs">
       <Link>.enum\NavigateOption.cs</Link>
