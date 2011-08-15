@@ -1,23 +1,9 @@
 ﻿/*
- * wiki:
- * http://code.google.com/p/zsharedcode/wiki/DataActionType
- * http://code.google.com/p/zsharedcode/wiki/DataWindowCore
- * http://code.google.com/p/zsharedcode/wiki/DWCPagerSetting
- * http://code.google.com/p/zsharedcode/wiki/PagerActionType
- * http://code.google.com/p/zsharedcode/wiki/DWCTableSetting
- * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 作者: M.S.cxc
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/dwindow/DataWindowCore.cs
- * 测试文件:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/test/ui/dwc/TestDataWindowCore.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/test/ui/dwc/FormStudent.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/test/ui/dwc/FormStudent.Designer.cs
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/test/ui/dwc/StudentDS.xsd
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/test/ui/dwc/StudentDS.Designer.cs
- * 合并下载:
- * http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/DataWindowCore.all.cs
  * 版本: 2.1, .net 4.0, 其它版本可能有所不同
  * 
- * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
 * */
 
 // HACK: 在项目中定义编译符号 PARAM, 使用提供默认参数的方法.
