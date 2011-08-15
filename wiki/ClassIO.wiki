@@ -1,6 +1,0 @@
-#summary io
-#labels Phase-Design,Phase-Implementation
-<font face="microsoft yahei">
-=== io ===
- * [StoreHelper StoreHelper]
-</font>
