@@ -1,7 +1,0 @@
-#summary code
-#labels Phase-Design,Phase-Implementation
-<font face="microsoft yahei">
-=== code ===
- * [CodingHelper CodingHelper]
- * [StringConvert StringConvert]
-</font>
