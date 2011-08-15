@@ -1,6 +1,0 @@
-#summary debug
-#labels Phase-Design,Phase-Implementation
-<font face="microsoft yahei">
-=== debug ===
- * [Tracer Tracer]
-</font>
