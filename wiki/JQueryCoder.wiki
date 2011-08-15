@@ -1,3 +1,0 @@
-﻿#summary JQueryCoder 成员参考
-#labels Phase-Design,Phase-Implementation
-<font size="2" face="microsoft yahei"><h3>JQueryCoder 成员参考</h3>[http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs 查看代码]<br />说明: {{{为 JQueryElement 以及相关控件中的内嵌语法执行操作.}}}<br /><font color="#003366" size="3"><strong>{{{Encode(System.Web.UI.Control,System.String)}}}</strong></font><br /><ul><li><strong>简介:</strong> {{{编码内嵌语法.}}}</li><li><strong>类型:</strong> 方法</li><li><strong>参数:</strong><ul><li><font color="#ff0000">{{{control}}}</font> - {{{控件.}}}</li><li><font color="#ff0000">{{{code}}}</font> - {{{包含内嵌语法的代码.}}}</li></ul></li></ul><br /></font>
