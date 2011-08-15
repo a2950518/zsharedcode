@@ -1,36 +1,31 @@
 ﻿/*
- * wiki:
- * http://code.google.com/p/zsharedcode/wiki/JQueryCoder
- * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 作者: M.S.cxc
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryCoder.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
- * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
  * */
 
 using System.Reflection;
 using System.Web;
 using System.Web.UI;
 
-// HACK: 避免在 allinone 文件中的名称冲突
-using NControl = System.Web.UI.Control;
-
 namespace zoyobar.shared.panzer.ui.jqueryui
 {
 
 	/// <summary>
-	/// 为 JQueryElement 以及相关控件中的内嵌语法执行操作.
+	/// 此类用于解释 JQueryElement 以及相关控件中的内嵌语法.
 	/// </summary>
 	public sealed class JQueryCoder
 	{
 
 		/// <summary>
-		/// 编码内嵌语法.
+		/// 解释内嵌语法, 分别有 [%id:服务器控件 ID%], [%param:Request 中的 ID%], [%fun:页面中的方法%].
 		/// </summary>
-		/// <param name="control">控件.</param>
+		/// <param name="control">控件, 其所在的页面将输出脚本.</param>
 		/// <param name="code">包含内嵌语法的代码.</param>
-		/// <returns>编码后的代码.</returns>
-		public static string Encode ( NControl control, string code )
+		/// <returns>解释后的代码.</returns>
+		public static string Encode ( Control control, string code )
 		{
 
 			if ( string.IsNullOrEmpty ( code ) || null == control || null == control.Page )
@@ -71,7 +66,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				switch ( commandName )
 				{
 					case "id":
-						NControl aimControl = control.Page.FindControl ( commandParameter );
+						Control aimControl = control.Page.FindControl ( commandParameter );
 
 						if ( null != aimControl )
 							result = aimControl.ClientID;
@@ -88,7 +83,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 					case "fun":
 						MethodInfo methodInfo;
-						NControl currentControl = control;
+						Control currentControl = control;
 
 						while ( true )
 						{

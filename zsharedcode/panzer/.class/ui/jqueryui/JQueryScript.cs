@@ -1,189 +1,97 @@
 ﻿/*
- * wiki:
- * http://code.google.com/p/zsharedcode/wiki/JQueryScript
- * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 作者: M.S.cxc
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/JQueryScript.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
- * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
- * */
+ * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
+* */
 
 using System.ComponentModel;
-using System.Drawing;
-using System.Net;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-using zoyobar.shared.panzer.web;
-using zoyobar.shared.panzer.web.jqueryui;
-
-// HACK: 避免在 allinone 文件中的名称冲突
-using NBorderStyle = System.Web.UI.WebControls.BorderStyle;
 
 namespace zoyobar.shared.panzer.ui.jqueryui
 {
 
 	#region " JQueryScript "
 	/// <summary>
-	/// 实现 jQuery UI 的服务器控件.
+	/// 可在其中编写内嵌语法的客户端脚本的服务器控件.
 	/// </summary>
-	// [DefaultProperty ( "Html" )]
 	[ToolboxData ( "<{0}:JQueryScript runat=server></{0}:JQueryScript>" )]
-	[ParseChildren ( true )]
-	[PersistChildren ( false )]
+	[ParseChildren ( true, "Template" )]
+	[DefaultProperty ( "Template" )]
 	public class JQueryScript
-		: WebControl, INamingContainer
+		: Control, INamingContainer
 	{
-
-		private readonly PlaceHolder html = new PlaceHolder ( );
+		private readonly PlaceHolder template = new PlaceHolder ( );
 
 		/// <summary>
 		/// 获取 PlaceHolder 控件, 其中包含了元素中包含的 script 标签的代码. 
 		/// </summary>
 		[Browsable ( false )]
-		[Category ( "jQuery UI" )]
+		[Category ( "脚本" )]
 		[Description ( "设置元素中包含的 script 标签的代码" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public PlaceHolder Html
+		[PersistenceMode ( PersistenceMode.InnerDefaultProperty )]
+		public PlaceHolder Template
 		{
-			get { return this.html; }
+			get { return this.template; }
 		}
 
 		#region " hide "
-
-		/// <summary>
-		/// 在 JQueryScript 中无效.
-		/// </summary>
+#if V4
 		[Browsable ( false )]
-		public override string AccessKey
+		public override ClientIDMode ClientIDMode
 		{
-			get { return string.Empty; }
-			set { }
+			get { return base.ClientIDMode; }
+			set { base.ClientIDMode = value; }
 		}
-
-		/// <summary>
-		/// 在 JQueryScript 中无效.
-		/// </summary>
 		[Browsable ( false )]
-		public override Color BackColor
+		public override ViewStateMode ViewStateMode
 		{
-			get { return Color.Empty; }
-			set { }
+			get { return base.ViewStateMode; }
+			set { base.ViewStateMode = value; }
 		}
-
-		/// <summary>
-		/// 在 JQueryScript 中无效.
-		/// </summary>
+#endif
 		[Browsable ( false )]
-		public override Color BorderColor
+		public override bool EnableViewState
 		{
-			get { return Color.Empty; }
-			set { }
+			get { return base.EnableViewState; }
+			set { base.EnableViewState = value; }
 		}
-
-		/// <summary>
-		/// 在 JQueryScript 中无效.
-		/// </summary>
 		[Browsable ( false )]
-		public override NBorderStyle BorderStyle
+		public override bool Visible
 		{
-			get { return NBorderStyle.None; }
-			set { }
+			get { return base.Visible; }
+			set { base.Visible = value; }
 		}
-
-		/// <summary>
-		/// 在 JQueryScript 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override Unit BorderWidth
-		{
-			get { return Unit.Empty; }
-			set { }
-		}
-
-		/// <summary>
-		/// 在 JQueryScript 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override bool Enabled
-		{
-			get { return true; }
-			set { }
-		}
-
-		/// <summary>
-		/// 在 JQueryScript 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override bool EnableTheming
-		{
-			get { return false; }
-			set { }
-		}
-
-		/// <summary>
-		/// 在 JQueryScript 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override FontInfo Font
-		{
-			get { return base.Font; }
-		}
-
-		/// <summary>
-		/// 在 JQueryScript 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override Color ForeColor
-		{
-			get { return Color.Empty; }
-			set { }
-		}
-
-		/// <summary>
-		/// 在 JQueryScript 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override string SkinID
-		{
-			get { return string.Empty; }
-			set { }
-		}
-
-		/// <summary>
-		/// 在 JQueryScript 中无效.
-		/// </summary>
-		[Browsable ( false )]
-		public override short TabIndex
-		{
-			get { return -1; }
-			set { }
-		}
-
 		#endregion
 
-		/// <summary>
-		/// 创建一个 JQueryScript.
-		/// </summary>
-		public JQueryScript ( )
-			: base ( )
-		{ this.EnableViewState = false; }
+		private bool isFaceless ( )
+		{ return this.DesignMode; }
 
 		protected override void Render ( HtmlTextWriter writer )
 		{
 
-			if ( !this.Visible || this.html.Controls.Count != 1 )
+			if ( !this.Visible || this.template.Controls.Count != 1 )
 				return;
 
-			LiteralControl literal = this.html.Controls[0] as LiteralControl;
+			if ( this.isFaceless ( ) )
+				writer.Write ( "<span style=\"font-family: Verdana; background-color: #FFFFFF; font-size: 10pt;\"><strong>{0}:</strong> {1}</span>", "JQueryScript", this.ID );
+
+			LiteralControl literal = this.template.Controls[0] as LiteralControl;
 
 			if ( null == literal )
 				return;
 
 			literal.Text = JQueryCoder.Encode ( this, literal.Text );
 
-			this.html.RenderControl ( writer );
+			if ( this.isFaceless ( ) )
+				writer.Write ( " <span style=\"font-family: Verdana; background-color: #FFFFFF; color: #660066; font-size: 10pt;\">{0}</span>", literal.Text.Length );
+			else
+				this.template.RenderControl ( writer );
+
 		}
 
 	}

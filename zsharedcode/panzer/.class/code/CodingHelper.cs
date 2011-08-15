@@ -1,5 +1,4 @@
 ﻿/*
- * wiki: http://code.google.com/p/zsharedcode/wiki/CodingHelper
  * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/code/CodingHelper.cs
  * 版本: .net 4.0, 其它版本可能有所不同

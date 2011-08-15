@@ -1,19 +1,13 @@
 ﻿/*
- * wiki:
- * http://code.google.com/p/zsharedcode/wiki/JQueryUIAccordion
- * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 作者: M.S.cxc
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Accordion.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
- * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
  * */
 
-using System;
 using System.ComponentModel;
-using System.ComponentModel.Design;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Xml;
 
 using zoyobar.shared.panzer.code;
 using zoyobar.shared.panzer.web.jqueryui;
@@ -25,180 +19,178 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 折叠列表插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Accordion runat=server></{0}:Accordion>" )]
-	[Designer ( typeof ( AccordionDesigner ) )]
 	public class Accordion
-		: BaseWidget, IPostBackEventHandler
+		: JQueryWidget<AccordionSetting>, IPostBackEventHandler
 	{
-		private readonly AjaxSettingEdit changeAjax = new AjaxSettingEdit ( );
 
 		/// <summary>
-		/// 创建一个 jQuery UI 折叠列表.
+		/// 创建一个 jQuery UI 日期框.
 		/// </summary>
 		public Accordion ( )
-			: base ( WidgetType.accordion )
-		{ this.elementType = ElementType.Div; }
+			: base ( new AccordionSetting ( ), HtmlTextWriterTag.Div )
+		{ }
 
-		#region " Option "
+		#region " option "
 		/// <summary>
-		/// 获取或设置折叠列表是否可用, 可以设置为 true 或者 false.
+		/// 获取或设置折叠列表是否可用, 默认为 false.
 		/// </summary>
 		[Category ( "行为" )]
 		[DefaultValue ( false )]
-		[Description ( "指示折叠列表是否可用, 可以设置为 true 或者 false" )]
+		[Description ( "指示折叠列表是否可用, 默认为 false" )]
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.Disabled, false ); }
-			set { this.widgetSetting.AccordionSetting.Disabled = value.ToString ( ).ToLower ( ); }
+			get { return this.uiSetting.Disabled; }
+			set { this.uiSetting.Disabled = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置被激活的列表, 对应一个选择器, 元素, 数值或者布尔值.
+		/// 获取或设置被激活的列表, 对应数值, 默认为 0.
 		/// </summary>
 		[Category ( "行为" )]
 		[DefaultValue ( 0 )]
-		[Description ( "指示被激活的列表, 对应一个选择器, 元素, 数值或者布尔值" )]
+		[Description ( "指示被激活的列表, 对应数值, 默认为 0" )]
 		[NotifyParentProperty ( true )]
 		public int Active
 		{
-			get { return this.getInteger ( this.widgetSetting.AccordionSetting.Active, 0 ); }
-			set { this.widgetSetting.AccordionSetting.Active = value <= 0 ? string.Empty : value.ToString ( ); }
+			get { return this.uiSetting.Active; }
+			set { this.uiSetting.Active = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置列表切换的动画, 比如: bounceslide, slide.
+		/// 获取或设置列表切换的动画, 比如: "bounceslide", 默认为 "slide".
 		/// </summary>
 		[Category ( "动画" )]
-		[DefaultValue ( "" )]
-		[Description ( "指示列表切换的动画, 比如: bounceslide, slide" )]
+		[DefaultValue ( "slide" )]
+		[Description ( "指示列表切换的动画, 比如: bounceslide, 默认为 slide" )]
 		[NotifyParentProperty ( true )]
 		public string Animated
 		{
-			get { return this.widgetSetting.AccordionSetting.Animated.Trim ( '\'' ); }
-			set { this.widgetSetting.AccordionSetting.Animated = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
+			get { return this.uiSetting.Animated; }
+			set { this.uiSetting.Animated = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置是否自动调整与最高的列表同高, 可以设置为 true 或者 false.
+		/// 获取或设置是否自动调整与最高的列表同高, 默认为 true.
 		/// </summary>
 		[Category ( "外观" )]
 		[DefaultValue ( true )]
-		[Description ( "指示是否自动调整与最高的列表同高, 可以设置为 true 或者 false" )]
+		[Description ( "指示是否自动调整与最高的列表同高, 默认为 true" )]
 		[NotifyParentProperty ( true )]
 		public bool AutoHeight
 		{
-			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.AutoHeight, true ); }
-			set { this.widgetSetting.AccordionSetting.AutoHeight = value.ToString ( ).ToLower ( ); }
+			get { return this.uiSetting.AutoHeight; }
+			set { this.uiSetting.AutoHeight = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置是否在动画结束后清除 height, overflow 样式, 可以设置为 true 或者 false.
+		/// 获取或设置是否在动画结束后清除 height, overflow 样式, 默认为 false.
 		/// </summary>
 		[Category ( "外观" )]
 		[DefaultValue ( false )]
-		[Description ( "指示是否在动画结束后清除 height, overflow 样式, 可以设置为 true 或者 false" )]
+		[Description ( "指示是否在动画结束后清除 height, overflow 样式, 默认为 false" )]
 		[NotifyParentProperty ( true )]
 		public bool ClearStyle
 		{
-			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.ClearStyle, false ); }
-			set { this.widgetSetting.AccordionSetting.ClearStyle = value.ToString ( ).ToLower ( ); }
+			get { return this.uiSetting.ClearStyle; }
+			set { this.uiSetting.ClearStyle = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置是否关闭所有的列表, 可以设置为 true 或者 false.
+		/// 获取或设置是否关闭所有的列表, 默认为 false.
 		/// </summary>
 		[Category ( "行为" )]
 		[DefaultValue ( false )]
-		[Description ( "指示是否关闭所有的列表, 可以设置为 true 或者 false" )]
+		[Description ( "指示是否关闭所有的列表, 默认为 false" )]
 		[NotifyParentProperty ( true )]
 		public bool Collapsible
 		{
-			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.Collapsible, false ); }
-			set { this.widgetSetting.AccordionSetting.Collapsible = value.ToString ( ).ToLower ( ); }
+			get { return this.uiSetting.Collapsible; }
+			set { this.uiSetting.Collapsible = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置触发列表的事件, 比如: mouseover.
+		/// 获取或设置触发列表的事件, 默认为 click.
 		/// </summary>
 		[Category ( "行为" )]
 		[DefaultValue ( EventType.click )]
-		[Description ( "指示触发列表的事件, 比如: mouseover" )]
+		[Description ( "指示触发列表的事件, 默认为 click" )]
 		[NotifyParentProperty ( true )]
 		public EventType Event
 		{
-			get { return this.getEnum<EventType> ( this.widgetSetting.AccordionSetting.Event, EventType.click ); }
-			set { this.widgetSetting.AccordionSetting.Event = "'" + value + "'"; }
+			get { return this.uiSetting.Event; }
+			set { this.uiSetting.Event = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置是否以父容器填充高度, 可以设置为 true 或者 false.
+		/// 获取或设置是否以父容器填充高度, 默认为 false.
 		/// </summary>
 		[Category ( "外观" )]
 		[DefaultValue ( false )]
-		[Description ( "指示是否以父容器填充高度, 可以设置为 true 或者 false" )]
+		[Description ( "指示是否以父容器填充高度, 默认为 false" )]
 		[NotifyParentProperty ( true )]
 		public bool FillSpace
 		{
-			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.FillSpace, false ); }
-			set { this.widgetSetting.AccordionSetting.FillSpace = value.ToString ( ).ToLower ( ); }
+			get { return this.uiSetting.FillSpace; }
+			set { this.uiSetting.FillSpace = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置作为标题的元素, 可以是选择器, 默认为 > li > :first-child, > :not(li):even.
+		/// 获取或设置作为标题的元素, 可以是选择器, 默认为 "> li > :first-child, > :not(li):even".
 		/// </summary>
 		[Category ( "行为" )]
-		[DefaultValue ( "" )]
+		[DefaultValue ( "> li > :first-child, > :not(li):even" )]
 		[Description ( "指示作为标题的元素, 可以是选择器, 默认为 > li > :first-child, > :not(li):even" )]
 		[NotifyParentProperty ( true )]
 		public string Header
 		{
-			get { return this.widgetSetting.AccordionSetting.Header.Trim ( '\'' ); }
-			set { this.widgetSetting.AccordionSetting.Header = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
+			get { return this.uiSetting.Header; }
+			set { this.uiSetting.Header = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置列表显示的图标, 默认为: { 'header': 'ui-icon-triangle-1-e', 'headerSelected': 'ui-icon-triangle-1-s' }.
+		/// 获取或设置列表显示的图标, 默认为: "{ 'header': 'ui-icon-triangle-1-e', 'headerSelected': 'ui-icon-triangle-1-s' }".
 		/// </summary>
 		[Category ( "外观" )]
-		[DefaultValue ( "" )]
+		[DefaultValue ( "{ 'header': 'ui-icon-triangle-1-e', 'headerSelected': 'ui-icon-triangle-1-s' }" )]
 		[Description ( "指示列表显示的图标, 默认为: { 'header': 'ui-icon-triangle-1-e', 'headerSelected': 'ui-icon-triangle-1-s' }" )]
 		[NotifyParentProperty ( true )]
 		public string Icons
 		{
-			get { return this.widgetSetting.AccordionSetting.Icons; }
-			set { this.widgetSetting.AccordionSetting.Icons = value; }
+			get { return this.uiSetting.Icons; }
+			set { this.uiSetting.Icons = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置是否可以导航, 可以设置为 true 或者 false.
+		/// 获取或设置是否可以导航, 默认为 false.
 		/// </summary>
 		[Category ( "行为" )]
 		[DefaultValue ( false )]
-		[Description ( "指示是否可以导航, 可以设置为 true 或者 false" )]
+		[Description ( "指示是否可以导航, 默认为 false" )]
 		[NotifyParentProperty ( true )]
 		public bool Navigation
 		{
-			get { return this.getBoolean ( this.widgetSetting.AccordionSetting.Navigation, false ); }
-			set { this.widgetSetting.AccordionSetting.Navigation = value.ToString ( ).ToLower ( ); }
+			get { return this.uiSetting.Navigation; }
+			set { this.uiSetting.Navigation = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置选择导航的函数.
+		/// 获取或设置选择导航的函数, 默认为空字符串.
 		/// </summary>
 		[Category ( "行为" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示选择导航的函数" )]
+		[Description ( "指示选择导航的函数, 默认为空字符串" )]
 		[NotifyParentProperty ( true )]
 		public string NavigationFilter
 		{
-			get { return this.widgetSetting.AccordionSetting.NavigationFilter.Trim ( '\'' ); }
-			set { this.widgetSetting.AccordionSetting.NavigationFilter = string.IsNullOrEmpty ( value ) ? string.Empty : "'" + value + "'"; }
+			get { return this.uiSetting.NavigationFilter; }
+			set { this.uiSetting.NavigationFilter = value; }
 		}
 		#endregion
 
-		#region " Event "
+		#region " event "
 		/// <summary>
-		/// 获取或设置列表被创建时的事件, 类似于: function(event, ui) { }.
+		/// 获取或设置列表被创建时的事件, 类似于: "function(event, ui) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
@@ -206,12 +198,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.widgetSetting.AccordionSetting.Create; }
-			set { this.widgetSetting.AccordionSetting.Create = value; }
+			get { return this.uiSetting.Create; }
+			set { this.uiSetting.Create = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置列表改变时的事件, 类似于: function(event, ui) { }.
+		/// 获取或设置列表改变时的事件, 类似于: "function(event, ui) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
@@ -219,12 +211,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Change
 		{
-			get { return this.widgetSetting.AccordionSetting.Change; }
-			set { this.widgetSetting.AccordionSetting.Change = value; }
+			get { return this.uiSetting.Change; }
+			set { this.uiSetting.Change = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置列表开始改变时的事件, 类似于: function(event, ui) { }.
+		/// 获取或设置列表开始改变时的事件, 类似于: "function(event, ui) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
@@ -232,26 +224,27 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Changestart
 		{
-			get { return this.widgetSetting.AccordionSetting.Changestart; }
-			set { this.widgetSetting.AccordionSetting.Changestart = value; }
+			get { return this.uiSetting.Changestart; }
+			set { this.uiSetting.Changestart = value; }
 		}
 		#endregion
 
-		#region " Ajax "
+		#region " ajax "
 		/// <summary>
 		/// 获取 Change 操作相关的 Ajax 设置.
 		/// </summary>
+		[Browsable ( false )]
 		[Category ( "Ajax" )]
 		[Description ( "Change 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public AjaxSettingEdit ChangeAsync
+		public AjaxSetting ChangeAsync
 		{
-			get { return this.changeAjax; }
+			get { return this.uiSetting.ChangeAsync; }
 		}
 		#endregion
 
-		#region " Server "
+		#region " server "
 		/// <summary>
 		/// 在服务器端执行的选中列表改变事件.
 		/// </summary>
@@ -259,29 +252,88 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public event AccordionChangeEventHandler ChangeSync;
 		#endregion
 
+		protected override bool isFaceless ( )
+		{ return this.DesignMode && ( this.selector != string.Empty || this.html == string.Empty ); }
+
+		protected override bool isFace ( )
+		{ return this.DesignMode && this.selector == string.Empty && this.html != string.Empty; }
+
+		protected override string facelessPrefix ( )
+		{ return "Accordion"; }
+
+		protected override string facelessPostfix ( )
+		{
+			string postfix = string.Empty;
+
+			if ( this.Active != 0 )
+				postfix += string.Format ( " <span style=\"color: #660066\">{0}</span>", this.Active );
+
+			if ( this.Collapsible )
+				postfix += " <span style=\"color: #660066\">collapsible</span>";
+
+			if ( this.FillSpace )
+				postfix += " <span style=\"color: #660066\">fillSpace</span>";
+
+			return base.facelessPostfix ( ) + postfix;
+		}
+
+		protected override void AddAttributesToRender ( HtmlTextWriter writer )
+		{
+			base.AddAttributesToRender ( writer );
+
+			if ( this.isFace ( ) )
+				writer.AddAttribute ( HtmlTextWriterAttribute.Class,
+					string.Format (
+					"ui-accordion ui-widget ui-helper-reset ui-accordion-icons{0}",
+					this.Disabled ? " ui-accordion-disabled ui-state-disabled" : string.Empty
+					)
+					);
+
+		}
+
+		protected override void RenderContents ( HtmlTextWriter writer )
+		{
+			base.RenderContents ( writer );
+
+			if ( null != this.ChangeSync )
+				this.Change = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "change;[%':ui.options.active%]" ) + "}";
+
+		}
+
+		private void onChange ( AccordionEventArgs e )
+		{ this.Active = e.Active; }
+
+		public void RaisePostBackEvent ( string eventArgument )
+		{
+
+			if ( string.IsNullOrEmpty ( eventArgument ) )
+				return;
+
+			string[] parts = eventArgument.Split ( ';' );
+
+			switch ( parts[0] )
+			{
+				case "change":
+
+					if ( null != this.ChangeSync )
+					{
+						AccordionEventArgs e = new AccordionEventArgs ( StringConvert.ToObject<int> ( parts[1] ) );
+
+						this.onChange ( e );
+						this.ChangeSync ( this, e );
+					}
+
+					break;
+			}
+
+		}
+
+		/*
 		protected override void Render ( HtmlTextWriter writer )
 		{
 
-			if ( !this.DesignMode )
-			{
-				// this.widgetSetting.Type = this.type;
-
-				// this.widgetSetting.AccordionSetting.SetEditHelper ( this.editHelper );
-
-				this.widgetSetting.AjaxSettings.Clear ( );
-
-				if ( this.changeAjax.Url != string.Empty )
-				{
-					this.changeAjax.WidgetEventType = EventType.accordionchange;
-					this.widgetSetting.AjaxSettings.Add ( this.changeAjax );
-				}
-
-				if ( null != this.ChangeSync )
-					this.Change = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "change;[%':ui.options.active%]" ) + "}";
-
-			}
-			else if ( this.selector == string.Empty )
-				switch ( this.widgetSetting.Type )
+			if ( this.selector == string.Empty )
+				switch ( this.uiSetting.Type )
 				{
 					case WidgetType.accordion:
 						string style = string.Empty;
@@ -337,54 +389,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			base.Render ( writer );
 		}
-
-		private void onChange ( AccordionEventArgs e )
-		{ this.Active = e.Active; }
-
-		public void RaisePostBackEvent ( string eventArgument )
-		{
-
-			if ( string.IsNullOrEmpty ( eventArgument ) )
-				return;
-
-			string[] parts = eventArgument.Split ( ';' );
-
-			switch ( parts[0] )
-			{
-				case "change":
-
-					if ( null != this.ChangeSync )
-					{
-						AccordionEventArgs e = new AccordionEventArgs ( StringConvert.ToObject<int> ( parts[1] ) );
-
-						this.onChange ( e );
-						this.ChangeSync ( this, e );
-					}
-
-					break;
-			}
-
-		}
+		*/
 
 	}
-
-	#region " AccordionDesigner "
-	/// <summary>
-	/// 折叠列表设计器.
-	/// </summary>
-	public class AccordionDesigner : JQueryElementDesigner
-	{
-
-		/// <summary>
-		/// 获取行为列表.
-		/// </summary>
-		public override DesignerActionListCollection ActionLists
-		{
-			get { return new DesignerActionListCollection ( ); }
-		}
-
-	}
-	#endregion
 
 	/// <summary>
 	/// 折叠列表选中索引改变事件.

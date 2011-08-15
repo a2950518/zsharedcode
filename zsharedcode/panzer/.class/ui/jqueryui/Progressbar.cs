@@ -1,17 +1,13 @@
 ﻿/*
- * wiki:
- * http://code.google.com/p/zsharedcode/wiki/JQueryUIProgressbar
- * 如果您无法运行此文件, 可能由于缺少相关类文件, 请下载解决方案后重试, 具体请参考: http://code.google.com/p/zsharedcode/wiki/HowToDownloadAndUse
+ * 作者: M.S.cxc
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Progressbar.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
- * 使用许可: 此文件是开源共享免费的, 但您仍然需要遵守, 下载并将 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 包含在你的产品中.
+ * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
  * */
 
 using System.ComponentModel;
-using System.ComponentModel.Design;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 using zoyobar.shared.panzer.code;
 using zoyobar.shared.panzer.web.jqueryui;
@@ -23,51 +19,48 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// jQuery UI 进度条插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Progressbar runat=server></{0}:Progressbar>" )]
-	[Designer ( typeof ( ProgressbarDesigner ) )]
 	public class Progressbar
-		: BaseWidget, IPostBackEventHandler
+		: JQueryWidget<ProgressbarSetting>, IPostBackEventHandler
 	{
-		private readonly AjaxSettingEdit changeAjax = new AjaxSettingEdit ( );
-		private readonly AjaxSettingEdit completeAjax = new AjaxSettingEdit ( );
 
 		/// <summary>
 		/// 创建一个 jQuery UI 进度条.
 		/// </summary>
 		public Progressbar ( )
-			: base ( WidgetType.progressbar )
-		{ this.elementType = ElementType.Div; }
+			: base ( new ProgressbarSetting ( ), HtmlTextWriterTag.Div )
+		{ }
 
-		#region " Option "
+		#region " option "
 		/// <summary>
-		/// 获取或设置进度条是否可用, 可以设置为 true 或者 false.
+		/// 获取或设置进度条是否可用, 默认为 false.
 		/// </summary>
 		[Category ( "行为" )]
 		[DefaultValue ( false )]
-		[Description ( "指示进度条是否可用, 可以设置为 true 或者 false" )]
+		[Description ( "指示进度条是否可用, 默认为 false" )]
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.getBoolean ( this.widgetSetting.ProgressbarSetting.Disabled, false ); }
-			set { this.widgetSetting.ProgressbarSetting.Disabled = value.ToString ( ).ToLower ( ); }
+			get { return this.uiSetting.Disabled; }
+			set { this.uiSetting.Disabled = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置进度条当前的值, 比如: 37.
+		/// 获取或设置进度条当前的值, 默认为 0.
 		/// </summary>
 		[Category ( "行为" )]
 		[DefaultValue ( 0 )]
-		[Description ( "指示进度条当前的值, 比如: 37" )]
+		[Description ( "指示进度条当前的值, 默认为 0" )]
 		[NotifyParentProperty ( true )]
 		public int Value
 		{
-			get { return this.getInteger ( this.widgetSetting.ProgressbarSetting.Value, 0 ); }
-			set { this.widgetSetting.ProgressbarSetting.Value = value <= 0 ? string.Empty : value.ToString ( ); }
+			get { return this.uiSetting.Value; }
+			set { this.uiSetting.Value = value; }
 		}
 		#endregion
 
-		#region " Event "
+		#region " event "
 		/// <summary>
-		/// 获取或设置进度条被创建时的事件, 类似于: function(event, ui) { }.
+		/// 获取或设置进度条被创建时的事件, 类似于: "function(event, ui) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
@@ -75,12 +68,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.widgetSetting.ProgressbarSetting.Create; }
-			set { this.widgetSetting.ProgressbarSetting.Create = value; }
+			get { return this.uiSetting.Create; }
+			set { this.uiSetting.Create = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置进度条当前值改变时的事件, 类似于: function(event, ui) { }.
+		/// 获取或设置进度条当前值改变时的事件, 类似于: "function(event, ui) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
@@ -88,12 +81,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Change
 		{
-			get { return this.widgetSetting.ProgressbarSetting.Change; }
-			set { this.widgetSetting.ProgressbarSetting.Change = value; }
+			get { return this.uiSetting.Change; }
+			set { this.uiSetting.Change = value; }
 		}
 
 		/// <summary>
-		/// 获取或设置进度条完成时的事件, 类似于: function(event, ui) { }.
+		/// 获取或设置进度条完成时的事件, 类似于: "function(event, ui) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
@@ -101,39 +94,41 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Complete
 		{
-			get { return this.widgetSetting.ProgressbarSetting.Complete; }
-			set { this.widgetSetting.ProgressbarSetting.Complete = value; }
+			get { return this.uiSetting.Complete; }
+			set { this.uiSetting.Complete = value; }
 		}
 		#endregion
 
-		#region " Ajax "
+		#region " ajax "
 		/// <summary>
 		/// 获取 Change 操作相关的 Ajax 设置.
 		/// </summary>
+		[Browsable(false)]
 		[Category ( "Ajax" )]
 		[Description ( "Change 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
 		[NotifyParentProperty ( true )]
-		public AjaxSettingEdit ChangeAsync
+		public AjaxSetting ChangeAsync
 		{
-			get { return this.changeAjax; }
+			get { return this.uiSetting.ChangeAsync; }
 		}
 		/// <summary>
 		/// 获取 Complete 操作相关的 Ajax 设置.
 		/// </summary>
+		[Browsable(false)]
 		[Category ( "Ajax" )]
 		[Description ( "Complete 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
 		[NotifyParentProperty ( true )]
-		public AjaxSettingEdit CompleteAsync
+		public AjaxSetting CompleteAsync
 		{
-			get { return this.completeAjax; }
+			get { return this.uiSetting.CompleteAsync; }
 		}
 		#endregion
 
-		#region " Server "
+		#region " server "
 		/// <summary>
 		/// 在服务器端执行的值改变事件.
 		/// </summary>
@@ -146,62 +141,50 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public event ProgressbarCompleteEventHandler CompleteSync;
 		#endregion
 
-		protected override void Render ( HtmlTextWriter writer )
+		protected override string facelessPrefix ( )
+		{ return "Progressbar"; }
+
+		protected override string facelessPostfix ( )
 		{
+			string postfix = string.Empty;
 
-			if ( !this.DesignMode )
+			postfix += string.Format ( " <span style=\"color: #660066\">{0}</span>", this.Value );
+
+			return base.facelessPostfix ( ) + postfix;
+		}
+
+		protected override void AddAttributesToRender ( HtmlTextWriter writer )
+		{
+			base.AddAttributesToRender ( writer );
+
+			if ( this.isFace ( ) )
+				writer.AddAttribute ( HtmlTextWriterAttribute.Class,
+					string.Format (
+					"ui-progressbar ui-widget ui-widget-content ui-corner-all{0}",
+					this.Disabled ? " ui-progressbase-disabled ui-state-disabled" : string.Empty
+					)
+					);
+
+		}
+
+		protected override void RenderContents ( HtmlTextWriter writer )
+		{
+			base.RenderContents ( writer );
+
+			if ( this.isFace ( ) )
 			{
-				// this.widgetSetting.Type = this.type;
-
-				// this.widgetSetting.ProgressbarSetting.SetEditHelper ( this.editHelper );
-
-				this.widgetSetting.AjaxSettings.Clear ( );
-
-				if ( this.changeAjax.Url != string.Empty )
-				{
-					this.changeAjax.WidgetEventType = EventType.progressbarchange;
-					this.widgetSetting.AjaxSettings.Add ( this.changeAjax );
-				}
-
-				if ( this.completeAjax.Url != string.Empty )
-				{
-					this.completeAjax.WidgetEventType = EventType.progressbarcomplete;
-					this.widgetSetting.AjaxSettings.Add ( this.completeAjax );
-				}
-
-				if ( null != this.ChangeSync )
-					this.Change = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "change;[%':$(this).progressbar(!sq!option!sq!, !sq!value!sq!)%]" ) + "}";
-
-				if ( null != this.CompleteSync )
-					this.Complete = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "complete;[%':$(this).progressbar(!sq!option!sq!, !sq!value!sq!)%]" ) + "}";
-
+				writer.RenderBeginTag ( HtmlTextWriterTag.Div );
+				writer.AddAttribute ( HtmlTextWriterAttribute.Class, "ui-progressbar-value ui-widget-header ui-corner-left" );
+				writer.AddStyleAttribute ( HtmlTextWriterStyle.Width, this.Value.ToString ( ) + "%" );
+				writer.RenderEndTag ( );
 			}
-			else if ( this.selector == string.Empty )
-				switch ( this.widgetSetting.Type )
-				{
-					case WidgetType.progressbar:
-						string style = string.Empty;
 
-						if ( this.Width != Unit.Empty )
-							style += string.Format ( "width:{0};", this.Width );
+			if ( null != this.ChangeSync )
+				this.Change = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "change;[%':$(this).progressbar(!sq!option!sq!, !sq!value!sq!)%]" ) + "}";
 
-						if ( this.Height != Unit.Empty )
-							style += string.Format ( "height:{0};", this.Height );
+			if ( null != this.CompleteSync )
+				this.Complete = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "complete;[%':$(this).progressbar(!sq!option!sq!, !sq!value!sq!)%]" ) + "}";
 
-						writer.Write (
-							"<{6} id=\"{0}\" class=\"{3}ui-progressbar ui-widget ui-widget-content ui-corner-all{2}\" style=\"{4}\" title=\"{5}\"><div style=\"width: {1}%;\" class=\"ui-progressbar-value ui-widget-header ui-corner-left\"></div></{6}>",
-							this.ClientID,
-							this.Value,
-							this.Disabled ? " ui-progressbase-disabled ui-state-disabled" : string.Empty,
-							string.IsNullOrEmpty ( this.CssClass ) ? string.Empty : this.CssClass + " ",
-							style,
-							this.ToolTip,
-							this.elementType.ToString ( ).ToLower ( )
-							);
-						return;
-				}
-
-			base.Render ( writer );
 		}
 
 		private void onChange ( ProgressbarEventArgs e )
@@ -249,24 +232,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 	}
-
-	#region " ProgressbarDesigner "
-	/// <summary>
-	/// 进度条设计器.
-	/// </summary>
-	public class ProgressbarDesigner : JQueryElementDesigner
-	{
-
-		/// <summary>
-		/// 获取行为列表.
-		/// </summary>
-		public override DesignerActionListCollection ActionLists
-		{
-			get { return new DesignerActionListCollection ( ); }
-		}
-
-	}
-	#endregion
 
 	/// <summary>
 	/// 进度条值改变事件.

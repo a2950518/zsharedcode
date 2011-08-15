@@ -1,33 +1,23 @@
 ﻿/*
  * 作者: M.S.cxc
- * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/ui/jqueryui/Autocomplete.cs
+ * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/jqueryui/AutocompleteSetting.cs
  * 版本: .net 4.0, 其它版本可能有所不同
  * 
  * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
  * */
 
 using System.ComponentModel;
-using System.Web.UI;
 
-using zoyobar.shared.panzer.web.jqueryui;
-
-namespace zoyobar.shared.panzer.ui.jqueryui
+namespace zoyobar.shared.panzer.web.jqueryui
 {
 
+	#region " AutocompleteSetting "
 	/// <summary>
-	/// jQuery UI 自动填充插件.
+	/// 自动填充设置.
 	/// </summary>
-	[ToolboxData ( "<{0}:Autocomplete runat=server></{0}:Autocomplete>" )]
-	public class Autocomplete
-		: JQueryWidget<AutocompleteSetting>
+	public sealed class AutocompleteSetting
+		: WidgetSetting
 	{
-
-		/// <summary>
-		/// 创建一个 jQuery UI 自动填充.
-		/// </summary>
-		public Autocomplete ( )
-			: base ( new AutocompleteSetting ( ), HtmlTextWriterTag.Input )
-		{ }
 
 		#region " option "
 		/// <summary>
@@ -39,8 +29,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool Disabled
 		{
-			get { return this.uiSetting.Disabled; }
-			set { this.uiSetting.Disabled = value; }
+			get { return this.settingHelper.GetOptionValueToBoolean ( OptionType.disabled, false ); }
+			set { this.settingHelper.SetOptionValueToBoolean ( OptionType.disabled, value, false ); }
 		}
 
 		/// <summary>
@@ -52,8 +42,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string AppendTo
 		{
-			get { return this.uiSetting.AppendTo; }
-			set { this.uiSetting.AppendTo = value; }
+			get { return this.settingHelper.GetOptionValueToString ( OptionType.appendTo, "body" ); }
+			set { this.settingHelper.SetOptionValueToString ( OptionType.appendTo, value, "body" ); }
 		}
 
 		/// <summary>
@@ -65,8 +55,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public bool AutoFocus
 		{
-			get { return this.uiSetting.AutoFocus; }
-			set { this.uiSetting.AutoFocus = value; }
+			get { return this.settingHelper.GetOptionValueToBoolean ( OptionType.autoFocus, false ); }
+			set { this.settingHelper.SetOptionValueToBoolean ( OptionType.autoFocus, value, false ); }
 		}
 
 		/// <summary>
@@ -78,8 +68,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int Delay
 		{
-			get { return this.uiSetting.Delay; }
-			set { this.uiSetting.Delay = value; }
+			get { return this.settingHelper.GetOptionValueToInteger ( OptionType.delay, 300 ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.delay, ( value <= 0 ) ? "300" : value.ToString ( ), "300" ); }
 		}
 
 		/// <summary>
@@ -91,8 +81,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public int MinLength
 		{
-			get { return this.uiSetting.MinLength; }
-			set { this.uiSetting.MinLength = value; }
+			get { return this.settingHelper.GetOptionValueToInteger ( OptionType.delay, 1 ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.delay, ( value <= 0 ) ? "1" : value.ToString ( ), "1" ); }
 		}
 
 		/// <summary>
@@ -104,8 +94,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Position
 		{
-			get { return this.uiSetting.Position; }
-			set { this.uiSetting.Position = value; }
+			get { return this.settingHelper.GetOptionValue ( OptionType.position, "{ my: 'left top', at: 'left bottom', collision: 'none' }" ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.position, value, "{ my: 'left top', at: 'left bottom', collision: 'none' }" ); }
 		}
 
 		/// <summary>
@@ -117,8 +107,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Source
 		{
-			get { return this.uiSetting.Source; }
-			set { this.uiSetting.Source = value; }
+			get { return this.settingHelper.GetOptionValue ( OptionType.source ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.source, value, string.Empty ); }
 		}
 		#endregion
 
@@ -132,8 +122,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Create
 		{
-			get { return this.uiSetting.Create; }
-			set { this.uiSetting.Create = value; }
+			get { return this.settingHelper.GetOptionValue ( OptionType.create ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.create, value, string.Empty ); }
 		}
 
 		/// <summary>
@@ -145,8 +135,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Search
 		{
-			get { return this.uiSetting.Search; }
-			set { this.uiSetting.Search = value; }
+			get { return this.settingHelper.GetOptionValue ( OptionType.search ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.search, value, string.Empty ); }
 		}
 
 		/// <summary>
@@ -158,8 +148,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Open
 		{
-			get { return this.uiSetting.Open; }
-			set { this.uiSetting.Open = value; }
+			get { return this.settingHelper.GetOptionValue ( OptionType.open ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.open, value, string.Empty ); }
 		}
 
 		/// <summary>
@@ -169,10 +159,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[DefaultValue ( "" )]
 		[Description ( "指示获得焦点时的事件, 类似于: function(event, ui) { }" )]
 		[NotifyParentProperty ( true )]
-		public new string Focus
+		public string Focus
 		{
-			get { return this.uiSetting.Focus; }
-			set { this.uiSetting.Focus = value; }
+			get { return this.settingHelper.GetOptionValue ( OptionType.focus ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.focus, value, string.Empty ); }
 		}
 
 		/// <summary>
@@ -184,8 +174,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Select
 		{
-			get { return this.uiSetting.Select; }
-			set { this.uiSetting.Select = value; }
+			get { return this.settingHelper.GetOptionValue ( OptionType.select ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.select, value, string.Empty ); }
 		}
 
 		/// <summary>
@@ -197,8 +187,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Close
 		{
-			get { return this.uiSetting.Close; }
-			set { this.uiSetting.Close = value; }
+			get { return this.settingHelper.GetOptionValue ( OptionType.close ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.close, value, string.Empty ); }
 		}
 
 		/// <summary>
@@ -210,57 +200,30 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[NotifyParentProperty ( true )]
 		public string Change
 		{
-			get { return this.uiSetting.Change; }
-			set { this.uiSetting.Change = value; }
+			get { return this.settingHelper.GetOptionValue ( OptionType.change ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.change, value, string.Empty ); }
 		}
 		#endregion
 
 		#region " ajax "
 		/// <summary>
-		/// 获取 Change 操作相关的 Ajax 设置.
+		/// 获取或设置自动填充改变时触发的 Ajax 操作的相关设置.
 		/// </summary>
-		[Browsable ( false )]
-		[Category ( "Ajax" )]
-		[Description ( "Change 操作相关的 Ajax 设置" )]
-		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.InnerProperty )]
 		public AjaxSetting ChangeAsync
 		{
-			get { return this.uiSetting.ChangeAsync; }
+			get { return this.ajaxs[0]; }
+			set { this.ajaxs[0] = value; }
 		}
 		#endregion
 
-		protected override string facelessPrefix ( )
-		{ return "Autocomplete"; }
-
-		protected override string facelessPostfix ( )
-		{
-			string postfix = string.Empty;
-
-			if ( this.AutoFocus )
-				postfix += " <span style=\"color: #660066\">autoFocus</span>";
-
-			postfix += string.Format ( " <span style=\"color: #660066\">{0}</span>", this.MinLength );
-
-			return base.facelessPostfix ( ) + postfix;
-		}
-
-		protected override void AddAttributesToRender ( HtmlTextWriter writer )
-		{
-			base.AddAttributesToRender ( writer );
-
-			if ( this.isFace ( ) )
-			{
-				writer.AddAttribute ( HtmlTextWriterAttribute.Class,
-					string.Format (
-					"ui-autocomplete-input{0}",
-					this.Disabled ? " ui-autocomplete-disabled ui-state-disabled" : string.Empty
-					)
-					);
-			}
-
-		}
+		/// <summary>
+		/// 创建一个自动填充设置.
+		/// </summary>
+		public AutocompleteSetting ( )
+			: base ( WidgetType.autocomplete, 1 )
+		{ this.ajaxs[0].EventType = EventType.autocompletechange; }
 
 	}
+	#endregion
 
 }
