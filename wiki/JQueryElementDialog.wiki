@@ -1,6 +1,0 @@
-#summary 对话框
-#labels Phase-Implementation,Phase-Support,Phase-Deploy
-<font face="microsoft yahei">
-=== 对话框 ===
- * [JQueryElementDialogDoc 对话框]
-</font>
