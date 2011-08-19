@@ -1,6 +1,0 @@
-#summary 折叠列表
-#labels Phase-Implementation,Phase-Support,Phase-Deploy
-<font face="microsoft yahei">
-=== 折叠列表 ===
- * [JQueryElementAccordionDoc 折叠列表 - 垂直导航栏]
-</font>
