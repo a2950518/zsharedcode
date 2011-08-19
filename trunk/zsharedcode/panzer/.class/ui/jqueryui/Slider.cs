@@ -239,6 +239,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public event SliderChangeEventHandler ChangeSync;
 		#endregion
 
+		protected override bool isFaceless ( )
+		{ return this.DesignMode && ( this.selector != string.Empty || this.html == string.Empty ); }
+
+		protected override bool isFace ( )
+		{ return this.DesignMode && this.selector == string.Empty && this.html != string.Empty; }
+
 		protected override string facelessPrefix ( )
 		{ return "Slider"; }
 
@@ -269,6 +275,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		protected override void RenderContents ( HtmlTextWriter writer )
 		{
+
+			if ( null != this.ChangeSync )
+				this.Change = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "change;[%':ui.value%]" ) + "}";
+
 			base.RenderContents ( writer );
 
 			if ( this.isFace ( ) )
@@ -278,9 +288,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				writer.AddStyleAttribute ( HtmlTextWriterStyle.Left, ( this.Value / this.Max ).ToString ( ) + "%" );
 				writer.RenderEndTag ( );
 			}
-
-			if ( null != this.ChangeSync )
-				this.Change = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "change;[%':ui.value%]" ) + "}";
 
 		}
 

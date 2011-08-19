@@ -28,7 +28,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 创建一个缩放功能的控件类.
 		/// </summary>
 		public Resizable ( )
-			: base ( new ResizableSetting ( ), HtmlTextWriterTag.Span )
+			: base ( new ResizableSetting ( ), HtmlTextWriterTag.Div )
 		{ }
 
 		#region " option "

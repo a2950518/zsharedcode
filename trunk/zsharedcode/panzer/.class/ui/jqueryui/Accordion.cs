@@ -293,11 +293,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		protected override void RenderContents ( HtmlTextWriter writer )
 		{
-			base.RenderContents ( writer );
 
 			if ( null != this.ChangeSync )
 				this.Change = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "change;[%':ui.options.active%]" ) + "}";
 
+			base.RenderContents ( writer );
 		}
 
 		private void onChange ( AccordionEventArgs e )

@@ -368,10 +368,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		protected override void RenderContents ( HtmlTextWriter writer )
 		{
-			base.RenderContents ( writer );
 
 			if ( null != this.SelectSync )
 				this.Select = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "select;[%':ui.index%]" ) + "}";
+
+			base.RenderContents ( writer );
 
 		}
 

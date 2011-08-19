@@ -103,7 +103,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取 Change 操作相关的 Ajax 设置.
 		/// </summary>
-		[Browsable(false)]
+		[Browsable ( false )]
 		[Category ( "Ajax" )]
 		[Description ( "Change 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
@@ -116,7 +116,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取 Complete 操作相关的 Ajax 设置.
 		/// </summary>
-		[Browsable(false)]
+		[Browsable ( false )]
 		[Category ( "Ajax" )]
 		[Description ( "Complete 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
@@ -140,6 +140,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Description ( "指示完成的服务器端事件, 如果设置客户端事件将无效" )]
 		public event ProgressbarCompleteEventHandler CompleteSync;
 		#endregion
+
+		protected override bool isFaceless ( )
+		{ return this.DesignMode && ( this.selector != string.Empty || this.html == string.Empty ); }
+
+		protected override bool isFace ( )
+		{ return this.DesignMode && this.selector == string.Empty && this.html != string.Empty; }
 
 		protected override string facelessPrefix ( )
 		{ return "Progressbar"; }
@@ -169,6 +175,13 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		protected override void RenderContents ( HtmlTextWriter writer )
 		{
+
+			if ( null != this.ChangeSync )
+				this.Change = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "change;[%':$(this).progressbar(!sq!option!sq!, !sq!value!sq!)%]" ) + "}";
+
+			if ( null != this.CompleteSync )
+				this.Complete = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "complete;[%':$(this).progressbar(!sq!option!sq!, !sq!value!sq!)%]" ) + "}";
+
 			base.RenderContents ( writer );
 
 			if ( this.isFace ( ) )
@@ -176,14 +189,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				writer.RenderBeginTag ( HtmlTextWriterTag.Div );
 				writer.AddAttribute ( HtmlTextWriterAttribute.Class, "ui-progressbar-value ui-widget-header ui-corner-left" );
 				writer.AddStyleAttribute ( HtmlTextWriterStyle.Width, this.Value.ToString ( ) + "%" );
+				writer.Write ( "<span style=\"font-family: Verdana; background-color: #FFFFFF\">{0}%</span>", this.Value );
 				writer.RenderEndTag ( );
 			}
-
-			if ( null != this.ChangeSync )
-				this.Change = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "change;[%':$(this).progressbar(!sq!option!sq!, !sq!value!sq!)%]" ) + "}";
-
-			if ( null != this.CompleteSync )
-				this.Complete = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "complete;[%':$(this).progressbar(!sq!option!sq!, !sq!value!sq!)%]" ) + "}";
 
 		}
 
