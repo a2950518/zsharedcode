@@ -28,7 +28,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 创建一个选中功能的控件类.
 		/// </summary>
 		public Selectable ( )
-			: base ( new SelectableSetting ( ), HtmlTextWriterTag.Span )
+			: base ( new SelectableSetting ( ), HtmlTextWriterTag.Ul )
 		{ }
 
 		#region " option "

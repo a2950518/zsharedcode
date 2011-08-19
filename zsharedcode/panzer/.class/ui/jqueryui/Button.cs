@@ -79,7 +79,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[DefaultValue ( true )]
 		[Description ( "指示按钮是否显示文本, 默认为 true" )]
 		[NotifyParentProperty ( true )]
-		public new bool Text
+		public bool _Text
 		{
 			get { return this.uiSetting.Text; }
 			set { this.uiSetting.Text = value; }
@@ -192,7 +192,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			{
 				string css = string.Empty;
 
-				if ( !this.Text )
+				if ( !this._Text )
 					css = " ui-button-icon-only";
 				else if ( !string.IsNullOrEmpty ( this.PrimaryIcon ) && string.IsNullOrEmpty ( this.SecondaryIcon ) )
 					css = " ui-button-text-icon-primary";
@@ -216,6 +216,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		protected override void RenderContents ( HtmlTextWriter writer )
 		{
+
+			if ( null != this.ClickSync )
+				this.Click = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "click" ) + "}";
+
 			base.RenderContents ( writer );
 
 			if ( this.isFace ( ) )
@@ -235,9 +239,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 				writer.RenderEndTag ( );
 			}
-
-			if ( null != this.ClickSync )
-				this.Click = "function(event, ui){" + this.Page.ClientScript.GetPostBackEventReference ( this, "click" ) + "}";
 
 		}
 

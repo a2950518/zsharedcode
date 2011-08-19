@@ -26,7 +26,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 创建一个排列功能的控件类.
 		/// </summary>
 		public Sortable ( )
-			: base ( new SortableSetting ( ), HtmlTextWriterTag.Span )
+			: base ( new SortableSetting ( ), HtmlTextWriterTag.Ul )
 		{ }
 
 		#region " option "
