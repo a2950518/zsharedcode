@@ -1,9 +1,0 @@
-#summary 拖放
-#labels Phase-Implementation,Phase-Support,Phase-Deploy
-<font face="microsoft yahei">
-=== 拖放 ===
- * [JQueryElementDroppableDoc 拖放基本操作]
- * [JEDroppableClassDoc 拖放设置样式]
- * [JEDroppableToleranceDoc 拖放模式]
- * [JEDroppableEventDoc 拖放事件]
-</font>
