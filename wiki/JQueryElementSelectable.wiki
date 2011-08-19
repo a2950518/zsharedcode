@@ -1,9 +1,0 @@
-#summary 选中
-#labels Phase-Implementation,Phase-Support,Phase-Deploy
-<font face="microsoft yahei">
-=== 选中 ===
- * [JQueryElementSelectableDoc 选中基本操作]
- * [JESelectableDelayDoc 选中延迟]
- * [JESelectableDistanceDoc 选中有效距离]
- * [JESelectableEventDoc 选中事件]
-</font>
