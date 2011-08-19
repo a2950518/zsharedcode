@@ -1,6 +1,0 @@
-#summary 自动填充
-#labels Phase-Implementation,Phase-Support,Phase-Deploy
-<font face="microsoft yahei">
-=== 自动填充 ===
- * [JQueryElementAutoCompleteDoc 自动填充 - 提取单词]
-</font>
