@@ -1,6 +1,0 @@
-#summary 按钮
-#labels Phase-Implementation,Phase-Support,Phase-Deploy
-<font face="microsoft yahei">
-=== 按钮 ===
- * [JQueryElementButtonDoc 按钮 - 简单计算器]
-</font>
