@@ -1,6 +1,0 @@
-#summary 分割条
-#labels Phase-Implementation,Phase-Support,Phase-Deploy
-<font face="microsoft yahei">
-=== 分割条 ===
- * [JQueryElementSliderDoc 分割条 - 图片滚动显示]
-</font>
