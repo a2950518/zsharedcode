@@ -1,6 +1,0 @@
-#summary 分组标签
-#labels Phase-Implementation,Phase-Support,Phase-Deploy
-<font face="microsoft yahei">
-=== 分组标签 ===
- * [JQueryElementTabsDoc 分组标签 - 水平导航栏]
-</font>
