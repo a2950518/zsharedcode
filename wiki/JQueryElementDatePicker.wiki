@@ -1,6 +1,0 @@
-#summary 日期框
-#labels Phase-Implementation,Phase-Support,Phase-Deploy
-<font face="microsoft yahei">
-=== 日期框 ===
- * [JQueryElementDatePickerDoc 日期框 - 日程表]
-</font>
