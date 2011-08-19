@@ -1,83 +1,201 @@
-﻿#summary JQueryElement 分割条 - 图片滚动显示
+﻿#summary JQueryElement 分割条
 #labels Phase-Implementation
 <font face="microsoft yahei">
-=== 说明 ===
- 在此示例中, 设置两个 [JQueryUISlider Slider] 控件, 拖动两个分割条, 即可以在 div 元素中显示 9 个单元格中的一个. 但单元格中其实没有图片, 留给大家添加即可.
+=== 简介 ===
+ 使用 JQueryElement 的 Slider 控件即可实现 jQuery UI 中的分割条.
 
- ==== 设置分割条的值 ====
- [JQueryUISlider Slider] 的 Max, Min 属性对应了分割条的最大和最小值, Step 属性对应了滑动的步长, Value 属性指定当前值, 比如: {{{<je:Slider ID="sliderV" runat="server" ... Max="200" Step="100" Value="200" ...></je:Slider>}}}.
+=== 前提条件 ===
+ 1. 请在 [Download 下载资源] 中下载 JQueryElement 3.0 或更高版本的 dll, 并为项目引用对应 .NET 版本的 dll.
 
- ==== 设置分割条方向 ====
- [JQueryUISlider Slider] 的 Orientation 属性对应了分割条的方向, 默认为水平, 设置为 vertical 则表示垂直, 比如: {{{<je:Slider ID="sliderV" runat="server" ... Orientation="vertical" ...></je:Slider>}}}.
+ 2. 在页面添加如下指令:
+{{{
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement" Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
+}}}
 
- ==== 设置分割条客户端事件 ====
- [JQueryUISlider Slider] 的 Change, Slide 属性分别对应了分割条值改变和正在滑动时的客户端事件, 示例中的垂直分割条在值改变后, 滚动显示到单元格, 水平分割条在滑动时, 滚动单元格.
- 
- ==== 参考图片 ====
- [http://zsharedcode.googlecode.com/files/slider.design.png]
- [http://zsharedcode.googlecode.com/files/slider.runtime.png]
+ 3. JQueryElement 并没有将 jQuery UI 的脚本和样式作为资源嵌入, 所以请将 jQuery UI 所需的脚本和样式复制到项目中并在页面中引用, 比如:
+{{{
+<script type="text/javascript" src="../js/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery-ui-1.8.11.custom.min.js"></script>
+<link type="text/css" rel="Stylesheet" href="../css/smoothness/jquery-ui-1.8.15.custom.css" />
+}}}
 
-=== slider/Default.aspx ===
+ 4. 添加如下 js 脚本:
+{{{
+<script type="text/javascript">
+	function writeLine(selector, html) {
+		$(selector).html($(selector).html() + html + '<br />');
+	}
+</script>
+}}}
+
+ 5. 页面包含如下自定义样式, 请参考文章尾部的 main.css.
+{{{
+<link type="text/css" rel="Stylesheet" href="../css/main.css" />
+}}}
+
+=== 添加 ScriptPackage 控件 ===
+ 添加 ScriptPackage 控件, 用来统一存放控件产生的 js 脚本, 也可以不添加. 需要将控件放到页面代码的尾部, 否则有些 js 脚本可能不会被包含.
+{{{
+<je:ScriptPackage ID="package" runat="server" />
+}}}
+
+=== 实现一个简单的分割条 ===
+ 在页面中添加如下代码:
+ {{{
+<je:Slider ID="sA" runat="server" ScriptPackageID="package" Value="50">
+</je:Slider>
+ }}}
+ 这里实现了一个分割条, 其对应的 js 脚本将生成到刚才添加的 ScriptPackage 控件中.
+
+=== 通过选择器实现分割条 ===
+ Slider 可以使页面上其它的元素实现分割条, 通过 Selector 属性, 将其设置为一个选择器, 比如: {{{'#iB'}}}, 表示选择页面中 id 为 iB 的元素, 注意使用了单引号, 那么 iB 将成为一个分割条.
+{{{
+<div id="dB">
+</div>
+<je:Slider ID="sB" runat="server" ScriptPackageID="package" Max="200" Min="100" Value="150">
+</je:Slider>
+}}}
+
+=== 效果说明 ===
+ 通过设置 Slider 的属性实现的部分效果如下, 具体请参考 slider.aspx:
+ * 设置分割条的位置
+ * 设置分割条的最大最小值
+ * 设置分割条的步长
+ * 水平或者垂直方向的分割条
+
+=== 事件说明 ===
+ Slider 控件具有如下事件, 具体请参考 slider.aspx:
+ * 创建时
+ * 开始滑动时
+ * 滑动时
+ * 结束滑动时
+ * 改变时
+
+=== slider.aspx ===
 {{{
 <%@ Page Language="C#" %>
 
-<%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement" Namespace="zoyobar.shared.panzer.ui.jqueryui"
+	TagPrefix="je" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<script runat="server">
+
+	protected void sF_ChangeSync ( object sender, SliderEventArgs e )
+	{
+		this.ClientScript.RegisterStartupScript ( this.GetType ( ), "sF_ChangeSync", "alert('sF_ChangeSync');", true );
+	}
+	
+</script>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-	<title>JQueryElement 分割条 - 图片滚动显示</title>
-	<link rel="stylesheet" href="../css/ui-lightness/jquery-ui-1.8.11.custom.css" />
+	<title>JQuery UI 的 slider</title>
 	<script type="text/javascript" src="../js/jquery-1.5.1.min.js"></script>
 	<script type="text/javascript" src="../js/jquery-ui-1.8.11.custom.min.js"></script>
-	<style type="text/css">
-		.sliderV
-		{
-			float: left;
+	<link type="text/css" rel="Stylesheet" href="../css/smoothness/jquery-ui-1.8.15.custom.css" />
+	<link type="text/css" rel="Stylesheet" href="../css/main.css" />
+	<script type="text/javascript">
+		function writeLine(selector, html) {
+			$(selector).html($(selector).html() + html + '<br />');
 		}
-	</style>
+	</script>
 </head>
 <body>
-	<form id="formJE" runat="server">
-	<je:Slider ID="sliderV" runat="server" Height="100px" Orientation="vertical" 
-		Width="10px" CssClass="sliderV" Max="200" Step="100" 
-		Value="200" Change="
-		function(event, ui) {
-			$('#box')[0].scrollTop = 200 - ui.value;
-		}
-		"></je:Slider>
-	<div id="box" style="width: 200px; height: 100px; border: 1px solid #ff0000; overflow: hidden;">
-		<table style="width: 600px; height: 300px;">
-			<tr><td style="background-color: #3366FF; color: #FFFFFF;">图像 1_1</td>
-				<td style="background-color: #FF99FF;">图像 1_2</td>
-				<td style="background-color: #33CC33;">图像 1_3</td></tr>
-			<tr><td style="background-color: #009999">图像 2_1</td>
-				<td style="background-color: #6600FF; color: #FFFFFF">图像 2_2</td>
-				<td style="background-color: #003399; color: #FFFFFF">图像 2_3</td></tr>
-			<tr><td style="background-color: #99CCFF">图像 3_1</td>
-				<td style="background-color: #FFFF99">图像 3_2</td>
-				<td style="background-color: #666699">图像 3_3</td></tr>
-		</table>
-	</div>
+	<form id="formSlider" runat="server">
+	<je:Slider ID="sA" runat="server" ScriptPackageID="package" Value="50">
+	</je:Slider>
 	<br />
-	<je:Slider ID="sliderH" runat="server" Height="10px" Width="200px" Max="400" Slide="
-		function(event, ui) {
-			$('#box')[0].scrollLeft = ui.value;
-		}
-		"></je:Slider>
-	<p style="font-size: smaller; text-align: right;">版本 2.6, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
-	<p style="font-size: smaller; text-align: right;">
-		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElementSliderDoc">代码解释说明</a>
-		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
-		JE 是 panzer 项目的一部分, 您可以参考 <a href="http://code.google.com/p/zsharedcode/">http://code.google.com/p/zsharedcode/</a>.<br />
-		所有示例源码托管地址: <a href="http://panzer.codeplex.com/">http://panzer.codeplex.com/</a>.
+	<span class="code">Value="50"</span>
+	<br />
+	<hr />
+	<div id="dB">
+	</div>
+	<je:Slider ID="sB" runat="server" ScriptPackageID="package" Max="200" Min="100" Value="150">
+	</je:Slider>
+	<br />
+	<span class="code">Max="200" Min="100" Value="150"</span>
+	<br />
+	<hr />
+	<je:Slider ID="sC" runat="server" ScriptPackageID="package" Step="10">
+	</je:Slider>
+	<br />
+	<span class="code">Step="10"</span>
+	<br />
+	<hr />
+	<je:Slider ID="sD" runat="server" ScriptPackageID="package" Orientation="vertical">
+	</je:Slider>
+	<br />
+	<span class="code">Orientation="vertical"</span>
+	<br />
+	<hr />
+	<je:Slider ID="sE" runat="server" ScriptPackageID="package" Change="function(){writeLine('#pE', '改变');}"
+		Create="function(){writeLine('#pE', '创建');}" Slide="function(){writeLine('#pE', '滑动');}"
+		Start="function(){writeLine('#pE', '开始');}" Stop="function(){writeLine('#pE', '结束');}">
+	</je:Slider>
+	<p id="pE" class="panel" style="width: 80%;">
 	</p>
+	<br />
+	<span class="code">Change="..." Create="..." Slide="..." Start="..." Stop="..."</span>
+	<br />
+	<hr />
+	<je:Slider ID="sF" runat="server" ScriptPackageID="package" OnChangeSync="sF_ChangeSync">
+	</je:Slider>
+	<br />
+	<span class="code">onchangesync="sF_ChangeSync"</span>
+	<br />
+	<hr />
+	<je:ScriptPackage ID="package" runat="server" />
 	</form>
 </body>
 </html>
 }}}
 
-=== 前提条件 ===
- 所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
+=== main.css ===
+{{{
+body
+{
+	font-family: "微软雅黑";
+	font-size: 9pt;
+}
+hr
+{
+	border: solid 1px #eeeeee;
+	margin-bottom: 50px;
+}
+li
+{
+	padding: 5px;
+}
+.panel
+{
+	border: solid 1px #cccccc;
+	padding: 10px;
+	background-color: #eeeeee;
+}
+.box
+{
+	border: solid 1px #999999;
+	padding: 2px 5px 2px 5px;
+	color: InfoText;
+	background-color: InfoBackground;
+}
+.code
+{
+	float: right;
+	font-style: italic;
+	font-size: x-small;
+	color: Blue;
+}
+.ui-selecting
+{
+	color: MenuText;
+	background-color: InactiveCaption;
+}
+.ui-selected
+{
+	color: MenuText;
+	background-color: ActiveCaption;
+}
+}}}
 
-*注意:* 这里仅列出部分代码, 可能需要您自己创建窗口, 页面等.
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
 </font>

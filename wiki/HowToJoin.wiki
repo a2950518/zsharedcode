@@ -1,3 +1,4 @@
+#summary 如何加入开发
 #labels Featured,Phase-Implementation
 <font face="microsoft yahei">
 === 申请条件 ===
