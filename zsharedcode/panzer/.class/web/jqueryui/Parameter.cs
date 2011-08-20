@@ -79,6 +79,12 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
+		/// 创建一个空的 jQuery UI 参数, 参数值采用选择器.
+		/// </summary>
+		public Parameter ()
+			: this ( "new parameter", ParameterType.Selector, null )
+		{ }
+		/// <summary>
 		/// 创建一个 jQuery UI 参数, 参数值对应一个选择器.
 		/// </summary>
 		/// <param name="name">参数名称.</param>
