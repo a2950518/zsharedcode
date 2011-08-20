@@ -19,23 +19,14 @@
  
  讨论: <font color="#990099">欢迎加入 qq 群: 149829251, JQueryElement 编程</font>, <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/149829251" target="_blank">加入 qq 群</a>.
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.2.6.3.Debug.PARAM.zip JQueryElement 2.6.3 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/JQueryElement.3.0.0.Debug.PARAM.zip JQueryElement 3.0.0 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.2.6.3.Debug.NOPARAM.zip JQueryElement 2.6.3 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/JQueryElement.3.0.0.Debug.NOPARAM.zip JQueryElement 3.0.0 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
 === panzer.dll ===
  我们已经不再提供 panzer.dll 的下载链接, 请下载上面提供的 dll.
  
 === IEBrowser 更新历史 ===
-2.3.1 版本改动:
- a. 调整 IEFlow.Wait 方法, 降低了执行此方法的 CPU 占用率.
-
-2.4.0 版本改动:
- a. 增加 IEBrowser.__GetJSON 和 IEBrowser.__SetJSON 方法, 用于获取和设置 json 数据.
-
-2.4.1 版本改动:
- a. 增加 JSON 的 {{{this[object key]}}} 索引器.
-
 2.5.0 版本改动:
  a. 增加判断页面是否安装 jQuery 脚本的 IsJQueryInstalled 属性.
 
@@ -48,21 +39,39 @@
  e. 修改 IERecord 的功能, 增加了 ElementMark 类.
 
  f. 增加了 AttachEvent 和 DetachEvent 系列方法, 用于为页面元素注册 .NET 事件.
+
+2.4.0 版本改动:
+ a. 增加 IEBrowser.__GetJSON 和 IEBrowser.__SetJSON 方法, 用于获取和设置 json 数据.
+
+2.4.1 版本改动:
+ a. 增加 JSON 的 {{{this[object key]}}} 索引器.
+
+2.3.1 版本改动:
+ a. 调整 IEFlow.Wait 方法, 降低了执行此方法的 CPU 占用率.
  
 === JQueryElement 更新历史 ===
-2.6.1 版本改动:
- a. 为按钮增加 PrimaryIcon 和 SecondaryIcon 属性.
+3.0 版本改动:
+ a. 增加 Interactions 系列控件, ScriptPackage 控件.
+
+ b. 修改 JQueryElement 的 Html 属性为字符串类型, 并增加 Text 字符串类型属性.
+
+ c. 为 JQueryElement 增加 ScriptPackageID 属性, 指示存放 JQueryElement 所产生脚本的 ScriptPackage 控件.
+
+ d. 增加 Timer, Repeater 自定义控件.
+
+2.6.3 版本改动:
+ a. 修改 AjaxSettingEdit, 增加 MethodName, ContentType 等属性, 可以更方便的调用 WebService.
  
- b. 按钮设计时可以显示图标.
+ b. 增加了 Timer 时钟控件.
   
 2.6.2 版本改动:
  a. 修改 Datepicker 的 DefaultDate, MaxDate, MinDate 为 DateTime 类型.
  
  b. 增强 Datepicker 的设计时支持.
 
-2.6.3 版本改动:
- a. 修改 AjaxSettingEdit, 增加 MethodName, ContentType 等属性, 可以更方便的调用 WebService.
+2.6.1 版本改动:
+ a. 为按钮增加 PrimaryIcon 和 SecondaryIcon 属性.
  
- b. 增加了 Timer 时钟控件.
+ b. 按钮设计时可以显示图标.
 
 </font>
