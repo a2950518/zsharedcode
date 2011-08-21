@@ -62,6 +62,7 @@
       * [http://www.tudou.com/programs/view/hqeEZIFfoxg/ IEBrowser 页面 js 脚本调用 .NET 完成注册]
       * [http://www.tudou.com/programs/view/xfQiXQcr5xw/ IEBrowser 为页面元素编写在 .NET 中执行的事件]
     * [VideoJQueryElement JQueryElement 视频]
-      * [http://www.tudou.com/programs/view/Ptz07sq2KcI/ JQueryElement 按钮轻松调用 Ajax]
-      * [http://www.tudou.com/programs/view/OAsr2XseOdU/ JQueryElement 功能完善的 jqueryui 日期框控件]
+      * 按钮轻松调用 Ajax, 不再适用于 3.0+ 版本
+      * 功能完善的 jqueryui 日期框控件, 不再适用于 3.0+ 版本
+      * [http://www.tudou.com/programs/view/eMT0UQhGVXM/ 对话框和时钟插件定时获取消息]
 </font>
