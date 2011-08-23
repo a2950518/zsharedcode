@@ -19,12 +19,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// </summary>
 	public abstract class JQueryInteraction<I>
 		: JQueryElement<I>
-		where I : UISetting
+		where I : InteractionSetting
 	{
 
 		protected JQueryInteraction ( I interactionSetting, HtmlTextWriterTag elementType )
 			: base ( interactionSetting, elementType )
 		{ }
+
+		protected override void renderJQuery ( JQueryUI jquery )
+		{
+			base.renderJQuery ( jquery );
+			jquery.Interaction ( this.uiSetting );
+		}
 
 	}
 	#endregion

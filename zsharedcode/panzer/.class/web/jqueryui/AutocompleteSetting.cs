@@ -212,7 +212,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		public AjaxSetting ChangeAsync
 		{
 			get { return this.ajaxs[0]; }
-			set { this.ajaxs[0] = value; }
+			set
+			{
+
+				if ( null == value )
+					return;
+
+				value.EventType = EventType.autocompletechange;
+				this.ajaxs[0] = value;
+			}
 		}
 		#endregion
 
@@ -221,7 +229,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public AutocompleteSetting ( )
 			: base ( WidgetType.autocomplete, 1 )
-		{ this.ajaxs[0].EventType = EventType.autocompletechange; }
+		{ this.ChangeAsync = this.ajaxs[0]; }
 
 	}
 	#endregion

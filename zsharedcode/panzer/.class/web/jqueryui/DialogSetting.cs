@@ -446,7 +446,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		public AjaxSetting OpenAsync
 		{
 			get { return this.ajaxs[0]; }
-			set { this.ajaxs[0] = value; }
+			set
+			{
+
+				if ( null == value )
+					return;
+
+				value.EventType = EventType.dialogopen;
+				this.ajaxs[0] = value;
+			}
 		}
 
 		/// <summary>
@@ -455,7 +463,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		public AjaxSetting CloseAsync
 		{
 			get { return this.ajaxs[1]; }
-			set { this.ajaxs[1] = value; }
+			set
+			{
+
+				if ( null == value )
+					return;
+
+				value.EventType = EventType.dialogclose;
+				this.ajaxs[1] = value;
+			}
 		}
 		#endregion
 
@@ -465,8 +481,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		public DialogSetting ( )
 			: base ( WidgetType.dialog, 2 )
 		{
-			this.ajaxs[0].EventType = EventType.dialogopen;
-			this.ajaxs[1].EventType = EventType.dialogclose;
+			this.OpenAsync = this.ajaxs[0];
+			this.CloseAsync = this.ajaxs[1];
 		}
 
 	}

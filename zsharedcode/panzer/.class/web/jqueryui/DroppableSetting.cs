@@ -14,7 +14,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	/// jQuery UI 拖放的相关设置.
 	/// </summary>
 	public sealed class DroppableSetting
-		: UISetting
+		: InteractionSetting
 	{
 
 		#region " Enum "
@@ -183,7 +183,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		/// <param name="options">拖放相关选项.</param>
 		public DroppableSetting ( Option[] options )
-			: base ( options )
+			: base ( InteractionType.droppable, options )
 		{ }
 
 	}

@@ -14,7 +14,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	/// jQuery UI 拖动的相关设置.
 	/// </summary>
 	public sealed class DraggableSetting
-		: UISetting
+		: InteractionSetting
 	{
 
 		#region " Enum "
@@ -397,7 +397,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		/// <param name="options">拖动相关选项.</param>
 		public DraggableSetting ( Option[] options )
-			: base ( options )
+			: base ( InteractionType.draggable, options )
 		{ }
 
 	}

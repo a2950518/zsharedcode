@@ -114,7 +114,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			string data;
 			bool isWebService = !string.IsNullOrEmpty ( setting.MethodName );
 
-			if ( string.IsNullOrEmpty ( setting.Form ) )
+			if ( !string.IsNullOrEmpty ( setting.Data ) )
+				data = setting.Data;
+			else if ( string.IsNullOrEmpty ( setting.Form ) )
 				data = makeParameterExpression ( setting.Parameters, isWebService, quote );
 			else
 				data = JQuery.Create ( setting.Form ).Serialize ( ).Code;
@@ -301,34 +303,6 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 使 jQuery 中包含的页面元素具有可拖动的功能.
-		/// </summary>
-		/// <param name="setting">拖动的相关设置.</param>
-		/// <returns>更新后的 JQueryUI.</returns>
-		public JQueryUI Draggable ( DraggableSetting setting )
-		{
-
-			if ( null == setting )
-				return this;
-
-			return this.Execute ( "draggable", makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
-		}
-
-		/// <summary>
-		/// 使 jQuery 中包含的页面元素具有可拖放的功能.
-		/// </summary>
-		/// <param name="setting">拖放的相关设置.</param>
-		/// <returns>更新后的 JQueryUI.</returns>
-		public JQueryUI Droppable ( DroppableSetting setting )
-		{
-
-			if ( null == setting )
-				return this;
-
-			return this.Execute ( "droppable", makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
-		}
-
-		/// <summary>
 		/// 使 jQuery 中包含的页面元素转变为 je 中的自定义插件.
 		/// </summary>
 		/// <param name="setting">自定义插件相关设置, 为 TimerSetting, RepeaterSetting 等.</param>
@@ -349,60 +323,53 @@ namespace zoyobar.shared.panzer.web.jqueryui
 					catch
 					{ continue; }
 
+					string data;
+
+					if ( string.IsNullOrEmpty ( ajax.MethodName ) )
+						data = "data";
+					else
+					{
+						data = "data.d";
+
+						if ( ajax.Data.StartsWith ( "e." ) )
+							ajax.Data = string.Format ( "jQuery.fn.__repeater.encodeData({0})", ajax.Data );
+
+					}
+
+					if ( !string.IsNullOrEmpty ( ajax.Success ) )
+						ajax.Success = ajax.Success.Replace ( "-:data", data );
+
+					if ( !string.IsNullOrEmpty ( ajax.Complete ) )
+						ajax.Complete = ajax.Complete.Replace ( "-:data", data );
+
+					if ( !string.IsNullOrEmpty ( ajax.Error ) )
+						ajax.Error = ajax.Error.Replace ( "-:data", data );
+
 					JQuery jquery = JQueryUI.Create ( ajax );
 
 					if ( null != jquery )
 					{
 						jquery.EndLine ( );
-						setting.SettingHelper.SetOptionValue ( optionType, "function() {" + jquery.Code + "}", string.Empty );
+						setting.SettingHelper.SetOptionValue ( optionType, "function(tag, e) {" + jquery.Code + "}", string.Empty );
 					}
 
 				}
 
-			this.Execute ( "__" + setting.PlusinType.ToString ( ), makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) );
-			return this;
+			return this.Execute ( "__" + setting.PlusinType.ToString ( ), makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
 		}
 
 		/// <summary>
-		/// 使 jQuery 中包含的页面元素具有可缩放的功能.
+		/// 使 jQuery 中包含的页面元素具有某种交互效果.
 		/// </summary>
-		/// <param name="setting">缩放的相关设置.</param>
+		/// <param name="setting">交互相关设置, 为 DraggableSetting, DroppableSetting 等.</param>
 		/// <returns>更新后的 JQueryUI.</returns>
-		public JQueryUI Resizable ( ResizableSetting setting )
+		public JQueryUI Interaction ( InteractionSetting setting )
 		{
 
 			if ( null == setting )
 				return this;
 
-			return this.Execute ( "resizable", makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
-		}
-
-		/// <summary>
-		/// 使 jQuery 中包含的页面元素具有可选中的功能.
-		/// </summary>
-		/// <param name="setting">选中的相关设置.</param>
-		/// <returns>更新后的 JQueryUI.</returns>
-		public JQueryUI Selectable ( SelectableSetting setting )
-		{
-
-			if ( null == setting )
-				return this;
-
-			return this.Execute ( "selectable", makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
-		}
-
-		/// <summary>
-		/// 使 jQuery 中包含的页面元素具有可排列的功能.
-		/// </summary>
-		/// <param name="setting">排列的相关设置.</param>
-		/// <returns>更新后的 JQueryUI.</returns>
-		public JQueryUI Sortable ( SortableSetting setting )
-		{
-
-			if ( null == setting )
-				return this;
-
-			return this.Execute ( "sortable", makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
+			return this.Execute ( setting.InteractionType.ToString ( ), makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
 		}
 
 		/// <summary>

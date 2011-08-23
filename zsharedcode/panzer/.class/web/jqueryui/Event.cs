@@ -300,6 +300,38 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 时钟触发时.
 		/// </summary>
 		tick,
+		/// <summary>
+		/// 移除.
+		/// </summary>
+		remove,
+		/// <summary>
+		/// 移除后.
+		/// </summary>
+		removed,
+		/// <summary>
+		/// 修改.
+		/// </summary>
+		update,
+		/// <summary>
+		/// 修改后.
+		/// </summary>
+		updated,
+		/// <summary>
+		/// 填充.
+		/// </summary>
+		fill,
+		/// <summary>
+		/// 填充后.
+		/// </summary>
+		filled,
+		/// <summary>
+		/// 添加.
+		/// </summary>
+		insert,
+		/// <summary>
+		/// 添加后.
+		/// </summary>
+		inserted,
 	}
 	#endregion
 

@@ -105,7 +105,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		public AjaxSetting ChangeAsync
 		{
 			get { return this.ajaxs[0]; }
-			set { this.ajaxs[0] = value; }
+			set
+			{
+
+				if ( null == value )
+					return;
+
+				value.EventType = EventType.progressbarchange;
+				this.ajaxs[0] = value;
+			}
 		}
 		/// <summary>
 		/// 获取或设置进度条完成时触发的 Ajax 操作的相关设置.
@@ -118,7 +126,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		public AjaxSetting CompleteAsync
 		{
 			get { return this.ajaxs[1]; }
-			set { this.ajaxs[1] = value; }
+			set
+			{
+
+				if ( null == value )
+					return;
+
+				value.EventType = EventType.progressbarcomplete;
+				this.ajaxs[1] = value;
+			}
 		}
 		#endregion
 
@@ -128,8 +144,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		public ProgressbarSetting ( )
 			: base ( WidgetType.progressbar, 2 )
 		{
-			this.ajaxs[0].EventType = EventType.progressbarchange;
-			this.ajaxs[1].EventType = EventType.progressbarcomplete;
+			this.ChangeAsync = this.ajaxs[0];
+			this.CompleteAsync = this.ajaxs[1];
 		}
 
 	}
