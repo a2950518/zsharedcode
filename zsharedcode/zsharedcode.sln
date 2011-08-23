@@ -28,7 +28,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "testsite", "panzer\test\tes
 		SccLocalPath = "Svn"
 		SccProvider = "SubversionScc"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{DC26F99B-3DDE-4B5A-B6BB-A9A73C648444}|zoyobar.shared.panzer.dll;"
+		ProjectReferences = "{7FAA0707-A808-463D-B74F-89D7F788650B}|zoyobar.shared.panzer.razor.JQueryElement.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/testsite"
 		Debug.AspNetCompiler.PhysicalPath = "panzer\test\testsite\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\testsite\"
@@ -53,6 +53,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IEBrowser", "panzer\part\IEBrowser\IEBrowser.csproj", "{D7917ED2-3694-4111-9F24-BD22F725F42B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JQueryElement", "panzer\part\JQueryElement\JQueryElement.csproj", "{E7B62842-1849-434F-950B-739E6FD91F97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorJQueryElement", "panzer\part\RazorJQueryElement\RazorJQueryElement.csproj", "{7FAA0707-A808-463D-B74F-89D7F788650B}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -130,6 +132,18 @@ Global
 		{E7B62842-1849-434F-950B-739E6FD91F97}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E7B62842-1849-434F-950B-739E6FD91F97}.Release|Win32.ActiveCfg = Release|Any CPU
 		{E7B62842-1849-434F-950B-739E6FD91F97}.Release|x86.ActiveCfg = Release|Any CPU
+		{7FAA0707-A808-463D-B74F-89D7F788650B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FAA0707-A808-463D-B74F-89D7F788650B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FAA0707-A808-463D-B74F-89D7F788650B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7FAA0707-A808-463D-B74F-89D7F788650B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7FAA0707-A808-463D-B74F-89D7F788650B}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{7FAA0707-A808-463D-B74F-89D7F788650B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7FAA0707-A808-463D-B74F-89D7F788650B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FAA0707-A808-463D-B74F-89D7F788650B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FAA0707-A808-463D-B74F-89D7F788650B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7FAA0707-A808-463D-B74F-89D7F788650B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7FAA0707-A808-463D-B74F-89D7F788650B}.Release|Win32.ActiveCfg = Release|Any CPU
+		{7FAA0707-A808-463D-B74F-89D7F788650B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -144,5 +158,6 @@ Global
 		{087A24BC-4F79-4635-8A76-5C92258B5803} = {C64843FA-A2FB-49C1-BF8D-D3D20B6B2504}
 		{D7917ED2-3694-4111-9F24-BD22F725F42B} = {A7DD1F72-753C-48A7-A1B0-11F611F6A253}
 		{E7B62842-1849-434F-950B-739E6FD91F97} = {A7DD1F72-753C-48A7-A1B0-11F611F6A253}
+		{7FAA0707-A808-463D-B74F-89D7F788650B} = {A7DD1F72-753C-48A7-A1B0-11F611F6A253}
 	EndGlobalSection
 EndGlobal
