@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7FAA0707-A808-463D-B74F-89D7F788650B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>zoyobar.shared.panzer</RootNamespace>
+    <AssemblyName>zoyobar.shared.panzer.razor.JQueryElement</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;PARAM V4</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\zoyobar.shared.panzer.razor.JQueryElement.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\.class\code\StringConvert.cs">
+      <Link>.class\StringConvert.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\JQuery.cs">
+      <Link>.class\JQuery.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\AccordionSetting.cs">
+      <Link>.class\AccordionSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\AjaxSetting.cs">
+      <Link>.class\AjaxSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\AutocompleteSetting.cs">
+      <Link>.class\AutocompleteSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\ButtonSetting.cs">
+      <Link>.class\ButtonSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\DatepickerSetting.cs">
+      <Link>.class\DatepickerSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\DialogSetting.cs">
+      <Link>.class\DialogSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\DraggableSetting.cs">
+      <Link>.class\DraggableSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\DroppableSetting.cs">
+      <Link>.class\DroppableSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\Event.cs">
+      <Link>.class\Event.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\ExpressionHelper.cs">
+      <Link>.class\ExpressionHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\InteractionSetting.cs">
+      <Link>.class\InteractionSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\JQueryRazor.cs">
+      <Link>.class\JQueryRazor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\JQueryUI.cs">
+      <Link>.class\JQueryUI.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\Option.cs">
+      <Link>.class\Option.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\Parameter.cs">
+      <Link>.class\Parameter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\PlusinSetting.cs">
+      <Link>.class\PlusinSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\ProgressbarSetting.cs">
+      <Link>.class\ProgressbarSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\RepeaterSetting.cs">
+      <Link>.class\RepeaterSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\ResizableSetting.cs">
+      <Link>.class\ResizableSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\SelectableSetting.cs">
+      <Link>.class\SelectableSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\SettingHelper.cs">
+      <Link>.class\SettingHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\SliderSetting.cs">
+      <Link>.class\SliderSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\SortableSetting.cs">
+      <Link>.class\SortableSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\TabsSetting.cs">
+      <Link>.class\TabsSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\TimerSetting.cs">
+      <Link>.class\TimerSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\UISetting.cs">
+      <Link>.class\UISetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\WidgetSetting.cs">
+      <Link>.class\WidgetSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\RazorScriptHolder.cs">
+      <Link>.class\RazorScriptHolder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\ScriptHelper.cs">
+      <Link>.class\ScriptHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\ScriptHolder.cs">
+      <Link>.class\ScriptHolder.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.enum\web\NavigateOption.cs">
+      <Link>.enum\NavigateOption.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.enum\web\ScriptBuildOption.cs">
+      <Link>.enum\ScriptBuildOption.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.enum\web\ScriptType.cs">
+      <Link>.enum\ScriptType.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
