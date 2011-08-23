@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle ( "zoyobar.shared.panzer.IEBrowser" )]
-[assembly: AssemblyDescription ( "" )]
+[assembly: AssemblyDescription ( "Wrote by M.S.cxc" )]
 [assembly: AssemblyConfiguration ( "" )]
 [assembly: AssemblyCompany ( "zoyobar" )]
 [assembly: AssemblyProduct ( "zoyobar.shared.panzer.IEBrowser" )]
