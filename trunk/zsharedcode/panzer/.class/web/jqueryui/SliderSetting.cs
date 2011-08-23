@@ -239,7 +239,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		public AjaxSetting ChangeAsync
 		{
 			get { return this.ajaxs[0]; }
-			set { this.ajaxs[0] = value; }
+			set
+			{
+
+				if ( null == value )
+					return;
+
+				value.EventType = EventType.slidechange;
+				this.ajaxs[0] = value;
+			}
 		}
 		#endregion
 
@@ -248,7 +256,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public SliderSetting ( )
 			: base ( WidgetType.slider, 1 )
-		{ this.ajaxs[0].EventType = EventType.slidechange; }
+		{ this.ChangeAsync = this.ajaxs[0]; }
 
 	}
 	#endregion

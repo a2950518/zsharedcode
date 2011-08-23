@@ -14,7 +14,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	/// jQuery UI 选中的相关设置.
 	/// </summary>
 	public sealed class SelectableSetting
-		: UISetting
+		: InteractionSetting
 	{
 
 		#region " Enum "
@@ -175,7 +175,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		/// <param name="options">选中相关选项.</param>
 		public SelectableSetting ( Option[] options )
-			: base ( options )
+			: base ( InteractionType.selectable, options )
 		{ }
 
 	}

@@ -35,13 +35,15 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			get { return this.uiSetting.Interval; }
 			set { this.uiSetting.Interval = value; }
 		}
+		#endregion
 
+		#region " event "
 		/// <summary>
-		/// 获取或设置时钟触发时的事件, 类似于 "function(j) { }".
+		/// 获取或设置时钟触发时的事件, 类似于 "function(tag, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示时钟触发时的事件, 类似于: function(j) { }" )]
+		[Description ( "指示时钟触发时的事件, 类似于: function(tag, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string Tick
 		{
@@ -52,14 +54,14 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		#region " ajax "
 		/// <summary>
-		/// 获取 Tick 操作相关的 Ajax 设置.
+		/// 获取时钟触发时相关的 Ajax 设置, 如果设置有效将覆盖 Tick.
 		/// </summary>
-		[Browsable(false)]
+		[Browsable ( false )]
 		[Category ( "Ajax" )]
-		[Description ( "Tick 操作相关的 Ajax 设置" )]
+		[Description ( "触发时相关的 Ajax 设置, 如果设置有效将覆盖 Tick" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		public AjaxSetting TickAjax
+		public AjaxSetting TickAsync
 		{
 			get { return this.uiSetting.TickAsync; }
 		}
@@ -69,7 +71,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 创建一个自定义时钟.
 		/// </summary>
 		public Timer ( )
-			: base(new TimerSetting(), HtmlTextWriterTag.Code)
+			: base ( new TimerSetting ( ), HtmlTextWriterTag.Code )
 		{ }
 
 		protected override bool isFaceless ( )
@@ -85,7 +87,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			string postfix = string.Empty;
 
-			postfix += string.Format(" <span style=\"color: #660066\">{0}</span>", this.Interval);
+			postfix += string.Format ( " <span style=\"color: #660066\">{0}</span>", this.Interval );
 
 			return base.facelessPostfix ( ) + postfix;
 		}

@@ -14,7 +14,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	/// jQuery UI 排列的相关设置.
 	/// </summary>
 	public sealed class SortableSetting
-		: UISetting
+		: InteractionSetting
 	{
 
 		#region " Enum "
@@ -448,7 +448,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		/// <param name="options">排列相关选项.</param>
 		public SortableSetting ( Option[] options )
-			: base ( options )
+			: base ( InteractionType.sortable, options )
 		{ }
 
 	}

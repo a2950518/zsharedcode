@@ -101,7 +101,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		public AjaxSetting ClickAsync
 		{
 			get { return this.ajaxs[0]; }
-			set { this.ajaxs[0] = value; }
+			set
+			{
+
+				if ( null == value )
+					return;
+
+				value.EventType = EventType.click;
+				this.ajaxs[0] = value;
+			}
 		}
 		#endregion
 
@@ -135,7 +143,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public ButtonSetting ( )
 			: base ( WidgetType.button, 1 )
-		{ this.ajaxs[0].EventType = EventType.click; }
+		{ this.ClickAsync = this.ajaxs[0]; }
 
 	}
 	#endregion

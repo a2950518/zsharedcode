@@ -224,7 +224,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		public AjaxSetting SelectAsync
 		{
 			get { return this.ajaxs[0]; }
-			set { this.ajaxs[0] = value; }
+			set
+			{
+
+				if ( null == value )
+					return;
+
+				value.EventType = EventType.tabsselect;
+				this.ajaxs[0] = value;
+			}
 		}
 		#endregion
 
@@ -233,7 +241,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public TabsSetting ( )
 			: base ( WidgetType.tabs, 1 )
-		{ this.ajaxs[0].EventType = EventType.tabsselect; }
+		{ this.SelectAsync = this.ajaxs[0]; }
 
 	}
 	#endregion

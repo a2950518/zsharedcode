@@ -232,12 +232,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			return base.facelessPostfix ( ) + postfix;
 		}
 
-		protected override void renderJQuery ( JQueryUI jquery )
-		{
-			base.renderJQuery ( jquery );
-			jquery.Droppable ( this.uiSetting );
-		}
-
 	}
 
 }

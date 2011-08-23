@@ -14,7 +14,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	/// jQuery UI 缩放的相关设置.
 	/// </summary>
 	public sealed class ResizableSetting
-		: UISetting
+		: InteractionSetting
 	{
 
 		#region " Enum "
@@ -282,7 +282,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		/// <param name="options">缩放相关选项.</param>
 		public ResizableSetting ( Option[] options )
-			: base ( options )
+			: base ( InteractionType.resizable, options )
 		{ }
 
 	}

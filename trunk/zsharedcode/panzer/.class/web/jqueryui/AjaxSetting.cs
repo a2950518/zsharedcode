@@ -27,6 +27,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		private DataType dataType;
 		private EventType eventType;
 		private string form;
+		private string data;
 		private bool isSingleQuote;
 		private string methodName;
 		private RequestType type;
@@ -83,7 +84,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 获取或设置用作传递参数的表单.
 		/// </summary>
-		[Category ( "行为" )]
+		[Category ( "数据" )]
 		[DefaultValue ( "" )]
 		[Description ( "指示用作传递参数的表单, 可以是一个选择器或元素" )]
 		[NotifyParentProperty ( true )]
@@ -91,6 +92,19 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		{
 			get { return this.form; }
 			set { this.form = ( null == value ? string.Empty : value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置传递的数据, 如果不为空将覆盖 ParameterList.
+		/// </summary>
+		[Category ( "数据" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示传递的数据, 如果不为空将覆盖 ParameterList" )]
+		[NotifyParentProperty ( true )]
+		public string Data
+		{
+			get { return this.data; }
+			set { this.data = ( null == value ? string.Empty : value ); }
 		}
 
 		/// <summary>
@@ -160,7 +174,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 获取或设置 Ajax 所使用的参数列表.
 		/// </summary>
 		[Browsable ( false )]
-		[Category ( "基本" )]
+		[Category ( "数据" )]
 		[Description ( "用作传递的参数" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
 		[PersistenceMode ( PersistenceMode.InnerProperty )]
@@ -282,7 +296,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 创建 jQuery UI Ajax 设置.
 		/// </summary>
 		public AjaxSetting ( )
-			: this ( EventType.none, null, null, DataType.json, RequestType.GET, null, null, null, null, true )
+			: this ( EventType.none, null, null, DataType.json, RequestType.GET, null, null, null, null, null, true )
 		{ }
 		/// <summary>
 		/// 创建 jQuery UI Ajax 设置.
@@ -294,10 +308,11 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <param name="type">请求的类型.</param>
 		/// <param name="contentType">请求的内容类型.</param>
 		/// <param name="form">用作传递参数的表单.</param>
+		/// <param name="data">传递的数据, 如果不为空将覆盖 ParameterList.</param>
 		/// <param name="parameters">用作传递的参数, 如果指定了 form 参数, 则忽略 parameters.</param>
 		/// <param name="events">Ajax 相关事件.</param>
 		/// <param name="isSingleQuote">是否为字符串使用单引号.</param>
-		public AjaxSetting ( EventType eventType, string url, string methodName, DataType dataType, RequestType type, string contentType, string form, Parameter[] parameters, Event[] events, bool isSingleQuote )
+		public AjaxSetting ( EventType eventType, string url, string methodName, DataType dataType, RequestType type, string contentType, string form, string data, Parameter[] parameters, Event[] events, bool isSingleQuote )
 		{
 			this.Parameters = parameters;
 			this.settingHelper.Events = events;
@@ -311,6 +326,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 
 			this.ContentType = contentType;
 			this.Form = form;
+			this.Data = data;
 
 			this.isSingleQuote = isSingleQuote;
 		}

@@ -999,6 +999,46 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 行的名称.
 		/// </summary>
 		rowsName,
+
+		/// <summary>
+		/// 多行编辑.
+		/// </summary>
+		multipleEdit,
+
+		/// <summary>
+		/// 移除后.
+		/// </summary>
+		removed,
+
+		/// <summary>
+		/// 更新后.
+		/// </summary>
+		updated,
+
+		/// <summary>
+		/// 填充.
+		/// </summary>
+		fill,
+
+		/// <summary>
+		/// 填充后.
+		/// </summary>
+		filled,
+
+		/// <summary>
+		/// 添加.
+		/// </summary>
+		insert,
+
+		/// <summary>
+		/// 添加后.
+		/// </summary>
+		inserted,
+
+		/// <summary>
+		/// 新建条目.
+		/// </summary>
+		newItem,
 	}
 	#endregion
 

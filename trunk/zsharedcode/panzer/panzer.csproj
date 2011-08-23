@@ -48,7 +48,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
@@ -103,6 +102,8 @@
     <Compile Include=".class\web\jqueryui\ButtonSetting.cs" />
     <Compile Include=".class\web\jqueryui\DatepickerSetting.cs" />
     <Compile Include=".class\web\jqueryui\DialogSetting.cs" />
+    <Compile Include=".class\web\jqueryui\InteractionSetting.cs" />
+    <None Include=".class\web\jqueryui\JQueryRazor.cs" />
     <Compile Include=".class\web\jqueryui\JQueryUI.cs" />
     <Compile Include=".class\web\jqueryui\DraggableSetting.cs" />
     <Compile Include=".class\web\jqueryui\Option.cs" />

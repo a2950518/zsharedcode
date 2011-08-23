@@ -173,7 +173,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		public AjaxSetting ChangeAsync
 		{
 			get { return this.ajaxs[0]; }
-			set { this.ajaxs[0] = value; }
+			set
+			{
+
+				if ( null == value )
+					return;
+
+				value.EventType = EventType.accordionchange;
+				this.ajaxs[0] = value;
+			}
 		}
 		#endregion
 
@@ -182,7 +190,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public AccordionSetting ( )
 			: base ( WidgetType.accordion, 1 )
-		{ this.ajaxs[0].EventType = EventType.accordionchange; }
+		{ this.ChangeAsync = this.ajaxs[0]; }
 
 	}
 	#endregion

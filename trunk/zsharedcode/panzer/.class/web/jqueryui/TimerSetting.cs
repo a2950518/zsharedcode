@@ -19,70 +19,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 
 		#region " plusin code "
 		private static string timerPlusinCode =
-		"var __installTimer = function ($) {" +
-		"$.fn.__timer = function () {" +
-
-		"	if (this.length == 0) { return this; }" +
-
-		"	var tag = this.get(0);" +
-		"	var action = 'create';" +
-
-		"	if (typeof (arguments[0]) == 'string') {" +
-
-		"		if (null == tag.__timer) { return this; }" +
-
-		"		if (arguments[0] == 'option') { action = (arguments.length == 2 ? 'get' : 'set'); } else { action = 'method'; }" +
-
-		"	}" +
-		"	else { arguments[0] = $.extend({}, $.fn.__timer.defaults, arguments[0]); }" +
-
-		"	switch (action) {" +
-		"		case 'get':" +
-		"			return tag.__timer[arguments[1]];" +
-
-		"		case 'set':" +
-		"			return tag.__timer[arguments[1]] = arguments[2];" +
-
-		"		case 'method':" +
-
-		"			switch (arguments[0]) {" +
-		"				case 'start':" +
-		"					__start.call(this, tag);" +
-		"					break;" +
-
-		"				case 'stop':" +
-		"					__stop.call(this, tag);" +
-		"					break;" +
-		"			}" +
-
-		"			return this;" +
-
-		"		default:" +
-
-		"			if (null != tag.__timer) { __stop(tag); }" +
-
-		"			arguments[0].interval = (null == arguments[0].interval || arguments[0].interval <= 0) ? 1000 : arguments[0].interval;\n" +
-		"			tag.__timer = arguments[0];" +
-		"			return this;" +
-		"	}" +
-
-		"};" +
-		"function __start(tag) {" +
-		"	__stop(tag);" +
-
-		"	var option = tag.__timer;" +
-		"	option.handler = setInterval(function () { if (null != option.tick) { option.tick.call(this); } }, option.interval);" +
-		"}" +
-		"function __stop(tag) {" +
-		"	var option = tag.__timer;" +
-		"	if (null != option.handler) { clearInterval(option.handler); }" +
-		"}" +
-		"$.fn.__timer.defaults = {" +
-		"	interval: 1000," +
-		"	tick: null" +
-		"};" +
-		"};" +
-		"__installTimer(jQuery);";
+		"(function(c){function e(a){d(a);var b=a.__timer;b.handler=setInterval(function(){null!=b.tick&&b.tick.call(this,a,{})},b.interval)}function d(a){a=a.__timer;null!=a.handler&&clearInterval(a.handler)}c.fn.__timer=function(){if(this.length==0)return this;var a=this.get(0),b=\"create\";if(typeof arguments[0]==\"string\"){if(null==a.__timer)return this;b=arguments[0]==\"option\"?arguments.length==2?\"get\":\"set\":\"method\"}else arguments[0]=c.extend({},c.fn.__timer.defaults,arguments[0]);switch(b){case \"get\":return a.__timer[arguments[1]];" +
+"case \"set\":return a.__timer[arguments[1]]=arguments[2];case \"method\":switch(arguments[0]){case \"start\":e.call(this,a);break;case \"stop\":d.call(this,a)}return this;default:return null!=a.__timer&&d(a),arguments[0].interval=null==arguments[0].interval||arguments[0].interval<=0?1E3:arguments[0].interval,a.__timer=arguments[0],this}};c.fn.__timer.defaults={interval:1E3,tick:null,handler:null}})(jQuery);";
 		#endregion
 
 		#region " option "
@@ -94,9 +32,11 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			get { return this.settingHelper.GetOptionValueToInteger ( OptionType.interval, 1000 ); }
 			set { this.settingHelper.SetOptionValue ( OptionType.interval, ( value <= 0 ) ? "1000" : value.ToString ( ), "1000" ); }
 		}
+		#endregion
 
+		#region " event "
 		/// <summary>
-		/// 获取或设置时钟触发的事件, 类似于: "function(j) { }".
+		/// 获取或设置时钟触发时的事件, 类似于 "function(tag, e) { }".
 		/// </summary>
 		public string Tick
 		{
@@ -107,12 +47,20 @@ namespace zoyobar.shared.panzer.web.jqueryui
 
 		#region " ajax "
 		/// <summary>
-		/// 获取或设置时钟触发时的 Ajax 操作的相关设置.
+		/// 获取或设置时钟触发时相关的 Ajax 设置, 如果设置有效将覆盖 Tick.
 		/// </summary>
 		public AjaxSetting TickAsync
 		{
 			get { return this.ajaxs[0]; }
-			set { this.ajaxs[0] = value; }
+			set
+			{
+
+				if ( null == value )
+					return;
+
+				value.EventType = EventType.tick;
+				this.ajaxs[0] = value;
+			}
 		}
 		#endregion
 
@@ -121,8 +69,12 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public TimerSetting ( )
 			: base ( PlusinType.timer, 1 )
-		{ this.ajaxs[0].EventType = EventType.tick; }
+		{ this.TickAsync = this.ajaxs[0]; }
 
+		/// <summary>
+		/// 获取自定义时钟插件的安装脚本.
+		/// </summary>
+		/// <returns>自定义时钟插件的安装脚本.</returns>
 		public override string GetPlusinCode ( )
 		{ return timerPlusinCode; }
 
