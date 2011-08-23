@@ -149,6 +149,9 @@
     <Compile Include="..\..\.class\web\jqueryui\ExpressionHelper.cs">
       <Link>.class\ExpressionHelper.cs</Link>
     </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\InteractionSetting.cs">
+      <Link>.class\InteractionSetting.cs</Link>
+    </Compile>
     <Compile Include="..\..\.class\web\jqueryui\JQueryUI.cs">
       <Link>.class\JQueryUI.cs</Link>
     </Compile>
