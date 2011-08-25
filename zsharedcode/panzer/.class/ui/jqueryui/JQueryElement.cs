@@ -216,10 +216,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置存储的属性列表, 多个属性可用 ; 号分割, 比如: "Student.Name;Student.Age".
+		/// (无效) 获取或设置存储的属性列表, 多个属性可用 ; 号分割, 比如: "Student.Name;Student.Age".
 		/// </summary>
 		[Category ( "数据" )]
-		[Description ( "存储的属性列表, 多个属性可用 ; 号分割, 比如: \"Student.Name;Student.Age\"" )]
+		[Description ( "(无效) 存储的属性列表, 多个属性可用 ; 号分割, 比如: \"Student.Name;Student.Age\"" )]
 		[DefaultValue ( "" )]
 		public string StoreProperty
 		{
@@ -314,6 +314,25 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			jquery.Build ( new ASPXScriptHolder ( this ), this.ClientID, ScriptBuildOption.Startup );
 		}
+
+		/*
+		protected override void LoadViewState ( object savedState )
+		{
+			base.LoadViewState ( savedState );
+			if ( null != this.viewStateHelper )
+				( this.viewStateHelper as IStateManager ).LoadViewState ( savedState );
+		}
+
+		protected override object SaveViewState ( )
+		{
+
+			if ( null == this.viewStateHelper )
+				return base.SaveViewState ( );
+			else
+				return ( this.viewStateHelper as IStateManager ).SaveViewState ( );
+
+		}
+		*/
 
 	}
 	#endregion
