@@ -65,4 +65,5 @@
       * 按钮轻松调用 Ajax, 不再适用于 3.0+ 版本
       * 功能完善的 jqueryui 日期框控件, 不再适用于 3.0+ 版本
       * [http://www.tudou.com/programs/view/eMT0UQhGVXM/ 对话框和时钟插件定时获取消息]
+      * [http://www.tudou.com/programs/view/eZbcCKp2GNU/ Repeater 无刷新获取分页数据]
 </font>
