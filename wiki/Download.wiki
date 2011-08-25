@@ -19,9 +19,9 @@
  
  讨论: <font color="#990099">欢迎加入 qq 群: 149829251, JQueryElement 编程</font>, <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/149829251" target="_blank">加入 qq 群</a>.
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.3.0.0.Debug.PARAM.zip JQueryElement 3.0.0 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/JQueryElement.3.1.0.Debug.PARAM.zip JQueryElement 3.1.0 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.3.0.0.Debug.NOPARAM.zip JQueryElement 3.0.0 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/JQueryElement.3.1.0.Debug.NOPARAM.zip JQueryElement 3.1.0 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
 === panzer.dll ===
  我们已经不再提供 panzer.dll 的下载链接, 请下载上面提供的 dll.
