@@ -52,14 +52,14 @@ namespace zoyobar.shared.panzer.web
 			if ( expression == string.Empty )
 				return null;
 
-			object current = this;
+			object current = this.control;
 
 			foreach ( string part in expression.Split ( '.' ) )
 			{
 				PropertyInfo property = current.GetType ( ).GetProperty ( part );
 
 				if ( null == property )
-					break;
+					return string.Empty;
 
 				current = property.GetValue ( current, null );
 			}
@@ -73,7 +73,7 @@ namespace zoyobar.shared.panzer.web
 			if ( expression == string.Empty )
 				return;
 
-			object current = this;
+			object current = this.control;
 			string[] parts = expression.Split ( '.' );
 
 			for ( int index = 0; index < parts.Length; index++ )
