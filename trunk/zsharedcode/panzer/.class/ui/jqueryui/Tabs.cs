@@ -311,7 +311,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取 Select 操作相关的 Ajax 设置.
 		/// </summary>
-		[Browsable(false)]
 		[Category ( "Ajax" )]
 		[Description ( "Select 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]

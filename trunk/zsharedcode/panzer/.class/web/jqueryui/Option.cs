@@ -988,7 +988,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 编辑条目.
 		/// </summary>
-		editItem,
+		edititem,
 
 		/// <summary>
 		/// 空.
@@ -998,12 +998,12 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 行的名称.
 		/// </summary>
-		rowsName,
+		rowsname,
 
 		/// <summary>
 		/// 多行编辑.
 		/// </summary>
-		multipleEdit,
+		multipleedit,
 
 		/// <summary>
 		/// 移除后.
@@ -1038,7 +1038,27 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 新建条目.
 		/// </summary>
-		newItem,
+		newitem,
+
+		/// <summary>
+		/// 页大小.
+		/// </summary>
+		pagesize,
+
+		/// <summary>
+		/// 页码.
+		/// </summary>
+		pageindex,
+
+		/// <summary>
+		/// 最后一页.
+		/// </summary>
+		lastpage,
+
+		/// <summary>
+		/// 第一页.
+		/// </summary>
+		firstpage,
 	}
 	#endregion
 

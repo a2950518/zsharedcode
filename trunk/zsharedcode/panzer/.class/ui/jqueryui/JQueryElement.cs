@@ -6,7 +6,6 @@
  * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
 * */
 
-using System.IO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,17 +28,20 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		where S : UISetting
 	{
 
-		protected static string renderTemplate ( PlaceHolder holder )
+		protected static Literal renderTemplate ( WebControl control, ITemplate template )
 		{
+			Literal content = new Literal ( );
 
-			if ( null == holder )
-				return string.Empty;
+			if ( null == template )
+				return content;
+			else
+			{
+				template.InstantiateIn ( content );
 
-			StringWriter writer = new StringWriter ( );
+				content.Text = JQueryCoder.Encode ( control, content.Text );
+			}
 
-			holder.RenderControl ( new HtmlTextWriter ( writer ) );
-
-			return writer.ToString ( );
+			return content;
 		}
 
 		/// <summary>
@@ -69,6 +71,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		protected string html = string.Empty;
 		private string text = string.Empty;
+		private ITemplate contentTemplate;
 
 		private bool isShowMore = true;
 		private string scriptPackageID = string.Empty;
@@ -169,6 +172,17 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					this.text = value;
 
 			}
+		}
+
+		/// <summary>
+		/// 获取或设置内部 html 代码的模板, 如果有效, 将覆盖 Html 和 Text 属性. 
+		/// </summary>
+		[Browsable ( false )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ITemplate ContentTemplate
+		{
+			get { return this.contentTemplate; }
+			set { this.contentTemplate = value; }
 		}
 
 		/// <summary>
@@ -289,10 +303,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					this.isShowMore ? this.facelessPostfix ( ) : string.Empty,
 					this.scriptPackageID == string.Empty ? string.Empty : " <span style=\"color: #666633\">" + this.scriptPackageID + "</span>"
 					);
-			else if ( this.html != string.Empty )
-				writer.Write ( this.html );
-			else if ( this.text != string.Empty )
-				writer.WriteEncodedText ( this.text );
+			else if ( null == this.contentTemplate )
+				if ( this.html != string.Empty )
+					writer.Write ( this.html );
+				else if ( this.text != string.Empty )
+					writer.WriteEncodedText ( this.text );
 
 			JQueryUI jquery = new JQueryUI ( string.IsNullOrEmpty ( this.selector ) ? string.Format ( "'#{0}'", this.ClientID ) : this.selector );
 
@@ -313,6 +328,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			}
 
 			jquery.Build ( new ASPXScriptHolder ( this ), this.ClientID, ScriptBuildOption.Startup );
+		}
+
+		protected override void CreateChildControls ( )
+		{
+
+			if ( null == this.contentTemplate )
+			{
+				base.CreateChildControls ( );
+				return;
+			}
+
+			this.Controls.Clear ( );
+			this.Controls.Add ( renderTemplate ( this, this.contentTemplate ) );
 		}
 
 		/*
