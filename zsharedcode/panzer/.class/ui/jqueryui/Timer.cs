@@ -56,7 +56,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取时钟触发时相关的 Ajax 设置, 如果设置有效将覆盖 Tick.
 		/// </summary>
-		[Browsable ( false )]
 		[Category ( "Ajax" )]
 		[Description ( "触发时相关的 Ajax 设置, 如果设置有效将覆盖 Tick" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]

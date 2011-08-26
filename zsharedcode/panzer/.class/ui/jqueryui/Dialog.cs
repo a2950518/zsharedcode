@@ -453,7 +453,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取 Open 操作相关的 Ajax 设置.
 		/// </summary>
-		[Browsable ( false )]
 		[Category ( "Ajax" )]
 		[Description ( "Open 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
@@ -466,7 +465,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取 Close 操作相关的 Ajax 设置.
 		/// </summary>
-		[Browsable ( false )]
 		[Category ( "Ajax" )]
 		[Description ( "Close 操作相关的 Ajax 设置" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]

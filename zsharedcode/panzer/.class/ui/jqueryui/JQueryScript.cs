@@ -19,54 +19,23 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// 可在其中编写内嵌语法的客户端脚本的服务器控件.
 	/// </summary>
 	[ToolboxData ( "<{0}:JQueryScript runat=server></{0}:JQueryScript>" )]
-	[ParseChildren ( true, "Template" )]
-	[DefaultProperty ( "Template" )]
+	[ParseChildren ( true, "ContentTemplate" )]
+	[DefaultProperty ( "ContentTemplate" )]
 	public class JQueryScript
 		: Control, INamingContainer
 	{
-		private readonly PlaceHolder template = new PlaceHolder ( );
+		private ITemplate contentTemplate;
 
 		/// <summary>
-		/// 获取 PlaceHolder 控件, 其中包含了元素中包含的 script 标签的代码. 
+		/// 获取或设置内部 html 代码的模板. 
 		/// </summary>
 		[Browsable ( false )]
-		[Category ( "脚本" )]
-		[Description ( "设置元素中包含的 script 标签的代码" )]
-		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.InnerDefaultProperty )]
-		public PlaceHolder Template
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ITemplate ContentTemplate
 		{
-			get { return this.template; }
+			get { return this.contentTemplate; }
+			set { this.contentTemplate = value; }
 		}
-
-		#region " hide "
-#if V4
-		[Browsable ( false )]
-		public override ClientIDMode ClientIDMode
-		{
-			get { return base.ClientIDMode; }
-			set { base.ClientIDMode = value; }
-		}
-		[Browsable ( false )]
-		public override ViewStateMode ViewStateMode
-		{
-			get { return base.ViewStateMode; }
-			set { base.ViewStateMode = value; }
-		}
-#endif
-		[Browsable ( false )]
-		public override bool EnableViewState
-		{
-			get { return base.EnableViewState; }
-			set { base.EnableViewState = value; }
-		}
-		[Browsable ( false )]
-		public override bool Visible
-		{
-			get { return base.Visible; }
-			set { base.Visible = value; }
-		}
-		#endregion
 
 		private bool isFaceless ( )
 		{ return this.DesignMode; }
@@ -74,24 +43,40 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		protected override void Render ( HtmlTextWriter writer )
 		{
 
-			if ( !this.Visible || this.template.Controls.Count != 1 )
+			if ( !this.Visible )
 				return;
 
 			if ( this.isFaceless ( ) )
 				writer.Write ( "<span style=\"font-family: Verdana; background-color: #FFFFFF; font-size: 10pt;\"><strong>{0}:</strong> {1}</span>", "JQueryScript", this.ID );
 
-			LiteralControl literal = this.template.Controls[0] as LiteralControl;
+			if ( null != this.contentTemplate )
+			{
+				this.Controls.Clear ( );
+				Literal content = new Literal ( );
+				this.contentTemplate.InstantiateIn ( content );
 
-			if ( null == literal )
+				content.Text = JQueryCoder.Encode ( this, content.Text );
+				writer.Write ( content.Text );
+			}
+
+		}
+
+		protected override void CreateChildControls ( )
+		{
+
+			if ( null == this.contentTemplate )
+			{
+				base.CreateChildControls ( );
 				return;
+			}
 
-			literal.Text = JQueryCoder.Encode ( this, literal.Text );
+			this.Controls.Clear ( );
+			Literal content = new Literal ( );
+			this.contentTemplate.InstantiateIn ( content );
 
-			if ( this.isFaceless ( ) )
-				writer.Write ( " <span style=\"font-family: Verdana; background-color: #FFFFFF; color: #660066; font-size: 10pt;\">{0}</span>", literal.Text.Length );
-			else
-				this.template.RenderControl ( writer );
+			content.Text = JQueryCoder.Encode ( this, content.Text );
 
+			this.Controls.Add ( content );
 		}
 
 	}

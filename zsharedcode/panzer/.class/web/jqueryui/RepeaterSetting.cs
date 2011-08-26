@@ -19,17 +19,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 
 		#region " plusin code "
 		private static string repeaterPlusinCode =
-		"(function(j){function m(b,d,a){var c=b.__repeater;if(null==a||a)c.index.edit.length=0,h.call(this,b,d);null!=c.filled&&c.filled.call(this,b,{data:d,isSuccess:a})}function h(b,d){var a=b.__repeater,c=\"\",e=!1;a.data=d;c+=a.template.header;c+=a.template.newItem;for(var g=0;g<a.field.length;g++)c=c.replace(eval(\"/&i:\"+a.field[g]+\"/g\"),a.field[g]+\"_i_0\");c=c.replace(eval(\"/!:insert/g\"),\"$('\"+a.selector+\"').__repeater('insert')\");if(null==d)e=!0;else{var h=d[a.setting.rowsName];if(null==h||h.length==0)e=" +
-"!0;else try{for(var i=0;i<h.length;i++){var j=h[i],f,k;a:{for(var l=a.index.edit,n=0;n<l.length;n++)if(l[n]==i){k=!0;break a}k=!1}f=k?a.template.editItem:a.template.item;for(g=0;g<a.field.length;g++)f=f.replace(eval(\"/#:\"+a.field[g]+\"/g\"),null==j[a.field[g]]?\"\":j[a.field[g]]),f=f.replace(eval(\"/&u:\"+a.field[g]+\"/g\"),a.field[g]+\"_u_\"+i.toString()),f=f.replace(eval(\"/&r:\"+a.field[g]+\"/g\"),a.field[g]+\"_r_\"+i.toString());f=f.replace(eval(\"/!:beginedit/g\"),\"$('\"+a.selector+\"').__repeater('beginedit', #:__index)\");" +
-"f=f.replace(eval(\"/!:endedit/g\"),\"$('\"+a.selector+\"').__repeater('endedit', #:__index)\");f=f.replace(eval(\"/!:remove/g\"),\"$('\"+a.selector+\"').__repeater('remove', #:__index)\");f=f.replace(eval(\"/!:update/g\"),\"$('\"+a.selector+\"').__repeater('update', #:__index)\");f=f.replace(eval(\"/#:__index/g\"),i.toString());c+=f}}catch(m){e=!0}}e&&(c+=a.template.empty);c+=a.template.footer;for(i=0;i<a.attribute.length;i++)c=c.replace(eval(\"/\\@:\"+a.attribute[i]+\"/g\"),d[a.attribute[i]]);this.html(c)}function l(b," +
-"d,a){for(var c=0;c<b.length;c++){if(b[c]==d&&(b.splice(c,1),!a))break;a&&b[c]>d&&b[c]--}}function o(b,d,a,c){a=b.__repeater;if(null==c||c){if(null==a.data||null==a.data[a.setting.rowsName])return;a.data[a.setting.rowsName].splice(d,1);l.call(this,a.index.edit,d,!0);h.call(this,b,a.data)}null!=a.removed&&a.removed.call(this,b,{index:d,isSuccess:c})}function p(b,d,a,c){var e=b.__repeater;if(null==c||c)q.call(this,b,d,a),l.call(this,e.index.edit,d,!1),h.call(this,b,e.data);null!=e.updated&&e.updated.call(this," +
-"b,{index:d,row:a,isSuccess:c})}function r(b,d,a){var c=b.__repeater;if(null==a||a)null!=c.data&&null!=c.data[c.setting.rowsName]&&c.data[c.setting.rowsName].push(d),h.call(this,b,c.data);null!=c.inserted&&c.inserted.call(this,b,{row:d,isSuccess:a})}function k(b,d,a){if(null==d||null==a)return{};for(var b=b.__repeater,c={},e=0;e<b.field.length;e++){var g=j(\"#\"+b.field[e]+\"_\"+a.toString()+\"_\"+d.toString());g.length!=0&&(c[b.field[e]]=g.val())}return c}function q(b,d,a){if(!(null==d||null==a))if(b=b.__repeater," +
-"null!=b.data&&(b=b.data[b.setting.rowsName],null!=b))for(var c in a)b[d][c]=a[c]}j.fn.__repeater=function(){if(this.length==0)return this;var b=this.get(0),d=\"create\";if(typeof arguments[0]==\"string\"){if(null==b.__repeater)return this;d=arguments[0]==\"option\"?arguments.length==2?\"get\":\"set\":\"method\"}else arguments[0]=j.extend({},j.fn.__repeater.defaults,arguments[0]);switch(d){case \"get\":return b.__repeater[arguments[1]];case \"set\":return b.__repeater[arguments[1]]=arguments[2];case \"method\":switch(arguments[0]){case \"fill\":d=" +
-"b.__repeater;null!=d.fill?d.fill.call(this,b,{callback:m}):m.call(this,b,data,!0);break;case \"bind\":h.call(this,b,arguments[1]);break;case \"beginedit\":var a=arguments[1];if(null!=a){d=b.__repeater;if(!d.multipleEdit)d.index.edit.length=0;b:{for(var c=d.index.edit,e=0;e<c.length;e++)if(c[e]==a)break b;else if(c[e]>a){c.splice(e,0,a);break b}c.push(a)}h.call(this,b,d.data)}break;case \"endedit\":d=arguments[1];if(null!=d)c=b.__repeater,l.call(this,c.index.edit,d,!1),h.call(this,b,c.data);break;case \"remove\":d=" +
-"arguments[1];if(null!=d)c=b.__repeater,a=k.call(this,b,d,\"r\"),null!=c.remove?c.remove.call(this,b,{index:d,row:a,callback:o}):o.call(this,b,d,a,!0);break;case \"update\":d=arguments[1];if(null!=d)c=b.__repeater,a=k.call(this,b,d,\"u\"),null!=c.update?c.update.call(this,b,{index:d,row:a,callback:p}):p.call(this,b,d,a,!0);break;case \"insert\":d=b.__repeater;c=k.call(this,b,0,\"i\");null!=d.insert?d.insert.call(this,b,{row:c,callback:r}):r.call(this,b,c,!0);break;case \"setrow\":q.call(this,b,arguments[1],arguments[2]);" +
-"break;case \"getrow\":k.call(this,b,arguments[1],arguments[2])}return this;default:return arguments[0].selector=this.selector,arguments[0].field=null==arguments[0].field?[]:arguments[0].field,arguments[0].attribute=null==arguments[0].attribute?[]:arguments[0].attribute,arguments[0].template={header:null==arguments[0].header?\"\":arguments[0].header,footer:null==arguments[0].footer?\"\":arguments[0].footer,item:null==arguments[0].item?\"\":arguments[0].item,editItem:null==arguments[0].editItem?\"\":arguments[0].editItem," +
-"empty:null==arguments[0].empty?\"\":arguments[0].empty,newItem:null==arguments[0].newItem?\"\":arguments[0].newItem},arguments[0].setting={rowsName:null==arguments[0].rowsName?\"rows\":arguments[0].rowsName},arguments[0].index={edit:null==arguments[0].editIndex?[]:arguments[0].editIndex},b.__repeater=arguments[0],this}};j.fn.__repeater.encodeData=function(b){if(null==b)return\"\";var d=\"\",a;for(a in b)d!=\"\"&&(d+=\",\"),d+='\"'+a.toString()+'\": '+(null==b[a]?\"null\":'\"'+b[a].toString()+'\"');return\"{\"+d+\"}\"};j.fn.__repeater.defaults=" +
-"{selector:null,field:null,attribute:null,header:null,footer:null,item:null,editItem:null,empty:null,newItem:null,rowsName:\"rows\",editIndex:null,multipleEdit:!1,fill:null,filled:null,remove:null,removed:null,update:null,updated:null}})(jQuery);";
+		"";
 		#endregion
 
 		#region " option "
@@ -47,8 +37,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string EditItem
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.editItem, string.Empty ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.editItem, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValueToString ( OptionType.edititem, string.Empty ); }
+			set { this.settingHelper.SetOptionValueToString ( OptionType.edititem, value, string.Empty ); }
 		}
 
 		/// <summary>
@@ -112,8 +102,26 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string NewItem
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.newItem, string.Empty ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.newItem, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValueToString ( OptionType.newitem, string.Empty ); }
+			set { this.settingHelper.SetOptionValueToString ( OptionType.newitem, value, string.Empty ); }
+		}
+
+		/// <summary>
+		/// 获取或设置页码, 默认为 1.
+		/// </summary>
+		public int PageIndex
+		{
+			get { return this.settingHelper.GetOptionValueToInteger ( OptionType.pageindex, 1 ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.pageindex, value.ToString ( ), "1" ); }
+		}
+
+		/// <summary>
+		/// 获取或设置页的大小, 默认为 10.
+		/// </summary>
+		public int PageSize
+		{
+			get { return this.settingHelper.GetOptionValueToInteger ( OptionType.pagesize, 10 ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.pagesize, value.ToString ( ), "10" ); }
 		}
 
 		/// <summary>
@@ -121,8 +129,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string RowsName
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.rowsName, "rows" ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.rowsName, value, "rows" ); }
+			get { return this.settingHelper.GetOptionValueToString ( OptionType.rowsname, "rows" ); }
+			set { this.settingHelper.SetOptionValueToString ( OptionType.rowsname, value, "rows" ); }
 		}
 		#endregion
 
@@ -198,6 +206,24 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			get { return this.settingHelper.GetOptionValue ( OptionType.inserted ); }
 			set { this.settingHelper.SetOptionValue ( OptionType.inserted, value, string.Empty ); }
 		}
+
+		/// <summary>
+		/// 获取或设置到达第一页时的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		public string FirstPage
+		{
+			get { return this.settingHelper.GetOptionValue ( OptionType.firstpage ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.firstpage, value, string.Empty ); }
+		}
+
+		/// <summary>
+		/// 获取或设置到达最后一页的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		public string LastPage
+		{
+			get { return this.settingHelper.GetOptionValue ( OptionType.lastpage ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.lastpage, value, string.Empty ); }
+		}
 		#endregion
 
 		#region " ajax "
@@ -254,6 +280,11 @@ namespace zoyobar.shared.panzer.web.jqueryui
 					return;
 
 				value.EventType = EventType.fill;
+				value.Parameters = new Parameter[]
+				{
+					new Parameter("pageindex", ParameterType.Expression, "this.__repeater('option', 'pageindex')"),
+					new Parameter("pagesize", ParameterType.Expression, "this.__repeater('option', 'pagesize')"),
+				};
 
 				value.Success = "function(data){e.callback.call($(tag), tag, -:data, -:data.__success);}";
 				value.Error = "function(){e.callback.call($(tag), tag, {}, false);}";

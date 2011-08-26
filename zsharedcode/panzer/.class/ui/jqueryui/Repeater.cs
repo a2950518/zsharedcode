@@ -7,8 +7,11 @@
  * */
 
 using System.ComponentModel;
+using System.Web;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
+using zoyobar.shared.panzer.web;
 using zoyobar.shared.panzer.web.jqueryui;
 
 namespace zoyobar.shared.panzer.ui.jqueryui
@@ -143,6 +146,32 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 获取或设置页码, 默认为 1.
+		/// </summary>
+		[Category ( "数据" )]
+		[DefaultValue ( 1 )]
+		[Description ( "页码, 默认为 1" )]
+		[NotifyParentProperty ( true )]
+		public int PageIndex
+		{
+			get { return this.uiSetting.PageIndex; }
+			set { this.uiSetting.PageIndex = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置页的大小, 默认为 10.
+		/// </summary>
+		[Category ( "数据" )]
+		[DefaultValue ( 10 )]
+		[Description ( "页的大小, 默认为 10" )]
+		[NotifyParentProperty ( true )]
+		public int PageSize
+		{
+			get { return this.uiSetting.PageSize; }
+			set { this.uiSetting.PageSize = value; }
+		}
+
+		/// <summary>
 		/// 获取或设置行的属性名称, 默认为 "rows".
 		/// </summary>
 		[Category ( "数据" )]
@@ -260,13 +289,38 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			get { return this.uiSetting.Inserted; }
 			set { this.uiSetting.Inserted = value; }
 		}
+
+		/// <summary>
+		/// 获取或设置到达第一页时的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示到达第一页时的事件, 类似于: function(tag, e) { }" )]
+		[NotifyParentProperty ( true )]
+		public string FirstPage
+		{
+			get { return this.uiSetting.FirstPage; }
+			set { this.uiSetting.FirstPage = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置到达最后一页时的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示到达最后一页时的事件, 类似于: function(tag, e) { }" )]
+		[NotifyParentProperty ( true )]
+		public string LastPage
+		{
+			get { return this.uiSetting.LastPage; }
+			set { this.uiSetting.LastPage = value; }
+		}
 		#endregion
 
 		#region " ajax "
 		/// <summary>
 		/// 获取删除行时的 Ajax 操作的相关设置, 如果设置有效将覆盖 Remove.
 		/// </summary>
-		[Browsable ( false )]
 		[Category ( "Ajax" )]
 		[Description ( "删除行时的 Ajax 操作的相关设置, 如果设置有效将覆盖 Remove" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
@@ -279,7 +333,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取修改行时的 Ajax 操作的相关设置, 如果设置有效将覆盖 Update.
 		/// </summary>
-		[Browsable ( false )]
 		[Category ( "Ajax" )]
 		[Description ( "修改行时的 Ajax 操作的相关设置, 如果设置有效将覆盖 Update" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
@@ -292,7 +345,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取填充时的 Ajax 操作的相关设置, 如果设置有效将覆盖 Fill.
 		/// </summary>
-		[Browsable ( false )]
 		[Category ( "Ajax" )]
 		[Description ( "填充时的 Ajax 操作的相关设置, 如果设置有效将覆盖 Fill" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
@@ -305,7 +357,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取新建时的 Ajax 操作的相关设置, 如果设置有效将覆盖 Insert.
 		/// </summary>
-		[Browsable ( false )]
 		[Category ( "Ajax" )]
 		[Description ( "新建时的 Ajax 操作的相关设置, 如果设置有效将覆盖 Insert" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
@@ -316,12 +367,117 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 		#endregion
 
+		#region " template "
+		private ITemplate headerTemplate;
+		private ITemplate footerTemplate;
+		private ITemplate itemTemplate;
+		private ITemplate editItemTemplate;
+		private ITemplate newItemTemplate;
+		private ITemplate emptyTemplate;
+
+		/// <summary>
+		/// 获取或设置头部 html 代码的模板, 如果有效, 将覆盖 Header. 
+		/// </summary>
+		[Browsable ( false )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ITemplate HeaderTemplate
+		{
+			get { return this.headerTemplate; }
+			set { this.headerTemplate = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置尾部 html 代码的模板, 如果有效, 将覆盖 Footer. 
+		/// </summary>
+		[Browsable ( false )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ITemplate FooterTemplate
+		{
+			get { return this.footerTemplate; }
+			set { this.footerTemplate = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置行的 html 代码的模板, 如果有效, 将覆盖 Item. 
+		/// </summary>
+		[Browsable ( false )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ITemplate ItemTemplate
+		{
+			get { return this.itemTemplate; }
+			set { this.itemTemplate = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置编辑行的 html 代码的模板, 如果有效, 将覆盖 EditItem. 
+		/// </summary>
+		[Browsable ( false )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ITemplate EditItemTemplate
+		{
+			get { return this.editItemTemplate; }
+			set { this.editItemTemplate = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置新行的 html 代码的模板, 如果有效, 将覆盖 NewItem. 
+		/// </summary>
+		[Browsable ( false )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ITemplate NewItemTemplate
+		{
+			get { return this.newItemTemplate; }
+			set { this.newItemTemplate = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置空数据 html 代码的模板, 如果有效, 将覆盖 Empty. 
+		/// </summary>
+		[Browsable ( false )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ITemplate EmptyTemplate
+		{
+			get { return this.emptyTemplate; }
+			set { this.emptyTemplate = value; }
+		}
+		#endregion
+
 		/// <summary>
 		/// 创建一个自定义 Repeater 插件.
 		/// </summary>
 		public Repeater ( )
 			: base ( new RepeaterSetting ( ), HtmlTextWriterTag.Div )
 		{ }
+
+		protected override void renderJQuery ( JQueryUI jquery )
+		{
+			Literal header = renderTemplate ( this, this.headerTemplate );
+			Literal footer = renderTemplate ( this, this.footerTemplate );
+			Literal item = renderTemplate ( this, this.itemTemplate );
+			Literal editItem = renderTemplate ( this, this.editItemTemplate );
+			Literal newItem = renderTemplate ( this, this.newItemTemplate );
+			Literal empty = renderTemplate ( this, this.emptyTemplate );
+
+			if ( !string.IsNullOrEmpty ( header.Text ) )
+				this.Header = ScriptHelper.EscapeCharacter ( header.Text, true );
+
+			if ( !string.IsNullOrEmpty ( footer.Text ) )
+				this.Footer = ScriptHelper.EscapeCharacter ( footer.Text, true );
+
+			if ( !string.IsNullOrEmpty ( item.Text ) )
+				this.Item = ScriptHelper.EscapeCharacter ( item.Text, true );
+
+			if ( !string.IsNullOrEmpty ( editItem.Text ) )
+				this.EditItem = ScriptHelper.EscapeCharacter ( editItem.Text, true );
+
+			if ( !string.IsNullOrEmpty ( newItem.Text ) )
+				this.NewItem = ScriptHelper.EscapeCharacter ( newItem.Text, true );
+
+			if ( !string.IsNullOrEmpty ( empty.Text ) )
+				this.Empty = ScriptHelper.EscapeCharacter ( empty.Text, true );
+
+			base.renderJQuery ( jquery );
+		}
 
 		protected override bool isFaceless ( )
 		{ return this.DesignMode; }
