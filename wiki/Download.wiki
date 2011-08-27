@@ -50,6 +50,24 @@
  a. 调整 IEFlow.Wait 方法, 降低了执行此方法的 CPU 占用率.
  
 === JQueryElement 更新历史 ===
+3.1.1 版本改动:
+ a. Repeater 不再需要设置 Field 和 Attribute, 也能进行绑定字段和属性.
+
+ b. Repeater 将在 FillAsync 中自动提供 pageindex 和 pagesize 作为参数.
+
+ c. Repeater 增加了 PageIndex, PageSize, LastPage, FirstPage 属性.
+
+ d. Repeater js 脚本增加了部分方法.
+
+ e. JQueryElement 增加 ContentTemplate.
+
+ f. Repeater 增加各种 Tempate 编辑.
+ 
+3.1 版本改动:
+ a. 调整 Timer 空间的 TickAjax 为 TickAsync.
+
+ b. Repeater 增加更新删除新建功能.
+
 3.0 版本改动:
  a. 增加 Interactions 系列控件, ScriptPackage 控件.
 
