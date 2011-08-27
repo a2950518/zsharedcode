@@ -187,6 +187,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		#region " event "
 		/// <summary>
+		/// 获取或设置修改行之前的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示修改行之前的事件, 类似于: function(tag, e) { }" )]
+		[NotifyParentProperty ( true )]
+		public string PreUpdate
+		{
+			get { return this.uiSetting.PreUpdate; }
+			set { this.uiSetting.PreUpdate = value; }
+		}
+
+		/// <summary>
 		/// 获取或设置修改行时的事件, 类似于: "function(tag, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
@@ -210,6 +223,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			get { return this.uiSetting.Updated; }
 			set { this.uiSetting.Updated = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置删除行之前的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示删除行之前的事件, 类似于: function(tag, e) { }" )]
+		[NotifyParentProperty ( true )]
+		public string PreRemove
+		{
+			get { return this.uiSetting.PreRemove; }
+			set { this.uiSetting.PreRemove = value; }
 		}
 
 		/// <summary>
@@ -239,6 +265,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 获取或设置填充之前的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示填充之前的事件, 类似于: function(tag, e) { }" )]
+		[NotifyParentProperty ( true )]
+		public string PreFill
+		{
+			get { return this.uiSetting.PreFill; }
+			set { this.uiSetting.PreFill = value; }
+		}
+
+		/// <summary>
 		/// 获取或设置填充时的事件, 类似于: "function(tag, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
@@ -262,6 +301,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			get { return this.uiSetting.Filled; }
 			set { this.uiSetting.Filled = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置新建行之前的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示新建行之前的事件, 类似于: function(tag, e) { }" )]
+		[NotifyParentProperty ( true )]
+		public string PreInsert
+		{
+			get { return this.uiSetting.PreInsert; }
+			set { this.uiSetting.PreInsert = value; }
 		}
 
 		/// <summary>
@@ -291,29 +343,16 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置到达第一页时的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置是否可以导航发生改变后的事件, 类似于: "function(tag, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示到达第一页时的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示是否可以导航发生改变后的事件, 类似于: function(tag, e) { }" )]
 		[NotifyParentProperty ( true )]
-		public string FirstPage
+		public string Navigable
 		{
-			get { return this.uiSetting.FirstPage; }
-			set { this.uiSetting.FirstPage = value; }
-		}
-
-		/// <summary>
-		/// 获取或设置到达最后一页时的事件, 类似于: "function(tag, e) { }".
-		/// </summary>
-		[Category ( "事件" )]
-		[DefaultValue ( "" )]
-		[Description ( "指示到达最后一页时的事件, 类似于: function(tag, e) { }" )]
-		[NotifyParentProperty ( true )]
-		public string LastPage
-		{
-			get { return this.uiSetting.LastPage; }
-			set { this.uiSetting.LastPage = value; }
+			get { return this.uiSetting.Navigable; }
+			set { this.uiSetting.Navigable = value; }
 		}
 		#endregion
 

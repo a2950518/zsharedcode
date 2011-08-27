@@ -959,106 +959,98 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 时钟触发的间隔.
 		/// </summary>
 		interval,
-
 		/// <summary>
 		/// 时钟触发时.
 		/// </summary>
 		tick,
-
 		/// <summary>
 		/// 字段.
 		/// </summary>
 		field,
-
 		/// <summary>
 		/// 属性.
 		/// </summary>
 		attribute,
-
 		/// <summary>
 		/// 尾.
 		/// </summary>
 		footer,
-
 		/// <summary>
 		/// 条目.
 		/// </summary>
 		item,
-
 		/// <summary>
 		/// 编辑条目.
 		/// </summary>
 		edititem,
-
 		/// <summary>
 		/// 空.
 		/// </summary>
 		empty,
-
 		/// <summary>
 		/// 行的名称.
 		/// </summary>
 		rowsname,
-
 		/// <summary>
 		/// 多行编辑.
 		/// </summary>
 		multipleedit,
-
+		/// <summary>
+		/// 移除之前.
+		/// </summary>
+		preremove,
 		/// <summary>
 		/// 移除后.
 		/// </summary>
 		removed,
-
+		/// <summary>
+		/// 更新之前.
+		/// </summary>
+		preupdate,
 		/// <summary>
 		/// 更新后.
 		/// </summary>
 		updated,
-
+		/// <summary>
+		/// 填充之前.
+		/// </summary>
+		prefill,
 		/// <summary>
 		/// 填充.
 		/// </summary>
 		fill,
-
 		/// <summary>
 		/// 填充后.
 		/// </summary>
 		filled,
-
+		/// <summary>
+		/// 添加之前.
+		/// </summary>
+		preinsert,
 		/// <summary>
 		/// 添加.
 		/// </summary>
 		insert,
-
 		/// <summary>
 		/// 添加后.
 		/// </summary>
 		inserted,
-
 		/// <summary>
 		/// 新建条目.
 		/// </summary>
 		newitem,
-
 		/// <summary>
 		/// 页大小.
 		/// </summary>
 		pagesize,
-
 		/// <summary>
 		/// 页码.
 		/// </summary>
 		pageindex,
-
 		/// <summary>
-		/// 最后一页.
+		/// 导航变化.
 		/// </summary>
-		lastpage,
-
-		/// <summary>
-		/// 第一页.
-		/// </summary>
-		firstpage,
+		navigable,
 	}
 	#endregion
 
