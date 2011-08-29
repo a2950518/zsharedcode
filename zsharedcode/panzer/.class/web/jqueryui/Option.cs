@@ -1051,6 +1051,34 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 导航变化.
 		/// </summary>
 		navigable,
+		/// <summary>
+		/// 被阻塞.
+		/// </summary>
+		blocked,
+		/// <summary>
+		/// 单线程.
+		/// </summary>
+		singlethread,
+		/// <summary>
+		/// 执行之前.
+		/// </summary>
+		preexecute,
+		/// <summary>
+		/// 执行完成.
+		/// </summary>
+		executed,
+		/// <summary>
+		/// 新建的行模板.
+		/// </summary>
+		inserteditem,
+		/// <summary>
+		/// 更新的行模板.
+		/// </summary>
+		updateditem,
+		/// <summary>
+		/// 删除的行模板.
+		/// </summary>
+		removeditem,
 	}
 	#endregion
 
