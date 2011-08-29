@@ -13,15 +13,15 @@
  [http://zsharedcode.googlecode.com/files/IEBrowser.2.5.0.Debug.NOPARAM.zip IEBrowser 2.5.0 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
 === JQueryElement.dll ===
- 以下 dll 文件, 为 2011-8-27 上传, 可能没有依照最新的 panzer 代码编译.
+ 以下 dll 文件, 为 2011-8-29 上传, 可能没有依照最新的 panzer 代码编译.
  
  注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
  
  讨论: <font color="#990099">欢迎加入 qq 群: 149829251, JQueryElement 编程</font>, <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/149829251" target="_blank">加入 qq 群</a>.
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.3.1.1.Debug.PARAM.zip JQueryElement 3.1.1 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/JQueryElement.3.1.2.Debug.PARAM.zip JQueryElement 3.1.2 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.3.1.1.Debug.NOPARAM.zip JQueryElement 3.1.1 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/JQueryElement.3.1.2.Debug.NOPARAM.zip JQueryElement 3.1.2 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
 === panzer.dll ===
  我们已经不再提供 panzer.dll 的下载链接, 请下载上面提供的 dll.
@@ -50,7 +50,14 @@
  a. 调整 IEFlow.Wait 方法, 降低了执行此方法的 CPU 占用率.
  
 === JQueryElement 更新历史 ===
-3.1.1 版本改动:
+3.1.2 版本改动:
+ a. Repeater 增加 PreExecute 和 Executed 属性, 表示执行获取, 更新, 删除, 新建数据之前和之后的事件.
+
+ b. Repeater 增加 SingleThread 和 Blocked 属性, 表示是否同一时间只执行一个操作, 以及当某一个操作由于等待其它操作结束而发生的事件.
+
+ c. Repeater 增加了 InsertedItem, UpdatedItem 以及 RemovedItem 属性和对应的 Template, 用来显示新建, 更新, 删除后的行.
+
+ d. 纠正了部分 Bug.3.1.1 版本改动:
  a. Repeater 不再需要设置 Field 和 Attribute, 也能进行绑定字段和属性.
 
  b. Repeater 将在 FillAsync 中自动提供 pageindex 和 pagesize 作为参数.
