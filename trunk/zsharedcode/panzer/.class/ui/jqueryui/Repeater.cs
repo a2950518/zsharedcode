@@ -105,6 +105,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 获取或设置新建后的行模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号.
+		/// </summary>
+		[Category ( "模板" )]
+		[DefaultValue ( "" )]
+		[Description ( "新建后的行模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号" )]
+		[NotifyParentProperty ( true )]
+		public string InsertedItem
+		{
+			get { return this.uiSetting.InsertedItem; }
+			set { this.uiSetting.InsertedItem = value; }
+		}
+
+		/// <summary>
 		/// 获取或设置行模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号. 
 		/// </summary>
 		[Category ( "模板" )]
@@ -172,6 +185,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 获取或设置删除后的行模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号.
+		/// </summary>
+		[Category ( "模板" )]
+		[DefaultValue ( "" )]
+		[Description ( "删除后的行模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号" )]
+		[NotifyParentProperty ( true )]
+		public string RemovedItem
+		{
+			get { return this.uiSetting.RemovedItem; }
+			set { this.uiSetting.RemovedItem = value; }
+		}
+
+		/// <summary>
 		/// 获取或设置行的属性名称, 默认为 "rows".
 		/// </summary>
 		[Category ( "数据" )]
@@ -182,6 +208,32 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			get { return this.uiSetting.RowsName; }
 			set { this.uiSetting.RowsName = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置是否为单程处理, 默认为 true.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( true )]
+		[Description ( "是否为单程处理, 默认为 true" )]
+		[NotifyParentProperty ( true )]
+		public bool SingleThread
+		{
+			get { return this.uiSetting.SingleThread; }
+			set { this.uiSetting.SingleThread = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置更新后的行模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号.
+		/// </summary>
+		[Category ( "模板" )]
+		[DefaultValue ( "" )]
+		[Description ( "更新后的行模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号" )]
+		[NotifyParentProperty ( true )]
+		public string UpdatedItem
+		{
+			get { return this.uiSetting.UpdatedItem; }
+			set { this.uiSetting.UpdatedItem = value; }
 		}
 		#endregion
 
@@ -354,6 +406,45 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			get { return this.uiSetting.Navigable; }
 			set { this.uiSetting.Navigable = value; }
 		}
+
+		/// <summary>
+		/// 获取或设置发生阻塞时的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示发生阻塞时的事件, 类似于: function(tag, e) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Blocked
+		{
+			get { return this.uiSetting.Blocked; }
+			set { this.uiSetting.Blocked = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置执行操作之前的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示执行操作之前的事件, 类似于: function(tag, e) { }" )]
+		[NotifyParentProperty ( true )]
+		public string PreExecute
+		{
+			get { return this.uiSetting.PreExecute; }
+			set { this.uiSetting.PreExecute = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置执行操作之后的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示执行操作之后的事件, 类似于: function(tag, e) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Executed
+		{
+			get { return this.uiSetting.Executed; }
+			set { this.uiSetting.Executed = value; }
+		}
 		#endregion
 
 		#region " ajax "
@@ -413,6 +504,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private ITemplate editItemTemplate;
 		private ITemplate newItemTemplate;
 		private ITemplate emptyTemplate;
+		private ITemplate insertedItemTemplate;
+		private ITemplate updatedItemTemplate;
+		private ITemplate removedItemTemplate;
 
 		/// <summary>
 		/// 获取或设置头部 html 代码的模板, 如果有效, 将覆盖 Header. 
@@ -470,6 +564,39 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 获取或设置新建后行的 html 代码的模板, 如果有效, 将覆盖 InsertedItem. 
+		/// </summary>
+		[Browsable ( false )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ITemplate InsertedItemTemplate
+		{
+			get { return this.insertedItemTemplate; }
+			set { this.insertedItemTemplate = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置更新后行的 html 代码的模板, 如果有效, 将覆盖 UpdatedItem. 
+		/// </summary>
+		[Browsable ( false )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ITemplate UpdatedItemTemplate
+		{
+			get { return this.updatedItemTemplate; }
+			set { this.updatedItemTemplate = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置删除后行的 html 代码的模板, 如果有效, 将覆盖 RemovedItem. 
+		/// </summary>
+		[Browsable ( false )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ITemplate RemovedItemTemplate
+		{
+			get { return this.removedItemTemplate; }
+			set { this.removedItemTemplate = value; }
+		}
+
+		/// <summary>
 		/// 获取或设置空数据 html 代码的模板, 如果有效, 将覆盖 Empty. 
 		/// </summary>
 		[Browsable ( false )]
@@ -496,6 +623,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			Literal editItem = renderTemplate ( this, this.editItemTemplate );
 			Literal newItem = renderTemplate ( this, this.newItemTemplate );
 			Literal empty = renderTemplate ( this, this.emptyTemplate );
+			Literal insertedItem = renderTemplate ( this, this.insertedItemTemplate );
+			Literal updatedItem = renderTemplate ( this, this.updatedItemTemplate );
+			Literal removedItem = renderTemplate ( this, this.removedItemTemplate );
 
 			if ( !string.IsNullOrEmpty ( header.Text ) )
 				this.Header = ScriptHelper.EscapeCharacter ( header.Text, true );
@@ -514,6 +644,15 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !string.IsNullOrEmpty ( empty.Text ) )
 				this.Empty = ScriptHelper.EscapeCharacter ( empty.Text, true );
+
+			if ( !string.IsNullOrEmpty ( insertedItem.Text ) )
+				this.InsertedItem = ScriptHelper.EscapeCharacter ( insertedItem.Text, true );
+
+			if ( !string.IsNullOrEmpty ( updatedItem.Text ) )
+				this.UpdatedItem = ScriptHelper.EscapeCharacter ( updatedItem.Text, true );
+
+			if ( !string.IsNullOrEmpty ( removedItem.Text ) )
+				this.RemovedItem = ScriptHelper.EscapeCharacter ( removedItem.Text, true );
 
 			base.renderJQuery ( jquery );
 		}
