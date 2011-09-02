@@ -334,6 +334,14 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 添加后.
 		/// </summary>
 		inserted,
+		/// <summary>
+		/// 自定义.
+		/// </summary>
+		custom,
+		/// <summary>
+		/// 自定义完成.
+		/// </summary>
+		customed,
 	}
 	#endregion
 

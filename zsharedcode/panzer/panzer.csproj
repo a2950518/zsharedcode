@@ -12,10 +12,14 @@
     <AssemblyName>zoyobar.shared.panzer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>Svn</SccProjectName>
-    <SccLocalPath>Svn</SccLocalPath>
-    <SccAuxPath>Svn</SccAuxPath>
-    <SccProvider>SubversionScc</SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -103,6 +107,11 @@
     <Compile Include=".class\web\jqueryui\DatepickerSetting.cs" />
     <Compile Include=".class\web\jqueryui\DialogSetting.cs" />
     <Compile Include=".class\web\jqueryui\InteractionSetting.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <None Include=".class\web\jqueryui\JQueryRazor.cs" />
     <Compile Include=".class\web\jqueryui\JQueryUI.cs" />
     <Compile Include=".class\web\jqueryui\DraggableSetting.cs" />
@@ -157,9 +166,16 @@
     <Content Include="jquery.GPL-LICENSE.txt" />
     <Content Include="jquery.MIT-LICENSE.txt" />
     <Content Include="panzer.license.txt" />
+    <None Include="part\JQueryElement\Resources\repeater.min.js" />
+    <None Include="part\JQueryElement\Resources\timer.min.js" />
     <Content Include="read.me.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
