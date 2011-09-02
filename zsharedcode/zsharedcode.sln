@@ -57,10 +57,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorJQueryElement", "panzer\part\RazorJQueryElement\RazorJQueryElement.csproj", "{7FAA0707-A808-463D-B74F-89D7F788650B}"
 EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -159,5 +155,9 @@ Global
 		{D7917ED2-3694-4111-9F24-BD22F725F42B} = {A7DD1F72-753C-48A7-A1B0-11F611F6A253}
 		{E7B62842-1849-434F-950B-739E6FD91F97} = {A7DD1F72-753C-48A7-A1B0-11F611F6A253}
 		{7FAA0707-A808-463D-B74F-89D7F788650B} = {A7DD1F72-753C-48A7-A1B0-11F611F6A253}
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal
