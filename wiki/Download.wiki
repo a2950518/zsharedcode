@@ -19,9 +19,9 @@
  
  讨论: <font color="#990099">欢迎加入 qq 群: 149829251, JQueryElement 编程</font>, <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/149829251" target="_blank">加入 qq 群</a>.
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.3.1.2.Debug.PARAM.zip JQueryElement 3.1.2 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/JQueryElement.3.2.0.Debug.PARAM.zip JQueryElement 3.2.0 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.3.1.2.Debug.NOPARAM.zip JQueryElement 3.1.2 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/JQueryElement.3.2.0.Debug.NOPARAM.zip JQueryElement 3.2.0 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
 === panzer.dll ===
  我们已经不再提供 panzer.dll 的下载链接, 请下载上面提供的 dll.
@@ -50,6 +50,13 @@
  a. 调整 IEFlow.Wait 方法, 降低了执行此方法的 CPU 占用率.
  
 === JQueryElement 更新历史 ===
+3.2 版本改动:
+ a. Repeater 语法修改, 字段绑定为 #{<字段名>}, 属性绑定为 @{属性名}, 以及 je-<标签属性名>="<标签属性值>".
+
+ b. Repeater 中所执行的方法都默认传递对应行的字段的值, 不再需要使用隐藏值传递.
+
+ c. Repeater 选择某些行, 批量处理行并显示进度.
+
 3.1.2 版本改动:
  a. Repeater 增加 PreExecute 和 Executed 属性, 表示执行获取, 更新, 删除, 新建数据之前和之后的事件.
 
