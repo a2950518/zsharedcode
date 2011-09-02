@@ -27,19 +27,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		#region " option "
 		/// <summary>
-		/// 获取或设置包含的属性, 为一个数组, 默认为 "[]".
-		/// </summary>
-		[Category ( "数据" )]
-		[DefaultValue ( "[]" )]
-		[Description ( "包含的属性, 为一个数组, 默认为 []" )]
-		[NotifyParentProperty ( true )]
-		public string Attribute
-		{
-			get { return this.uiSetting.Attribute; }
-			set { this.uiSetting.Attribute = value; }
-		}
-
-		/// <summary>
 		/// 获取或设置行编辑模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号. 
 		/// </summary>
 		[Category ( "模板" )]
@@ -66,11 +53,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置包含的字段, 为一个数组, 默认为 "[]".
+		/// 获取或设置默认包含的字段, 默认为 "[]".
 		/// </summary>
-		[Category ( "数据" )]
+		[Category("模板")]
 		[DefaultValue ( "[]" )]
-		[Description ( "包含的字段, 为一个数组, 默认为 []" )]
+		[Description ( "默认包含的字段, 默认为 []" )]
 		[NotifyParentProperty ( true )]
 		public string Field
 		{
@@ -144,6 +131,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			set { this.uiSetting.MultipleEdit = value; }
 		}
 		*/
+
+		/// <summary>
+		/// 获取或设置是否可以选择多行, 默认为 true.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( true )]
+		[Description ( "是否可以选择多行, 默认为 true" )]
+		[NotifyParentProperty ( true )]
+		public bool MultipleSelect
+		{
+			get { return this.uiSetting.MultipleSelect; }
+			set { this.uiSetting.MultipleSelect = value; }
+		}
 
 		/// <summary>
 		/// 获取或设置新建行模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号.
@@ -445,6 +445,84 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			get { return this.uiSetting.Executed; }
 			set { this.uiSetting.Executed = value; }
 		}
+
+		/// <summary>
+		/// 获取或设置执行自定义操作之前的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示执行自定义操作之前的事件, 类似于: function(tag, e) { }" )]
+		[NotifyParentProperty ( true )]
+		public string PreCustom
+		{
+			get { return this.uiSetting.PreCustom; }
+			set { this.uiSetting.PreCustom = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置执行自定义操作的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示执行自定义操作的事件, 类似于: function(tag, e) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Custom
+		{
+			get { return this.uiSetting.Custom; }
+			set { this.uiSetting.Custom = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置执行自定义操作之后的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示执行自定义操作之后的事件, 类似于: function(tag, e) { }" )]
+		[NotifyParentProperty ( true )]
+		public string Customed
+		{
+			get { return this.uiSetting.Customed; }
+			set { this.uiSetting.Customed = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置执行分步操作之前的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示执行分步操作之前的事件, 类似于: function(tag, e) { }" )]
+		[NotifyParentProperty ( true )]
+		public string PreSubStep
+		{
+			get { return this.uiSetting.PreSubStep; }
+			set { this.uiSetting.PreSubStep = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置执行分步操作时的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示执行分步操作时的事件, 类似于: function(tag, e) { }" )]
+		[NotifyParentProperty ( true )]
+		public string SubStepping
+		{
+			get { return this.uiSetting.SubStepping; }
+			set { this.uiSetting.SubStepping = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置执行分步操作之后的事件, 类似于: "function(tag, e) { }".
+		/// </summary>
+		[Category ( "事件" )]
+		[DefaultValue ( "" )]
+		[Description ( "指示执行分步操作之后的事件, 类似于: function(tag, e) { }" )]
+		[NotifyParentProperty ( true )]
+		public string SubStepped
+		{
+			get { return this.uiSetting.SubStepped; }
+			set { this.uiSetting.SubStepped = value; }
+		}
 		#endregion
 
 		#region " ajax "
@@ -494,6 +572,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		public AjaxSetting InsertAsync
 		{
 			get { return this.uiSetting.InsertAsync; }
+		}
+
+		/// <summary>
+		/// 获取或设置自定义操作时的 Ajax 操作的相关设置, 如果设置有效将覆盖 Custom.
+		/// </summary>
+		[Category ( "Ajax" )]
+		[Description ( "执行自定义操作时的 Ajax 操作的相关设置, 如果设置有效将覆盖 Custom" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public AjaxSetting CustomAsync
+		{
+			get { return this.uiSetting.CustomAsync; }
 		}
 		#endregion
 
@@ -669,12 +759,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		protected override string facelessPostfix ( )
 		{
 			string postfix = string.Empty;
-
-			if ( this.Attribute != "[]" )
-				postfix += string.Format ( " <span style=\"color: #660066\">{0}</span>", this.Attribute );
-
-			if ( this.Field != "[]" )
-				postfix += string.Format ( " <span style=\"color: #660066\">{0}</span>", this.Field );
 
 			postfix += string.Format ( " <span style=\"color: #660066\">{0}</span>", this.RowsName );
 

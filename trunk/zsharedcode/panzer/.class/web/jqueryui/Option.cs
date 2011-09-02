@@ -968,10 +968,6 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		field,
 		/// <summary>
-		/// 属性.
-		/// </summary>
-		attribute,
-		/// <summary>
 		/// 尾.
 		/// </summary>
 		footer,
@@ -995,6 +991,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 多行编辑.
 		/// </summary>
 		multipleedit,
+		/// <summary>
+		/// 选择多行.
+		/// </summary>
+		multipleselect,
 		/// <summary>
 		/// 移除之前.
 		/// </summary>
@@ -1079,6 +1079,30 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 删除的行模板.
 		/// </summary>
 		removeditem,
+		/// <summary>
+		/// 自定义之前.
+		/// </summary>
+		precustom,
+		/// <summary>
+		/// 自定义.
+		/// </summary>
+		custom,
+		/// <summary>
+		/// 自定义完成.
+		/// </summary>
+		customed,
+		/// <summary>
+		/// 分步开始前.
+		/// </summary>
+		presubstep,
+		/// <summary>
+		/// 分步进行时.
+		/// </summary>
+		substepping,
+		/// <summary>
+		/// 分步完成.
+		/// </summary>
+		substepped,
 	}
 	#endregion
 
