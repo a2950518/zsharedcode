@@ -67,4 +67,5 @@
       * [http://www.tudou.com/programs/view/eMT0UQhGVXM/ 对话框和时钟插件定时获取消息]
       * [http://www.tudou.com/programs/view/eZbcCKp2GNU/ Repeater 无刷新获取分页数据]
       * [http://www.tudou.com/programs/view/S5FE9qP_Fco/ Repeater 无刷新更新删除新建数据]
+      * [http://www.tudou.com/programs/view/A8jdVD6HYFY/ Repeater 显示操作多行数据的进度]
 </font>
