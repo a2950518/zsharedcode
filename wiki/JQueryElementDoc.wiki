@@ -8,6 +8,7 @@
  请在 [Download 下载资源] 中下载 JQueryElement dll 文件的 zip 压缩包.
 
 === 示例 ===
+ * [JQueryElementRepeaterDoc Repeater 示例]
  * [JQueryElementTimerDoc 时钟示例]
 
  * [JQueryElementAccordionDoc 折叠列表示例]
