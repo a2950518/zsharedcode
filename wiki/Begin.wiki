@@ -3,7 +3,7 @@
 <font face="microsoft yahei">
 === 开始准备 ===
  * [HowToDownloadAndUse 如何下载使用]
- 在这里可以了解了解如何下载 *panzer* 项目源代码和 dll 文件.
+  在这里可以了解了解如何下载 *panzer* 项目源代码和 dll 文件.
 
  * [HowToJoin 如何加入开发]
  
