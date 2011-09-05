@@ -7,5 +7,7 @@
  如果仅需要使用 *panzer* 的功能, 请在 [Download 下载资源] 下载对应功能的 dll 文件的 zip 压缩包.
 
 === 配置环境 ===
- 如果希望开发 *panzer* 项目, 建议使用 Visual Studio 2010, .NET 4.0 或者更高的版本, 如果使用 Visual Studio 2008 或更低的版本打开 zsharedcode.sln, 可能导致项目出现一些问题.
+ 如果希望开发改进 *panzer* 项目, 建议使用 Visual Studio 2010, .NET 4.0 或者更高的版本, 如果使用 Visual Studio 2008 或更低的版本打开 zsharedcode.sln, 可能导致项目出现一些问题.
+
+ 如果仅使用 *panzer* 的 dll 文件, 可用于 Visual Studio 2010 及其之前的版本, 只需要在目标项目中引用对应 .NET 版本的 dll 文件即可.
 </font>
