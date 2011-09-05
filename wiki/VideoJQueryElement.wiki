@@ -1,6 +1,12 @@
 #summary JQueryElement 视频
 #labels Phase-Implementation,Phase-Support,Phase-Deploy
 <font face="microsoft yahei">
+=== 简介 ===
+ [JQueryElement JQueryElement] 是可以在 Visual Studio 中使用的 jQuery UI 控件, 实现了 jQuery UI 的各种效果以及插件.
+
+=== 使用 ===
+ 请在 [Download 下载资源] 中下载 JQueryElement dll 文件的 zip 压缩包.
+
 === JQueryElement 视频 ===
  * 按钮轻松调用 Ajax, 不再适用于 3.0+ 版本
  * 功能完善的 jqueryui 日期框控件, 不再适用于 3.0+ 版本
