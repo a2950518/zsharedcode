@@ -10,10 +10,16 @@
 ==== 设置触发事件 ====
  Timer 的 Tick 和 TickAsync 分别可以设置触发事件, Tick 可以设置为一个 javascript 函数, 而 TickAsync 表示事件执行的 Ajax 操作设置, 比如: {{{<TickAjax Url="time.aspx" Success="..."></TickAjax>}}} 表示在时钟触发时, 调用 time.ashx 页面, 并用 Success 属性中的函数处理页面返回的结果.
 
-=== Timer 插件的 javascript 属性 ===
- handler - 时钟的句柄
- interval - 触发事件间隔
- tick - 触发执行的 javascript 函数
+=== Timer 插件的 javascript 成员 ===
+ handler - 时钟的句柄, 示例: {{{<时钟变量>.__timer('option', 'handler');}}}
+
+ interval - 触发事件间隔, 示例: {{{<时钟变量>.__timer('option', 'interval'); <时钟变量>.__timer('option', 'interval', 1500);}}}
+ 
+ tick - 触发执行的 javascript 函数, 示例: {{{<时钟变量>.__timer('option', 'tick', function(tag, e){ });}}}
+
+ start - 启用时钟, 示例: {{{<时钟变量>.__timer('start');}}}
+
+ stop - 启用时钟, 示例: {{{<时钟变量>.__timer('stop');}}}
 
 === plusin/timer.aspx ===
 {{{
