@@ -8,6 +8,8 @@
  请在 [Download 下载资源] 中下载 JQueryElement dll 文件的 zip 压缩包.
 
 === 示例 ===
+ * [JQueryElementTimerDoc 时钟示例]
+
  * [JQueryElementAccordionDoc 折叠列表示例]
  * [JQueryElementAutoCompleteDoc 自动填充示例]
  * [JQueryElementButtonDoc 按钮示例]

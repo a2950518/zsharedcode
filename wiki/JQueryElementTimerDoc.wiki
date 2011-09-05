@@ -1,80 +1,73 @@
 ﻿#summary JQueryElement 时钟 - 定时从服务器获取时间
 #labels Phase-Implementation
 <font face="microsoft yahei">
-=== 说明 ===
- 下面的例子使用时钟控件, 定时的从服务器获取时间信息并显示在页面上.
+=== 简介 ===
+ 下面的例子使用时钟控件, 定时的从服务器调用方法并返回数据.
 
- ==== 设置触发时间间隔 ====
- 通过 [JQueryUITimer JQueryUITimer] 的 Interval 属性表示触发时钟的时间间隔, 以毫秒为单位, 默认为 100 毫秒.
+==== 设置触发时间间隔 ====
+ 通过 Interval 属性表示触发时钟的时间间隔, 以毫秒为单位, 默认为 1000 毫秒.
 
- ==== 设置触发事件 ====
- [JQueryUITimer JQueryUITimer] 的 Tick 和 TickAsync 分别可以设置触发事件, Tick 可以设置为一个 javascript 函数, 而 TickAsync 表示事件执行的 Ajax 操作设置, 比如: {{{<TickAjax Url="time.ashx" Success="..."></TickAjax>}}} 表示在时钟触发时, 调用 time.ashx 页面, 并用 Success 属性中的函数处理页面返回的结果.
+==== 设置触发事件 ====
+ Timer 的 Tick 和 TickAsync 分别可以设置触发事件, Tick 可以设置为一个 javascript 函数, 而 TickAsync 表示事件执行的 Ajax 操作设置, 比如: {{{<TickAjax Url="time.aspx" Success="..."></TickAjax>}}} 表示在时钟触发时, 调用 time.ashx 页面, 并用 Success 属性中的函数处理页面返回的结果.
 
-=== timer/Default.aspx ===
+=== Timer 插件的 javascript 属性 ===
+ handler - 时钟的句柄
+ interval - 触发事件间隔
+ tick - 触发执行的 javascript 函数
+
+=== plusin/timer.aspx ===
 {{{
 <%@ Page Language="C#" %>
+<%@ Import Namespace="System.Web" %>
+<%@ Import Namespace="System.Web.Services" %>
 
-<%@ Register Namespace="zoyobar.shared.panzer.ui.jqueryui" TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement" Namespace="zoyobar.shared.panzer.ui.jqueryui"
+	TagPrefix="je" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-	<title>JQueryElement 时钟 - 定时从服务器获取时间</title>
-	<link rel="stylesheet" href="../css/ui-lightness/jquery-ui-1.8.11.custom.css" />
-	<script type="text/javascript" src="../js/jquery-1.5.1.min.js"></script>
-	<script type="text/javascript" src="../js/jquery-ui-1.8.11.custom.min.js"></script>
+	<title>JQuery UI 的 accordion</title>
+	<script type="text/javascript" src="../js/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="../js/jquery-ui-1.8.15.custom.min.js"></script>
+	<link type="text/css" rel="Stylesheet" href="../css/smoothness/jquery-ui-1.8.15.custom.css" />
+	<link type="text/css" rel="Stylesheet" href="../css/main.css" />
+	<script type="text/C#" runat="server">
+		[WebMethod()]
+		public static int GetCount ( )
+		{
+
+			if ( null == HttpContext.Current.Application["count"] )
+				HttpContext.Current.Application["count"] = 0;
+			else
+				HttpContext.Current.Application["count"] = ( int ) HttpContext.Current.Application["count"] + 1;
+
+			return ( int ) HttpContext.Current.Application["count"];
+		}
+	</script>
 </head>
 <body>
-	<form id="formJE" runat="server">
-	<je:Timer ID="timer" runat="server" Interval="1000">
-		<TickAjax Url="time.ashx" Success="
-		function(data) {
-			$('#message').text(data.time);
+	<form id="formTimer" runat="server">
+	<p id="message"></p>
+	<je:Timer ID="countTimer" runat="server" Interval="1000" IsVariable="true">
+		<TickAsync Url="timer.aspx" MethodName="GetCount" Success="
+		function(data){
+			if(data.d == '')
+				return;
+
+			$('#message').html(data.d);
 		}
 		">
-		</TickAjax>
+		</TickAsync>
 	</je:Timer>
-	<input type="button" value="开始" onclick="timer.__start();" />
-	<p id="message"></p>
-	<p style="font-size: smaller; text-align: right;">版本 2.6, 讨论, 获取 JQueryElement 最新消息, 请加 QQ 群: 149829251 (JQueryElement 编程).</p>
-	<p style="font-size: smaller; text-align: right;">
-		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElementTimerDoc">代码解释说明</a>
-		<a href="http://code.google.com/p/zsharedcode/wiki/JQueryElement">JQueryElement (JE) 成员参考</a><br />
-		JE 是 panzer 项目的一部分, 您可以参考 <a href="http://code.google.com/p/zsharedcode/">http://code.google.com/p/zsharedcode/</a>.<br />
-		所有示例源码托管地址: <a href="http://panzer.codeplex.com/">http://panzer.codeplex.com/</a>.
-	</p>
 	</form>
 </body>
 </html>
+<script type="text/javascript">
+	$(function () {
+		countTimer.__timer('start');
+	});
+</script>
 }}}
 
-=== timer/time.ashx ===
-{{{
-<%@ WebHandler Language="C#" Class="time" %>
-
-using System;
-using System.Web;
-
-public class time : IHttpHandler
-{
-
-	public void ProcessRequest ( HttpContext context )
-	{
-		context.Response.Cache.SetNoStore ( );
-		context.Response.ContentType = "text/javascript";
-		
-		context.Response.Write ( "{\"time\": \"" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "\"}" );
-	}
-
-	public bool IsReusable
-	{
-		get { return false; }
-	}
-
-}
-}}}
-
-=== 前提条件 ===
- 所有示例代码可以在 http://panzer.codeplex.com/releases/view/61701#DownloadId=212072 下载. 页面需要添加 [http://jqueryui.com/ jQuery UI] 的脚本和样式.
-
-*注意:* 这里仅列出部分代码, 可能需要您自己创建窗口, 页面等.
+ _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
 </font>
