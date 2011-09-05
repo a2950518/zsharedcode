@@ -5,7 +5,7 @@
  [IEBrowser IEBrowser] 可以控制 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 控件, 包括添加/执行 javascript 脚本, 执行 jquery 命令, 模拟用户操作页面的过程, 可以实现一系列用户操作流程, 完成不同的日常任务.
 
 === 使用 ===
- 可以在 [Download 下载资源] 中下载 dll.
+ 请在 [Download 下载资源] 中下载 IEBrowser dll 文件的 zip 压缩包.
 
 === 示例 ===
  * [IEBrowserDocBase WebBrowser 操作]
@@ -33,4 +33,7 @@
    * [IEBrowserDocS163Blog 登录 163 发布日志]
    * [IEBrowserDocSDZ 登录 DZ 发贴]
  * [IEBrowserDocButtonClick 按钮点击示例]
+
+=== 相关内容 ===
+ * [HowToDownloadAndUse 如何下载使用]
 </font>
