@@ -3,9 +3,11 @@
 <font face="microsoft yahei">
 === 开始准备 ===
  * [HowToDownloadAndUse 如何下载使用]
-  在这里可以了解了解如何下载 *panzer* 项目源代码和 dll 文件.
+  在这里可以了解了解如何下载 *panzer* 项目源代码和使用 dll 文件, 以及对应的环境配置.
 
  * [HowToJoin 如何加入开发]
+  这里将介绍 *panzer* 项目的开发工作都有哪些内容以及如何加入, 感谢您的支持!
  
  * [PanzerLicense panzer 许可证]
+  这里是使用开发 *panzer* 项目所需要的许可证, 您需要将此许可证包含在您的产品和项目中.
 </font>
