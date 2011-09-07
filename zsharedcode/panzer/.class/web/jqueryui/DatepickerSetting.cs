@@ -567,6 +567,12 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			: base ( WidgetType.datepicker, 0 )
 		{ }
 
+		/// <summary>
+		/// 重新构造.
+		/// </summary>
+		public override void Recombine()
+		{ }
+
 	}
 	#endregion
 

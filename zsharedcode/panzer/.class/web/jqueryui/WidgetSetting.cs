@@ -61,6 +61,11 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	public abstract class WidgetSetting
 		: UISetting
 	{
+	
+		/// <summary>
+		/// 重新构造.
+		/// </summary>
+		public abstract void Recombine();
 
 		#region " property "
 		private WidgetType widgetType;

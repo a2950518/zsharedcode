@@ -28,27 +28,27 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 获取或设置进度条是否可用, 默认为 false.
 		/// </summary>
-		[Category ( "行为" )]
-		[DefaultValue ( false )]
-		[Description ( "指示进度条是否可用, 默认为 false" )]
-		[NotifyParentProperty ( true )]
+		[Category("行为")]
+		[DefaultValue(false)]
+		[Description("指示进度条是否可用, 默认为 false")]
+		[NotifyParentProperty(true)]
 		public bool Disabled
 		{
-			get { return this.settingHelper.GetOptionValueToBoolean ( OptionType.disabled, false ); }
-			set { this.settingHelper.SetOptionValueToBoolean ( OptionType.disabled, value, false ); }
+			get { return this.settingHelper.GetOptionValueToBoolean(OptionType.disabled, false); }
+			set { this.settingHelper.SetOptionValueToBoolean(OptionType.disabled, value, false); }
 		}
 
 		/// <summary>
 		/// 获取或设置进度条当前的值, 默认为 0.
 		/// </summary>
-		[Category ( "行为" )]
-		[DefaultValue ( 0 )]
-		[Description ( "指示进度条当前的值, 默认为 0" )]
-		[NotifyParentProperty ( true )]
+		[Category("行为")]
+		[DefaultValue(0)]
+		[Description("指示进度条当前的值, 默认为 0")]
+		[NotifyParentProperty(true)]
 		public int Value
 		{
-			get { return this.settingHelper.GetOptionValueToInteger ( OptionType.value, 0 ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.value, ( value <= 0 ) ? "0" : value.ToString ( ), "0" ); }
+			get { return this.settingHelper.GetOptionValueToInteger(OptionType.value, 0); }
+			set { this.settingHelper.SetOptionValue(OptionType.value, (value <= 0) ? "0" : value.ToString(), "0"); }
 		}
 		#endregion
 
@@ -56,40 +56,40 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 获取或设置进度条被创建时的事件, 类似于: "function(event, ui) { }".
 		/// </summary>
-		[Category ( "事件" )]
-		[DefaultValue ( "" )]
-		[Description ( "指示进度条被创建时的事件, 类似于: function(event, ui) { }" )]
-		[NotifyParentProperty ( true )]
+		[Category("事件")]
+		[DefaultValue("")]
+		[Description("指示进度条被创建时的事件, 类似于: function(event, ui) { }")]
+		[NotifyParentProperty(true)]
 		public string Create
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.create ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.create, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.create); }
+			set { this.settingHelper.SetOptionValue(OptionType.create, value, string.Empty); }
 		}
 
 		/// <summary>
 		/// 获取或设置进度条当前值改变时的事件, 类似于: "function(event, ui) { }".
 		/// </summary>
-		[Category ( "事件" )]
-		[DefaultValue ( "" )]
-		[Description ( "指示进度条当前值改变时的事件, 类似于: function(event, ui) { }" )]
-		[NotifyParentProperty ( true )]
+		[Category("事件")]
+		[DefaultValue("")]
+		[Description("指示进度条当前值改变时的事件, 类似于: function(event, ui) { }")]
+		[NotifyParentProperty(true)]
 		public string Change
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.change ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.change, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.change); }
+			set { this.settingHelper.SetOptionValue(OptionType.change, value, string.Empty); }
 		}
 
 		/// <summary>
 		/// 获取或设置进度条完成时的事件, 类似于: "function(event, ui) { }".
 		/// </summary>
-		[Category ( "事件" )]
-		[DefaultValue ( "" )]
-		[Description ( "指示进度条完成时的事件, 类似于: function(event, ui) { }" )]
-		[NotifyParentProperty ( true )]
+		[Category("事件")]
+		[DefaultValue("")]
+		[Description("指示进度条完成时的事件, 类似于: function(event, ui) { }")]
+		[NotifyParentProperty(true)]
 		public string Complete
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.complete ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.complete, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.complete); }
+			set { this.settingHelper.SetOptionValue(OptionType.complete, value, string.Empty); }
 		}
 		#endregion
 
@@ -97,43 +97,39 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 获取或设置进度条改变时触发的 Ajax 操作的相关设置.
 		/// </summary>
-		[Category ( "Ajax" )]
-		[Description ( "Change 操作相关的 Ajax 设置" )]
-		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		[NotifyParentProperty ( true )]
+		[Category("Ajax")]
+		[Description("Change 操作相关的 Ajax 设置")]
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+		[PersistenceMode(PersistenceMode.InnerProperty)]
+		[NotifyParentProperty(true)]
 		public AjaxSetting ChangeAsync
 		{
 			get { return this.ajaxs[0]; }
 			set
 			{
 
-				if ( null == value )
-					return;
+				if (null != value)
+					this.ajaxs[0] = value;
 
-				value.EventType = EventType.progressbarchange;
-				this.ajaxs[0] = value;
 			}
 		}
 		/// <summary>
 		/// 获取或设置进度条完成时触发的 Ajax 操作的相关设置.
 		/// </summary>
-		[Category ( "Ajax" )]
-		[Description ( "Complete 操作相关的 Ajax 设置" )]
-		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.InnerProperty )]
-		[NotifyParentProperty ( true )]
+		[Category("Ajax")]
+		[Description("Complete 操作相关的 Ajax 设置")]
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+		[PersistenceMode(PersistenceMode.InnerProperty)]
+		[NotifyParentProperty(true)]
 		public AjaxSetting CompleteAsync
 		{
 			get { return this.ajaxs[1]; }
 			set
 			{
 
-				if ( null == value )
-					return;
+				if (null != value)
+					this.ajaxs[1] = value;
 
-				value.EventType = EventType.progressbarcomplete;
-				this.ajaxs[1] = value;
 			}
 		}
 		#endregion
@@ -141,11 +137,17 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 创建一个进度条设置.
 		/// </summary>
-		public ProgressbarSetting ( )
-			: base ( WidgetType.progressbar, 2 )
+		public ProgressbarSetting()
+			: base(WidgetType.progressbar, 2)
+		{ }
+
+		/// <summary>
+		/// 重新构造.
+		/// </summary>
+		public override void Recombine()
 		{
-			this.ChangeAsync = this.ajaxs[0];
-			this.CompleteAsync = this.ajaxs[1];
+			this.ChangeAsync.EventType = EventType.progressbarchange;
+			this.CompleteAsync.EventType = EventType.progressbarcomplete;
 		}
 
 	}

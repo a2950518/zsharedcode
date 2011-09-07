@@ -19,29 +19,29 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		: JQuery
 	{
 
-		private static string makeOptionExpression ( Option[] options )
+		private static string makeOptionExpression(Option[] options)
 		{
 
-			if ( null == options || options.Length == 0 )
+			if (null == options || options.Length == 0)
 				return string.Empty;
 
 			string optionExpression = "{";
 
-			foreach ( Option option in options )
-				if ( null != option && option.Type != OptionType.none && option.Value != string.Empty )
-					optionExpression += string.Format ( " {0}: {1},", option.Type, option.Value );
+			foreach (Option option in options)
+				if (null != option && option.Type != OptionType.none && option.Value != string.Empty)
+					optionExpression += string.Format(" {0}: {1},", option.Type, option.Value);
 
-			return optionExpression.TrimEnd ( ',' ) + " }";
+			return optionExpression.TrimEnd(',') + " }";
 		}
 
-		private static string makeParameterExpression ( Parameter[] parameters, bool isWebService, string quote )
+		private static string makeParameterExpression(Parameter[] parameters, bool isWebService, string quote)
 		{
 
-			if ( null == quote )
+			if (null == quote)
 				quote = string.Empty;
 
-			if ( null == parameters || parameters.Length == 0 )
-				if ( isWebService )
+			if (null == parameters || parameters.Length == 0)
+				if (isWebService)
 					return quote + "{ }" + quote;
 				else
 					return "{ }";
@@ -49,45 +49,45 @@ namespace zoyobar.shared.panzer.web.jqueryui
 
 			string parameterExpression = string.Empty;
 
-			foreach ( Parameter parameter in parameters )
-				if ( null != parameter && parameter.Value != string.Empty )
-					switch ( parameter.Type )
+			foreach (Parameter parameter in parameters)
+				if (null != parameter && parameter.Value != string.Empty)
+					switch (parameter.Type)
 					{
 						case ParameterType.Selector:
 
-							if ( isWebService )
+							if (isWebService)
 							{
 
-								if ( parameterExpression != string.Empty )
-									parameterExpression += string.Format ( " + {0} ,{0}", quote );
+								if (parameterExpression != string.Empty)
+									parameterExpression += string.Format(" + {0} ,{0}", quote);
 
-								parameterExpression += string.Format ( " + {0}{1}: {0} + {0}\\{0}{0} + {2} + {0}\\{0}{0}", quote, parameter.Name, JQuery.Create ( parameter.Value ).Val ( ).Code );
+								parameterExpression += string.Format(" + {0}{1}: {0} + {0}\\{0}{0} + {2} + {0}\\{0}{0}", quote, parameter.Name, JQuery.Create(parameter.Value).Val().Code);
 							}
 							else
-								parameterExpression += string.Format ( " {0}: {1},", parameter.Name, JQuery.Create ( parameter.Value ).Val ( ).Code );
+								parameterExpression += string.Format(" {0}: {1},", parameter.Name, JQuery.Create(parameter.Value).Val().Code);
 
 							break;
 
 						case ParameterType.Expression:
 
-							if ( isWebService )
+							if (isWebService)
 							{
 
-								if ( parameterExpression != string.Empty )
-									parameterExpression += string.Format ( " + {0} ,{0}", quote );
+								if (parameterExpression != string.Empty)
+									parameterExpression += string.Format(" + {0} ,{0}", quote);
 
-								parameterExpression += string.Format ( " + {0}{1}: {0} + {2}", quote, parameter.Name, parameter.Value );
+								parameterExpression += string.Format(" + {0}{1}: {0} + {0}\\{0}{0} + {2} + {0}\\{0}{0}", quote, parameter.Name, parameter.Value);
 							}
 							else
-								parameterExpression += string.Format ( " {0}: {1},", parameter.Name, parameter.Value );
+								parameterExpression += string.Format(" {0}: {1},", parameter.Name, parameter.Value);
 
 							break;
 					}
 
-			if ( isWebService )
+			if (isWebService)
 				parameterExpression = quote + "{" + quote + parameterExpression + " + " + quote + "}" + quote;
 			else
-				parameterExpression = "{" + parameterExpression.TrimEnd ( ',' ) + "}";
+				parameterExpression = "{" + parameterExpression.TrimEnd(',') + "}";
 
 			return parameterExpression;
 		}
@@ -98,45 +98,45 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		/// <param name="setting">Ajax 相关设置.</param>
 		/// <returns>JQuery 实例.</returns>
-		public static JQuery Create ( AjaxSetting setting )
+		public static JQuery Create(AjaxSetting setting)
 		{
 
-			if ( string.IsNullOrEmpty ( setting.Url ) )
+			if (string.IsNullOrEmpty(setting.Url))
 				return null;
 
 			string quote;
 
-			if ( setting.IsSingleQuote )
+			if (setting.IsSingleQuote)
 				quote = "'";
 			else
 				quote = "\"";
 
 			string data;
-			bool isWebService = !string.IsNullOrEmpty ( setting.MethodName );
+			bool isWebService = !string.IsNullOrEmpty(setting.MethodName);
 
-			if ( !string.IsNullOrEmpty ( setting.Data ) )
+			if (!string.IsNullOrEmpty(setting.Data))
 				data = setting.Data;
-			else if ( string.IsNullOrEmpty ( setting.Form ) )
-				data = makeParameterExpression ( setting.Parameters, isWebService, quote );
+			else if (string.IsNullOrEmpty(setting.Form))
+				data = makeParameterExpression(setting.Parameters, isWebService, quote);
 			else
-				data = JQuery.Create ( setting.Form ).Serialize ( ).Code;
+				data = JQuery.Create(setting.Form).Serialize().Code;
 
-			string map = string.Format ( "url: {0}{1}{0}, dataType: {0}{2}{0}, data: {3}, type: {0}{4}{0}",
+			string map = string.Format("url: {0}{1}{0}, dataType: {0}{2}{0}, data: {3}, type: {0}{4}{0}",
 				quote,
-				setting.Url + ( isWebService ? "/" + setting.MethodName : string.Empty ),
+				setting.Url + (isWebService ? "/" + setting.MethodName : string.Empty),
 				setting.DataType,
 				data,
 				setting.Type
 				);
 
-			if ( !string.IsNullOrEmpty ( setting.ContentType ) )
-				map += string.Format ( ", contentType: {0}{1}{0}", quote, setting.ContentType );
+			if (!string.IsNullOrEmpty(setting.ContentType))
+				map += string.Format(", contentType: {0}{1}{0}", quote, setting.ContentType);
 
-			foreach ( Event @event in setting.SettingHelper.Events )
-				if ( @event.Type != EventType.none && @event.Type != EventType.__init && !string.IsNullOrEmpty ( @event.Value ) )
+			foreach (Event @event in setting.SettingHelper.Events)
+				if (@event.Type != EventType.none && @event.Type != EventType.__init && !string.IsNullOrEmpty(@event.Value))
 					map += ", " + @event.Type + ": " + @event.Value;
 
-			return JQuery.Create ( false, true ).Ajax ( "{" + map + "}" );
+			return JQuery.Create(false, true).Ajax("{" + map + "}");
 		}
 
 		/// <summary>
@@ -144,45 +144,45 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		/// <param name="jQuery">JQueryUI 实例, 新实例将复制其 Code 属性.</param>
 		/// <returns>JQuery UI 实例.</returns>
-		public static JQueryUI Create ( JQueryUI jQuery )
-		{ return new JQueryUI ( jQuery ); }
+		public static JQueryUI Create(JQueryUI jQuery)
+		{ return new JQueryUI(jQuery); }
 
 		/// <summary>
 		/// 创建使用别名 $ 的空的 JQuery UI.
 		/// </summary>
 		/// <returns>JQuery UI 实例.</returns>
-		public static new JQueryUI Create ( )
-		{ return Create ( null, null, true ); }
+		public static new JQueryUI Create()
+		{ return Create(null, null, true); }
 		/// <summary>
 		/// 创建空的 JQuery UI.
 		/// </summary>
 		/// <param name="isAlias">如果为 true, 则在脚本中使用 $ 作为 jQuery 的别名.</param>
 		/// <returns>JQuery UI 实例.</returns>
-		public static new JQueryUI Create ( bool isAlias )
-		{ return Create ( null, null, isAlias ); }
+		public static new JQueryUI Create(bool isAlias)
+		{ return Create(null, null, isAlias); }
 		/// <summary>
 		/// 创建使用别名 $ 的 JQuery UI.
 		/// </summary>
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 也可以是 DOM 元素, 比如: "document.getElementById('myTable')", "[document.getElementById('myTable1'), document.getElementById('myTable2')]", 也可以是脚本中另一个 jQuery 实例, 比如: "myJQuery", 也可以是页面载入的回调函数, 比如: "function(){}", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
 		/// <returns>JQuery UI 实例.</returns>
-		public static new JQueryUI Create ( string expressionI )
-		{ return Create ( expressionI, null, true ); }
+		public static new JQueryUI Create(string expressionI)
+		{ return Create(expressionI, null, true); }
 		/// <summary>
 		/// 创建 JQuery UI.
 		/// </summary>
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 也可以是 DOM 元素, 比如: "document.getElementById('myTable')", "[document.getElementById('myTable1'), document.getElementById('myTable2')]", 也可以是脚本中另一个 jQuery 实例, 比如: "myJQuery", 也可以是页面载入的回调函数, 比如: "function(){}", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
 		/// <param name="isAlias">如果为 true, 则在脚本中使用 $ 作为 jQuery 的别名.</param>
 		/// <returns>JQuery UI 实例.</returns>
-		public static new JQueryUI Create ( string expressionI, bool isAlias )
-		{ return Create ( expressionI, null, isAlias ); }
+		public static new JQueryUI Create(string expressionI, bool isAlias)
+		{ return Create(expressionI, null, isAlias); }
 		/// <summary>
 		/// 创建使用别名 $ 的 JQuery UI.
 		/// </summary>
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
 		/// <param name="expressionII">当 expressionI 是选择器时, expressionII 是一个 DOM 元素, 指定搜索上下文, 比如: "document.body", 当 expressionI 是一段 html 代码时, expressionII 可以是 document 元素, 指定 html 代码创建位置, 比如: "document", 也可以是属性集合, 用来初始化只包含单一元素 html 代码元素, 比如: "{type: 'text'}".</param>
 		/// <returns>JQuery UI 实例.</returns>
-		public static new JQueryUI Create ( string expressionI, string expressionII )
-		{ return Create ( expressionI, expressionII, true ); }
+		public static new JQueryUI Create(string expressionI, string expressionII)
+		{ return Create(expressionI, expressionII, true); }
 		/// <summary>
 		/// 创建 JQuery UI.
 		/// </summary>
@@ -190,8 +190,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <param name="expressionII">当 expressionI 是选择器时, expressionII 是一个 DOM 元素, 指定搜索上下文, 比如: "document.body", 当 expressionI 是一段 html 代码时, expressionII 可以是 document 元素, 指定 html 代码创建位置, 比如: "document", 也可以是属性集合, 用来初始化只包含单一元素 html 代码元素, 比如: "{type: 'text'}".</param>
 		/// <param name="isAlias">如果为 true, 则在脚本中使用 $ 作为 jQuery 的别名.</param>
 		/// <returns>JQuery UI 实例.</returns>
-		public static new JQueryUI Create ( string expressionI, string expressionII, bool isAlias )
-		{ return new JQueryUI ( expressionI, expressionII, isAlias ); }
+		public static new JQueryUI Create(string expressionI, string expressionII, bool isAlias)
+		{ return new JQueryUI(expressionI, expressionII, isAlias); }
 
 		/// <summary>
 		/// 创建 JQuery UI.
@@ -199,53 +199,53 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <param name="isInstance">是否创建为实例, 为 false, 则创建为 $, 否则为 $().</param>
 		/// <param name="isAlias">如果为 true, 则在脚本中使用 $ 作为 jQuery 的别名.</param>
 		/// <returns>JQuery UI 实例.</returns>
-		public static new JQueryUI Create ( bool isInstance, bool isAlias )
-		{ return new JQueryUI ( isInstance, isAlias ); }
+		public static new JQueryUI Create(bool isInstance, bool isAlias)
+		{ return new JQueryUI(isInstance, isAlias); }
 
 
 		/// <summary>
 		/// 从另一个 JQuery 上创建具有相同 Code 属性的 JQuery UI 实例.
 		/// </summary>
 		/// <param name="jQuery">JQuery UI 实例, 新实例将复制其 Code 属性.</param>
-		public JQueryUI ( JQueryUI jQuery )
-			: base ( jQuery )
+		public JQueryUI(JQueryUI jQuery)
+			: base(jQuery)
 		{ }
 
 		/// <summary>
 		/// 创建使用别名 $ 的空的 JQuery UI.
 		/// </summary>
-		public JQueryUI ( )
-			: this ( null, null, true )
+		public JQueryUI()
+			: this(null, null, true)
 		{ }
 		/// <summary>
 		/// 创建空的 JQuery UI.
 		/// </summary>
 		/// <param name="isAlias">如果为 true, 则在脚本中使用 $ 作为 jQuery 的别名.</param>
-		public JQueryUI ( bool isAlias )
-			: this ( null, null, isAlias )
+		public JQueryUI(bool isAlias)
+			: this(null, null, isAlias)
 		{ }
 		/// <summary>
 		/// 创建使用别名 $ 的 JQuery UI.
 		/// </summary>
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 也可以是 DOM 元素, 比如: "document.getElementById('myTable')", "[document.getElementById('myTable1'), document.getElementById('myTable2')]", 也可以是脚本中另一个 jQuery 实例, 比如: "myJQuery", 也可以是页面载入的回调函数, 比如: "function(){}", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
-		public JQueryUI ( string expressionI )
-			: this ( expressionI, null, true )
+		public JQueryUI(string expressionI)
+			: this(expressionI, null, true)
 		{ }
 		/// <summary>
 		/// 创建 JQuery UI.
 		/// </summary>
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 也可以是 DOM 元素, 比如: "document.getElementById('myTable')", "[document.getElementById('myTable1'), document.getElementById('myTable2')]", 也可以是脚本中另一个 jQuery 实例, 比如: "myJQuery", 也可以是页面载入的回调函数, 比如: "function(){}", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
 		/// <param name="isAlias">如果为 true, 则在脚本中使用 $ 作为 jQuery 的别名.</param>
-		public JQueryUI ( string expressionI, bool isAlias )
-			: this ( expressionI, null, isAlias )
+		public JQueryUI(string expressionI, bool isAlias)
+			: this(expressionI, null, isAlias)
 		{ }
 		/// <summary>
 		/// 创建使用别名的 JQuery UI.
 		/// </summary>
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
 		/// <param name="expressionII">当 expressionI 是选择器时, expressionII 是一个 DOM 元素, 指定搜索上下文, 比如: "document.body", 当 expressionI 是一段 html 代码时, expressionII 可以是 document 元素, 指定 html 代码创建位置, 比如: "document", 也可以是属性集合, 用来初始化只包含单一元素 html 代码元素, 比如: "{type: 'text'}".</param>
-		public JQueryUI ( string expressionI, string expressionII )
-			: this ( expressionI, expressionII, true )
+		public JQueryUI(string expressionI, string expressionII)
+			: this(expressionI, expressionII, true)
 		{ }
 		/// <summary>
 		/// 创建 JQuery UI.
@@ -253,8 +253,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <param name="expressionI">可以是选择器, 比如: "'body table .red'", 或者是一段要添加的 html 代码, 比如: "'&lt;stong&gt;&lt;/stong&gt;'".</param>
 		/// <param name="expressionII">当 expressionI 是选择器时, expressionII 是一个 DOM 元素, 指定搜索上下文, 比如: "document.body", 当 expressionI 是一段 html 代码时, expressionII 可以是 document 元素, 指定 html 代码创建位置, 比如: "document", 也可以是属性集合, 用来初始化只包含单一元素 html 代码元素, 比如: "{type: 'text'}".</param>
 		/// <param name="isAlias">如果为 true, 则在脚本中使用 $ 作为 jQuery 的别名.</param>
-		public JQueryUI ( string expressionI, string expressionII, bool isAlias )
-			: base ( expressionI, expressionII, isAlias )
+		public JQueryUI(string expressionI, string expressionII, bool isAlias)
+			: base(expressionI, expressionII, isAlias)
 		{ }
 
 		/// <summary>
@@ -262,8 +262,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		/// <param name="isInstance">是否创建为实例, 为 false, 则创建为 $, 否则为 $().</param>
 		/// <param name="isAlias">如果为 true, 则在脚本中使用 $ 作为 jQuery 的别名.</param>
-		public JQueryUI ( bool isInstance, bool isAlias )
-			: base ( isInstance, isAlias )
+		public JQueryUI(bool isInstance, bool isAlias)
+			: base(isInstance, isAlias)
 		{ }
 
 		#endregion
@@ -274,29 +274,29 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		/// <param name="setting">Ajax 相关设置.</param>
 		/// <returns>更新后的 JQueryUI.</returns>
-		public JQueryUI Ajax ( AjaxSetting setting )
+		public JQueryUI Ajax(AjaxSetting setting)
 		{
 
-			if ( setting.EventType == EventType.none )
+			if (setting.EventType == EventType.none)
 				return this;
 
-			JQuery ajax = JQueryUI.Create ( setting );
+			JQuery ajax = JQueryUI.Create(setting);
 
-			if ( null == ajax )
+			if (null == ajax)
 				return this;
 
-			ajax.EndLine ( );
+			ajax.EndLine();
 
-			if ( setting.EventType == EventType.__init )
+			if (setting.EventType == EventType.__init)
 			{
 
-				if ( this.code != string.Empty )
-					this.EndLine ( );
+				if (this.code != string.Empty)
+					this.EndLine();
 
-				this.AppendCode ( ajax.Code );
+				this.AppendCode(ajax.Code);
 			}
 			else
-				this.Bind ( string.Format ( "'{0}'", setting.EventType ), "function(e){" + ajax.Code + "}" );
+				this.Bind(string.Format("'{0}'", setting.EventType), "function(e){" + ajax.Code + "}");
 
 			return this;
 
@@ -307,55 +307,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		/// <param name="setting">自定义插件相关设置, 为 TimerSetting, RepeaterSetting 等.</param>
 		/// <returns>更新后的 JQueryUI.</returns>
-		public JQueryUI Plusin ( PlusinSetting setting )
+		public JQueryUI Plusin(PlusinSetting setting)
 		{
 
-			if ( null == setting || setting.PlusinType == PlusinType.custom )
+			if (null == setting || setting.PlusinType == PlusinType.custom)
 				return this;
 
-			foreach ( AjaxSetting ajax in setting.Ajaxs )
-				if ( ajax.EventType != EventType.none && ajax.EventType != EventType.__init )
-				{
-					OptionType optionType;
+			setting.Recombine();
 
-					try
-					{ optionType = ( OptionType ) Enum.Parse ( typeof ( OptionType ), ajax.EventType.ToString ( ), true ); }
-					catch
-					{ continue; }
-
-					string data;
-
-					if ( string.IsNullOrEmpty ( ajax.MethodName ) )
-						data = "data";
-					else
-					{
-						data = "data.d";
-
-						if ( ajax.Data.StartsWith ( "e." ) )
-							ajax.Data = string.Format ( "jQuery.fn.__repeater.encodeData({0})", ajax.Data );
-
-					}
-
-					if ( !string.IsNullOrEmpty ( ajax.Success ) )
-						ajax.Success = ajax.Success.Replace ( "-:data", data );
-
-					if ( !string.IsNullOrEmpty ( ajax.Complete ) )
-						ajax.Complete = ajax.Complete.Replace ( "-:data", data );
-
-					if ( !string.IsNullOrEmpty ( ajax.Error ) )
-						ajax.Error = ajax.Error.Replace ( "-:data", data );
-
-					JQuery jquery = JQueryUI.Create ( ajax );
-
-					if ( null != jquery )
-					{
-						jquery.EndLine ( );
-						setting.SettingHelper.SetOptionValue ( optionType, "function(tag, e) {" + jquery.Code + "}", string.Empty );
-					}
-
-				}
-
-			return this.Execute ( "__" + setting.PlusinType.ToString ( ), makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
+			return this.Execute("__" + setting.PlusinType.ToString(), makeOptionExpression(setting.SettingHelper.CreateOptions())) as JQueryUI;
 		}
 
 		/// <summary>
@@ -363,13 +323,13 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		/// <param name="setting">交互相关设置, 为 DraggableSetting, DroppableSetting 等.</param>
 		/// <returns>更新后的 JQueryUI.</returns>
-		public JQueryUI Interaction ( InteractionSetting setting )
+		public JQueryUI Interaction(InteractionSetting setting)
 		{
 
-			if ( null == setting )
+			if (null == setting)
 				return this;
 
-			return this.Execute ( setting.InteractionType.ToString ( ), makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
+			return this.Execute(setting.InteractionType.ToString(), makeOptionExpression(setting.SettingHelper.CreateOptions())) as JQueryUI;
 		}
 
 		/// <summary>
@@ -377,20 +337,20 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		/// <param name="setting">插件相关设置, 为 ButtonSetting, DatepickerSetting 等.</param>
 		/// <returns>更新后的 JQueryUI.</returns>
-		public JQueryUI Widget ( WidgetSetting setting )
+		public JQueryUI Widget(WidgetSetting setting)
 		{
 
-			if ( null == setting || setting.WidgetType == WidgetType.custom )
+			if (null == setting || setting.WidgetType == WidgetType.custom)
 				return this;
 
-			this.Execute ( setting.WidgetType.ToString ( ), makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) );
+			this.Execute(setting.WidgetType.ToString(), makeOptionExpression(setting.SettingHelper.CreateOptions()));
 
-			foreach ( Event @event in setting.SettingHelper.Events )
-				if ( @event.Type != EventType.none && @event.Type != EventType.__init )
-					this.Execute ( @event.Type.ToString ( ), @event.Value );
+			foreach (Event @event in setting.SettingHelper.Events)
+				if (@event.Type != EventType.none && @event.Type != EventType.__init)
+					this.Execute(@event.Type.ToString(), @event.Value);
 
-			foreach ( AjaxSetting ajax in setting.Ajaxs )
-				this.Ajax ( ajax );
+			foreach (AjaxSetting ajax in setting.Ajaxs)
+				this.Ajax(ajax);
 
 			return this;
 		}

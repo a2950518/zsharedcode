@@ -25,8 +25,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public int Interval
 		{
-			get { return this.settingHelper.GetOptionValueToInteger ( OptionType.interval, 1000 ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.interval, ( value <= 0 ) ? "1000" : value.ToString ( ), "1000" ); }
+			get { return this.settingHelper.GetOptionValueToInteger(OptionType.interval, 1000); }
+			set { this.settingHelper.SetOptionValue(OptionType.interval, (value <= 0) ? "1000" : value.ToString(), "1000"); }
 		}
 		#endregion
 
@@ -36,8 +36,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Tick
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.tick ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.tick, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.tick); }
+			set { this.settingHelper.SetOptionValue(OptionType.tick, value, string.Empty); }
 		}
 		#endregion
 
@@ -51,11 +51,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			set
 			{
 
-				if ( null == value )
-					return;
-
-				value.EventType = EventType.tick;
-				this.ajaxs[0] = value;
+				if (null != value)
+					this.ajaxs[0] = value;
+				
 			}
 		}
 		#endregion
@@ -63,17 +61,26 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 创建一个自定义时钟设置.
 		/// </summary>
-		public TimerSetting ( )
-			: base ( PlusinType.timer, 1 )
-		{ this.TickAsync = this.ajaxs[0]; }
+		public TimerSetting()
+			: base(PlusinType.timer, 1)
+		{ }
 
 		/// <summary>
 		/// 获取自定义时钟插件的安装脚本.
 		/// </summary>
 		/// <returns>自定义时钟插件的安装脚本.</returns>
-		public override string GetPlusinCode ( )
-		//{ return ""; }
+		public override string GetPlusinCode()
 		{ return Resources.timer_min; }
+
+		/// <summary>
+		/// 重新构造.
+		/// </summary>
+		public override void Recombine()
+		{
+			this.TickAsync.EventType = EventType.tick;
+
+			base.Recombine();
+		}
 
 	}
 	#endregion

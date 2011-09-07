@@ -1103,6 +1103,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 分步完成.
 		/// </summary>
 		substepped,
+		/// <summary>
+		/// 参与过滤的字段.
+		/// </summary>
+		filterfield,
 	}
 	#endregion
 

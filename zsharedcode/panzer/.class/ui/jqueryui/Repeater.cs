@@ -66,6 +66,32 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 获取或设置过滤模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号. 
+		/// </summary>
+		[Category ( "模板" )]
+		[DefaultValue ( "" )]
+		[Description ( "过滤模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号" )]
+		[NotifyParentProperty ( true )]
+		public string Filter
+		{
+			get { return this.uiSetting.Filter; }
+			set { this.uiSetting.Filter = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置参与过滤的字段, 默认为 "[]".
+		/// </summary>
+		[Category("模板")]
+		[DefaultValue ( "[]" )]
+		[Description ( "参与过滤的字段, 默认为 []" )]
+		[NotifyParentProperty ( true )]
+		public string FilterField
+		{
+			get { return this.uiSetting.FilterField; }
+			set { this.uiSetting.FilterField = value; }
+		}
+
+		/// <summary>
 		/// 获取或设置结尾模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号. 
 		/// </summary>
 		[Category ( "模板" )]
@@ -597,6 +623,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private ITemplate insertedItemTemplate;
 		private ITemplate updatedItemTemplate;
 		private ITemplate removedItemTemplate;
+		private ITemplate filterTemplate;
 
 		/// <summary>
 		/// 获取或设置头部 html 代码的模板, 如果有效, 将覆盖 Header. 
@@ -696,6 +723,17 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			get { return this.emptyTemplate; }
 			set { this.emptyTemplate = value; }
 		}
+
+		/// <summary>
+		/// 获取或设置过滤条件的 html 代码的模板, 如果有效, 将覆盖 Filter. 
+		/// </summary>
+		[Browsable ( false )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ITemplate FilterTemplate
+		{
+			get { return this.filterTemplate; }
+			set { this.filterTemplate = value; }
+		}
 		#endregion
 
 		/// <summary>
@@ -716,6 +754,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			Literal insertedItem = renderTemplate ( this, this.insertedItemTemplate );
 			Literal updatedItem = renderTemplate ( this, this.updatedItemTemplate );
 			Literal removedItem = renderTemplate ( this, this.removedItemTemplate );
+			Literal filter = renderTemplate ( this, this.filterTemplate );
 
 			if ( !string.IsNullOrEmpty ( header.Text ) )
 				this.Header = ScriptHelper.EscapeCharacter ( header.Text, true );
@@ -743,6 +782,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !string.IsNullOrEmpty ( removedItem.Text ) )
 				this.RemovedItem = ScriptHelper.EscapeCharacter ( removedItem.Text, true );
+
+			if ( !string.IsNullOrEmpty ( filter.Text ) )
+				this.Filter = ScriptHelper.EscapeCharacter ( filter.Text, true );
 
 			base.renderJQuery ( jquery );
 		}

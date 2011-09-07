@@ -30,8 +30,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public bool Disabled
 		{
-			get { return this.settingHelper.GetOptionValueToBoolean ( OptionType.disabled, false ); }
-			set { this.settingHelper.SetOptionValueToBoolean ( OptionType.disabled, value, false ); }
+			get { return this.settingHelper.GetOptionValueToBoolean(OptionType.disabled, false); }
+			set { this.settingHelper.SetOptionValueToBoolean(OptionType.disabled, value, false); }
 		}
 
 		/// <summary>
@@ -39,8 +39,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string AjaxOptions
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.ajaxOptions ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.ajaxOptions, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.ajaxOptions); }
+			set { this.settingHelper.SetOptionValue(OptionType.ajaxOptions, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -48,8 +48,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public bool Cache
 		{
-			get { return this.settingHelper.GetOptionValueToBoolean ( OptionType.cache, false ); }
-			set { this.settingHelper.SetOptionValueToBoolean ( OptionType.cache, value, false ); }
+			get { return this.settingHelper.GetOptionValueToBoolean(OptionType.cache, false); }
+			set { this.settingHelper.SetOptionValueToBoolean(OptionType.cache, value, false); }
 		}
 
 		/// <summary>
@@ -57,8 +57,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public bool Collapsible
 		{
-			get { return this.settingHelper.GetOptionValueToBoolean ( OptionType.collapsible, false ); }
-			set { this.settingHelper.SetOptionValueToBoolean ( OptionType.collapsible, value, false ); }
+			get { return this.settingHelper.GetOptionValueToBoolean(OptionType.collapsible, false); }
+			set { this.settingHelper.SetOptionValueToBoolean(OptionType.collapsible, value, false); }
 		}
 
 		/// <summary>
@@ -66,8 +66,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Cookie
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.cookie ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.cookie, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.cookie); }
+			set { this.settingHelper.SetOptionValue(OptionType.cookie, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -75,8 +75,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public bool Deselectable
 		{
-			get { return this.settingHelper.GetOptionValueToBoolean ( OptionType.deselectable, false ); }
-			set { this.settingHelper.SetOptionValueToBoolean ( OptionType.deselectable, value, false ); }
+			get { return this.settingHelper.GetOptionValueToBoolean(OptionType.deselectable, false); }
+			set { this.settingHelper.SetOptionValueToBoolean(OptionType.deselectable, value, false); }
 		}
 
 		/// <summary>
@@ -84,8 +84,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public EventType Event
 		{
-			get { return this.settingHelper.GetOptionValueToEnum<EventType> ( OptionType.@event, EventType.click ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.@event, value.ToString ( ), EventType.click.ToString ( ) ); }
+			get { return this.settingHelper.GetOptionValueToEnum<EventType>(OptionType.@event, EventType.click); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.@event, value.ToString(), EventType.click.ToString()); }
 		}
 
 		/// <summary>
@@ -93,8 +93,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Fx
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.fx ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.fx, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.fx); }
+			set { this.settingHelper.SetOptionValue(OptionType.fx, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -102,8 +102,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string IdPrefix
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.idPrefix, "ui-tabs-" ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.idPrefix, value, "ui-tabs-" ); }
+			get { return this.settingHelper.GetOptionValueToString(OptionType.idPrefix, "ui-tabs-"); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.idPrefix, value, "ui-tabs-"); }
 		}
 
 		/// <summary>
@@ -111,8 +111,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string PanelTemplate
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.panelTemplate, "<div></div>" ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.panelTemplate, value, "<div></div>" ); }
+			get { return this.settingHelper.GetOptionValueToString(OptionType.panelTemplate, "<div></div>"); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.panelTemplate, value, "<div></div>"); }
 		}
 
 		/// <summary>
@@ -120,8 +120,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public int Selected
 		{
-			get { return this.settingHelper.GetOptionValueToInteger ( OptionType.selected, 0 ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.selected, ( value <= 0 ) ? "0" : value.ToString ( ), "0" ); }
+			get { return this.settingHelper.GetOptionValueToInteger(OptionType.selected, 0); }
+			set { this.settingHelper.SetOptionValue(OptionType.selected, (value <= 0) ? "0" : value.ToString(), "0"); }
 		}
 
 		/// <summary>
@@ -129,8 +129,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Spinner
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.spinner, "<em>Loading&#8230;</em>" ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.spinner, value, "<em>Loading&#8230;</em>" ); }
+			get { return this.settingHelper.GetOptionValueToString(OptionType.spinner, "<em>Loading&#8230;</em>"); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.spinner, value, "<em>Loading&#8230;</em>"); }
 		}
 
 		/// <summary>
@@ -138,8 +138,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string TabTemplate
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.tabTemplate, "<li><a href=#{href}><span>#{label}</span></a></li>" ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.tabTemplate, value, "<li><a href=#{href}><span>#{label}</span></a></li>" ); }
+			get { return this.settingHelper.GetOptionValueToString(OptionType.tabTemplate, "<li><a href=#{href}><span>#{label}</span></a></li>"); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.tabTemplate, value, "<li><a href=#{href}><span>#{label}</span></a></li>"); }
 		}
 		#endregion
 
@@ -149,8 +149,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Create
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.create ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.create, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.create); }
+			set { this.settingHelper.SetOptionValue(OptionType.create, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -158,8 +158,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Select
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.select ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.select, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.select); }
+			set { this.settingHelper.SetOptionValue(OptionType.select, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -167,8 +167,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Load
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.load ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.load, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.load); }
+			set { this.settingHelper.SetOptionValue(OptionType.load, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -176,8 +176,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Show
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.show ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.show, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.show); }
+			set { this.settingHelper.SetOptionValue(OptionType.show, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -185,8 +185,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Add
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.add ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.add, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.add); }
+			set { this.settingHelper.SetOptionValue(OptionType.add, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -194,8 +194,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Remove
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.remove ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.remove, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.remove); }
+			set { this.settingHelper.SetOptionValue(OptionType.remove, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -203,8 +203,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Enable
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.enable ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.enable, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.enable); }
+			set { this.settingHelper.SetOptionValue(OptionType.enable, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -212,8 +212,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Disable
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.disable ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.disable, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.disable); }
+			set { this.settingHelper.SetOptionValue(OptionType.disable, value, string.Empty); }
 		}
 		#endregion
 
@@ -227,11 +227,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			set
 			{
 
-				if ( null == value )
-					return;
+				if (null != value)
+					this.ajaxs[0] = value;
 
-				value.EventType = EventType.tabsselect;
-				this.ajaxs[0] = value;
 			}
 		}
 		#endregion
@@ -239,9 +237,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 创建一个分组标签设置.
 		/// </summary>
-		public TabsSetting ( )
-			: base ( WidgetType.tabs, 1 )
-		{ this.SelectAsync = this.ajaxs[0]; }
+		public TabsSetting()
+			: base(WidgetType.tabs, 1)
+		{ }
+
+		/// <summary>
+		/// 重新构造.
+		/// </summary>
+		public override void Recombine()
+		{ this.SelectAsync.EventType = EventType.tabsselect; }
 
 	}
 	#endregion
