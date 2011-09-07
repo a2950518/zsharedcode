@@ -32,7 +32,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-	<title>JQuery UI 的 accordion</title>
+	<title>JQuery UI 的 timer</title>
 	<script type="text/javascript" src="../js/jquery-1.6.2.min.js"></script>
 	<script type="text/javascript" src="../js/jquery-ui-1.8.15.custom.min.js"></script>
 	<link type="text/css" rel="Stylesheet" href="../css/smoothness/jquery-ui-1.8.15.custom.css" />
