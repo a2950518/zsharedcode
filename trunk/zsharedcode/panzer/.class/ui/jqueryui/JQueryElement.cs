@@ -309,6 +309,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				else if ( this.text != string.Empty )
 					writer.WriteEncodedText ( this.text );
 
+			if (this.DesignMode)
+				return;
+
 			JQueryUI jquery = new JQueryUI ( string.IsNullOrEmpty ( this.selector ) ? string.Format ( "'#{0}'", this.ClientID ) : this.selector );
 
 			this.renderJQuery ( jquery );

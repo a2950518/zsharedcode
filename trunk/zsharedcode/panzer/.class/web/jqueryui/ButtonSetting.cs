@@ -28,7 +28,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			set
 			{
 				this.primaryIcon = value;
-				this.refreshIcons ( );
+				this.refreshIcons();
 			}
 		}
 
@@ -41,7 +41,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			set
 			{
 				this.secondaryIcon = value;
-				this.refreshIcons ( );
+				this.refreshIcons();
 			}
 		}
 
@@ -51,8 +51,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public bool Disabled
 		{
-			get { return this.settingHelper.GetOptionValueToBoolean ( OptionType.disabled, false ); }
-			set { this.settingHelper.SetOptionValueToBoolean ( OptionType.disabled, value, false ); }
+			get { return this.settingHelper.GetOptionValueToBoolean(OptionType.disabled, false); }
+			set { this.settingHelper.SetOptionValueToBoolean(OptionType.disabled, value, false); }
 		}
 
 		/// <summary>
@@ -60,8 +60,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public bool Text
 		{
-			get { return this.settingHelper.GetOptionValueToBoolean ( OptionType.text, true ); }
-			set { this.settingHelper.SetOptionValueToBoolean ( OptionType.text, value, true ); }
+			get { return this.settingHelper.GetOptionValueToBoolean(OptionType.text, true); }
+			set { this.settingHelper.SetOptionValueToBoolean(OptionType.text, value, true); }
 		}
 
 		/// <summary>
@@ -69,8 +69,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Icons
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.icons, "{ primary: null, secondary: null }" ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.icons, value, "{ primary: null, secondary: null }" ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.icons, "{ primary: null, secondary: null }"); }
+			set { this.settingHelper.SetOptionValue(OptionType.icons, value, "{ primary: null, secondary: null }"); }
 		}
 
 		/// <summary>
@@ -78,8 +78,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Label
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.label, string.Empty ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.label, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValueToString(OptionType.label, string.Empty); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.label, value, string.Empty); }
 		}
 		#endregion
 
@@ -89,8 +89,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Create
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.create ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.create, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.create); }
+			set { this.settingHelper.SetOptionValue(OptionType.create, value, string.Empty); }
 		}
 		#endregion
 
@@ -104,11 +104,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			set
 			{
 
-				if ( null == value )
-					return;
+				if (null != value)
+					this.ajaxs[0] = value;
 
-				value.EventType = EventType.click;
-				this.ajaxs[0] = value;
 			}
 		}
 		#endregion
@@ -119,21 +117,21 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Click
 		{
-			get { return this.settingHelper.GetEventValue ( EventType.click ); }
-			set { this.settingHelper.SetEventValue ( EventType.click, value ); }
+			get { return this.settingHelper.GetEventValue(EventType.click); }
+			set { this.settingHelper.SetEventValue(EventType.click, value); }
 		}
 		#endregion
 
-		private void refreshIcons ( )
+		private void refreshIcons()
 		{
 			string icons = string.Empty;
 
-			if ( !string.IsNullOrEmpty ( this.primaryIcon ) && !string.IsNullOrEmpty ( this.secondaryIcon ) )
-				icons = "{" + string.Format ( " primary: '{0}', secondary: '{1}' ", this.primaryIcon, this.secondaryIcon ) + "}";
-			else if ( !string.IsNullOrEmpty ( this.secondaryIcon ) && string.IsNullOrEmpty ( this.primaryIcon ) )
-				icons = "{" + string.Format ( " secondary: '{0}' ", this.secondaryIcon ) + "}";
-			else if ( !string.IsNullOrEmpty ( this.primaryIcon ) && string.IsNullOrEmpty ( this.secondaryIcon ) )
-				icons = "{" + string.Format ( " primary: '{0}' ", this.primaryIcon ) + "}";
+			if (!string.IsNullOrEmpty(this.primaryIcon) && !string.IsNullOrEmpty(this.secondaryIcon))
+				icons = "{" + string.Format(" primary: '{0}', secondary: '{1}' ", this.primaryIcon, this.secondaryIcon) + "}";
+			else if (!string.IsNullOrEmpty(this.secondaryIcon) && string.IsNullOrEmpty(this.primaryIcon))
+				icons = "{" + string.Format(" secondary: '{0}' ", this.secondaryIcon) + "}";
+			else if (!string.IsNullOrEmpty(this.primaryIcon) && string.IsNullOrEmpty(this.secondaryIcon))
+				icons = "{" + string.Format(" primary: '{0}' ", this.primaryIcon) + "}";
 
 			this.Icons = icons;
 		}
@@ -141,9 +139,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 创建一个按钮设置.
 		/// </summary>
-		public ButtonSetting ( )
-			: base ( WidgetType.button, 1 )
-		{ this.ClickAsync = this.ajaxs[0]; }
+		public ButtonSetting()
+			: base(WidgetType.button, 1)
+		{ }
+
+		/// <summary>
+		/// 重新构造.
+		/// </summary>
+		public override void Recombine()
+		{ this.ClickAsync.EventType = EventType.click; }
 
 	}
 	#endregion

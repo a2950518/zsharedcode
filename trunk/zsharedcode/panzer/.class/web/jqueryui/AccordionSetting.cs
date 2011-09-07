@@ -176,11 +176,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			set
 			{
 
-				if ( null == value )
-					return;
+				if ( null != value )
+					this.ajaxs[0] = value;
 
-				value.EventType = EventType.accordionchange;
-				this.ajaxs[0] = value;
 			}
 		}
 		#endregion
@@ -188,9 +186,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 创建一个折叠列表设置.
 		/// </summary>
-		public AccordionSetting ( )
-			: base ( WidgetType.accordion, 1 )
-		{ this.ChangeAsync = this.ajaxs[0]; }
+		public AccordionSetting()
+			: base(WidgetType.accordion, 1)
+		{ }
+
+		/// <summary>
+		/// 重新构造.
+		/// </summary>
+		public override void Recombine()
+		{ this.ChangeAsync.EventType = EventType.accordionchange; }
 
 	}
 	#endregion

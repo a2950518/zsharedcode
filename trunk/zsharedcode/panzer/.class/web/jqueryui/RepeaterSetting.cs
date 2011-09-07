@@ -6,6 +6,8 @@
  * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
  * */
 
+using System.Collections.Generic;
+
 using zoyobar.shared.panzer.Properties;
 
 namespace zoyobar.shared.panzer.web.jqueryui
@@ -25,8 +27,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string EditItem
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.edititem, string.Empty ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.edititem, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValueToString(OptionType.edititem, string.Empty); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.edititem, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -34,8 +36,26 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Empty
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.empty, string.Empty ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.empty, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValueToString(OptionType.empty, string.Empty); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.empty, value, string.Empty); }
+		}
+
+		/// <summary>
+		/// 获取或设置过滤模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号.
+		/// </summary>
+		public string Filter
+		{
+			get { return this.settingHelper.GetOptionValueToString(OptionType.filter, string.Empty); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.filter, value, string.Empty); }
+		}
+
+		/// <summary>
+		/// 获取或设置参与过滤的字段, 默认为 "[]".
+		/// </summary>
+		public string FilterField
+		{
+			get { return this.settingHelper.GetOptionValue(OptionType.filterfield, "[]"); }
+			set { this.settingHelper.SetOptionValue(OptionType.filterfield, value, "[]"); }
 		}
 
 		/// <summary>
@@ -43,7 +63,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Field
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.field, "[]" ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.field, "[]"); }
 			set { this.settingHelper.SetOptionValue(OptionType.field, value, "[]"); }
 		}
 
@@ -52,8 +72,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Footer
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.footer, string.Empty ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.footer, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValueToString(OptionType.footer, string.Empty); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.footer, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -61,8 +81,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Header
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.header, string.Empty ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.header, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValueToString(OptionType.header, string.Empty); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.header, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -70,8 +90,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string InsertedItem
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.inserteditem, string.Empty ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.inserteditem, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValueToString(OptionType.inserteditem, string.Empty); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.inserteditem, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -79,8 +99,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Item
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.item, string.Empty ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.item, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValueToString(OptionType.item, string.Empty); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.item, value, string.Empty); }
 		}
 
 		/*
@@ -99,8 +119,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public bool MultipleSelect
 		{
-			get { return this.settingHelper.GetOptionValueToBoolean ( OptionType.multipleselect, true ); }
-			set { this.settingHelper.SetOptionValueToBoolean ( OptionType.multipleselect, value, true ); }
+			get { return this.settingHelper.GetOptionValueToBoolean(OptionType.multipleselect, true); }
+			set { this.settingHelper.SetOptionValueToBoolean(OptionType.multipleselect, value, true); }
 		}
 
 		/// <summary>
@@ -108,8 +128,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string NewItem
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.newitem, string.Empty ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.newitem, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValueToString(OptionType.newitem, string.Empty); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.newitem, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -117,8 +137,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public int PageIndex
 		{
-			get { return this.settingHelper.GetOptionValueToInteger ( OptionType.pageindex, 1 ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.pageindex, value.ToString ( ), "1" ); }
+			get { return this.settingHelper.GetOptionValueToInteger(OptionType.pageindex, 1); }
+			set { this.settingHelper.SetOptionValue(OptionType.pageindex, value.ToString(), "1"); }
 		}
 
 		/// <summary>
@@ -126,8 +146,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public int PageSize
 		{
-			get { return this.settingHelper.GetOptionValueToInteger ( OptionType.pagesize, 10 ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.pagesize, value.ToString ( ), "10" ); }
+			get { return this.settingHelper.GetOptionValueToInteger(OptionType.pagesize, 10); }
+			set { this.settingHelper.SetOptionValue(OptionType.pagesize, value.ToString(), "10"); }
 		}
 
 		/// <summary>
@@ -135,8 +155,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string RemovedItem
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.removeditem, string.Empty ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.removeditem, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValueToString(OptionType.removeditem, string.Empty); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.removeditem, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -144,8 +164,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string RowsName
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.rowsname, "rows" ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.rowsname, value, "rows" ); }
+			get { return this.settingHelper.GetOptionValueToString(OptionType.rowsname, "rows"); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.rowsname, value, "rows"); }
 		}
 
 		/// <summary>
@@ -153,8 +173,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public bool SingleThread
 		{
-			get { return this.settingHelper.GetOptionValueToBoolean ( OptionType.singlethread, true ); }
-			set { this.settingHelper.SetOptionValueToBoolean ( OptionType.singlethread, value, true ); }
+			get { return this.settingHelper.GetOptionValueToBoolean(OptionType.singlethread, true); }
+			set { this.settingHelper.SetOptionValueToBoolean(OptionType.singlethread, value, true); }
 		}
 
 		/// <summary>
@@ -162,8 +182,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string UpdatedItem
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.updateditem, string.Empty ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.updateditem, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValueToString(OptionType.updateditem, string.Empty); }
+			set { this.settingHelper.SetOptionValueToString(OptionType.updateditem, value, string.Empty); }
 		}
 		#endregion
 
@@ -173,8 +193,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string PreUpdate
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.preupdate ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.preupdate, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.preupdate); }
+			set { this.settingHelper.SetOptionValue(OptionType.preupdate, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -182,8 +202,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Update
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.update ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.update, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.update); }
+			set { this.settingHelper.SetOptionValue(OptionType.update, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -191,8 +211,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Updated
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.updated ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.updated, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.updated); }
+			set { this.settingHelper.SetOptionValue(OptionType.updated, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -200,8 +220,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string PreRemove
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.preremove ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.preremove, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.preremove); }
+			set { this.settingHelper.SetOptionValue(OptionType.preremove, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -209,8 +229,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Remove
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.remove ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.remove, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.remove); }
+			set { this.settingHelper.SetOptionValue(OptionType.remove, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -218,8 +238,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Removed
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.removed ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.removed, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.removed); }
+			set { this.settingHelper.SetOptionValue(OptionType.removed, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -227,8 +247,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string PreFill
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.prefill ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.prefill, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.prefill); }
+			set { this.settingHelper.SetOptionValue(OptionType.prefill, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -236,8 +256,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Fill
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.fill ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.fill, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.fill); }
+			set { this.settingHelper.SetOptionValue(OptionType.fill, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -245,8 +265,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Filled
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.filled ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.filled, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.filled); }
+			set { this.settingHelper.SetOptionValue(OptionType.filled, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -254,8 +274,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string PreInsert
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.preinsert ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.preinsert, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.preinsert); }
+			set { this.settingHelper.SetOptionValue(OptionType.preinsert, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -263,8 +283,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Insert
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.insert ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.insert, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.insert); }
+			set { this.settingHelper.SetOptionValue(OptionType.insert, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -272,8 +292,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Inserted
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.inserted ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.inserted, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.inserted); }
+			set { this.settingHelper.SetOptionValue(OptionType.inserted, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -281,8 +301,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Navigable
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.navigable ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.navigable, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.navigable); }
+			set { this.settingHelper.SetOptionValue(OptionType.navigable, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -290,8 +310,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Blocked
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.blocked ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.blocked, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.blocked); }
+			set { this.settingHelper.SetOptionValue(OptionType.blocked, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -299,8 +319,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string PreExecute
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.preexecute ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.preexecute, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.preexecute); }
+			set { this.settingHelper.SetOptionValue(OptionType.preexecute, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -308,8 +328,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Executed
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.executed ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.executed, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.executed); }
+			set { this.settingHelper.SetOptionValue(OptionType.executed, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -317,8 +337,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string PreCustom
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.precustom ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.precustom, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.precustom); }
+			set { this.settingHelper.SetOptionValue(OptionType.precustom, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -326,8 +346,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Custom
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.custom ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.custom, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.custom); }
+			set { this.settingHelper.SetOptionValue(OptionType.custom, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -335,8 +355,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string Customed
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.customed ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.customed, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.customed); }
+			set { this.settingHelper.SetOptionValue(OptionType.customed, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -344,8 +364,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string PreSubStep
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.presubstep ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.presubstep, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.presubstep); }
+			set { this.settingHelper.SetOptionValue(OptionType.presubstep, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -353,8 +373,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string SubStepping
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.substepping ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.substepping, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.substepping); }
+			set { this.settingHelper.SetOptionValue(OptionType.substepping, value, string.Empty); }
 		}
 
 		/// <summary>
@@ -362,8 +382,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public string SubStepped
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.substepped ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.substepped, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue(OptionType.substepped); }
+			set { this.settingHelper.SetOptionValue(OptionType.substepped, value, string.Empty); }
 		}
 		#endregion
 
@@ -377,14 +397,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			set
 			{
 
-				if ( null == value )
-					return;
+				if (null != value)
+					this.ajaxs[0] = value;
 
-				value.EventType = EventType.remove;
-				value.Data = "e.row";
-				value.Success = "function(data){e.callback.call($(tag), tag, e.index, (null == -:data.row ? e.row : -:data.row), -:data.__success, e.substep);}";
-				value.Error = "function(){e.callback.call($(tag), tag, e.index, e.row, false, e.substep);}";
-				this.ajaxs[0] = value;
 			}
 		}
 
@@ -397,14 +412,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			set
 			{
 
-				if ( null == value )
-					return;
+				if (null != value)
+					this.ajaxs[1] = value;
 
-				value.EventType = EventType.update;
-				value.Data = "e.row";
-				value.Success = "function(data){e.callback.call($(tag), tag, e.index, (null == -:data.row ? e.row : -:data.row), -:data.__success);}";
-				value.Error = "function(){e.callback.call($(tag), tag, e.index, e.row, false);}";
-				this.ajaxs[1] = value;
 			}
 		}
 
@@ -417,19 +427,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			set
 			{
 
-				if ( null == value )
-					return;
+				if (null != value)
+					this.ajaxs[2] = value;
 
-				value.EventType = EventType.fill;
-				value.Parameters = new Parameter[]
-				{
-					new Parameter("pageindex", ParameterType.Expression, "this.__repeater('option', 'pageindex')"),
-					new Parameter("pagesize", ParameterType.Expression, "this.__repeater('option', 'pagesize')"),
-				};
-
-				value.Success = "function(data){e.callback.call($(tag), tag, -:data, -:data.__success);}";
-				value.Error = "function(){e.callback.call($(tag), tag, {}, false);}";
-				this.ajaxs[2] = value;
 			}
 		}
 
@@ -442,14 +442,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			set
 			{
 
-				if ( null == value )
-					return;
-
-				value.EventType = EventType.insert;
-				value.Data = "e.row";
-				value.Success = "function(data){e.callback.call($(tag), tag, (null == -:data.row ? e.row : -:data.row), -:data.__success);}";
-				value.Error = "function(){e.callback.call($(tag), tag, e.row, false);}";
-				this.ajaxs[3] = value;
+				if (null != value)
+					this.ajaxs[3] = value;
+	
 			}
 		}
 
@@ -462,14 +457,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			set
 			{
 
-				if ( null == value )
-					return;
+				if (null != value)
+					this.ajaxs[4] = value;
 
-				value.EventType = EventType.custom;
-				value.Data = "e.row, {command: e.command}";
-				value.Success = "function(data){e.callback.call($(tag), tag, e.index, e.command, (null == -:data.row ? e.row : -:data.row), -:data.__success, e.substep);}";
-				value.Error = "function(){e.callback.call($(tag), tag, e.index, e.command, e.row, false, e.substep);}";
-				this.ajaxs[4] = value;
 			}
 		}
 		#endregion
@@ -477,23 +467,63 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 创建一个自定义 Repeater 设置.
 		/// </summary>
-		public RepeaterSetting ( )
-			: base ( PlusinType.repeater, 5 )
-		{
-			this.RemoveAsync = this.ajaxs[0];
-			this.UpdateAsync = this.ajaxs[1];
-			this.FillAsync = this.ajaxs[2];
-			this.InsertAsync = this.ajaxs[3];
-			this.CustomAsync = this.ajaxs[4];
-		}
+		public RepeaterSetting()
+			: base(PlusinType.repeater, 5)
+		{ }
 
 		/// <summary>
 		/// 获取自定义 Repeater 的安装脚本.
 		/// </summary>
 		/// <returns>自定义 Repeater 的安装脚本.</returns>
-		public override string GetPlusinCode ( )
+		public override string GetPlusinCode()
 		//{ return ""; }
 		{ return Resources.repeater_min; }
+
+		/// <summary>
+		/// 重新构造.
+		/// </summary>
+		public override void Recombine()
+		{
+			this.RemoveAsync.EventType = EventType.remove;
+			this.RemoveAsync.Data = "e.row";
+			this.RemoveAsync.Success = "function(data){e.callback.call($(tag), tag, e.index, (null == -:data.row ? e.row : -:data.row), -:data.__success, e.substep);}";
+			this.RemoveAsync.Error = "function(){e.callback.call($(tag), tag, e.index, e.row, false, e.substep);}";
+			this.UpdateAsync.EventType = EventType.update;
+			this.UpdateAsync.Data = "e.row";
+			this.UpdateAsync.Success = "function(data){e.callback.call($(tag), tag, e.index, (null == -:data.row ? e.row : -:data.row), -:data.__success);}";
+			this.UpdateAsync.Error = "function(){e.callback.call($(tag), tag, e.index, e.row, false);}";
+
+			this.FillAsync.EventType = EventType.fill;
+			this.FillAsync.Success = "function(data){e.callback.call($(tag), tag, -:data, -:data.__success);}";
+			this.FillAsync.Error = "function(){e.callback.call($(tag), tag, {}, false);}";
+			this.InsertAsync.EventType = EventType.insert;
+			this.InsertAsync.Data = "e.row";
+			this.InsertAsync.Success = "function(data){e.callback.call($(tag), tag, (null == -:data.row ? e.row : -:data.row), -:data.__success);}";
+			this.InsertAsync.Error = "function(){e.callback.call($(tag), tag, e.row, false);}";
+			this.CustomAsync.EventType = EventType.custom;
+			this.CustomAsync.Data = "e.row, {command: e.command}";
+			this.CustomAsync.Success = "function(data){e.callback.call($(tag), tag, e.index, e.command, (null == -:data.row ? e.row : -:data.row), -:data.__success, e.substep);}";
+			this.CustomAsync.Error = "function(){e.callback.call($(tag), tag, e.index, e.command, e.row, false, e.substep);}";
+
+			this.FillAsync.ParameterList.AddRange(new Parameter[]
+			{
+				new Parameter("pageindex", ParameterType.Expression, "this.__repeater('option', 'pageindex')"),
+				new Parameter("pagesize", ParameterType.Expression, "this.__repeater('option', 'pagesize')"),
+			});
+
+			string filterFieldList = this.FilterField.TrimEnd(']').TrimStart('[');
+
+			foreach (string filterField in filterFieldList.Split(','))
+			{
+				string field = filterField.Trim(new char[] { ' ', '\'' });
+
+				if (field != string.Empty)
+					this.FillAsync.ParameterList.Add(new Parameter(field, ParameterType.Expression, string.Format("(null == e.condition['{0}'] ? '' : e.condition['{0}'])", field)));
+
+			}
+
+			base.Recombine();
+		}
 
 	}
 	#endregion
