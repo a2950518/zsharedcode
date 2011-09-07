@@ -37,6 +37,8 @@
         * [IEBrowserDocSDZ 登录 DZ 发贴]
       * [IEBrowserDocButtonClick 按钮点击示例]
     * [JQueryElementDoc JQueryElement 分析&示例]
+      * [JQueryElementRepeaterDoc Repeater 示例]
+      * [JQueryElementTimerDoc 时钟示例]
       * [JQueryElementAccordionDoc 折叠列表示例]
       * [JQueryElementAutoCompleteDoc 自动填充示例]
       * [JQueryElementButtonDoc 按钮示例]
@@ -68,4 +70,5 @@
       * [http://www.tudou.com/programs/view/eZbcCKp2GNU/ Repeater 无刷新获取分页数据]
       * [http://www.tudou.com/programs/view/S5FE9qP_Fco/ Repeater 无刷新更新删除新建数据]
       * [http://www.tudou.com/programs/view/A8jdVD6HYFY/ Repeater 显示操作多行数据的进度]
+      * [http://www.tudou.com/programs/view/qDOhS_ZmmAE/ Repeater 增加过滤行搜索数据]
 </font>

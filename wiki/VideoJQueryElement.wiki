@@ -14,4 +14,5 @@
  * [http://www.tudou.com/programs/view/eZbcCKp2GNU/ Repeater 无刷新获取分页数据]
  * [http://www.tudou.com/programs/view/S5FE9qP_Fco/ Repeater 无刷新更新删除新建数据]
  * [http://www.tudou.com/programs/view/A8jdVD6HYFY/ Repeater 显示操作多行数据的进度]
+ * [http://www.tudou.com/programs/view/qDOhS_ZmmAE/ Repeater 增加过滤行搜索数据]
 </font>
