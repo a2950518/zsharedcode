@@ -81,7 +81,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置参与过滤的字段, 默认为 "[]".
 		/// </summary>
-		[Category("模板")]
+		[Category ( "数据" )]
 		[DefaultValue ( "[]" )]
 		[Description ( "参与过滤的字段, 默认为 []" )]
 		[NotifyParentProperty ( true )]
@@ -89,6 +89,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			get { return this.uiSetting.FilterField; }
 			set { this.uiSetting.FilterField = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置参与过滤字段的默认值, 默认为 "[]".
+		/// </summary>
+		[Category("数据")]
+		[DefaultValue ( "[]" )]
+		[Description ( "参与过滤字段的默认值, 默认为 []" )]
+		[NotifyParentProperty ( true )]
+		public string FilterFieldDefault
+		{
+			get { return this.uiSetting.FilterFieldDefault; }
+			set { this.uiSetting.FilterFieldDefault = value; }
 		}
 
 		/// <summary>
@@ -247,6 +260,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			get { return this.uiSetting.SingleThread; }
 			set { this.uiSetting.SingleThread = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置参与排序的字段, 默认为 "[]".
+		/// </summary>
+		[Category ( "数据" )]
+		[DefaultValue ( "[]" )]
+		[Description ( "参与排序的字段, 默认为 []" )]
+		[NotifyParentProperty ( true )]
+		public string SortField
+		{
+			get { return this.uiSetting.SortField; }
+			set { this.uiSetting.SortField = value; }
 		}
 
 		/// <summary>

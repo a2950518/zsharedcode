@@ -1107,6 +1107,14 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 参与过滤的字段.
 		/// </summary>
 		filterfield,
+		/// <summary>
+		/// 参与过滤字段的默认值.
+		/// </summary>
+		filterfielddefault,
+		/// <summary>
+		/// 参与排序的字段.
+		/// </summary>
+		sortfield,
 	}
 	#endregion
 

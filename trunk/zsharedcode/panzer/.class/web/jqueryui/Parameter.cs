@@ -38,6 +38,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		private ParameterType type;
 		private string value;
 		private string name;
+		private string @default;
 
 		/// <summary>
 		/// 获取或设置参数的名称.
@@ -79,10 +80,21 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
+		/// 获取或设置默认的数据.
+		/// </summary>
+		[Category ( "参数" )]
+		[Description ( "默认的数据" )]
+		public string Default
+		{
+			get { return this.@default; }
+			set { this.@default = ( null == value ? string.Empty : value ); }
+		}
+
+		/// <summary>
 		/// 创建一个空的 jQuery UI 参数, 参数值采用选择器.
 		/// </summary>
-		public Parameter ()
-			: this ( "new parameter", ParameterType.Selector, null )
+		public Parameter ( )
+			: this ( "new parameter", ParameterType.Selector, null, null )
 		{ }
 		/// <summary>
 		/// 创建一个 jQuery UI 参数, 参数值对应一个选择器.
@@ -90,7 +102,16 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <param name="name">参数名称.</param>
 		/// <param name="value">一个选择器.</param>
 		public Parameter ( string name, string value )
-			: this ( name, ParameterType.Selector, value )
+			: this ( name, ParameterType.Selector, value, null )
+		{ }
+		/// <summary>
+		/// 创建一个 jQuery UI 参数, 参数值对应一个选择器.
+		/// </summary>
+		/// <param name="name">参数名称.</param>
+		/// <param name="value">一个选择器.</param>
+		/// <param name="default">默认值.</param>
+		public Parameter ( string name, string value, string @default )
+			: this ( name, ParameterType.Selector, value, @default )
 		{ }
 		/// <summary>
 		/// 创建一个 jQuery UI 参数.
@@ -99,6 +120,16 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <param name="type">参数类型.</param>
 		/// <param name="value">参数值.</param>
 		public Parameter ( string name, ParameterType type, string value )
+			: this ( name, type, value, null )
+		{ }
+		/// <summary>
+		/// 创建一个 jQuery UI 参数.
+		/// </summary>
+		/// <param name="name">参数名称.</param>
+		/// <param name="type">参数类型.</param>
+		/// <param name="value">参数值.</param>
+		/// <param name="default">默认值.</param>
+		public Parameter ( string name, ParameterType type, string value, string @default )
 		{
 
 			if ( string.IsNullOrEmpty ( name ) )
@@ -107,6 +138,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			this.type = type;
 			this.name = name;
 
+			this.Default = @default;
 			this.Value = value;
 		}
 
