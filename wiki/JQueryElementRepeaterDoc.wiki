@@ -19,7 +19,7 @@
 
  除了命名空间, 还需要引用 jQueryUI 的脚本和样式, 可以在 [http://jqueryui.com jqueryui.com] 下载, 例如:
 {{{
-<link type="text/css" rel="stylesheet" href="[样式路径]/smoothness/jquery-ui-1.8.15.custom.css" />
+<link type="text/css" rel="stylesheet" href="[样式路径]/jquery-ui-1.8.15.custom.css" />
 <script type="text/javascript" src="[脚本路径]/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="[脚本路径]/jquery-ui-1.8.15.custom.min.js"></script>
 <script type="text/javascript" src="[脚本路径]/jquery.ui.datepicker-zh-CN.js"></script>
@@ -28,7 +28,7 @@
 === 主要功能 ===
 
 ==== 绑定字段 ====
- 在行模板中, 可以使用 *```#{<字段名>}```* 的形式来绑定字段, 比如:
+ 在行模板中, 可以使用 *``#{<字段名>}``* 的形式来绑定字段, 比如:
 {{{
 <ItemTemplate>
 	<span>#{id}</span>
@@ -46,7 +46,7 @@
 }}}
 
 ==== 绑定属性 ====
- 在所有的模板中都可以绑定属性, 语法为 *```@{<属性名>}```*, 比如:
+ 在所有的模板中都可以绑定属性, 语法为 *``@{<属性名>}``*, 比如:
 {{{
 <FooterTemplate>
 	第 @{pageindex}/@{pagecount} 页, @{itemcount} 条
