@@ -47,7 +47,7 @@
 
 === 主要功能 ===
 
-==== 绑定字段 ====
+ ==== 绑定字段 ====
  在行模板中, 可以使用 *#{<字段名>}* 的形式来绑定字段, 比如:
 {{{
 <ItemTemplate>
@@ -65,7 +65,7 @@
 </ItemTemplate>
 }}}
 
-==== 绑定属性 ====
+ ==== 绑定属性 ====
  在所有的模板中都可以绑定属性, 语法为 *@{<属性名>}*, 比如:
 {{{
 <FooterTemplate>
@@ -73,19 +73,19 @@
 </FooterTemplate>
 }}}
 
-==== 设置分页 ====
+ ==== 设置分页 ====
  通过 Repeater 的 PageSize 属性设置每页包含多少条数据, PageIndex 属性设置初始的页码, PageIndex 默认为 1.
 
-==== 设置字段 ====
+ ==== 设置字段 ====
  Repeater 的 Field 属性表示参与绑定的字段, 其形式为一个 javascript 字符串数组, 比如: ['id', 'realname', 'age'], 如果不设置 Field 属性, 则由第一次填充的数据来确定, 但这将导致在没有数据的情况下无法新建.
 
  FilterField 表示用于搜索的字段, 也是一个 javascript 字符串数组. FilterFieldDefault 为搜索字段的值为 null 或者 '' 时的默认值, 示例: ['', '', 0].
 
  SortField 表示参与排序的字段, 比如: ['id'].
 
-==== 请求/返回数据的格式 ====
+ ==== 请求/返回数据的格式 ====
 
-===== 填充/搜索 =====
+  ===== 填充/搜索 =====
  对于填充或者搜索操作, 以 WebService 为例, 服务端将接收如下参数, pageindex 页码, pagesize 每页中包含数据条数, 还可以接收与字段同名的参数或者通过 Parameter 增加的参数作为搜索条件, 或者接收形式为 *<字段名称>*{{{_}}}*order* 的用于排序的字段参数, 排序参数有三种值, "" 表示没有排序, "asc" 升序, "desc" 降序:
 {{{
 [WebMethod ( )]
@@ -137,7 +137,7 @@ public static object Fill ( /* 参数 */ )
 }
 }}}
 
-===== 更新 =====
+  ===== 更新 =====
  对于更新操作, 以 WebService 为例, 服务端将接收与更新的字段同名的参数:
 {{{
 [WebMethod ( )]
@@ -176,7 +176,7 @@ public static object Update ( /* 参数 */ )
 }
 }}}
 
-===== 删除 =====
+  ===== 删除 =====
  对于删除操作, 以 WebService 为例, 服务端将接收用于删除的字段作为参数:
 {{{
 [WebMethod ( )]
@@ -210,7 +210,7 @@ public static object Remove ( /* 参数 */ )
 }
 }}}
 
-===== 新建 =====
+  ===== 新建 =====
  对于新建操作, 以 WebService 为例, 服务端将接收与新建的字段同名的参数:
 {{{
 [WebMethod ( )]
@@ -249,13 +249,13 @@ public static object Insert ( /* 参数 */ )
 }
 }}}
 
-==== 行状态说明 ====
+ ==== 行状态说明 ====
  在客户端的 javascript 脚本中, 行状态有 4 种, 分别是 unchanged 未改变, updated 更新过, inserted 新建后的行, removed 删除后的行.
 
-==== 设置模板 ====
+ ==== 设置模板 ====
  在 Repeater 的各种模板中, 可以设置 Repeater 最终显示的 html 代码, 这些 html 代码应该是完整的, 合法的, *并且不要直接使用单引号, 可以对单引号转义,* 否则可能导致最终显示的不正常.
 
-===== ItemTemplate =====
+  ===== ItemTemplate =====
  ItemTemplate 为行模板中的一种, 可以显示处于 unchanged 状态的行, 如果没有设置 UpdatedItemTemplate 或者 InsertedItemTemplate, 那么 updated, inserted 状态的行也显示在 ItemTemplate 中, 示例:
 {{{
 <ItemTemplate>
@@ -276,7 +276,7 @@ public static object Insert ( /* 参数 */ )
 </ItemTemplate>
 }}}
 
-===== UpdatedItemTemplate/InsertedItemTemplate =====
+  ===== UpdatedItemTemplate/InsertedItemTemplate =====
  与 ItemTemplate 不同的是, UpdatedItemTemplate 和 InsertedItemTemplate 分别用于显示状态为 updated 和 inserted 的行, 主要用于采用不同样式来显示不同状态的行, 但也可以使用更简便的 je-class 来完成同样的效果, 示例:
 {{{
 <UpdatedItemTemplate>
@@ -308,7 +308,7 @@ public static object Insert ( /* 参数 */ )
 </InsertedItemTemplate>
 }}}
 
-===== RemovedItemTemplate =====
+  ===== RemovedItemTemplate =====
  默认情况下 removed 状态的行是不显示的, 除非设置了 RemovedItemTemplate, 示例:
 {{{
 <RemovedItemTemplate>
@@ -329,7 +329,7 @@ public static object Insert ( /* 参数 */ )
 </RemovedItemTemplate>
 }}}
 
-===== EditItemTemplate =====
+  ===== EditItemTemplate =====
  EditItemTemplate 是用来编辑行的模板, 其中会包含一些文本框之类的元素, 如果需要在更新中获取字段的值, 还需要设置 *je-id="<字段名>"*, 示例:
 {{{
 <EditItemTemplate>
@@ -350,7 +350,7 @@ public static object Insert ( /* 参数 */ )
 </EditItemTemplate>
 }}}
 
-===== FilterTemplate/NewItemTemplate =====
+  ===== FilterTemplate/NewItemTemplate =====
  FilterTemplate 和 NewItemTemplate 有些相似之处, 同样包含一些文本框, 需要使用 je-id 来绑定 id, 示例:
 {{{
 <FilterTemplate>
@@ -382,7 +382,7 @@ public static object Insert ( /* 参数 */ )
 </NewItemTemplate>
 }}}
 
-===== HeaderTemplate/FooterTemplate/EmptyTemplate =====
+  ===== HeaderTemplate/FooterTemplate/EmptyTemplate =====
  HeaderTemplate 表示头模板, FooterTemplate 表示尾模板, EmptyTemplate 表示在没有数据时的模板.
 
 ==== 根据行状态设置样式 ====
