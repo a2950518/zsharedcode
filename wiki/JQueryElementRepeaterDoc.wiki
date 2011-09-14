@@ -2,22 +2,105 @@
 #labels Phase-Implementation
 <font face="microsoft yahei">
 === 简介 ===
- 下面的例子使用 Repeater 完成数据的无刷新载入, 编辑等操作.
+ 本文将系统讲解 Repeater 控件的功能以及使用过程中的注意事项和技巧.
+
+=== 准备 ===
+ 请确保已经在 [Download 下载资源] 中下载 JQueryElement 最新的版本.
+
+ 请使用指令引用如下的命名空间:
+{{{
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.web.jqueryui"
+	TagPrefix="je" %>
+}}}
+
+ 除了命名空间, 还需要引用 jQueryUI 的脚本和样式, 可以在 [http://jqueryui.com jqueryui.com] 下载, 例如:
+{{{
+<link type="text/css" rel="stylesheet" href="[样式路径]/smoothness/jquery-ui-1.8.15.custom.css" />
+<script type="text/javascript" src="[脚本路径]/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="[脚本路径]/jquery-ui-1.8.15.custom.min.js"></script>
+<script type="text/javascript" src="[脚本路径]/jquery.ui.datepicker-zh-CN.js"></script>
+}}}
+
+=== 主要功能 ===
+
+==== 绑定字段 ====
+ 在行模板中, 可以使用 *```#{<字段名>}```* 的形式来绑定字段, 比如:
+{{{
+<ItemTemplate>
+	<span>#{id}</span>
+	<span>#{realname}</span>
+	<span>#{age}</span>
+</ItemTemplate>
+}}}
+ 字段也可以被绑定在标签的属性中, 比如:
+{{{
+<EditItemTemplate>
+	<span>#{id}</span>
+	<input type="text" value="#{realname}" />
+	<input type="text" value="#{age}" />
+</EditItemTemplate>
+}}}
+
+==== 绑定属性 ====
+ 在所有的模板中都可以绑定属性, 语法为 *```@{<属性名>}```*, 比如:
+{{{
+<FooterTemplate>
+	第 @{pageindex}/@{pagecount} 页, @{itemcount} 条
+</FooterTemplate>
+}}}
+
+==== 返回数据的格式 ====
+ 对于填充或者搜索操作, 服务端应返回如下格式的 json 数据:
+{{{
+{
+	"__success": <表示是否成功的布尔值, 为 true 或者 false>,
+	"rows": <包含行数据的 javascript 数组>,
+	"itemcount": <总行数>,
+	"pageindex": <当前页码>,
+	"pagecount": <总页数>
+}
+
+{
+	"__success": true,
+	"rows":
+	[
+		{ "id": 1, "realname": "jack", "age": 20 },
+		{ "id": 2, "realname": "tom", "age": 21 }
+	],
+	"itemcount": <总行数>,
+	"pageindex": <当前页码>,
+	"pagecount": <总页数>
+}
+}}}
 
 ==== 设置分页 ====
  通过 PageSize 属性设置每页包含多少条数据, PageIndex 属性设置初始的页码.
 
 ==== 设置模板 ====
- 通过相关的 Template, 可以为 Repeater 设置每行数据, 开始和结束的模板. EditItemTemplate 表示行处于编辑状态时的模板, RemovedItemTemplate 表示删除状态的行的模板, 如果没有设置则不会显示删除状态的行. NewItemTemplate 中是新建行的模板.
+ 通过相关的 Template, 可以为 Repeater 设置每行数据, 开始和结束的模板. EditItemTemplate 表示行处于编辑状态时的模
+
+板, RemovedItemTemplate 表示删除状态的行的模板, 如果没有设置则不会显示删除状态的行. NewItemTemplate 中是新
+
+建行的模板.
 
 ==== 根据行状态设置样式 ====
- 在模板中, 可以使用 {{{<tr je-class="{state}-item">}}} 这样的语法, je-class 在最后的代码中将替换为 class, {state} 将被替换为行的状态, 为 unchanged, inserted, updated 中的一种.
+ 在模板中, 可以使用 {{{<tr je-class="{state}-item">}}} 这样的语法, je-class 在最后的代码中将替换为 class, {state} 将被替换
+
+为行的状态, 为 unchanged, inserted, updated 中的一种.
 
 ==== 在模板中绑定字段和属性 ====
  在模板中使用 ```#{<字段名>}``` 的语法绑定字段, 使用 ```@{<属性名>}``` 的语法绑定属性.
 
 ==== 在模板中绑定标签属性 ====
- 在模板中使用 ```je-<标签属性>="绑定值"``` 的语法绑定字段, 比如在 ItemTemplate 中, 使用 {{{je-id="name"}}}, 将根据行的索引生成一个关于 name 字段的索引. 也可以绑定事件, 比如: {{{je-onclick="update"}}}, 则将生成执行更新的 onclick 事件.
+ 在模板中使用 ```je-<标签属性>="绑定值"``` 的语法绑定字段, 比如在 ItemTemplate 中, 使用 {{{je-id="name"}}}, 将根据行
+
+的索引生成一个关于 name 字段的索引. 也可以绑定事件, 比如: {{{je-onclick="update"}}}, 则将生成执行更新的 onclick 事件
+
+.
 
 === plusin/repeater.aspx ===
 {{{
@@ -28,7 +111,9 @@
 <%@ Import Namespace="System.Web.Services" %>
 <%@ Register Assembly="zoyobar.shared.panzer.JQueryElement" Namespace="zoyobar.shared.panzer.ui.jqueryui"
 	TagPrefix="je" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1
+
+-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 	<title>JQuery UI 的 repeater</title>
@@ -68,16 +153,22 @@
 				HttpContext.Current.Session["person"] = persons;
 			}
 			else
-				persons = HttpContext.Current.Session["person"] as SortedList<int, string>;
+				persons = HttpContext.Current.Session["person"] as SortedList<int, 
+
+string>;
 
 			List<object> rows = new List<object> ( );
 
 
 			for ( int x = 1; x <= persons.Count; x++ )
 				if ( x >= beginIndex && x <= endIndex )
-					rows.Add ( new { id = persons.Keys[x - 1], name = persons.Values[x - 1] } );
+					rows.Add ( new { id = persons.Keys[x - 1], name = 
 
-			return new { __success = true, pageindex = pageindex, itemcount = persons.Count, rows = rows.ToArray ( ) };
+persons.Values[x - 1] } );
+
+			return new { __success = true, pageindex = pageindex, itemcount = persons.Count, 
+
+rows = rows.ToArray ( ) };
 		}
 
 		[WebMethod ( )]
@@ -89,7 +180,9 @@
 				isSuccess = false;
 			else
 			{
-				SortedList<int, string> persons = HttpContext.Current.Session["person"] as SortedList<int, string>;
+				SortedList<int, string> persons = HttpContext.Current.Session["person"] 
+
+as SortedList<int, string>;
 
 				if ( persons.ContainsKey ( id ) )
 					persons.Remove ( id );
@@ -109,7 +202,9 @@
 				isSuccess = false;
 			else
 			{
-				SortedList<int, string> persons = HttpContext.Current.Session["person"] as SortedList<int, string>;
+				SortedList<int, string> persons = HttpContext.Current.Session["person"] 
+
+as SortedList<int, string>;
 
 				if ( persons.ContainsKey ( id ) )
 					persons[id] = name;
@@ -130,7 +225,9 @@
 				isSuccess = false;
 			else
 			{
-				SortedList<int, string> persons = HttpContext.Current.Session["person"] as SortedList<int, string>;
+				SortedList<int, string> persons = HttpContext.Current.Session["person"] 
+
+as SortedList<int, string>;
 
 				while ( true )
 				{
@@ -155,8 +252,12 @@
 	<form id="formRepeater" runat="server">
 	<table id="list">
 		<je:Repeater ID="repeater" runat="server" Selector="'#list'" IsVariable="true" PageSize="40"
-			FillAsync-Url="repeater.aspx" FillAsync-MethodName="Fill" RemoveAsync-Url="repeater.aspx"
-			RemoveAsync-MethodName="Remove" UpdateAsync-Url="repeater.aspx" UpdateAsync-MethodName="Update"
+			FillAsync-Url="repeater.aspx" FillAsync-MethodName="Fill" RemoveAsync-
+
+Url="repeater.aspx"
+			RemoveAsync-MethodName="Remove" UpdateAsync-Url="repeater.aspx" 
+
+UpdateAsync-MethodName="Update"
 			InsertAsync-Url="repeater.aspx" InsertAsync-MethodName="Insert" Navigable="
 			function(tag, e){
 				cmdNext.button(e.next ? 'enable' : 'disable');
@@ -187,7 +288,9 @@
 						#{name}
 					</td>
 					<td>
-						<a href="#" je-onclick="beginedit">编辑</a> <a href="#" je-onclick="remove">删除</a>
+						<a href="#" je-onclick="beginedit">编辑</a> <a 
+
+href="#" je-onclick="remove">删除</a>
 					</td>
 				</tr>
 			</ItemTemplate>
@@ -197,10 +300,14 @@
 						#{id}
 					</td>
 					<td>
-						<input type="text" je-id="name" value="#{name}" />
+						<input type="text" je-id="name" value="#{name}" 
+
+/>
 					</td>
 					<td>
-						<a href="#" je-onclick="endedit">取消</a> <a href="#" je-onclick="update">更新</a>
+						<a href="#" je-onclick="endedit">取消</a> <a 
+
+href="#" je-onclick="update">更新</a>
 					</td>
 				</tr>
 			</EditItemTemplate>
