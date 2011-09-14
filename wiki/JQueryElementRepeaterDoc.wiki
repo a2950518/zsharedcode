@@ -69,7 +69,9 @@ public static object <方法名称> ( int pageindex, int pagesize
 }
 
 [WebMethod ( )]
-public static object Fill ( int pageindex, int pagesize, string realname, int age, string id_order )
+public static object Fill ( int pageindex, int pagesize
+	, string realname, int age
+	, string id_order )
 {
 }
 }}}
@@ -98,9 +100,52 @@ public static object Fill ( /* 参数 */ )
 {
 	// ...
 	List<object> students = new List<object> ( );
-
+	students.Add ( new {
+		id = 1,
+		realname = "jack",
+		age = 20
+		} );
 	// ...
-	return new { __success = true, rows = students.ToArray ( ), itemcount = count };
+	return new { __success = true, rows = students.ToArray ( ), itemcount = 120 };
+}
+}}}
+
+===== 更新 =====
+ 对于更新操作, 以 WebService 为例, 服务端将接收与更新的字段同名的参数:
+{{{
+[WebMethod ( )]
+public static object <方法名称> ( <类型, 如: string> <用于更新的字段名称>
+	[, <类型n, 如: string> <用于更新的字段名称n>])
+{
+}
+
+[WebMethod ( )]
+public static object Update ( int id
+	, string realname, int age, string birthday )
+{
+}
+}}}
+ 服务器可以返回如下格式的 json 作为更新后的消息, 其中 __success 默认为 true, row 可以省略, 如果修改从客户端传递来的参数, 比如将小写的姓名改成大写, 那么可以用 row 来返回修改的字段.
+{{{
+{
+	"__success": <表示是否成功的布尔值, 为 true 或者 false>,
+	"row": <更新后的行>
+}
+
+{
+	"__success": true,
+	"row": { "id": 1, "realname": "jack", "age": 20 }
+}
+}}}
+ 在 .NET 4.0 中可以使用匿名类型来返回 json, 比如:
+{{{
+[WebMethod ( )]
+public static object Update ( /* 参数 */ )
+{
+	// ..., row 可以省略
+	return new { __success = true,
+		row = new { id = id, realname = realname, age = age }
+		};
 }
 }}}
 
