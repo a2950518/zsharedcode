@@ -1,4 +1,4 @@
-﻿#summary JQueryElement 数据绑定
+﻿#summary Repeater 完全参考
 #labels Phase-Implementation,Featured
 <font face="microsoft yahei">
 === 简介/目录 ===
