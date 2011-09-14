@@ -9,6 +9,7 @@
     * 绑定字段
     * 绑定属性
     * 设置分页
+    * 设置字段
     * 请求/返回数据的格式
       * 填充/搜索
       * 更新
@@ -17,6 +18,11 @@
     * 行状态说明
     * 设置模板
       * ItemTemplate
+      * UpdatedItemTemplate/InsertedItemTemplate
+      * RemovedItemTemplate
+      * EditItemTemplate
+      * FilterTemplate/NewItemTemplate
+      * HeaderTemplate/FooterTemplate/EmptyTemplate
 
 === 准备 ===
  请确保已经在 [Download 下载资源] 中下载 JQueryElement 最新的版本.
@@ -52,11 +58,11 @@
 }}}
  字段也可以被绑定在标签的属性中, 比如:
 {{{
-<EditItemTemplate>
+<ItemTemplate>
 	<span>#{id}</span>
-	<input type="text" value="#{realname}" />
-	<input type="text" value="#{age}" />
-</EditItemTemplate>
+	<span title="#{realname}">#{realname}</span>
+	<span>#{age}</span>
+</ItemTemplate>
 }}}
 
 ==== 绑定属性 ====
@@ -69,6 +75,13 @@
 
 ==== 设置分页 ====
  通过 Repeater 的 PageSize 属性设置每页包含多少条数据, PageIndex 属性设置初始的页码, PageIndex 默认为 1.
+
+==== 设置字段 ====
+ Repeater 的 Field 属性表示参与绑定的字段, 其形式为一个 javascript 字符串数组, 比如: ['id', 'realname', 'age'], 如果不设置 Field 属性, 则由第一次填充的数据来确定, 但这将导致在没有数据的情况下无法新建.
+
+ FilterField 表示用于搜索的字段, 也是一个 javascript 字符串数组. FilterFieldDefault 为搜索字段的值为 null 或者 '' 时的默认值, 示例: ['', '', 0].
+
+ SortField 表示参与排序的字段, 比如: ['id'].
 
 ==== 请求/返回数据的格式 ====
 
@@ -256,6 +269,9 @@ public static object Insert ( /* 参数 */ )
 		<td>
 			#{age}
 		</td>
+		<td>
+			/* 编辑和删除按钮 */
+		</td>
 	</tr>
 </ItemTemplate>
 }}}
@@ -314,6 +330,61 @@ public static object Insert ( /* 参数 */ )
 }}}
 
 ===== EditItemTemplate =====
+ EditItemTemplate 是用来编辑行的模板, 其中会包含一些文本框之类的元素, 如果需要在更新中获取字段的值, 还需要设置 *je-id="<字段名>"*, 示例:
+{{{
+<EditItemTemplate>
+	<tr>
+		<td>
+			#{id}
+		</td>
+		<td>
+			<input type="text" je-id="realname" value="#{realname}" />
+		</td>
+		<td>
+			<input type="text" je-id="age" value="#{age}" />
+		</td>
+		<td>
+			/* 取消和保存按钮 */
+		</td>
+	</tr>
+</EditItemTemplate>
+}}}
+
+===== FilterTemplate/NewItemTemplate =====
+ FilterTemplate 和 NewItemTemplate 有些相似之处, 同样包含一些文本框, 需要使用 je-id 来绑定 id, 示例:
+{{{
+<FilterTemplate>
+	<tr>
+		<td>
+			<input type="text" je-id="realname" value="#{realname}" />
+		</td>
+		<td>
+			<input type="text" je-id="age" value="#{age}" />
+		</td>
+		<td>
+			/* 搜索按钮 */
+		</td>
+	</tr>
+</FilterTemplate>
+
+<NewItemTemplate>
+	<tr>
+		<td>
+			<input type="text" je-id="realname" value="#{realname}" />
+		</td>
+		<td>
+			<input type="text" je-id="age" value="#{age}" />
+		</td>
+		<td>
+			/* 新建按钮 */
+		</td>
+	</tr>
+</NewItemTemplate>
+}}}
+
+===== HeaderTemplate/FooterTemplate/EmptyTemplate =====
+ HeaderTemplate 表示头模板, FooterTemplate 表示尾模板, EmptyTemplate 表示在没有数据时的模板.
+
 ==== 根据行状态设置样式 ====
  在模板中, 可以使用 {{{<tr je-class="{state}-item">}}} 这样的语法, je-class 在最后的代码中将替换为 class, {state} 将被替换为行的状态, 为 unchanged, inserted, updated 中的一种.
 
