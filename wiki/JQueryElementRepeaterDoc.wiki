@@ -23,6 +23,9 @@
       * EditItemTemplate
       * FilterTemplate/NewItemTemplate
       * HeaderTemplate/FooterTemplate/EmptyTemplate
+    * 特殊绑定
+      * je-id
+      * je-<javascript 事件名>
 
 === 准备 ===
  请确保已经在 [Download 下载资源] 中下载 JQueryElement 最新的版本.
@@ -77,15 +80,15 @@
  通过 Repeater 的 PageSize 属性设置每页包含多少条数据, PageIndex 属性设置初始的页码, PageIndex 默认为 1.
 
  ==== 设置字段 ====
- Repeater 的 Field 属性表示参与绑定的字段, 其形式为一个 javascript 字符串数组, 比如: ['id', 'realname', 'age'], 如果不设置 Field 属性, 则由第一次填充的数据来确定, 但这将导致在没有数据的情况下无法新建.
+ Repeater 的 Field 属性表示参与绑定的字段, 其形式为一个 javascript 字符串数组, 比如: `['id', 'realname', 'age']`, 如果不设置 Field 属性, 则由第一次填充的数据来确定, 但这将导致在没有数据的情况下无法新建.
 
- FilterField 表示用于搜索的字段, 也是一个 javascript 字符串数组. FilterFieldDefault 为搜索字段的值为 null 或者 '' 时的默认值, 示例: ['', '', 0].
+ FilterField 表示用于搜索的字段, 也是一个 javascript 字符串数组. FilterFieldDefault 为搜索字段的值为 null 或者 '' 时的默认值, 示例: `['', '', 0]`.
 
- SortField 表示参与排序的字段, 比如: ['id'].
+ SortField 表示参与排序的字段, 比如: `['id']`.
 
  ==== 请求/返回数据的格式 ====
 
-  ===== 填充/搜索 =====
+ ===== 填充/搜索 =====
  对于填充或者搜索操作, 以 WebService 为例, 服务端将接收如下参数, pageindex 页码, pagesize 每页中包含数据条数, 还可以接收与字段同名的参数或者通过 Parameter 增加的参数作为搜索条件, 或者接收形式为 *<字段名称>*{{{_}}}*order* 的用于排序的字段参数, 排序参数有三种值, "" 表示没有排序, "asc" 升序, "desc" 降序:
 {{{
 [WebMethod ( )]
@@ -137,7 +140,7 @@ public static object Fill ( /* 参数 */ )
 }
 }}}
 
-  ===== 更新 =====
+ ===== 更新 =====
  对于更新操作, 以 WebService 为例, 服务端将接收与更新的字段同名的参数:
 {{{
 [WebMethod ( )]
@@ -176,7 +179,7 @@ public static object Update ( /* 参数 */ )
 }
 }}}
 
-  ===== 删除 =====
+ ===== 删除 =====
  对于删除操作, 以 WebService 为例, 服务端将接收用于删除的字段作为参数:
 {{{
 [WebMethod ( )]
@@ -210,7 +213,7 @@ public static object Remove ( /* 参数 */ )
 }
 }}}
 
-  ===== 新建 =====
+ ===== 新建 =====
  对于新建操作, 以 WebService 为例, 服务端将接收与新建的字段同名的参数:
 {{{
 [WebMethod ( )]
@@ -255,7 +258,7 @@ public static object Insert ( /* 参数 */ )
  ==== 设置模板 ====
  在 Repeater 的各种模板中, 可以设置 Repeater 最终显示的 html 代码, 这些 html 代码应该是完整的, 合法的, *并且不要直接使用单引号, 可以对单引号转义,* 否则可能导致最终显示的不正常.
 
-  ===== ItemTemplate =====
+ ===== ItemTemplate =====
  ItemTemplate 为行模板中的一种, 可以显示处于 unchanged 状态的行, 如果没有设置 UpdatedItemTemplate 或者 InsertedItemTemplate, 那么 updated, inserted 状态的行也显示在 ItemTemplate 中, 示例:
 {{{
 <ItemTemplate>
@@ -276,7 +279,7 @@ public static object Insert ( /* 参数 */ )
 </ItemTemplate>
 }}}
 
-  ===== UpdatedItemTemplate/InsertedItemTemplate =====
+ ===== UpdatedItemTemplate/InsertedItemTemplate =====
  与 ItemTemplate 不同的是, UpdatedItemTemplate 和 InsertedItemTemplate 分别用于显示状态为 updated 和 inserted 的行, 主要用于采用不同样式来显示不同状态的行, 但也可以使用更简便的 je-class 来完成同样的效果, 示例:
 {{{
 <UpdatedItemTemplate>
@@ -308,7 +311,7 @@ public static object Insert ( /* 参数 */ )
 </InsertedItemTemplate>
 }}}
 
-  ===== RemovedItemTemplate =====
+ ===== RemovedItemTemplate =====
  默认情况下 removed 状态的行是不显示的, 除非设置了 RemovedItemTemplate, 示例:
 {{{
 <RemovedItemTemplate>
@@ -329,7 +332,7 @@ public static object Insert ( /* 参数 */ )
 </RemovedItemTemplate>
 }}}
 
-  ===== EditItemTemplate =====
+ ===== EditItemTemplate =====
  EditItemTemplate 是用来编辑行的模板, 其中会包含一些文本框之类的元素, 如果需要在更新中获取字段的值, 还需要设置 *je-id="<字段名>"*, 示例:
 {{{
 <EditItemTemplate>
@@ -350,7 +353,7 @@ public static object Insert ( /* 参数 */ )
 </EditItemTemplate>
 }}}
 
-  ===== FilterTemplate/NewItemTemplate =====
+ ===== FilterTemplate/NewItemTemplate =====
  FilterTemplate 和 NewItemTemplate 有些相似之处, 同样包含一些文本框, 需要使用 je-id 来绑定 id, 示例:
 {{{
 <FilterTemplate>
@@ -382,11 +385,83 @@ public static object Insert ( /* 参数 */ )
 </NewItemTemplate>
 }}}
 
-  ===== HeaderTemplate/FooterTemplate/EmptyTemplate =====
+ ===== HeaderTemplate/FooterTemplate/EmptyTemplate =====
  HeaderTemplate 表示头模板, FooterTemplate 表示尾模板, EmptyTemplate 表示在没有数据时的模板.
 
-==== 根据行状态设置样式 ====
- 在模板中, 可以使用 {{{<tr je-class="{state}-item">}}} 这样的语法, je-class 在最后的代码中将替换为 class, {state} 将被替换为行的状态, 为 unchanged, inserted, updated 中的一种.
+ ==== 特殊绑定 ====
+ 
+ ===== je-id =====
+ 使用 *je-id="<字段名>"* 可以绑定特殊的 id, 可以使用在行模板或者 FilterTemplate, NewItemTemplate 中的 input 元素中.
+
+ 在 EditItemTemplate 中, 被指定 je-id 的 input 将包含此字段的新值.
+
+ 在 FilterTemplate 中, 指定 je-id 的 input 包含了用于搜索的字段的值, 这些字段应该包含在 FilterField 属性中.
+
+ 在 NewItemTemplate 中, 指定 je-id 的 input 包含了用于新建的字段的值.
+
+ ===== je-<javascript 事件名> =====
+ 使用 *je-<javascript 事件名>="<行为名>"* 可以为事件绑定特殊的操作. 可以使用在各个模板中, 常用的行为有: beginedit 开始编辑, endedit 取消编辑, update 保存更新, remove 删除, toggleselect 切换选中状态, insert 新建, filter 搜索, togglesort 切换排序. 其中, 前 5 者只能用在行模板中, insert 可用在 NewItemTemplate 中, filter 可用在 FilterTemplate 中, togglesort 可用在 HeaderTemplate 中, 示例:
+{{{
+<ItemTemplate>
+	<tr>
+		<td>
+			#{id}
+		</td>
+		<td>
+			#{realname}
+		</td>
+		<td>
+			#{age}
+		</td>
+		<td>
+			<span je-onclick="beginedit">编辑</span>
+			<span je-onclick="remove">删除</span>
+		</td>
+	</tr>
+</ItemTemplate>
+
+<EditItemTemplate>
+	<tr>
+		<td>
+			#{id}
+		</td>
+		<td>
+			<input type="text" je-id="realname" value="#{realname}" class="textbox" />
+		</td>
+		<td>
+			<input type="text" je-id="age" value="#{age}" class="textbox" />
+		</td>
+		<td>
+			<span je-onclick="endedit">取消</span>
+			<span je-onclick="update">保存</span>
+		</td>
+	</tr>
+</EditItemTemplate>
+}}}
+ 需要说明的是, togglesort 还需要指定一个参数, 表示切换排序的字段, 这个字段已经在 SortField 中设置, 比如: je-onclick="togglesort,realname".
+
+ ===== je-class =====
+ 使用 *je-class="<样式>"* 可以为事件绑定特殊的样式. 可以在各个模板中使用 je-class, 常用的样式有: {header} 表示 ui-widget-header, {active} 表示 ui-state-active, {highlight} 表示 ui-state-highlight, {disabled} 表示 ui-state-disabled, {error} 表示 ui-state-error, {default} 表示 ui-state-default, {state} 表示行状态, {sort} 表示排序状态, 示例:
+{{{
+<HeaderTemplate>
+	<thead je-class="{header}">
+		<tr>
+			<td je-onclick="togglesort,id">
+				<span je-class="{sort,id,,ui-icon ui-icon-arrow-1-n icon,ui-icon ui-icon-arrow-1-s icon}">
+				</span>
+				序号
+			</td>
+			/* ... */
+		</tr>
+	</thead>
+</HeaderTemplate>
+
+<ItemTemplate>
+	<tr je-class="{state}-item">
+		/* ... */
+	</tr>
+</ItemTemplate>
+}}}
 
 ==== 在模板中绑定字段和属性 ====
  在模板中使用 ```#{<字段名>}``` 的语法绑定字段, 使用 ```@{<属性名>}``` 的语法绑定属性.
