@@ -494,7 +494,7 @@ public static object Insert ( /* 参数 */ )
  ==== <font color="green">特殊绑定</font> ====
  
  ===== je-id =====
- 使用 *je-id="<字段名>"* 可以绑定特殊的 id, 可以使用在行模板或者 FilterTemplate, NewItemTemplate 中的 input 元素中.
+ 使用 *`je-id="<字段名>"`* 可以绑定特殊的 id, 可以使用在行模板或者 FilterTemplate, NewItemTemplate 中的 input 元素中.
 
  在 EditItemTemplate 中, 被指定 je-id 的 input 将包含此字段的新值.
 
