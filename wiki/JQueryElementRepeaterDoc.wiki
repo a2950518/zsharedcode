@@ -36,6 +36,8 @@
     * 事件
     * 客户端方法
 
+ 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementTest.rar JQueryElementTest.rar]
+
 === 准备 ===
  请确保已经在 [Download 下载资源] 中下载 JQueryElement 最新的版本.
 
