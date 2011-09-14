@@ -1,8 +1,22 @@
 ﻿#summary JQueryElement 数据绑定
 #labels Phase-Implementation
 <font face="microsoft yahei">
-=== 简介 ===
- 本文将系统讲解 Repeater 控件的功能以及使用过程中的注意事项和技巧.
+=== 简介/目录 ===
+ 本文将系统讲解 Repeater 控件的功能以及使用过程中的注意事项和技巧, 目录如下:
+
+  * 准备
+  * 主要功能
+    * 绑定字段
+    * 绑定属性
+    * 设置分页
+    * 请求/返回数据的格式
+      * 填充/搜索
+      * 更新
+      * 删除
+      * 新建
+    * 行状态说明
+    * 设置模板
+      * ItemTemplate
 
 === 准备 ===
  请确保已经在 [Download 下载资源] 中下载 JQueryElement 最新的版本.
@@ -222,9 +236,84 @@ public static object Insert ( /* 参数 */ )
 }
 }}}
 
-==== 设置模板 ====
- 通过相关的 Template, 可以为 Repeater 设置每行数据, 开始和结束的模板. EditItemTemplate 表示行处于编辑状态时的模板, RemovedItemTemplate 表示删除状态的行的模板, 如果没有设置则不会显示删除状态的行. NewItemTemplate 中是新建行的模板.
+==== 行状态说明 ====
+ 在客户端的 javascript 脚本中, 行状态有 4 种, 分别是 unchanged 未改变, updated 更新过, inserted 新建后的行, removed 删除后的行.
 
+==== 设置模板 ====
+ 在 Repeater 的各种模板中, 可以设置 Repeater 最终显示的 html 代码, 这些 html 代码应该是完整的, 合法的, *并且不要直接使用单引号, 可以对单引号转义,* 否则可能导致最终显示的不正常.
+
+===== ItemTemplate =====
+ ItemTemplate 为行模板中的一种, 可以显示处于 unchanged 状态的行, 如果没有设置 UpdatedItemTemplate 或者 InsertedItemTemplate, 那么 updated, inserted 状态的行也显示在 ItemTemplate 中, 示例:
+{{{
+<ItemTemplate>
+	<tr>
+		<td>
+			#{id}
+		</td>
+		<td>
+			#{realname}
+		</td>
+		<td>
+			#{age}
+		</td>
+	</tr>
+</ItemTemplate>
+}}}
+
+===== UpdatedItemTemplate/InsertedItemTemplate =====
+ 与 ItemTemplate 不同的是, UpdatedItemTemplate 和 InsertedItemTemplate 分别用于显示状态为 updated 和 inserted 的行, 主要用于采用不同样式来显示不同状态的行, 但也可以使用更简便的 je-class 来完成同样的效果, 示例:
+{{{
+<UpdatedItemTemplate>
+	<tr style="font-weight: bold;">
+		<td>
+			#{id}
+		</td>
+		<td>
+			#{realname}
+		</td>
+		<td>
+			#{age}
+		</td>
+	</tr>
+</UpdatedItemTemplate>
+
+<InsertedItemTemplate>
+	<tr style="color: green;">
+		<td>
+			#{id}
+		</td>
+		<td>
+			#{realname}
+		</td>
+		<td>
+			#{age}
+		</td>
+	</tr>
+</InsertedItemTemplate>
+}}}
+
+===== RemovedItemTemplate =====
+ 默认情况下 removed 状态的行是不显示的, 除非设置了 RemovedItemTemplate, 示例:
+{{{
+<RemovedItemTemplate>
+	<tr style="color: red;">
+		<td>
+			#{id}
+		</td>
+		<td>
+			#{realname}
+		</td>
+		<td>
+			#{age}
+		</td>
+		<td>
+			已经删除
+		</td>
+	</tr>
+</RemovedItemTemplate>
+}}}
+
+===== EditItemTemplate =====
 ==== 根据行状态设置样式 ====
  在模板中, 可以使用 {{{<tr je-class="{state}-item">}}} 这样的语法, je-class 在最后的代码中将替换为 class, {state} 将被替换为行的状态, 为 unchanged, inserted, updated 中的一种.
 
