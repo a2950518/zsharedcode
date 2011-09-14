@@ -16,6 +16,7 @@
       * 删除
       * 新建
     * 行状态说明
+    * 排序状态说明
     * 设置模板
       * ItemTemplate
       * UpdatedItemTemplate/InsertedItemTemplate
@@ -52,7 +53,7 @@
 === 主要功能 ===
 
  ==== <font color="green">绑定字段</font> ====
- 在行模板中, 可以使用 *#{<字段名>}* 的形式来绑定字段, 比如:
+ 在行模板中, 可以使用 *`#{<字段名>}`* 的形式来绑定字段, 比如:
 {{{
 <ItemTemplate>
 	<span>#{id}</span>
@@ -70,7 +71,7 @@
 }}}
 
  ==== <font color="green">绑定属性</font> ====
- 在所有的模板中都可以绑定属性, 语法为 *@{<属性名>}*, 比如:
+ 在所有的模板中都可以绑定属性, 语法为 *`@{<属性名>}`*, 比如:
 {{{
 <FooterTemplate>
 	第 @{pageindex}/@{pagecount} 页, @{itemcount} 条
@@ -90,7 +91,7 @@
  ==== <font color="green">请求/返回数据的格式</font> ====
 
  ===== 填充/搜索 =====
- 对于填充或者搜索操作, 以 WebService 为例, 服务端将接收如下参数, pageindex 页码, pagesize 每页中包含数据条数, 还可以接收与字段同名的参数或者通过 Parameter 增加的参数作为搜索条件, 或者接收形式为 *<字段名称>*{{{_}}}*order* 的用于排序的字段参数, 排序参数有三种值, "" 表示没有排序, "asc" 升序, "desc" 降序:
+ 对于填充或者搜索操作, 以 WebService 为例, 服务端将接收如下参数, pageindex 页码, pagesize 每页中包含数据条数, 还可以接收与字段同名的参数或者通过 Parameter 增加的参数作为搜索条件, 或者接收形式为 *`<字段名称>_order`* 的用于排序的字段参数, 排序参数有三种值, "" 表示没有排序, "asc" 升序, "desc" 降序:
 {{{
 [WebMethod ( )]
 public static object <方法名称> ( int pageindex, int pagesize
@@ -256,6 +257,9 @@ public static object Insert ( /* 参数 */ )
  ==== <font color="green">行状态说明</font> ====
  在客户端的 javascript 脚本中, 行状态有 4 种, 分别是 unchanged 未改变, updated 更新过, inserted 新建后的行, removed 删除后的行.
 
+ ==== <font color="green">排序状态说明</font> ====
+ 在客户端的 javascript 脚本中, 排序状态有 4 种, 分别是 none 无排序或按照默认排序, asc 升序, desc 降序.
+
  ==== <font color="green">设置模板</font> ====
  在 Repeater 的各种模板中, 可以设置 Repeater 最终显示的 html 代码, 这些 html 代码应该是完整的, 合法的, *并且不要直接使用单引号, 可以对单引号转义,* 否则可能导致最终显示的不正常.
 
@@ -334,7 +338,7 @@ public static object Insert ( /* 参数 */ )
 }}}
 
  ===== EditItemTemplate =====
- EditItemTemplate 是用来编辑行的模板, 其中会包含一些文本框之类的元素, 如果需要在更新中获取字段的值, 还需要设置 *je-id="<字段名>"*, 示例:
+ EditItemTemplate 是用来编辑行的模板, 其中会包含一些文本框之类的元素, 如果需要在更新中获取字段的值, 还需要设置 *`je-id="<字段名>"`*, 示例:
 {{{
 <EditItemTemplate>
 	<tr>
@@ -401,7 +405,7 @@ public static object Insert ( /* 参数 */ )
  在 NewItemTemplate 中, 指定 je-id 的 input 包含了用于新建的字段的值.
 
  ===== je-<javascript 事件名> =====
- 使用 *je-<javascript 事件名>="<行为名>"* 可以为事件绑定特殊的操作. 可以使用在各个模板中, 常用的行为有: beginedit 开始编辑, endedit 取消编辑, update 保存更新, remove 删除, toggleselect 切换选中状态, insert 新建, filter 搜索, togglesort 切换排序. 其中, 前 5 者只能用在行模板中, insert 可用在 NewItemTemplate 中, filter 可用在 FilterTemplate 中, togglesort 可用在 HeaderTemplate 中, 示例:
+ 使用 *`je-<javascript 事件名>="<行为名>"`* 可以为事件绑定特殊的操作. 可以使用在各个模板中, 常用的行为有: beginedit 开始编辑, endedit 取消编辑, update 保存更新, remove 删除, toggleselect 切换选中状态, insert 新建, filter 搜索, togglesort 切换排序. 其中, 前 5 者只能用在行模板中, insert 可用在 NewItemTemplate 中, filter 可用在 FilterTemplate 中, togglesort 可用在 HeaderTemplate 中, 示例:
 {{{
 <ItemTemplate>
 	<tr>
@@ -439,10 +443,10 @@ public static object Insert ( /* 参数 */ )
 	</tr>
 </EditItemTemplate>
 }}}
- 需要说明的是, togglesort 还需要指定一个参数, 表示切换排序的字段, 这个字段已经在 SortField 中设置, 比如: je-onclick="togglesort,realname".
+ 需要说明的是, togglesort 还需要指定一个参数, 表示切换排序的字段, 这个字段已经在 SortField 中设置, 比如: `je-onclick="togglesort,realname"`.
 
  ===== je-class =====
- 使用 *je-class="<样式>"* 可以为事件绑定特殊的样式. 可以在各个模板中使用 je-class, 常用的样式有: {header} 表示 ui-widget-header, {active} 表示 ui-state-active, {highlight} 表示 ui-state-highlight, {disabled} 表示 ui-state-disabled, {error} 表示 ui-state-error, {default} 表示 ui-state-default, {state} 表示行状态, {sort} 表示排序状态, 示例:
+ 使用 *`je-class="<样式>"`* 可以为事件绑定特殊的样式. 可以在各个模板中使用 je-class, 常用的样式有: {header} 表示 ui-widget-header, {active} 表示 ui-state-active, {highlight} 表示 ui-state-highlight, {disabled} 表示 ui-state-disabled, {error} 表示 ui-state-error, {default} 表示 ui-state-default, {state} 表示行状态, {sort} 表示排序状态, 示例:
 {{{
 <HeaderTemplate>
 	<thead je-class="{header}">
@@ -463,5 +467,6 @@ public static object Insert ( /* 参数 */ )
 	</tr>
 </ItemTemplate>
 }}}
+ 这里需要说明 {state} 和 {sort} 的语法, 分别为 *`{state[,<未改变行样式>[,<新建行样式>[,<修改行样式>[,<删除行样式>]]]]}`*, *`{sort,<排序字段>[,<无排序样式>[,<升序样式>[,<降序样式>]]]}`*. 对于 {state} 而言, 如果没有指定某种状态的样式, 则将使用行的状态名称来代替样式名称, 比如: `{state,,new-item}`, 由于没有指定未改变行的样式, 因此如果行的状态为 unchanged, 那么将返回 unchanged. 对于 {sort} 而言, 如果没有指定某种排序的样式, 将采用排序的状态来代替样式名称.
 
 </font>
