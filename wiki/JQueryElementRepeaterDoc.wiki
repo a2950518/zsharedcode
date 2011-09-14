@@ -59,7 +59,7 @@
 ==== 请求/返回数据的格式 ====
 
 ===== 填充/搜索 =====
- 对于填充或者搜索操作, 以 WebService 为例, 服务端将接收如下参数, pageindex 页码, pagesize 每页中包含数据条数, 还可以接收与字段同名的参数或者通过 Parameter 增加的参数作为搜索条件, 或者接收形式为 *<字段名称>_order* 的用于排序的字段参数, 排序参数有三种值, "" 表示没有排序, "asc" 升序, "desc" 降序:
+ 对于填充或者搜索操作, 以 WebService 为例, 服务端将接收如下参数, pageindex 页码, pagesize 每页中包含数据条数, 还可以接收与字段同名的参数或者通过 Parameter 增加的参数作为搜索条件, 或者接收形式为 *<字段名称>*{{{_}}}*order* 的用于排序的字段参数, 排序参数有三种值, "" 表示没有排序, "asc" 升序, "desc" 降序:
 {{{
 [WebMethod ( )]
 public static object <方法名称> ( int pageindex, int pagesize[, <类型n, 如: string> <用于搜索的字段或条件名称n>][, string <用于排序的字段名称m>_order] )
