@@ -8,8 +8,10 @@
   * 主要功能
     * 绑定字段
     * 绑定属性
+    * 基本设置
     * 设置分页
     * 设置字段
+    * 设置调用的服务端方法
     * 请求/返回数据的格式
       * 填充/搜索
       * 更新
@@ -28,6 +30,9 @@
       * je-id
       * je-<javascript 事件名>
       * je-class
+      * je-checked/selected/readonly
+      * je-value
+      * je-<jQueryUI 插件名>
 
 === 准备 ===
  请确保已经在 [Download 下载资源] 中下载 JQueryElement 最新的版本.
@@ -78,6 +83,30 @@
 </FooterTemplate>
 }}}
 
+ ==== <font color="green">基本设置</font> ====
+ Repeater 的 Selector 属性是一个 javascript 表达式, 它将作为一个选择器, 写法可以参照 [http://jquery.com jquery.com], 选择器对应的元素将作为页面上最终的 *repeater* 来呈现, 示例:
+{{{
+<table id="list"></table>
+
+<je:Repeater ID="studentRepeater" runat="server"
+	Selector="'#list'">
+	/* ... */
+</je:Repeater>
+}}}
+ 设置 IsVariable 属性为 True, 则将在客户端生成与 ClientID 同名的 javascript 变量, 示例:
+{{{
+<je:Repeater ID="studentRepeater" runat="server"
+	IsVariable="true">
+</je:Repeater>
+
+<script type="text/javascript">
+	$(function () {
+		studentRepeater.__repeater('fill');
+	});
+</script>
+}}}
+ 由于在此页面中 ClientID 与 ID 相同, 因此通过 `studentRepeater` 就可以访问 *repeater*. 此外, 也可以通过 JQueryScript 控件并使用内嵌语法 `[%id:studentRepeater%]` 来确保 ClientID 与 ID 不相同的页面也能访问 *repeater* 变量.
+
  ==== <font color="green">设置分页</font> ====
  通过 Repeater 的 PageSize 属性设置每页包含多少条数据, PageIndex 属性设置初始的页码, PageIndex 默认为 1.
 
@@ -87,6 +116,71 @@
  FilterField 表示用于搜索的字段, 也是一个 javascript 字符串数组. FilterFieldDefault 为搜索字段的值为 null 或者 '' 时的默认值, 示例: `['', '', 0]`.
 
  SortField 表示参与排序的字段, 比如: `['id']`.
+
+ ==== <font color="green">设置调用的服务端方法</font> ====
+ 可以通过 Async 来设置如何调用服务器端方法, 如果是调用 WebService, 则需要设置 MethodName, 如果是普通的 ashx 这样的一般处理程序, 则忽略 MethodName, 示例:
+{{{
+<je:Repeater ID="studentRepeater" runat="server"
+	FillAsync-Url="<填充方法地址>"
+	FillAsync-MethodName="<填充方法名称>"
+	UpdateAsync-Url="<更新方法地址>"
+	UpdateAsync-MethodName="<更新方法名称>"
+	InsertAsync-Url="<新建方法地址>"
+	InsertAsync-MethodName="<新建方法名称>"
+	RemoveAsync-Url="<删除方法地址>"
+	RemoveAsync-MethodName="<删除方法名称>"
+	>
+	/* ... */
+</je:Repeater>
+
+<je:Repeater ID="studentRepeater" runat="server"
+	FillAsync-Url="Student.aspx"
+	FillAsync-MethodName="Fill"
+	UpdateAsync-Url="Student.aspx"
+	UpdateAsync-MethodName="Update"
+	InsertAsync-Url="Student.aspx"
+	InsertAsync-MethodName="Insert"
+	RemoveAsync-Url="Student.aspx"
+	RemoveAsync-MethodName="Remove"
+	>
+	/* ... */
+</je:Repeater>
+}}}
+ 如果, 你需要为方法传递更多的参数, 则可以采用下面的形式:
+{{{
+<je:Repeater ID="studentRepeater" runat="server">
+<FillAsync Url="<填充方法地址>" MethodName="<填充方法名称>">
+	<ParameterList>
+		<je:Parameter Name="<参数名1>"
+			Type="Expression"
+			Value="<值1>"
+			Default="<默认值1>" />
+		<je:Parameter Name="<参数名2>"
+			Type="Selector"
+			Value="<选择器2>"
+			Default="<默认值2>" />
+		/* ... */
+	</ParameterList>
+</FillAsync>
+</je:Repeater>
+
+<je:Repeater ID="studentRepeater" runat="server">
+<FillAsync Url="Student.aspx" MethodName="Fill">
+	<ParameterList>
+		<je:Parameter Name="ws"
+			Type="Expression"
+			Value="website"
+			Default="'-'" />
+		<je:Parameter Name="year"
+			Type="Selector"
+			Value="'#year'"
+			Default="2011" />
+		/* ... */
+	</ParameterList>
+</FillAsync>
+</je:Repeater>
+}}}
+ 通过添加 Parameter, 可以传递更多的参数, Name 为参数名, Type 为 Expression 时, 则 Value 中包含的是一个 javascript 表达式, 示例中的 `Value="website"` 表示取 javascript 变量 website 的值, 当然也可以设置为常量, 比如: `Value="'www.google.com'"` 或者 `Value="100"`, 当 Type 为 Selector 时, 则 Value 中的 javascript 表达式将作为选择器, 选择器的写法可以参照 [http://jquery.com jquery.com], 选择器对应的元素的值将作为参数的值. Default 中是默认值的 javascript 表达式, 当参数的值为 null 或者 '' 时, 将采用 Default 中的值.
 
  ==== <font color="green">请求/返回数据的格式</font> ====
 
@@ -468,5 +562,57 @@ public static object Insert ( /* 参数 */ )
 </ItemTemplate>
 }}}
  这里需要说明 {state} 和 {sort} 的语法, 分别为 *`{state[,<未改变行样式>[,<新建行样式>[,<修改行样式>[,<删除行样式>]]]]}`*, *`{sort,<排序字段>[,<无排序样式>[,<升序样式>[,<降序样式>]]]}`*. 对于 {state} 而言, 如果没有指定某种状态的样式, 则将使用行的状态名称来代替样式名称, 比如: `{state,,new-item}`, 由于没有指定未改变行的样式, 因此如果行的状态为 unchanged, 那么将返回 unchanged. 对于 {sort} 而言, 如果没有指定某种排序的样式, 将采用排序的状态来代替样式名称.
+
+ ===== je-checked/selected/readonly =====
+ 在 ItemTemplate 中使用 *`je-checked="selected"`* 配合 `je-onclick="toggleselect"`来表示行是否处于选中的状态, je-selected 则可用于 EditItemTemplate 中的 select 元素, 示例:
+{{{
+<ItemTemplate>
+	<tr>
+		<td>
+			<input type="checkbox"
+				je-checked="selected"
+				je-onclick="toggleselect"
+				/>&nbsp;#{id}
+		</td>
+	</tr>
+</ItemTemplate>
+}}}
+
+ ===== je-value =====
+ 在 FilterTemplate 中使用 *`je-value="<搜索字段名>"`* 来绑定初始化的搜索条件.
+
+ ===== je-<jQueryUI 插件名> =====
+ 可以在任何模板中使用 *`je-<jQueryUI 插件名>="<属性名n>=<属性值n>;"`*, 来生成一个 jQueryUI 的插件, 但目前仅支持 je-button 和 je-datepicker, 示例:
+{{{
+<EditItemTemplate>
+	<tr je-class="{state}-item">
+		<td>
+<input type="checkbox" je-checked="selected" je-onclick="toggleselect" />&nbsp;#{id}
+		</td>
+		<td>
+<input type="text" je-id="realname" value="#{realname}" />
+		</td>
+		<td>
+<input type="text" je-id="age" value="#{age}" />
+		</td>
+		<td>
+<input type="text" je-id="birthday"
+	je-datepicker="dateFormat='yy-mm-dd';"
+	value="#{birthday}" />
+		</td>
+		<td>
+<span
+	je-button="label='编辑';icons={ primary: 'ui-icon-pencil' };"
+	je-onclick="beginedit">
+</span>
+<span
+	je-button="label='删除';icons={ primary: 'ui-icon-trash' };"
+	je-onclick="remove">
+</span>
+		</td>
+	</tr>
+</EditItemTemplate>
+}}}
+ 属性的设置是和 jQueryUI 插件的属性一致的, 可以参考 [http://jqueryui.com jqueryui.com].
 
 </font>
