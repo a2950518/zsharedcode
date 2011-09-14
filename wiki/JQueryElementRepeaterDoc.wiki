@@ -59,16 +59,10 @@
 ==== 请求/返回数据的格式 ====
 
 ===== 填充/搜索 =====
- 对于填充或者搜索操作, 以 WebService 为例, 服务端将接收如下参数, pageindex 页码, pagesize 每页中包含数据条数, 还可以接收与字段同名
-
-的参数或者通过 Parameter 增加的参数作为搜索条件, 或者接收形式为 *<字段名称>_order* 的用于排序的字段参数, 排序参数有三种值, "" 表示
-
-没有排序, "asc" 升序, "desc" 降序:
+ 对于填充或者搜索操作, 以 WebService 为例, 服务端将接收如下参数, pageindex 页码, pagesize 每页中包含数据条数, 还可以接收与字段同名的参数或者通过 Parameter 增加的参数作为搜索条件, 或者接收形式为 *<字段名称>_order* 的用于排序的字段参数, 排序参数有三种值, "" 表示没有排序, "asc" 升序, "desc" 降序:
 {{{
 [WebMethod ( )]
-public static object <方法名称> ( int pageindex, int pagesize[, <类型n, 如: string> <用于搜索的字段或条件名称n>][, string <用于排序的字
-
-段名称m>_order] )
+public static object <方法名称> ( int pageindex, int pagesize[, <类型n, 如: string> <用于搜索的字段或条件名称n>][, string <用于排序的字段名称m>_order] )
 {
 }
 
@@ -109,22 +103,16 @@ public static object Fill ( /* 参数 */ )
 }}}
 
 ==== 设置模板 ====
- 通过相关的 Template, 可以为 Repeater 设置每行数据, 开始和结束的模板. EditItemTemplate 表示行处于编辑状态时的模板, 
-
-RemovedItemTemplate 表示删除状态的行的模板, 如果没有设置则不会显示删除状态的行. NewItemTemplate 中是新建行的模板.
+ 通过相关的 Template, 可以为 Repeater 设置每行数据, 开始和结束的模板. EditItemTemplate 表示行处于编辑状态时的模板, RemovedItemTemplate 表示删除状态的行的模板, 如果没有设置则不会显示删除状态的行. NewItemTemplate 中是新建行的模板.
 
 ==== 根据行状态设置样式 ====
- 在模板中, 可以使用 {{{<tr je-class="{state}-item">}}} 这样的语法, je-class 在最后的代码中将替换为 class, {state} 将被替换为行的状态, 为 
-
-unchanged, inserted, updated 中的一种.
+ 在模板中, 可以使用 {{{<tr je-class="{state}-item">}}} 这样的语法, je-class 在最后的代码中将替换为 class, {state} 将被替换为行的状态, 为 unchanged, inserted, updated 中的一种.
 
 ==== 在模板中绑定字段和属性 ====
  在模板中使用 ```#{<字段名>}``` 的语法绑定字段, 使用 ```@{<属性名>}``` 的语法绑定属性.
 
 ==== 在模板中绑定标签属性 ====
- 在模板中使用 ```je-<标签属性>="绑定值"``` 的语法绑定字段, 比如在 ItemTemplate 中, 使用 {{{je-id="name"}}}, 将根据行的索引生成一个关于 
-
-name 字段的索引. 也可以绑定事件, 比如: {{{je-onclick="update"}}}, 则将生成执行更新的 onclick 事件.
+ 在模板中使用 ```je-<标签属性>="绑定值"``` 的语法绑定字段, 比如在 ItemTemplate 中, 使用 {{{je-id="name"}}}, 将根据行的索引生成一个关于 name 字段的索引. 也可以绑定事件, 比如: {{{je-onclick="update"}}}, 则将生成执行更新的 onclick 事件.
 
 === plusin/repeater.aspx ===
 {{{
@@ -184,9 +172,7 @@ name 字段的索引. 也可以绑定事件, 比如: {{{je-onclick="update"}}}, 
 				if ( x >= beginIndex && x <= endIndex )
 					rows.Add ( new { id = persons.Keys[x - 1], name = persons.Values[x - 1] } );
 
-			return new { __success = true, pageindex = pageindex, itemcount = persons.Count, rows = 
-
-rows.ToArray ( ) };
+			return new { __success = true, pageindex = pageindex, itemcount = persons.Count, rows = rows.ToArray ( ) };
 		}
 
 		[WebMethod ( )]
@@ -198,9 +184,7 @@ rows.ToArray ( ) };
 				isSuccess = false;
 			else
 			{
-				SortedList<int, string> persons = HttpContext.Current.Session["person"] as SortedList<int, 
-
-string>;
+				SortedList<int, string> persons = HttpContext.Current.Session["person"] as SortedList<int, string>;
 
 				if ( persons.ContainsKey ( id ) )
 					persons.Remove ( id );
@@ -220,9 +204,7 @@ string>;
 				isSuccess = false;
 			else
 			{
-				SortedList<int, string> persons = HttpContext.Current.Session["person"] as SortedList<int, 
-
-string>;
+				SortedList<int, string> persons = HttpContext.Current.Session["person"] as SortedList<int, string>;
 
 				if ( persons.ContainsKey ( id ) )
 					persons[id] = name;
@@ -243,9 +225,7 @@ string>;
 				isSuccess = false;
 			else
 			{
-				SortedList<int, string> persons = HttpContext.Current.Session["person"] as SortedList<int, 
-
-string>;
+				SortedList<int, string> persons = HttpContext.Current.Session["person"] as SortedList<int, string>;
 
 				while ( true )
 				{
@@ -271,9 +251,7 @@ string>;
 	<table id="list">
 		<je:Repeater ID="repeater" runat="server" Selector="'#list'" IsVariable="true" PageSize="40"
 			FillAsync-Url="repeater.aspx" FillAsync-MethodName="Fill" RemoveAsync-Url="repeater.aspx"
-			RemoveAsync-MethodName="Remove" UpdateAsync-Url="repeater.aspx" UpdateAsync-
-
-MethodName="Update"
+			RemoveAsync-MethodName="Remove" UpdateAsync-Url="repeater.aspx" UpdateAsync-MethodName="Update"
 			InsertAsync-Url="repeater.aspx" InsertAsync-MethodName="Insert" Navigable="
 			function(tag, e){
 				cmdNext.button(e.next ? 'enable' : 'disable');
@@ -304,9 +282,7 @@ MethodName="Update"
 						#{name}
 					</td>
 					<td>
-						<a href="#" je-onclick="beginedit">编辑</a> <a href="#" je-
-
-onclick="remove">删除</a>
+						<a href="#" je-onclick="beginedit">编辑</a> <a href="#" je-onclick="remove">删除</a>
 					</td>
 				</tr>
 			</ItemTemplate>
@@ -319,9 +295,7 @@ onclick="remove">删除</a>
 						<input type="text" je-id="name" value="#{name}" />
 					</td>
 					<td>
-						<a href="#" je-onclick="endedit">取消</a> <a href="#" je-
-
-onclick="update">更新</a>
+						<a href="#" je-onclick="endedit">取消</a> <a href="#" je-onclick="update">更新</a>
 					</td>
 				</tr>
 			</EditItemTemplate>
