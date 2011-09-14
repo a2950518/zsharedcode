@@ -121,7 +121,7 @@ public static object <方法名称> ( <类型, 如: string> <用于更新的字�
 
 [WebMethod ( )]
 public static object Update ( int id
-	, string realname, int age, string birthday )
+	, string realname, int age )
 {
 }
 }}}
@@ -180,6 +180,45 @@ public static object Remove ( /* 参数 */ )
 {
 	// ..., row 可以省略
 	return new { __success = true };
+}
+}}}
+
+===== 新建 =====
+ 对于新建操作, 以 WebService 为例, 服务端将接收与新建的字段同名的参数:
+{{{
+[WebMethod ( )]
+public static object <方法名称> ( <类型, 如: string> <用于新建的字段名称>
+	[, <类型n, 如: string> <用于新建的字段名称n>])
+{
+}
+
+[WebMethod ( )]
+public static object Insert ( string realname
+	, int age )
+{
+}
+}}}
+ 服务器可以返回如下格式的 json 作为新建后的消息, 其中 __success 默认为 true.
+{{{
+{
+	"__success": <表示是否成功的布尔值, 为 true 或者 false>,
+	"row": <新建后的行>
+}
+
+{
+	"__success": true,
+	"row": { "id":10, "realname": "lili", "age": 12 }
+}
+}}}
+ 在 .NET 4.0 中可以使用匿名类型来返回 json, 比如:
+{{{
+[WebMethod ( )]
+public static object Insert ( /* 参数 */ )
+{
+	// ..., row 可以省略
+	return new { __success = true,
+		row = new { id = 10, realname = "lili", age = 12 }
+		};
 }
 }}}
 
