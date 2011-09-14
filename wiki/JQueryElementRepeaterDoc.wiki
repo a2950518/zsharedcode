@@ -26,6 +26,7 @@
     * 特殊绑定
       * je-id
       * je-<javascript 事件名>
+      * je-class
 
 === 准备 ===
  请确保已经在 [Download 下载资源] 中下载 JQueryElement 最新的版本.
@@ -50,7 +51,7 @@
 
 === 主要功能 ===
 
- ==== 绑定字段 ====
+<p style="background-color: green; color: white;">绑定字段</p>
  在行模板中, 可以使用 *#{<字段名>}* 的形式来绑定字段, 比如:
 {{{
 <ItemTemplate>
@@ -447,8 +448,8 @@ public static object Insert ( /* 参数 */ )
 	<thead je-class="{header}">
 		<tr>
 			<td je-onclick="togglesort,id">
-				<span je-class="{sort,id,,ui-icon ui-icon-arrow-1-n icon,ui-icon ui-icon-arrow-1-s icon}">
-				</span>
+<span je-class="{sort,id,,ui-icon ui-icon-arrow-1-n icon,ui-icon ui-icon-arrow-1-s icon}">
+</span>
 				序号
 			</td>
 			/* ... */
