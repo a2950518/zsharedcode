@@ -1,7 +1,9 @@
 ﻿#summary JQueryElement 数据绑定
-#labels Phase-Implementation
+#labels Phase-Implementation,Featured
 <font face="microsoft yahei">
 === 简介/目录 ===
+ 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementTest.rar JQueryElementTest.rar]
+
  本文将系统讲解 Repeater 控件的功能以及使用过程中的注意事项和技巧, 目录如下:
 
   * 准备
@@ -35,8 +37,6 @@
       * je-<jQueryUI 插件名>
     * 事件
     * 客户端方法
-
- 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementTest.rar JQueryElementTest.rar]
 
 === 准备 ===
  请确保已经在 [Download 下载资源] 中下载 JQueryElement 最新的版本.
