@@ -129,12 +129,12 @@ public static object Update ( int id
 {{{
 {
 	"__success": <表示是否成功的布尔值, 为 true 或者 false>,
-	"row": <更新后的行>
+	"row": <更新后的行, 不必包含所有字段>
 }
 
 {
 	"__success": true,
-	"row": { "id": 1, "realname": "jack", "age": 20 }
+	"row": { "realname": "JACK" }
 }
 }}}
  在 .NET 4.0 中可以使用匿名类型来返回 json, 比如:
@@ -144,8 +144,42 @@ public static object Update ( /* 参数 */ )
 {
 	// ..., row 可以省略
 	return new { __success = true,
-		row = new { id = id, realname = realname, age = age }
+		row = new { realname = "JACK" }
 		};
+}
+}}}
+
+===== 删除 =====
+ 对于删除操作, 以 WebService 为例, 服务端将接收用于删除的字段作为参数:
+{{{
+[WebMethod ( )]
+public static object <方法名称> ( <类型, 如: string> <用于删除的字段名称>
+	[, <类型n, 如: string> <用于删除的字段名称n>])
+{
+}
+
+[WebMethod ( )]
+public static object Remove ( int id )
+{
+}
+}}}
+ 服务器可以返回如下格式的 json 作为删除后的消息, 其中 __success 默认为 true.
+{{{
+{
+	"__success": <表示是否成功的布尔值, 为 true 或者 false>
+}
+
+{
+	"__success": true
+}
+}}}
+ 在 .NET 4.0 中可以使用匿名类型来返回 json, 比如:
+{{{
+[WebMethod ( )]
+public static object Remove ( /* 参数 */ )
+{
+	// ..., row 可以省略
+	return new { __success = true };
 }
 }}}
 
@@ -161,242 +195,4 @@ public static object Update ( /* 参数 */ )
 ==== 在模板中绑定标签属性 ====
  在模板中使用 ```je-<标签属性>="绑定值"``` 的语法绑定字段, 比如在 ItemTemplate 中, 使用 {{{je-id="name"}}}, 将根据行的索引生成一个关于 name 字段的索引. 也可以绑定事件, 比如: {{{je-onclick="update"}}}, 则将生成执行更新的 onclick 事件.
 
-=== plusin/repeater.aspx ===
-{{{
-<%@ Page Language="C#" %>
-
-<%@ Import Namespace="System.Collections.Generic" %>
-<%@ Import Namespace="System.Web" %>
-<%@ Import Namespace="System.Web.Services" %>
-<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement" Namespace="zoyobar.shared.panzer.ui.jqueryui"
-	TagPrefix="je" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-	<title>JQuery UI 的 repeater</title>
-	<script type="text/javascript" src="../js/jquery-1.6.2.min.js"></script>
-	<script type="text/javascript" src="../js/jquery-ui-1.8.15.custom.min.js"></script>
-	<link type="text/css" rel="Stylesheet" href="../css/smoothness/jquery-ui-1.8.15.custom.css" />
-	<link type="text/css" rel="Stylesheet" href="../css/main.css" />
-	<style type="text/css">
-		.unchanged-item
-		{
-		}
-		.inserted-item
-		{
-			color: #006600;
-			font-weight: bold;
-		}
-		.updated-item
-		{
-			font-weight: bold;
-		}
-	</style>
-	<script type="text/C#" runat="server">
-		[WebMethod ( )]
-		public static object Fill ( int pageindex, int pagesize )
-		{
-			int beginIndex = ( pageindex - 1 ) * pagesize + 1;
-			int endIndex = pageindex * pagesize;
-			SortedList<int, string> persons;
-
-			if ( null == HttpContext.Current.Session["person"] )
-			{
-				persons = new SortedList<int, string> ( );
-
-				for ( int x = 1; x <= 100; x++ )
-					persons.Add ( x, x.ToString ( ) );
-
-				HttpContext.Current.Session["person"] = persons;
-			}
-			else
-				persons = HttpContext.Current.Session["person"] as SortedList<int, string>;
-
-			List<object> rows = new List<object> ( );
-
-
-			for ( int x = 1; x <= persons.Count; x++ )
-				if ( x >= beginIndex && x <= endIndex )
-					rows.Add ( new { id = persons.Keys[x - 1], name = persons.Values[x - 1] } );
-
-			return new { __success = true, pageindex = pageindex, itemcount = persons.Count, rows = rows.ToArray ( ) };
-		}
-
-		[WebMethod ( )]
-		public static object Remove ( int id )
-		{
-			bool isSuccess;
-
-			if ( null == HttpContext.Current.Session["person"] )
-				isSuccess = false;
-			else
-			{
-				SortedList<int, string> persons = HttpContext.Current.Session["person"] as SortedList<int, string>;
-
-				if ( persons.ContainsKey ( id ) )
-					persons.Remove ( id );
-
-				isSuccess = true;
-			}
-
-			return new { __success = isSuccess };
-		}
-
-		[WebMethod ( )]
-		public static object Update ( int id, string name )
-		{
-			bool isSuccess;
-
-			if ( null == HttpContext.Current.Session["person"] )
-				isSuccess = false;
-			else
-			{
-				SortedList<int, string> persons = HttpContext.Current.Session["person"] as SortedList<int, string>;
-
-				if ( persons.ContainsKey ( id ) )
-					persons[id] = name;
-
-				isSuccess = true;
-			}
-
-			return new { __success = isSuccess };
-		}
-
-		[WebMethod ( )]
-		public static object Insert ( string name )
-		{
-			bool isSuccess;
-			int id = 0;
-
-			if ( null == HttpContext.Current.Session["person"] )
-				isSuccess = false;
-			else
-			{
-				SortedList<int, string> persons = HttpContext.Current.Session["person"] as SortedList<int, string>;
-
-				while ( true )
-				{
-					id++;
-
-					if ( !persons.ContainsKey ( id ) )
-					{
-						persons.Add ( id, name );
-						break;
-					}
-
-				}
-
-				isSuccess = true;
-			}
-
-			return new { __success = isSuccess, row = new { id = id, name = name } };
-		}
-	</script>
-</head>
-<body>
-	<form id="formRepeater" runat="server">
-	<table id="list">
-		<je:Repeater ID="repeater" runat="server" Selector="'#list'" IsVariable="true" PageSize="40"
-			FillAsync-Url="repeater.aspx" FillAsync-MethodName="Fill" RemoveAsync-Url="repeater.aspx"
-			RemoveAsync-MethodName="Remove" UpdateAsync-Url="repeater.aspx" UpdateAsync-MethodName="Update"
-			InsertAsync-Url="repeater.aspx" InsertAsync-MethodName="Insert" Navigable="
-			function(tag, e){
-				cmdNext.button(e.next ? 'enable' : 'disable');
-				cmdPrev.button(e.prev ? 'enable' : 'disable');
-			}
-			">
-			<HeaderTemplate>
-				<thead>
-					<tr>
-						<td>
-							序号
-						</td>
-						<td>
-							姓名
-						</td>
-						<td>
-							操作
-						</td>
-					</tr>
-				</thead>
-			</HeaderTemplate>
-			<ItemTemplate>
-				<tr je-class="{state}-item">
-					<td>
-						#{id}
-					</td>
-					<td>
-						#{name}
-					</td>
-					<td>
-						<a href="#" je-onclick="beginedit">编辑</a> <a href="#" je-onclick="remove">删除</a>
-					</td>
-				</tr>
-			</ItemTemplate>
-			<EditItemTemplate>
-				<tr>
-					<td>
-						#{id}
-					</td>
-					<td>
-						<input type="text" je-id="name" value="#{name}" />
-					</td>
-					<td>
-						<a href="#" je-onclick="endedit">取消</a> <a href="#" je-onclick="update">更新</a>
-					</td>
-				</tr>
-			</EditItemTemplate>
-			<RemovedItemTemplate>
-				<tr style="background-color: Red; color: White;">
-					<td>
-						#{id}
-					</td>
-					<td>
-						#{name}
-					</td>
-					<td>
-						已经删除
-					</td>
-				</tr>
-			</RemovedItemTemplate>
-			<NewItemTemplate>
-				<tr>
-					<td>
-						-
-					</td>
-					<td>
-						<input type="text" je-id="name" value="..." />
-					</td>
-					<td>
-						<a href="#" je-onclick="insert">添加</a>
-					</td>
-				</tr>
-			</NewItemTemplate>
-		</je:Repeater>
-	</table>
-	<je:Button ID="cmdPrev" runat="server" IsVariable="true" ElementType="Span" Disabled="true"
-		Label="上一页" Click="
-	function(tag, e){
-		repeater.__repeater('prev');
-	}
-	">
-	</je:Button>
-	<je:Button ID="cmdNext" runat="server" IsVariable="true" ElementType="Span" Disabled="true"
-		Label="下一页" Click="
-	function(tag, e){
-		repeater.__repeater('next');
-	}
-	">
-	</je:Button>
-	</form>
-</body>
-</html>
-<script type="text/javascript">
-	$(function () {
-		repeater.__repeater('fill');
-	});
-</script>
-}}}
-
- _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
 </font>
