@@ -51,7 +51,7 @@
 
 === 主要功能 ===
 
-<font color="green">绑定字段</font>
+ ====<font color="green">绑定字段</font>====
  在行模板中, 可以使用 *#{<字段名>}* 的形式来绑定字段, 比如:
 {{{
 <ItemTemplate>
