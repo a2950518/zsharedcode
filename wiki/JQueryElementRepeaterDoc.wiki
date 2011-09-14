@@ -51,7 +51,7 @@
 
 === 主要功能 ===
 
- ====<font color="green">绑定字段</font>====
+ ==== <font color="green">绑定字段</font> ====
  在行模板中, 可以使用 *#{<字段名>}* 的形式来绑定字段, 比如:
 {{{
 <ItemTemplate>
@@ -69,7 +69,7 @@
 </ItemTemplate>
 }}}
 
- ==== 绑定属性 ====
+ ==== <font color="green">绑定属性</font> ====
  在所有的模板中都可以绑定属性, 语法为 *@{<属性名>}*, 比如:
 {{{
 <FooterTemplate>
@@ -77,17 +77,17 @@
 </FooterTemplate>
 }}}
 
- ==== 设置分页 ====
+ ==== <font color="green">设置分页</font> ====
  通过 Repeater 的 PageSize 属性设置每页包含多少条数据, PageIndex 属性设置初始的页码, PageIndex 默认为 1.
 
- ==== 设置字段 ====
+ ==== <font color="green">设置字段</font> ====
  Repeater 的 Field 属性表示参与绑定的字段, 其形式为一个 javascript 字符串数组, 比如: `['id', 'realname', 'age']`, 如果不设置 Field 属性, 则由第一次填充的数据来确定, 但这将导致在没有数据的情况下无法新建.
 
  FilterField 表示用于搜索的字段, 也是一个 javascript 字符串数组. FilterFieldDefault 为搜索字段的值为 null 或者 '' 时的默认值, 示例: `['', '', 0]`.
 
  SortField 表示参与排序的字段, 比如: `['id']`.
 
- ==== 请求/返回数据的格式 ====
+ ==== <font color="green">请求/返回数据的格式</font> ====
 
  ===== 填充/搜索 =====
  对于填充或者搜索操作, 以 WebService 为例, 服务端将接收如下参数, pageindex 页码, pagesize 每页中包含数据条数, 还可以接收与字段同名的参数或者通过 Parameter 增加的参数作为搜索条件, 或者接收形式为 *<字段名称>*{{{_}}}*order* 的用于排序的字段参数, 排序参数有三种值, "" 表示没有排序, "asc" 升序, "desc" 降序:
@@ -253,10 +253,10 @@ public static object Insert ( /* 参数 */ )
 }
 }}}
 
- ==== 行状态说明 ====
+ ==== <font color="green">行状态说明</font> ====
  在客户端的 javascript 脚本中, 行状态有 4 种, 分别是 unchanged 未改变, updated 更新过, inserted 新建后的行, removed 删除后的行.
 
- ==== 设置模板 ====
+ ==== <font color="green">设置模板</font> ====
  在 Repeater 的各种模板中, 可以设置 Repeater 最终显示的 html 代码, 这些 html 代码应该是完整的, 合法的, *并且不要直接使用单引号, 可以对单引号转义,* 否则可能导致最终显示的不正常.
 
  ===== ItemTemplate =====
@@ -389,7 +389,7 @@ public static object Insert ( /* 参数 */ )
  ===== HeaderTemplate/FooterTemplate/EmptyTemplate =====
  HeaderTemplate 表示头模板, FooterTemplate 表示尾模板, EmptyTemplate 表示在没有数据时的模板.
 
- ==== 特殊绑定 ====
+ ==== <font color="green">特殊绑定</font> ====
  
  ===== je-id =====
  使用 *je-id="<字段名>"* 可以绑定特殊的 id, 可以使用在行模板或者 FilterTemplate, NewItemTemplate 中的 input 元素中.
@@ -463,11 +463,5 @@ public static object Insert ( /* 参数 */ )
 	</tr>
 </ItemTemplate>
 }}}
-
-==== 在模板中绑定字段和属性 ====
- 在模板中使用 ```#{<字段名>}``` 的语法绑定字段, 使用 ```@{<属性名>}``` 的语法绑定属性.
-
-==== 在模板中绑定标签属性 ====
- 在模板中使用 ```je-<标签属性>="绑定值"``` 的语法绑定字段, 比如在 ItemTemplate 中, 使用 {{{je-id="name"}}}, 将根据行的索引生成一个关于 name 字段的索引. 也可以绑定事件, 比如: {{{je-onclick="update"}}}, 则将生成执行更新的 onclick 事件.
 
 </font>
