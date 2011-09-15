@@ -20,13 +20,13 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	public class JQueryRazor
 	{
 		private string code = string.Empty;
-		private readonly WebPage page;
+		private readonly WebPageBase page;
 
 		/// <summary>
 		/// 创建一个实现 jQuery UI 交互插件的类.
 		/// </summary>
 		/// <param name="page">Razor 页面自身.</param>
-		public JQueryRazor ( WebPage page )
+		public JQueryRazor ( WebPageBase page )
 		{
 
 			if ( null == page )
@@ -89,6 +89,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			this.code += "$(function(){" + ( string.IsNullOrEmpty ( variableName ) ? string.Empty : ( "window['" + variableName + "'] = " ) ) + new JQueryUI ( selector ).Widget ( setting ).Code + "});";
 		}
 
+		/// <summary>
+		/// 将目前所有的脚本输出.
+		/// </summary>
+		/// <param name="key">脚本块的关键字.</param>
 		public void WriteScript ( string key = null )
 		{
 
