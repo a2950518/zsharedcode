@@ -19,13 +19,13 @@ namespace zoyobar.shared.panzer.web
 	public sealed class RazorScriptHolder
 		: ScriptHolder
 	{
-		private readonly WebPage page;
+		private readonly WebPageBase page;
 
 		/// <summary>
 		/// 创建一个 razor 页面容器.
 		/// </summary>
 		/// <param name="page">表示页面的 WebPage 对象.</param>
-		public RazorScriptHolder ( WebPage page )
+		public RazorScriptHolder ( WebPageBase page )
 		{
 
 			if ( null != page && !page.PageData.ContainsKey ( "__ScriptKeys" ) )
