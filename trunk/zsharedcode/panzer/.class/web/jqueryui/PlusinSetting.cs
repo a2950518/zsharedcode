@@ -7,6 +7,9 @@
  * */
 
 using System;
+using System.Collections.Generic;
+
+using zoyobar.shared.panzer.Properties;
 
 namespace zoyobar.shared.panzer.web.jqueryui
 {
@@ -29,6 +32,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 自动填充.
 		/// </summary>
 		timer = 2,
+		/// <summary>
+		/// 基础插件.
+		/// </summary>
+		panzer = 3,
 	}
 	#endregion
 
@@ -42,10 +49,17 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		private PlusinType plusinType;
 
 		/// <summary>
-		/// 获取自定义插件的安装脚本.
+		/// 获取所需的基础自定义插件类型.
 		/// </summary>
-		/// <returns>自定义插件的安装脚本.</returns>
-		public abstract string GetPlusinCode();
+		/// <returns>基础自定义插件类型.</returns>
+		public virtual Dictionary<PlusinType, string> GetDependentPlusins()
+		{
+			Dictionary<PlusinType, string> plusins = new Dictionary<PlusinType, string>();
+
+			plusins.Add(PlusinType.panzer, Resources.panzer_min);
+
+			return plusins;
+		}
 
 		/// <summary>
 		/// 获取或设置自定义插件类型.
@@ -85,7 +99,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 						data = "data.d";
 
 						if (ajax.Data.StartsWith("e."))
-							ajax.Data = string.Format("jQuery.fn.__repeater.encodeData({0})", ajax.Data);
+							ajax.Data = string.Format ( "jQuery.panzer.encodeData({0})", ajax.Data );
 
 					}
 
@@ -103,7 +117,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 					if (null != jquery)
 					{
 						jquery.EndLine();
-						this.settingHelper.SetOptionValue(optionType, "function(tag, e) {" + jquery.Code + "}", string.Empty);
+						this.settingHelper.SetOptionValue(optionType, "function(pe, e) {" + jquery.Code + "}", string.Empty);
 					}
 
 				}

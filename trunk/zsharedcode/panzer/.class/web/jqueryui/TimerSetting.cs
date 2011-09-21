@@ -6,6 +6,8 @@
  * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
  * */
 
+using System.Collections.Generic;
+
 using zoyobar.shared.panzer.Properties;
 
 namespace zoyobar.shared.panzer.web.jqueryui
@@ -25,19 +27,19 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		public int Interval
 		{
-			get { return this.settingHelper.GetOptionValueToInteger(OptionType.interval, 1000); }
-			set { this.settingHelper.SetOptionValue(OptionType.interval, (value <= 0) ? "1000" : value.ToString(), "1000"); }
+			get { return this.settingHelper.GetOptionValueToInteger ( OptionType.interval, 1000 ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.interval, ( value <= 0 ) ? "1000" : value.ToString ( ), "1000" ); }
 		}
 		#endregion
 
 		#region " event "
 		/// <summary>
-		/// 获取或设置时钟触发时的事件, 类似于 "function(tag, e) { }".
+		/// 获取或设置时钟触发时的事件, 类似于 "function(pe, e) { }".
 		/// </summary>
 		public string Tick
 		{
-			get { return this.settingHelper.GetOptionValue(OptionType.tick); }
-			set { this.settingHelper.SetOptionValue(OptionType.tick, value, string.Empty); }
+			get { return this.settingHelper.GetOptionValue ( OptionType.tick ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.tick, value, string.Empty ); }
 		}
 		#endregion
 
@@ -51,9 +53,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			set
 			{
 
-				if (null != value)
+				if ( null != value )
 					this.ajaxs[0] = value;
-				
+
 			}
 		}
 		#endregion
@@ -61,25 +63,31 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 创建一个自定义时钟设置.
 		/// </summary>
-		public TimerSetting()
-			: base(PlusinType.timer, 1)
+		public TimerSetting ( )
+			: base ( PlusinType.timer, 1 )
 		{ }
 
 		/// <summary>
-		/// 获取自定义时钟插件的安装脚本.
+		/// 获取时钟所需的基础自定义插件类型.
 		/// </summary>
-		/// <returns>自定义时钟插件的安装脚本.</returns>
-		public override string GetPlusinCode()
-		{ return Resources.timer_min; }
+		/// <returns>时钟所需的基础自定义插件类型.</returns>
+		public override Dictionary<PlusinType, string> GetDependentPlusins()
+		{
+			Dictionary<PlusinType, string> plusins = base.GetDependentPlusins();
+
+			plusins.Add(PlusinType.timer, Resources.timer_min);
+
+			return plusins;
+		}
 
 		/// <summary>
 		/// 重新构造.
 		/// </summary>
-		public override void Recombine()
+		public override void Recombine ( )
 		{
 			this.TickAsync.EventType = EventType.tick;
 
-			base.Recombine();
+			base.Recombine ( );
 		}
 
 	}

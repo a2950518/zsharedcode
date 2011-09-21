@@ -35,15 +35,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			base.renderJQuery ( jquery );
 
-			string key = string.Format ( "__js{0}", this.uiSetting.PlusinType );
-
-			if ( !ScriptHelper.IsBuilt ( new ASPXScriptHolder ( this ), key ) )
+			foreach (KeyValuePair<PlusinType, string> pair in this.uiSetting.GetDependentPlusins())
 			{
-				ScriptHelper script = new ScriptHelper ( );
+				string key = string.Format("__js{0}", pair.Key);
 
-				script.AppendCode ( this.uiSetting.GetPlusinCode ( ) );
+				if ( !ScriptHelper.IsBuilt ( new ASPXScriptHolder ( this ), key ) )
+				{
+					ScriptHelper script = new ScriptHelper ( );
 
-				script.Build ( new ASPXScriptHolder ( this ), "key", ScriptBuildOption.Startup );
+					script.AppendCode ( pair.Value );
+
+					script.Build ( new ASPXScriptHolder ( this ), key, ScriptBuildOption.Startup );
+				}
+
 			}
 
 			jquery.Plusin ( this.uiSetting );
