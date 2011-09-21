@@ -168,6 +168,7 @@
     <Content Include="panzer.license.txt" />
     <None Include="part\JQueryElement\Resources\repeater.min.js" />
     <None Include="part\JQueryElement\Resources\timer.min.js" />
+    <None Include="part\JQueryElement\Resources\panzer.min.js" />
     <Content Include="read.me.txt" />
   </ItemGroup>
   <ItemGroup>

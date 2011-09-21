@@ -61,8 +61,17 @@ namespace zoyobar.shared.panzer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 (function(k){function q(a){if(l.call(this,a,&quot;fill&quot;)){var c=a.__repeater;if(null!=c.prefill){var b=c.prefill.call(this,a);if(null!=b&amp;&amp;!b){i.call(this,a,&quot;fill&quot;);return}}null!=c.fill?c.fill.call(this,a,{callback:r}):r.call(this,a,data,!0)}}function r(a,c,b){i.call(this,a,&quot;fill&quot;);var d=a.__repeater;if(null==b||b){d.field.length=0;if(null!=c){if(null!=c.itemcount)d.itemcount=new Number(c.itemcount),d.pagecount=Math.ceil(d.itemcount/d.pagesize),c.pagecount=d.pagecount,c.pageindex=d.pageindex,c.pagesize=
-        ///d.pagesiz [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 (function(c){c.panzer={check:function(b,a,e){if(null==a)return b;null!=a.readonly&amp;&amp;a.readonly&amp;&amp;null!=e&amp;&amp;e&amp;&amp;c.error((null==a.name?&quot;argument&quot;:a.name)+&quot; is read-only&quot;);if(null!=a.allowNull&amp;&amp;!a.allowNull&amp;&amp;null==b)null==a.defaultValue?c.error((null==a.name?&quot;argument&quot;:a.name)+&quot; can not be empty&quot;):b=a.defaultValue;if(null!=a.type&amp;&amp;null!=b&amp;&amp;typeof b!=a.type)null==a.defaultValue?c.error((null==a.name?&quot;argument&quot;:a.name)+&quot; should be a &quot;+a.type):b=a.defaultValue;if(null!=a.allowSmall0&amp;&amp;!a.allowSmall0&amp;&amp;null!=
+        ///b&amp;&amp;b&lt;0)nul [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string panzer_min {
+            get {
+                return ResourceManager.GetString("panzer_min", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 (function(g){function l(a,b){var c=a.option,d=!1;c.data=b;c.temp.controls.length=0;p.call(this,a,&quot;header&quot;,b);p.call(this,a,&quot;filter&quot;,b);p.call(this,a,&quot;newitem&quot;,b);if(null==b)d=!0;else{var f=b[c.setting.rowsname];if(null==f||f.length==0)d=!0;else try{for(var e=0;e&lt;f.length;e++){var j=f[e];if(null!=j){if(null==j.__state)j.__state=&quot;unchanged&quot;;if(null==j.__selected)j.__selected=!1;if(null==j.__editing)j.__editing=!1;var w=a,x=j.__editing&amp;&amp;c.template.edititem!=&quot;&quot;?&quot;edititem&quot;:j.__state==&quot;inserted&quot;&amp;&amp;c.template.inser [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string repeater_min {
             get {
@@ -71,7 +80,8 @@ namespace zoyobar.shared.panzer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 (function(c){function e(a){d(a);var b=a.__timer;b.handler=setInterval(function(){null!=b.tick&amp;&amp;b.tick.call(this,a,{})},b.interval)}function d(a){a=a.__timer;null!=a.handler&amp;&amp;clearInterval(a.handler)}c.fn.__timer=function(){if(this.length==0)return this;var a=this.get(0),b=&quot;create&quot;;if(typeof arguments[0]==&quot;string&quot;){if(null==a.__timer)return this;b=arguments[0]==&quot;option&quot;?arguments.length==2?&quot;get&quot;:&quot;set&quot;:&quot;method&quot;}else arguments[0]=c.extend({},c.fn.__timer.defaults,arguments[0]);switch(b){case &quot;get&quot;:return a.__t [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 (function(b){function c(a){a=a.option;a.count=0;null!=a.handler&amp;&amp;clearInterval(a.handler)}b.fn.timer=function(){var a=b.panzer.getPE.call(this,&quot;timer&quot;,arguments);return null==a?this:a.result};b.fn.timer.funs={destroy:{method:function(a){c.call(this,a);b.panzer.destroy.call(this,a)}},start:{method:function(a){c.call(this,a);var b=a.option;b.handler=setInterval(function(){b.count++;null!=b.tick&amp;&amp;b.tick.call(this,a,{count:b.count})},b.interval)}},stop:{method:c}};b.fn.timer.defaults={count:0,handler:null,
+        ///inte [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string timer_min {
             get {
