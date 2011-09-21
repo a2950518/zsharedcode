@@ -329,7 +329,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 
 			setting.Recombine ( );
 
-			return this.Execute ( "__" + setting.PlusinType.ToString ( ), makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
+			return this.Execute ( setting.PlusinType.ToString ( ), makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
 		}
 
 		/// <summary>

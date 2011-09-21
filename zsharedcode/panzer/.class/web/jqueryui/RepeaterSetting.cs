@@ -207,7 +207,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 
 		#region " event "
 		/// <summary>
-		/// 获取或设置修改行之前的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置修改行之前的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string PreUpdate
 		{
@@ -216,7 +216,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置修改行时的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置修改行时的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string Update
 		{
@@ -225,7 +225,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置修改行后的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置修改行后的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string Updated
 		{
@@ -234,7 +234,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置删除行之前的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置删除行之前的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string PreRemove
 		{
@@ -243,7 +243,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置删除行时的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置删除行时的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string Remove
 		{
@@ -252,7 +252,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置删除行后的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置删除行后的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string Removed
 		{
@@ -261,7 +261,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置填充之前的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置填充之前的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string PreFill
 		{
@@ -270,7 +270,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置填充时的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置填充时的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string Fill
 		{
@@ -279,7 +279,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置填充后的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置填充后的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string Filled
 		{
@@ -288,7 +288,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置新建行之前的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置新建行之前的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string PreInsert
 		{
@@ -297,7 +297,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置新建行时的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置新建行时的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string Insert
 		{
@@ -306,7 +306,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置新建行后的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置新建行后的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string Inserted
 		{
@@ -315,7 +315,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置是否可以导航发生改变后的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置是否可以导航发生改变后的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string Navigable
 		{
@@ -324,7 +324,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置发生阻塞时的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置发生阻塞时的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string Blocked
 		{
@@ -333,7 +333,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置执行操作之前的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置执行操作之前的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string PreExecute
 		{
@@ -342,7 +342,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置执行操作之后的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置执行操作之后的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string Executed
 		{
@@ -351,7 +351,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置执行自定义操作之前的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置执行自定义操作之前的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string PreCustom
 		{
@@ -360,7 +360,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置执行自定义操作的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置执行自定义操作的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string Custom
 		{
@@ -369,7 +369,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置执行自定义操作之后的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置执行自定义操作之后的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string Customed
 		{
@@ -378,7 +378,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置执行分步操作之前的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置执行分步操作之前的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string PreSubStep
 		{
@@ -387,7 +387,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置执行分步操作时的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置执行分步操作时的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string SubStepping
 		{
@@ -396,7 +396,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置执行分步操作之后的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置执行分步操作之后的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		public string SubStepped
 		{
@@ -490,12 +490,17 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		{ }
 
 		/// <summary>
-		/// 获取自定义 Repeater 的安装脚本.
+		/// 获取 Repeater 所需的基础自定义插件类型.
 		/// </summary>
-		/// <returns>自定义 Repeater 的安装脚本.</returns>
-		public override string GetPlusinCode ( )
-		//{ return ""; }
-		{ return Resources.repeater_min; }
+		/// <returns>Repeater 所需的基础自定义插件类型.</returns>
+		public override Dictionary<PlusinType, string> GetDependentPlusins()
+		{
+			Dictionary<PlusinType, string> plusins = base.GetDependentPlusins();
+
+			plusins.Add(PlusinType.repeater, Resources.repeater_min);
+
+			return plusins;
+		}
 
 		/// <summary>
 		/// 重新构造.
@@ -504,29 +509,29 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		{
 			this.RemoveAsync.EventType = EventType.remove;
 			this.RemoveAsync.Data = "e.row";
-			this.RemoveAsync.Success = "function(data){e.callback.call($(tag), tag, e.index, (null == -:data.row ? e.row : -:data.row), -:data.__success, e.substep);}";
-			this.RemoveAsync.Error = "function(){e.callback.call($(tag), tag, e.index, e.row, false, e.substep);}";
+			this.RemoveAsync.Success = "function(data){e.callback.call(pe.jquery, pe, e.index, (null == -:data.row ? e.row : -:data.row), -:data.__success, e.substep);}";
+			this.RemoveAsync.Error = "function(){e.callback.call(pe.jquery, pe, e.index, e.row, false, e.substep);}";
 			this.UpdateAsync.EventType = EventType.update;
 			this.UpdateAsync.Data = "e.row";
-			this.UpdateAsync.Success = "function(data){e.callback.call($(tag), tag, e.index, (null == -:data.row ? e.row : -:data.row), -:data.__success);}";
-			this.UpdateAsync.Error = "function(){e.callback.call($(tag), tag, e.index, e.row, false);}";
+			this.UpdateAsync.Success = "function(data){e.callback.call(pe.jquery, pe, e.index, (null == -:data.row ? e.row : -:data.row), -:data.__success);}";
+			this.UpdateAsync.Error = "function(){e.callback.call(pe.jquery, pe, e.index, e.row, false);}";
 
 			this.FillAsync.EventType = EventType.fill;
-			this.FillAsync.Success = "function(data){e.callback.call($(tag), tag, -:data, -:data.__success);}";
-			this.FillAsync.Error = "function(){e.callback.call($(tag), tag, {}, false);}";
+			this.FillAsync.Success = "function(data){\ne.callback.call(pe.jquery, pe, -:data, -:data.__success);\n}";
+			this.FillAsync.Error = "function(){e.callback.call(pe.jquery, pe, {}, false);}";
 			this.InsertAsync.EventType = EventType.insert;
 			this.InsertAsync.Data = "e.row";
-			this.InsertAsync.Success = "function(data){e.callback.call($(tag), tag, (null == -:data.row ? e.row : -:data.row), -:data.__success);}";
-			this.InsertAsync.Error = "function(){e.callback.call($(tag), tag, e.row, false);}";
+			this.InsertAsync.Success = "function(data){e.callback.call(pe.jquery, pe, (null == -:data.row ? e.row : -:data.row), -:data.__success);}";
+			this.InsertAsync.Error = "function(){e.callback.call(pe.jquery, pe, e.row, false);}";
 			this.CustomAsync.EventType = EventType.custom;
 			this.CustomAsync.Data = "e.row, {command: e.command}";
-			this.CustomAsync.Success = "function(data){e.callback.call($(tag), tag, e.index, e.command, (null == -:data.row ? e.row : -:data.row), -:data.__success, e.substep);}";
-			this.CustomAsync.Error = "function(){e.callback.call($(tag), tag, e.index, e.command, e.row, false, e.substep);}";
+			this.CustomAsync.Success = "function(data){e.callback.call(pe.jquery, pe, e.index, e.command, (null == -:data.row ? e.row : -:data.row), -:data.__success, e.substep);}";
+			this.CustomAsync.Error = "function(){e.callback.call(pe.jquery, pe, e.index, e.command, e.row, false, e.substep);}";
 
 			this.FillAsync.ParameterList.AddRange ( new Parameter[]
 			{
-				new Parameter("pageindex", ParameterType.Expression, "this.__repeater('option', 'pageindex')"),
-				new Parameter("pagesize", ParameterType.Expression, "this.__repeater('option', 'pagesize')"),
+				new Parameter("pageindex", ParameterType.Expression, "this.repeater('option', 'pageindex')"),
+				new Parameter("pagesize", ParameterType.Expression, "this.repeater('option', 'pagesize')"),
 			} );
 
 			string filterFieldList = this.FilterField.TrimEnd ( ']' ).TrimStart ( '[' );

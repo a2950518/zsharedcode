@@ -50,6 +50,17 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			if ( null == setting )
 				throw new ArgumentNullException ( "setting", "Plusin 设置不能为空" );
 
+			string key = string.Format ( "__js{0}", setting.PlusinType );
+
+			if ( !ScriptHelper.IsBuilt ( new RazorScriptHolder ( this.page ), key ) )
+			{
+				ScriptHelper script = new ScriptHelper ( );
+
+				script.AppendCode ( setting.GetPlusinCode ( ) );
+
+				script.Build ( new RazorScriptHolder ( this.page ), key, ScriptBuildOption.Startup );
+			}
+
 			this.code += "$(function(){" + ( string.IsNullOrEmpty ( variableName ) ? string.Empty : ( "window['" + variableName + "'] = " ) ) + new JQueryUI ( selector ).Plusin ( setting ).Code + "});";
 		}
 
