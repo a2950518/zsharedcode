@@ -357,6 +357,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			if ( null == setting || setting.WidgetType == WidgetType.custom )
 				return this;
 
+			setting.Recombine ( );
+
 			this.Execute ( setting.WidgetType.ToString ( ), makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) );
 
 			foreach ( Event @event in setting.SettingHelper.Events )
