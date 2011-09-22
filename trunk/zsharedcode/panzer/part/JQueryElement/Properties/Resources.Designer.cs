@@ -71,22 +71,8 @@ namespace zoyobar.shared.panzer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 (function ($) {
-        ///	$.fn.repeater = function () {
-        ///		var pe = $.panzer.getPE.call(this, &apos;repeater&apos;, arguments);
-        ///
-        ///		return null == pe ? this : pe.result;
-        ///	};
-        ///	function __create(pe) {
-        ///		var option = pe.option;
-        ///		option.busy = false;
-        ///		option.fieldfixed = option.field.length != 0;
-        ///		option.index = { edit: option.editindex, select: option.selectindex };
-        ///		option.itemcount = 0;
-        ///		option.pagecount = 0;
-        ///		option.selector = this.selector;
-        ///		option.setting = { rowsname: option.rowsname };
-        ///		option.temp =  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 (function(g){function n(a,b){var c=a.option;if(c.singlethread&amp;&amp;c.busy)return null!=c.blocked&amp;&amp;c.blocked.call(this,a,{action:b}),!1;c.busy=!0;null!=c.preexecute&amp;&amp;c.preexecute.call(this,a,{action:b});return!0}function k(a,b){var c=a.option,d=!1;c.data=b;c.temp.controls.length=0;p.call(this,a,&quot;header&quot;,b);p.call(this,a,&quot;filter&quot;,b);p.call(this,a,&quot;newitem&quot;,b);if(null==b)d=!0;else{var f=b[c.setting.rowsname];if(null==f||f.length==0)d=!0;else try{for(var e=0;e&lt;f.length;e++){var j=f[e];if(null!=j){if(null==
+        ///j.__stat [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string repeater_min {
             get {
