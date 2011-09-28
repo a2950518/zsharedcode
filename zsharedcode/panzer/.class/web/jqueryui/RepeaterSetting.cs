@@ -77,6 +77,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
+		/// 获取或设置验证字段的正则表达式, 默认为 "{}".
+		/// </summary>
+		public string FieldMask
+		{
+			get { return this.settingHelper.GetOptionValue ( OptionType.fieldmask, "{}" ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.fieldmask, value, "{}" ); }
+		}
+
+		/// <summary>
 		/// 获取或设置尾模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号.
 		/// </summary>
 		public string Footer
@@ -187,12 +196,12 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置参与排序的字段, 默认为 "[]".
+		/// 获取或设置提示模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号.
 		/// </summary>
-		public string SortField
+		public string Tip
 		{
-			get { return this.settingHelper.GetOptionValue ( OptionType.sortfield, "[]" ); }
-			set { this.settingHelper.SetOptionValue ( OptionType.sortfield, value, "[]" ); }
+			get { return this.settingHelper.GetOptionValueToString ( OptionType.tip, string.Empty ); }
+			set { this.settingHelper.SetOptionValueToString ( OptionType.tip, value, string.Empty ); }
 		}
 
 		/// <summary>
@@ -532,6 +541,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			{
 				new Parameter("pageindex", ParameterType.Expression, "this.repeater('option', 'pageindex')"),
 				new Parameter("pagesize", ParameterType.Expression, "this.repeater('option', 'pagesize')"),
+				new Parameter ( "__order", ParameterType.Expression, "e.sortconditioncustom", "''" )
 			} );
 
 			string filterFieldList = this.FilterField.TrimEnd ( ']' ).TrimStart ( '[' );
@@ -565,18 +575,6 @@ namespace zoyobar.shared.panzer.web.jqueryui
 						this.FillAsync.ParameterList[index + beginIndex].Default = filterFieldDefaults[index].Trim ( ' ' );
 
 			}
-
-			string sortFieldList = this.SortField.TrimEnd ( ']' ).TrimStart ( '[' );
-
-			if ( !string.IsNullOrEmpty ( sortFieldList ) )
-				foreach ( string sortField in sortFieldList.Split ( ',' ) )
-				{
-					string field = sortField.Trim ( new char[] { ' ', '\'' } );
-
-					if ( field != string.Empty )
-						this.FillAsync.ParameterList.Add ( new Parameter ( field + "_order", ParameterType.Expression, string.Format ( "e.sortcondition['{0}_order']", field ), "''" ) );
-
-				}
 
 			base.Recombine ( );
 		}
