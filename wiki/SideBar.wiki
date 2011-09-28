@@ -37,6 +37,7 @@
         * [IEBrowserDocSDZ 登录 DZ 发贴]
       * [IEBrowserDocButtonClick 按钮点击示例]
     * [JQueryElementDoc JQueryElement 说明&参考]
+      * [JEIntelliSense 配置 Visual Studio 的 JQueryElement 智能提示]
       * [JQueryElementRepeaterDoc Repeater 示例]
       * [JQueryElementTimerDoc 时钟示例]
       * [JQueryElementAccordionDoc 折叠列表示例]

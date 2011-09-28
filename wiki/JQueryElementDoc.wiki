@@ -26,6 +26,9 @@
  * [JQueryElementSelectableDoc 选中效果示例]
  * [JQueryElementSortableDoc 排列效果示例]
 
+=== 其它 ===
+  * [JEIntelliSense 配置 Visual Studio 的 JQueryElement 智能提示]
+
 === 相关内容 ===
  * [HowToDownloadAndUse 如何下载使用]
 </font>
