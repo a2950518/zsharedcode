@@ -55,7 +55,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 创建一个 jQuery UI 按钮.
 		/// </summary>
 		public Button ( )
-			: base ( new ButtonSetting ( ), HtmlTextWriterTag.Button )
+			: base ( new ButtonSetting ( ), HtmlTextWriterTag.Span )
 		{ }
 
 		#region " option "

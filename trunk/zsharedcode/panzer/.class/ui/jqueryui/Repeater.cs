@@ -66,6 +66,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 获取或设置验证字段的正则表达式, 默认为 "{}".
+		/// </summary>
+		[Category("模板")]
+		[DefaultValue ( "[]" )]
+		[Description ( "验证字段的正则表达式, 默认为 {}" )]
+		[NotifyParentProperty ( true )]
+		public string FieldMask
+		{
+			get { return this.uiSetting.FieldMask; }
+			set { this.uiSetting.FieldMask = value; }
+		}
+
+		/// <summary>
 		/// 获取或设置过滤模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号. 
 		/// </summary>
 		[Category ( "模板" )]
@@ -263,16 +276,16 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置参与排序的字段, 默认为 "[]".
+		/// 获取或设置提示模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号. 
 		/// </summary>
-		[Category ( "数据" )]
-		[DefaultValue ( "[]" )]
-		[Description ( "参与排序的字段, 默认为 []" )]
+		[Category ( "模板" )]
+		[DefaultValue ( "" )]
+		[Description ( "提示模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号" )]
 		[NotifyParentProperty ( true )]
-		public string SortField
+		public string Tip
 		{
-			get { return this.uiSetting.SortField; }
-			set { this.uiSetting.SortField = value; }
+			get { return this.uiSetting.Tip; }
+			set { this.uiSetting.Tip = value; }
 		}
 
 		/// <summary>
@@ -650,6 +663,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private ITemplate updatedItemTemplate;
 		private ITemplate removedItemTemplate;
 		private ITemplate filterTemplate;
+		private ITemplate tipTemplate;
 
 		/// <summary>
 		/// 获取或设置头部 html 代码的模板, 如果有效, 将覆盖 Header. 
@@ -759,6 +773,17 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			get { return this.filterTemplate; }
 			set { this.filterTemplate = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置提示的 html 代码的模板, 如果有效, 将覆盖 Tip. 
+		/// </summary>
+		[Browsable ( false )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ITemplate TipTemplate
+		{
+			get { return this.tipTemplate; }
+			set { this.tipTemplate = value; }
 		}
 		#endregion
 

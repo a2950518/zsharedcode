@@ -968,6 +968,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		field,
 		/// <summary>
+		/// 验证字段的正则表达式.
+		/// </summary>
+		fieldmask,
+		/// <summary>
 		/// 尾.
 		/// </summary>
 		footer,
@@ -1112,9 +1116,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		filterfielddefault,
 		/// <summary>
-		/// 参与排序的字段.
+		/// 提示.
 		/// </summary>
-		sortfield,
+		tip,
 	}
 	#endregion
 
