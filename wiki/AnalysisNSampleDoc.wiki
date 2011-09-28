@@ -1,9 +1,9 @@
-#summary 分析&示例
+#summary 说明&参考
 #labels Phase-Implementation,Featured
 <font face="microsoft yahei">
-=== 分析&示例 ===
- * [IEBrowserDoc IEBrowser 分析&示例]
+=== 说明&参考 ===
+ * [IEBrowserDoc IEBrowser 说明&参考]
   这里是 IEBrowser 的一些例子, IEBrowser 扩展了 WebBrowser 的功能, 使其更方便的执行 javascript 和 jQuery 脚本, 以及更复杂的任务.
- * [JQueryElementDoc JQueryElement 分析&示例]
+ * [JQueryElementDoc JQueryElement 说明&参考]
   这里是 JQueryElement 的一些例子, JQueryElement 可以在服务器端定义各种的 jQueryUI 插件和效果, 以及实现自定义的 Repeater, Timer 插件等. 
 </font>

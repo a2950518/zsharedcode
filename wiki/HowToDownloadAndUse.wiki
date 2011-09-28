@@ -13,6 +13,6 @@
 
 === 相关内容 ===
  * [PanzerLicense panzer 许可证]
- * [JQueryElementDoc JQueryElement 分析&示例]
- * [IEBrowserDoc IEBrowser 分析&示例]
+ * [JQueryElementDoc JQueryElement 说明&参考]
+ * [IEBrowserDoc IEBrowser 说明&参考]
 </font>
