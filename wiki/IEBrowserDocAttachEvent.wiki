@@ -68,7 +68,7 @@ private void suOnChange ( object sender, EventArgs e )
  _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
 
 === 使用 ===
- 如果需要单独使用 [IEBrowser IEBrowser], 可以下载 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.all.cs IEBrowser.all.cs] 或者 [http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.code/IEBrowser.with.HtmlEditHelper.all.cs IEBrowser.with.HtmlEditHelper.all.cs], 也可以在 [Download 下载资源] 中下载 dll.
+ 如果需要单独使用 [IEBrowser IEBrowser], 可以在 [Download 下载资源] 中下载 dll.
 
  如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
 
