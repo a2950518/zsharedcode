@@ -202,7 +202,9 @@ public class webservice : System.Web.Services.WebService
 		this.Context.Response.Cache.SetNoStore ( );
 
 		SortedDictionary<string, object> values = new SortedDictionary<string, object> ( );
-		values.Add ( "message", string.IsNullOrEmpty ( name ) ? "无名氏" : string.Format ( "你好 {0}, {1}", name, DateTime.Now ) );
+		values.Add ( "message",
+			string.IsNullOrEmpty ( name ) ? "无名氏" :
+			string.Format ( "你好 {0}, {1}", name, DateTime.Now ) );
 
 		return values;
 	}
