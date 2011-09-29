@@ -1,0 +1,223 @@
+﻿#summary 在不同的 .NET 版本中返回 JSON
+<font face="microsoft yahei">
+=== 简介/目录 ===
+ 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /returnjson/Default.aspx.
+
+ 本文将说明如何通过一般处理程序 ashx 和 WebService 来向客户端 javascript 返回 JSON:
+
+  * 准备
+  * 一般处理程序/ashx
+  * WebService/asmx
+
+===准备===
+ 如果希望通过 ashx 或者 asmx 来返回 JSON, 那么*需要引用程序集 System.Web.Extensions.dll*, 在 .NET 3.5, 4.0 中已经默认包含. 对于 .NET 2.0, 3.0, 需要安装 ASP.NET 2.0 AJAX, 可以在 [http://www.microsoft.com/download/en/details.aspx?displaylang=en&id=883 www.microsoft.com/download/en/details.aspx?displaylang=en&id=883] 下载.
+
+=== 一般处理程序/ashx ===
+ 使用一般处理程序返回 JSON, 对于不同版本的 .NET 都是类似, 请看下面的 handler.ashx 的代码:
+{{{
+<%@ WebHandler Language="C#" Class="handler" %>
+
+using System;
+using System.Web;
+using System.Web.Script.Serialization;
+using System.Collections.Generic;
+
+public class handler : IHttpHandler
+{
+
+	public void ProcessRequest(HttpContext context)
+	{
+		context.Response.ContentType = "text/javascript";
+		context.Response.Cache.SetNoStore ( );
+
+		string name = context.Request["name"];
+
+		SortedDictionary<string, object> values = new SortedDictionary<string, object>();
+		values.Add("message", string.IsNullOrEmpty(name) ? "无名氏" : string.Format("你好 {0}, {1}", name, DateTime.Now));
+
+		context.Response.Write(new JavaScriptSerializer().Serialize(values));
+	}
+
+	public bool IsReusable
+	{
+		get { return false; }
+	}
+
+}
+}}}
+ 上面的例子中, 通过 JavaScriptSerializer 类的 Serialize 方法, 将对象转化为 JSON 对应的字符串. 而转化的对象是 SortedDictionary, 会生成 `{ "message": "你好 x, 20xx-xx-xx xx:xx:xx" }` 这样类似的字符串. 如果需要返回数组, 可以定义 object[] 来转换. 代码中还使用了 `context.Response.Cache.SetNoStore ( );` 来让浏览器每次请求 ashx 时都重新访问, 而不是使用缓存.
+
+ 如果使用 jQuery, 可以使用下面的函数来接收 JSON:
+{{{
+function(data){
+	alert(data.message);
+}
+}}}
+
+=== WebService/asmx ===
+ 在不同版本的 .NET 中, 通过 javascript 访问 WebService 并返回 JSON 是略有不同的. 首先, 可以分别采用不同的 Web.config 文件.
+
+ ===== .NET 2.0, 3.0 Web.config =====
+{{{
+<?xml version="1.0"?>
+<configuration>
+	<system.web>
+		<compilation debug="true">
+			<assemblies>
+				<add
+assembly="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+			</assemblies>
+		</compilation>
+		<pages/>
+		<httpHandlers>
+			<remove verb="*" path="*.asmx"/>
+			<add verb="*" path="*.asmx"
+				type="System.Web.Script.Services.ScriptHandlerFactory"
+				 validate="false"/>
+		</httpHandlers>
+	</system.web>
+</configuration>
+}}}
+
+ ===== .NET 3.5 Web.config =====
+{{{
+<?xml version="1.0"?>
+<configuration>
+	<configSections>
+		<sectionGroup name="system.web.extensions" type="System.Web.Configuration.SystemWebExtensionsSectionGroup, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35">
+			<sectionGroup name="scripting" type="System.Web.Configuration.ScriptingSectionGroup, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35">
+				<section name="scriptResourceHandler" type="System.Web.Configuration.ScriptingScriptResourceHandlerSection, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" requirePermission="false" allowDefinition="MachineToApplication"/>
+				<sectionGroup name="webServices" type="System.Web.Configuration.ScriptingWebServicesSectionGroup, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35">
+					<section name="jsonSerialization" type="System.Web.Configuration.ScriptingJsonSerializationSection, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" requirePermission="false" allowDefinition="Everywhere"/>
+					<section name="profileService" type="System.Web.Configuration.ScriptingProfileServiceSection, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" requirePermission="false" allowDefinition="MachineToApplication"/>
+					<section name="authenticationService" type="System.Web.Configuration.ScriptingAuthenticationServiceSection, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" requirePermission="false" allowDefinition="MachineToApplication"/>
+					<section name="roleService" type="System.Web.Configuration.ScriptingRoleServiceSection, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" requirePermission="false" allowDefinition="MachineToApplication"/>
+				</sectionGroup>
+			</sectionGroup>
+		</sectionGroup>
+	</configSections>
+	<system.web>
+		<compilation debug="true">
+			<assemblies>
+				<add assembly="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089"/>
+				<add assembly="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+				<add assembly="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089"/>
+				<add assembly="System.Data.DataSetExtensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089"/>
+			</assemblies>
+		</compilation>
+		<pages>
+			<controls>
+				<add tagPrefix="asp" namespace="System.Web.UI" assembly="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+				<add tagPrefix="asp" namespace="System.Web.UI.WebControls" assembly="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+			</controls>
+		</pages>
+		<httpHandlers>
+			<remove verb="*" path="*.asmx"/>
+			<add verb="*" path="*.asmx" type="System.Web.Script.Services.ScriptHandlerFactory, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" validate="false"/>
+			<add verb="*" path="*_AppService.axd" validate="false" type="System.Web.Script.Services.ScriptHandlerFactory, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+			<add verb="GET,HEAD" path="ScriptResource.axd" validate="false" type="System.Web.Handlers.ScriptResourceHandler, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+		</httpHandlers>
+		<httpModules>
+			<add name="ScriptModule" type="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+		</httpModules>
+	</system.web>
+	<system.codedom>
+		<compilers>
+			<compiler language="c#;cs;csharp" extension=".cs" type="Microsoft.CSharp.CSharpCodeProvider, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" warningLevel="4">
+				<providerOption name="CompilerVersion" value="v3.5"/>
+				<providerOption name="WarnAsError" value="false"/>
+			</compiler>
+			<compiler language="vb;vbs;visualbasic;vbscript" extension=".vb" type="Microsoft.VisualBasic.VBCodeProvider, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" warningLevel="4">
+				<providerOption name="CompilerVersion" value="v3.5"/>
+				<providerOption name="OptionInfer" value="true"/>
+				<providerOption name="WarnAsError" value="false"/>
+			</compiler>
+		</compilers>
+	</system.codedom>
+	<system.webServer>
+		<validation validateIntegratedModeConfiguration="false"/>
+		<modules>
+			<remove name="ScriptModule"/>
+			<add name="ScriptModule" preCondition="managedHandler" type="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+		</modules>
+		<handlers>
+			<remove name="WebServiceHandlerFactory-Integrated"/>
+			<remove name="ScriptHandlerFactory"/>
+			<remove name="ScriptHandlerFactoryAppServices"/>
+			<remove name="ScriptResource"/>
+			<add name="ScriptHandlerFactory" verb="*" path="*.asmx" preCondition="integratedMode" type="System.Web.Script.Services.ScriptHandlerFactory, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+			<add name="ScriptHandlerFactoryAppServices" verb="*" path="*_AppService.axd" preCondition="integratedMode" type="System.Web.Script.Services.ScriptHandlerFactory, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+			<add name="ScriptResource" verb="GET,HEAD" path="ScriptResource.axd" preCondition="integratedMode" type="System.Web.Handlers.ScriptResourceHandler, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+		</handlers>
+	</system.webServer>
+	<runtime>
+		<assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1" appliesTo="v2.0.50727">
+			<dependentAssembly>
+				<assemblyIdentity name="System.Web.Extensions" publicKeyToken="31bf3856ad364e35"/>
+				<bindingRedirect oldVersion="1.0.0.0-1.1.0.0" newVersion="3.5.0.0"/>
+			</dependentAssembly>
+			<dependentAssembly>
+				<assemblyIdentity name="System.Web.Extensions.Design" publicKeyToken="31bf3856ad364e35"/>
+				<bindingRedirect oldVersion="1.0.0.0-1.1.0.0" newVersion="3.5.0.0"/>
+			</dependentAssembly>
+		</assemblyBinding>
+	</runtime>
+</configuration>
+}}}
+
+ ===== .NET 4.0 Web.config =====
+{{{
+<?xml version="1.0"?>
+<configuration>
+	<system.web>
+		<compilation debug="true" targetFramework="4.0">
+		</compilation>
+		<pages controlRenderingCompatibilityVersion="3.5" clientIDMode="AutoID"/></system.web>
+</configuration>
+}}}
+
+ 下面是 webservice.asmx/webservice.cs 的代码:
+{{{
+<%@ WebService Language="C#" CodeBehind="~/App_Code/webservice.cs" Class="webservice" %>
+}}}
+{{{
+using System;
+using System.Web;
+using System.Web.Services;
+using System.Web.Services.Protocols;
+using System.Web.Script.Services;
+using System.Web.Script.Serialization;
+using System.Collections.Generic;
+
+[WebService ( Namespace = "http://tempuri.org/" )]
+[WebServiceBinding ( ConformsTo = WsiProfiles.BasicProfile1_1 )]
+[ScriptService]
+public class webservice : System.Web.Services.WebService
+{
+
+	[WebMethod]
+	[ScriptMethod]
+	public SortedDictionary<string, object> Save ( string name )
+	{
+		this.Context.Response.Cache.SetNoStore ( );
+
+		SortedDictionary<string, object> values = new SortedDictionary<string, object> ( );
+		values.Add ( "message", string.IsNullOrEmpty ( name ) ? "无名氏" : string.Format ( "你好 {0}, {1}", name, DateTime.Now ) );
+
+		return values;
+	}
+
+}
+}}}
+ 为类添加属性 ScriptService, 并对类中的方法使用属性 ScriptMethod, 可以让 javascript 来调用这些方法. 这里不需要再使用 JavaScriptSerializer 将对象转化为 JSON 字符串, 而是直接返回对象即可. 上面的代码中返回了 SortedDictionary, 在 .NET 2.0, 3.0 中将类似于 `{ "message": "你好 x, 20xx-xx-xx xx:xx:xx" }` 的形式, 而对于 .NET 3.5, 4.0 则是 `{ "d": { "message": "你好 x, 20xx-xx-xx xx:xx:xx" } }`, 因此可以分别在 jQuery 中使用下面的函数来接受 JSON:
+{{{
+function(data){
+	alert(data.message);
+}
+
+function(data){
+	alert(data.d.message);
+}
+}}}
+
+</font>
