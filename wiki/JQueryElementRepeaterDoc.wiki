@@ -107,7 +107,7 @@
 
  除了调用函数外, 也可以直接书写 javascript 代码, 比如: `#{age,# <= 0 ? '不可能吧' : #.toString()}`.
 
- 更多使用方法和说明请参考 [Repeater 绑定/处理字段 JERepeaterBindField].
+ 更多使用方法和说明请参考 [JERepeaterBindField Repeater 绑定/处理字段].
 
  ==== <font color="green">绑定属性</font> ====
  在所有的模板中都可以绑定属性, 语法为 *`@{<属性名>[,<属性表达式>]}`*, 比如:
