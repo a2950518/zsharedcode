@@ -17,4 +17,5 @@
  * [http://www.tudou.com/programs/view/qDOhS_ZmmAE/ Repeater 增加过滤行搜索数据]
  * [http://www.tudou.com/programs/view/GQeh0ZIJ0RY/ 30 分钟掌握无刷新 Repeater]
  * [http://www.tudou.com/programs/view/rHCYHX9cmcI/ 在不同的 .NET 版本中返回 JSON]
+ * [http://www.tudou.com/programs/view/rwruM87J20s/ 在 Repeater 中绑定转化 JSON 格式的字段]
 </font>
