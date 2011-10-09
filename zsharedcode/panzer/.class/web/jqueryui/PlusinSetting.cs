@@ -96,7 +96,11 @@ namespace zoyobar.shared.panzer.web.jqueryui
 						data = "data";
 					else
 					{
-						data = "data.d";
+
+						if ( Environment.Version.Major <= 2 || ( Environment.Version.Major == 3 && Environment.Version.Minor == 0 ) )
+							data = "data";
+						else
+							data = "data.d";
 
 						if (ajax.Data.StartsWith("e."))
 							ajax.Data = string.Format ( "jQuery.panzer.encodeData({0})", ajax.Data );
