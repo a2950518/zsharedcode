@@ -1,0 +1,150 @@
+﻿#summary Repeater 绑定/处理字段
+<font face="microsoft yahei">
+=== 简介/目录 ===
+ 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /repeater/Default.aspx.
+
+ 本文将详细的讲解 Repeater 控件中如何绑定和处理字段, 目录如下:
+
+  * 准备
+  * 使用范围
+  * 简单绑定
+  * 转换绑定
+  * 格式化日期字段
+  * 根据字段设置样式
+
+=== 准备 ===
+ 请参照 [JQueryElementRepeaterDoc Repeater 完全参考] 中的准备.
+
+=== 使用范围 ===
+ 可以在 ItemTemplate/UpdatedItemTemplate/InsertedItemTemplate/RemovedItemTemplate/EditItemTemplate 模板中绑定字段.
+
+ 可以将字段绑定在标签的属性中或者作为标签的内容.
+
+=== 简单绑定 ===
+ 可以使用 *`#{<字段名>}`* 来绑定字段, 比如:
+{{{
+<ItemTemplate>
+
+	<td>
+		#{bookname}
+	</td>
+
+	<td>
+		<strong>评价:</strong> <span class="rank rank#{rank}"></span>
+	</td>
+
+</ItemTemplate>
+}}}
+ 上面的例子中, 将字段 bookname 绑定为标签的内容, 将 rank 字段绑定在标签的属性 class 中.
+
+=== 转换绑定 ===
+ 使用 *`#{<字段名>[,<字段表达式>]}`* 来转换字段中的值, 然后输出, 比如:
+{{{
+<ItemTemplate>
+
+		<td>
+			<strong>折扣:</strong> #{discount,Math.floor(# * 100) / 10} 折 #{discount,convertDiscount(#)}
+		</td>
+
+</ItemTemplate>
+}}}
+ 在字段表达式中, 使用 # 号来表示被绑定的字段. 上面代码中的 discount 字段分别通过一个 javascript 表达式和一个函数来转换了字段的值并输出, javascript 函数如下:
+{{{
+<script type="text/javascript">
+	function convertDiscount(discount) {
+		return discount >= 0.7 ? '<strong>清仓啦</strong>' : '减价啦';
+	}
+</script>
+}}}
+
+=== 格式化日期字段 ===
+ 对于采用默认参数返回的 JSON, 日期格式的字段的返回值可能类似于 *`"\/Date(xxxxxxxxxx)\/"`* 的字符串, 可以通过 `$.panzer.formatDate` 函数来格式化日期, 或者使用 `$.panzer.convertToDate` 将 *`"\/Date(xxxxxxxxxx)\/"`* 格式的字符串转化为日期类型, 例如:
+{{{
+<ItemTemplate>
+
+	<td>
+		<strong>出版日期:</strong> <span class="publishdate">#{publishdate,$.panzer.formatDate(#,'yyyy年M月d号')}</span>
+	</td>
+
+</ItemTemplate>
+}}}
+ 函数 `$.panzer.formatDate` 的第一个参数为 Date 类型的 javascript 变量或者格式为 *`"\/Date(xxxxxxxxxx)\/"`* 的字符串. 第二个参数为用于格式化的字符串, 这类似于 .NET 中的 DateTime 类型的 ToString 方法, 例如:
+{{{
+<script type="text/javascript">
+	var date = new Date(2011, 0, 1, 20, 1, 3); // 2011 年 1 月 1 号, 20 时 1 分 3 秒
+
+	$.panzer.formatDate(date,'y年'); // 1年
+	$.panzer.formatDate(date,'yy年'); // 11年
+	$.panzer.formatDate(date,'yyyy'); // 2011
+
+	$.panzer.formatDate(date,'M月'); // 1月
+	$.panzer.formatDate(date,'MM月'); // 01月
+	$.panzer.formatDate(date,'yyyy-MM'); // 2011-01
+
+	$.panzer.formatDate(date,'d号'); // 1号
+	$.panzer.formatDate(date,'dd号'); // 01号
+	$.panzer.formatDate(date,'yyyy-MM-dd'); // 2011-01-01
+
+	$.panzer.formatDate(date,'H时'); // 20时
+	$.panzer.formatDate(date,'HH时'); // 20时
+	$.panzer.formatDate(date,'yyyy-MM-dd HH'); // 2011-01-01 20
+
+	$.panzer.formatDate(date,'h时'); // 8时
+	$.panzer.formatDate(date,'hh时'); // 08时
+	$.panzer.formatDate(date,'yyyy-MM-dd hh'); // 2011-01-01 08
+
+	$.panzer.formatDate(date,'m分'); // 1分
+	$.panzer.formatDate(date,'mm分'); // 01分
+	$.panzer.formatDate(date,'yyyy-MM-dd hh:mm'); // 2011-01-01 08:01
+
+	$.panzer.formatDate(date,'s时'); // 3秒
+	$.panzer.formatDate(date,'ss时'); // 03秒
+	$.panzer.formatDate(date,'yyyy-MM-dd hh:mm:ss'); // 2011-01-01 08:01:03
+</script>
+}}}
+
+=== 根据字段设置样式 ===
+ 如果需要根据字段的值来显示不同的样式, 可以将字段绑定在 class 属性中, 比如:
+{{{
+<ItemTemplate>
+
+	<td>
+		<strong>评价:</strong> #{rank} <span class="rank rank#{rank}"></span>
+	</td>
+
+</ItemTemplate>
+}}}
+ 在页面开始处定义了一些 rank 的样式:
+{{{
+<style type="text/css">
+	.rank
+	{
+		background-color: #cc0000;
+		height: 15px;
+		display: inline-block;
+	}
+	.rank1
+	{
+		width: 10px;
+	}
+	.rank2
+	{
+		width: 30px;
+	}
+	.rank3
+	{
+		width: 50px;
+	}
+	.rank4
+	{
+		width: 70px;
+	}
+	.rank5
+	{
+		width: 90px;
+	}
+</style>
+}}}
+ 示例中 rank 字段中可能会是 1 到 5, 因此样式也定义了 rank1 到 rank5.
+
+</font>
