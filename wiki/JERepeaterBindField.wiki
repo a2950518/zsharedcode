@@ -43,7 +43,9 @@
 <ItemTemplate>
 
 		<td>
-			<strong>折扣:</strong> #{discount,Math.floor(# * 100) / 10} 折 #{discount,convertDiscount(#)}
+			<strong>折扣:</strong>
+			#{discount,Math.floor(# * 100) / 10} 折
+			#{discount,convertDiscount(#)}
 		</td>
 
 </ItemTemplate>
@@ -63,7 +65,10 @@
 <ItemTemplate>
 
 	<td>
-		<strong>出版日期:</strong> <span class="publishdate">#{publishdate,$.panzer.formatDate(#,'yyyy年M月d号')}</span>
+		<strong>出版日期:</strong>
+		<span class="publishdate">
+		#{publishdate,$.panzer.formatDate(#,'yyyy年M月d号')}
+		</span>
 	</td>
 
 </ItemTemplate>
@@ -71,7 +76,8 @@
  函数 `$.panzer.formatDate` 的第一个参数为 Date 类型的 javascript 变量或者格式为 *`"\/Date(xxxxxxxxxx)\/"`* 的字符串. 第二个参数为用于格式化的字符串, 这类似于 .NET 中的 DateTime 类型的 ToString 方法, 例如:
 {{{
 <script type="text/javascript">
-	var date = new Date(2011, 0, 1, 20, 1, 3); // 2011 年 1 月 1 号, 20 时 1 分 3 秒
+	var date = new Date(2011, 0, 1, 20, 1, 3);
+	// 2011 年 1 月 1 号, 20 时 1 分 3 秒
 
 	$.panzer.formatDate(date,'y年'); // 1年
 	$.panzer.formatDate(date,'yy年'); // 11年
@@ -79,27 +85,33 @@
 
 	$.panzer.formatDate(date,'M月'); // 1月
 	$.panzer.formatDate(date,'MM月'); // 01月
-	$.panzer.formatDate(date,'yyyy-MM'); // 2011-01
+	$.panzer.formatDate(date,'yyyy-MM');
+	// 2011-01
 
 	$.panzer.formatDate(date,'d号'); // 1号
 	$.panzer.formatDate(date,'dd号'); // 01号
-	$.panzer.formatDate(date,'yyyy-MM-dd'); // 2011-01-01
+	$.panzer.formatDate(date,'yyyy-MM-dd');
+	// 2011-01-01
 
 	$.panzer.formatDate(date,'H时'); // 20时
 	$.panzer.formatDate(date,'HH时'); // 20时
-	$.panzer.formatDate(date,'yyyy-MM-dd HH'); // 2011-01-01 20
+	$.panzer.formatDate(date,'yyyy-MM-dd HH');
+	// 2011-01-01 20
 
 	$.panzer.formatDate(date,'h时'); // 8时
 	$.panzer.formatDate(date,'hh时'); // 08时
-	$.panzer.formatDate(date,'yyyy-MM-dd hh'); // 2011-01-01 08
+	$.panzer.formatDate(date,'yyyy-MM-dd hh');
+	// 2011-01-01 08
 
 	$.panzer.formatDate(date,'m分'); // 1分
 	$.panzer.formatDate(date,'mm分'); // 01分
-	$.panzer.formatDate(date,'yyyy-MM-dd hh:mm'); // 2011-01-01 08:01
+	$.panzer.formatDate(date,'yyyy-MM-dd hh:mm');
+	// 2011-01-01 08:01
 
 	$.panzer.formatDate(date,'s时'); // 3秒
 	$.panzer.formatDate(date,'ss时'); // 03秒
-	$.panzer.formatDate(date,'yyyy-MM-dd hh:mm:ss'); // 2011-01-01 08:01:03
+	$.panzer.formatDate(date,'yyyy-MM-dd hh:mm:ss');
+	// 2011-01-01 08:01:03
 </script>
 }}}
 
@@ -109,7 +121,9 @@
 <ItemTemplate>
 
 	<td>
-		<strong>评价:</strong> #{rank} <span class="rank rank#{rank}"></span>
+		<strong>评价:</strong>
+		#{rank}
+		<span class="rank rank#{rank}"></span>
 	</td>
 
 </ItemTemplate>
