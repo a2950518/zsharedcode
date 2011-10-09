@@ -38,6 +38,7 @@
       * [IEBrowserDocButtonClick 按钮点击示例]
     * [JQueryElementDoc JQueryElement 说明&参考]
       * [JQueryElementRepeaterDoc Repeater 示例]
+        * [JERepeaterBindField Repeater 绑定/处理字段]
       * [JQueryElementTimerDoc 时钟示例]
       * [JQueryElementAccordionDoc 折叠列表示例]
       * [JQueryElementAutoCompleteDoc 自动填充示例]

@@ -1,9 +1,7 @@
 ﻿#summary Repeater 完全参考
 <font face="microsoft yahei">
 === 简介/目录 ===
- <font color="#ff0000">3.4 版本功能尚未编写</font>
-
- 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 JQueryElementTest.rar/3/Student.aspx.
+ 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /JQueryElementTest.rar/3/Student.aspx 或 /repeater/Default.aspx.
 
  本文将系统讲解 Repeater 控件的功能以及使用过程中的注意事项和技巧, 目录如下:
 
@@ -31,6 +29,7 @@
       * EditItemTemplate
       * FilterTemplate/NewItemTemplate
       * HeaderTemplate/FooterTemplate/EmptyTemplate
+      * TipTemplate
     * 特殊绑定
       * je-id
       * je-<javascript 事件名>
@@ -108,6 +107,8 @@
 
  除了调用函数外, 也可以直接书写 javascript 代码, 比如: `#{age,# <= 0 ? '不可能吧' : #.toString()}`.
 
+ 更多使用方法和说明请参考 [Repeater 绑定/处理字段 JERepeaterBindField].
+
  ==== <font color="green">绑定属性</font> ====
  在所有的模板中都可以绑定属性, 语法为 *`@{<属性名>[,<属性表达式>]}`*, 比如:
 {{{
@@ -158,6 +159,8 @@
  FilterField 表示用于搜索的字段, 也是一个 javascript 字符串数组. FilterFieldDefault 为搜索字段的值为 null 或者 '' 时的默认值, 示例: `['', '', 0]`.
 
  SortField 表示参与排序的字段, 比如: `['id']`.
+
+ FieldMask 表示用于验证字段的正则表达式, 在更新或新建时起效, 格式为: *`{<字段名>: <正则表达式>}`*.
 
  ==== <font color="green">设置调用的服务端方法</font> ====
  可以通过 Async 来设置如何调用服务器端方法, 如果是调用 WebService, 则需要设置 MethodName, 如果是普通的 ashx 这样的一般处理程序, 则忽略 MethodName, 示例:
@@ -225,21 +228,22 @@
  通过添加 Parameter, 可以传递更多的参数, Name 为参数名, Type 为 Expression 时, 则 Value 中包含的是一个 javascript 表达式, 示例中的 `Value="website"` 表示取 javascript 变量 website 的值, 当然也可以设置为常量, 比如: `Value="'www.google.com'"` 或者 `Value="100"`, 当 Type 为 Selector 时, 则 Value 中的 javascript 表达式将作为选择器, 选择器的写法可以参照 [http://jquery.com jquery.com], 选择器对应的元素的值将作为参数的值. Default 中是默认值的 javascript 表达式, 当参数的值为 null 或者 '' 时, 将采用 Default 中的值.
 
  ==== <font color="green">请求/返回数据的格式</font> ====
+ 关于如何返回 JSON, 请参考 [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON], 以下所有代码为在 .NET 4.0 下编写.
 
  ===== 填充/搜索 =====
- 对于填充或者搜索操作, 以 WebService 为例, 服务端将接收如下参数, pageindex 页码, pagesize 每页中包含数据条数, 还可以接收与字段同名的参数或者通过 Parameter 增加的参数作为搜索条件, 或者接收形式为 *`<字段名称>_order`* 的用于排序的字段参数, 排序参数有三种值, "" 表示没有排序, "asc" 升序, "desc" 降序:
+ 对于填充或者搜索操作, 以 WebService 为例, 服务端将接收如下参数, pageindex 页码, pagesize 每页中包含数据条数, 还可以接收与字段同名的参数或者通过 Parameter 增加的参数作为搜索条件, 或者接收形式为 *`__order`* 的用于排序的参数, 参数的值类似于 `name asc, age desc`:
 {{{
 [WebMethod ( )]
 public static object <方法名称> ( int pageindex, int pagesize
 	[, <类型n, 如: string> <用于搜索的字段或条件名称n>]
-	[, string <用于排序的字段名称m>_order] )
+	[, string __order] )
 {
 }
 
 [WebMethod ( )]
 public static object Fill ( int pageindex, int pagesize
 	, string realname, int age
-	, string id_order )
+	, string __order )
 {
 }
 }}}
@@ -529,6 +533,9 @@ public static object Insert ( /* 参数 */ )
  ===== HeaderTemplate/FooterTemplate/EmptyTemplate =====
  HeaderTemplate 表示头模板, FooterTemplate 表示尾模板, EmptyTemplate 表示在没有数据时的模板.
 
+ ===== TipTemplate =====
+ TipTemplate 为用于提示消息的模板, 其中可以使用 `@{__tip}` 来绑定消息.
+
  ==== <font color="green">特殊绑定</font> ====
  
  ===== je-id =====
@@ -737,7 +744,7 @@ public static object Insert ( /* 参数 */ )
 
 <table border="1" cellspacing="0" cellpadding="3" width="100%">
 <tr><td>*方法*</td><td>*说明*</td><td>*示例*</td></tr>
-<tr><td>beginedit</td><td>开始编辑指定索引的行.</td><td>`<repeater 变量>.repeater('beginedit', 0)`</td></tr>
+<tr><td>beginedit/begineditselected</td><td>开始编辑指定索引/选中的行.</td><td>`<repeater 变量>.repeater('beginedit', 0)` `<repeater 变量>.repeater('begineditselected')`</td></tr>
 <tr><td>bind</td><td>绑定, 不会重新获取数据, 仅仅将现有数据绑定的到 *repeater*.</td><td>`<repeater 变量>.repeater('bind')`</td></tr>
 <tr><td>custom/customselected</td><td>对指定/所有的行执行自定义操作.</td><td>`<repeater 变量>.repeater('custom', 0)` `<repeater 变量>.repeater('customselected')`</td></tr>
 <tr><td>endedit</td><td>结束编辑指定索引的行, 不保存编辑的内容.</td><td>`<repeater 变量>.repeater('endedit', 0)`</td></tr>
@@ -746,10 +753,12 @@ public static object Insert ( /* 参数 */ )
 <tr><td>first/last</td><td>跳转到第一页/最后一页.</td><td>`<repeater 变量>.repeater('first')`</td></tr>
 <tr><td>getrow</td><td>获取指定索引的行.</td><td>`<repeater 变量>.repeater('getrow', 0)`</td></tr>
 <tr><td>goto/next/prev</td><td>跳转到指定的页/下一页/上一页.</td><td>`<repeater 变量>.repeater('goto', 2)` `<repeater 变量>.repeater('next')`</td></tr>
+<tr><td>hidetip/showtip</td><td>隐藏/显示提示.</td><td>`<repeater 变量>.repeater('hidetip')` `<repeater 变量>.repeater('showtip', '请输入姓名')`</td></tr>
 <tr><td>insert</td><td>调用服务端方法新建行.</td><td>`<repeater 变量>.repeater('insert')`</td></tr>
 <tr><td>remove/removeselected</td><td>删除指定/所有的行.</td><td>`<repeater 变量>.repeater('remove', 0)` `<repeater 变量>.repeater('removeselected')`</td></tr>
 <tr><td>select/unselect/toggleselect</td><td>设置/取消/切换指定索引的行的选中状态.</td><td>`<repeater 变量>.repeater('select', 0)`</td></tr>
 <tr><td>selectall/unselectall/toggleselectall</td><td>设置/取消/切换所有行的选中状态.</td><td>`<repeater 变量>.repeater('selectall')`</td></tr>
+<tr><td>setfilter</td><td>设置过滤条件.</td><td>`<repeater 变量>.repeater('setfilter', age, 12)`</td></tr>
 <tr><td>setrow</td><td>设置指定索引的行的数据, 并指定是否重新绑定.</td><td>`<repeater 变量>.repeater('setrow', 0, {age: 10}, true)`</td></tr>
 <tr><td>sort/togglesort</td><td>设置/切换排序条件.</td><td>`<repeater 变量>.repeater('sort', 'id', 'desc')` `<repeater 变量>.repeater('togglesort', 'id')`</td></tr>
 <tr><td>update</td><td>调用服务端方法更新指定索引的行.</td><td>`<repeater 变量>.repeater('update', 0)`</td></tr>
