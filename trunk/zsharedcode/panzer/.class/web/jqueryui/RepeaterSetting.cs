@@ -526,7 +526,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			this.UpdateAsync.Error = "function(){e.callback.call(pe.jquery, pe, e.index, e.row, false);}";
 
 			this.FillAsync.EventType = EventType.fill;
-			this.FillAsync.Success = "function(data){\ne.callback.call(pe.jquery, pe, -:data, -:data.__success);\n}";
+			this.FillAsync.Success = "function(data){e.callback.call(pe.jquery, pe, -:data, -:data.__success);}";
 			this.FillAsync.Error = "function(){e.callback.call(pe.jquery, pe, {}, false);}";
 			this.InsertAsync.EventType = EventType.insert;
 			this.InsertAsync.Data = "e.row";
