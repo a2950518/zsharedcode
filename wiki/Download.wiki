@@ -8,9 +8,9 @@
  
  讨论: <font color="#990099">欢迎加入 qq 群: 149829251, JQueryElement 编程</font>, <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/149829251" target="_blank">加入 qq 群</a>.
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.3.4.0.Debug.PARAM.zip JQueryElement 3.4.0 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(PARAM 仅支持在 Visual Studio 2010 中使用)</font>
+ [http://zsharedcode.googlecode.com/files/JQueryElement.3.4.1.Debug.PARAM.zip JQueryElement 3.4.1 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(PARAM 仅支持在 Visual Studio 2010 中使用)</font>
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.3.4.0.Debug.NOPARAM.zip JQueryElement 3.4.0 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(NOPARAM 版本支持所有 Visual Studio 版本)</font>
+ [http://zsharedcode.googlecode.com/files/JQueryElement.3.4.1.Debug.NOPARAM.zip JQueryElement 3.4.1 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(NOPARAM 版本支持所有 Visual Studio 版本)</font>
 
 === IEBrowser.dll ===
  以下 dll 文件, 为 2011-7-4 上传, 可能没有依照最新的 panzer 代码编译.
@@ -24,8 +24,11 @@
  [http://zsharedcode.googlecode.com/files/IEBrowser.2.5.0.Debug.NOPARAM.zip IEBrowser 2.5.0 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(NOPARAM 版本支持所有 Visual Studio 版本)</font>
  
 === JQueryElement 更新历史 ===
+3.4.1 版本改动:
+ a. 增加了 $.panzer.convertToDate, $.panzer.formatDate 函数.
+
 3.4 版本改动:
- a. Repeater 增加 setfilter, begineditselected, showtip, hidetip 等方法, 选择和排序的操作方法有所改变, 加入了 fieldmask, erroritem 选项.
+ a. Repeater 增加 setfilter, begineditselected, showtip, hidetip 等方法, 选择和排序的操作方法有所改变, 加入了 fieldmask 选项.
 
 3.3.1 版本改动:
  a. Repeater 客户端 javascript 脚本的第一个参数 tag 修改为 pe.
