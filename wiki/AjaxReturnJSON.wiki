@@ -3,7 +3,8 @@
 === 简介/目录 ===
  示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /returnjson/Default.aspx.
  视频演示: [http://www.tudou.com/programs/view/rHCYHX9cmcI/ www.tudou.com/programs/view/rHCYHX9cmcI/]
-
+ 在线运行: [http://www.coderun.com/ide/?w=fnQ1VeTq3U6Q3KPJSUjxzw coderun.com 上的 JQueryElementDemo]
+ 
  本文将说明如何通过一般处理程序 ashx 和 WebService 来向客户端 javascript 返回 JSON:
 
   * 准备
