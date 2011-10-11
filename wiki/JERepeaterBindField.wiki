@@ -2,7 +2,9 @@
 <font face="microsoft yahei">
 === 简介/目录 ===
  示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /repeater/Default.aspx.
+
  视频演示: [http://www.tudou.com/programs/view/rwruM87J20s/ www.tudou.com/programs/view/rwruM87J20s/]
+
  在线运行: [http://www.coderun.com/ide/?w=fnQ1VeTq3U6Q3KPJSUjxzw coderun.com 上的 JQueryElementDemo]
 
  本文将详细的讲解 Repeater 控件中如何绑定和处理字段, 目录如下:
