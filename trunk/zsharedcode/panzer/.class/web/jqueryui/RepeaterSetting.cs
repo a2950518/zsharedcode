@@ -32,6 +32,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
+		/// 获取或设置嵌入的模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号.
+		/// </summary>
+		public string Embed
+		{
+			get { return this.settingHelper.GetOptionValueToString ( OptionType.embed, string.Empty ); }
+			set { this.settingHelper.SetOptionValueToString ( OptionType.embed, value, string.Empty ); }
+		}
+
+		/// <summary>
 		/// 获取或设置空模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号.
 		/// </summary>
 		public string Empty

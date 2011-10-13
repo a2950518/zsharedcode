@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -36,9 +37,15 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				return content;
 			else
 			{
-				template.InstantiateIn ( content );
+				PlaceHolder holder = new PlaceHolder ( );
+				//template.InstantiateIn ( content );
+				template.InstantiateIn ( holder );
 
-				content.Text = JQueryCoder.Encode ( control, content.Text );
+				StringWriter writer = new StringWriter ( );
+				holder.RenderControl ( new HtmlTextWriter ( writer ) );
+
+				content.Text = JQueryCoder.Encode ( control, writer.ToString ( ) );
+				//content.Text = JQueryCoder.Encode ( control, content.Text );
 			}
 
 			return content;
@@ -309,7 +316,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 				else if ( this.text != string.Empty )
 					writer.WriteEncodedText ( this.text );
 
-			if (this.DesignMode)
+			if ( this.DesignMode )
 				return;
 
 			JQueryUI jquery = new JQueryUI ( string.IsNullOrEmpty ( this.selector ) ? string.Format ( "'#{0}'", this.ClientID ) : this.selector );
