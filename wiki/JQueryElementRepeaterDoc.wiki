@@ -40,6 +40,7 @@
       * je-value
       * je-<jQueryUI 插件名>
       * je-template
+    * 子视图
     * 事件
     * 客户端方法
 
@@ -118,6 +119,7 @@
 	第 @{pageindex}/@{pagecount} 页, @{itemcount} 条
 </FooterTemplate>
 }}}
+ 在行模板中, 不会因为属性的改变而自动刷新, 如果需要刷新请调用 bind 函数.
 
  ===== 属性表达式 =====
  属性表达式和上面的字段表达式是类似的, 可以输出转换后的属性, 示例:
@@ -693,6 +695,51 @@ public static object Insert ( /* 参数 */ )
 
 </je:Repeater>
 }}}
+
+ ==== <font color="green">子视图</font> ====
+ 在 Repeater 中, 可以通过 shiftview, collapseview, expandview 三个函数来切换, 关闭, 打开子视图, 比如:
+{{{
+<je:Repeater ID="<子视图 ID>" runat="server"
+	FilterField="<子视图搜索字段>">
+
+</je:Repeater>
+
+<je:Repeater ID="googleRepeater" runat="server">
+		<ItemTemplate>
+			<div je-onclick="shiftview,'<子视图 ID>'[,<子视图搜索字段值n>]">
+			切换子视图
+			</div>
+			<div je-id="<子视图 ID>">
+			</div>
+		</ItemTemplate>
+</je:Repeater>
+
+<je:Repeater ID="pictureRepeater" runat="server"
+	FilterField="['url']">
+	<ItemTemplate>
+		<div>
+			<span class="url">#{url}</span>
+			<br />
+			<br />
+			#{picture}
+		</div>
+	</ItemTemplate>
+</je:Repeater>
+
+<div id="list">
+	<je:Repeater ID="googleRepeater" runat="server" Selector="'#list'">
+		<ItemTemplate>
+			<div
+				je-button="label='更多';"
+				je-onclick="shiftview,'pictureRepeater','#{url}'">
+			</div>
+			<div je-id="pictureRepeater" style="display: none;">
+			</div>
+		</ItemTemplate>
+	</je:Repeater>
+</div>
+}}}
+ 更多使用方法和说明请参考 [JERepeaterSubView Repeater 子视图]. 
 
  ==== <font color="green">事件</font> ====
  在 Repeater 所有的事件中都有具有 pe 和 e 两个参数, pe.option 中包含了 *repeater* 中的选项, pe.jquery 表示当前 *repeater*, e 则包含了事件的相关数据.

@@ -10,6 +10,7 @@
 === 示例 ===
  * [JQueryElementRepeaterDoc Repeater 完全参考]
    * [JERepeaterBindField Repeater 绑定/处理字段]
+   * [JERepeaterSubView Repeater 子视图]
  * [JQueryElementTimerDoc 时钟示例]
 
  * [JQueryElementAccordionDoc 折叠列表示例]

@@ -1,0 +1,107 @@
+﻿#summary Repeater 子视图
+<font face="microsoft yahei">
+=== 简介/目录 ===
+ 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /repeater/Default.aspx.
+
+ 视频演示: [http://www.tudou.com/programs/view/uVx2BBMHgOQ/ www.tudou.com/programs/view/uVx2BBMHgOQ/]
+
+ 在线运行: [http://www.coderun.com/ide/?w=fnQ1VeTq3U6Q3KPJSUjxzw coderun.com 上的 JQueryElementDemo]
+
+ 本文将详细的讲解 Repeater 控件中如何使用子视图, 目录如下:
+
+  * 准备
+  * 定义子视图样本
+  * 切换子视图状态
+  * 定义子视图容器
+
+=== 准备 ===
+ 请先查看 [JQueryElementRepeaterDoc Repeater 完全参考] 或者准备一节的内容.
+
+=== 定义子视图样本 ===
+ 显示在 *repeater* 中的 *repeater* 被称为子视图, 每一个子视图都是子视图样本的副本, 并根据条件来展示不同的数据. 子视图样本的定义没有特别之处, 比如:
+{{{
+<je:Repeater ID="<子视图 ID>" runat="server"
+	FilterField="<子视图搜索字段>">
+
+</je:Repeater>
+
+<je:Repeater ID="pictureRepeater" runat="server"
+	FilterField="['url']"
+	FillAsync-Url="webservice.asmx"
+	FillAsync-MethodName="GetGooglePicture">
+	<ItemTemplate>
+		<div>
+			<span class="url">#{url}</span>
+			<br />
+			<br />
+			#{picture}
+		</div>
+	</ItemTemplate>
+</je:Repeater>
+}}}
+ 大多数情况下, 需要为子视图样本定义 FilterField 属性, 也就是搜索子视图数据所用到的字段或条件, 上面的代码中, 我们添加了 url 作为条件, 那么后台返回数据的代码可以这样编写:
+{{{
+[WebMethod]
+public SortedDictionary<string, object> GetGooglePicture ( string url )
+{
+	// 返回 JSON
+}
+}}}
+ 由于, 只返回一行数据, 因此不必添加 pageindex 和 pagesize 参数.
+
+ 关于如何返回 JSON, 请参考 在不同的 .NET 版本中返回 JSON, 本示例所有代码为在 .NET 4.0 下编写. 
+
+=== 切换子视图状态 ===
+ 如果需要在 Repeater 中控制子视图切换, 关闭和打开, 可以使用 shiftview, collapseview, expandview 三个函数, 比如:
+{{{
+//	je-<javascript 事件名>="shiftview,'<子视图 ID>'[,<子视图搜索字段值n>]"
+
+<div id="list">
+	<je:Repeater ID="googleRepeater" runat="server"
+		Selector="'#list'" PageSize="2" IsVariable="true"
+		FillAsync-Url="webservice.asmx"
+		FillAsync-MethodName="SearchGoogle">
+		<ItemTemplate>
+
+			<div class="picture">
+				<div
+					je-button="label='更多';"
+					je-onclick="shiftview,'pictureRepeater','#{url}'">
+				</div>
+				<div je-id="pictureRepeater" style="display: none;">
+				</div>
+			</div>
+		
+		</ItemTemplate>
+
+	</je:Repeater>
+</div>
+}}}
+ 以 shiftview 为例, 第一个参数为子视图的 ID, 之后的参数为用于搜索子视图数据的条件, 示例中将字段 url 作为参数, 对应了子视图样本 FilterField 属性中的 url. 如果有更多的条件, 继续添加即可, 顺序需要和子视图样本 FilterField 属性中条件一样.
+
+ expandview 方法和 shiftview 是类似的, 不同的 expandview 是打开子视图, 而 shiftview 是切换子视图的打开状态.
+
+ 而 collapseview 方法是关闭子视图, 不需要传递条件.
+
+ 默认情况下, 当子视图首次被打开时, 将自动调用 fill 方法来填充数据, 而之后的打开显示现存的数据, 不再刷新.
+
+=== 定义子视图容器 ===
+ 除了定义子视图样本之外, 还需要在行模板中定义子视图容器, 在刚才的代码中, 有这样一段:
+{{{
+// je-id="<子视图 ID>"
+
+<ItemTemplate>
+
+	<div class="picture">
+
+		<div je-id="pictureRepeater" style="display: none;">
+		</div>
+	</div>
+		
+</ItemTemplate>
+}}}
+ 通过 je-id 绑定为子视图 ID, 即可将元素绑定为子视图的容器, 而子视图将显示在目标容器中.
+
+ 子视图默认为关闭状态, 因此代码中通过 `style="display: none;"` 使子视图容器在开始时隐藏.
+
+</font>
