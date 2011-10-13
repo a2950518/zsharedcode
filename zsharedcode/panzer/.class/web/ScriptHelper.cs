@@ -11,6 +11,7 @@
 // HACK: 如果代码不能编译, 请尝试在项目中定义编译符号 V4, V3_5, V3, V2 以表示不同的 .NET 版本
 
 using System;
+using System.Text.RegularExpressions;
 using System.Web.UI;
 
 namespace zoyobar.shared.panzer.web
@@ -48,7 +49,10 @@ namespace zoyobar.shared.panzer.web
 				return string.Empty;
 
 			if ( isRemove )
-				text = text.Replace ( "\n", string.Empty ).Replace ( "\r", string.Empty ).Replace ( "\t", string.Empty );
+			{
+				text = text.Replace ( "\n", "!space!" ).Replace ( "\r", "!space!" ).Replace ( "\t", "!space!" );
+				text = Regex.Replace ( text, "(!space!)+", " ", RegexOptions.Multiline );
+			}
 			else
 				text = text.Replace ( "\n", "\\n" ).Replace ( "\r", "\\r" ).Replace ( "\t", "\\t" );
 

@@ -53,6 +53,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
+		/// 获取或设置嵌入的模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号. 
+		/// </summary>
+		[Category ( "模板" )]
+		[DefaultValue ( "" )]
+		[Description ( "嵌入的模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号" )]
+		[NotifyParentProperty ( true )]
+		public string Embed
+		{
+			get { return this.uiSetting.Embed; }
+			set { this.uiSetting.Embed = value; }
+		}
+
+		/// <summary>
 		/// 获取或设置默认包含的字段, 默认为 "[]".
 		/// </summary>
 		[Category("模板")]
@@ -664,6 +677,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private ITemplate removedItemTemplate;
 		private ITemplate filterTemplate;
 		private ITemplate tipTemplate;
+		private ITemplate embedTemplate;
 
 		/// <summary>
 		/// 获取或设置头部 html 代码的模板, 如果有效, 将覆盖 Header. 
@@ -785,6 +799,17 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			get { return this.tipTemplate; }
 			set { this.tipTemplate = value; }
 		}
+
+		/// <summary>
+		/// 获取或设置嵌入的 html 代码的模板, 如果有效, 将覆盖 Embed. 
+		/// </summary>
+		[Browsable ( false )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ITemplate EmbedTemplate
+		{
+			get { return this.embedTemplate; }
+			set { this.embedTemplate = value; }
+		}
 		#endregion
 
 		/// <summary>
@@ -806,6 +831,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			Literal updatedItem = renderTemplate ( this, this.updatedItemTemplate );
 			Literal removedItem = renderTemplate ( this, this.removedItemTemplate );
 			Literal filter = renderTemplate ( this, this.filterTemplate );
+			Literal tip = renderTemplate ( this, this.tipTemplate );
+			Literal embed = renderTemplate ( this, this.embedTemplate );
 
 			if ( !string.IsNullOrEmpty ( header.Text ) )
 				this.Header = ScriptHelper.EscapeCharacter ( header.Text, true );
@@ -836,6 +863,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !string.IsNullOrEmpty ( filter.Text ) )
 				this.Filter = ScriptHelper.EscapeCharacter ( filter.Text, true );
+
+			if ( !string.IsNullOrEmpty ( tip.Text ) )
+				this.Tip = ScriptHelper.EscapeCharacter ( tip.Text, true );
+
+			if ( !string.IsNullOrEmpty ( embed.Text ) )
+				this.Embed = ScriptHelper.EscapeCharacter ( embed.Text, true );
 
 			base.renderJQuery ( jquery );
 		}

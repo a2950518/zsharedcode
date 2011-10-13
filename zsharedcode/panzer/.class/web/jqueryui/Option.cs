@@ -1084,6 +1084,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		removeditem,
 		/// <summary>
+		/// 嵌入的模板.
+		/// </summary>
+		embed,
+		/// <summary>
 		/// 自定义之前.
 		/// </summary>
 		precustom,
