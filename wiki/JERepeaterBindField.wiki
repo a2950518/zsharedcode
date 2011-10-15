@@ -5,8 +5,6 @@
 
  视频演示: [http://www.tudou.com/programs/view/rwruM87J20s/ www.tudou.com/programs/view/rwruM87J20s/]
 
- 在线运行: [http://www.coderun.com/ide/?w=fnQ1VeTq3U6Q3KPJSUjxzw coderun.com 上的 JQueryElementDemo]
-
  本文将详细的讲解 Repeater 控件中如何绑定和处理字段, 目录如下:
 
   * 准备
