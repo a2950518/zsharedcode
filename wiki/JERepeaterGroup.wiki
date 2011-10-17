@@ -1,0 +1,94 @@
+﻿#summary Repeater 分组数据
+<font face="microsoft yahei">
+=== 简介/目录 ===
+ 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /repeater/Default.aspx.
+
+ 本文将详细的讲解 Repeater 控件中如何对数据分组, 目录如下:
+
+  * 准备
+  * 设置分组的字段
+  * 设置分组模板
+
+=== 准备 ===
+ 请先查看 [JQueryElementRepeaterDoc Repeater 完全参考] 或者准备一节的内容.
+
+=== 设置分组的字段 ===
+ Repeater 每次只能根据一个字段来分组, 可以 GroupField 属性或者 setgroup 方法来设置用来分组的字段, 比如:
+{{{
+<je:Repeater ID="mailRepeater" runat="server"
+	GroupField="<分组字段>">
+	<HeaderTemplate>
+
+		<td class="group-header"
+			je-onclick="setgroup,'<分组字段>';togglesort,'sender'">
+			发送人
+		</td>
+
+	</HeaderTemplate>
+</je:Repeater>
+
+<je:Repeater ID="mailRepeater" runat="server"
+	GroupField="displaydate">
+	<HeaderTemplate>
+
+		<td class="group-header"
+			je-onclick="setgroup,'sender';togglesort,'sender'">
+			发送人
+		</td>
+
+	</HeaderTemplate>
+</je:Repeater>
+}}}
+ 如果使用 setgroup 方法设置分组字段, 并不会自动重新获取数据, 所以需要调用 fill, togglesort 之类的函数来刷新数据.
+
+=== 设置分组模板 ===
+ 通过 GroupTemplate 可以设置分组模板, 这类似于一个表头, 相同分组的数据将显示在同一表头下, 比如:
+{{{
+<script type="text/javascript">
+	function convertGroupField(groupfield) {
+		switch (groupfield) {
+			case 'displaydate':
+				return '<strong>时间</strong>';
+			case 'sender':
+				return '<strong>发送人</strong>';
+		}
+	}
+</script>
+
+<je:Repeater ID="mailRepeater" runat="server"
+	GroupField="displaydate"
+	FillAsync-Url="webservice.asmx"
+	FillAsync-MethodName="FillMailList">
+
+	<GroupTemplate>
+		<tr>
+			<td colspan="4">
+				@{groupfield,convertGroupField(@)}:
+				@{groupname}
+			</td>
+		</tr>
+	</GroupTemplate>
+	<ItemTemplate>
+		<tr>
+			<td>
+				<input type="checkbox"
+					je-checked="selected"
+					je-onclick="toggleselect,false" />
+			</td>
+			<td>
+				#{sender}
+			</td>
+			<td>
+				<strong>#{title}</strong>
+			</td>
+			<td>
+				<strong>#{displaydate}</strong>
+				#{receivedate,jQuery.panzer.formatDate(#,'yyyy-MM-dd h:m')}
+			</td>
+		</tr>
+	</ItemTemplate>
+</je:Repeater>
+}}}
+ 在 GroupTemplate 中可以使用属性 groupfield 和 groupname 来表示分组字段和当前分组的值.
+
+</font>
