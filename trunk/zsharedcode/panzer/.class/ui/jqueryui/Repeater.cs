@@ -68,7 +68,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置默认包含的字段, 默认为 "[]".
 		/// </summary>
-		[Category("模板")]
+		[Category ( "数据" )]
 		[DefaultValue ( "[]" )]
 		[Description ( "默认包含的字段, 默认为 []" )]
 		[NotifyParentProperty ( true )]
@@ -81,7 +81,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置验证字段的正则表达式, 默认为 "{}".
 		/// </summary>
-		[Category("模板")]
+		[Category ( "数据" )]
 		[DefaultValue ( "[]" )]
 		[Description ( "验证字段的正则表达式, 默认为 {}" )]
 		[NotifyParentProperty ( true )]
@@ -120,7 +120,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// <summary>
 		/// 获取或设置参与过滤字段的默认值, 默认为 "[]".
 		/// </summary>
-		[Category("数据")]
+		[Category ( "数据" )]
 		[DefaultValue ( "[]" )]
 		[Description ( "参与过滤字段的默认值, 默认为 []" )]
 		[NotifyParentProperty ( true )]
@@ -141,6 +141,32 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			get { return this.uiSetting.Footer; }
 			set { this.uiSetting.Footer = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置分组模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号. 
+		/// </summary>
+		[Category ( "模板" )]
+		[DefaultValue ( "" )]
+		[Description ( "分组模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号" )]
+		[NotifyParentProperty ( true )]
+		public string Group
+		{
+			get { return this.uiSetting.Group; }
+			set { this.uiSetting.Group = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置分组字段, 默认为空字符串.
+		/// </summary>
+		[Category ( "数据" )]
+		[DefaultValue ( "" )]
+		[Description ( "分组字段, 默认为空字符串" )]
+		[NotifyParentProperty ( true )]
+		public string GroupField
+		{
+			get { return this.uiSetting.GroupField; }
+			set { this.uiSetting.GroupField = value; }
 		}
 
 		/// <summary>
@@ -678,6 +704,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		private ITemplate filterTemplate;
 		private ITemplate tipTemplate;
 		private ITemplate embedTemplate;
+		private ITemplate groupTemplate;
 
 		/// <summary>
 		/// 获取或设置头部 html 代码的模板, 如果有效, 将覆盖 Header. 
@@ -810,6 +837,17 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			get { return this.embedTemplate; }
 			set { this.embedTemplate = value; }
 		}
+
+		/// <summary>
+		/// 获取或设置分组的 html 代码的模板, 如果有效, 将覆盖 Group. 
+		/// </summary>
+		[Browsable ( false )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public ITemplate GroupTemplate
+		{
+			get { return this.groupTemplate; }
+			set { this.groupTemplate = value; }
+		}
 		#endregion
 
 		/// <summary>
@@ -833,6 +871,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			Literal filter = renderTemplate ( this, this.filterTemplate );
 			Literal tip = renderTemplate ( this, this.tipTemplate );
 			Literal embed = renderTemplate ( this, this.embedTemplate );
+			Literal group = renderTemplate ( this, this.groupTemplate );
 
 			if ( !string.IsNullOrEmpty ( header.Text ) )
 				this.Header = ScriptHelper.EscapeCharacter ( header.Text, true );
@@ -869,6 +908,9 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			if ( !string.IsNullOrEmpty ( embed.Text ) )
 				this.Embed = ScriptHelper.EscapeCharacter ( embed.Text, true );
+
+			if ( !string.IsNullOrEmpty ( group.Text ) )
+				this.Group = ScriptHelper.EscapeCharacter ( group.Text, true );
 
 			base.renderJQuery ( jquery );
 		}

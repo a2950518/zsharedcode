@@ -71,8 +71,8 @@ namespace zoyobar.shared.panzer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 (function(g){function n(a,b){var c=a.option;if(c.singlethread&amp;&amp;c.busy)return null!=c.blocked&amp;&amp;c.blocked.call(this,a,{action:b}),!1;c.busy=!0;if(null!=c.preexecute){var d={action:b,tip:null};c.preexecute.call(this,a,d);w.call(this,a,d.tip)}return!0}function D(a,b){if(s.call(this,a,b,&quot;state&quot;)!=&quot;removed&quot;){var c=a.option;!c.multipleedit&amp;&amp;null!=c.index.edit&amp;&amp;k.call(this,a,c.index.edit,&quot;editing&quot;,!1);c.index.edit=b;k.call(this,a,b,&quot;editing&quot;,!0);m.call(this,a,c.data)}}function m(a,b){var c=a.option,d=!1;
-        ///c.data=b;c [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 (function(g){function v(b,a){var c=b.option;if(c.singlethread&amp;&amp;c.busy)return null!=c.blocked&amp;&amp;c.blocked.call(this,b,{action:a}),!1;c.busy=!0;if(null!=c.preexecute){var d={action:a,tip:null};c.preexecute.call(this,b,d);J.call(this,b,d.tip)}return!0}function P(b,a){if(B.call(this,b,a,&quot;state&quot;)!=&quot;removed&quot;){var c=b.option;!c.multipleedit&amp;&amp;null!=c.index.edit&amp;&amp;p.call(this,b,c.index.edit,&quot;editing&quot;,!1);c.index.edit=a;p.call(this,b,a,&quot;editing&quot;,!0);l.call(this,b,c.data)}}function l(b,a){var c=b.option,d=!1;
+        ///c.data=a;c [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string repeater_min {
             get {
