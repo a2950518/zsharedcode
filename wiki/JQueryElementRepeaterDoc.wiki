@@ -39,6 +39,7 @@
       * je-<jQueryUI 插件名>
       * je-template
     * 子视图
+    * 数据分组
     * 事件
     * 客户端方法
 
@@ -588,7 +589,9 @@ public static object Insert ( /* 参数 */ )
 	</tr>
 </EditItemTemplate>
 }}}
- 需要说明的是, togglesort 还需要指定一个参数, 表示切换排序的字段, 这个字段已经在 SortField 中设置, 比如: `je-onclick="togglesort,realname"`.
+ 需要说明的是, togglesort 还需要指定一个参数, 表示切换排序的字段, 这个字段已经在 SortField 中设置, 比如: `je-onclick="togglesort,'realname'"`.
+
+ 如果绑定多个行为则, 可以使用 ; 号分隔, 比如 `je-onclick="setgroup,'realname';fill"`.
 
  ===== je-class =====
  使用 *`je-class="<样式>"`* 可以为事件绑定特殊的样式. 可以在各个模板中使用 je-class, 常用的样式有: {header} 表示 ui-widget-header, {active} 表示 ui-state-active, {highlight} 表示 ui-state-highlight, {disabled} 表示 ui-state-disabled, {error} 表示 ui-state-error, {default} 表示 ui-state-default, {state} 表示行状态, {sort} 表示排序状态, 示例:
@@ -596,7 +599,7 @@ public static object Insert ( /* 参数 */ )
 <HeaderTemplate>
 	<thead je-class="{header}">
 		<tr>
-			<td je-onclick="togglesort,id">
+			<td je-onclick="togglesort,'id'">
 <span je-class="{sort,id,,ui-icon ui-icon-arrow-1-n icon,ui-icon ui-icon-arrow-1-s icon}">
 </span>
 				序号
@@ -738,6 +741,39 @@ public static object Insert ( /* 参数 */ )
 </div>
 }}}
  更多使用方法和说明请参考 [JERepeaterSubView Repeater 子视图]. 
+ 
+ ==== <font color="green">数据分组</font> ====
+ 可以通过 Repeater 的 GroupField 或者 setgroup 函数来设置分组的字段, 通过 GroupTemplate 来设置分组的模板, 在设置分组后调用 fill 函数重新获取数据即可:
+{{{
+<je:Repeater ID="mailRepeater" runat="server"
+	GroupField="<分组字段>"
+	FillAsync-Url="webservice.asmx"
+	FillAsync-MethodName="FillMailList">
+	<HeaderTemplate>
+
+		<td
+			je-onclick="setgroup,'<分组字段>';togglesort,'<排序字段>'">
+			发送人
+		</td>
+
+	</HeaderTemplate>
+	<GroupTemplate>
+
+		<td>
+			@{groupfield}: @{groupname}
+		</td>
+	
+	</GroupTemplate>
+	<ItemTemplate>
+
+		<td class="sender">
+			#{sender} #{displaydate}
+		</td>
+
+	</ItemTemplate>
+</je:Repeater>
+}}}
+ 更多使用方法和说明请参考 [JERepeaterGroup Repeater 数据分组]. 
 
  ==== <font color="green">事件</font> ====
  在 Repeater 所有的事件中都有具有 pe 和 e 两个参数, pe.option 中包含了 *repeater* 中的选项, pe.jquery 表示当前 *repeater*, e 则包含了事件的相关数据.
@@ -806,6 +842,7 @@ public static object Insert ( /* 参数 */ )
 <tr><td>select/unselect/toggleselect</td><td>设置/取消/切换指定索引的行的选中状态.</td><td>`<repeater 变量>.repeater('select', 0)`</td></tr>
 <tr><td>selectall/unselectall/toggleselectall</td><td>设置/取消/切换所有行的选中状态.</td><td>`<repeater 变量>.repeater('selectall')`</td></tr>
 <tr><td>setfilter</td><td>设置过滤条件.</td><td>`<repeater 变量>.repeater('setfilter', age, 12)`</td></tr>
+<tr><td>setgroup</td><td>设置分组字段.</td><td>`<repeater 变量>.repeater('setgroup', 'name')`</td></tr>
 <tr><td>setrow</td><td>设置指定索引的行的数据, 并指定是否重新绑定.</td><td>`<repeater 变量>.repeater('setrow', 0, {age: 10}, true)`</td></tr>
 <tr><td>sort/togglesort</td><td>设置/切换排序条件.</td><td>`<repeater 变量>.repeater('sort', 'id', 'desc')` `<repeater 变量>.repeater('togglesort', 'id')`</td></tr>
 <tr><td>update</td><td>调用服务端方法更新指定索引的行.</td><td>`<repeater 变量>.repeater('update', 0)`</td></tr>

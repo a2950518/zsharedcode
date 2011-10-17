@@ -12,6 +12,7 @@
   * 简单绑定
   * 转换绑定
   * 格式化日期字段
+  * 使用 jQuery 代替 $
   * 根据字段设置样式
 
 === 准备 ===
@@ -62,20 +63,20 @@
 }}}
 
 === 格式化日期字段 ===
- 对于采用默认参数返回的 JSON, 日期格式的字段的返回值可能类似于 *`"\/Date(xxxxxxxxxx)\/"`* 的字符串, 可以通过 `$.panzer.formatDate` 函数来格式化日期, 或者使用 `$.panzer.convertToDate` 将 *`"\/Date(xxxxxxxxxx)\/"`* 格式的字符串转化为日期类型, 例如:
+ 对于采用默认参数返回的 JSON, 日期格式的字段的返回值可能类似于 *`"\/Date(xxxxxxxxxx)\/"`* 的字符串, 可以通过 `jQuery.panzer.formatDate` 函数来格式化日期, 或者使用 `jQuery.panzer.convertToDate` 将 *`"\/Date(xxxxxxxxxx)\/"`* 格式的字符串转化为日期类型, 例如:
 {{{
 <ItemTemplate>
 
 	<td>
 		<strong>出版日期:</strong>
 		<span class="publishdate">
-		#{publishdate,$.panzer.formatDate(#,'yyyy年M月d号')}
+		#{publishdate,jQuery.panzer.formatDate(#,'yyyy年M月d号')}
 		</span>
 	</td>
 
 </ItemTemplate>
 }}}
- 函数 `$.panzer.formatDate` 的第一个参数为 Date 类型的 javascript 变量或者格式为 *`"\/Date(xxxxxxxxxx)\/"`* 的字符串. 第二个参数为用于格式化的字符串, 这类似于 .NET 中的 DateTime 类型的 ToString 方法, 例如:
+ 函数 `jQuery.panzer.formatDate` 的第一个参数为 Date 类型的 javascript 变量或者格式为 *`"\/Date(xxxxxxxxxx)\/"`* 的字符串. 第二个参数为用于格式化的字符串, 这类似于 .NET 中的 DateTime 类型的 ToString 方法, 例如:
 {{{
 <script type="text/javascript">
 	var date = new Date(2011, 0, 1, 20, 1, 3);
@@ -116,6 +117,9 @@
 	// 2011-01-01 08:01:03
 </script>
 }}}
+
+=== 使用 jQuery 代替 $ ===
+ 在字段表达式中应该使用 jQuery 来代替 $, 以防止由于压缩脚本而产生的问题.
 
 === 根据字段设置样式 ===
  如果需要根据字段的值来显示不同的样式, 可以将字段绑定在 class 属性中, 比如:
