@@ -104,6 +104,24 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		}
 
 		/// <summary>
+		/// 获取或设置分组模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号.
+		/// </summary>
+		public string Group
+		{
+			get { return this.settingHelper.GetOptionValueToString ( OptionType.group, string.Empty ); }
+			set { this.settingHelper.SetOptionValueToString ( OptionType.group, value, string.Empty ); }
+		}
+
+		/// <summary>
+		/// 获取或设置分组字段, 默认为空字符串.
+		/// </summary>
+		public string GroupField
+		{
+			get { return this.settingHelper.GetOptionValueToString ( OptionType.groupfield, string.Empty ); }
+			set { this.settingHelper.SetOptionValueToString ( OptionType.groupfield, value, string.Empty ); }
+		}
+
+		/// <summary>
 		/// 获取或设置头模板, 其中包含了 html 代码, 注意使用 &#39; 表示单引号.
 		/// </summary>
 		public string Header
@@ -550,7 +568,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			{
 				new Parameter("pageindex", ParameterType.Expression, "this.repeater('option', 'pageindex')"),
 				new Parameter("pagesize", ParameterType.Expression, "this.repeater('option', 'pagesize')"),
-				new Parameter ( "__order", ParameterType.Expression, "e.sortconditioncustom", "''" )
+				new Parameter ( "__order", ParameterType.Expression, "e.sortconditioncustom", "''" ),
+				new Parameter ( "__group", ParameterType.Expression, "e.groupcondition", "''" )
 			} );
 
 			string filterFieldList = this.FilterField.TrimEnd ( ']' ).TrimStart ( '[' );

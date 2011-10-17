@@ -1123,6 +1123,14 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 提示.
 		/// </summary>
 		tip,
+		/// <summary>
+		/// 分组模板.
+		/// </summary>
+		group,
+		/// <summary>
+		/// 分组字段.
+		/// </summary>
+		groupfield,
 	}
 	#endregion
 
