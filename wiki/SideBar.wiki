@@ -80,4 +80,4 @@
       * [http://www.tudou.com/programs/view/rHCYHX9cmcI/ 在不同的 .NET 版本中返回 JSON]
       * [http://www.tudou.com/programs/view/rwruM87J20s/ 在 Repeater 中绑定转化 JSON 格式的字段]
       * [http://www.tudou.com/programs/view/uVx2BBMHgOQ/ jquery repeater 模仿 Google 展开页面预览子视图]
-</font>
+      * [http://www.tudou.com/programs/view/5KYgMnAdG6A/ jquery repeater 完成 QQ 邮箱邮件分组显示功能]</font>
