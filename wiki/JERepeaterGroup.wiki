@@ -2,6 +2,8 @@
 <font face="microsoft yahei">
 === 简介/目录 ===
  示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /repeater/Default.aspx.
+ 
+ 视频演示: [http://www.tudou.com/programs/view/5KYgMnAdG6A/ www.tudou.com/programs/view/5KYgMnAdG6A/]
 
  本文将详细的讲解 Repeater 控件中如何对数据分组, 目录如下:
 
