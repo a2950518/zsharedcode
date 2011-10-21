@@ -82,7 +82,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		/// 获取或设置验证字段的正则表达式, 默认为 "{}".
 		/// </summary>
 		[Category ( "数据" )]
-		[DefaultValue ( "[]" )]
+		[DefaultValue ( "{}" )]
 		[Description ( "验证字段的正则表达式, 默认为 {}" )]
 		[NotifyParentProperty ( true )]
 		public string FieldMask
