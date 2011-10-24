@@ -48,8 +48,12 @@
  下拉框可用于一些枚举值的编辑, 限制字段只能在指定的值中选择.
 {{{
 <select je-id="<字段名>">
-	<option value="<枚举值1>" je-selected="<布尔值1, 可以是绑定字段或者一个表达式>"><显示值1></option>
-	<option value="<枚举值2>" je-selected="<布尔值2, 可以是绑定字段或者一个表达式>"><显示值2></option>
+	<option value="<枚举值1>" je-selected="<布尔值1, 可以是绑定字段或者一个表达式>">
+		<显示值1>
+	</option>
+	<option value="<枚举值2>" je-selected="<布尔值2, 可以是绑定字段或者一个表达式>">
+		<显示值2>
+	</option>
 </select>
 
 <je:Repeater ID="pictureRepeater" runat="server"
@@ -63,9 +67,15 @@
 		</select>
 
 		<select je-id="major">
-			<option value="jsj" je-selected="'#{major}' == 'jsj'">计算机</option>
-			<option value="gsgl" je-selected="'#{major}' == 'gsgl'">工商管理</option>
-			<option value="hy" je-selected="'#{major}' == 'hy'">汉语</option>
+			<option value="jsj" je-selected="'#{major}' == 'jsj'">
+				计算机
+			</option>
+			<option value="gsgl" je-selected="'#{major}' == 'gsgl'">
+				工商管理
+			</option>
+			<option value="hy" je-selected="'#{major}' == 'hy'">
+				汉语
+			</option>
 		</select>
 
 	</EditItemTemplate>
@@ -86,7 +96,8 @@
  ==== <font color="green">复选框</font> ====
  复选框经常会用于编辑布尔类型的字段, 比如:
 {{{
-<input je-id="<字段名>" type="checkbox" je-checked="<布尔值, 可以是绑定字段或者一个表达式>" />
+<input je-id="<字段名>" type="checkbox"
+	je-checked="<布尔值, 可以是绑定字段或者一个表达式>" />
 
 <je:Repeater ID="pictureRepeater" runat="server"
 	...	>
@@ -107,14 +118,17 @@
  ==== <font color="green">jQueryUI 日期框</font> ====
  日期框用于绑定编辑日期类型的字段:
 {{{
-<input je-id="<字段名>" je-datepicker="<属性名n>=<属性值n>;" type="text" value="<日期值>" />
+<input je-id="<字段名>" je-datepicker="<属性名n>=<属性值n>;"
+	type="text" value="<日期值>" />
 
 <je:Repeater ID="pictureRepeater" runat="server"
 	...	>
 
 	<EditItemTemplate>
 
-		<input je-id="birthday" je-datepicker="dateFormat='yy-mm-dd'" type="text" value="#{birthday,jQuery.panzer.formatDate(#,'yyyy-MM-dd')}" />
+		<input je-id="birthday" je-datepicker="dateFormat='yy-mm-dd'"
+			type="text"
+			value="#{birthday,jQuery.panzer.formatDate(#,'yyyy-MM-dd')}" />
 
 	</EditItemTemplate>
 
@@ -139,12 +153,14 @@
  ==== <font color="green">jQueryUI 自动匹配</font> ====
  jQueryUI 的 autocomplete 插件可以在用户输入文字时, 自动匹配到相应的条目:
 {{{
-<input je-id="<字段名>" je-autocomplete="<属性名n>=<属性值n>;" value="<当前值>" />
+<input je-id="<字段名>" je-autocomplete="<属性名n>=<属性值n>;"
+	value="<当前值>" />
 
 <je:Repeater ID="pictureRepeater" runat="server"
 	...	>
 
-	<input je-id="major" je-autocomplete="source=['jsj','gsgl','hy']" value="#{major}" />
+	<input je-id="major" je-autocomplete="source=['jsj','gsgl','hy']"
+		value="#{major}" />
 
 </je:Repeater>
 }}}
