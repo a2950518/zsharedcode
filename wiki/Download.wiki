@@ -2,7 +2,7 @@
 #labels Featured,Phase-Deploy
 <font face="microsoft yahei">
 === JQueryElement.dll ===
- 以下 dll 文件, 为 2011-10-21 上传, 可能没有依照最新的 panzer 代码编译.
+ 以下 dll 文件, 为 2011-10-24 上传, 可能没有依照最新的 panzer 代码编译.
  
  注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
  
