@@ -17,8 +17,6 @@
     * jQueryUI 日期框
     * jQueryUI 按钮
     * jQueryUI 自动匹配
-  * 切换子视图状态
-  * 定义子视图容器
 
 === 准备 ===
  请先查看 [JQueryElementRepeaterDoc Repeater 完全参考] 或者准备一节的内容.
