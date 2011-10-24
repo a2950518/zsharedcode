@@ -1,0 +1,153 @@
+﻿#summary Repeater 处理控件
+<font face="microsoft yahei">
+=== 简介/目录 ===
+ 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /repeater/Default.aspx.
+
+ 视频演示: [http://www.tudou.com/programs/view/jiuV1nkeWNo/ www.tudou.com/programs/view/jiuV1nkeWNo/]
+
+ 本文将详细的讲解 Repeater 控件的模板中如何处理控件, 目录如下:
+
+  * 准备
+  * html 元素
+    * 文本框
+    * 下拉框
+    * 多行文本框
+    * 复选框
+  * jQueryUI 插件
+    * jQueryUI 日期框
+    * jQueryUI 按钮
+    * jQueryUI 自动匹配
+  * 切换子视图状态
+  * 定义子视图容器
+
+=== 准备 ===
+ 请先查看 [JQueryElementRepeaterDoc Repeater 完全参考] 或者准备一节的内容.
+
+=== html 元素 ===
+ 可以在模板中使用 html 文本框或者下拉框, 并进行赋值和读取数据.
+
+ ==== <font color="green">文本框</font> ====
+ 文本框可以用于编辑文本字段, 也可以配合 je-datepicker, je-autocomplete 创建日期框, 自动匹配.
+{{{
+<input je-id="<字段名>" type="text" value="<绑定字段>">
+
+<je:Repeater ID="pictureRepeater" runat="server"
+	...	>
+
+	<EditItemTemplate>
+
+		<input je-id="realname" type="text" value="#{realname}" />
+
+	</EditItemTemplate>
+
+</je:Repeater>
+}}}
+ 通过在 input 中添加 *`value="#{<绑定字段>}"`* 来设置文本框的值, 而使用 *`je-id="<字段名>"`* 可以让 *repeater* 在更新或新建行时, 知道该文本框的值对应了该字段.
+
+ ==== <font color="green">下拉框</font> ====
+ 下拉框可用于一些枚举值的编辑, 限制字段只能在指定的值中选择.
+{{{
+<select je-id="<字段名>">
+	<option value="<枚举值1>" je-selected="<布尔值1, 可以是绑定字段或者一个表达式>"><显示值1></option>
+	<option value="<枚举值2>" je-selected="<布尔值2, 可以是绑定字段或者一个表达式>"><显示值2></option>
+</select>
+
+<je:Repeater ID="pictureRepeater" runat="server"
+	...	>
+
+	<EditItemTemplate>
+
+		<select je-id="sex">
+			<option value="true" je-selected="#{sex}">男</option>
+			<option value="false" je-selected="#{sex,!#}">女</option>
+		</select>
+
+		<select je-id="major">
+			<option value="jsj" je-selected="'#{major}' == 'jsj'">计算机</option>
+			<option value="gsgl" je-selected="'#{major}' == 'gsgl'">工商管理</option>
+			<option value="hy" je-selected="'#{major}' == 'hy'">汉语</option>
+		</select>
+
+	</EditItemTemplate>
+
+</je:Repeater>
+}}}
+ 和文本框一样, 下拉框同样通过 je-id 绑定字段名, 在每一个 option 中通过 value 属性设置枚举值, 使用 je-selected 来设置一个返回布尔值的表达式, 如果表达式返回 true, 则该选项处于选中状态.
+
+ 在上面的代码中, 由于 sex 字段是布尔类型的, 所以可以使用 `#{sex}` 这样的形式, `#{sex,!#}` 则是取 sex 字段的反. 也可以像这样 `#{major,# == 'jsj'}`, 表示 major 字段为 'jsj' 则选项处于选中状态. 还可以使用 `'#{major}' == 'jsj'` 来完成同样的效果, 但这里的 #{major} 需要用单引号括住.
+
+ ==== <font color="green">多行文本框</font> ====
+ 多行文本框和上面所说的文本框不同的是, 多行文本框使用 textarea 元素.
+{{{
+<textarea je-id="<字段名>"><绑定字段></textarea>
+}}}
+ 多行文本框直接将字段绑定为 textarea 的内容.
+
+ ==== <font color="green">复选框</font> ====
+ 复选框经常会用于编辑布尔类型的字段, 比如:
+{{{
+<input je-id="<字段名>" type="checkbox" je-checked="<布尔值, 可以是绑定字段或者一个表达式>" />
+
+<je:Repeater ID="pictureRepeater" runat="server"
+	...	>
+
+	<EditItemTemplate>
+
+		<input je-id="sex" type="checkbox" je-checked="#{sex}" />
+
+	</EditItemTemplate>
+
+</je:Repeater>
+}}}
+ 上面的代码中, input 元素中设置 type 为 checkbox, 并通过 je-checked 绑定了布尔类型的 sex 字段. sex 为 true, 则复选框处于选中的状态.
+
+=== jQueryUI 插件 ===
+ 在模板中使用 *`je-<jQueryUI 插件名>="<属性名n>=<属性值n>;"`* 的语法来创建 jQueryUI 插件, 其中的属性名和属性值可以参考 [http://jqueryui.com jqueryui.com].
+
+ ==== <font color="green">jQueryUI 日期框</font> ====
+ 日期框用于绑定编辑日期类型的字段:
+{{{
+<input je-id="<字段名>" je-datepicker="<属性名n>=<属性值n>;" type="text" value="<日期值>" />
+
+<je:Repeater ID="pictureRepeater" runat="server"
+	...	>
+
+	<EditItemTemplate>
+
+		<input je-id="birthday" je-datepicker="dateFormat='yy-mm-dd'" type="text" value="#{birthday,jQuery.panzer.formatDate(#,'yyyy-MM-dd')}" />
+
+	</EditItemTemplate>
+
+</je:Repeater>
+}}}
+ 代码中 dateFormat 属性设置了日期框的日期格式, 可以设置更多的属性, 多个属性使用 ; 号分隔即可. 日期框的值绑定为字段 birthday, 不过日期使用了 jQuery.panzer.formatDate 函数来格式化日期的输出, 而这里的格式化形式类似于 .NET.
+
+ ==== <font color="green">jQueryUI 按钮</font> ====
+ 按钮通常用于执行一些命令:
+{{{
+<span je-button="<属性名n>=<属性值n>;" je-onclick="<行为名>"></span>
+
+<je:Repeater ID="pictureRepeater" runat="server"
+	...	>
+
+	<span je-button="label='保存';" je-onclick="update"></span>
+
+</je:Repeater>
+}}}
+ 可以使用 span 元素来作为按钮, 也可以使用 input 元素. 在属性中 label 作为按钮的文本, 也可以将文本直接作为 span 元素的内容. 而常用的行为有 beginedit, endedit, update, insert, remove, next, prev, goto.
+
+ ==== <font color="green">jQueryUI 自动匹配</font> ====
+ jQueryUI 的 autocomplete 插件可以在用户输入文字时, 自动匹配到相应的条目:
+{{{
+<input je-id="<字段名>" je-autocomplete="<属性名n>=<属性值n>;" value="<当前值>" />
+
+<je:Repeater ID="pictureRepeater" runat="server"
+	...	>
+
+	<input je-id="major" je-autocomplete="source=['jsj','gsgl','hy']" value="#{major}" />
+
+</je:Repeater>
+}}}
+ autocomplete 的 source 属性为用于匹配的条目的数组.
+
+</font>
