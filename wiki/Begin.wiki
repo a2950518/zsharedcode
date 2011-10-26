@@ -1,7 +1,7 @@
 #summary 开始准备
 #labels Phase-Implementation,Phase-Support,Phase-Deploy
 <font face="microsoft yahei">
-=== 开始准备 ===
+=== Preparation ===
  * [HowToDownloadAndUse 如何下载使用]
   在这里可以了解如何下载 *panzer* 项目源代码和使用 dll 文件, 以及对应的环境配置.
 
