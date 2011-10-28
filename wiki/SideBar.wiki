@@ -1,6 +1,8 @@
-#labels Deprecated
+﻿#labels Deprecated
 <wiki:toc max_depth="5" />
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/SideBar Translate this page]</font>
+
   * [Begin 开始准备]
     * [HowToDownloadAndUse 如何下载使用]
     * [HowToJoin 如何加入开发]

@@ -1,6 +1,8 @@
-#summary 如何加入开发
+﻿#summary 如何加入开发
 #labels Featured,Phase-Implementation
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/HowToJoin Translate this page]</font>
+
 === 申请条件 ===
  由于 *panzer* 是使用 C# 作为开发语言, 因此, 希望申请开发者是已经在此之前熟悉了 C# 以及 Visual Studio.
 

@@ -1,6 +1,8 @@
-#summary IEBrowser 登录 163 发布日志
+﻿#summary IEBrowser 登录 163 发布日志
 #labels Phase-Implementation
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/IEBrowserDocS163Blog Translate this page]</font>
+
 === 简介 ===
 *示例编写者:* 雪鱼 (QQ: 422986811)
 

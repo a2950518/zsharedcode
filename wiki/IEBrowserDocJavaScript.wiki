@@ -1,6 +1,8 @@
-#summary IEBrowser JavaScript 操作
+﻿#summary IEBrowser JavaScript 操作
 #labels Phase-Implementation
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/IEBrowserDocJavaScript Translate this page]</font>
+
 === JavaScript 操作 ===
  * [IEBrowserDocExecuteJavaScript 执行 javascript 脚本]
  * [IEBrowserDocInstallJavaScript 安装 javascript 脚本]

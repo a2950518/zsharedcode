@@ -1,6 +1,8 @@
 ﻿#summary JQueryElement 按钮
 #labels Phase-Implementation
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JQueryElementButtonDoc Translate this page]</font>
+
 === 简介 ===
  使用 JQueryElement 的 Button 控件即可实现 jQuery UI 中的按钮.
 

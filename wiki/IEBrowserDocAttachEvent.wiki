@@ -1,6 +1,8 @@
-#summary IEBrowser 为页面元素添加 .NET 事件
+﻿#summary IEBrowser 为页面元素添加 .NET 事件
 #labels Phase-Implementation
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/IEBrowserDocAttachEvent Translate this page]</font>
+
 === 代码 ===
 {{{
 // 需要引用 using zoyobar.shared.panzer.web;

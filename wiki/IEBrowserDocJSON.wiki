@@ -1,6 +1,8 @@
-#summary IEBrowser 获取设置 json 数据
+﻿#summary IEBrowser 获取设置 json 数据
 #labels Phase-Implementation
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/IEBrowserDocJSON Translate this page]</font>
+
 === 代码 ===
 {{{
 // 需要引用 using zoyobar.shared.panzer.web;

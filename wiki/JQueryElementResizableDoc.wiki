@@ -1,6 +1,8 @@
 ﻿#summary JQueryElement 缩放效果
 #labels Phase-Implementation
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JQueryElementResizableDoc Translate this page]</font>
+
 === 简介 ===
  使用 JQueryElement 的 Resizable 控件即可实现 jQuery UI 中的缩放效果, 在最终的用户页面中, 可以使用鼠标缩放某些元素.
 

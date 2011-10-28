@@ -1,6 +1,8 @@
-#summary 爱好者编写代码示例分析
+﻿#summary 爱好者编写代码示例分析
 #labels Phase-Implementation,Phase-Support,Phase-Deploy
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/IEBrowserDocFans Translate this page]</font>
+
 === 爱好者编写代码示例分析 ===
  * [IEBrowserDocS163Blog 登录 163 发布日志]
  * [IEBrowserDocSDZ 登录 DZ 发贴]

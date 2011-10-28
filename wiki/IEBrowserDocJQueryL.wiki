@@ -1,6 +1,8 @@
-#summary IEBrowser JQuery 操作
+﻿#summary IEBrowser JQuery 操作
 #labels Phase-Implementation
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/IEBrowserDocJQueryL Translate this page]</font>
+
 === JQuery 操作 ===
  * [IEBrowserDocJQuery 执行 jquery]
  * [IEBrowserDocNoConflict 解决 $ 定义冲突]

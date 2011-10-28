@@ -1,6 +1,8 @@
 ﻿#summary JQueryElement 时钟 - 定时从服务器获取时间
 #labels Phase-Implementation
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JQueryElementTimerDoc Translate this page]</font>
+
 === 简介 ===
  下面的例子使用时钟控件, 定时的从服务器调用方法并返回数据.
 

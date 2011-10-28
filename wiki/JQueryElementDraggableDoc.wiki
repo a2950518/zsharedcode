@@ -1,6 +1,8 @@
 ﻿#summary JQueryElement 拖动效果 
 #labels Phase-Implementation
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JQueryElementDraggableDoc Translate this page]</font>
+
 === 简介 ===
  使用 JQueryElement 的 Draggable 控件即可实现 jQuery UI 中的拖动效果, 在最终的用户页面中, 可以使用鼠标拖动某些元素.
 

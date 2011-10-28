@@ -1,5 +1,7 @@
-#labels Featured
+﻿#labels Featured
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/PanzerLicense Translate this page]</font>
+
 {{{
 panzer 许可证
 

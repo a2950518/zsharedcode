@@ -1,5 +1,7 @@
 ﻿#summary 在不同的 .NET 版本中返回 JSON
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/AjaxReturnJSON Translate this page]</font>
+
 === 简介/目录 ===
  示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /returnjson/Default.aspx.
 

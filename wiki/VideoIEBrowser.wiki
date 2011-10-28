@@ -1,6 +1,8 @@
-#summary IEBrowser 视频
+﻿#summary IEBrowser 视频
 #labels Phase-Implementation,Phase-Support,Phase-Deploy
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/VideoIEBrowser Translate this page]</font>
+
 === 简介 ===
  [IEBrowser IEBrowser] 可以控制 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 控件, 包括添加/执行 javascript 脚本, 执行 jquery 命令, 模拟用户操作页面的过程, 可以实现一系列用户操作流程, 完成不同的日常任务.
 

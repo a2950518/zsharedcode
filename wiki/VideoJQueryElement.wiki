@@ -1,6 +1,8 @@
-#summary JQueryElement 视频
+﻿#summary JQueryElement 视频
 #labels Phase-Implementation,Phase-Support,Phase-Deploy
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/VideoJQueryElement Translate this page]</font>
+
 === 简介 ===
  [JQueryElement JQueryElement] 是可以在 Visual Studio 中使用的 jQuery UI 控件, 实现了 jQuery UI 的各种效果以及插件.
 

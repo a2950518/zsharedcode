@@ -1,6 +1,8 @@
 ﻿#summary 配置 Visual Studio 的 JQueryElement 智能提示
 #labels Phase-Implementation
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JEIntelliSense Translate this page]</font>
+
 === 配置 Visual Studio 智能提示 ===
  JQueryElement 中具有自定义标签属性, 比如在 Repeater 控件的模板中使用的 je-class 等, 默认情况下 Visual Studio 并不会自动提示这些属性, 而且验证也不会通过.
 

@@ -1,6 +1,8 @@
-#summary IEBrowser WebBrowser 操作
+﻿#summary IEBrowser WebBrowser 操作
 #labels Phase-Implementation
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/IEBrowserDocBase Translate this page]</font>
+
 === WebBrowser 操作 ===
  * [IEBrowserDocNavigate 页面跳转]
  * [IEBrowserDocWait 等待页面载入]

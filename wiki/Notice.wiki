@@ -1,6 +1,8 @@
-#summary 使用注意事项
+﻿#summary 使用注意事项
 #labels Phase-Implementation,Phase-Support,Phase-Deploy
 <font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/Notice Translate this page]</font>
+
 === 使用注意事项 ===
  * [DefineDoc 编译符号参考]
    这里将说明在编译项目时, 设置不同的编译符号有什么样的效果.
