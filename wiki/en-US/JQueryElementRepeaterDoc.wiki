@@ -106,7 +106,7 @@
 	#{age,convertAge(#)}
 </td>
 }}}
- In the above example, `#{age,convertAge(#)}` does not directly output value for the age field, but the age field is passed to the convertAge method, and outputs the results of the function.
+ In the above example, `#{age,convertAge(#)}` does not directly output value for the age field, but the age field is passed to the convertAge method, and outputs the results of the method.
 
  You can also write javascript code in field expression, like: `#{age,# <= 0 ? 'no way' : #.toString()}`.
 
@@ -119,15 +119,16 @@
 	@{pageindex}/@{pagecount} pages, @{itemcount} totals
 </FooterTemplate>
 }}}
- The row template, not automatically refreshed by attribute changes, call bind function refresh if you want. 
+ The row template, not automatically refreshed by attribute changes, call bind method refresh if you want. 
 
  ===== Attribute Expression =====
  Attribute expressions, and above the field expression are similar, you can output the converted attribute, example:
 {{{
 <td colspan="5">
 	@{pageindex}/@{pagecount,@ <= 0 ? '-' : @} pages, @{itemcount,@ <= 0 ? '-' : @} totals
+</td>
 }}}
- We judge the attribute PageCount and ItemCount if less than or equal to 0, displays connection lines. 
+ We judge the attribute pagecount and itemcount if less than or equal to 0, displays connection lines. 
 
  ==== <font color="green">Basic Settings</font> ====
  Selector property of the Repeater is a javascript expression, it will serve as a selector, writing can refer to [http://jquery.com jquery.com], the selected element will become the container of *repeater*, example:
@@ -139,7 +140,7 @@
 
 </je:Repeater>
 }}}
- Set the IsVariable property is True, you will generate a javaScript variable whose name is same with the ClientID, example:
+ Set the IsVariable property is True, you will generate a javascript variable whose name is same with the ClientID, example:
 {{{
 <je:Repeater ID="studentRepeater" runat="server"
 	IsVariable="true">
@@ -168,7 +169,7 @@
  FieldMask represents the regular expression used to validate the field, when you update or create new work in the format: *`{<field name>: { reg: <regular expression>, tip: '<error message>', type: '<field type, number, boolean, date>'} }`*.
 
  ==== <font color="green">Call Server Methods</font> ====
- You can set how to call server methods by Async method, if you are calling WebService, you need to set the MethodName, if such a general ordinary ashx handler, ignore the MethodName, example:
+ You can set how to call server methods by Async, if you are calling WebService, you need to set the MethodName, if such a general ordinary ashx handler, ignore the MethodName, example:
 {{{
 <je:Repeater ID="studentRepeater" runat="server"
 	FillAsync-Url="<fill method url>"
@@ -271,7 +272,7 @@ public static object Fill ( int pageindex, int pagesize
 	"itemcount": 120
 }
 }}}
- In the. NET 4, you can use anonymous types to return JSON, such as:
+ In the .NET 4, you can use anonymous types to return JSON, such as:
 {{{
 [WebMethod ( )]
 public static object Fill ( /* parameter */ )
@@ -351,7 +352,7 @@ public static object Remove ( int id )
 	"__success": true
 }
 }}}
- In the. NET 4, you can use anonymous types to return JSON, such as:
+ In the .NET 4, you can use anonymous types to return JSON, such as:
 {{{
 [WebMethod ( )]
 public static object Remove ( /* parameter */ )
@@ -388,7 +389,7 @@ public static object Insert ( string realname
 	"row": { "id":10, "realname": "lili", "age": 12 }
 }
 }}}
- In the. NET 4, you can use anonymous types to return JSON, such as:
+ In the .NET 4, you can use anonymous types to return JSON, such as:
 {{{
 [WebMethod ( )]
 public static object Insert ( /* parameter */ )
@@ -407,7 +408,7 @@ public static object Insert ( /* parameter */ )
  Clien javascript, sorting status there are 4 types, namely none no sorting or to use default sorting, asc ascending order, desc descending order. 
 
  ==== <font color="green">Template Settings</font> ====
- In all of the templates, you can set the Repeater the final display of HTML code, the HTML code should be complete, legitimate, else, this could cause the final display is not working properly.
+ In all of the templates, you can set the Repeater the final display of html code, the html code should be complete, legitimate, else, this could cause the final display is not working properly.
 
  ===== ItemTemplate =====
  In the ItemTemplate template, you can display the row in the unchanged status, if you do not set UpdatedItemTemplate or InsertedItemTemplate, then updated, inserted row also appears in the ItemTemplate, example:
@@ -505,7 +506,7 @@ public static object Insert ( /* parameter */ )
 }}}
 
  ===== FilterTemplate/NewItemTemplate =====
- FilterTemplate and NewItemTemplate and some similarities, also contains some input, you need to use je-id to bind id, example: 
+ FilterTemplate and NewItemTemplate are similar, also contains some input, you need to use je-id to bind id, example: 
 {{{
 <FilterTemplate>
 	<tr>
@@ -621,7 +622,7 @@ public static object Insert ( /* parameter */ )
  Here to note syntax of {state} and {sort}, namely *`{state[,<unchanged class>[,<inserted class>[,<updated class>[,<removed class>]]]]}`*, *`{sort,<sort field name>[,<no sort class>[,<asc class>[,<desc class>]]]}`*. For the purposes of {State}, if you do not specify the class of a state, the row status will be used instead of the class name, for example: `{state,,new-item}`, because there is no specified class for unchanged class, so if the state of the row is unchanged, it is returned unchanged. {sort}, if you do not specify a certain sort of class, takes the sort status instead of the class name.
 
  ===== je-checked/selected/readonly =====
- In the ItemTemplate using *`je-checked="selected"`* meet the `je-onclick="toggleselect"`to indicate whether the row is in a selected status, je-selected can be used to select elements in the EditItemTemplate, example:
+ In the ItemTemplate using *`je-checked="selected"`* meet the `je-onclick="toggleselect"` to indicate whether the row is in a selected status, je-selected can be used to select elements in the EditItemTemplate, example:
 {{{
 <ItemTemplate>
 	<tr>
@@ -653,7 +654,7 @@ public static object Insert ( /* parameter */ )
  Use in FilterTemplate *`je-value="<search field name>"`* to bind initialize search condition.
 
  ===== je-<jQueryUI widget name> =====
- In any of the templates, can use the  *`je-<jQueryUI widget name>="<property name n>=<property value n>;"`*, to generate a jQueryUI widget, but currently only support je-button, je-datepicker, je-autoComplete, je-progressBar, je-slider, example:
+ In any of the templates, can use the *`je-<jQueryUI widget name>="<property name n>=<property value n>;"`*, to generate a jQueryUI widget, but currently only support je-button, je-datepicker, je-autocomplete, je-progressbar, je-slider, example:
 {{{
 <EditItemTemplate>
 	<tr je-class="{state}-item">
@@ -701,7 +702,7 @@ public static object Insert ( /* parameter */ )
 }}}
 
  ==== <font color="green">Child Views</font> ====
- In Repeater, you can use shiftview, collapseview, expandview three function to switch off, open the child views, such as: 
+ In Repeater, you can use shiftview, collapseview, expandview three method to switch off, open the child views, such as: 
 {{{
 <je:Repeater ID="<child view ID>" runat="server"
 	FilterField="<child view search field>">
@@ -746,7 +747,7 @@ public static object Insert ( /* parameter */ )
  More ways to use and description refer to [JERepeaterSubView Repeater Child Views]. 
  
  ==== <font color="green">Grouping Data</font> ====
- Can use the GroupField property of Repeater or setgroup method to set the grouping field, set the grouping by GroupTemplate template, then call the fill function to get data:
+ Can use the GroupField property of Repeater or setgroup method to set the grouping field, set the grouping by GroupTemplate template, then call the fill method to get data:
 {{{
 <je:Repeater ID="mailRepeater" runat="server"
 	GroupField="<group field>"
@@ -789,7 +790,10 @@ public static object Insert ( /* parameter */ )
 
 <input je-id="major" je-autocomplete="source=['jsj','gsgl','hy']" value="#{major}" />
 
-<input je-id="birthday" je-datepicker="dateFormat='yy-mm-dd'" type="text" value="#{birthday,jQuery.panzer.formatDate(#,'yyyy-MM-dd')}" />
+<input je-id="birthday"
+	je-datepicker="dateFormat='yy-mm-dd'"
+	type="text"
+	value="#{birthday,jQuery.panzer.formatDate(#,'yyyy-MM-dd')}" />
 }}}
  More ways to use and description refer to [JERepeaterWidget Repeater Handling Control]. 
 
