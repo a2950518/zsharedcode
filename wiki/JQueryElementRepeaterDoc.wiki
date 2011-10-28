@@ -635,15 +635,15 @@ public static object Insert ( /* 参数 */ )
 	</tr>
 </ItemTemplate>
 }}}
- 在 FilterTemplate 中可以使用 *`je-selected="<搜索字段名>[,<匹配值>]"`* 来初始化处于选中状态的 option, 示例:
+ 在 FilterTemplate 中可以使用 *`je-selected="<布尔值, 可以是绑定字段或者一个表达式>"`* 来初始化处于选中状态的 option, 示例:
  {{{
  <FilterTemplate>
 	<tr>
 		<td>
 			<select je-id="type">
-				<option je-selected="type,'normal'">正常</option>
-				<option je-selected="type,'high'">高</option>
-				<option je-selected="type,'low'">低</option>
+				<option je-selected="#{type,#=='normal'}">正常</option>
+				<option je-selected="#{type,#=='high'}">高</option>
+				<option je-selected="#{type,#=='low'}">低</option>
 			</select>
 		</td>
 	</tr>
