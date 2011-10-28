@@ -1,6 +1,6 @@
 ﻿#summary Repeater 完全参考
 <font face="microsoft yahei">
-<p align="right"><font size="3">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JQueryElementRepeaterDoc Translate this page]</font></p>
+<font size="6">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JQueryElementRepeaterDoc Translate this page]</font>
 
 === 简介/目录 ===
  示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /JQueryElementTest.rar/3/Student.aspx 或 /repeater/Default.aspx.
