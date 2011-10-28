@@ -254,7 +254,7 @@ public static object Fill ( int pageindex, int pagesize
 {
 }
 }}}
- 服务器还应返回如下格式的 json 数据作为填充数据, 其中 __success 默认为 true, itemcount 可以省略, 但将无法计算 pagecount 页码.
+ 服务器还应返回如下格式的 json 数据作为填充数据, 其中 `__`success 默认为 true, itemcount 可以省略, 但将无法计算 pagecount 页码.
 {{{
 {
 	"__success": <表示是否成功的布尔值, 为 true 或者 false>,
@@ -304,7 +304,7 @@ public static object Update ( int id
 {
 }
 }}}
- 服务器可以返回如下格式的 json 作为更新后的消息, 其中 __success 默认为 true, row 可以省略, 如果修改从客户端传递来的参数, 比如将小写的姓名改成大写, 那么可以用 row 来返回修改的字段.
+ 服务器可以返回如下格式的 json 作为更新后的消息, 其中 `__`success 默认为 true, row 可以省略, 如果修改从客户端传递来的参数, 比如将小写的姓名改成大写, 那么可以用 row 来返回修改的字段.
 {{{
 {
 	"__success": <表示是否成功的布尔值, 为 true 或者 false>,
@@ -342,7 +342,7 @@ public static object Remove ( int id )
 {
 }
 }}}
- 服务器可以返回如下格式的 json 作为删除后的消息, 其中 __success 默认为 true.
+ 服务器可以返回如下格式的 json 作为删除后的消息, 其中 `__`success 默认为 true.
 {{{
 {
 	"__success": <表示是否成功的布尔值, 为 true 或者 false>
@@ -377,7 +377,7 @@ public static object Insert ( string realname
 {
 }
 }}}
- 服务器可以返回如下格式的 json 作为新建后的消息, 其中 __success 默认为 true.
+ 服务器可以返回如下格式的 json 作为新建后的消息, 其中 `__`success 默认为 true.
 {{{
 {
 	"__success": <表示是否成功的布尔值, 为 true 或者 false>,
@@ -598,7 +598,7 @@ public static object Insert ( /* 参数 */ )
  如果绑定多个行为则, 可以使用 ; 号分隔, 比如 `je-onclick="setgroup,'realname';fill"`.
 
  ===== je-class =====
- 使用 *`je-class="<样式>"`* 可以为事件绑定特殊的样式. 可以在各个模板中使用 je-class, 常用的样式有: {header} 表示 ui-widget-header, {active} 表示 ui-state-active, {highlight} 表示 ui-state-highlight, {disabled} 表示 ui-state-disabled, {error} 表示 ui-state-error, {default} 表示 ui-state-default, {state} 表示行状态, {sort} 表示排序状态, 示例:
+ 使用 *`je-class="<样式>"`* 可以为元素绑定特殊的样式. 可以在各个模板中使用 je-class, 常用的样式有: {header} 表示 ui-widget-header, {active} 表示 ui-state-active, {highlight} 表示 ui-state-highlight, {disabled} 表示 ui-state-disabled, {error} 表示 ui-state-error, {default} 表示 ui-state-default, {state} 表示行状态, {sort} 表示排序状态, 示例:
 {{{
 <HeaderTemplate>
 	<thead je-class="{header}">
