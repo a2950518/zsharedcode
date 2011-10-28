@@ -1,0 +1,868 @@
+﻿#summary Repeater Reference
+<font face="microsoft yahei">
+=== Introduction/Catalog ===
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], directory /JQueryElementTest.rar/3/Student.aspx or /repeater/Default.aspx.
+
+ This article explained the function and the use of Repeater, the directory is as follows:
+
+  * Prepare
+  * Main Function
+    * Bound Field
+      * Field Expressions
+    * Bound Attribute
+      * Attribute Expressions
+    * Basic Settings
+    * Pagination Settings
+    * Field Settings
+    * Call Server Methods
+    * Data Format of Request/Return
+      * Fill/Filter
+      * Update
+      * Remove
+      * Insert
+    * Row Status Description
+    * Sorting Status Description
+    * Template Settings
+      * ItemTemplate
+      * UpdatedItemTemplate/InsertedItemTemplate
+      * RemovedItemTemplate
+      * EditItemTemplate
+      * FilterTemplate/NewItemTemplate
+      * HeaderTemplate/FooterTemplate/EmptyTemplate
+      * TipTemplate
+    * Special Binding
+      * je-id
+      * je-<javascript event name>
+      * je-class
+      * je-checked/selected/readonly
+      * je-value
+      * je-<jQueryUI widget name>
+      * je-template
+    * Child Views
+    * Grouping Data
+    * Handling Control
+    * Event
+    * Client Methods
+
+=== Prepare ===
+ Be sure that you have got the latest version of JQueryElement at [Download Downloads].
+
+ Use the following statements reference namespace:
+{{{
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.web.jqueryui"
+	TagPrefix="je" %>
+}}}
+
+ In addition to the namespace, you need to reference the jQueryUI scripts and styles, there is a custom theme for jQueryUI in the compressed file downloaded at [Download Downloads], if you need more themes, you can get them at [http://jqueryui.com/download jqueryui.com/download]:
+{{{
+<link type="text/css" rel="stylesheet" href="[style path]/jquery-ui-1.8.15.custom.css" />
+<script type="text/javascript" src="[script path]/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="[script path]/jquery-ui-1.8.15.custom.min.js"></script>
+<script type="text/javascript" src="[script path]/jquery.ui.datepicker-zh-CN.js"></script>
+}}}
+
+=== Main Function ===
+
+ ==== <font color="green">Bound Field</font> ====
+ In the row template, you can use the *`#{<field name>[,<field expression >]}`* bound fields, such as:
+{{{
+<ItemTemplate>
+	<span>#{id}</span>
+	<span>#{realname}</span>
+	<span>#{age}</span>
+</ItemTemplate>
+}}}
+ Fields can also be bound in the tag's attributes, such as:
+{{{
+<ItemTemplate>
+	<span>#{id}</span>
+	<span title="#{realname}">#{realname}</span>
+	<span>#{age}</span>
+</ItemTemplate>
+}}}
+
+ ===== Field Expression =====
+ When you want to display different content based on the value of the field, you can use the field expression, # in the expression indicates that the field itself, examples:
+{{{
+<script type="text/javascript">
+	function convertAge(age) {
+
+		if(age < 0) return age.toString() + '-unborn';
+		else if (age < 4) return age.toString() + '-douding';
+		else if (age < 10) return age.toString() + '-children';
+		else if (age < 18) return age.toString() + '-boy';
+		else if (age < 30) return age.toString() + '-young';
+		else if (age < 50) return age.toString() + '-middle-aged';
+		else return age.toString() + '-old';
+
+	}
+</script>
+
+<td>
+	#{age,convertAge(#)}
+</td>
+}}}
+ In the above example, `#{age,convertAge(#)}` does not directly output value for the age field, but the age field is passed to the convertAge method, and outputs the results of the function.
+
+ You can also write javascript code in field expression, like: `#{age,# <= 0 ? 'no way' : #.toString()}`.
+
+ More ways to use and description refer to [JERepeaterBindField Repeater Binding/Processing Field].
+
+ ==== <font color="green">Bound Attribute</font> ====
+ In all of the template can be bound attributes, syntax is *`@{<attribute name>[,<attribute expression>]}`*, for example:
+{{{
+<FooterTemplate>
+	@{pageindex}/@{pagecount} pages, @{itemcount} totals
+</FooterTemplate>
+}}}
+ The row template, not automatically refreshed by attribute changes, call bind function refresh if you want. 
+
+ ===== Attribute Expression =====
+ Attribute expressions, and above the field expression are similar, you can output the converted attribute, example:
+{{{
+<td colspan="5">
+	@{pageindex}/@{pagecount,@ <= 0 ? '-' : @} pages, @{itemcount,@ <= 0 ? '-' : @} totals
+}}}
+ We judge the attribute PageCount and ItemCount if less than or equal to 0, displays connection lines. 
+
+ ==== <font color="green">Basic Settings</font> ====
+ Selector property of the Repeater is a javascript expression, it will serve as a selector, writing can refer to [http://jquery.com jquery.com], the selected element will become the container of *repeater*, example:
+{{{
+<table id="list"></table>
+
+<je:Repeater ID="studentRepeater" runat="server"
+	Selector="'#list'">
+
+</je:Repeater>
+}}}
+ Set the IsVariable property is True, you will generate a javaScript variable whose name is same with the ClientID, example:
+{{{
+<je:Repeater ID="studentRepeater" runat="server"
+	IsVariable="true">
+</je:Repeater>
+
+<script type="text/javascript">
+	$(function () {
+		studentRepeater.repeater('fill');
+	});
+</script>
+}}}
+ Because the ClientID is same with ID, through `studentRepeater` can access the *repeater*. In addition, can also use the inline syntax `[%id:studentRepeater%]` to ensure that the ClientID is not the same with ID can access *repeater* javascript variable.
+
+ ==== <font color="green">Pagination Settings</font> ====
+ By setting the PageSize property to determine the Repeater contains how many records per page, PageIndex property to set the initial page number, PageIndex defaults to 1.
+
+ ==== <font color="green">Field Settings</font> ====
+ Repeater Field property represents the fields involved in the binding, in the form of a javascript string array, for example: `['id', 'realname', 'age']`, if you do not set the Field property, it will be determined by the data to fill for the first time, but this will result in the absence of data could not create a new row.
+
+ FilterField fields for searching, is also a javascript string array. FilterFieldDefault is default value of the field whose value is null or '', example: `['', '', 0]`.
+
+ SortField said the sort fields, for example: `['id']`.
+
+ SortField said participation in the sort field, for example: ['id']. 
+
+ FieldMask represents the regular expression used to validate the field, when you update or create new work in the format: *`{<field name>: { reg: <regular expression>, tip: '<error message>', type: '<field type, number, boolean, date>'} }`*.
+
+ ==== <font color="green">Call Server Methods</font> ====
+ You can set how to call server methods by Async method, if you are calling WebService, you need to set the MethodName, if such a general ordinary ashx handler, ignore the MethodName, example:
+{{{
+<je:Repeater ID="studentRepeater" runat="server"
+	FillAsync-Url="<fill method url>"
+	FillAsync-MethodName="<fill method name>"
+	UpdateAsync-Url="<update method url>"
+	UpdateAsync-MethodName="<update method name>"
+	InsertAsync-Url="<insert method url>"
+	InsertAsync-MethodName="<insert method name>"
+	RemoveAsync-Url="<remove method url>"
+	RemoveAsync-MethodName="<remove method name>"
+	>
+
+</je:Repeater>
+
+<je:Repeater ID="studentRepeater" runat="server"
+	FillAsync-Url="Student.aspx"
+	FillAsync-MethodName="Fill"
+	UpdateAsync-Url="Student.aspx"
+	UpdateAsync-MethodName="Update"
+	InsertAsync-Url="Student.aspx"
+	InsertAsync-MethodName="Insert"
+	RemoveAsync-Url="Student.aspx"
+	RemoveAsync-MethodName="Remove"
+	>
+
+</je:Repeater>
+}}}
+ If you need more parameters to be passed to a method, you can take the following forms: 
+{{{
+<je:Repeater ID="studentRepeater" runat="server">
+<FillAsync Url="<fill method url>" MethodName="<fill method name>">
+	<ParameterList>
+		<je:Parameter Name="<parameter 1>"
+			Type="Expression"
+			Value="<value 1>"
+			Default="<defaul value 1>" />
+		<je:Parameter Name="<parameter 2>"
+			Type="Selector"
+			Value="<value 2>"
+			Default="<defaul value 2>" />
+
+	</ParameterList>
+</FillAsync>
+</je:Repeater>
+
+<je:Repeater ID="studentRepeater" runat="server">
+<FillAsync Url="Student.aspx" MethodName="Fill">
+	<ParameterList>
+		<je:Parameter Name="ws"
+			Type="Expression"
+			Value="website"
+			Default="'-'" />
+		<je:Parameter Name="year"
+			Type="Selector"
+			Value="'#year'"
+			Default="2011" />
+
+	</ParameterList>
+</FillAsync>
+</je:Repeater>
+}}}
+ By adding a Parameter, you can pass additional parameters, Name for the parameter name, when Type is Expression, then the Value is included in a javascript expression, `Value="website"` represents the website take javascript variables, of course, you can set to a constant, for example: `Value="'www.google.com'"` or `Value="100"`, when Type is Selector, then the Value of the javascript expressions as a selector, selector written can refer to [http://jquery.com jquery.com], the value of the selected element as the parameter value. Default is the default value of the javascript expressions, when the value is null or '', will use the Default values.
+
+ ==== <font color="green">Data Format of Request/Return</font> ====
+ About how to return JSON, refer to [AjaxReturnJSON Return JSON In Different .NET Version], all of the following code written in .NET 4.
+
+ ===== Fill/Filter =====
+ For a fill or search operations, WebService, for example, the server will receive the following parameters, pageindex page number, pagesize how many records per page, can also receive with parameter whose name is same with field or Name property of Parameter, or receive form *`__order`* is used to sort, parameter values are similar to `name asc, age desc`, *`__group`* parameter is used to receive a group condition:
+{{{
+[WebMethod ( )]
+public static object <method name> ( int pageindex, int pagesize
+	[, <type n, such as: string> <field or condition name n>]
+	[, string __order]
+	[, string __group] )
+{
+}
+
+[WebMethod ( )]
+public static object Fill ( int pageindex, int pagesize
+	, string realname, int age
+	, string __order )
+{
+}
+}}}
+ Server should return JSON of the following format, where __success is true by default, itemcount can be omitted, but keep the pagecount cannot be calculated.
+{{{
+{
+	"__success": <success? true or false>,
+	"rows": <array, data of current page>,
+	"itemcount": <count of rows>
+}
+
+{
+	"__success": true,
+	"rows":
+	[
+		{ "id": 1, "realname": "jack", "age": 20 },
+		{ "id": 2, "realname": "tom", "age": 21 }
+	],
+	"itemcount": 120
+}
+}}}
+ In the. NET 4, you can use anonymous types to return JSON, such as:
+{{{
+[WebMethod ( )]
+public static object Fill ( /* parameter */ )
+{
+	// ...
+	List<object> students = new List<object> ( );
+	students.Add ( new {
+		id = 1,
+		realname = "jack",
+		age = 20
+		} );
+	// ...
+	return new { __success = true, rows = students.ToArray ( ), itemcount = 120 };
+}
+}}}
+
+ ===== Update =====
+ For update operations, WebService, for example, the server will receive the updated fields as the parameter:
+{{{
+[WebMethod ( )]
+public static object <method name> ( <type, such as: string> <update field name>
+	[, <type n, such as: string> <update field name n>])
+{
+}
+
+[WebMethod ( )]
+public static object Update ( int id
+	, string realname, int age )
+{
+}
+}}}
+ Servers can return JSON as an update message, __success is true by default, row can be omitted, if you modify the parameters passed from the client, such as the name changed to lowercase to uppercase, then you can use the row to return the modified field.
+{{{
+{
+	"__success": <success? true or false>,
+	"row": <updated row>
+}
+
+{
+	"__success": true,
+	"row": { "realname": "JACK" }
+}
+}}}
+ In the. NET 4, you can use anonymous types to return JSON, such as:
+{{{
+[WebMethod ( )]
+public static object Update ( /* parameter */ )
+{
+	// ..., row can be omitted
+	return new { __success = true,
+		row = new { realname = "JACK" }
+		};
+}
+}}}
+
+ ===== Remove =====
+ For delete operations, WebService, for example, the server will receive the field is used to remove as a parameter:
+{{{
+[WebMethod ( )]
+public static object <method name> ( <type, such as: string> <name of field used to remove>
+	[, <type n, such as: string> <name of field used to remove n>])
+{
+}
+
+[WebMethod ( )]
+public static object Remove ( int id )
+{
+}
+}}}
+ Servers can return JSON as a deleted message, __success is true by default.
+{{{
+{
+	"__success": <success? true or false>
+}
+
+{
+	"__success": true
+}
+}}}
+ In the. NET 4, you can use anonymous types to return JSON, such as:
+{{{
+[WebMethod ( )]
+public static object Remove ( /* parameter */ )
+{
+	// ..., row can be omitted
+	return new { __success = true };
+}
+}}}
+
+ ===== Insert =====
+ For the insert operation, WebService, for example, the server will receive the field is used to insert as a parameter:
+{{{
+[WebMethod ( )]
+public static object <method name> ( <type, such as: string> <name of field used to create>
+	[, <type n, such as: string> <name of field used to create n>])
+{
+}
+
+[WebMethod ( )]
+public static object Insert ( string realname
+	, int age )
+{
+}
+}}}
+ Servers can return JSON as a inserted message, __success is true by default.
+{{{
+{
+	"__success": <success? true or false>,
+	"row": <inserted row>
+}
+
+{
+	"__success": true,
+	"row": { "id":10, "realname": "lili", "age": 12 }
+}
+}}}
+ In the. NET 4, you can use anonymous types to return JSON, such as:
+{{{
+[WebMethod ( )]
+public static object Insert ( /* parameter */ )
+{
+	// ..., row row can be omitted
+	return new { __success = true,
+		row = new { id = 10, realname = "lili", age = 12 }
+		};
+}
+}}}
+
+ ==== <font color="green">Row Status Description</font> ====
+ Client javascript, row status there are 4 kinds, namely unchanged did not change, updated updated, inserted a new row, removed deleting rows.
+
+ ==== <font color="green">Sorting Status Description</font> ====
+ Clien javascript, sorting status there are 4 types, namely none no sorting or to use default sorting, asc ascending order, desc descending order. 
+
+ ==== <font color="green">Template Settings</font> ====
+ In all of the templates, you can set the Repeater the final display of HTML code, the HTML code should be complete, legitimate, else, this could cause the final display is not working properly.
+
+ ===== ItemTemplate =====
+ In the ItemTemplate template, you can display the row in the unchanged status, if you do not set UpdatedItemTemplate or InsertedItemTemplate, then updated, inserted row also appears in the ItemTemplate, example:
+{{{
+<ItemTemplate>
+	<tr>
+		<td>
+			#{id}
+		</td>
+		<td>
+			#{realname}
+		</td>
+		<td>
+			#{age}
+		</td>
+		<td>
+			/* edit or remove button */
+		</td>
+	</tr>
+</ItemTemplate>
+}}}
+
+ ===== UpdatedItemTemplate/InsertedItemTemplate =====
+ UpdatedItemTemplate and InsertedItemTemplate is used to display updated and inserted rows, respectively, primarily for the use of different styles to display different status of the row, but it can be easier to use je-class to accomplish the same effect, example:
+{{{
+<UpdatedItemTemplate>
+	<tr style="font-weight: bold;">
+		<td>
+			#{id}
+		</td>
+		<td>
+			#{realname}
+		</td>
+		<td>
+			#{age}
+		</td>
+	</tr>
+</UpdatedItemTemplate>
+
+<InsertedItemTemplate>
+	<tr style="color: green;">
+		<td>
+			#{id}
+		</td>
+		<td>
+			#{realname}
+		</td>
+		<td>
+			#{age}
+		</td>
+	</tr>
+</InsertedItemTemplate>
+}}}
+
+ ===== RemovedItemTemplate =====
+ Removed status row is not displayed by default, unless RemovedItemTemplate is set, the examples: 
+{{{
+<RemovedItemTemplate>
+	<tr style="color: red;">
+		<td>
+			#{id}
+		</td>
+		<td>
+			#{realname}
+		</td>
+		<td>
+			#{age}
+		</td>
+		<td>
+			removed
+		</td>
+	</tr>
+</RemovedItemTemplate>
+}}}
+
+ ===== EditItemTemplate =====
+ EditItemTemplate is used to edit the row, which includes elements such as input, if you need to get a field value, you also need to set *`je-id="<field name>"`*, example:
+{{{
+<EditItemTemplate>
+	<tr>
+		<td>
+			#{id}
+		</td>
+		<td>
+			<input type="text" je-id="realname" value="#{realname}" />
+		</td>
+		<td>
+			<input type="text" je-id="age" value="#{age}" />
+		</td>
+		<td>
+			/* cancel or update button */
+		</td>
+	</tr>
+</EditItemTemplate>
+}}}
+
+ ===== FilterTemplate/NewItemTemplate =====
+ FilterTemplate and NewItemTemplate and some similarities, also contains some input, you need to use je-id to bind id, example: 
+{{{
+<FilterTemplate>
+	<tr>
+		<td>
+			<input type="text" je-id="realname" value="#{realname}" />
+		</td>
+		<td>
+			<input type="text" je-id="age" value="#{age}" />
+		</td>
+		<td>
+			/* search button */
+		</td>
+	</tr>
+</FilterTemplate>
+
+<NewItemTemplate>
+	<tr>
+		<td>
+			<input type="text" je-id="realname" value="#{realname}" />
+		</td>
+		<td>
+			<input type="text" je-id="age" value="#{age}" />
+		</td>
+		<td>
+			/* insert button */
+		</td>
+	</tr>
+</NewItemTemplate>
+}}}
+
+ ===== HeaderTemplate/FooterTemplate/EmptyTemplate =====
+ HeaderTemplate is header template and FooterTemplate is footer template, EmptyTemplate said that in the absence of data templates. 
+
+ ===== TipTemplate =====
+ TipTemplate is template used to prompt the message, which you can use `@{tip}` to bind message.
+
+ ==== <font color="green">Special Binding</font> ====
+ 
+ ===== je-id =====
+ Use the *`je-id="<field name>"`* can bind specific id, you can use it in a row template or FilterTemplate, NewItemTemplate.
+
+ In the EditItemTemplate, be assigned the je-id input will contain the new value of the field.
+
+ In FilterTemplate, be assigned the je-id input contain the value of the field used to search, these fields should be included in the FilterField property. 
+
+ In NewItemTemplate, be assigned the je-id input contain the new value of fields.
+
+ ===== je-<javascript event name> =====
+ Use the *`je-<javascript event name>="<action name>"`* for the event to bind special action. Can be used in all templates, common behaviors are: beginedit started editing, endedit cancel the edit, update to save your updates, remove deleted, toggleselect switch selected, insert new, filter search, togglesort toggle the sort. The top 5 can only be used in the row template, insert can be used in NewItemTemplate, filter can be used in FilterTemplate, togglesort available in the HeaderTemplate, example:
+{{{
+<ItemTemplate>
+	<tr>
+		<td>
+			#{id}
+		</td>
+		<td>
+			#{realname}
+		</td>
+		<td>
+			#{age}
+		</td>
+		<td>
+			<span je-onclick="beginedit">Edit</span>
+			<span je-onclick="remove">Remove</span>
+		</td>
+	</tr>
+</ItemTemplate>
+
+<EditItemTemplate>
+	<tr>
+		<td>
+			#{id}
+		</td>
+		<td>
+			<input type="text" je-id="realname" value="#{realname}" class="textbox" />
+		</td>
+		<td>
+			<input type="text" je-id="age" value="#{age}" class="textbox" />
+		</td>
+		<td>
+			<span je-onclick="endedit">Cancel</span>
+			<span je-onclick="update">Save</span>
+		</td>
+	</tr>
+</EditItemTemplate>
+}}}
+ I should note is that togglesort also need to specify a parameter, toggle the sort field, this field is set in the SortField, for example: `je-onclick="togglesort,'realname'"`.
+
+ If you are binding multiple behaviors, you can use semicolon, such as `je-onclick="setgroup,'realname';fill"`.
+
+ ===== je-class =====
+ Use the *`je-class="<style>"`* can be binding special styles for the element. je-class can be used in all templates, commonly used styles: {header} ui-widget-header, {active} ui-state-active, {highlight} ui-state-highlight, {disabled} ui-state-disabled, {error} ui-state-error, {default} for ui-state-default, {state} for row status, {sort} sorting status, example:
+{{{
+<HeaderTemplate>
+	<thead je-class="{header}">
+		<tr>
+			<td je-onclick="togglesort,'id'">
+<span je-class="{sort,id,,ui-icon ui-icon-arrow-1-n icon,ui-icon ui-icon-arrow-1-s icon}">
+</span>
+				ID
+			</td>
+
+		</tr>
+	</thead>
+</HeaderTemplate>
+
+<ItemTemplate>
+	<tr je-class="{state}-item">
+
+	</tr>
+</ItemTemplate>
+}}}
+ Here to note syntax of {state} and {sort}, namely *`{state[,<unchanged class>[,<inserted class>[,<updated class>[,<removed class>]]]]}`*, *`{sort,<sort field name>[,<no sort class>[,<asc class>[,<desc class>]]]}`*. For the purposes of {State}, if you do not specify the class of a state, the row status will be used instead of the class name, for example: `{state,,new-item}`, because there is no specified class for unchanged class, so if the state of the row is unchanged, it is returned unchanged. {sort}, if you do not specify a certain sort of class, takes the sort status instead of the class name.
+
+ ===== je-checked/selected/readonly =====
+ In the ItemTemplate using *`je-checked="selected"`* meet the `je-onclick="toggleselect"`to indicate whether the row is in a selected status, je-selected can be used to select elements in the EditItemTemplate, example:
+{{{
+<ItemTemplate>
+	<tr>
+		<td>
+			<input type="checkbox"
+				je-checked="selected"
+				je-onclick="toggleselect"
+				/>&nbsp;#{id}
+		</td>
+	</tr>
+</ItemTemplate>
+}}}
+ Available in the FilterTemplate *`je-selected="<a boolean expression or bound a field>"`* to initialize the selected option, example: 
+ {{{
+ <FilterTemplate>
+	<tr>
+		<td>
+			<select je-id="type">
+				<option je-selected="#{type,#=='normal'}">Normal</option>
+				<option je-selected="#{type,#=='high'}">High</option>
+				<option je-selected="#{type,#=='low'}">Low</option>
+			</select>
+		</td>
+	</tr>
+</FilterTemplate>
+}}}
+
+ ===== je-value =====
+ Use in FilterTemplate *`je-value="<search field name>"`* to bind initialize search condition.
+
+ ===== je-<jQueryUI widget name> =====
+ In any of the templates, can use the  *`je-<jQueryUI widget name>="<property name n>=<property value n>;"`*, to generate a jQueryUI widget, but currently only support je-button, je-datepicker, je-autoComplete, je-progressBar, je-slider, example:
+{{{
+<EditItemTemplate>
+	<tr je-class="{state}-item">
+		<td>
+<input type="checkbox" je-checked="selected" je-onclick="toggleselect" />&nbsp;#{id}
+		</td>
+		<td>
+<input type="text" je-id="realname" value="#{realname}" />
+		</td>
+		<td>
+<input type="text" je-id="age" value="#{age}" />
+		</td>
+		<td>
+<input type="text" je-id="birthday"
+	je-datepicker="dateFormat='yy-mm-dd';"
+	value="#{birthday}" />
+		</td>
+		<td>
+<span
+	je-button="label='Edit';icons={ primary: 'ui-icon-pencil' };"
+	je-onclick="beginedit">
+</span>
+<span
+	je-button="label='Delete';icons={ primary: 'ui-icon-trash' };"
+	je-onclick="remove">
+</span>
+		</td>
+	</tr>
+</EditItemTemplate>
+}}}
+ Properties are same with jQueryUI widget, you can refer to [http://jqueryui.com jqueryui.com].
+ 
+ ===== je-template =====
+ Use the *`je-template="<template name>"`* tag to the template element, in addition to various Template through the above mentioned, or you can use this method to set up a template, example: 
+{{{
+<table id="list">
+	<thead je-template="my-header">
+	</thead>
+</table>
+
+<je:Repeater ID="studentRepeater" runat="server"
+	Selector="'#list'" Header="[je-template=my-header]">
+
+</je:Repeater>
+}}}
+
+ ==== <font color="green">Child Views</font> ====
+ In Repeater, you can use shiftview, collapseview, expandview three function to switch off, open the child views, such as: 
+{{{
+<je:Repeater ID="<child view ID>" runat="server"
+	FilterField="<child view search field>">
+
+</je:Repeater>
+
+<je:Repeater ID="googleRepeater" runat="server">
+		<ItemTemplate>
+			<div je-onclick="shiftview,'<child view ID>'[,<search field value n>]">
+			shift child view
+			</div>
+			<div je-id="<child view ID>">
+			</div>
+		</ItemTemplate>
+</je:Repeater>
+
+<je:Repeater ID="pictureRepeater" runat="server"
+	FilterField="['url']">
+	<ItemTemplate>
+		<div>
+			<span class="url">#{url}</span>
+			<br />
+			<br />
+			#{picture}
+		</div>
+	</ItemTemplate>
+</je:Repeater>
+
+<div id="list">
+	<je:Repeater ID="googleRepeater" runat="server" Selector="'#list'">
+		<ItemTemplate>
+			<div
+				je-button="label='More';"
+				je-onclick="shiftview,'pictureRepeater','#{url}'">
+			</div>
+			<div je-id="pictureRepeater" style="display: none;">
+			</div>
+		</ItemTemplate>
+	</je:Repeater>
+</div>
+}}}
+ More ways to use and description refer to [JERepeaterSubView Repeater Child Views]. 
+ 
+ ==== <font color="green">Grouping Data</font> ====
+ Can use the GroupField property of Repeater or setgroup method to set the grouping field, set the grouping by GroupTemplate template, then call the fill function to get data:
+{{{
+<je:Repeater ID="mailRepeater" runat="server"
+	GroupField="<group field>"
+	FillAsync-Url="webservice.asmx"
+	FillAsync-MethodName="FillMailList">
+	<HeaderTemplate>
+
+		<td
+			je-onclick="setgroup,'<group field>';togglesort,'<sort field>'">
+			Sender
+		</td>
+
+	</HeaderTemplate>
+	<GroupTemplate>
+
+		<td>
+			@{groupfield}: @{groupname}
+		</td>
+	
+	</GroupTemplate>
+	<ItemTemplate>
+
+		<td class="sender">
+			#{sender} #{displaydate}
+		</td>
+
+	</ItemTemplate>
+</je:Repeater>
+}}}
+ More ways to use and description refer to [JERepeaterGroup Repeater Grouping Data]. 
+ 
+ ==== <font color="green">Handling Control</font> ====
+ In addition to what is said above bound jQueryUI widget, for some html elements, there are also many treatments:
+{{{
+<select je-id="major">
+	<option value="jsj" je-selected="'#{major}' == 'jsj'">Computer</option>
+	<option value="gsgl" je-selected="'#{major}' == 'gsgl'">Business</option>
+	<option value="hy" je-selected="'#{major}' == 'hy'">Chinese</option>
+</select>
+
+<input je-id="major" je-autocomplete="source=['jsj','gsgl','hy']" value="#{major}" />
+
+<input je-id="birthday" je-datepicker="dateFormat='yy-mm-dd'" type="text" value="#{birthday,jQuery.panzer.formatDate(#,'yyyy-MM-dd')}" />
+}}}
+ More ways to use and description refer to [JERepeaterWidget Repeater Handling Control]. 
+
+ ==== <font color="green">Event</font> ====
+ pe and e are part of two parameters to all the events, pe.option contains the option of *repeater*, pe.jQuery that represents the current *repeater*, e contains the event data.
+
+ PreUpdate, Updated before and after the update event, PreRemove, Removed before and after the remove event, PreInsert, Inserted before and after the insert event. e.row is current row to be operated, e.index said the index of the row, and e.isSuccess in Updated, Removed, Inserted in the, said whether executed successfully, example:
+{{{
+<je:Repeater ID="studentRepeater" runat="server"
+
+	PreUpdate="
+	function(pe, e){
+		if(e.row.realname == '' || e.row.age == '' || e.row.birthday == ''){
+			$('#message').text('Please fill out the information complete');
+			return false;
+		}
+	}
+	" PreInsert="
+	function(pe, e){
+		if(e.row.realname == '' || e.row.age == '' || e.row.birthday == ''){
+			$('#message').text('Please fill out the information complete');
+			return false;
+		}
+	}
+	" PreRemove="
+	function(pe, e){
+		if(!confirm('Delete? ' + e.row.realname)){
+			return false;
+		}
+	}
+	" Updated="
+	function(pe, e){
+		$('#message').text('Update ' + e.row.realname + (e.isSuccess ? ' success' : ' failed'));
+	}
+	" Inserted="
+	function(pe, e){
+		$('#message').text('Insert ' + e.row.realname + (e.isSuccess ? ' success' : ' failed'));
+	}
+	" Removed="
+	function(pe, e){
+		$('#message').text('Remove ' + e.row.realname + (e.isSuccess ? ' success' : ' failed'));
+	}
+	">
+
+</je:Repeater>
+}}}
+ PreFill, Filled before and after the fill event, PreExecute, Executed before and after any event, PreCustom, Customed before and after the custom event, the parameter e contains the command property indicates the name of the custom action, PreSubStep, SubStepped before and after the distribution events, the parameter e contains count property represents the total number of tasks, completed property indicates the number of tasks that have been completed.
+
+ Navigable when navigation usability changes, parameter e contains the prev property indicates whether has the previous page, next property indicates whether has the next page. Blocked when a operation is blocked.
+
+ ==== <font color="green">Client Methods</font> ====
+ By *`<repeater variable>.repeater('<method name>'[, <parameter n>])`* can call the methods of *repeater*:
+
+<table border="1" cellspacing="0" cellpadding="3" width="100%">
+<tr><td>*Method*</td><td>*Description*</td><td>*Example*</td></tr>
+<tr><td>beginedit/begineditselected</td><td>Start editing/selected rows of the specified index.</td><td>`<repeater variable>.repeater('beginedit', 0)` `<repeater variable>.repeater('begineditselected')`</td></tr>
+<tr><td>bind</td><td>Bound, just use current data.</td><td>`<repeater variable>.repeater('bind')`</td></tr>
+<tr><td>custom/customselected</td><td>Execute custom operation for a row or selected row.</td><td>`<repeater variable>.repeater('custom', 0)` `<repeater variable>.repeater('customselected')`</td></tr>
+<tr><td>endedit</td><td>Finish editing the specified index of the row, do not save the edited content.</td><td>`<repeater variable>.repeater('endedit', 0)`</td></tr>
+<tr><td>fill</td><td>Get data and bind data to *repeater*.</td><td>`<repeater variable>.repeater('fill')`</td></tr>
+<tr><td>filter</td><td>Similar to fill, but page numbers will be changed to 1.</td><td>`<repeater variable>.repeater('filter')`</td></tr>
+<tr><td>first/last</td><td>Go to first/last page.</td><td>`<repeater variable>.repeater('first')`</td></tr>
+<tr><td>getrow</td><td>Gets the row of specified index.</td><td>`<repeater variable>.repeater('getrow', 0)`</td></tr>
+<tr><td>goto/next/prev</td><td>Jump to a specific page/next page/previous page.</td><td>`<repeater variable>.repeater('goto', 2)` `<repeater variable>.repeater('next')`</td></tr>
+<tr><td>hidetip/showtip</td><td>Hide/Show tips.</td><td>`<repeater variable>.repeater('hidetip')` `<repeater variable>.repeater('showtip', 'input name')`</td></tr>
+<tr><td>insert</td><td>Insert a new row.</td><td>`<repeater variable>.repeater('insert')`</td></tr>
+<tr><td>remove/removeselected</td><td>Deletes the specified/all rows.</td><td>`<repeater variable>.repeater('remove', 0)` `<repeater variable>.repeater('removeselected')`</td></tr>
+<tr><td>select/unselect/toggleselect</td><td>Select/Unselect/Shift selected state of a row.</td><td>`<repeater variable>.repeater('select', 0)`</td></tr>
+<tr><td>selectall/unselectall/toggleselectall</td><td>Select/Unselect/Shift selected state of all rows.</td><td>`<repeater variable>.repeater('selectall')`</td></tr>
+<tr><td>setfilter</td><td>Set up your filtering condition.</td><td>`<repeater variable>.repeater('setfilter', age, 12)`</td></tr>
+<tr><td>setgroup</td><td>Set the grouping field.</td><td>`<repeater variable>.repeater('setgroup', 'name')`</td></tr>
+<tr><td>setrow</td><td>Sets the data of row by specified index, and specify whether to rebind.</td><td>`<repeater variable>.repeater('setrow', 0, {age: 10}, true)`</td></tr>
+<tr><td>sort/togglesort</td><td>Set sort status.</td><td>`<repeater variable>.repeater('sort', 'id', 'desc')` `<repeater variable>.repeater('togglesort', 'id')`</td></tr>
+<tr><td>update</td><td>Modify a row.</td><td>`<repeater variable>.repeater('update', 0)`</td></tr>
+</table>
+</font>
