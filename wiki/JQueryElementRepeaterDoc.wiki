@@ -790,7 +790,10 @@ public static object Insert ( /* 参数 */ )
 
 <input je-id="major" je-autocomplete="source=['jsj','gsgl','hy']" value="#{major}" />
 
-<input je-id="birthday" je-datepicker="dateFormat='yy-mm-dd'" type="text" value="#{birthday,jQuery.panzer.formatDate(#,'yyyy-MM-dd')}" />
+<input je-id="birthday"
+	je-datepicker="dateFormat='yy-mm-dd'"
+	type="text"
+	value="#{birthday,jQuery.panzer.formatDate(#,'yyyy-MM-dd')}" />
 }}}
  更多使用方法和说明请参考 [JERepeaterWidget Repeater 处理控件]. 
 
