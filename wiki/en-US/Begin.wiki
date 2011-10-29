@@ -1,0 +1,13 @@
+﻿#summary Start To Prepare
+#labels Phase-Implementation,Phase-Support,Phase-Deploy
+<font face="microsoft yahei">
+=== Start To Prepare ===
+ * [HowToDownloadAndUse How To Download]
+  Here you can learn how to download *panzer* project source code and using dll files, and the corresponding configuration of your environment.
+
+ * [HowToJoin How To Join The Development]
+  Here describes development work of *panzer* project, and how to join, thank you for your support! 
+ 
+ * [PanzerLicense panzer License]
+  Here is *panzer* licenseneeded by a project, you will need the license is included in your product and project.
+</font>

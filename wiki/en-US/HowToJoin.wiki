@@ -1,0 +1,20 @@
+﻿#summary 如何加入开发
+#labels Featured,Phase-Implementation
+<font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/HowToJoin Translate this page]</font>
+
+=== Conditions ===
+ As *panzer* was developed using C# as the language, therefore, wish to apply for a developer is already familiar with C#, and Visual Studio before then.
+
+=== Become A Developer ===
+ If you have a strong logical thinking and creative ability and encoding capabilities, you can become a *panzer* developers, research and development of new features, or maintaining improved features now.
+
+=== Become A Tester ===
+ If you love *panzer* and hope that *panzer* to better develop, you can become a tester.
+
+=== Becoming A Documents Officer ===
+ Write wiki for *panzer*, provide support information for users. 
+
+=== Application ===
+ Please introduce wants the role and briefly, googlecode username send to: m.s.cxc@qq.com, if if there is no reply to you within 48 hours, please understand, possibly because the cause of too much work. 
+</font>
