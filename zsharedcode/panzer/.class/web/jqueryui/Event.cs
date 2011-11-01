@@ -342,6 +342,14 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 自定义完成.
 		/// </summary>
 		customed,
+		/// <summary>
+		/// 检测时.
+		/// </summary>
+		check,
+		/// <summary>
+		/// 检测后.
+		/// </summary>
+		@checked,
 	}
 	#endregion
 

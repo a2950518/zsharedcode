@@ -7,11 +7,8 @@
  * */
 
 using System;
-using System.Collections.Generic;
 
-using zoyobar.shared.panzer.Properties;
-
-namespace zoyobar.shared.panzer.web.jqueryui
+namespace zoyobar.shared.panzer.web.jqueryui.plusin
 {
 
 	#region " PlusinType "
@@ -36,6 +33,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 基础插件.
 		/// </summary>
 		panzer = 3,
+		/// <summary>
+		/// 验证插件.
+		/// </summary>
+		validator = 4,
 	}
 	#endregion
 
@@ -47,19 +48,6 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		: WidgetSetting
 	{
 		private PlusinType plusinType;
-
-		/// <summary>
-		/// 获取所需的基础自定义插件类型.
-		/// </summary>
-		/// <returns>基础自定义插件类型.</returns>
-		public virtual Dictionary<PlusinType, string> GetDependentPlusins()
-		{
-			Dictionary<PlusinType, string> plusins = new Dictionary<PlusinType, string>();
-
-			plusins.Add(PlusinType.panzer, Resources.panzer_min);
-
-			return plusins;
-		}
 
 		/// <summary>
 		/// 获取或设置自定义插件类型.

@@ -1131,6 +1131,66 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 分组字段.
 		/// </summary>
 		groupfield,
+		/// <summary>
+		/// 检测时.
+		/// </summary>
+		check,
+		/// <summary>
+		/// 检测后.
+		/// </summary>
+		@checked,
+		/// <summary>
+		/// 默认值.
+		/// </summary>
+		defaultvalue,
+		/// <summary>
+		/// 最大值的提示.
+		/// </summary>
+		maxtip,
+		/// <summary>
+		/// 最小值的提示.
+		/// </summary>
+		mintip,
+		/// <summary>
+		/// 名称.
+		/// </summary>
+		name,
+		/// <summary>
+		/// 是否必需.
+		/// </summary>
+		need,
+		/// <summary>
+		/// 缺少时的提示.
+		/// </summary>
+		needtip,
+		/// <summary>
+		/// 提供者.
+		/// </summary>
+		provider,
+		/// <summary>
+		/// 正则表达式.
+		/// </summary>
+		reg,
+		/// <summary>
+		/// 不符合正则表达式时的提示.
+		/// </summary>
+		regtip,
+		/// <summary>
+		/// 成功时的提示.
+		/// </summary>
+		successtip,
+		/// <summary>
+		/// 目标.
+		/// </summary>
+		target,
+		/// <summary>
+		/// 类型.
+		/// </summary>
+		type,
+		/// <summary>
+		/// 类型不符合时的提示.
+		/// </summary>
+		typetip,
 	}
 	#endregion
 

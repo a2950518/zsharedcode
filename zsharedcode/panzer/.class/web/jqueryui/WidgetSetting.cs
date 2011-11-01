@@ -6,6 +6,10 @@
  * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
  * */
 
+using System.Collections.Generic;
+
+using zoyobar.shared.panzer.Properties;
+
 namespace zoyobar.shared.panzer.web.jqueryui
 {
 
@@ -66,6 +70,19 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 重新构造.
 		/// </summary>
 		public abstract void Recombine();
+
+		/// <summary>
+		/// 获取所需的基础脚本.
+		/// </summary>
+		/// <returns>基础自定义插件类型.</returns>
+		public virtual Dictionary<string, string> GetDependentScripts ( )
+		{
+			Dictionary<string, string> scripts = new Dictionary<string, string> ( );
+
+			scripts.Add ( "panzer", Resources.panzer_min );
+
+			return scripts;
+		}
 
 		#region " property "
 		private WidgetType widgetType;

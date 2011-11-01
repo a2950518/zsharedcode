@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.UI;
 
+using zoyobar.shared.panzer.web;
 using zoyobar.shared.panzer.web.jqueryui;
 
 namespace zoyobar.shared.panzer.ui.jqueryui
@@ -46,6 +47,22 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		protected override void renderJQuery ( JQueryUI jquery )
 		{
 			base.renderJQuery ( jquery );
+
+			foreach ( KeyValuePair<string, string> pair in this.uiSetting.GetDependentScripts ( ) )
+			{
+				string key = string.Format ( "__js{0}", pair.Key );
+
+				if ( !ScriptHelper.IsBuilt ( new ASPXScriptHolder ( this ), key ) )
+				{
+					ScriptHelper script = new ScriptHelper ( );
+
+					script.AppendCode ( pair.Value );
+
+					script.Build ( new ASPXScriptHolder ( this ), key, ScriptBuildOption.Startup );
+				}
+
+			}
+
 			jquery.Widget ( this.uiSetting );
 		}
 
