@@ -1,6 +1,8 @@
 ﻿#summary 编译符号参考
 #labels Phase-Design,Phase-Implementation
 <font size="2" face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/DefineDoc Translate this page]</font>
+
 === {{{PARAM}}} ===
  在项目中定义 {{{PARAM}}} 编译符号, 将采用方法参数有默认值的书写风格, 比如:
  {{{

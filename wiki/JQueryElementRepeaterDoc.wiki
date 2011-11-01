@@ -52,7 +52,7 @@
  请使用指令引用如下的命名空间:
 {{{
 <%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
-	Namespace="zoyobar.shared.panzer.ui.jqueryui"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui.plusin"
 	TagPrefix="je" %>
 <%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
 	Namespace="zoyobar.shared.panzer.web.jqueryui"
@@ -150,7 +150,7 @@
 
 <script type="text/javascript">
 	$(function () {
-		studentRepeater.repeater('fill');
+		studentRepeater.__repeater('fill');
 	});
 </script>
 }}}
@@ -845,28 +845,28 @@ public static object Insert ( /* 参数 */ )
  Navigable 当导航可用性变化时, 参数 e 包含 prev 属性表示是否有上一页, next 属性表示是否有下一页. Blocked 当有操作被阻塞时的事件.
 
  ==== <font color="green">客户端方法</font> ====
- 通过 *`<repeater 变量>.repeater('<方法名>'[, <参数n>])`* 可以在 javascript 中调用 *repeater* 中包含的方法:
+ 通过 *`<repeater 变量>.__repeater('<方法名>'[, <参数n>])`* 可以在 javascript 中调用 *repeater* 中包含的方法:
 
 <table border="1" cellspacing="0" cellpadding="3" width="100%">
 <tr><td>*方法*</td><td>*说明*</td><td>*示例*</td></tr>
-<tr><td>beginedit/begineditselected</td><td>开始编辑指定索引/选中的行.</td><td>`<repeater 变量>.repeater('beginedit', 0)` `<repeater 变量>.repeater('begineditselected')`</td></tr>
-<tr><td>bind</td><td>绑定, 不会重新获取数据, 仅仅将现有数据绑定的到 *repeater*.</td><td>`<repeater 变量>.repeater('bind')`</td></tr>
-<tr><td>custom/customselected</td><td>对指定/所有的行执行自定义操作.</td><td>`<repeater 变量>.repeater('custom', 0)` `<repeater 变量>.repeater('customselected')`</td></tr>
-<tr><td>endedit</td><td>结束编辑指定索引的行, 不保存编辑的内容.</td><td>`<repeater 变量>.repeater('endedit', 0)`</td></tr>
-<tr><td>fill</td><td>填充数据, 将调用服务端相关的方法.</td><td>`<repeater 变量>.repeater('fill')`</td></tr>
-<tr><td>filter</td><td>搜索, 和填充数据类似, 但是页码将变为 1.</td><td>`<repeater 变量>.repeater('filter')`</td></tr>
-<tr><td>first/last</td><td>跳转到第一页/最后一页.</td><td>`<repeater 变量>.repeater('first')`</td></tr>
-<tr><td>getrow</td><td>获取指定索引的行.</td><td>`<repeater 变量>.repeater('getrow', 0)`</td></tr>
-<tr><td>goto/next/prev</td><td>跳转到指定的页/下一页/上一页.</td><td>`<repeater 变量>.repeater('goto', 2)` `<repeater 变量>.repeater('next')`</td></tr>
-<tr><td>hidetip/showtip</td><td>隐藏/显示提示.</td><td>`<repeater 变量>.repeater('hidetip')` `<repeater 变量>.repeater('showtip', '请输入姓名')`</td></tr>
-<tr><td>insert</td><td>调用服务端方法新建行.</td><td>`<repeater 变量>.repeater('insert')`</td></tr>
-<tr><td>remove/removeselected</td><td>删除指定/所有的行.</td><td>`<repeater 变量>.repeater('remove', 0)` `<repeater 变量>.repeater('removeselected')`</td></tr>
-<tr><td>select/unselect/toggleselect</td><td>设置/取消/切换指定索引的行的选中状态.</td><td>`<repeater 变量>.repeater('select', 0)`</td></tr>
-<tr><td>selectall/unselectall/toggleselectall</td><td>设置/取消/切换所有行的选中状态.</td><td>`<repeater 变量>.repeater('selectall')`</td></tr>
-<tr><td>setfilter</td><td>设置过滤条件.</td><td>`<repeater 变量>.repeater('setfilter', age, 12)`</td></tr>
-<tr><td>setgroup</td><td>设置分组字段.</td><td>`<repeater 变量>.repeater('setgroup', 'name')`</td></tr>
-<tr><td>setrow</td><td>设置指定索引的行的数据, 并指定是否重新绑定.</td><td>`<repeater 变量>.repeater('setrow', 0, {age: 10}, true)`</td></tr>
-<tr><td>sort/togglesort</td><td>设置/切换排序条件.</td><td>`<repeater 变量>.repeater('sort', 'id', 'desc')` `<repeater 变量>.repeater('togglesort', 'id')`</td></tr>
-<tr><td>update</td><td>调用服务端方法更新指定索引的行.</td><td>`<repeater 变量>.repeater('update', 0)`</td></tr>
+<tr><td>beginedit/begineditselected</td><td>开始编辑指定索引/选中的行.</td><td>`<repeater 变量>.__repeater('beginedit', 0)` `<repeater 变量>.__repeater('begineditselected')`</td></tr>
+<tr><td>bind</td><td>绑定, 不会重新获取数据, 仅仅将现有数据绑定的到 *repeater*.</td><td>`<repeater 变量>.__repeater('bind')`</td></tr>
+<tr><td>custom/customselected</td><td>对指定/所有的行执行自定义操作.</td><td>`<repeater 变量>.__repeater('custom', 0)` `<repeater 变量>.__repeater('customselected')`</td></tr>
+<tr><td>endedit</td><td>结束编辑指定索引的行, 不保存编辑的内容.</td><td>`<repeater 变量>.__repeater('endedit', 0)`</td></tr>
+<tr><td>fill</td><td>填充数据, 将调用服务端相关的方法.</td><td>`<repeater 变量>.__repeater('fill')`</td></tr>
+<tr><td>filter</td><td>搜索, 和填充数据类似, 但是页码将变为 1.</td><td>`<repeater 变量>.__repeater('filter')`</td></tr>
+<tr><td>first/last</td><td>跳转到第一页/最后一页.</td><td>`<repeater 变量>.__repeater('first')`</td></tr>
+<tr><td>getrow</td><td>获取指定索引的行.</td><td>`<repeater 变量>.__repeater('getrow', 0)`</td></tr>
+<tr><td>goto/next/prev</td><td>跳转到指定的页/下一页/上一页.</td><td>`<repeater 变量>.__repeater('goto', 2)` `<repeater 变量>.__repeater('next')`</td></tr>
+<tr><td>hidetip/showtip</td><td>隐藏/显示提示.</td><td>`<repeater 变量>.__repeater('hidetip')` `<repeater 变量>.__repeater('showtip', '请输入姓名')`</td></tr>
+<tr><td>insert</td><td>调用服务端方法新建行.</td><td>`<repeater 变量>.__repeater('insert')`</td></tr>
+<tr><td>remove/removeselected</td><td>删除指定/所有的行.</td><td>`<repeater 变量>.__repeater('remove', 0)` `<repeater 变量>.__repeater('removeselected')`</td></tr>
+<tr><td>select/unselect/toggleselect</td><td>设置/取消/切换指定索引的行的选中状态.</td><td>`<repeater 变量>.__repeater('select', 0)`</td></tr>
+<tr><td>selectall/unselectall/toggleselectall</td><td>设置/取消/切换所有行的选中状态.</td><td>`<repeater 变量>.__repeater('selectall')`</td></tr>
+<tr><td>setfilter</td><td>设置过滤条件.</td><td>`<repeater 变量>.__repeater('setfilter', age, 12)`</td></tr>
+<tr><td>setgroup</td><td>设置分组字段.</td><td>`<repeater 变量>.__repeater('setgroup', 'name')`</td></tr>
+<tr><td>setrow</td><td>设置指定索引的行的数据, 并指定是否重新绑定.</td><td>`<repeater 变量>.__repeater('setrow', 0, {age: 10}, true)`</td></tr>
+<tr><td>sort/togglesort</td><td>设置/切换排序条件.</td><td>`<repeater 变量>.__repeater('sort', 'id', 'desc')` `<repeater 变量>.__repeater('togglesort', 'id')`</td></tr>
+<tr><td>update</td><td>调用服务端方法更新指定索引的行.</td><td>`<repeater 变量>.__repeater('update', 0)`</td></tr>
 </table>
 </font>
