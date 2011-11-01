@@ -166,7 +166,7 @@
 
  SortField 表示参与排序的字段, 比如: `['id']`.
 
- FieldMask 表示用于验证字段的正则表达式, 在更新或新建时起效, 格式为: *`{<字段名>: { reg: <正则表达式>, tip: '<错误提示信息>', type: '<字段类型, 可以是 number, boolean, date>'} }`*.
+ FieldMask 表示用于验证字段的正则表达式, 在更新或新建时起效, 一般格式为: *`{<字段名>: { reg: <正则表达式>, tip: '<错误提示信息>', type: '<字段类型, 可以是 number, boolean, date>'} }`*.
 
  ==== <font color="green">设置调用的服务端方法</font> ====
  可以通过 Async 来设置如何调用服务器端方法, 如果是调用 WebService, 则需要设置 MethodName, 如果是普通的 ashx 这样的一般处理程序, 则忽略 MethodName, 示例:
