@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 using zoyobar.shared.panzer.Properties;
 
-namespace zoyobar.shared.panzer.web.jqueryui
+namespace zoyobar.shared.panzer.web.jqueryui.plusin
 {
 
 	#region " RepeaterSetting "
@@ -526,14 +526,14 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		{ }
 
 		/// <summary>
-		/// 获取 Repeater 所需的基础自定义插件类型.
+		/// 获取 Repeater 所需的基础脚本.
 		/// </summary>
-		/// <returns>Repeater 所需的基础自定义插件类型.</returns>
-		public override Dictionary<PlusinType, string> GetDependentPlusins()
+		/// <returns>Repeater 所需的基础脚本.</returns>
+		public override Dictionary<string, string> GetDependentScripts ( )
 		{
-			Dictionary<PlusinType, string> plusins = base.GetDependentPlusins();
+			Dictionary<string, string> plusins = base.GetDependentScripts();
 
-			plusins.Add(PlusinType.repeater, Resources.repeater_min);
+			plusins.Add("repeater", Resources.repeater_min);
 
 			return plusins;
 		}
@@ -566,10 +566,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 
 			this.FillAsync.ParameterList.AddRange ( new Parameter[]
 			{
-				new Parameter("pageindex", ParameterType.Expression, "this.repeater('option', 'pageindex')"),
-				new Parameter("pagesize", ParameterType.Expression, "this.repeater('option', 'pagesize')"),
-				new Parameter ( "__order", ParameterType.Expression, "e.sortconditioncustom", "''" ),
-				new Parameter ( "__group", ParameterType.Expression, "e.groupcondition", "''" )
+				new Parameter("pageindex", ParameterType.Expression, "this.__repeater('option', 'pageindex')", ParameterDataType.Number),
+				new Parameter("pagesize", ParameterType.Expression, "this.__repeater('option', 'pagesize')", ParameterDataType.Number),
+				new Parameter ( "__order", ParameterType.Expression, "e.sortconditioncustom", ParameterDataType.String ),
+				new Parameter ( "__group", ParameterType.Expression, "e.groupcondition", ParameterDataType.String )
 			} );
 
 			string filterFieldList = this.FilterField.TrimEnd ( ']' ).TrimStart ( '[' );

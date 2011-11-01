@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 using zoyobar.shared.panzer.Properties;
 
-namespace zoyobar.shared.panzer.web.jqueryui
+namespace zoyobar.shared.panzer.web.jqueryui.plusin
 {
 
 	#region " TimerSetting "
@@ -68,14 +68,14 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		{ }
 
 		/// <summary>
-		/// 获取时钟所需的基础自定义插件类型.
+		/// 获取时钟所需的基础脚本.
 		/// </summary>
-		/// <returns>时钟所需的基础自定义插件类型.</returns>
-		public override Dictionary<PlusinType, string> GetDependentPlusins()
+		/// <returns>时钟所需的基础脚本.</returns>
+		public override Dictionary<string, string> GetDependentScripts ( )
 		{
-			Dictionary<PlusinType, string> plusins = base.GetDependentPlusins();
+			Dictionary<string, string> plusins = base.GetDependentScripts ( );
 
-			plusins.Add(PlusinType.timer, Resources.timer_min);
+			plusins.Add("timer", Resources.timer_min);
 
 			return plusins;
 		}

@@ -61,8 +61,8 @@ namespace zoyobar.shared.panzer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 (function(d){d.panzer={check:function(b,a,f){if(null==a)return b;null!=a.readonly&amp;&amp;a.readonly&amp;&amp;null!=f&amp;&amp;f&amp;&amp;d.error((null==a.name?&quot;argument&quot;:a.name)+&quot; is read-only&quot;);if(null!=a.allowNull&amp;&amp;!a.allowNull&amp;&amp;null==b)null==a.defaultValue?d.error((null==a.name?&quot;argument&quot;:a.name)+&quot; can not be empty&quot;):b=a.defaultValue;if(null!=a.type&amp;&amp;null!=b&amp;&amp;typeof b!=a.type)null==a.defaultValue?d.error((null==a.name?&quot;argument&quot;:a.name)+&quot; should be a &quot;+a.type):b=a.defaultValue;if(null!=a.allowSmall0&amp;&amp;!a.allowSmall0&amp;&amp;null!=
-        ///b&amp;&amp;b&lt;0)nul [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 (function(d){d.panzer={check:function(b,a,c){var e;if(null!=a)if(null!=c&amp;&amp;c&amp;&amp;null!=a.readonly&amp;&amp;a.readonly)e=d.panzer.getTip.call(this,a,&quot;readonly&quot;,(null==a.name?&quot;argument&quot;:a.name)+&quot; is read-only&quot;);else if(null==b){if(null!=a.need&amp;&amp;a.need)null==a.defaultvalue?e=d.panzer.getTip.call(this,a,&quot;need&quot;,(null==a.name?&quot;argument&quot;:a.name)+&quot; can not be empty&quot;):b=a.defaultvalue}else if(null!=a.type&amp;&amp;a.type!=&quot;date&quot;&amp;&amp;typeof b!=a.type)null==a.defaultvalue?e=d.panzer.getTip.call(this,a,&quot;type&quot;,(null==a.name?&quot;argument&quot;:
+        ///a.name [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string panzer_min {
             get {
@@ -81,12 +81,22 @@ namespace zoyobar.shared.panzer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 (function(b){function c(a){a=a.option;a.count=0;null!=a.handler&amp;&amp;clearInterval(a.handler)}b.fn.timer=function(){var a=b.panzer.getPE.call(this,&quot;timer&quot;,arguments);return null==a?this:a.result};b.fn.timer.funs={destroy:{method:function(a){c.call(this,a);b.panzer.destroy.call(this,a)}},start:{method:function(a){c.call(this,a);var b=a.option;b.handler=setInterval(function(){b.count++;null!=b.tick&amp;&amp;b.tick.call(this,a,{count:b.count})},b.interval)}},stop:{method:c}};b.fn.timer.defaults={count:0,handler:null,
-        ///inte [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 (function(b){function c(a){a=a.option;a.count=0;null!=a.handler&amp;&amp;clearInterval(a.handler)}b.fn.__timer=function(){var a=b.panzer.getPE.call(this,&quot;__timer&quot;,arguments);return null==a?this:a.result};b.fn.__timer.funs={destroy:{method:function(a){c.call(this,a);b.panzer.destroy.call(this,a)}},start:{method:function(a){c.call(this,a);var b=a.option;b.handler=setInterval(function(){b.count++;null!=b.tick&amp;&amp;b.tick.call(this,a,{count:b.count})},b.interval)}},stop:{method:c}};b.fn.__timer.defaults={count:0,
+        ///handler:n [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string timer_min {
             get {
                 return ResourceManager.GetString("timer_min", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 (function(c){function g(b){var a=b.option,e=c(a.target);if(e.length!=0){var d=a.mask,e=e.val(),d=null!=d.need&amp;&amp;d.need&amp;&amp;e==&quot;&quot;?{value:&quot;&quot;,tip:d.tip.need,success:!1}:c.panzer.check.call(this,c.panzer.convert.call(this,e,d.type,d.provider),d,!1);d.success?null==a.check?f.call(this,b,d.value,d.tip,!0):a.check.call(this,b,{value:e,callback:f}):f.call(this,b,d.value,d.tip,!1)}}function f(b,a,e,d){var c=b.option;c.valid=d;null==e?this.empty():this.html(e);null!=c.checked&amp;&amp;c.checked.call(this,b,{value:a,tip:e,
+        ///valid: [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string validator_min {
+            get {
+                return ResourceManager.GetString("validator_min", resourceCulture);
             }
         }
     }

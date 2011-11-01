@@ -10,8 +10,9 @@ using System.ComponentModel;
 using System.Web.UI;
 
 using zoyobar.shared.panzer.web.jqueryui;
+using zoyobar.shared.panzer.web.jqueryui.plusin;
 
-namespace zoyobar.shared.panzer.ui.jqueryui
+namespace zoyobar.shared.panzer.ui.jqueryui.plusin
 {
 
 	/// <summary>
@@ -39,11 +40,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		#region " event "
 		/// <summary>
-		/// 获取或设置时钟触发时的事件, 类似于 "function(tag, e) { }".
+		/// 获取或设置时钟触发时的事件, 类似于 "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示时钟触发时的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示时钟触发时的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string Tick
 		{

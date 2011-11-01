@@ -7,14 +7,14 @@
  * */
 
 using System.ComponentModel;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using zoyobar.shared.panzer.web;
 using zoyobar.shared.panzer.web.jqueryui;
+using zoyobar.shared.panzer.web.jqueryui.plusin;
 
-namespace zoyobar.shared.panzer.ui.jqueryui
+namespace zoyobar.shared.panzer.ui.jqueryui.plusin
 {
 
 	/// <summary>
@@ -343,11 +343,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		#region " event "
 		/// <summary>
-		/// 获取或设置修改行之前的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置修改行之前的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示修改行之前的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示修改行之前的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string PreUpdate
 		{
@@ -356,11 +356,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置修改行时的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置修改行时的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示修改行时的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示修改行时的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string Update
 		{
@@ -369,11 +369,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置修改行后的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置修改行后的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示修改行后的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示修改行后的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string Updated
 		{
@@ -382,11 +382,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置删除行之前的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置删除行之前的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示删除行之前的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示删除行之前的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string PreRemove
 		{
@@ -395,11 +395,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置删除行时的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置删除行时的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示删除行时的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示删除行时的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string Remove
 		{
@@ -408,11 +408,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置删除行后的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置删除行后的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示删除行后的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示删除行后的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string Removed
 		{
@@ -421,11 +421,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置填充之前的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置填充之前的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示填充之前的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示填充之前的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string PreFill
 		{
@@ -434,11 +434,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置填充时的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置填充时的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示填充时的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示填充时的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string Fill
 		{
@@ -447,11 +447,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置填充后的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置填充后的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示填充后的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示填充后的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string Filled
 		{
@@ -460,11 +460,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置新建行之前的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置新建行之前的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示新建行之前的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示新建行之前的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string PreInsert
 		{
@@ -473,11 +473,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置新建行时的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置新建行时的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示新建行时的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示新建行时的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string Insert
 		{
@@ -486,11 +486,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置新建行后的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置新建行后的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示新建行后的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示新建行后的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string Inserted
 		{
@@ -499,11 +499,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置是否可以导航发生改变后的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置是否可以导航发生改变后的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示是否可以导航发生改变后的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示是否可以导航发生改变后的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string Navigable
 		{
@@ -512,11 +512,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置发生阻塞时的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置发生阻塞时的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示发生阻塞时的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示发生阻塞时的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string Blocked
 		{
@@ -525,11 +525,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置执行操作之前的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置执行操作之前的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示执行操作之前的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示执行操作之前的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string PreExecute
 		{
@@ -538,11 +538,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置执行操作之后的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置执行操作之后的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示执行操作之后的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示执行操作之后的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string Executed
 		{
@@ -551,11 +551,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置执行自定义操作之前的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置执行自定义操作之前的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示执行自定义操作之前的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示执行自定义操作之前的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string PreCustom
 		{
@@ -564,11 +564,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置执行自定义操作的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置执行自定义操作的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示执行自定义操作的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示执行自定义操作的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string Custom
 		{
@@ -577,11 +577,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置执行自定义操作之后的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置执行自定义操作之后的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示执行自定义操作之后的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示执行自定义操作之后的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string Customed
 		{
@@ -590,11 +590,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置执行分步操作之前的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置执行分步操作之前的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示执行分步操作之前的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示执行分步操作之前的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string PreSubStep
 		{
@@ -603,11 +603,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置执行分步操作时的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置执行分步操作时的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示执行分步操作时的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示执行分步操作时的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string SubStepping
 		{
@@ -616,11 +616,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		}
 
 		/// <summary>
-		/// 获取或设置执行分步操作之后的事件, 类似于: "function(tag, e) { }".
+		/// 获取或设置执行分步操作之后的事件, 类似于: "function(pe, e) { }".
 		/// </summary>
 		[Category ( "事件" )]
 		[DefaultValue ( "" )]
-		[Description ( "指示执行分步操作之后的事件, 类似于: function(tag, e) { }" )]
+		[Description ( "指示执行分步操作之后的事件, 类似于: function(pe, e) { }" )]
 		[NotifyParentProperty ( true )]
 		public string SubStepped
 		{

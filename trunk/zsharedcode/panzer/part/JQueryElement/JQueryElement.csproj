@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>zoyobar.shared.panzer</RootNamespace>
     <AssemblyName>zoyobar.shared.panzer.JQueryElement</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;PARAM V4</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NOPARAM V2</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\zoyobar.shared.panzer.JQueryElement.XML</DocumentationFile>
@@ -34,9 +34,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -112,6 +109,9 @@
     </Compile>
     <Compile Include="..\..\.class\ui\jqueryui\Timer.cs">
       <Link>.class\Timer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\ui\jqueryui\Validator.cs">
+      <Link>.class\Validator.cs</Link>
     </Compile>
     <Compile Include="..\..\.class\web\ASPXScriptHolder.cs">
       <Link>.class\ASPXScriptHolder.cs</Link>
@@ -194,6 +194,9 @@
     <Compile Include="..\..\.class\web\jqueryui\UISetting.cs">
       <Link>.class\UISetting.cs</Link>
     </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\ValidatorSetting.cs">
+      <Link>.class\ValidatorSetting.cs</Link>
+    </Compile>
     <Compile Include="..\..\.class\web\jqueryui\WidgetSetting.cs">
       <Link>.class\WidgetSetting.cs</Link>
     </Compile>
@@ -237,6 +240,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\panzer.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\validator.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

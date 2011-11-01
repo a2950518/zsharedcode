@@ -6,16 +6,12 @@
  * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
 * */
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
-using zoyobar.shared.panzer.web;
 using zoyobar.shared.panzer.web.jqueryui;
+using zoyobar.shared.panzer.web.jqueryui.plusin;
 
-namespace zoyobar.shared.panzer.ui.jqueryui
+namespace zoyobar.shared.panzer.ui.jqueryui.plusin
 {
 
 	#region " JQueryPlusin "
@@ -34,21 +30,6 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		protected override void renderJQuery ( JQueryUI jquery )
 		{
 			base.renderJQuery ( jquery );
-
-			foreach (KeyValuePair<PlusinType, string> pair in this.uiSetting.GetDependentPlusins())
-			{
-				string key = string.Format("__js{0}", pair.Key);
-
-				if ( !ScriptHelper.IsBuilt ( new ASPXScriptHolder ( this ), key ) )
-				{
-					ScriptHelper script = new ScriptHelper ( );
-
-					script.AppendCode ( pair.Value );
-
-					script.Build ( new ASPXScriptHolder ( this ), key, ScriptBuildOption.Startup );
-				}
-
-			}
 
 			jquery.Plusin ( this.uiSetting );
 		}

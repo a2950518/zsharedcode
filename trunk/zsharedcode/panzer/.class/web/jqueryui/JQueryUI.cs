@@ -6,7 +6,8 @@
  * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
  * */
 
-using System;
+
+using zoyobar.shared.panzer.web.jqueryui.plusin;
 
 namespace zoyobar.shared.panzer.web.jqueryui
 {
@@ -61,17 +62,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 								if ( parameterExpression != string.Empty )
 									parameterExpression += string.Format ( " + {0} ,{0}", quote );
 
-								if ( parameter.Default == string.Empty )
-									parameterExpression += string.Format ( " + {0}{1}: {0} + {0}\\{0}{0} + {2} + {0}\\{0}{0}", quote, parameter.Name, JQuery.Create ( parameter.Value ).Val ( ).Code );
-								else
-									parameterExpression += string.Format ( " + {0}{1}: {0} + {0}\\{0}{0} + (null == {2} || {2} == '' ? {3} : {2}) + {0}\\{0}{0}", quote, parameter.Name, JQuery.Create ( parameter.Value ).Val ( ).Code, parameter.Default );
-
+								parameterExpression += string.Format ( " + {0}{1}: {0} + jQuery.panzer.encodeValue({2}, {3}, {0}{4}{0}, {5})", quote, parameter.Name, JQuery.Create ( parameter.Value ).Val ( ).Code, parameter.Default, parameter.DataType.ToString ( ).ToLower ( ), parameter.Provider );
 							}
 							else
-								if ( parameter.Default == string.Empty )
-									parameterExpression += string.Format ( " {0}: {1},", parameter.Name, JQuery.Create ( parameter.Value ).Val ( ).Code );
-								else
-									parameterExpression += string.Format ( " {0}: (null == {1} || {1} == '' ? {2} : {1}),", parameter.Name, JQuery.Create ( parameter.Value ).Val ( ).Code, parameter.Default );
+								parameterExpression += string.Format ( " {1}: jQuery.panzer.convert({2}, {3}, {0}{4}{0}, {5}),", quote, parameter.Name, JQuery.Create ( parameter.Value ).Val ( ).Code, parameter.Default, parameter.DataType.ToString ( ).ToLower ( ), parameter.Provider );
 
 							break;
 
@@ -83,17 +77,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 								if ( parameterExpression != string.Empty )
 									parameterExpression += string.Format ( " + {0} ,{0}", quote );
 
-								if ( parameter.Default == string.Empty )
-									parameterExpression += string.Format ( " + {0}{1}: {0} + {0}\\{0}{0} + {2} + {0}\\{0}{0}", quote, parameter.Name, parameter.Value );
-								else
-									parameterExpression += string.Format ( " + {0}{1}: {0} + {0}\\{0}{0} + (null == {2} || {2} == '' ? {3} : {2}) + {0}\\{0}{0}", quote, parameter.Name, parameter.Value, parameter.Default );
-
+								parameterExpression += string.Format ( " + {0}{1}: {0} + jQuery.panzer.encodeValue({2}, {3}, {0}{4}{0}, {5})", quote, parameter.Name, parameter.Value, parameter.Default, parameter.DataType.ToString ( ).ToLower ( ), parameter.Provider );
 							}
 							else
-								if ( parameter.Default == string.Empty )
-									parameterExpression += string.Format ( " {0}: {1},", parameter.Name, parameter.Value );
-								else
-									parameterExpression += string.Format ( " {0}: (null == {1} || {1} == '' ? {2} : {1}),", parameter.Name, parameter.Value, parameter.Default );
+								parameterExpression += string.Format ( " {1}: jQuery.panzer.convert({2}, {3}, {0}{4}{0}, {5}),", quote, parameter.Name, parameter.Value, parameter.Default, parameter.DataType.ToString ( ).ToLower ( ), parameter.Provider );
 
 							break;
 					}
@@ -323,13 +310,14 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <returns>更新后的 JQueryUI.</returns>
 		public JQueryUI Plusin ( PlusinSetting setting )
 		{
+			// 这个方法引用了命名空间 plusin 里面的类, 可以新建一个 JQueryUIPlusin 类, 再将 Plusin 放到 JQueryUIPlusin 中.
 
 			if ( null == setting || setting.PlusinType == PlusinType.custom )
 				return this;
 
 			setting.Recombine ( );
 
-			return this.Execute ( setting.PlusinType.ToString ( ), makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
+			return this.Execute ( "__" + setting.PlusinType.ToString ( ), makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
 		}
 
 		/// <summary>
