@@ -90,6 +90,7 @@
     <Compile Include=".class\ui\jqueryui\Datepicker.cs" />
     <Compile Include=".class\ui\jqueryui\Autocomplete.cs" />
     <Compile Include=".class\ui\jqueryui\Timer.cs" />
+    <Compile Include=".class\ui\jqueryui\Validator.cs" />
     <Compile Include=".class\ui\UILoader.cs" />
     <Compile Include=".class\ui\WindowCore.cs" />
     <Compile Include=".class\web\EMail.cs" />
@@ -107,6 +108,7 @@
     <Compile Include=".class\web\jqueryui\DatepickerSetting.cs" />
     <Compile Include=".class\web\jqueryui\DialogSetting.cs" />
     <Compile Include=".class\web\jqueryui\InteractionSetting.cs" />
+    <Compile Include=".class\web\jqueryui\ValidatorSetting.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -169,6 +171,7 @@
     <None Include="part\JQueryElement\Resources\repeater.min.js" />
     <None Include="part\JQueryElement\Resources\timer.min.js" />
     <None Include="part\JQueryElement\Resources\panzer.min.js" />
+    <None Include="part\JQueryElement\Resources\validator.min.js" />
     <Content Include="read.me.txt" />
   </ItemGroup>
   <ItemGroup>
