@@ -59,6 +59,7 @@
       * [JQueryElementSelectableDoc 选中效果示例]
       * [JQueryElementSortableDoc 排列效果示例]
       * [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
+      * [AjaxDataType Ajax 与服务器的数据类型转换]
       * [JEIntelliSense 配置 Visual Studio 的 JQueryElement 智能提示]
   * [Member 项目成员]
   * [SideBar wiki 地图]
@@ -85,4 +86,5 @@
       * [http://www.tudou.com/programs/view/uVx2BBMHgOQ/ jquery repeater 模仿 Google 展开页面预览子视图]
       * [http://www.tudou.com/programs/view/5KYgMnAdG6A/ jquery repeater 完成 QQ 邮箱邮件分组显示功能]
       * [http://www.tudou.com/programs/view/jiuV1nkeWNo/ 在 jquery repeater 中添加设置子控件]
+      * [http://www.tudou.com/programs/view/dlC1WPtjXEE/ Ajax 与 WebService 之间日期等数据类型的转换]
 </font>
