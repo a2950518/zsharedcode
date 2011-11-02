@@ -36,14 +36,16 @@ public string StringToString ( string value )
 
  下面是使用 JQueryElement 的 Button 控件来调用 WebService 的代码:
 {{{
-<je:Button ID="cmdString3" runat="server" Label="传递布尔值 false 到 string StringToString(string)">
+<je:Button ID="cmdString3" runat="server"
+	Label="传递布尔值 false 到 string StringToString(string)">
 	<ClickAsync Url="webservice.asmx" MethodName="StringToString" Success="
 	function(data){
 		alert(data);
 	}
 	">
 		<ParameterList>
-			<je:Parameter Name="value" Type="Expression" Value="true" DataType="Boolean" />
+			<je:Parameter Name="value" Type="Expression" Value="true"
+				DataType="Boolean" />
 		</ParameterList>
 	</ClickAsync>
 </je:Button>
@@ -58,14 +60,16 @@ public string StringToString ( string value )
  在 JQueryElement 中, 可以使用 Parameter 来在客户端转化数据类型. 比如: 通过 jQuery 的 val 方法, 可以获取到文本框的值, 这个值是一个字符串, 使用 DataType 来选择需要转化为的类型.
 {{{
 <input type="text" id="txtInt1" />
-<je:Button ID="cmdInt1" runat="server" Label="传递数值到 string IntToString(int)">
+<je:Button ID="cmdInt1" runat="server"
+	Label="传递数值到 string IntToString(int)">
 	<ClickAsync Url="webservice.asmx" MethodName="IntToString" Success="
 	function(data){
 		$('#lblInt1').text('返回 ' + data + ', 类型为: ' + typeof data);
 	}
 	">
 		<ParameterList>
-			<je:Parameter Name="value" Type="Selector" Value="'#txtInt1'" DataType="Number" />
+			<je:Parameter Name="value" Type="Selector" Value="'#txtInt1'"
+				DataType="Number" />
 		</ParameterList>
 	</ClickAsync>
 </je:Button>
@@ -77,7 +81,8 @@ public string StringToString ( string value )
  如果, ASP.NET 在转换数据时发生错误, 那么将向客户端返回一个错误, 可以通过 Async 的 Error 来处理:
 {{{
 <input type="text" id="txtInt1" />
-<je:Button ID="cmdInt1" runat="server" Label="传递字符串到 string IntToString(int)">
+<je:Button ID="cmdInt1" runat="server"
+	Label="传递字符串到 string IntToString(int)">
 	<ClickAsync Url="webservice.asmx" MethodName="IntToString" Success="
 	function(data){
 		$('#lblInt1').text('返回 ' + data + ', 类型为: ' + typeof data);
@@ -88,7 +93,8 @@ public string StringToString ( string value )
 	}
 	">
 		<ParameterList>
-			<je:Parameter Name="value" Type="Selector" Value="'#txtInt1'" DataType="String" />
+			<je:Parameter Name="value" Type="Selector" Value="'#txtInt1'"
+				DataType="String" />
 		</ParameterList>
 	</ClickAsync>
 </je:Button>
@@ -112,14 +118,16 @@ public string DateToString ( DateTime value )
 	return string.Format ( "{0}", value );
 }
 
-<je:Button ID="cmdDate2" runat="server" Label="传递日期到 string DateToString(DateTime)">
+<je:Button ID="cmdDate2" runat="server"
+	Label="传递日期到 string DateToString(DateTime)">
 	<ClickAsync Url="webservice.asmx" MethodName="DateToString" Success="
 	function(data){
 		alert(data);
 	}
 	">
 		<ParameterList>
-			<je:Parameter Name="value" Type="Expression" Value="new Date()" DataType="Date" />
+			<je:Parameter Name="value" Type="Expression" Value="new Date()"
+				DataType="Date" />
 		</ParameterList>
 	</ClickAsync>
 </je:Button>
