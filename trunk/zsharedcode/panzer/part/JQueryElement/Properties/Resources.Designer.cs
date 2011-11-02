@@ -61,7 +61,7 @@ namespace zoyobar.shared.panzer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 (function(d){d.panzer={check:function(b,a,c){var e;if(null!=a)if(null!=c&amp;&amp;c&amp;&amp;null!=a.readonly&amp;&amp;a.readonly)e=d.panzer.getTip.call(this,a,&quot;readonly&quot;,(null==a.name?&quot;argument&quot;:a.name)+&quot; is read-only&quot;);else if(null==b){if(null!=a.need&amp;&amp;a.need)null==a.defaultvalue?e=d.panzer.getTip.call(this,a,&quot;need&quot;,(null==a.name?&quot;argument&quot;:a.name)+&quot; can not be empty&quot;):b=a.defaultvalue}else if(null!=a.type&amp;&amp;a.type!=&quot;date&quot;&amp;&amp;typeof b!=a.type)null==a.defaultvalue?e=d.panzer.getTip.call(this,a,&quot;type&quot;,(null==a.name?&quot;argument&quot;:
+        ///   查找类似 (function(e){e.panzer={check:function(b,a,c){var d;if(null!=a)if(null!=c&amp;&amp;c&amp;&amp;null!=a.readonly&amp;&amp;a.readonly)d=e.panzer.getTip.call(this,a,&quot;readonly&quot;,(null==a.name?&quot;argument&quot;:a.name)+&quot; is read-only&quot;);else if(null==b){if(null!=a.need&amp;&amp;a.need)null==a.defaultvalue?d=e.panzer.getTip.call(this,a,&quot;need&quot;,(null==a.name?&quot;argument&quot;:a.name)+&quot; can not be empty&quot;):b=a.defaultvalue}else if(null!=a.type&amp;&amp;a.type!=&quot;date&quot;&amp;&amp;typeof b!=a.type)null==a.defaultvalue?d=e.panzer.getTip.call(this,a,&quot;type&quot;,(null==a.name?&quot;argument&quot;:
         ///a.name [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string panzer_min {
