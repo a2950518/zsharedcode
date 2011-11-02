@@ -1,0 +1,135 @@
+﻿#summary Ajax And Server Data Type Conversions
+<font face="microsoft yahei">
+=== Introduction/Catalog ===
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], the directory /ajaxdatatype/Default.aspx.
+
+ Video demo: [http://www.tudou.com/programs/view/dlC1WPtjXEE/ www.tudou.com/programs/view/dlC1WPtjXEE/]
+ 
+ This article explains when calling a WebService using Ajax, client-side and server-side data type conversions: 
+
+  * Prepare
+  * How The WebService Is Transforming Data
+  * Transforming Data By Parameter In Client
+  * Data Type Conversion Fails
+  * Date
+
+=== Prepare ===
+ Please view the prepare section at [AjaxReturnJSON Return JSON In Different .NET Version]. The code in this article can be runs under .NET 2.0, different versions may need a little change.
+
+=== How The WebService Is Transforming Data ===
+ In ASP.NET, , if the type of the parameters passed from the client is different from the required parameter of the WebService, the server-side turn attempt to reassign the parameter to the required type.
+
+ If, in the WebService has a method named StringToString: 
+{{{
+[WebMethod]
+[ScriptMethod]
+public string StringToString ( string value )
+{
+	this.Context.Response.Cache.SetNoStore ( );
+
+	return string.Format ( "{0}", value );
+}
+}}}
+ StringToString method has a parameter value of string, if the client passes a numeric or a boolean value, server-side will automatically be convert it to string.
+
+ Here is code calling WebService using a JQueryElement Button control: 
+{{{
+<je:Button ID="cmdString3" runat="server"
+	Label="pass false to string StringToString(string)">
+	<ClickAsync Url="webservice.asmx" MethodName="StringToString" Success="
+	function(data){
+		alert(data);
+	}
+	">
+		<ParameterList>
+			<je:Parameter Name="value" Type="Expression" Value="true"
+				DataType="Boolean" />
+		</ParameterList>
+	</ClickAsync>
+</je:Button>
+}}}
+ Set click event's Ajax actions of a button by ClickAsync, in the Parameter, set the DataType to Boolean explicitly pass a Boolean value to the server, the Expression represents the Value property is a javascript expression.
+
+ The code above, pass a Boolean value true to the method StringToString and StringToString need a string, so True will automatically be converted to a string, the final results will pop up True.
+
+ ASP .NET can convert numerical, boolean value to a string. Can convert the string into a numeric type to a number, such as "123" into 123. The string "true" or "false" into Boolean values. A empty string or a form similar to the "2011-1-1" string into a date type.
+
+=== Transforming Data By Parameter In Client ===
+ JQueryElement, you can use the Parameter to convert data types in the client. For example, by val method of jQuery, you can get to the value of the text box, the value is a string, but you can use the DataType property to convert it to different types.
+{{{
+<input type="text" id="txtInt1" />
+<je:Button ID="cmdInt1" runat="server"
+	Label="pass a number to string IntToString(int)">
+	<ClickAsync Url="webservice.asmx" MethodName="IntToString" Success="
+	function(data){
+		$('#lblInt1').text('result ' + data + ', type: ' + typeof data);
+	}
+	">
+		<ParameterList>
+			<je:Parameter Name="value" Type="Selector" Value="'#txtInt1'"
+				DataType="Number" />
+		</ParameterList>
+	</ClickAsync>
+</je:Button>
+<p id="lblInt1"></p>
+}}}
+ In the code, set the DataType property as Number, then prior to the request, translates the content of value in the text box txtInt1. 
+ 
+=== Data Type Conversion Fails ===
+ In ASP.NET, if data conversion error occurred, then an error is returned to the client, you can use Async's property Error to handle:
+{{{
+<input type="text" id="txtInt1" />
+<je:Button ID="cmdInt1" runat="server"
+	Label="pass a string to string IntToString(int)">
+	<ClickAsync Url="webservice.asmx" MethodName="IntToString" Success="
+	function(data){
+		$('#lblInt1').text('result ' + data + ', type: ' + typeof data);
+	}
+	" Error="
+	function(data){
+		alert(data.responseText);
+	}
+	">
+		<ParameterList>
+			<je:Parameter Name="value" Type="Selector" Value="'#txtInt1'"
+				DataType="String" />
+		</ParameterList>
+	</ClickAsync>
+</je:Button>
+<p id="lblInt1"></p>
+}}}
+ In the code, the string in the text box is passed to the IntToString method, so it'll error when the input is similar to "ABC", you can use data.responseText to get the error message returned from the serverthe in Error property.
+
+ If using the DataType property of Parameter to convert data types, when the conversion fails, it'll use the default values instead. Default Boolean value is true, the number default value is 0, the date defaults to the current time.
+ 
+=== Date ===
+ Date returned from the server type defaults to *`"\/Date(xxxxxxxxxx)\/"`* form, it is a string, you can use `jQuery.panzer.formatDate` method to format the date, or use `jQuery.panzer.convertToDate` convert *`"\/Date(xxxxxxxxxx)\/"`* into date type.
+
+ If the date is sent from the client to the server, you can send a string can represent a date, such as: 
+{{{
+[WebMethod]
+[ScriptMethod]
+public string DateToString ( DateTime value )
+{
+	this.Context.Response.Cache.SetNoStore ( );
+
+	return string.Format ( "{0}", value );
+}
+
+<je:Button ID="cmdDate2" runat="server"
+	Label="pass date string DateToString(DateTime)">
+	<ClickAsync Url="webservice.asmx" MethodName="DateToString" Success="
+	function(data){
+		alert(data);
+	}
+	">
+		<ParameterList>
+			<je:Parameter Name="value" Type="Expression" Value="new Date()"
+				DataType="Date" />
+		</ParameterList>
+	</ClickAsync>
+</je:Button>
+}}}
+ Through the Parameter setup, turn the date to current date string that can be recognized by the server-side
+
+</font>
