@@ -5,7 +5,7 @@
 === 简介/目录 ===
  示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /ajaxdatatype/Default.aspx.
 
- 视频演示: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+ 视频演示: [http://www.tudou.com/programs/view/dlC1WPtjXEE/ www.tudou.com/programs/view/dlC1WPtjXEE/]
  
  本文将说明在使用 Ajax 调用 WebService 时, 客户端和服务器端的数据类型转换:
 
