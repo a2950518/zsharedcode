@@ -5,7 +5,7 @@
 
  Video demo: [http://www.tudou.com/programs/view/rHCYHX9cmcI/ www.tudou.com/programs/view/rHCYHX9cmcI/]
  
- This article explains how to use a generic handler ashx and WebService to return JSON to the javascript :
+ This article explains how to use a generic handler ashx and WebService to return JSON to the javascript:
 
   * Prepare
   * Generic Handler/ashx
