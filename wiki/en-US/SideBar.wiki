@@ -37,7 +37,7 @@
         * [IEBrowserDocSDZ 登录 DZ 发贴]
       * [IEBrowserDocButtonClick 按钮点击示例]
     * [JQueryElementDoc JQueryElement 说明&参考]
-      * [JQueryElementRepeaterDoc Repeater 示例]
+      * [JQueryElementRepeaterDoc Repeater Reference]
         * [JERepeaterBindField Repeater 绑定/处理字段]
         * [JERepeaterSubView Repeater 子视图]
         * [JERepeaterGroup Repeater 数据分组]
