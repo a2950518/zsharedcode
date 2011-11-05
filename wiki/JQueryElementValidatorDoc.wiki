@@ -112,7 +112,10 @@
 {{{
 function refresh(value, tip, valid) {
 
-	if (vEmail.__validator('option', 'valid') && vPassword.__validator('option', 'valid') && vNickname.__validator('option', 'valid') && vAge.__validator('option', 'valid'))
+	if (vEmail.__validator('option', 'valid') &&
+		vPassword.__validator('option', 'valid') &&
+		vNickname.__validator('option', 'valid') &&
+		vAge.__validator('option', 'valid'))
 		cmdRegister.button('enable');
 	else
 		cmdRegister.button('disable');
@@ -132,10 +135,14 @@ function refresh(value, tip, valid) {
 		}
 		">
 		<ParameterList>
-			<je:Parameter Name="email" Type="Expression" Value="vEmail.__validator('option', 'value')" />
-			<je:Parameter Name="password" Type="Expression" Value="vPassword.__validator('option', 'value')" />
-			<je:Parameter Name="nickname" Type="Expression" Value="vNickname.__validator('option', 'value')" />
-			<je:Parameter Name="age" Type="Expression" Value="vAge.__validator('option', 'value')" />
+			<je:Parameter Name="email" Type="Expression"
+				Value="vEmail.__validator('option', 'value')" />
+			<je:Parameter Name="password" Type="Expression"
+				Value="vPassword.__validator('option', 'value')" />
+			<je:Parameter Name="nickname" Type="Expression"
+				Value="vNickname.__validator('option', 'value')" />
+			<je:Parameter Name="age" Type="Expression"
+				Value="vAge.__validator('option', 'value')" />
 		</ParameterList>
 	</ClickAsync>
 </je:Button>
@@ -177,7 +184,8 @@ public SortedDictionary<string, object> CheckNickname ( string value )
 
 	SortedDictionary<string, object> values = new SortedDictionary<string, object> ( );
 	values.Add ( "value", value );
-	values.Add ( "tip", value == "abc" ? "<font color=\"red\">abc 这个昵称已经被注册了, 请换一个吧</font>" : null );
+	values.Add ( "tip", value == "abc" ?
+		"<font color=\"red\">abc 这个昵称已经被注册了, 请换一个吧</font>" : null );
 	values.Add ( "valid", value != "abc" );
 
 	return values;
