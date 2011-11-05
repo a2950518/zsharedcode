@@ -61,7 +61,7 @@ namespace zoyobar.shared.panzer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 (function(e){e.panzer={check:function(b,a,c){var d;if(null!=a)if(null!=c&amp;&amp;c&amp;&amp;null!=a.readonly&amp;&amp;a.readonly)d=e.panzer.getTip.call(this,a,&quot;readonly&quot;,(null==a.name?&quot;argument&quot;:a.name)+&quot; is read-only&quot;);else if(null==b){if(null!=a.need&amp;&amp;a.need)null==a.defaultvalue?d=e.panzer.getTip.call(this,a,&quot;need&quot;,(null==a.name?&quot;argument&quot;:a.name)+&quot; can not be empty&quot;):b=a.defaultvalue}else if(null!=a.type&amp;&amp;a.type!=&quot;date&quot;&amp;&amp;typeof b!=a.type)null==a.defaultvalue?d=e.panzer.getTip.call(this,a,&quot;type&quot;,(null==a.name?&quot;argument&quot;:
+        ///   查找类似 (function(c){c.panzer={check:function(b,a,e){var d;if(null!=a)if(null!=e&amp;&amp;e&amp;&amp;null!=a.readonly&amp;&amp;a.readonly)d=c.panzer.getTip.call(this,a,&quot;readonly&quot;,(null==a.name?&quot;argument&quot;:a.name)+&quot; is read-only&quot;);else if(null==b){if(null!=a.need&amp;&amp;a.need)null==a.defaultvalue?d=c.panzer.getTip.call(this,a,&quot;need&quot;,(null==a.name?&quot;argument&quot;:a.name)+&quot; can not be empty&quot;):b=a.defaultvalue}else if(null!=a.type&amp;&amp;a.type!=&quot;date&quot;&amp;&amp;typeof b!=a.type)null==a.defaultvalue?d=c.panzer.getTip.call(this,a,&quot;type&quot;,(null==a.name?&quot;argument&quot;:
         ///a.name [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string panzer_min {
@@ -91,8 +91,8 @@ namespace zoyobar.shared.panzer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 (function(c){function g(b){var a=b.option,e=c(a.target);if(e.length!=0){var d=a.mask,e=e.val(),d=null!=d.need&amp;&amp;d.need&amp;&amp;e==&quot;&quot;?{value:&quot;&quot;,tip:d.tip.need,success:!1}:c.panzer.check.call(this,c.panzer.convert.call(this,e,d.type,d.provider),d,!1);d.success?null==a.check?f.call(this,b,d.value,d.tip,!0):a.check.call(this,b,{value:e,callback:f}):f.call(this,b,d.value,d.tip,!1)}}function f(b,a,e,d){var c=b.option;c.valid=d;null==e?this.empty():this.html(e);null!=c.checked&amp;&amp;c.checked.call(this,b,{value:a,tip:e,
-        ///valid: [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 (function(f){function g(d){var a=d.option,b=f(a.target);if(b.length!=0){var e=a.mask,c=b.attr(&quot;type&quot;);c==&quot;checkbox&quot;||c==&quot;radio&quot;?(c=b.attr(&quot;checked&quot;),null==c?c=!1:c==&quot;checked&quot;&amp;&amp;(c=!0)):c=b.val();null!=e.need&amp;&amp;e.need&amp;&amp;typeof c==&quot;string&quot;&amp;&amp;c==&quot;&quot;?b={value:&quot;&quot;,tip:null==e.tip.need?(null==e.name?&quot;argument&quot;:e.name)+&quot; should not be empty&quot;:e.tip.need,success:!1}:(b=f.panzer.check.call(this,f.panzer.convert.call(this,c,e.defaultvalue,e.type,e.provider),e,!1),b.success&amp;&amp;null!=a.equal&amp;&amp;f(a.equal).length!=0&amp;&amp;c!=
+        ///f(a.equal [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string validator_min {
             get {
