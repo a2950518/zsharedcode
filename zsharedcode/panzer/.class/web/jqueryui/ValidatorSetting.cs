@@ -32,6 +32,24 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 		}
 
 		/// <summary>
+		/// 获取或设置等于目标的选择器, 默认为空字符串.
+		/// </summary>
+		public string Equal
+		{
+			get { return this.settingHelper.GetOptionValueToString ( OptionType.equal, string.Empty ); }
+			set { this.settingHelper.SetOptionValueToString ( OptionType.equal, value, string.Empty ); }
+		}
+
+		/// <summary>
+		/// 获取或设置两个值不相等时的提示, 默认为空字符串.
+		/// </summary>
+		public string EqualTip
+		{
+			get { return this.settingHelper.GetOptionValueToString ( OptionType.equaltip, string.Empty ); }
+			set { this.settingHelper.SetOptionValueToString ( OptionType.equaltip, value, string.Empty ); }
+		}
+
+		/// <summary>
 		/// 获取或设置出发验证的事件, 默认为 "change".
 		/// </summary>
 		public string Event
@@ -128,6 +146,15 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 		{
 			get { return this.settingHelper.GetOptionValueToString ( OptionType.regtip, string.Empty ); }
 			set { this.settingHelper.SetOptionValueToString ( OptionType.regtip, value, string.Empty ); }
+		}
+
+		/// <summary>
+		/// 获取或设置是否显示提示, 默认为 true.
+		/// </summary>
+		public bool ShowTip
+		{
+			get { return this.settingHelper.GetOptionValueToBoolean ( OptionType.showtip, true ); }
+			set { this.settingHelper.SetOptionValueToBoolean ( OptionType.showtip, value, true ); }
 		}
 
 		/// <summary>

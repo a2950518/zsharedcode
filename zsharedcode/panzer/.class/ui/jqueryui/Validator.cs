@@ -38,6 +38,32 @@ namespace zoyobar.shared.panzer.ui.jqueryui.plusin
 		}
 
 		/// <summary>
+		/// 获取或设置等于目标的选择器, 默认为空字符串.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( "" )]
+		[Description ( "等于目标的选择器, 默认为空字符串" )]
+		[NotifyParentProperty ( true )]
+		public string Equal
+		{
+			get { return this.uiSetting.Equal; }
+			set { this.uiSetting.Equal = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置两个值不相等时的提示, 默认为空字符串.
+		/// </summary>
+		[Category ( "提示" )]
+		[DefaultValue ( "" )]
+		[Description ( "两个值不相等时的提示, 默认为空字符串" )]
+		[NotifyParentProperty ( true )]
+		public string EqualTip
+		{
+			get { return this.uiSetting.EqualTip; }
+			set { this.uiSetting.EqualTip = value; }
+		}
+
+		/// <summary>
 		/// 获取或设置出发验证的事件, 默认为 "change".
 		/// </summary>
 		[Category ( "行为" )]
@@ -178,6 +204,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui.plusin
 		{
 			get { return this.uiSetting.RegTip; }
 			set { this.uiSetting.RegTip = value; }
+		}
+
+		/// <summary>
+		/// 获取或设置是否显示提示, 默认为 true.
+		/// </summary>
+		[Category ( "行为" )]
+		[DefaultValue ( true )]
+		[Description ( "是否显示提示, 默认为 true" )]
+		[NotifyParentProperty ( true )]
+		public bool ShowTip
+		{
+			get { return this.uiSetting.ShowTip; }
+			set { this.uiSetting.ShowTip = value; }
 		}
 
 		/// <summary>
