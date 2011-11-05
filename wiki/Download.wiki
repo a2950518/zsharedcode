@@ -4,15 +4,15 @@
 <font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/Download Translate this page]</font>
 
 === JQueryElement.dll ===
- 以下 dll 文件, 为 2011-11-1 上传, 可能没有依照最新的 panzer 代码编译.
+ 以下 dll 文件, 为 2011-11-5 上传, 可能没有依照最新的 panzer 代码编译.
  
  注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
  
  讨论: <font color="#990099">欢迎加入 qq 群: 149829251, JQueryElement 编程</font>, <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/149829251" target="_blank">加入 qq 群</a>.
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.3.6.0.Debug.PARAM.zip JQueryElement 3.6.0 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(PARAM 仅支持在 Visual Studio 2010 中使用)</font>
+ [http://zsharedcode.googlecode.com/files/JQueryElement.3.6.1.Debug.PARAM.zip JQueryElement 3.6.1 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(PARAM 仅支持在 Visual Studio 2010 中使用)</font>
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.3.6.0.Debug.NOPARAM.zip JQueryElement 3.6.0 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(NOPARAM 版本支持所有 Visual Studio 版本)</font>
+ [http://zsharedcode.googlecode.com/files/JQueryElement.3.6.1.Debug.NOPARAM.zip JQueryElement 3.6.1 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(NOPARAM 版本支持所有 Visual Studio 版本)</font>
 
 === IEBrowser.dll ===
  以下 dll 文件, 为 2011-7-4 上传, 可能没有依照最新的 panzer 代码编译.
