@@ -1,0 +1,293 @@
+#summary Validator 完全参考
+<font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?
+
+from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JQueryElementVal
+
+idatorDoc Translate this page]</font>
+
+=== 简介/目录 ===
+ 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar 
+
+JQueryElementDemo.rar], 目录 /validator/Default.aspx.
+
+ 本文将系统讲解 Validator 控件的功能以及使用过程中的注意事项和技巧, 目录如下:
+
+  * 准备
+  * 客户端验证
+    * 必需填写
+    * 字符串长度范围
+    * 数值大小范围
+    * 验证邮箱, 网址, 日期
+  * 获取是否验证成功和转化后的数据
+  * 服务器端验证
+  * 客户端方法
+
+=== 准备 ===
+ 请确保已经在 [Download 下载资源] 中下载 JQueryElement 最新的版本.
+
+ 请使用指令引用如下的命名空间:
+{{{
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui.plusin"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.web.jqueryui"
+	TagPrefix="je" %>
+}}}
+
+ 除了命名空间, 还需要引用 jQueryUI 的脚本和样式, 在 [Download 下载资源] 下载的压
+
+缩包中包含了一个自定义样式的 jQueryUI, 如果需要更多样式, 可以在 
+
+[http://jqueryui.com/download jqueryui.com/download] 下载:
+{{{
+<link type="text/css" rel="stylesheet" href="[样式路径]/jquery-ui-
+
+1.8.15.custom.css" />
+<script type="text/javascript" src="[脚本路径]/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="[脚本路径]/jquery-ui-
+
+1.8.15.custom.min.js"></script>
+<script type="text/javascript" src="[脚本路径]/jquery.ui.datepicker-zh-
+
+CN.js"></script>
+}}}
+
+=== 客户端验证 ===
+ 通过简单的介绍 Validator 的属性, 便可以大致的了解如何进行客户端验证:
+
+ DefaultValue 表示在用户没有输入值时的默认值, 可以设置为字符串, 数值等, 比如: 
+
+'abc', 100.
+
+ Target/Equal 表示目标/匹配目标的选择器, 比如: #pw, #pw2, 不同于 Selector 属性, 
+
+Target 和 Equal 不需要为选择器添加单引号, 如果不设置 Equal 则表示不判断两个目标的
+
+值是否相同.
+
+ Tip 表示在不符合某个规则时的提示信息, SuccessTip 除外, 因为 SuccessTip 表示验证成
+
+功时的信息, 比如: `MaxTip="最大值不能超过 100"`.
+
+ Event 表示出发验证操作的事件, 默认为 change.
+
+ Max/Min 如果数据为字符串, 则表示字符串的最大/最小长度, 如果数据为数值, 则表示数
+
+值的最大/最小值.
+
+ Name 为验证项设置的名称, 一般不设置.
+
+ Need 表示数据是否是必需的, 默认为 false.
+
+ Provider 为一个自定义的格式转换函数.
+
+ Reg 为一个数据必须符合的 javascript 正则表达式, 比如: /^d+$/.
+
+ ShowTip 表示是否显示提示, 默认为 true.
+
+ Type 表示一种数据类型, 可以是 string, number, boolean, date 中的一种, 如果设置为 
+
+string, number, boolean, 则表示数据应该可以被转化为字符串, 数值, 布尔值. 如果需要
+
+判断字符串最小长度大于等于 1, 在设置 `Min="1"` 的同时, 还需要设置 `Type="string"` 
+
+来表示是针对字符串的判断. 设置 Type 为 date 并不能判断数据是否为一个日期, 而是试
+
+图在 Ajax 中将数据转化为日期格式的字符串, 如果需要判断数据是否为日期格式, 请设置 
+
+`Reg="$.panzer.reg.dateISO"`.
+
+ ==== <font color="green">必需填写</font> ====
+ 设置 Need 属性为 true, 即可限制目标不能为空:
+{{{
+<input id="email" type="text" />
+<je:Validator ID="vEmail" runat="server" IsVariable="true"
+	Target="#email" Need="true"
+	NeedTip='<font color="red">请填写您的邮箱地址</font>'
+	>
+</je:Validator>
+}}}
+ 代码中, 设置 Target 为 #email, 表示 Validator 的验证目标是 id 为 email 的文本框. 
+
+Need 设置为 true, 表示用户必须填写邮箱地址. NeedTip 表示在没有填写邮箱地址时的
+
+提示信息, 可以包含 html 代码.
+
+ ==== <font color="green">字符串长度范围</font> ====
+ 通过设置 Max 和 Min 就可以限制字符串的长度, 建议同时设置 `Type="string"`, 因为如
+
+果不设置数据类型和默认值, 那么没有输入值将默认为 '0' 而不是 '':
+{{{
+<input id="password" type="password" />
+<je:Validator ID="vPassword" runat="server" IsVariable="true" 
+
+Target="#password"
+	Min="4" MinTip='<font color="red">密码长度至少 4 位</font>'
+	Max="10" MaxTip='<font color="red">密码长度最多 10 位</font>'>
+</je:Validator>
+}}}
+ 代码中并没有像建议中提到的设置 `Type="string"`, 因为即便默认为 '0', 长度仍然是小于 
+
+4 的.
+
+ ==== <font color="green">数值大小范围</font> ====
+ 和限制字符串类似, 设置 Max 和 Min 同样可以限制数值的大小范围, 同时需要设置 
+
+`Type="number"`:
+{{{
+<input id="age" type="text" />
+<je:Validator ID="vAge" runat="server" IsVariable="true" Target="#age"
+	Type="number" TypeTip='<font color="red">请填写一个数字</font>'
+	Min="10" MinTip="不能小于 10 岁"
+	Max="200" MaxTip="您还活着吗?">
+</je:Validator>
+}}}
+
+ ==== <font color="green">验证邮箱, 网址, 日期</font> ====
+ 使用 Reg 属性可以使验证的功能更大强大, 可以使用在 `$.panzer.reg` 中预设的几个正则
+
+表达式来判断邮箱等格式:
+{{{
+<input id="email" type="text" />
+<je:Validator ID="vEmail" runat="server" IsVariable="true" Target="#email"
+	Reg="$.panzer.reg.email" RegTip='<font color="red">请填写一个正确的
+
+邮箱地址</font>'>
+</je:Validator>
+}}}
+ 除了使用 `$.panzer.reg.email`, 你还可以使用 url 还验证网址, 使用 dateISO 来验证格式
+
+类似于 '2011-1-1' 的字符串.
+
+=== 获取是否验证成功和转化后的数据 ===
+ 使用客户端属性 valid 可以获取某个 Validator 控件对应的目标验证是否通过, 使用 value 
+
+则可以获取目标包含的数据:
+{{{
+function refresh(value, tip, valid) {
+
+	if (vEmail.__validator('option', 'valid') && vPassword.__validator('option', 
+
+'valid') && vNickname.__validator('option', 'valid') && vAge.__validator('option', 
+
+'valid'))
+		cmdRegister.button('enable');
+	else
+		cmdRegister.button('disable');
+
+}
+}}}
+ 代码中的 vEmail 等为 Validator 控件的 ID, 这需要设置 Validator 的 IsVariable 属性为 
+
+true, 访问 *validator* 的 valid 属性, 可以获取到最后一次验证的结果, 如果返回 true, 则
+
+表示验证是成功的.
+
+ javascript 函数 refresh 将设置为每一个 Validator 控件的 Checked 事件, 这样在 
+
+*validator* 验证完目标后会调用 refresh, 来决定是否让注册按钮可用.
+
+ 下面是注册按钮的代码, 点击按钮将调用方法 RegisterWeibo, 而参数的值是通过 
+
+*validator* 的 value 属性来获取的.
+{{{
+<je:Button ID="cmdRegister" runat="server" IsVariable="true" Label="注册" 
+
+Disabled="true">
+	<ClickAsync Url="webservice.asmx" MethodName="RegisterWeibo" 
+
+Success="
+		function(data){
+		alert(data);
+		}
+		">
+		<ParameterList>
+			<je:Parameter Name="email" Type="Expression" 
+
+Value="vEmail.__validator('option', 'value')" />
+			<je:Parameter Name="password" 
+
+Type="Expression" Value="vPassword.__validator('option', 'value')" />
+			<je:Parameter Name="nickname" 
+
+Type="Expression" Value="vNickname.__validator('option', 'value')" />
+			<je:Parameter Name="age" Type="Expression" 
+
+Value="vAge.__validator('option', 'value')" />
+		</ParameterList>
+	</ClickAsync>
+</je:Button>
+}}}
+ 也可以设置 Parameter 的 Type 属性为 Selector, Value 为选择器来获取文本框的值, 并
+
+配合 DataType 来设置传递给服务器的数据类型, 而这里使用 *validator* 的 value 属性也
+
+能达到同样的效果, 因为 value 的类型也就是通过 Validator 的 Type 属性设置的类型. 
+
+=== 服务器端验证 ===
+ 除了可以在客户端, 也可以在服务器端验证内容的合法性, 比如, 在服务器端验证昵称是否
+
+已经被注册:
+{{{
+<input id="nickname" type="text" />
+<je:Validator ID="vNickname" runat="server"
+	Target="#nickname"
+	
+	>
+
+	<CheckAsync Url="webservice.asmx" MethodName="CheckNickname"
+		Success="
+		function(pe, e){
+					
+			if(!e.valid && null != e.tip){
+				pe.jquery.html(e.tip);
+			}
+
+		}
+		">
+	</CheckAsync>
+
+</je:Validator>
+}}}
+ 通过 CheckAsync 可以设置验证时的 Ajax 操作设置, 这里调用了服务器端的 
+
+CheckNickname 方法. 在 Success 属性中设置处理返回结果的 javascript 函数, 参数 e 
+
+包含 value, tip, valid 三个属性, 分别表示验证后的值, 提示信息, 是否验证成功, 参数 pe 
+
+的 jquery 属性表示.
+
+ 下面是服务器端的 CheckNickname 方法:
+{{{
+[WebMethod]
+[ScriptMethod]
+public SortedDictionary<string, object> CheckNickname ( string value )
+{
+	this.Context.Response.Cache.SetNoStore ( );
+
+	SortedDictionary<string, object> values = new SortedDictionary<string, 
+
+object> ( );
+	values.Add ( "value", value );
+	values.Add ( "tip", value == "abc" ? "<font color=\"red\">abc 这个昵称
+
+已经被注册了, 请换一个吧</font>" : null );
+	values.Add ( "valid", value != "abc" );
+
+	return values;
+}
+}}}
+ 对于服务器端验证的方法应该具有名为 value 的参数, 参数的类型可以是 int, string, 
+
+bool 等, 方法应该返回如下格式的 JSON:
+{{{
+{
+	"value": <值>,
+	"tip": <提示>,
+	"valid": <表示是否成功的布尔值, 为 true 或者 false>
+}
+}}}
+
+</font>
