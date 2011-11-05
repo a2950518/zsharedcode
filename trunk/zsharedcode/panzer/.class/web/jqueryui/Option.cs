@@ -1191,6 +1191,18 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 类型不符合时的提示.
 		/// </summary>
 		typetip,
+		/// <summary>
+		/// 显示提示.
+		/// </summary>
+		showtip,
+		/// <summary>
+		/// 等于.
+		/// </summary>
+		equal,
+		/// <summary>
+		/// 等于的提示.
+		/// </summary>
+		equaltip,
 	}
 	#endregion
 
