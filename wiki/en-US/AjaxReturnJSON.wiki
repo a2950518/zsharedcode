@@ -12,10 +12,10 @@
   * WebService/asmx
 
 ===Prepare===
- If you want to use ashx or asmx to return JSON, you *need to reference Assembly System.Web.Extensions.dll*, .NET 3.5, 4 has tacitly contain. For. NET 2, 3, you need to install ASP. NET 2.0 AJAX, you can download it at [http://www.microsoft.com/download/en/details.aspx?displaylang=en&id=883 www.microsoft.com/download/en/details.aspx?displaylang=en&id=883].
+ If you want to use ashx or asmx to return JSON, you *need to reference Assembly System.Web.Extensions.dll*, .NET 3.5, 4 has tacitly contain. For .NET 2, 3, you need to install ASP. NET 2.0 AJAX, you can download it at [http://www.microsoft.com/download/en/details.aspx?displaylang=en&id=883 www.microsoft.com/download/en/details.aspx?displaylang=en&id=883].
 
 === Generic Handler/ashx ===
- Uses generic handler returns JSON are similar in different .NET version, consider the following handler.ashx code:
+ Uses generic handler returns JSON are similar in different .NET version, consider the following code in handler.ashx:
 {{{
 <%@ WebHandler Language="C#" Class="handler" %>
 
@@ -49,7 +49,7 @@ public class handler : IHttpHandler
 
 }
 }}}
- In the example above, through the Serialize method of the JavaScriptSerializer class, corresponding to the object into a JSON string. Converted object is SortedDictionary, generates  `{ "message": "Hi x, 20xx-xx-xx xx:xx:xx" }`. If you need to return an array, you can define the object to convert. Code was also used in `context.Response.Cache.SetNoStore ( );` to make sure that every time the browser requests ashx, and revisit ashx, instead of using the cache.
+ In the example above, through the Serialize method of the class JavaScriptSerializer, will convert a object into a JSON string. Converted object is SortedDictionary, it'll generate `{ "message": "Hi x, 20xx-xx-xx xx:xx:xx" }`. If you need to return an array, you can define a List to convert. You can also use `context.Response.Cache.SetNoStore ( );` to make sure that every time the browser requests ashx and revisit ashx, instead of using the cache.
 
  If you use jQuery, you can use the following method to receive JSON:
 {{{
@@ -215,7 +215,7 @@ public class webservice : System.Web.Services.WebService
 
 }
 }}}
- Add ScriptService attribute to the class to and add ScriptMethod attribute to the method allows javascript to call these methods. Here you don't have to use the JavaScriptSerializer to convert object into a JSON string, but directly return it. In the above code returns a SortedDictionary, in .NET 2 and 3 will be similar to  `{ "message": "Hi x, 20xx-xx-xx xx:xx:xx" }`, and for. NET 3.5, 4 are `{ "d": { "message": "Hi x, 20xx-xx-xx xx:xx:xx" } }`, so you can use the following method in jQuery to accept JSON:
+ Add ScriptService attribute to the class and add ScriptMethod attribute to the method allows javascript to call these methods. Here you don't have to use the JavaScriptSerializer to convert object into a JSON string, but directly return it. In the above code returns a SortedDictionary, the JSON in .NET 2 and 3 will be similar to  `{ "message": "Hi x, 20xx-xx-xx xx:xx:xx" }`, and in .NET 3.5, 4 are `{ "d": { "message": "Hi x, 20xx-xx-xx xx:xx:xx" } }`, so you can use the following method in jQuery to accept JSON:
 {{{
 function(data){
 	alert(data.message);
