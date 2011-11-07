@@ -4,6 +4,8 @@
 
 === 简介/目录 ===
  示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /validator/Default.aspx.
+ 
+ 视频演示: [http://www.tudou.com/programs/view/vz3kFojbU58/ www.tudou.com/programs/view/vz3kFojbU58/]
 
  本文将系统讲解 Validator 控件的功能以及使用过程中的注意事项和技巧, 目录如下:
 
