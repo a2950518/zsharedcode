@@ -2,14 +2,14 @@
 #labels Featured,Phase-Deploy
 <font face="microsoft yahei">
 === How To Download ===
- If you want to develop *panzer* project, you can use [http://ankhsvn.open.collab.net/ AnkhSvn] download code, you can view [http://blog.sina.com.cn/s/blog_604c436d0100o04n.html Using AnkhSvn, Visual Studio 2008 2010 To Share Your Code], by [http://ankhsvn.open.collab.net/ AnkhSvn] http://zsharedcode.googlecode.com/svn/trunk/ open the solution file zsharedcode.sln in the zsharedcode directory.
+ If you want to develop *panzer* project, you can use [http://ankhsvn.open.collab.net/ AnkhSvn] download code, you can view [http://blog.sina.com.cn/s/blog_604c436d0100o04n.html Using AnkhSvn, Visual Studio 2008 2010 To Share Your Code], open the solution file zsharedcode.sln in the zsharedcode directory http://zsharedcode.googlecode.com/svn/trunk/ by [http://ankhsvn.open.collab.net/ AnkhSvn].
 
- If you only need to use the *panzer* feature, please download feature zip compressed package at [Download Downloads]. The present JQueryElement and IEBrowser DLL.
+ If you only need to use the feature of *panzer*, please download zip compressed package at [Download Downloads]. We have released the dll of JQueryElement and IEBrowser.
 
 === Configure The Environment ===
- If you want to develop *panzer* project, it is recommended that used Visual Studio 2010, .NET 4 or higher, if you are using Visual Studio 2008 or earlier versions to open zsharedcode.sln, may cause some problems for the project.
+ If you want to develop *panzer* project, it is recommended that use Visual Studio 2010, .NET 4 or higher, if you open zsharedcode.sln using Visual Studio 2008 or earlier versions, may cause some problems in the project.
 
- If you use only *panzer* dll files, can be used for Visual Studio 2010 and its previous version, you only need to reference a version of the dll file.
+ If you use only dll files of *panzer*, you only need to reference a version of the dll files, they can be used for Visual Studio 2010 and its previous version.
 
 === Related Content ===
  * [PanzerLicense panzer License]

@@ -9,5 +9,5 @@
   Here describes development work of *panzer* project, and how to join, thank you for your support! 
  
  * [PanzerLicense panzer License]
-  Here is *panzer* licenseneeded by a project, you will need the license is included in your product and project.
+  Here is *panzer* license needed by a project, you need include the license in your product and project.
 </font>
