@@ -17,7 +17,6 @@
     * 验证邮箱, 网址, 日期
   * 获取是否验证成功和转化后的数据
   * 服务器端验证
-  * 客户端方法
 
 === 准备 ===
  请确保已经在 [Download 下载资源] 中下载 JQueryElement 最新的版本.
@@ -49,7 +48,7 @@
 
  Tip 表示在不符合某个规则时的提示信息, SuccessTip 除外, 因为 SuccessTip 表示验证成功时的信息, 比如: `MaxTip="最大值不能超过 100"`.
 
- Event 表示出发验证操作的事件, 默认为 change.
+ Event 表示触发验证操作的事件, 默认为 change.
 
  Max/Min 如果数据为字符串, 则表示字符串的最大/最小长度, 如果数据为数值, 则表示数值的最大/最小值.
 
@@ -107,7 +106,7 @@
 	Reg="$.panzer.reg.email" RegTip='<font color="red">请填写一个正确的邮箱地址</font>'>
 </je:Validator>
 }}}
- 除了使用 `$.panzer.reg.email`, 你还可以使用 url 还验证网址, 使用 dateISO 来验证格式类似于 '2011-1-1' 的字符串.
+ 除了使用 `$.panzer.reg.email`, 你还可以使用 url 来验证网址, 使用 dateISO 来验证格式类似于 '2011-1-1' 的字符串.
 
 === 获取是否验证成功和转化后的数据 ===
  使用客户端属性 valid 可以获取某个 Validator 控件对应的目标验证是否通过, 使用 value 则可以获取目标包含的数据:
@@ -174,7 +173,7 @@ function refresh(value, tip, valid) {
 
 </je:Validator>
 }}}
- 通过 CheckAsync 可以设置验证时的 Ajax 操作设置, 这里调用了服务器端的 CheckNickname 方法. 在 Success 属性中设置处理返回结果的 javascript 函数, 参数 e 包含 value, tip, valid 三个属性, 分别表示验证后的值, 提示信息, 是否验证成功, 参数 pe 的 jquery 属性表示.
+ 通过 CheckAsync 可以设置验证时的 Ajax 操作设置, 这里调用了服务器端的 CheckNickname 方法. 在 Success 属性中设置处理返回结果的 javascript 函数, 参数 e 包含 value, tip, valid 三个属性, 分别表示验证后的值, 提示信息, 是否验证成功, 参数 pe 的 jquery 属性表示 *validator* 自身.
 
  下面是服务器端的 CheckNickname 方法:
 {{{
