@@ -121,7 +121,7 @@ function refresh(value, tip, valid) {
 
 }
 }}}
- vEmail is the ID property of Validator in your code, the  IsVariable property of Validator needs to be set to true, access valid property of *validator*, you can get the last verified results, if true, indicates that authentication is successful.
+ vEmail is the ID property of Validator in your code, the IsVariable property of Validator needs to be set to true, access valid property of *validator*, you can get the last verified results, if true, indicates that authentication is successful.
 
  The javascript method refresh is the Checked event for every Validator control, so method refresh will be called after validated, to determine whether or not the register button is available.
  
@@ -171,9 +171,9 @@ function refresh(value, tip, valid) {
 
 </je:Validator>
 }}}
- You can set the Ajax option of validation by CheckAsync, here a server-side method CheckNickname is called. Success property is the javascript method that handle the returned results, the parameter e contains value, tip, valid three properties, value that represents the validation value, valid means whether validation is successful, tip said the message to show, jquery property of PE said *validator* itself.
+ You can set the Ajax option of validation by CheckAsync, here a server-side method CheckNickname is called. Success property is the javascript method that handle the returned results, the parameter e contains value, tip, valid three properties, value that represents the validation value, valid means whether validation is successful, tip said the message to show, jquery property of pe said *validator* itself.
 
- Here is the CheckNickname method on the server-side: 
+ Here is the CheckNickname method on the server-side:
 {{{
 [WebMethod]
 [ScriptMethod]
