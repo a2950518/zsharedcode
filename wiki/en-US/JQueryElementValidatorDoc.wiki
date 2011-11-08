@@ -1,0 +1,202 @@
+﻿#summary Validator Reference
+<font face="microsoft yahei">
+=== Introduction/Catalog ===
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], the directory is /validator/Default.aspx.
+ 
+ Video demo: [http://www.tudou.com/programs/view/vz3kFojbU58/ www.tudou.com/programs/view/vz3kFojbU58/]
+
+ This article explains the function and the use of Validator, the directory is as follows:
+
+  * Prepare
+  * Client Validation
+    * Must Be Filled
+    * String Length Range
+    * Numerical Size Range
+    * Verify Mail Address, Url, Date
+  * Is Validation Successful And Get Converted Data
+  * Server Validation
+
+=== Prepare ===
+ Be sure that you have got the latest version of JQueryElement at [Download Downloads].
+
+ Use the following statements to reference namespace:
+{{{
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui.plusin"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.web.jqueryui"
+	TagPrefix="je" %>
+}}}
+
+ In addition to the namespace, you need to reference the jQueryUI scripts and styles, there is a custom theme for jQueryUI in the compressed file downloaded at [Download Downloads], if you need more themes, you can get them at [http://jqueryui.com/download jqueryui.com/download]:
+{{{
+<link type="text/css" rel="stylesheet" href="[style path]/jquery-ui-1.8.15.custom.css" />
+<script type="text/javascript" src="[script path]/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="[script path]/jquery-ui-1.8.15.custom.min.js"></script>
+<script type="text/javascript" src="[script path]/jquery.ui.datepicker-zh-CN.js"></script>
+}}}
+
+=== Client Validation ===
+ Through a simple introduction to the Validator's property, you can generally understand how to do client-side validation:
+
+ DefaultValue that represents the default value when the user did not enter a value, you can set to a string, numeric, such as: 'abc', 100.
+
+ Target/Equal target/match selector, such as #pw,#pw2, is different from the Selector property, Target and Equal don't need to add single quote, if you do not set Equal property, it'll not determine whether the value of two targets are the same.
+
+ Tip is message to show when it does not match a rule, except for SuccessTip, because SuccessTip is message to show when verification is successful, for example: `MaxTip="maximum values cannot exceed 100"`.
+
+ Event that the event triggered verify operation, default to change.
+
+ Max/Min, if the data is a string, it indicates the minimum and maximum length of the string, if the data is numeric, it means that the maximum/minimum values.
+
+ Name set the name of validation, generally do not set.
+
+ Need indicates whether the data is required, defaults to false.
+
+ Provider is a custom conversion method.
+
+ Reg is a javascript regular expression which data must match, for example: /^d+$/.
+
+ ShowTip said whether the prompt appears, the default is true.
+
+ Type indicates a data type, either as a string, number, boolean, date, if set to a string, number, boolean, indicates that data should be converted into strings, numbers, boolean values. If you want to determine minimum string length greater than or equal to 1, set `Min="1"`, also need to set `Type="string"` to represent the judgment is for the string. Set the Type to date is not able to judge whether the data is a date, but tries to convert data into a date format string in Ajax, if you want to determine whether the data is a date format, set `Reg="$.panzer.reg.dateISO"`.
+
+ ==== <font color="green">Must Be Filled</font> ====
+ Setting Need property is true, you can limit input can not be empty:
+{{{
+<input id="email" type="text" />
+<je:Validator ID="vEmail" runat="server" IsVariable="true"
+	Target="#email" Need="true"
+	NeedTip='<font color="red">Please input your email address</font>'
+	>
+</je:Validator>
+}}}
+ In code, set the Target as the #email, target of Validator will be the text box whose id is email. Need is set to true, indicating that the user email address is required. NeedTip is message to show when mail address is not complete, you can include html code.
+
+ ==== <font color="green">String Length Range</font> ====
+ By setting the Max and Min can limit the length of the string, proposals also set `Type="string"`, because if you do not set the data type and default value, then do not enter a value will default to '0' instead of '':
+{{{
+<input id="password" type="password" />
+<je:Validator ID="vPassword" runat="server" IsVariable="true" Target="#password"
+	Min="4" MinTip='<font color="red">Password length can not be less than 4</font>'
+	Max="10" MaxTip='<font color="red">Password length can not be greater than 10</font>'>
+</je:Validator>
+}}}
+ We did not set `Type="string"` in the code above, because even if the default is '0', the length is still less than 4.
+
+ ==== <font color="green">Numerical Size Range</font> ====
+ By setting the Max and Min can also limit the size of numerical range, at the same time you need to set `Type="number"`:
+{{{
+<input id="age" type="text" />
+<je:Validator ID="vAge" runat="server" IsVariable="true" Target="#age"
+	Type="number" TypeTip='<font color="red">Please input a number</font>'
+	Min="10" MinTip="Age can not be less than 10"
+	Max="200" MaxTip="You still alive?">
+</je:Validator>
+}}}
+
+ ==== <font color="green">Verify Mail Address, Url, Date</font> ====
+ Using the Reg property can make the validation more powerful, you can use some regular expressions in `$.panzer.reg` to determine the mailbox format and so on, such as:
+{{{
+<input id="email" type="text" />
+<je:Validator ID="vEmail" runat="server" IsVariable="true" Target="#email"
+	Reg="$.panzer.reg.email" RegTip='<font color="red">Please input a valid email address</font>'>
+</je:Validator>
+}}}
+ In addition to using `$.panzer.reg.email`, you can also use the url to validate the website url, use dateISO to validate the string format which is similar to '2011-1-1'.
+
+=== Is Validation Successful And Get Converted Data ===
+ Use client property valid to get whether validation is successful, using value you can get the contained data:
+{{{
+function refresh(value, tip, valid) {
+
+	if (vEmail.__validator('option', 'valid') &&
+		vPassword.__validator('option', 'valid') &&
+		vNickname.__validator('option', 'valid') &&
+		vAge.__validator('option', 'valid'))
+		cmdRegister.button('enable');
+	else
+		cmdRegister.button('disable');
+
+}
+}}}
+ vEmail is the ID property of Validator in your code, the  IsVariable property of Validator needs to be set to true, access valid property of *validator*, you can get the last verified results, if true, indicates that authentication is successful.
+
+ The javascript method refresh is the Checked event for every Validator control, so method refresh will be called after validated, to determine whether or not the register button is available.
+ 
+ Here is the code of register button, click on the button will call the method RegisterWeibo, and parameter's value is got by value property of *validator*.
+{{{
+<je:Button ID="cmdRegister" runat="server" IsVariable="true" Label="Register" Disabled="true">
+	<ClickAsync Url="webservice.asmx" MethodName="RegisterWeibo" Success="
+		function(data){
+		alert(data);
+		}
+		">
+		<ParameterList>
+			<je:Parameter Name="email" Type="Expression"
+				Value="vEmail.__validator('option', 'value')" />
+			<je:Parameter Name="password" Type="Expression"
+				Value="vPassword.__validator('option', 'value')" />
+			<je:Parameter Name="nickname" Type="Expression"
+				Value="vNickname.__validator('option', 'value')" />
+			<je:Parameter Name="age" Type="Expression"
+				Value="vAge.__validator('option', 'value')" />
+		</ParameterList>
+	</ClickAsync>
+</je:Button>
+}}}
+ You can also set the Type property of Parameter to Selector, Value to selector to get the value of the text box, and DataType to the data type passed to the server, but uses value property of *validator* can also achieve the same effect, because the value's type is same with the Type property of Validator. 
+
+=== Server Validation ===
+ In addition to the client, or you can verify the legality of the content on the server-side, for example, verify that whether the nickname is already registered on the server-side:
+{{{
+<input id="nickname" type="text" />
+<je:Validator ID="vNickname" runat="server"
+	Target="#nickname"
+	
+	>
+
+	<CheckAsync Url="webservice.asmx" MethodName="CheckNickname"
+		Success="
+		function(pe, e){
+					
+			if(!e.valid && null != e.tip){
+				pe.jquery.html(e.tip);
+			}
+
+		}
+		">
+	</CheckAsync>
+
+</je:Validator>
+}}}
+ You can set the Ajax option of validation by CheckAsync, here a server-side method CheckNickname is called. Success property is the javascript method that handle the returned results, the parameter e contains value, tip, valid three properties, value that represents the validation value, valid means whether validation is successful, tip said the message to show, jquery property of PE said *validator* itself.
+
+ Here is the CheckNickname method on the server-side: 
+{{{
+[WebMethod]
+[ScriptMethod]
+public SortedDictionary<string, object> CheckNickname ( string value )
+{
+	this.Context.Response.Cache.SetNoStore ( );
+
+	SortedDictionary<string, object> values = new SortedDictionary<string, object> ( );
+	values.Add ( "value", value );
+	values.Add ( "tip", value == "abc" ?
+		"<font color=\"red\">abc is registered</font>" : null );
+	values.Add ( "valid", value != "abc" );
+
+	return values;
+}
+}}}
+ Server-side validation method should have a parameter named value, parameter type can be int, string, bool, method should return JSON in the following format:
+{{{
+{
+	"value": <value>,
+	"tip": <tip>,
+	"valid": <successful? true or false>
+}
+}}}
+
+</font>
