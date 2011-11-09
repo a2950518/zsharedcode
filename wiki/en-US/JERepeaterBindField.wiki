@@ -21,7 +21,7 @@
 === Scope ===
  Can bound fields in the ItemTemplate/UpdatedItemTemplate/InsertedItemTemplate/RemovedItemTemplate/EditItemTemplate template.
 
- Fields can be bound as content or attribute of the tag. 
+ Fields can be bound as content or attribute of the tag.
 
 === Simple Bound ===
  You can use *`#{<field name>}`* to bind a field, such as:
@@ -107,7 +107,7 @@
 	// 2011-01-01 08
 
 	$.panzer.formatDate(date,'m分'); // 1
-	$.panzer.formatDate(date,'mm分'); // 01
+	$.panzer.formatDate(date,'mm'); // 01
 	$.panzer.formatDate(date,'yyyy-MM-dd hh:mm');
 	// 2011-01-01 08:01
 
@@ -165,6 +165,6 @@
 	}
 </style>
 }}}
- Rank field in the examples is likely to be 1 to 5, so styles also define rank1 to rank5.
+ rank field in the examples is likely to be 1 to 5, so styles also define rank1 to rank5.
 
 </font>
