@@ -1,0 +1,170 @@
+﻿#summary Repeater Binding/Handling Field
+<font face="microsoft yahei">
+=== Introduction/Catalog ===
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], the directory is /repeater/Default.aspx.
+
+ Video demo: [http://www.tudou.com/programs/view/rwruM87J20s/ www.tudou.com/programs/view/rwruM87J20s/]
+
+ This article will explain in detail how to bind and handle field in the Repeater control, the directory is as follows:
+
+  * Prepare
+  * Scope
+  * Simple Bound
+  * Converting Bound
+  * Format A Date Field
+  * Using jQuery Instead Of $
+  * Set Style According To Field
+
+=== Prepare ===
+ Please view the prepare section at [JQueryElementRepeaterDoc Repeater Reference].
+
+=== Scope ===
+ Can bound fields in the ItemTemplate/UpdatedItemTemplate/InsertedItemTemplate/RemovedItemTemplate/EditItemTemplate template.
+
+ Fields can be bound as content or attribute of the tag. 
+
+=== Simple Bound ===
+ You can use *`#{<field name>}`* to bind a field, such as:
+{{{
+<ItemTemplate>
+
+	<td>
+		#{bookname}
+	</td>
+
+	<td>
+		<strong>Evaluate:</strong> <span class="rank rank#{rank}"></span>
+	</td>
+
+</ItemTemplate>
+}}}
+ In the example above, the field bookname is bound to the contents of tag, the rank field is bound in the tag's class attribute.
+
+=== Converting Bound ===
+ Using *`#{<field name>[,<field expression>]}`* to convert the value in the field, and then outputs, such as:
+{{{
+<ItemTemplate>
+
+		<td>
+			<strong>Discount:</strong>
+			#{discount,Math.floor(# * 100) / 10}
+			#{discount,convertDiscount(#)}
+		</td>
+
+</ItemTemplate>
+}}}
+ In the field expression, use the # to indicate the binding field. discount field in the above code through a javascript expression and a method to convert the value and output, as follows:
+{{{
+<script type="text/javascript">
+	function convertDiscount(discount) {
+		return discount >= 0.7 ? '<strong>Clearance</strong>' : 'Sale';
+	}
+</script>
+}}}
+
+=== Format A Date Field ===
+ Using default format to return JSON, the return value of date field may be similar to  *`"\/Date(xxxxxxxxxx)\/"`*, you can use `jQuery.panzer.formatDate` method to format the date, or use `jQuery.panzer.convertToDate` to format *`"\/Date(xxxxxxxxxx)\/"`* into a date type, such as:
+{{{
+<ItemTemplate>
+
+	<td>
+		<strong>Publication Date:</strong>
+		<span class="publishdate">
+		#{publishdate,jQuery.panzer.formatDate(#,'yyyy-M-d')}
+		</span>
+	</td>
+
+</ItemTemplate>
+}}}
+ The first parameter of method `jQuery.panzer.formatDate` is a Date or a string like *`"\/Date(xxxxxxxxxx)\/"`*. The second parameter is a format string, which is similar to the ToString method of DateTime class in the .NET, for example:
+{{{
+<script type="text/javascript">
+	var date = new Date(2011, 0, 1, 20, 1, 3);
+	// 2011-1-1, 20:01:03
+
+	$.panzer.formatDate(date,'y'); // 1
+	$.panzer.formatDate(date,'yy'); // 11
+	$.panzer.formatDate(date,'yyyy'); // 2011
+
+	$.panzer.formatDate(date,'M'); // 1
+	$.panzer.formatDate(date,'MM'); // 01
+	$.panzer.formatDate(date,'yyyy-MM');
+	// 2011-01
+
+	$.panzer.formatDate(date,'d'); // 1
+	$.panzer.formatDate(date,'dd'); // 01
+	$.panzer.formatDate(date,'yyyy-MM-dd');
+	// 2011-01-01
+
+	$.panzer.formatDate(date,'H'); // 20
+	$.panzer.formatDate(date,'HH'); // 20
+	$.panzer.formatDate(date,'yyyy-MM-dd HH');
+	// 2011-01-01 20
+
+	$.panzer.formatDate(date,'h'); // 8
+	$.panzer.formatDate(date,'hh'); // 08
+	$.panzer.formatDate(date,'yyyy-MM-dd hh');
+	// 2011-01-01 08
+
+	$.panzer.formatDate(date,'m分'); // 1
+	$.panzer.formatDate(date,'mm分'); // 01
+	$.panzer.formatDate(date,'yyyy-MM-dd hh:mm');
+	// 2011-01-01 08:01
+
+	$.panzer.formatDate(date,'s'); // 3
+	$.panzer.formatDate(date,'ss'); // 03
+	$.panzer.formatDate(date,'yyyy-MM-dd hh:mm:ss');
+	// 2011-01-01 08:01:03
+</script>
+}}}
+
+=== Using jQuery Instead Of $ ===
+ In the fields expression, you should use jQuery instead of $, to prevent problems caused by the compressed script.
+
+=== Set Style According To Field ===
+ If you need to display a different style based on the value of the field, can bind fields in the class attribute, such as:
+{{{
+<ItemTemplate>
+
+	<td>
+		<strong>Evaluate:</strong>
+		#{rank}
+		<span class="rank rank#{rank}"></span>
+	</td>
+
+</ItemTemplate>
+}}}
+ At the beginning of the page defines some styles of rank:
+{{{
+<style type="text/css">
+	.rank
+	{
+		background-color: #cc0000;
+		height: 15px;
+		display: inline-block;
+	}
+	.rank1
+	{
+		width: 10px;
+	}
+	.rank2
+	{
+		width: 30px;
+	}
+	.rank3
+	{
+		width: 50px;
+	}
+	.rank4
+	{
+		width: 70px;
+	}
+	.rank5
+	{
+		width: 90px;
+	}
+</style>
+}}}
+ Rank field in the examples is likely to be 1 to 5, so styles also define rank1 to rank5.
+
+</font>
