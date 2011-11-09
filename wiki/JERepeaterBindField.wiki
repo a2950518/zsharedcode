@@ -113,8 +113,8 @@
 	$.panzer.formatDate(date,'yyyy-MM-dd hh:mm');
 	// 2011-01-01 08:01
 
-	$.panzer.formatDate(date,'s时'); // 3秒
-	$.panzer.formatDate(date,'ss时'); // 03秒
+	$.panzer.formatDate(date,'s秒'); // 3秒
+	$.panzer.formatDate(date,'ss秒'); // 03秒
 	$.panzer.formatDate(date,'yyyy-MM-dd hh:mm:ss');
 	// 2011-01-01 08:01:03
 </script>
