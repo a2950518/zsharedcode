@@ -1,6 +1,6 @@
 ﻿#summary 通过 Parameter 对象添加 Ajax 请求时的参数
 <font face="microsoft yahei">
-<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/AjaxReturnJSON Translate this page]</font>
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JEParameter Translate this page]</font>
 
 === 简介/目录 ===
  示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar].
