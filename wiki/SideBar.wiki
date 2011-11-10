@@ -61,6 +61,7 @@
       * [JQueryElementSortableDoc 排列效果示例]
       * [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
       * [AjaxDataType Ajax 与服务器的数据类型转换]
+      * [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数]
       * [JEIntelliSense 配置 Visual Studio 的 JQueryElement 智能提示]
   * [Member 项目成员]
   * [SideBar wiki 地图]

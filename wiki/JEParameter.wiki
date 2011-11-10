@@ -1,0 +1,101 @@
+﻿#summary 通过 Parameter 对象添加 Ajax 请求时的参数
+<font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/AjaxReturnJSON Translate this page]</font>
+
+=== 简介/目录 ===
+ 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /returnjson/Default.aspx.
+
+ 本文将说明 JQueryElement 当中的 Parameter 对象的作用和使用方法:
+
+  * 准备
+  * 语法
+  * 参数名
+  * 参数获取方式
+  * 默认值
+  * 数据类型
+  * 自定义转换函数
+  * 自动添加的参数
+
+===准备===
+ 在此之前, 请确保已经了解 JQueryElement 中一些控件的使用.
+
+=== 语法 ===
+ 通过添加 Parameter, 可以为 Ajax 调用增加参数:
+{{{
+<je:Parameter Name="<参数名>" Type="<参数获取方式>" Value="<参数表达式>" Default="<默认值>" DataType="<数据类型>" Provider="<自定义转换函数>" />
+
+<je:Parameter Name="name" Type="Selector" Value="'#txtAName'" DataType="String" />
+}}}
+ 每一个 Parameter 都需要包含在 ParameterList 中, 而 ParameterList 是所有 Async 对象的属性, 下面在点击的事件中, 增加了一个名为 name 的参数.
+{{{
+<ClickAsync Url="webservice.asmx" MethodName="Save" Success="
+function(data){
+	alert(data.d.message);
+}
+">
+	<ParameterList>
+		<je:Parameter Name="name" Type="Selector" Value="'#txtWName3'" />
+	</ParameterList>
+</ClickAsync>
+}}}
+
+=== 参数名 ===
+ 如果调用 WebService, 则参数名和服务器端的参数名是一致的, 比如:
+{{{
+<je:Button ID="cmdWNet3" runat="server">
+	<ClickAsync Url="webservice.asmx" MethodName="Save">
+		<ParameterList>
+			<je:Parameter Name="name" Type="Selector" Value="'#txtWName3'" />
+		</ParameterList>
+	</ClickAsync>
+</je:Button>
+}}}
+ 代码中 Parameter 的 Name 属性设置的参数名为 name, 因此 Save 方法需要一个名为 name 的参数:
+{{{
+[WebMethod]
+[ScriptMethod]
+public SortedDictionary<string, object> Save ( string name )
+{ }
+}}}
+ 如果使用 ashx 来接收参数, 则使用 `Request['name']` 即可.
+
+=== 参数获取方式 ===
+ 参数获取方式有两种, 一种是 Selector, 这表示 Value 属性是一个选择器, 通过选择器将选择页面上的一个元素, 通常是 input 元素, 将取此元素的值作为参数的值, 另一种是 Expression, 表示 Value 中的是一个 javascript 表达式, javascript 表达式计算的值将作为参数的值:
+{{{
+<je:Parameter Name="name" Type="Selector" Value="'#txtWName3'" />
+
+<je:Parameter Name="value" Type="Expression" Value="123 + 321" DataType="Number" />
+<je:Parameter Name="value" Type="Expression" Value="add(123, 321)" DataType="Number" />
+}}}
+ 代码中的选择器 #txtWName3 使用了单引号, 因为选择器需要是一个字符串, 如果改成 `Value="myselector"`, 则表示将 javascript 变量 myselector 的值作为选择器.
+
+ Value 作为 javascript 表达式, 则形式是多样的, 在代码中, 还调用了 javascript 函数 add.
+
+=== 默认值 ===
+ 通过 Default 属性, 可以设置当参数值为空时的默认值, 是一个 javascript 表达式.
+
+=== 数据类型 ===
+ 可以通过 DataType 转化参数的类型, 比如转化文本框中的字符串为数值类型:
+{{{
+<je:Parameter Name="name" Type="Selector" Value="'#txtAge'" DataType="number" />
+}}}
+ DataType 属性可以设置为 number, boolean, string, date, 其实, 在服务器端 WebService 自身也会进行一些转化, 详细可以参考 [AjaxDataType Ajax 与服务器的数据类型转换].
+
+=== 自定义转换函数 ===
+ 如果设置了 DataType, 则可以另外的设置 Provider 来提供自定义转换函数, 自定义转换函数将在不能正常转换时调用, 比如:
+{{{
+<je:Parameter Name="name" Type="Selector" Value="'#txtAge'" DataType="number" Provider="
+function(value){
+	if(value == '不惑')
+		return 40;
+	else
+		return 18;
+}
+" />
+}}}
+ 上面的代码中, 如果用户输入的年龄为 不惑 则将转化为 40, 否则为 18.
+
+=== 自动添加的参数 ===
+ 在一些控件的事件中, 会自动的添加一些参数, 比如 Repeater 的 FillAsync 中会添加 pageindex, pagesize 来表示页码等信息.
+
+</font>
