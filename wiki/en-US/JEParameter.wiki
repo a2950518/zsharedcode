@@ -1,0 +1,103 @@
+﻿#summary Through Parameter Object Add Ajax Request Parameter
+<font face="microsoft yahei">
+=== Introduction/Catalog ===
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar].
+
+ This article describes the role and use of the Parameter object in JQueryElement:
+
+  * Prepare 
+  * Syntax 
+  * Parameter Name
+  * Way To Get Parameter Value
+  * Default Value
+  * Data Type
+  * Custom Conversion Methods
+  * Automatic Parameter
+
+===Prepare===
+ Until then, be sure to understand the use of control in the JQueryElement.
+
+=== Syntax ===
+ By adding a Parameter, to increase parameters for Ajax calling:
+{{{
+<je:Parameter
+	Name="<parameter mame>" Type="<way to get parameter value>"
+	Value="<parameter expression>" Default="<default value>"
+	DataType="<data type>" Provider="<custom conversion methods>" />
+
+<je:Parameter Name="name" Type="Selector"
+	Value="'#txtAName'" DataType="String" />
+}}}
+ Each Parameter needs to be included in ParameterList, and ParameterList is the property of all the class Async, in the click event below, we add a parameter named name. 
+{{{
+<ClickAsync Url="webservice.asmx" MethodName="Save" Success="
+function(data){
+	alert(data.d.message);
+}
+">
+	<ParameterList>
+		<je:Parameter Name="name" Type="Selector" Value="'#txtWName3'" />
+	</ParameterList>
+</ClickAsync>
+}}}
+
+=== Parameter Name ===
+ If you use the WebService, the Name property of Parameter class and the parameter name of the method on the server side must be consistent, such as:
+{{{
+<je:Button ID="cmdWNet3" runat="server">
+	<ClickAsync Url="webservice.asmx" MethodName="Save">
+		<ParameterList>
+			<je:Parameter Name="name" Type="Selector" Value="'#txtWName3'" />
+		</ParameterList>
+	</ClickAsync>
+</je:Button>
+}}}
+ In the code, we set the Name property of Parameter to name, so the method Save need a parameter named name:
+{{{
+[WebMethod]
+[ScriptMethod]
+public SortedDictionary<string, object> Save ( string name )
+{ }
+}}}
+ If you use ashx to receive parameters, just use Request['name']. 
+
+=== Way To Get Parameter Value ===
+ There are two ways to get parameter value, one is the Selector, which means that the Value property is a selector, use the selector to select an element on the page, usually the input element, take the value of this element as the value of the parameter, then there's the Expression, that Value is a javascript expression, take the value of javascript expression as the value of the parameter:
+{{{
+<je:Parameter Name="name" Type="Selector" Value="'#txtWName3'" />
+
+<je:Parameter Name="value" Type="Expression" Value="123 + 321" DataType="Number" />
+<je:Parameter Name="value" Type="Expression" Value="add(123, 321)" DataType="Number" />
+}}}
+ Selector #txtWName3 uses single quotation marks in the code, because the selector is a string, if you change it to `Value="myselector"`, it means that take the value of javascript variable myselector as the selector.
+
+ Value property as a javascript expression, the form is varied, in code, we also call a javascript method add.
+
+=== Default Value ===
+ By the Default property, you can set a default value when the parameter value is empty, is a JavaScript expression.
+
+=== Data Type ===
+ Through DataType to convert the type of parameter, such as convert strings in the text box to numeric type: 
+{{{
+<je:Parameter Name="name" Type="Selector" Value="'#txtAge'" DataType="number" />
+}}}
+ Property DataType can be set to a number, boolean, string, date, in fact, the WebService itself will also do some transformation on the server side, and detail can refer to [AjaxDataType Ajax And Server Data Type Conversions].
+
+=== Custom Conversion Methods ===
+ If the DataType is set, you can set Provider that provides custom conversion method, the method will be called when normal conversions fail, such as:
+{{{
+<je:Parameter Name="name" Type="Selector" Value="'#txtAge'" DataType="number" Provider="
+function(value){
+	if(value == 'without doubt')
+		return 40;
+	else
+		return 18;
+}
+" />
+}}}
+ In the code above, if the user enters is without doubt, the age will translate to 40, otherwise 18. 
+
+=== Automatic Parameter ===
+ Some events of the control will automatically add some parameters, such as the Repeater's FillAsync will add pageindex, pagesize to represent the page number and other information.
+
+</font>
