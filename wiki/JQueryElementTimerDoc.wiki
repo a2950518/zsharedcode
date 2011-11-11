@@ -140,15 +140,15 @@ function(pe, e){
 			<tfoot>
 				<tr>
 					<td colspan="2">
-						<a href="#" je-onclick="prev">上一页</a>
-						<a href="#" je-onclick="next">下一页</a>,
-						第 @{pageindex}/@{pagecount} 页, 共 @{itemcount} 条,
-						<a href="#" je-onclick="goto,new Number(jQuery('#pageindex').val())">
-						跳转
-						</a>
-						到第
-						<input type="text" id="pageindex" value="@{pageindex}" />
-						页.
+		<a href="#" je-onclick="prev">上一页</a>
+		<a href="#" je-onclick="next">下一页</a>,
+		第 @{pageindex}/@{pagecount} 页, 共 @{itemcount} 条,
+		<a href="#" je-onclick="goto,new Number(jQuery('#pageindex').val())">
+		跳转
+		</a>
+		到第
+		<input type="text" id="pageindex" value="@{pageindex}" />
+		页.
 					</td>
 				</tr>
 			</tfoot>
