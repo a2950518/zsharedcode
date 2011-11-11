@@ -146,7 +146,7 @@ function refresh(value, tip, valid) {
 	</ClickAsync>
 </je:Button>
 }}}
- You can also set the Type property of Parameter to Selector, Value to selector to get the value of the text box, and DataType to the data type passed to the server, but uses value property of *validator* can also achieve the same effect, because the value's type is same with the Type property of Validator. 
+ You can also set the Type property of Parameter to Selector, Value to selector to get the value of the text box, and DataType to the data type passed to the server, but uses value property of *validator* can also achieve the same effect, because the value's type is same with the Type property of Validator, more information about Parameter can refer to [JEParameter Through Parameter Object Add Ajax Request Parameter]. 
 
 === Server Validation ===
  In addition to the client, or you can verify the legality of the content on the server-side, for example, verify that whether the nickname is already registered on the server-side:

@@ -229,7 +229,7 @@
 </FillAsync>
 </je:Repeater>
 }}}
- By adding a Parameter, you can pass additional parameters, Name property is the parameter name, when Type is Expression, then the Value is a javascript expression, `Value="website"` represents the website take javascript variables, of course, you can set to a constant, for example: `Value="'www.google.com'"` or `Value="100"`, when Type is Selector, then the Value is a selector, selector writing can refer to [http://jquery.com jquery.com], the value of the selected element as the parameter value. Default is the default value of the javascript expressions, when the value is null or '', will use the Default values.
+ By adding a Parameter, you can pass additional parameters, Name property is the parameter name, when Type is Expression, then the Value is a javascript expression, `Value="website"` represents the website take javascript variables, of course, you can set to a constant, for example: `Value="'www.google.com'"` or `Value="100"`, when Type is Selector, then the Value is a selector, selector writing can refer to [http://jquery.com jquery.com], the value of the selected element as the parameter value. Default is the default value of the javascript expressions, when the value is null or '', will use the Default values, and detail can refer to [JEParameter Through Parameter Object Add Ajax Request Parameter].
 
  ==== <font color="green">Data Format of Request/Return</font> ====
  About how to return JSON, refer to [AjaxReturnJSON Return JSON In Different .NET Version], all of the following code written in .NET 4.

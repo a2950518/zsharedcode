@@ -231,7 +231,7 @@
 </FillAsync>
 </je:Repeater>
 }}}
- 通过添加 Parameter, 可以传递更多的参数, Name 为参数名, Type 为 Expression 时, 则 Value 中包含的是一个 javascript 表达式, 示例中的 `Value="website"` 表示取 javascript 变量 website 的值, 当然也可以设置为常量, 比如: `Value="'www.google.com'"` 或者 `Value="100"`, 当 Type 为 Selector 时, 则 Value 中的 javascript 表达式将作为选择器, 选择器的写法可以参照 [http://jquery.com jquery.com], 选择器对应的元素的值将作为参数的值. Default 中是默认值的 javascript 表达式, 当参数的值为 null 或者 '' 时, 将采用 Default 中的值.
+ 通过添加 Parameter, 可以传递更多的参数, Name 为参数名, Type 为 Expression 时, 则 Value 中包含的是一个 javascript 表达式, 示例中的 `Value="website"` 表示取 javascript 变量 website 的值, 当然也可以设置为常量, 比如: `Value="'www.google.com'"` 或者 `Value="100"`, 当 Type 为 Selector 时, 则 Value 中的 javascript 表达式将作为选择器, 选择器的写法可以参照 [http://jquery.com jquery.com], 选择器对应的元素的值将作为参数的值. Default 中是默认值的 javascript 表达式, 当参数的值为 null 或者 '' 时, 将采用 Default 中的值, 更多 Parameter 的信息, 请参考 [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数].
 
  ==== <font color="green">请求/返回数据的格式</font> ====
  关于如何返回 JSON, 请参考 [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON], 以下所有代码为在 .NET 4.0 下编写.

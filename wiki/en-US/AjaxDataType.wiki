@@ -48,7 +48,7 @@ public string StringToString ( string value )
 	</ClickAsync>
 </je:Button>
 }}}
- Set click event's Ajax options of a button by ClickAsync, in the Parameter, set the DataType to Boolean explicitly pass a Boolean value to the server, the Expression represents the Value property is a javascript expression.
+ Set click event's Ajax options of a button by ClickAsync, in the Parameter, set the DataType to Boolean explicitly pass a Boolean value to the server, the Expression represents the Value property is a javascript expression, more information about Parameter can refer to [JEParameter Through Parameter Object Add Ajax Request Parameter].
 
  The code above, pass a Boolean value true to the method StringToString and StringToString need a string, so True will automatically be converted to a string, the final results will pop up True.
 

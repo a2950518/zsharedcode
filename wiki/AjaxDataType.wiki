@@ -50,7 +50,7 @@ public string StringToString ( string value )
 	</ClickAsync>
 </je:Button>
 }}}
- 通过 ClickAsync 来设置点击按钮时的 Ajax 操作, 在 Parameter 中, 设置 DataType 为 Boolean 来明确的表示传递给服务器的是一个布尔值, Type 为 Expression 表示 Value 中的是一个 javascript 表达式.
+ 通过 ClickAsync 来设置点击按钮时的 Ajax 操作, 在 Parameter 中, 设置 DataType 为 Boolean 来明确的表示传递给服务器的是一个布尔值, Type 为 Expression 表示 Value 中的是一个 javascript 表达式, 更多 Parameter 的信息, 请参考 [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数].
 
  上面的代码传递布尔值 true 给方法 StringToString, 而 StringToString 需要一个字符串, 因此 ASP.NET 会自动的将 true 转化为字符串, 最后的结果将弹出 True.
 

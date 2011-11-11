@@ -59,7 +59,7 @@ function(data){
 public SortedDictionary<string, object> Save ( string name )
 { }
 }}}
- If you use ashx to receive parameters, just use Request['name']. 
+ If you use ashx to receive parameters, just use Request['name'].
 
 === Way To Get Parameter Value ===
  There are two ways to get parameter value, one is the Selector, which means that the Value property is a selector, use the selector to select an element on the page, usually the input element, take the value of this element as the value of the parameter, then there's the Expression, that Value is a javascript expression, take the value of javascript expression as the value of the parameter:
@@ -74,10 +74,10 @@ public SortedDictionary<string, object> Save ( string name )
  Value property as a javascript expression, the form is varied, in code, we also call a javascript method add.
 
 === Default Value ===
- By the Default property, you can set a default value when the parameter value is empty, is a JavaScript expression.
+ By the Default property, you can set a default value when the parameter value is empty, is a javascript expression.
 
 === Data Type ===
- Through DataType to convert the type of parameter, such as convert strings in the text box to numeric type: 
+ Through DataType to convert the type of parameter, such as convert strings in the text box to numeric type:
 {{{
 <je:Parameter Name="name" Type="Selector" Value="'#txtAge'" DataType="number" />
 }}}
@@ -95,7 +95,7 @@ function(value){
 }
 " />
 }}}
- In the code above, if the user enters is without doubt, the age will translate to 40, otherwise 18. 
+ In the code above, if the user enters is without doubt, the age will translate to 40, otherwise 18.
 
 === Automatic Parameter ===
  Some events of the control will automatically add some parameters, such as the Repeater's FillAsync will add pageindex, pagesize to represent the page number and other information.
