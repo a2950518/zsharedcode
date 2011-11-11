@@ -1,81 +1,184 @@
-﻿#summary JQueryElement 时钟 - 定时从服务器获取时间
+﻿#summary Timer 完全参考
 #labels Phase-Implementation
 <font face="microsoft yahei">
 <font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JQueryElementTimerDoc Translate this page]</font>
 
-=== 简介 ===
- 下面的例子使用时钟控件, 定时的从服务器调用方法并返回数据.
+=== 简介/目录 ===
+ 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /timer/Default.aspx.
 
-==== 设置触发时间间隔 ====
- 通过 Interval 属性表示触发时钟的时间间隔, 以毫秒为单位, 默认为 1000 毫秒.
+ 本文将说明 Timer 控件的功能以及使用过程中的注意事项和技巧, 目录如下:
 
-==== 设置触发事件 ====
- Timer 的 Tick 和 TickAsync 分别可以设置触发事件, Tick 可以设置为一个 javascript 函数, 而 TickAsync 表示事件执行的 Ajax 操作设置, 比如: {{{<TickAjax Url="time.aspx" Success="..."></TickAjax>}}} 表示在时钟触发时, 调用 time.ashx 页面, 并用 Success 属性中的函数处理页面返回的结果.
+   * 准备
+   * 触发间隔
+   * 客户端触发事件
+   * 服务器端触发事件
+   * 启动和停止时钟
+   * 附录: 新邮件提醒示例分析
 
-=== Timer 插件的 javascript 成员 ===
- handler - 时钟的句柄, 示例: {{{<时钟变量>.__timer('option', 'handler');}}}
+==== 触发间隔 ====
+ 可以通过 Interval 属性来设置时钟的触发时间间隔, 以毫秒为单位, 默认为 1000 毫秒.
 
- interval - 触发事件间隔, 示例: {{{<时钟变量>.__timer('option', 'interval'); <时钟变量>.__timer('option', 'interval', 1500);}}}
- 
- tick - 触发执行的 javascript 函数, 示例: {{{<时钟变量>.__timer('option', 'tick', function(tag, e){ });}}}
-
- start - 启用时钟, 示例: {{{<时钟变量>.__timer('start');}}}
-
- stop - 启用时钟, 示例: {{{<时钟变量>.__timer('stop');}}}
-
-=== plusin/timer.aspx ===
+==== 客户端触发事件 ====
+ Timer 的 Tick 属性表示在客户端运行的触发事件:
 {{{
-<%@ Page Language="C#" %>
-<%@ Import Namespace="System.Web" %>
-<%@ Import Namespace="System.Web.Services" %>
+<je:Timer ID="checkTimer" runat="server" Tick="
+function(pe, e){
+	alert('触发次数 ' + e.count.toString());
+}
+">
+</je:Timer>
+}}}
+ 将 Tick 属性设置为如上形式的 javascript 函数, 即可在对应的 javascript 函数中编写触发时执行的代码. 其中, 参数 e 的 count 属性表示 timer 开始计时后第几次触发事件.
 
-<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement" Namespace="zoyobar.shared.panzer.ui.jqueryui"
-	TagPrefix="je" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-	<title>JQuery UI 的 timer</title>
-	<script type="text/javascript" src="../js/jquery-1.6.2.min.js"></script>
-	<script type="text/javascript" src="../js/jquery-ui-1.8.15.custom.min.js"></script>
-	<link type="text/css" rel="Stylesheet" href="../css/smoothness/jquery-ui-1.8.15.custom.css" />
-	<link type="text/css" rel="Stylesheet" href="../css/main.css" />
-	<script type="text/C#" runat="server">
-		[WebMethod()]
-		public static int GetCount ( )
-		{
+==== 服务器端触发事件 ====
+ 设置 TickAsync 属性, 可以调用服务器端的方法, 形式如下:
+{{{
+<je:Timer ID="checkTimer" runat="server">
+	<TickAsync Url="<触发事件地址>" MethodName="<触发事件名称>" Success="<处理结果的 javascript 函数>">
+		<ParameterList>
 
-			if ( null == HttpContext.Current.Application["count"] )
-				HttpContext.Current.Application["count"] = 0;
-			else
-				HttpContext.Current.Application["count"] = ( int ) HttpContext.Current.Application["count"] + 1;
+			<je:Parameter Name="<参数名1>"
+				Type="Expression"
+				Value="<值1>"
+				Default="<默认值1>" />
+			<je:Parameter Name="<参数名2>"
+				Type="Selector"
+				Value="<选择器2>"
+				Default="<默认值2>" />
 
-			return ( int ) HttpContext.Current.Application["count"];
-		}
-	</script>
-</head>
-<body>
-	<form id="formTimer" runat="server">
-	<p id="message"></p>
-	<je:Timer ID="countTimer" runat="server" Interval="1000" IsVariable="true">
-		<TickAsync Url="timer.aspx" MethodName="GetCount" Success="
-		function(data){
-			if(data.d == '')
-				return;
+		</ParameterList>
+	</TickAsync>
+</je:Timer>
 
-			$('#message').html(data.d);
-		}
-		">
-		</TickAsync>
-	</je:Timer>
-	</form>
-</body>
-</html>
+<je:Timer ID="checkTimer" runat="server">
+	<TickAsync Url="webservice.asmx" MethodName="NewEMailCount" Success="
+	function(data){
+
+	}
+	">
+	</TickAsync>
+</je:Timer>
+}}}
+ 其中, 通过 Parameter 可以为 Ajax 调用添加参数, 更多 Parameter 的信息, 请参考 [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数].
+ 
+ 代码中的 Success 为处理服务器返回 JSON 的 javascript 函数, 这里采用的是 .NET 2.0 下的写法, 不同写法请参考 [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON].
+
+==== 启动和停止时钟 ====
+ 在 javascript 中, 调用 *timer* 的 start 和 stop 方法即可启动或者停止时钟, 语法为: `<timer 变量>.__timer('start'); <timer 变量>.__timer('stop');`:
+{{{
 <script type="text/javascript">
 	$(function () {
-		countTimer.__timer('start');
+
+		checkTimer.__timer('start');
+
 	});
 </script>
 }}}
 
- _这里仅列出部分代码, 可能需要您自己创建窗口, 页面等._
+==== 附录: 新邮件提醒示例分析 ====
+ 这一节将说明新邮件提醒这个例子的大概设计思路, 在页面上使用了 Timer 控件来定时从 WebService 获取新邮件的有关信息:
+{{{
+<je:Timer ID="checkTimer" runat="server" IsVariable="true" Interval="5000">
+	<TickAsync Url="webservice.asmx" MethodName="NewEMailCount" Success="
+	function(data){
+		// 如果是 .NET 3.5, 4.0 需要换成 data.d
+		newEMailCount += data;
+
+		if(newEMailCount != 0){
+			$('#newcount').text(newEMailCount.toString());
+			newDialog.dialog('open');
+		}
+
+	}
+	">
+	</TickAsync>
+</je:Timer>
+}}}
+ 方法 NewEMailCount 将返回 5 秒内的新邮件个数, 这个数将累计到 javascript 变量 newEMailCount 中, 如果 newEMailCount 不为 0, 则显示对话框将显示新邮件的个数, 一旦对话框关闭, newEMailCount 将被设置为 0:
+{{{
+<je:Dialog ID="newDialog" runat="server" IsVariable="true" AutoOpen="false" Position="['right', 'bottom']"
+	Html='您有 <strong id="newcount"></strong> 封新邮件' Buttons="{'刷新': function(){ emailRepeater.__repeater('fill'); newDialog.dialog('close'); }}" Close="function(){ newEMailCount = 0; }">
+</je:Dialog>
+}}}
+ 新邮件个数显示在标签 newcount 中, 而在 Dialog 的 Close 属性中, 编写了一个 javascript 函数来设置 newEMailCount 为 0. Dialog 的 Buttons 属性定义了一个刷新按钮, 在按钮的点击事件中调用了 *repeater* 的 fill 方法, 这样可以使邮件列表刷新, 更多 Repeater 的信息可以参考 [JQueryElementRepeaterDoc Repeater 完全参考], 这里就不再解释了, 邮件的列表代码如下:
+{{{
+<table id="list">
+	<je:Repeater ID="emailRepeater" runat="server" IsVariable="true" Selector="'#list'"
+		PageSize="4" FillAsync-Url="webservice.asmx" FillAsync-MethodName="GetEMailList">
+		<HeaderTemplate>
+			<thead>
+				<tr>
+					<td>
+						发信人
+					</td>
+					<td>
+						标题
+					</td>
+					<td>
+						时间
+					</td>
+				</tr>
+			</thead>
+		</HeaderTemplate>
+		<ItemTemplate>
+			<tr>
+				<td class="sender">
+					#{sender}
+				</td>
+				<td class="#{isnew,# ? 'new-mail' : ''}">
+					#{title}
+				</td>
+				<td class="timer">
+					#{time,jQuery.panzer.formatDate(#,'yyyy-M-d')}
+				</td>
+			</tr>
+		</ItemTemplate>
+		<FooterTemplate>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<a href="#" je-onclick="prev">上一页</a>&nbsp;&nbsp;<a href="#" je-onclick="next">下一页</a>,&nbsp;
+						第 @{pageindex}/@{pagecount} 页, 共 @{itemcount} 条, <a href="#" je-onclick="goto,new Number(jQuery('#pageindex').val())">
+							跳转</a> 到第
+						<input type="text" id="pageindex" value="@{pageindex}" />
+						页.
+					</td>
+				</tr>
+			</tfoot>
+		</FooterTemplate>
+	</je:Repeater>
+</table>
+}}}
+ 在页面中, 还添加了发送新邮件的文本框和按钮, 发送按钮将调用服务器端的 SendEMail 方法, 此方法将新邮件保存在 DataTable 中, 并使新邮件的个数加 1, 这样 NewEMailCount 才能返回新的邮件个数:
+{{{
+<strong>发信人:</strong>
+<input type="text" id="eSender" />
+<je:Validator ID="vSender" runat="server" IsVariable="true" Target="#eSender" Need="true"
+	NeedTip='<font color="red">请填写发信人</font>' Reg="$.panzer.reg.email" RegTip='<font color="red">请填写一个正确的邮箱地址</font>'
+	Checked="refreshSendButton">
+</je:Validator>
+<br />
+<br />
+<strong>标题:&nbsp;&nbsp;&nbsp;</strong>
+<input type="text" id="eTitle" />
+<je:Validator ID="vTitle" runat="server" IsVariable="true" Target="#eTitle" Need="true"
+	NeedTip='<font color="red">请填写标题</font>' Checked="refreshSendButton">
+</je:Validator>
+<br />
+<br />
+<je:Button ID="cmdSend" runat="server" IsVariable="true" Label="发送" Disabled="true">
+	<ClickAsync Url="webservice.asmx" MethodName="SendEMail" Success="
+	function(data){
+		alert(data);
+	}
+	">
+		<ParameterList>
+			<je:Parameter Name="sender" Type="Expression" Value="vSender.__validator('option','value')" />
+			<je:Parameter Name="title" Type="Selector" Value="'#eTitle'" />
+		</ParameterList>
+	</ClickAsync>
+</je:Button>
+}}}
+ 代码中, 使用了 Validator 来验证了用户输入的发信人和标题, 这里也不解释了, 可以参考 [JQueryElementValidatorDoc Validator 完全参考].
+
 </font>
