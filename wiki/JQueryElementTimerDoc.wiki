@@ -96,8 +96,11 @@ function(pe, e){
 }}}
  方法 NewEMailCount 将返回 5 秒内的新邮件个数, 这个数将累计到 javascript 变量 newEMailCount 中, 如果 newEMailCount 不为 0, 则显示对话框将显示新邮件的个数, 一旦对话框关闭, newEMailCount 将被设置为 0:
 {{{
-<je:Dialog ID="newDialog" runat="server" IsVariable="true" AutoOpen="false" Position="['right', 'bottom']"
-	Html='您有 <strong id="newcount"></strong> 封新邮件' Buttons="{'刷新': function(){ emailRepeater.__repeater('fill'); newDialog.dialog('close'); }}" Close="function(){ newEMailCount = 0; }">
+<je:Dialog ID="newDialog" runat="server" IsVariable="true"
+	AutoOpen="false" Position="['right', 'bottom']"
+	Html='您有 <strong id="newcount"></strong> 封新邮件'
+	Buttons="{'刷新': function(){ emailRepeater.__repeater('fill'); newDialog.dialog('close'); }}"
+	Close="function(){ newEMailCount = 0; }">
 </je:Dialog>
 }}}
  新邮件个数显示在标签 newcount 中, 而在 Dialog 的 Close 属性中, 编写了一个 javascript 函数来设置 newEMailCount 为 0. Dialog 的 Buttons 属性定义了一个刷新按钮, 在按钮的点击事件中调用了 *repeater* 的 fill 方法, 这样可以使邮件列表刷新, 更多 Repeater 的信息可以参考 [JQueryElementRepeaterDoc Repeater 完全参考], 这里就不再解释了, 邮件的列表代码如下:
@@ -123,13 +126,13 @@ function(pe, e){
 		<ItemTemplate>
 			<tr>
 				<td class="sender">
-					#{sender}
+				#{sender}
 				</td>
 				<td class="#{isnew,# ? 'new-mail' : ''}">
-					#{title}
+				#{title}
 				</td>
 				<td class="timer">
-					#{time,jQuery.panzer.formatDate(#,'yyyy-M-d')}
+				#{time,jQuery.panzer.formatDate(#,'yyyy-M-d')}
 				</td>
 			</tr>
 		</ItemTemplate>
@@ -137,9 +140,13 @@ function(pe, e){
 			<tfoot>
 				<tr>
 					<td colspan="2">
-						<a href="#" je-onclick="prev">上一页</a>&nbsp;&nbsp;<a href="#" je-onclick="next">下一页</a>,&nbsp;
-						第 @{pageindex}/@{pagecount} 页, 共 @{itemcount} 条, <a href="#" je-onclick="goto,new Number(jQuery('#pageindex').val())">
-							跳转</a> 到第
+						<a href="#" je-onclick="prev">上一页</a>
+						<a href="#" je-onclick="next">下一页</a>,
+						第 @{pageindex}/@{pagecount} 页, 共 @{itemcount} 条,
+						<a href="#" je-onclick="goto,new Number(jQuery('#pageindex').val())">
+						跳转
+						</a>
+						到第
 						<input type="text" id="pageindex" value="@{pageindex}" />
 						页.
 					</td>
@@ -153,16 +160,19 @@ function(pe, e){
 {{{
 <strong>发信人:</strong>
 <input type="text" id="eSender" />
-<je:Validator ID="vSender" runat="server" IsVariable="true" Target="#eSender" Need="true"
-	NeedTip='<font color="red">请填写发信人</font>' Reg="$.panzer.reg.email" RegTip='<font color="red">请填写一个正确的邮箱地址</font>'
+<je:Validator ID="vSender" runat="server" IsVariable="true" Target="#eSender"
+	Need="true" NeedTip='<font color="red">请填写发信人</font>'
+	Reg="$.panzer.reg.email"
+	RegTip='<font color="red">请填写一个正确的邮箱地址</font>'
 	Checked="refreshSendButton">
 </je:Validator>
 <br />
 <br />
 <strong>标题:&nbsp;&nbsp;&nbsp;</strong>
 <input type="text" id="eTitle" />
-<je:Validator ID="vTitle" runat="server" IsVariable="true" Target="#eTitle" Need="true"
-	NeedTip='<font color="red">请填写标题</font>' Checked="refreshSendButton">
+<je:Validator ID="vTitle" runat="server" IsVariable="true" Target="#eTitle"
+	Need="true" NeedTip='<font color="red">请填写标题</font>'
+	Checked="refreshSendButton">
 </je:Validator>
 <br />
 <br />
@@ -173,8 +183,10 @@ function(pe, e){
 	}
 	">
 		<ParameterList>
-			<je:Parameter Name="sender" Type="Expression" Value="vSender.__validator('option','value')" />
-			<je:Parameter Name="title" Type="Selector" Value="'#eTitle'" />
+			<je:Parameter Name="sender" Type="Expression"
+				Value="vSender.__validator('option','value')" />
+			<je:Parameter Name="title" Type="Selector"
+				Value="'#eTitle'" />
 		</ParameterList>
 	</ClickAsync>
 </je:Button>
