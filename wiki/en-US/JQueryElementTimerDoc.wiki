@@ -1,0 +1,213 @@
+﻿#summary Timer Reference
+#labels Phase-Implementation
+<font face="microsoft yahei">
+=== Introduction/Catalog ===
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], the directory is /timer/Default.aspx.
+
+ This article explains the function and the use of Timer, the directory is as follows:
+
+   * Prepare
+   * Interval
+   * Client Tick Event
+   * Server Tick Event
+   * Start And Stop The Timer
+   * Appendix: New EMail Notifications
+
+==== Prepare ====
+ Be sure that you have got the latest version of JQueryElement at [Download Downloads].
+
+ Use the following statements to reference namespace:
+{{{
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui.plusin"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.web.jqueryui"
+	TagPrefix="je" %>
+}}}
+
+ In addition to the namespace, you need to reference the jQueryUI scripts and styles, there is a custom theme for jQueryUI in the compressed file downloaded at [Download Downloads], if you need more themes, you can get them at [http://jqueryui.com/download jqueryui.com/download]:
+{{{
+<link type="text/css" rel="stylesheet" href="[style path]/jquery-ui-1.8.15.custom.css" />
+<script type="text/javascript" src="[script path]/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="[script path]/jquery-ui-1.8.15.custom.min.js"></script>
+<script type="text/javascript" src="[script path]/jquery.ui.datepicker-zh-CN.js"></script>
+}}}
+
+==== Interval ====
+ Use the property Interval to set the interval, in milliseconds, default is 1000 milliseconds.
+
+==== Client Tick Event ====
+ Property Tick of Timer represents the trigger event run on a client:
+{{{
+<je:Timer ID="checkTimer" runat="server" Tick="
+function(pe, e){
+	alert('Count ' + e.count.toString());
+}
+">
+</je:Timer>
+}}}
+ Property Tick is a javascript function, you can write code that is executed when tick event occurs. The property count of parameter e indicates how many times the event occurred after the timer started.
+
+==== Server Tick Event ====
+ By setting the TickAsync property, you can call methods on the server side, as the following form: 
+{{{
+<je:Timer ID="checkTimer" runat="server">
+	<TickAsync Url="<tick event url>" MethodName="<tick event name>" Success="<javascript method>">
+		<ParameterList>
+
+			<je:Parameter Name="<parameter 1>"
+				Type="Expression"
+				Value="<value 1>"
+				Default="<default value 1>" />
+			<je:Parameter Name="<parameter 2>"
+				Type="Selector"
+				Value="<selector 2>"
+				Default="<default value 2>" />
+
+		</ParameterList>
+	</TickAsync>
+</je:Timer>
+
+<je:Timer ID="checkTimer" runat="server">
+	<TickAsync Url="webservice.asmx" MethodName="NewEMailCount" Success="
+	function(data){
+
+	}
+	">
+	</TickAsync>
+</je:Timer>
+}}}
+ Through the Parameter, you can add parameters for Ajax calling, more information about Parameter can refer to [JEParameter Through Parameter Object Add Ajax Request Parameter].
+ 
+ javascript Function Success in your code handle the JSON returned by the server, about how to return JSON, refer to [AjaxReturnJSON Return JSON In Different .NET Version], the above code written in .NET 2.
+
+==== Start And Stop The Timer ====
+ In javascript, Call start and stop method to start or stop the timer, syntax is `<timer variable>.__timer('start'); <timer variable>.__timer('stop');`:
+{{{
+<script type="text/javascript">
+	$(function () {
+
+		checkTimer.__timer('start');
+
+	});
+</script>
+}}}
+
+==== Appendix: New EMail Notifications ====
+ This section describes the design concept for email notifications about this example, we use a Timer control on the page to regularly get information about new email from the WebService:
+{{{
+<je:Timer ID="checkTimer" runat="server" IsVariable="true" Interval="5000">
+	<TickAsync Url="webservice.asmx" MethodName="NewEMailCount" Success="
+	function(data){
+		newEMailCount += data;
+
+		if(newEMailCount != 0){
+			$('#newcount').text(newEMailCount.toString());
+			newDialog.dialog('open');
+		}
+
+	}
+	">
+	</TickAsync>
+</je:Timer>
+}}}
+ Method NewEMailCount returns the number of new email within 5 seconds, this number is cumulative to a javascript variable newEMailCount, if newEMailCount is not 0, then open a dialog box that display the number of new email, once the dialog box closes and the newEMailCount will be set to 0: 
+{{{
+<je:Dialog ID="newDialog" runat="server" IsVariable="true"
+	AutoOpen="false" Position="['right', 'bottom']"
+	Html='You have <strong id="newcount"></strong> new email'
+	Buttons="{'Refresh': function(){ emailRepeater.__repeater('fill'); newDialog.dialog('close'); }}"
+	Close="function(){ newEMailCount = 0; }">
+</je:Dialog>
+}}}
+ The number of new email appear in the label newcount, in Close property of Dialog, we write a javascript function to set newEMailCount to 0. Buttons property of Dialog defines a refresh button which calls the Repeater's fill method, so you can refresh the message list, more information about Repeater can refer to [JQueryElementRepeaterDoc Repeater Reference], mailing list as follows:
+{{{
+<table id="list">
+	<je:Repeater ID="emailRepeater" runat="server" IsVariable="true" Selector="'#list'"
+		PageSize="4" FillAsync-Url="webservice.asmx" FillAsync-MethodName="GetEMailList">
+		<HeaderTemplate>
+			<thead>
+				<tr>
+					<td>
+						Sender
+					</td>
+					<td>
+						Title
+					</td>
+					<td>
+						Time
+					</td>
+				</tr>
+			</thead>
+		</HeaderTemplate>
+		<ItemTemplate>
+			<tr>
+				<td class="sender">
+				#{sender}
+				</td>
+				<td class="#{isnew,# ? 'new-mail' : ''}">
+				#{title}
+				</td>
+				<td class="timer">
+				#{time,jQuery.panzer.formatDate(#,'yyyy-M-d')}
+				</td>
+			</tr>
+		</ItemTemplate>
+		<FooterTemplate>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+		<a href="#" je-onclick="prev">Prev</a>
+		<a href="#" je-onclick="next">Next</a>,
+		@{pageindex}/@{pagecount} pages, @{itemcount} total,
+		<a href="#" je-onclick="goto,new Number(jQuery('#pageindex').val())">
+		jump
+		</a>
+		to
+		<input type="text" id="pageindex" value="@{pageindex}" />
+					</td>
+				</tr>
+			</tfoot>
+		</FooterTemplate>
+	</je:Repeater>
+</table>
+}}}
+ On the page, also added a text box and a button for sending new email, send button calls the SendEMail method of the server-side, this method adds a new email stored in the DataTable, and the number of new email plus 1, so that NewEMailCount can return the number of new email:
+{{{
+<strong>Sender:</strong>
+<input type="text" id="eSender" />
+<je:Validator ID="vSender" runat="server" IsVariable="true" Target="#eSender"
+	Need="true" NeedTip='<font color="red">Please input sender</font>'
+	Reg="$.panzer.reg.email"
+	RegTip='<font color="red">Please input a valid email address</font>'
+	Checked="refreshSendButton">
+</je:Validator>
+<br />
+<br />
+<strong>Title:&nbsp;&nbsp;&nbsp;</strong>
+<input type="text" id="eTitle" />
+<je:Validator ID="vTitle" runat="server" IsVariable="true" Target="#eTitle"
+	Need="true" NeedTip='<font color="red">Please input title</font>'
+	Checked="refreshSendButton">
+</je:Validator>
+<br />
+<br />
+<je:Button ID="cmdSend" runat="server" IsVariable="true" Label="Send" Disabled="true">
+	<ClickAsync Url="webservice.asmx" MethodName="SendEMail" Success="
+	function(data){
+		alert(data);
+	}
+	">
+		<ParameterList>
+			<je:Parameter Name="sender" Type="Expression"
+				Value="vSender.__validator('option','value')" />
+			<je:Parameter Name="title" Type="Selector"
+				Value="'#eTitle'" />
+		</ParameterList>
+	</ClickAsync>
+</je:Button>
+}}}
+ In code, use Validator control to validate the sender entered by the user and the title, is not explained here, you can refer to [JQueryElementValidatorDoc Validator Reference].
+
+</font>
