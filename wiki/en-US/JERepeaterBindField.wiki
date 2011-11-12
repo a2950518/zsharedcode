@@ -1,7 +1,7 @@
 ﻿#summary Repeater Binding/Handling Field
 <font face="microsoft yahei">
 === Introduction/Catalog ===
- Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], the directory is /repeater/Default.aspx.
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.rar JQueryElementDemo-en.rar], the directory is /repeater/Default.aspx.
 
  Video demo: [http://www.tudou.com/programs/view/rwruM87J20s/ www.tudou.com/programs/view/rwruM87J20s/]
 

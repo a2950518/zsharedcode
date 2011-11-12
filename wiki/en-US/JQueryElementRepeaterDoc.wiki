@@ -1,7 +1,7 @@
 ﻿#summary Repeater Reference
 <font face="microsoft yahei">
 === Introduction/Catalog ===
- Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], the directory is /JQueryElementTest.rar/3/Student.aspx or /repeater/Default.aspx.
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.rar JQueryElementDemo-en.rar], the directory is /JQueryElementTest.rar/3/Student.aspx or /repeater/Default.aspx.
 
  This article explains the function and the use of Repeater, the directory is as follows:
 

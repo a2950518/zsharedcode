@@ -1,7 +1,7 @@
 ﻿#summary Through Parameter Object Add Ajax Request Parameter
 <font face="microsoft yahei">
 === Introduction/Catalog ===
- Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar].
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.rar JQueryElementDemo-en.rar].
 
  This article describes the role and use of the Parameter object in JQueryElement:
 
@@ -81,7 +81,7 @@ public SortedDictionary<string, object> Save ( string name )
 {{{
 <je:Parameter Name="name" Type="Selector" Value="'#txtAge'" DataType="number" />
 }}}
- Property DataType can be set to a number, boolean, string, date, in fact, the WebService itself will also do some transformation on the server side, and detail can refer to [AjaxDataType Ajax And Server Data Type Conversions].
+ Property DataType can be set to Number, Boolean, String, Date, in fact, the WebService itself will also do some transformation on the server side, and detail can refer to [AjaxDataType Ajax And Server Data Type Conversions].
 
 === Custom Conversion Methods ===
  If the DataType is set, you can set Provider that provides custom conversion method, the method will be called when normal conversions fail, such as:
