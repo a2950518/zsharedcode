@@ -83,7 +83,7 @@ public SortedDictionary<string, object> Save ( string name )
 {{{
 <je:Parameter Name="name" Type="Selector" Value="'#txtAge'" DataType="number" />
 }}}
- DataType 属性可以设置为 number, boolean, string, date, 其实, 在服务器端 WebService 自身也会进行一些转化, 详细可以参考 [AjaxDataType Ajax 与服务器的数据类型转换].
+ DataType 属性可以设置为 Number, Boolean, String, Date, 其实, 在服务器端 WebService 自身也会进行一些转化, 详细可以参考 [AjaxDataType Ajax 与服务器的数据类型转换].
 
 === 自定义转换函数 ===
  如果设置了 DataType, 则可以另外的设置 Provider 来提供自定义转换函数, 自定义转换函数将在不能正常转换时调用, 比如:

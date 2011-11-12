@@ -15,6 +15,27 @@
    * 启动和停止时钟
    * 附录: 新邮件提醒示例分析
 
+==== 准备 ====
+ 请确保已经在 [Download 下载资源] 中下载 JQueryElement 最新的版本.
+
+ 请使用指令引用如下的命名空间:
+{{{
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui.plusin"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.web.jqueryui"
+	TagPrefix="je" %>
+}}}
+
+ 除了命名空间, 还需要引用 jQueryUI 的脚本和样式, 在 [Download 下载资源] 下载的压缩包中包含了一个自定义样式的 jQueryUI, 如果需要更多样式, 可以在 [http://jqueryui.com/download jqueryui.com/download] 下载:
+{{{
+<link type="text/css" rel="stylesheet" href="[样式路径]/jquery-ui-1.8.15.custom.css" />
+<script type="text/javascript" src="[脚本路径]/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="[脚本路径]/jquery-ui-1.8.15.custom.min.js"></script>
+<script type="text/javascript" src="[脚本路径]/jquery.ui.datepicker-zh-CN.js"></script>
+}}}
+
 ==== 触发间隔 ====
  可以通过 Interval 属性来设置时钟的触发时间间隔, 以毫秒为单位, 默认为 1000 毫秒.
 
@@ -28,7 +49,7 @@ function(pe, e){
 ">
 </je:Timer>
 }}}
- 将 Tick 属性设置为如上形式的 javascript 函数, 即可在对应的 javascript 函数中编写触发时执行的代码. 其中, 参数 e 的 count 属性表示 timer 开始计时后第几次触发事件.
+ 将 Tick 属性设置为如上形式的 javascript 函数, 即可在对应的 javascript 函数中编写触发时执行的代码. 其中, 参数 e 的 count 属性表示 *timer* 开始计时后第几次触发事件.
 
 ==== 服务器端触发事件 ====
  设置 TickAsync 属性, 可以调用服务器端的方法, 形式如下:
@@ -64,7 +85,7 @@ function(pe, e){
  代码中的 Success 为处理服务器返回 JSON 的 javascript 函数, 这里采用的是 .NET 2.0 下的写法, 不同写法请参考 [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON].
 
 ==== 启动和停止时钟 ====
- 在 javascript 中, 调用 *timer* 的 start 和 stop 方法即可启动或者停止时钟, 语法为: `<timer 变量>.__timer('start'); <timer 变量>.__timer('stop');`:
+ 在 javascript 中, 调用 *timer* 的 start 和 stop 方法即可启动或者停止时钟, 语法为 `<timer 变量>.__timer('start'); <timer 变量>.__timer('stop');`:
 {{{
 <script type="text/javascript">
 	$(function () {
