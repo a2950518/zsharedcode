@@ -50,7 +50,7 @@ function(pe, e){
  Property Tick is a javascript function, you can write code that is executed when tick event occurs. The property count of parameter e indicates how many times the event occurred after the timer started.
 
 ==== Server Tick Event ====
- By setting the TickAsync property, you can call methods on the server side, as the following form: 
+ By setting the TickAsync property, you can call methods on the server side, as the following form:
 {{{
 <je:Timer ID="checkTimer" runat="server">
 	<TickAsync Url="<tick event url>" MethodName="<tick event name>" Success="<javascript method>">
@@ -80,7 +80,7 @@ function(pe, e){
 }}}
  Through the Parameter, you can add parameters for Ajax calling, more information about Parameter can refer to [JEParameter Through Parameter Object Add Ajax Request Parameter].
  
- javascript Function Success in your code handle the JSON returned by the server, about how to return JSON, refer to [AjaxReturnJSON Return JSON In Different .NET Version], the above code written in .NET 2.
+ javascript method in property Success handle the JSON returned by the server, about how to return JSON, refer to [AjaxReturnJSON Return JSON In Different .NET Version], the above code written in .NET 2.
 
 ==== Start And Stop The Timer ====
  In javascript, Call start and stop method to start or stop the timer, syntax is `<timer variable>.__timer('start'); <timer variable>.__timer('stop');`:
@@ -112,7 +112,7 @@ function(pe, e){
 	</TickAsync>
 </je:Timer>
 }}}
- Method NewEMailCount returns the number of new email within 5 seconds, this number is cumulative to a javascript variable newEMailCount, if newEMailCount is not 0, then open a dialog box that display the number of new email, once the dialog box closes and the newEMailCount will be set to 0: 
+ Method NewEMailCount returns the number of new email within 5 seconds, this number is cumulative to a javascript variable newEMailCount, if newEMailCount is not 0, then open a dialog box that display the number of new email, once the dialog box closes and the newEMailCount will be set to 0:
 {{{
 <je:Dialog ID="newDialog" runat="server" IsVariable="true"
 	AutoOpen="false" Position="['right', 'bottom']"
