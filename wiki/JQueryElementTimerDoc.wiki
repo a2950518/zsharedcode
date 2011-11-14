@@ -120,11 +120,11 @@ function(pe, e){
 <je:Dialog ID="newDialog" runat="server" IsVariable="true"
 	AutoOpen="false" Position="['right', 'bottom']"
 	Html='您有 <strong id="newcount"></strong> 封新邮件'
-	Buttons="{'刷新': function(){ emailRepeater.__repeater('fill'); newDialog.dialog('close'); }}"
+	Buttons="{'刷新': function(){ emailRepeater.__repeater('filter'); newDialog.dialog('close'); }}"
 	Close="function(){ newEMailCount = 0; }">
 </je:Dialog>
 }}}
- 新邮件个数显示在标签 newcount 中, 而在 Dialog 的 Close 属性中, 编写了一个 javascript 函数来设置 newEMailCount 为 0. Dialog 的 Buttons 属性定义了一个刷新按钮, 在按钮的点击事件中调用了 *repeater* 的 fill 方法, 这样可以使邮件列表刷新, 更多 Repeater 的信息可以参考 [JQueryElementRepeaterDoc Repeater 完全参考], 这里就不再解释了, 邮件的列表代码如下:
+ 新邮件个数显示在标签 newcount 中, 而在 Dialog 的 Close 属性中, 编写了一个 javascript 函数来设置 newEMailCount 为 0. Dialog 的 Buttons 属性定义了一个刷新按钮, 在按钮的点击事件中调用了 *repeater* 的 filter 方法, 这样可以使邮件列表刷新, 更多 Repeater 的信息可以参考 [JQueryElementRepeaterDoc Repeater 完全参考], 这里就不再解释了, 邮件的列表代码如下:
 {{{
 <table id="list">
 	<je:Repeater ID="emailRepeater" runat="server" IsVariable="true" Selector="'#list'"

@@ -117,11 +117,11 @@ function(pe, e){
 <je:Dialog ID="newDialog" runat="server" IsVariable="true"
 	AutoOpen="false" Position="['right', 'bottom']"
 	Html='You have <strong id="newcount"></strong> new email'
-	Buttons="{'Refresh': function(){ emailRepeater.__repeater('fill'); newDialog.dialog('close'); }}"
+	Buttons="{'Refresh': function(){ emailRepeater.__repeater('filter'); newDialog.dialog('close'); }}"
 	Close="function(){ newEMailCount = 0; }">
 </je:Dialog>
 }}}
- The number of new email appear in the label newcount, in Close property of Dialog, we write a javascript function to set newEMailCount to 0. Buttons property of Dialog defines a refresh button which calls the Repeater's fill method, so you can refresh the message list, more information about Repeater can refer to [JQueryElementRepeaterDoc Repeater Reference], mailing list as follows:
+ The number of new email appear in the label newcount, in Close property of Dialog, we write a javascript function to set newEMailCount to 0. Buttons property of Dialog defines a refresh button which calls the Repeater's filter method, so you can refresh the message list, more information about Repeater can refer to [JQueryElementRepeaterDoc Repeater Reference], mailing list as follows:
 {{{
 <table id="list">
 	<je:Repeater ID="emailRepeater" runat="server" IsVariable="true" Selector="'#list'"
