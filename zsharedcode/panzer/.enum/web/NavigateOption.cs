@@ -1,4 +1,10 @@
 ﻿/*
+ * Author: M.S.cxc
+ * Code Url: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
+ * Version: .net 4.0
+ * 
+ * License: This file is an open source shared for free, you need to comply with panzer license http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt, please download the license and include it in your project and product.
+ * 
  * 作者: M.S.cxc
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.enum/web/NavigateOption.cs
  * 版本: .net 4.0, 其它版本可能有所不同
@@ -9,27 +15,60 @@
 namespace zoyobar.shared.panzer.web
 {
 
+#if EN
+	/// <summary>
+	/// Navigation options.
+	/// </summary>
+#elif HANS
 	/// <summary>
 	/// 导航选项.
 	/// </summary>
+#endif
 	public enum NavigateOption
 	{
+#if EN
+		/// <summary>
+		/// None.
+		/// </summary>
+#elif HANS
 		/// <summary>
 		/// 空设置.
 		/// </summary>
+#endif
 		None = 0,
+
+#if EN
+		/// <summary>
+		/// In a new window.
+		/// </summary>
+#elif HANS
 		/// <summary>
 		/// 新窗口.
 		/// </summary>
+#endif
 		NewWindow = 1,
+
+#if EN
+		/// <summary>
+		/// In its own window.
+		/// </summary>
+#elif HANS
 		/// <summary>
 		/// 在自身的窗口.
 		/// </summary>
+#endif
 		SelfWindow = 2,
+
+#if EN
+		/// <summary>
+		/// In the parent window.
+		/// </summary>
+#elif HANS
 		/// <summary>
 		/// 在父窗口中.
 		/// </summary>
-		ParentWindow = 3
+#endif
+		ParentWindow = 3,
 	}
 
 }
