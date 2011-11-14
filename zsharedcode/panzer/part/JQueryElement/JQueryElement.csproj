@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;PARAM V4</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;PARAM V4 HANS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\zoyobar.shared.panzer.JQueryElement.XML</DocumentationFile>
