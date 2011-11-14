@@ -1,0 +1,96 @@
+﻿#summary Repeater Grouping Data
+<font face="microsoft yahei">
+=== Introduction/Catalog ===
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.rar JQueryElementDemo-en.rar], the directory is /repeater/Default.aspx.
+ 
+ Video demo: [http://www.tudou.com/programs/view/5KYgMnAdG6A/ www.tudou.com/programs/view/5KYgMnAdG6A/]
+
+ This article will explain in detail how to group the data in the Repeater control, the directory is as follows:
+
+  * Prepare
+  * Set Grouping Field
+  * Set Grouping Template
+
+=== Prepare ===
+ Please view the prepare section at [JQueryElementRepeaterDoc Repeater Reference].
+
+=== Set Grouping Field ===
+ Repeater only can group data based on one field at a time, GroupField property or setgroup method is used to set the grouping field, such as:
+{{{
+<je:Repeater ID="mailRepeater" runat="server"
+	GroupField="<grouping field>">
+	<HeaderTemplate>
+
+		<td class="group-header"
+			je-onclick="setgroup,'<grouping field>';togglesort,'sender'">
+			Sender
+		</td>
+
+	</HeaderTemplate>
+</je:Repeater>
+
+<je:Repeater ID="mailRepeater" runat="server"
+	GroupField="displaydate">
+	<HeaderTemplate>
+
+		<td class="group-header"
+			je-onclick="setgroup,'sender';togglesort,'sender'">
+			Sender
+		</td>
+
+	</HeaderTemplate>
+</je:Repeater>
+}}}
+ If you use setgroup method to set the grouping field, it will not automatically get data back, you need to call fill or togglesort method to refresh the data.
+
+=== Set Grouping Template ===
+ GroupTemplate is similar to a header, the data in a group is displayed under the same header, such as:
+{{{
+<script type="text/javascript">
+	function convertGroupField(groupfield) {
+		switch (groupfield) {
+			case 'displaydate':
+				return '<strong>Time</strong>';
+			case 'sender':
+				return '<strong>Sender</strong>';
+		}
+	}
+</script>
+
+<je:Repeater ID="mailRepeater" runat="server"
+	GroupField="displaydate"
+	FillAsync-Url="webservice.asmx"
+	FillAsync-MethodName="FillMailList">
+
+	<GroupTemplate>
+		<tr>
+			<td colspan="4">
+				@{groupfield,convertGroupField(@)}:
+				@{groupname}
+			</td>
+		</tr>
+	</GroupTemplate>
+	<ItemTemplate>
+		<tr>
+			<td>
+				<input type="checkbox"
+					je-checked="selected"
+					je-onclick="toggleselect,false" />
+			</td>
+			<td>
+				#{sender}
+			</td>
+			<td>
+				<strong>#{title}</strong>
+			</td>
+			<td>
+				<strong>#{displaydate}</strong>
+				#{receivedate,jQuery.panzer.formatDate(#,'yyyy-MM-dd h:m')}
+			</td>
+		</tr>
+	</ItemTemplate>
+</je:Repeater>
+}}}
+ You can use the groupfield and groupname attributes in the GroupTemplate represent grouping field and the name of the current group.
+
+</font>
