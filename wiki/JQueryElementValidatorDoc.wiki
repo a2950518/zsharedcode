@@ -77,7 +77,7 @@
  代码中, 设置 Target 为 #email, 表示 Validator 的验证目标是 id 为 email 的文本框. Need 设置为 true, 表示用户必须填写邮箱地址. NeedTip 表示在没有填写邮箱地址时的提示信息, 可以包含 html 代码.
 
  ==== <font color="green">字符串长度范围</font> ====
- 通过设置 Max 和 Min 就可以限制字符串的长度, 建议同时设置 `Type="string"`, 因为如果不设置数据类型和默认值, 那么没有输入值将默认为 '0' 而不是 '':
+ 通过设置 Max 和 Min 就可以限制字符串的长度, 建议同时设置 `Type="string"`, 因为如果不设置数据类型和默认值, 那么没有输入值将默认为 '':
 {{{
 <input id="password" type="password" />
 <je:Validator ID="vPassword" runat="server" IsVariable="true" Target="#password"
@@ -85,7 +85,7 @@
 	Max="10" MaxTip='<font color="red">密码长度最多 10 位</font>'>
 </je:Validator>
 }}}
- 代码中并没有像建议中提到的设置 `Type="string"`, 因为即便默认为 '0', 长度仍然是小于 4 的.
+ 代码中并没有像建议中提到的设置 `Type="string"`, 因为即便默认为 '', 长度仍然是小于 4 的.
 
  ==== <font color="green">数值大小范围</font> ====
  和限制字符串类似, 设置 Max 和 Min 同样可以限制数值的大小范围, 同时需要设置 `Type="number"`:
