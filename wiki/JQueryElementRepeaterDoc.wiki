@@ -260,6 +260,7 @@ public static object Fill ( int pageindex, int pagesize
 	"__success": <表示是否成功的布尔值, 为 true 或者 false>,
 	"rows": <当前页包含行数据的 javascript 数组>,
 	"itemcount": <总行数>
+	[, "custom": <自定义对象, 比如: { message: 'ok' }>]
 }
 
 {
@@ -309,6 +310,7 @@ public static object Update ( int id
 {
 	"__success": <表示是否成功的布尔值, 为 true 或者 false>,
 	"row": <更新后的行, 不必包含所有字段>
+	[, "custom": <自定义对象, 比如: { message: 'ok' }>]
 }
 
 {
@@ -346,6 +348,7 @@ public static object Remove ( int id )
 {{{
 {
 	"__success": <表示是否成功的布尔值, 为 true 或者 false>
+	[, "custom": <自定义对象, 比如: { message: 'ok' }>]
 }
 
 {
@@ -382,6 +385,7 @@ public static object Insert ( string realname
 {
 	"__success": <表示是否成功的布尔值, 为 true 或者 false>,
 	"row": <新建后的行>
+	[, "custom": <自定义对象, 比如: { message: 'ok' }>]
 }
 
 {

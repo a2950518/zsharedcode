@@ -171,7 +171,7 @@ function refresh(value, tip, valid) {
 
 </je:Validator>
 }}}
- You can set the Ajax option of validation by CheckAsync, here a server-side method CheckNickname is called. Success property is the javascript method that handle the returned results, the parameter e contains value, tip, valid four properties, value that represents the validation value, valid means whether validation is successful, tip said the message to show, and a custom object, jquery property of pe said *validator* itself.
+ You can set the Ajax option of validation by CheckAsync, here a server-side method CheckNickname is called. Success property is the javascript method that handle the returned results, the parameter e contains value, tip, valid, custom four properties, value that represents the validation value, valid means whether validation is successful, tip said the message to show, and a custom object, jquery property of pe said *validator* itself.
 
  Here is the CheckNickname method on the server-side:
 {{{

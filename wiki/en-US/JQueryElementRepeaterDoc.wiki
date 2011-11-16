@@ -258,6 +258,7 @@ public static object Fill ( int pageindex, int pagesize
 	"__success": <success? true or false>,
 	"rows": <array, data of current page>,
 	"itemcount": <count of rows>
+	[, "custom": <custom object, 比如: { message: 'ok' }>]
 }
 
 {
@@ -307,6 +308,7 @@ public static object Update ( int id
 {
 	"__success": <success? true or false>,
 	"row": <updated row>
+	[, "custom": <custom object, 比如: { message: 'ok' }>]
 }
 
 {
@@ -344,6 +346,7 @@ public static object Remove ( int id )
 {{{
 {
 	"__success": <success? true or false>
+	[, "custom": <custom object, 比如: { message: 'ok' }>]
 }
 
 {
@@ -380,6 +383,7 @@ public static object Insert ( string realname
 {
 	"__success": <success? true or false>,
 	"row": <inserted row>
+	[, "custom": <custom object, 比如: { message: 'ok' }>]
 }
 
 {
