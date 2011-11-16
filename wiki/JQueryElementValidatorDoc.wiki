@@ -173,7 +173,7 @@ function refresh(value, tip, valid) {
 
 </je:Validator>
 }}}
- 通过 CheckAsync 可以设置验证时的 Ajax 操作设置, 这里调用了服务器端的 CheckNickname 方法. 在 Success 属性中设置处理返回结果的 javascript 函数, 参数 e 包含 value, tip, valid, custom 三个属性, 分别表示验证后的值, 提示信息, 是否验证成功, 以及一个自定义对象, 参数 pe 的 jquery 属性表示 *validator* 自身.
+ 通过 CheckAsync 可以设置验证时的 Ajax 操作设置, 这里调用了服务器端的 CheckNickname 方法. 在 Success 属性中设置处理返回结果的 javascript 函数, 参数 e 包含 value, tip, valid, custom 四个属性, 分别表示验证后的值, 提示信息, 是否验证成功, 以及一个自定义对象, 参数 pe 的 jquery 属性表示 *validator* 自身.
 
  下面是服务器端的 CheckNickname 方法:
 {{{
