@@ -75,7 +75,7 @@
  In code, set the Target as the #email, target of Validator will be the text box whose id is email. Need is set to true, indicating that the user email address is required. NeedTip is message to show when mail address is not complete, you can include html code.
 
  ==== <font color="green">String Length Range</font> ====
- By setting the Max and Min can limit the length of the string, proposals also set `Type="string"`, because if you do not set the data type and default value, then do not enter a value will default to '0' instead of '':
+ By setting the Max and Min can limit the length of the string, proposals also set `Type="string"`, because if you do not set the data type and default value, then do not enter a value will default to '':
 {{{
 <input id="password" type="password" />
 <je:Validator ID="vPassword" runat="server" IsVariable="true" Target="#password"
@@ -83,7 +83,7 @@
 	Max="10" MaxTip='<font color="red">Password length can not be greater than 10</font>'>
 </je:Validator>
 }}}
- We did not set `Type="string"` in the code above, because even if the default is '0', the length is still less than 4.
+ We did not set `Type="string"` in the code above, because even if the default is '', the length is still less than 4.
 
  ==== <font color="green">Numerical Size Range</font> ====
  By setting the Max and Min can also limit the size of numerical range, at the same time you need to set `Type="number"`:
