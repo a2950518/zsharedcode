@@ -798,7 +798,7 @@ public static object Insert ( /* parameter */ )
  ==== <font color="green">Event</font> ====
  pe and e are two parameters of all the events, pe.option contains the option of *repeater*, pe.jQuery that represents the current *repeater*, e contains the event data.
 
- PreUpdate, Updated before and after the update event, PreRemove, Removed before and after the remove event, PreInsert, Inserted before and after the insert event. e.row is current row to be operated, e.index said the index of the row, and e.isSuccess in Updated, Removed, Inserted, said whether executed successfully, example:
+ PreUpdate, Updated before and after the update event, PreRemove, Removed before and after the remove event, PreInsert, Inserted before and after the insert event. e.row is current row to be operated, e.index said the index of the row, and e.issuccess in Updated, Removed, Inserted, said whether executed successfully, example:
 {{{
 <je:Repeater ID="studentRepeater" runat="server"
 
@@ -824,15 +824,15 @@ public static object Insert ( /* parameter */ )
 	}
 	" Updated="
 	function(pe, e){
-		$('#message').text('Update ' + e.row.realname + (e.isSuccess ? ' success' : ' failed'));
+		$('#message').text('Update ' + e.row.realname + (e.issuccess ? ' success' : ' failed'));
 	}
 	" Inserted="
 	function(pe, e){
-		$('#message').text('Insert ' + e.row.realname + (e.isSuccess ? ' success' : ' failed'));
+		$('#message').text('Insert ' + e.row.realname + (e.issuccess ? ' success' : ' failed'));
 	}
 	" Removed="
 	function(pe, e){
-		$('#message').text('Remove ' + e.row.realname + (e.isSuccess ? ' success' : ' failed'));
+		$('#message').text('Remove ' + e.row.realname + (e.issuccess ? ' success' : ' failed'));
 	}
 	">
 

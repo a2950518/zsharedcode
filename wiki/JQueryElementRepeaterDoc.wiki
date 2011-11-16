@@ -800,7 +800,7 @@ public static object Insert ( /* 参数 */ )
  ==== <font color="green">事件</font> ====
  在 Repeater 所有的事件中都有具有 pe 和 e 两个参数, pe.option 中包含了 *repeater* 中的选项, pe.jquery 表示当前 *repeater*, e 则包含了事件的相关数据.
 
- PreUpdate, Updated 更新前后的事件, PreRemove, Removed 删除前后的事件, PreInsert, Inserted 新建前后的事件. e.row 表示当前参与相关操作的行, e.index 表示行的索引, 而 Updated, Removed, Inserted 中 e.isSuccess, 表示是否执行成功, 示例:
+ PreUpdate, Updated 更新前后的事件, PreRemove, Removed 删除前后的事件, PreInsert, Inserted 新建前后的事件. e.row 表示当前参与相关操作的行, e.index 表示行的索引, 而 Updated, Removed, Inserted 中 e.issuccess, 表示是否执行成功, 示例:
 {{{
 <je:Repeater ID="studentRepeater" runat="server"
 
@@ -826,15 +826,15 @@ public static object Insert ( /* 参数 */ )
 	}
 	" Updated="
 	function(pe, e){
-		$('#message').text('更新 ' + e.row.realname + (e.isSuccess ? ' 成功' : ' 失败'));
+		$('#message').text('更新 ' + e.row.realname + (e.issuccess ? ' 成功' : ' 失败'));
 	}
 	" Inserted="
 	function(pe, e){
-		$('#message').text('新建 ' + e.row.realname + (e.isSuccess ? ' 成功' : ' 失败'));
+		$('#message').text('新建 ' + e.row.realname + (e.issuccess ? ' 成功' : ' 失败'));
 	}
 	" Removed="
 	function(pe, e){
-		$('#message').text('删除 ' + e.row.realname + (e.isSuccess ? ' 成功' : ' 失败'));
+		$('#message').text('删除 ' + e.row.realname + (e.issuccess ? ' 成功' : ' 失败'));
 	}
 	">
 
