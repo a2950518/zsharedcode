@@ -27,7 +27,7 @@
  可以在模板中使用 html 文本框或者下拉框, 并进行赋值和读取数据.
 
  ==== <font color="green">文本框</font> ====
- 文本框可以用于编辑文本字段, 也可以配合 je-datepicker, je-autocomplete 创建日期框, 自动匹配.
+ 文本框可以用于编辑字段, 也可以配合 je-datepicker, je-autocomplete 创建日期框, 自动匹配.
 {{{
 <input je-id="<字段名>" type="text" value="<绑定字段>">
 
