@@ -1,7 +1,7 @@
 ﻿#summary Repeater Handling Control
 <font face="microsoft yahei">
 ===Introduction/Catalog ===
- Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], the directory is /repeater/Default.aspx.
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /repeater/Default.aspx.
 
  Video demo: [http://www.tudou.com/programs/view/jiuV1nkeWNo/ www.tudou.com/programs/view/jiuV1nkeWNo/]
 
