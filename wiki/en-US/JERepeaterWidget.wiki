@@ -1,0 +1,166 @@
+﻿#summary Repeater Handling Control
+<font face="microsoft yahei">
+===Introduction/Catalog ===
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], the directory is /repeater/Default.aspx.
+
+ Video demo: [http://www.tudou.com/programs/view/jiuV1nkeWNo/ www.tudou.com/programs/view/jiuV1nkeWNo/]
+
+ This article will explain in detail how to handle the controls in the templates of the Repeater control, the directory is as follows:
+
+  * Prepare
+  * html Element 
+    * Text Box 
+    * Drop Down Box 
+    * Multiline Text Box
+    * Check Box
+  * jQueryUI Widget
+    * jQueryUI Datepicker
+    * jQueryUI Button
+    * jQueryUI Autocomplete
+
+=== Prepare ===
+ Please view the prepare section at [JQueryElementRepeaterDoc Repeater Reference].
+
+=== html Element ===
+ You can use html text box or drop down box in the template, and get or set the data.
+
+ ==== <font color="green">Text Box</font> ====
+ Text boxes can be used to edit the field, you can also use je-datepicker, je-autocomplete to create jQueryUI datepicker or autocomplete.
+{{{
+<input je-id="<field name>" type="text" value="<bound field>">
+
+<je:Repeater ID="pictureRepeater" runat="server"
+	...	>
+
+	<EditItemTemplate>
+
+		<input je-id="realname" type="text" value="#{realname}" />
+
+	</EditItemTemplate>
+
+</je:Repeater>
+}}}
+ By adding *`value="#{<bound field>}"`* to set the value of the text box, and use *`je-id="<field name>"`* to let *repeater* know which field the text box is when update or create a new row.
+
+ ==== <font color="green">Drop Down Box</font> ====
+ The drop down box can be used to edit some enumeration values.
+{{{
+<select je-id="<field name>">
+	<option value="<enum 1>" je-selected="<boolean value 1, can be a bound field or an expression>">
+		<display value 1>
+	</option>
+	<option value="<enum 2>" je-selected="<boolean value 2, can be a bound field or an expression>">
+		<display value 2>
+	</option>
+</select>
+
+<je:Repeater ID="pictureRepeater" runat="server"
+	...	>
+
+	<EditItemTemplate>
+
+		<select je-id="sex">
+			<option value="true" je-selected="#{sex}">Male</option>
+			<option value="false" je-selected="#{sex,!#}">Female</option>
+		</select>
+
+		<select je-id="major">
+			<option value="jsj" je-selected="'#{major}' == 'jsj'">
+				Computer
+			</option>
+			<option value="gsgl" je-selected="'#{major}' == 'gsgl'">
+				Business
+			</option>
+			<option value="hy" je-selected="'#{major}' == 'hy'">
+				Chinese
+			</option>
+		</select>
+
+	</EditItemTemplate>
+
+</je:Repeater>
+}}}
+ As with text boxes, drop down box use je-id to bind field name, in each option you can use je-selected to set an expression that returns a boolean value, if the expression returns true, then this option is selected.
+
+ In the above code, because of the sex field is a boolean type, you can use `#{sex}`. You can also use `#{major,# == 'jsj'}` to represent that if major field is 'jsj' then option will be selected. You can also use `'#{major}' == 'jsj'` to accomplish the same effect, but #{major} here need to be enclosed in single quotation marks.
+
+ ==== <font color="green">Multiline Text Box</font> ====
+ Multiline text box and text box is what is said above is different, multiline text box uses the textarea element. 
+{{{
+<textarea je-id="<field name>"><bound field></textarea>
+}}}
+
+ ==== <font color="green">Check Box</font> ====
+ Check boxes are often used to edit fields of the boolean type, such as:
+{{{
+<input je-id="<field name>" type="checkbox"
+	je-checked="<boolean value, can be a bound field or an expression>" />
+
+<je:Repeater ID="pictureRepeater" runat="server"
+	...	>
+
+	<EditItemTemplate>
+
+		<input je-id="sex" type="checkbox" je-checked="#{sex}" />
+
+	</EditItemTemplate>
+
+</je:Repeater>
+}}}
+ In the code above, through je-checked bound sex fields of the boolean type. If sex is true, then the state of the check box is selected.
+
+=== jQueryUI Widget ===
+ In the template using *`je-<jQueryUI widget name>="<attribute name n>=<attribute value n>;"`* to create a jQueryUI widget, where the property name and property value can refer to [http://jqueryui.com jqueryui.com].
+
+ ==== <font color="green">jQueryUI Datepicker</font> ====
+ Datepicker for binding and editing date type fields:
+{{{
+<input je-id="<field name>" je-datepicker="<attribute name n>=<attribute value n>;"
+	type="text" value="<date>" />
+
+<je:Repeater ID="pictureRepeater" runat="server"
+	...	>
+
+	<EditItemTemplate>
+
+		<input je-id="birthday" je-datepicker="dateFormat='yy-mm-dd'"
+			type="text"
+			value="#{birthday,jQuery.panzer.formatDate(#,'yyyy-MM-dd')}" />
+
+	</EditItemTemplate>
+
+</je:Repeater>
+}}}
+ dateFormat property is used to set the format of date, you can set additional attributes, multiple attributes using ; to split. In the code above, we use the method jQuery.panzer.formatDate to format the output of the date.
+
+ ==== <font color="green">jQueryUI Button</font> ====
+ Buttons are typically used to execute the command:
+{{{
+<span je-button="<attribute name n>=<attribute value n>;" je-onclick="<action name>"></span>
+
+<je:Repeater ID="pictureRepeater" runat="server"
+	...	>
+
+	<span je-button="label='Save';" je-onclick="update"></span>
+
+</je:Repeater>
+}}}
+ You can use the span element as a button, or you can use the input element. Property label is the text of button, you can also use the content of the span element as the text of button. Common acts are beginedit, endedit, update, insert, remove, next, prev and goto.
+
+ ==== <font color="green">jQueryUI Autocomplete</font> ====
+ Autocomplete widget can automatically match the corresponding entry, when the user enters text:
+{{{
+<input je-id="<field name>" je-autocomplete="<attribute name n>=<attribute value n>;"
+	value="<current value>" />
+
+<je:Repeater ID="pictureRepeater" runat="server"
+	...	>
+
+	<input je-id="major" je-autocomplete="source=['jsj','gsgl','hy']"
+		value="#{major}" />
+
+</je:Repeater>
+}}}
+ Source property of autocomplete is an array of entries to matched. 
+
+</font>
