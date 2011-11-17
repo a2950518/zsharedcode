@@ -8,9 +8,9 @@
  This article will explain in detail how to handle the controls in the templates of the Repeater control, the directory is as follows:
 
   * Prepare
-  * html Element 
-    * Text Box 
-    * Drop Down Box 
+  * html Element
+    * Text Box
+    * Drop Down Box
     * Multiline Text Box
     * Check Box
   * jQueryUI Widget
