@@ -164,7 +164,34 @@
 
  SortField said the sort fields, for example: `['id']`.
 
- FieldMask represents the regular expression used to validate the field, when you update or create a new row, work in the format: *`{<field name>: { reg: <regular expression>, tip: '<error message>', type: '<field type, number, boolean, date>'} }`*.
+ FieldMask represents the regular expression used to validate the field, when you update or create a new row, work in the format:
+{{{
+{<field name>: {
+	reg: <regular expression>,
+	tip: '<error message>',
+	type: '<field data type, number, boolean, date>',
+	max: <maximum length of string or maximum size of number>,
+	min: <minimum length of string or minimum size of number>,
+	need: <need? true or false>,
+	provider: <custom conversion method>,
+	defaultvalue: <default value>
+	}
+}
+}}}
+ If you need more detailed error messages, you can use the following form:
+{{{
+{<field name>: {
+	tip: {
+		reg: '<regular expression error message>',
+		type: '<field data type error message>',
+		max: '<maximum error message>',
+		min: '<minimum error message>',
+		need: '<empty error message>'
+		}
+	}
+}
+}}}
+ These settings and Validator settings are similar, you can refer to [JQueryElementValidator Validator Reference].
 
  ==== <font color="green">Call Server Methods</font> ====
  You can set how to call server methods by Async, if you are calling WebService, you need to set the MethodName, if such a general handler ashx, ignore the MethodName, example:
@@ -871,4 +898,18 @@ public static object Insert ( /* parameter */ )
 <tr><td>sort/togglesort</td><td>Set sorting status.</td><td>`<repeater variable>.repeater('sort', 'id', 'desc')` `<repeater variable>.repeater('togglesort', 'id')`</td></tr>
 <tr><td>update</td><td>Modify a row.</td><td>`<repeater variable>.repeater('update', 0)`</td></tr>
 </table>
+
+=== Related Content ===
+ [JERepeaterBindField Repeater Binding/Handling Field]
+
+ [JERepeaterSubView Repeater Child Views]
+ 
+ [JERepeaterGroup Repeater Grouping Data]
+ 
+ [JERepeaterWidget Repeater Handling Control]
+
+=== Revision History ===
+ 2011-11-17: Increase Related Content section, and links to validation function of Repeater. 
+
+
 </font>
