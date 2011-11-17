@@ -10,8 +10,7 @@
  
  讨论, 欢迎加入 qq 群, 如果群人数已满, 请选择位置靠后的群:
  
-1. <font color="#006600">149829251, JQueryElement 编程 I 群</font>, <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/149829251" target="_blank">加入群</a>
- 
+1. <font color="#006600">149829251, JQueryElement 编程 I 群</font>, <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/149829251" target="_blank">加入群</a><br>
 2. <font color="#006600">118348220, JQueryElement 编程 II 群</font>, <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/118348220" target="_blank">加入群</a>
 
  [http://zsharedcode.googlecode.com/files/JQueryElement.3.6.2.Debug.PARAM.zip JQueryElement 3.6.2 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(PARAM 仅支持在 Visual Studio 2010 中使用)</font>
