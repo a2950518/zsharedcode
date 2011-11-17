@@ -1,7 +1,7 @@
 ﻿#summary Ajax And Server Data Type Conversions
 <font face="microsoft yahei">
 === Introduction/Catalog ===
- Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.rar JQueryElementDemo-en.rar], the directory is /ajaxdatatype/Default.aspx.
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /ajaxdatatype/Default.aspx.
 
  Video demo: [http://www.tudou.com/programs/view/dlC1WPtjXEE/ www.tudou.com/programs/view/dlC1WPtjXEE/]
  

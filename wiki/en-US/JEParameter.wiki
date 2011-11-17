@@ -1,7 +1,7 @@
 ﻿#summary Through Parameter Object Add Ajax Request Parameter
 <font face="microsoft yahei">
 === Introduction/Catalog ===
- Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.rar JQueryElementDemo-en.rar].
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip].
 
  This article describes the role and use of the Parameter object in JQueryElement:
 
