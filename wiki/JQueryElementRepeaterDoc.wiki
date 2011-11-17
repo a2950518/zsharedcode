@@ -166,7 +166,34 @@
 
  SortField 表示参与排序的字段, 比如: `['id']`.
 
- FieldMask 表示用于验证字段的正则表达式, 在更新或新建时起效, 一般格式为: *`{<字段名>: { reg: <正则表达式>, tip: '<错误提示信息>', type: '<字段类型, 可以是 number, boolean, date>'} }`*.
+ FieldMask 表示用于验证字段的正则表达式, 在更新或新建时起效, 一般格式为:
+{{{
+{<字段名>: {
+	reg: <正则表达式>,
+	tip: '<错误提示信息>',
+	type: '<字段类型, 可以是 number, boolean, date>',
+	max: <字符串最大长度或数值的最大值>,
+	min: <字符串最小长度或数值的最小值>,
+	need: <是否必需, true 或者 false>,
+	provider: <自定义转换函数>,
+	defaultvalue: <默认值>
+	}
+}
+}}}
+ 如果需要更详细的错误提示, 可以参用如下形式:
+{{{
+{<字段名>: {
+	tip: {
+		reg: '<不符合正则表达式时的提示>',
+		type: '<不符合特定类型时的提示>',
+		max: '<大于最大值时的提示>',
+		min: '<小于最大值时的提示>',
+		need: '<为空时的提示>'
+		}
+	}
+}
+}}}
+ 这些设置其实和 Validator 的设置是类似的, 可以参考 [JQueryElementValidator Validator 完全参考].
 
  ==== <font color="green">设置调用的服务端方法</font> ====
  可以通过 Async 来设置如何调用服务器端方法, 如果是调用 WebService, 则需要设置 MethodName, 如果是普通的 ashx 这样的一般处理程序, 则忽略 MethodName, 示例:
@@ -873,4 +900,17 @@ public static object Insert ( /* 参数 */ )
 <tr><td>sort/togglesort</td><td>设置/切换排序条件.</td><td>`<repeater 变量>.__repeater('sort', 'id', 'desc')` `<repeater 变量>.__repeater('togglesort', 'id')`</td></tr>
 <tr><td>update</td><td>调用服务端方法更新指定索引的行.</td><td>`<repeater 变量>.__repeater('update', 0)`</td></tr>
 </table>
+
+=== 相关内容 ===
+ [JERepeaterBindField Repeater 绑定/处理字段]
+
+ [JERepeaterSubView Repeater 子视图]
+ 
+ [JERepeaterGroup Repeater 数据分组]
+ 
+ [JERepeaterWidget Repeater 处理控件]
+
+=== 修订历史 ===
+ 2011-11-17: 增加相关内容和一个对 Repeater 验证功能介绍的链接.
+
 </font>
