@@ -909,7 +909,6 @@ public static object Insert ( /* parameter */ )
  [JERepeaterWidget Repeater Handling Control]
 
 === Revision History ===
- 2011-11-17: Increase Related Content section, and links to validation function of Repeater. 
-
-
+ 2011-11-17: Increase Related Content section, and links to validation function of Repeater.
+ 
 </font>
