@@ -1,0 +1,142 @@
+﻿#summary Repeater Message
+<font face="microsoft yahei">
+=== Introduction/Catalog ===
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /repeater/Default.aspx.
+  
+ Video demo: [http://www.tudou.com/programs/view/f44DaiWHcGE/ www.tudou.com/programs/view/f44DaiWHcGE/]
+
+ This article will explain in detail how to prompt message in Repeater, such as data is downloaded successfully, the content of field dose not meet the requirements, the directory is as follows: 
+
+  * Prepare
+  * Set TipTemplate
+  * Method showtip
+  * Property FieldMask
+  * Timeliness Of Messages
+
+=== Prepare ===
+ Please view the prepare section at [JQueryElementRepeaterDoc Repeater Reference].
+
+=== Set TipTemplate ===
+ If you want the *repeater* to display some message, you first need to set the TipTemplate template:
+{{{
+<TipTemplate>
+	<tr>
+		<td colspan="6" class="tip">
+		@{tip,(++tipCount).toString() + ' :' + @}
+		</td>
+	</tr>
+</TipTemplate>
+}}}
+ In code, use *`@{<attribute name>[,<attribute expression>]}`* to bind attribute tip, tip is text that you need to display. It's similar with binding field, except that # indicates that the field, and @ indicates that the attribute, you can refer to  [JERepeaterBindField Repeater Binding/Handling Field]. Contents of the tip may be from showtip method may also come from FieldMask property.
+
+=== Method showtip ===
+ Use *`<repeater variable>.__repeater('showtip', '<message>')`* to display a message in *repeater*:
+{{{
+<je:Repeater ID="orderList" runat="server"
+	...
+Filled="
+function(pe, e){
+	orderList.__repeater('showtip', e.custom.message);
+}
+" PreUpdate="
+function(pe, e){
+	orderList.__repeater('showtip', 'Submit data...');
+}
+" Updated="
+function(pe, e){
+
+	if(e.issuccess)
+		orderList.__repeater('showtip',
+		'Has saved order whick id is  ' + e.row.id.toString() +
+		' and sum is ' + e.row.sum.toString());
+	else
+		orderList.__repeater('showtip',
+		'Fail to save order which id is ' + e.row.id.toString());
+
+}
+" PreInsert="
+function(pe, e){
+	orderList.__repeater('showtip', 'Submit data...');
+}
+" Inserted="
+function(pe, e){
+
+	if(e.issuccess)
+		orderList.__repeater('showtip',
+		'Has created order whick id is ' + e.row.id.toString() +
+		' and sum is ' + e.row.sum.toString());
+	else
+		orderList.__repeater('showtip',
+		'Fail to create order which id is ' + e.row.id.toString());
+
+}
+">
+</je:Repeater>
+}}}
+ In the example above, showtip method is called, passing the string to display, but in Filled property, we pass `e.custom.message`, this is the message returned from the server. 
+
+=== Property FieldMask ===
+ FieldMask is used to validate the fields, but because FieldMask contains an error message, so the *repeater* will display the error message when a validation error:
+{{{
+<script type="text/javascript">
+	var mask = {
+			amount: {
+				type: 'number',
+				need: true,
+				max: 10,
+				min: 1,
+				tip: 'Amount required between 1-10'
+			},
+			price: {
+				type: 'number',
+				need: true,
+				max: 10000,
+				min: 1000,
+				tip: {
+					type: 'Please input a number for price',
+					need: 'Please input price',
+					max: 'Price cannot exceed 10,000',
+					min: 'Price cannot be less than 1000'
+				}
+			},
+			buyer: {
+				type: 'string',
+				need: true,
+				max: 10,
+				min: 3,
+				tip: 'Length of buyer required between 3-10'
+			},
+			address: {
+				type: 'string',
+				min: 1,
+				max: 100,
+				tip: 'Length of buyer required between 1-100'
+			},
+			orderdate: {
+				type: 'date',
+				tip: 'Need a valid date'
+			},
+			iscompleted: {
+				type: 'boolean',
+				defaultvalue: false
+			}
+	};
+</script>
+
+<je:Repeater ID="orderList" runat="server"
+	...
+	FieldMask="mask"
+	...	>
+
+</je:Repeater>
+}}}
+ In the code, FieldMask was assigned as variable mask and mask contains the rules for validation, you can refer the Field Settings section to [JQueryElementRepeaterDoc Repeater Reference].
+
+ tip in the mask can be a string or an object that contains more specific message.
+
+ Message is done automatically by *repeater*, if set a valid TipTemplate.
+
+=== Timeliness Of Messages ===
+ When you want to display a new message, or *repeater* to rebind the data, the original message is replaced or hidden. Edit a row, jump to the next page, call the fill method gives the *repeater* to rebind the data.
+
+</font>
