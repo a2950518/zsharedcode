@@ -48,9 +48,13 @@ function(pe, e){
 function(pe, e){
 
 	if(e.issuccess)
-		orderList.__repeater('showtip', '修改了序号为 ' + e.row.id.toString() + ' 的订单, 目前总金额 ' + e.row.sum.toString());
+		orderList.__repeater('showtip',
+		'修改了序号为 ' + e.row.id.toString() +
+		' 的订单, 目前总金额 ' + e.row.sum.toString());
 	else
-		orderList.__repeater('showtip', '修改序号为 ' + e.row.id.toString() + ' 的订单失败');
+		orderList.__repeater('showtip',
+		'修改序号为 ' + e.row.id.toString() +
+		' 的订单失败');
 
 }
 " PreInsert="
@@ -61,9 +65,13 @@ function(pe, e){
 function(pe, e){
 
 	if(e.issuccess)
-		orderList.__repeater('showtip', '新建了序号为 ' + e.row.id.toString() + ' 的订单, 目前总金额 ' + e.row.sum.toString());
+		orderList.__repeater('showtip',
+		'新建了序号为 ' + e.row.id.toString() +
+		' 的订单, 目前总金额 ' + e.row.sum.toString());
 	else
-		orderList.__repeater('showtip', '新建序号为 ' + e.row.id.toString() + ' 的订单失败');
+		orderList.__repeater('showtip',
+		'新建序号为 ' + e.row.id.toString() +
+		' 的订单失败');
 
 }
 ">
@@ -88,7 +96,12 @@ function(pe, e){
 			need: true,
 			max: 10000,
 			min: 1000,
-			tip: { type: '单价是一个数字', need: '请填写单价', max: '单价不能超出 10000', min: '单价不能小于 1000' }
+			tip: {
+				type: '单价是一个数字',
+				need: '请填写单价',
+				max: '单价不能超出 10000',
+				min: '单价不能小于 1000'
+			}
 		},
 		buyer: {
 			type: 'string',
