@@ -914,7 +914,10 @@ public static object Insert ( /* 参数 */ )
  
  [JERepeaterWidget Repeater 处理控件]
 
+ [JERepeaterShowTip Repeater 消息提示]
+
 === 修订历史 ===
  2011-11-17: 增加相关内容和一个对 Repeater 验证功能介绍的链接.
+ 2011-11-19: 增加 Repeater 消息提示介绍的链接.
 
 </font>
