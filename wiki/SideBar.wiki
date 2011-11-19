@@ -44,6 +44,7 @@
         * [JERepeaterSubView Repeater 子视图]
         * [JERepeaterGroup Repeater 数据分组]
         * [JERepeaterWidget Repeater 处理控件]
+        * [JERepeaterShowTip Repeater 消息提示]
       * [JQueryElementTimerDoc Timer 完全参考]
       * [JQueryElementValidatorDoc Validator 完全参考]
       * [JQueryElementAccordionDoc 折叠列表示例]

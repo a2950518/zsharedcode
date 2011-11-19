@@ -43,6 +43,7 @@
     * 子视图
     * 数据分组
     * 处理控件
+    * 消息提示
     * 事件
     * 客户端方法
 
@@ -826,7 +827,10 @@ public static object Insert ( /* 参数 */ )
 	type="text"
 	value="#{birthday,jQuery.panzer.formatDate(#,'yyyy-MM-dd')}" />
 }}}
- 更多使用方法和说明请参考 [JERepeaterWidget Repeater 处理控件]. 
+ 更多使用方法和说明请参考 [JERepeaterWidget Repeater 处理控件].
+
+ ==== <font color="green">消息提示</font> ====
+ 如果需要为用户显示 *repeater* 当前的操作或者结果, 则可以使用 showtip 函数或者设置 FieldMask 属性, 详细内容请参考 [JERepeaterShowTip Repeater 消息提示], 这里不再说明.
 
  ==== <font color="green">事件</font> ====
  在 Repeater 所有的事件中都有具有 pe 和 e 两个参数, pe.option 中包含了 *repeater* 中的选项, pe.jquery 表示当前 *repeater*, e 则包含了事件的相关数据.
