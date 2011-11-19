@@ -545,24 +545,27 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 		{
 			this.RemoveAsync.EventType = EventType.remove;
 			this.RemoveAsync.Data = "e.row";
-			this.RemoveAsync.Success = "function(data){e.callback.call(pe.jquery, pe, e.index, (null == -:data.row ? e.row : -:data.row), -:data.__success, e.substep);}";
-			this.RemoveAsync.Error = "function(){e.callback.call(pe.jquery, pe, e.index, e.row, false, e.substep);}";
+			this.RemoveAsync.Success = "function(data){e.callback.call(pe.jquery, pe, e.index, (null == -:data.row ? e.row : -:data.row), -:data.__success, e.substep, -:data.custom);}";
+			this.RemoveAsync.Error = "function(){e.callback.call(pe.jquery, pe, e.index, e.row, false, e.substep, null);}";
+
 			this.UpdateAsync.EventType = EventType.update;
 			this.UpdateAsync.Data = "e.row";
-			this.UpdateAsync.Success = "function(data){e.callback.call(pe.jquery, pe, e.index, (null == -:data.row ? e.row : -:data.row), -:data.__success);}";
-			this.UpdateAsync.Error = "function(){e.callback.call(pe.jquery, pe, e.index, e.row, false);}";
+			this.UpdateAsync.Success = "function(data){e.callback.call(pe.jquery, pe, e.index, (null == -:data.row ? e.row : -:data.row), -:data.__success, -:data.custom);}";
+			this.UpdateAsync.Error = "function(){e.callback.call(pe.jquery, pe, e.index, e.row, false, null);}";
 
 			this.FillAsync.EventType = EventType.fill;
-			this.FillAsync.Success = "function(data){e.callback.call(pe.jquery, pe, -:data, -:data.__success);}";
-			this.FillAsync.Error = "function(){e.callback.call(pe.jquery, pe, {}, false);}";
+			this.FillAsync.Success = "function(data){e.callback.call(pe.jquery, pe, -:data, -:data.__success, -:data.custom);}";
+			this.FillAsync.Error = "function(){e.callback.call(pe.jquery, pe, {}, false, null);}";
+
 			this.InsertAsync.EventType = EventType.insert;
 			this.InsertAsync.Data = "e.row";
-			this.InsertAsync.Success = "function(data){e.callback.call(pe.jquery, pe, (null == -:data.row ? e.row : -:data.row), -:data.__success);}";
-			this.InsertAsync.Error = "function(){e.callback.call(pe.jquery, pe, e.row, false);}";
+			this.InsertAsync.Success = "function(data){e.callback.call(pe.jquery, pe, (null == -:data.row ? e.row : -:data.row), -:data.__success, -:data.custom);}";
+			this.InsertAsync.Error = "function(){e.callback.call(pe.jquery, pe, e.row, false, null);}";
+
 			this.CustomAsync.EventType = EventType.custom;
 			this.CustomAsync.Data = "e.row, {command: e.command}";
-			this.CustomAsync.Success = "function(data){e.callback.call(pe.jquery, pe, e.index, e.command, (null == -:data.row ? e.row : -:data.row), -:data.__success, e.substep);}";
-			this.CustomAsync.Error = "function(){e.callback.call(pe.jquery, pe, e.index, e.command, e.row, false, e.substep);}";
+			this.CustomAsync.Success = "function(data){e.callback.call(pe.jquery, pe, e.index, e.command, (null == -:data.row ? e.row : -:data.row), -:data.__success, e.substep, -:data.custom);}";
+			this.CustomAsync.Error = "function(){e.callback.call(pe.jquery, pe, e.index, e.command, e.row, false, e.substep, null);}";
 
 			this.FillAsync.ParameterList.AddRange ( new Parameter[]
 			{

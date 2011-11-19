@@ -319,7 +319,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( this.DesignMode )
 				return;
 
-			JQueryUI jquery = new JQueryUI ( string.IsNullOrEmpty ( this.selector ) ? string.Format ( "'#{0}'", this.ClientID ) : this.selector );
+			JQueryUI jquery = new JQueryUI ( string.IsNullOrEmpty ( this.selector ) ? string.Format ( "'#{0}'", this.ClientID ) : this.selector, false );
 
 			this.renderJQuery ( jquery );
 

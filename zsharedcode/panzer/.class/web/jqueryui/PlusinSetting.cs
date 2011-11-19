@@ -58,30 +58,36 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 			set { this.plusinType = value; }
 		}
 
-		protected PlusinSetting(PlusinType plusinType, int ajaxCount)
-			: base(WidgetType.custom, ajaxCount)
+		protected PlusinSetting ( PlusinType plusinType, int ajaxCount )
+			: base ( WidgetType.custom, ajaxCount )
 		{ this.plusinType = plusinType; }
 
 		/// <summary>
 		/// 重新构造.
 		/// </summary>
-		public override void Recombine()
+		public override void Recombine ( )
 		{
 
-			foreach (AjaxSetting ajax in this.ajaxs)
-				if (ajax.EventType != EventType.none && ajax.EventType != EventType.__init)
+			foreach ( AjaxSetting ajax in this.ajaxs )
+				if ( ajax.EventType != EventType.none && ajax.EventType != EventType.__init )
 				{
 					OptionType optionType;
 
 					try
-					{ optionType = (OptionType)Enum.Parse(typeof(OptionType), ajax.EventType.ToString(), true); }
+					{ optionType = ( OptionType ) Enum.Parse ( typeof ( OptionType ), ajax.EventType.ToString ( ), true ); }
 					catch
 					{ continue; }
 
 					string data;
 
-					if (string.IsNullOrEmpty(ajax.MethodName))
+					if ( string.IsNullOrEmpty ( ajax.MethodName ) )
+					{
 						data = "data";
+
+						if ( ajax.Data.StartsWith ( "e." ) )
+							ajax.Data = string.Format ( "jQuery.extend({0}, {1})", "{}", ajax.Data );
+
+					}
 					else
 					{
 
@@ -90,26 +96,26 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 						else
 							data = "data.d";
 
-						if (ajax.Data.StartsWith("e."))
+						if ( ajax.Data.StartsWith ( "e." ) )
 							ajax.Data = string.Format ( "jQuery.panzer.encodeData({0})", ajax.Data );
 
 					}
 
-					if (!string.IsNullOrEmpty(ajax.Success))
-						ajax.Success = ajax.Success.Replace("-:data", data);
+					if ( !string.IsNullOrEmpty ( ajax.Success ) )
+						ajax.Success = ajax.Success.Replace ( "-:data", data );
 
-					if (!string.IsNullOrEmpty(ajax.Complete))
-						ajax.Complete = ajax.Complete.Replace("-:data", data);
+					if ( !string.IsNullOrEmpty ( ajax.Complete ) )
+						ajax.Complete = ajax.Complete.Replace ( "-:data", data );
 
-					if (!string.IsNullOrEmpty(ajax.Error))
-						ajax.Error = ajax.Error.Replace("-:data", data);
+					if ( !string.IsNullOrEmpty ( ajax.Error ) )
+						ajax.Error = ajax.Error.Replace ( "-:data", data );
 
-					JQuery jquery = JQueryUI.Create(ajax);
+					JQuery jquery = JQueryUI.Create ( ajax );
 
-					if (null != jquery)
+					if ( null != jquery )
 					{
-						jquery.EndLine();
-						this.settingHelper.SetOptionValue(optionType, "function(pe, e) {" + jquery.Code + "}", string.Empty);
+						jquery.EndLine ( );
+						this.settingHelper.SetOptionValue ( optionType, "function(pe, e) {" + jquery.Code + "}", string.Empty );
 					}
 
 				}

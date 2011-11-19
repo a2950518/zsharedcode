@@ -120,7 +120,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			else if ( string.IsNullOrEmpty ( setting.Form ) )
 				data = makeParameterExpression ( setting.Parameters, isWebService, quote );
 			else
-				data = JQuery.Create ( setting.Form ).Serialize ( ).Code;
+				data = JQuery.Create ( setting.Form, false ).Serialize ( ).Code;
 
 			string map = string.Format ( "url: {0}{1}{0}, dataType: {0}{2}{0}, data: {3}, type: {0}{4}{0}",
 				quote,
@@ -137,7 +137,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 				if ( @event.Type != EventType.none && @event.Type != EventType.__init && !string.IsNullOrEmpty ( @event.Value ) )
 					map += ", " + @event.Type + ": " + @event.Value;
 
-			return JQuery.Create ( false, true ).Ajax ( "{" + map + "}" );
+			return JQuery.Create ( false, false ).Ajax ( "{" + map + "}" );
 		}
 
 		/// <summary>
