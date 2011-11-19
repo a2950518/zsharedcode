@@ -15,59 +15,26 @@
 namespace zoyobar.shared.panzer.web
 {
 
-#if EN
-	/// <summary>
-	/// Navigation options.
-	/// </summary>
-#elif HANS
 	/// <summary>
 	/// 导航选项.
 	/// </summary>
-#endif
 	public enum NavigateOption
 	{
-#if EN
-		/// <summary>
-		/// None.
-		/// </summary>
-#elif HANS
 		/// <summary>
 		/// 空设置.
 		/// </summary>
-#endif
 		None = 0,
-
-#if EN
-		/// <summary>
-		/// In a new window.
-		/// </summary>
-#elif HANS
 		/// <summary>
 		/// 新窗口.
 		/// </summary>
-#endif
 		NewWindow = 1,
-
-#if EN
-		/// <summary>
-		/// In its own window.
-		/// </summary>
-#elif HANS
 		/// <summary>
 		/// 在自身的窗口.
 		/// </summary>
-#endif
 		SelfWindow = 2,
-
-#if EN
-		/// <summary>
-		/// In the parent window.
-		/// </summary>
-#elif HANS
 		/// <summary>
 		/// 在父窗口中.
 		/// </summary>
-#endif
 		ParentWindow = 3,
 	}
 

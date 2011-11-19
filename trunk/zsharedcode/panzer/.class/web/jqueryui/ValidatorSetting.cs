@@ -257,8 +257,8 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 		public override void Recombine ( )
 		{
 			this.CheckAsync.EventType = EventType.check;
-			this.CheckAsync.Success = "function(data){e.callback.call(pe.jquery, pe, (null == -:data.value ? e.value : -:data.value), -:data.tip, -:data.valid);}";
-			this.CheckAsync.Error = "function(){e.callback.call(pe.jquery, pe, {}, false);}";
+			this.CheckAsync.Success = "function(data){e.callback.call(pe.jquery, pe, (null == -:data.value ? e.value : -:data.value), -:data.tip, -:data.valid, -:data.custom);}";
+			this.CheckAsync.Error = "function(){e.callback.call(pe.jquery, pe, {}, false, null);}";
 
 			this.CheckAsync.ParameterList.AddRange ( new Parameter[]
 			{
