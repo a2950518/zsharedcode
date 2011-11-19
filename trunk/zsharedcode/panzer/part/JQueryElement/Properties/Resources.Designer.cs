@@ -71,7 +71,7 @@ namespace zoyobar.shared.panzer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 (function(g){function v(b,a){var c=b.option;if(c.singlethread&amp;&amp;c.busy)return null!=c.blocked&amp;&amp;c.blocked.call(this,b,{action:a}),!1;c.busy=!0;if(null!=c.preexecute){var d={action:a,tip:null};c.preexecute.call(this,b,d);J.call(this,b,d.tip)}return!0}function P(b,a){if(B.call(this,b,a,&quot;state&quot;)!=&quot;removed&quot;){var c=b.option;!c.multipleedit&amp;&amp;null!=c.index.edit&amp;&amp;p.call(this,b,c.index.edit,&quot;editing&quot;,!1);c.index.edit=a;p.call(this,b,a,&quot;editing&quot;,!0);l.call(this,b,c.data)}}function l(b,a){var c=b.option,d=!1;
+        ///   查找类似 (function(h){function v(b,a){var c=b.option;if(c.singlethread&amp;&amp;c.busy)return null!=c.blocked&amp;&amp;c.blocked.call(this,b,{action:a}),!1;c.busy=!0;if(null!=c.preexecute){var e={action:a,tip:null};c.preexecute.call(this,b,e);J.call(this,b,e.tip)}return!0}function P(b,a){if(B.call(this,b,a,&quot;state&quot;)!=&quot;removed&quot;){var c=b.option;!c.multipleedit&amp;&amp;null!=c.index.edit&amp;&amp;p.call(this,b,c.index.edit,&quot;editing&quot;,!1);c.index.edit=a;p.call(this,b,a,&quot;editing&quot;,!0);m.call(this,b,c.data)}}function m(b,a){var c=b.option,e=!1;
         ///c.data=a;c [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string repeater_min {
@@ -91,8 +91,8 @@ namespace zoyobar.shared.panzer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 (function(f){function g(d){var a=d.option,b=f(a.target);if(b.length!=0){var e=a.mask,c=b.attr(&quot;type&quot;);c==&quot;checkbox&quot;||c==&quot;radio&quot;?(c=b.attr(&quot;checked&quot;),null==c?c=!1:c==&quot;checked&quot;&amp;&amp;(c=!0)):c=b.val();null!=e.need&amp;&amp;e.need&amp;&amp;typeof c==&quot;string&quot;&amp;&amp;c==&quot;&quot;?b={value:&quot;&quot;,tip:null==e.tip.need?(null==e.name?&quot;argument&quot;:e.name)+&quot; should not be empty&quot;:e.tip.need,success:!1}:(b=f.panzer.check.call(this,f.panzer.convert.call(this,c,e.defaultvalue,e.type,e.provider),e,!1),b.success&amp;&amp;null!=a.equal&amp;&amp;f(a.equal).length!=0&amp;&amp;c!=
-        ///f(a.equal [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 (function(c){function g(d){var a=d.option,b=c(a.target);if(b.length!=0){var f=a.mask,e=b.attr(&quot;type&quot;);e==&quot;checkbox&quot;||e==&quot;radio&quot;?(e=b.attr(&quot;checked&quot;),null==e?e=!1:e==&quot;checked&quot;&amp;&amp;(e=!0)):e=b.val();null!=f.need&amp;&amp;f.need&amp;&amp;typeof e==&quot;string&quot;&amp;&amp;e==&quot;&quot;?b={value:&quot;&quot;,tip:null==f.tip.need?(null==f.name?&quot;argument&quot;:f.name)+&quot; should not be empty&quot;:f.tip.need,success:!1}:(b=c.panzer.check.call(this,c.panzer.convert.call(this,e,f.defaultvalue,f.type,f.provider),f,!1),b.success&amp;&amp;null!=a.equal&amp;&amp;c(a.equal).length!=0&amp;&amp;e!=
+        ///c(a.equal [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string validator_min {
             get {
