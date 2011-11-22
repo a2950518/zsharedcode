@@ -1,0 +1,139 @@
+﻿#summary Repeater Retrieving Data
+<font face="microsoft yahei">
+=== Introduction/Catalog ===
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /repeater/Default.aspx.
+  
+ Video demo: [http://www.tudou.com/programs/view/HJmCQRpGQEg/ www.tudou.com/programs/view/HJmCQRpGQEg/]
+
+ This article will explain in detail how to retrieve data in the Repeater, the directory is as follows:
+
+  * Prepare
+  * Set FilterTemplate
+  * Set FilterField And FilterFieldDefault
+  * Call Method setfilter And filter
+
+=== Prepare ===
+ Please view the prepare section at [JQueryElementRepeaterDoc Repeater Reference].
+
+=== Set FilterTemplate ===
+ In the FilterTemplate property of Repeater, contain elements that need to be filled in the search conditions, such as text box, datepicker, and so on. In addition, can also contain search button:
+{{{
+<je:Repeater ID="productList" runat="server"		...	>
+
+	<FilterTemplate>
+		<tr>
+			<td>
+				<input type="text" size="10"
+					je-id="productname"
+					je-value="productname" />
+			</td>
+			<td>
+				<input type="text" size="5"
+					je-id="model"
+					je-value="model" />
+			</td>
+			<td>
+				<input type="text" size="4"
+					je-id="price1"
+					je-value="price1" />
+				-
+				<input type="text" size="4"
+					je-id="price2"
+					je-value="price2" />
+			</td>
+			<td>
+				<input type="text" size="3"
+					je-id="amount"
+					je-value="amount" />
+			</td>
+			<td>
+				<input type="text" size="10"
+je-datepicker="dateFormat='yy-mm-dd';changeMonth=true;changeYear=true"
+					je-id="manufactureDate1"
+					je-value="manufactureDate1" />
+				-
+				<input
+je-datepicker="dateFormat='yy-mm-dd';changeMonth=true;changeYear=true"
+					type="text" size="10"
+					je-id="manufactureDate2"
+					je-value="manufactureDate2" />
+			</td>
+		</tr>
+		<tr je-class="{highlight}">
+			<td colspan="5" align="right">
+				<span je-button=";" onclick="javascript:clearCondition();">Reset</span>
+				<span je-button=";" je-onclick="filter">Search</span>
+			</td>
+		</tr>
+	</FilterTemplate>
+
+</je:Repeater>
+}}}
+ In the code, using the input element to add text box and datepicker, and associate the search field in property FilterField by je-id, je-value is the search condition which will initialize the value of element.
+
+ We also uses the je-datepicker to create datepicker above, as to how to use the *`je-<jQueryUI widget name>`* to create more jQueryUI widget, you can refer to [JERepeaterWidget Repeater Handling Control].
+
+ We create a button for search by je-button and je-onclick, je-onclick is specified as the filter, which means the implementation of filter method, you can refer the Special Binding section at [JQueryElementRepeaterDoc Repeater Reference].
+
+=== Set FilterField And FilterFieldDefault ===
+ The field names which set in the property FilterField, will be passed as a parameter to the server-side method:
+{{{
+<je:Repeater ID="productList" runat="server"
+	FilterField="['productname','price1','price2']"
+	FilterFieldDefault="['',-1,-1]"
+	FillAsync-Url="product.asmx"
+	FillAsync-MethodName="GetProductList">
+
+	<FilterTemplate>
+		<tr>
+			<td>
+				<input type="text" size="10"
+					je-id="productname" je-value="productname" />
+			</td>
+
+			<td>
+				<input type="text" size="4"
+					je-id="price1" je-value="price1" />
+				-
+				<input type="text" size="4"
+					je-id="price2" je-value="price2" />
+			</td>
+
+		</tr>
+	</FilterTemplate>
+
+</je:Repeater>
+}}}
+ In code, there are 3 fields, productname, price1 and price2. Property FilterFieldDefault is default values for these search conditions, so the server-side method GetProductList can take the following forms:
+{{{
+public SortedDictionary<string, object> GetProductList (
+	int pageindex, int pagesize,
+	string productname, float price1, float price2 )
+{
+
+		if ( price1 != -1 )
+			...
+
+		if ( price2 != -1 )
+			...
+
+}
+}}}
+ If the price1, price2 equals -1, indicate that the user does not set the search condition on prices. As for the format of the returned data on the server side, refer the Data Format of Request/Return section at [JQueryElementRepeaterDoc Repeater Reference].
+
+=== Call Method setfilter And filter ===
+ After a simple setup above, you can retrieve data using search button in FilterTemplate, in addition, you can also use another method:
+{{{
+<input id="myproductname" type="text" size="10" />
+
+<je:Button ID="cmdSearch" runat="server" Label="Search 2" Click="
+function(){
+	productList.__repeater('setfilter', 'productname', $('#myproductname').val());
+	productList.__repeater('filter');
+}
+">
+</je:Button>
+}}}
+ In the example above, in the button's click event, we call the setfilter method of *repeater* to set the filter condition productname to the value of text box which id is myproductname, and call the filter method to retrieve the data.
+
+</font>

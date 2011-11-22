@@ -42,6 +42,7 @@
     * Grouping Data
     * Handling Control
     * Message
+    * Retrieving Data
     * Event
     * Client Methods
 
@@ -828,7 +829,10 @@ public static object Insert ( /* parameter */ )
  More ways to use and description refer to [JERepeaterWidget Repeater Handling Control]. 
  
  ==== <font color="green">Message</font> ====
- If needed to display current action or result of *repeater*, you can use set property FieldMask or call method ShowTip, for details please refer to [JERepeaterShowTip Repeater Message], no longer description here.
+ If needed to display current action or result of *repeater*, you can use set property FieldMask or call method showtip, for details please refer to [JERepeaterShowTip Repeater Message], no longer description here.
+
+ ==== <font color="green">Retrieving Data</font> ====
+ In most cases, we will search something, you can achieve this through the properties such as FilterTemplate and FilterField, for details please refer to [JERepeaterSearch Repeater Retrieving Data].
 
  ==== <font color="green">Event</font> ====
  pe and e are two parameters of all the events, pe.option contains the option of *repeater*, pe.jQuery that represents the current *repeater*, e contains the event data.
@@ -914,8 +918,12 @@ public static object Insert ( /* parameter */ )
 
  [JERepeaterShowTip Repeater Message]
 
+ [JERepeaterSearch Repeater Retrieving Data]
+
 === Revision History ===
  2011-11-17: Increase Related Content section, and links to validation function of Repeater.
  
- 2011-11-19: Increase link to Message function of Repeater.
+ 2011-11-19: Increase link to message function of Repeater.
+
+ 2011-11-22: Increase link to retrieve function of Repeater.
 </font>
