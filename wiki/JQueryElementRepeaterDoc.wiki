@@ -44,6 +44,7 @@
     * 数据分组
     * 处理控件
     * 消息提示
+    * 检索数据
     * 事件
     * 客户端方法
 
@@ -832,6 +833,9 @@ public static object Insert ( /* 参数 */ )
  ==== <font color="green">消息提示</font> ====
  如果需要为用户显示 *repeater* 当前的操作或者结果, 则可以使用 showtip 函数或者设置 FieldMask 属性, 详细内容请参考 [JERepeaterShowTip Repeater 消息提示], 这里不再说明.
 
+ ==== <font color="green">检索数据</font> ====
+ 在多数情况下, 都会使用到数据检索的功能, 通过 Repeater 的 FilterTemplate 和 FilterField 等属性即可实现数据检索, 详细内容请参考 [JERepeaterSearch Repeater 检索数据].
+
  ==== <font color="green">事件</font> ====
  在 Repeater 所有的事件中都有具有 pe 和 e 两个参数, pe.option 中包含了 *repeater* 中的选项, pe.jquery 表示当前 *repeater*, e 则包含了事件的相关数据.
 
@@ -916,8 +920,13 @@ public static object Insert ( /* 参数 */ )
 
  [JERepeaterShowTip Repeater 消息提示]
 
+ [JERepeaterSearch Repeater 检索数据]
+
 === 修订历史 ===
  2011-11-17: 增加相关内容和一个对 Repeater 验证功能介绍的链接.
+
  2011-11-19: 增加 Repeater 消息提示介绍的链接.
+
+ 2011-11-22: 增加 Repeater 检索功能介绍的链接.
 
 </font>
