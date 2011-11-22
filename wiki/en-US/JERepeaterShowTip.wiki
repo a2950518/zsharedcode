@@ -5,7 +5,7 @@
   
  Video demo: [http://www.tudou.com/programs/view/f44DaiWHcGE/ www.tudou.com/programs/view/f44DaiWHcGE/]
 
- This article will explain in detail how to prompt message in Repeater, such as data is downloaded successfully, the content of field dose not meet the requirements, the directory is as follows: 
+ This article will explain in detail how to prompt message in Repeater, such as data is downloaded successfully, the content of field dose not meet the requirements, the directory is as follows:
 
   * Prepare
   * Set TipTemplate
@@ -73,7 +73,7 @@ function(pe, e){
 ">
 </je:Repeater>
 }}}
- In the example above, showtip method is called, passing the string to display, but in Filled property, we pass `e.custom.message`, this is the message returned from the server. 
+ In the example above, showtip method is called, passing the string to display, but in Filled property, we pass `e.custom.message`, this is the message returned from the server.
 
 === Property FieldMask ===
  FieldMask is used to validate the fields, but because FieldMask contains an error message, so the *repeater* will display the error message when a validation error:
