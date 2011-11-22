@@ -25,21 +25,40 @@
 	<FilterTemplate>
 		<tr>
 			<td>
-				<input type="text" size="10" je-id="productname" je-value="productname" />
+				<input type="text" size="10"
+					je-id="productname"
+					je-value="productname" />
 			</td>
 			<td>
-				<input type="text" size="5" je-id="model" je-value="model" />
+				<input type="text" size="5"
+					je-id="model"
+					je-value="model" />
 			</td>
 			<td>
-				<input type="text" size="4" je-id="price1" je-value="price1" />
+				<input type="text" size="4"
+					je-id="price1"
+					je-value="price1" />
 				-
-				<input type="text" size="4" je-id="price2" je-value="price2" />
+				<input type="text" size="4"
+					je-id="price2"
+					je-value="price2" />
 			</td>
 			<td>
-				<input type="text" size="3" je-id="amount" je-value="amount" />
+				<input type="text" size="3"
+					je-id="amount"
+					je-value="amount" />
 			</td>
 			<td>
-				<input type="text" size="10" je-datepicker="dateFormat='yy-mm-dd';changeMonth=true;changeYear=true" je-id="manufactureDate1" je-value="manufactureDate1" />-<input je-datepicker="dateFormat='yy-mm-dd';changeMonth=true;changeYear=true" type="text" size="10" je-id="manufactureDate2" je-value="manufactureDate2" />
+				<input type="text" size="10"
+je-datepicker="dateFormat='yy-mm-dd';changeMonth=true;changeYear=true"
+					je-id="manufactureDate1"
+					je-value="manufactureDate1" />
+				-
+				<input
+je-datepicker="dateFormat='yy-mm-dd';changeMonth=true;changeYear=true"
+					type="text" size="10"
+					je-id="manufactureDate2"
+					je-value="manufactureDate2" />
 			</td>
 		</tr>
 		<tr je-class="{highlight}">
@@ -70,13 +89,16 @@
 	<FilterTemplate>
 		<tr>
 			<td>
-				<input type="text" size="10" je-id="productname" je-value="productname" />
+				<input type="text" size="10"
+					je-id="productname" je-value="productname" />
 			</td>
 
 			<td>
-				<input type="text" size="4" je-id="price1" je-value="price1" />
+				<input type="text" size="4"
+					je-id="price1" je-value="price1" />
 				-
-				<input type="text" size="4" je-id="price2" je-value="price2" />
+				<input type="text" size="4"
+					je-id="price2" je-value="price2" />
 			</td>
 
 		</tr>
@@ -86,7 +108,9 @@
 }}}
  代码中, 通过 FilterField 设置了 3 个用于搜索的字段 productname, price1, price2, 并通过 FilterFieldDefault 来设置这些搜索条件的默认值, 因此服务器端方法 GetProductList 可以采用如下的形式:
 {{{
-public SortedDictionary<string, object> GetProductList ( int pageindex, int pagesize, string productname, float price1, float price2 )
+public SortedDictionary<string, object> GetProductList (
+	int pageindex, int pagesize,
+	string productname, float price1, float price2 )
 {
 
 		if ( price1 != -1 )
