@@ -1,0 +1,117 @@
+﻿#summary Repeater 检索数据
+<font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JERepeaterSearch Translate this page]</font>
+
+=== 简介/目录 ===
+ 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /repeater/Default.aspx.
+
+ 视频演示: [http://www.tudou.com/programs/view/HJmCQRpGQEg/ www.tudou.com/programs/view/HJmCQRpGQEg/]
+
+ 本文将详细的讲解如何在 Repeater 中检索数据信息, 目录如下:
+
+  * 准备
+  * 设置 FilterTemplate
+  * 设置 FilterField 和 FilterFieldDefault
+  * 调用 setfilter 和 filter 函数
+
+=== 准备 ===
+ 请先查看 [JQueryElementRepeaterDoc Repeater 完全参考] 或者准备一节的内容.
+
+=== 设置 FilterTemplate ===
+ 在 Repeater 的 FilterTemplate 属性中, 包含用于填写搜索条件的元素, 比如文本框, 日期框等. 此外, 也可以包含搜索按钮:
+{{{
+<je:Repeater ID="productList" runat="server"		...	>
+
+	<FilterTemplate>
+		<tr>
+			<td>
+				<input type="text" size="10" je-id="productname" je-value="productname" />
+			</td>
+			<td>
+				<input type="text" size="5" je-id="model" je-value="model" />
+			</td>
+			<td>
+				<input type="text" size="4" je-id="price1" je-value="price1" />
+				-
+				<input type="text" size="4" je-id="price2" je-value="price2" />
+			</td>
+			<td>
+				<input type="text" size="3" je-id="amount" je-value="amount" />
+			</td>
+			<td>
+				<input type="text" size="10" je-datepicker="dateFormat='yy-mm-dd';changeMonth=true;changeYear=true" je-id="manufactureDate1" je-value="manufactureDate1" />-<input je-datepicker="dateFormat='yy-mm-dd';changeMonth=true;changeYear=true" type="text" size="10" je-id="manufactureDate2" je-value="manufactureDate2" />
+			</td>
+		</tr>
+		<tr je-class="{highlight}">
+			<td colspan="5" align="right">
+				<span je-button=";" onclick="javascript:clearCondition();">清空</span>
+				<span je-button=";" je-onclick="filter">搜索</span>
+			</td>
+		</tr>
+	</FilterTemplate>
+
+</je:Repeater>
+}}}
+ 代码中, 使用了 input 元素来添加文本框和日期框, 通过 je-id 来与 FilterField 属性中的搜索字段关联, je-value 则是表示使用指定搜索条件来初始化.
+
+ 上面还使用了 je-datepicker 创建日期框, 至于如何使用 *`je-<jQueryUI 插件名>`* 创建更多 jQueryUI 插件, 可以参考 [JERepeaterWidget Repeater 处理控件].
+
+ 通过 je-button 和 je-onclick, 创建了用于搜索的按钮, je-onclick 被指定为 filter, 也就是将执行 *repeater* 的 filter 方法, 可以参考 [JQueryElementRepeaterDoc Repeater 完全参考] 的特殊绑定一节.
+
+=== 设置 FilterField 和 FilterFieldDefault ===
+ 在 FilterField 中设置的字段名, 将作为参数传递给服务器端的方法:
+{{{
+<je:Repeater ID="productList" runat="server"
+	FilterField="['productname','price1','price2']"
+	FilterFieldDefault="['',-1,-1]"
+	FillAsync-Url="product.asmx"
+	FillAsync-MethodName="GetProductList">
+
+	<FilterTemplate>
+		<tr>
+			<td>
+				<input type="text" size="10" je-id="productname" je-value="productname" />
+			</td>
+
+			<td>
+				<input type="text" size="4" je-id="price1" je-value="price1" />
+				-
+				<input type="text" size="4" je-id="price2" je-value="price2" />
+			</td>
+
+		</tr>
+	</FilterTemplate>
+
+</je:Repeater>
+}}}
+ 代码中, 通过 FilterField 设置了 3 个用于搜索的字段 productname, price1, price2, 并通过 FilterFieldDefault 来设置这些搜索条件的默认值, 因此服务器端方法 GetProductList 可以采用如下的形式:
+{{{
+public SortedDictionary<string, object> GetProductList ( int pageindex, int pagesize, string productname, float price1, float price2 )
+{
+
+		if ( price1 != -1 )
+			...
+
+		if ( price2 != -1 )
+			...
+
+}
+}}}
+ 如果 price1 和 price2 等于 -1, 则表示用户没有设置关于价格的搜索条件. 至于服务器端返回数据的格式, 请参考 [JQueryElementRepeaterDoc Repeater 完全参考] 的请求/返回数据的格式一节. 
+
+=== 调用 setfilter 和 filter 函数 ===
+ 经过上面简单的设置, 已经可以通过 FilterTemplate 中的搜索按钮来检索数据, 此外, 还可以使用另一个方法:
+{{{
+<input id="myproductname" type="text" size="10" />
+
+<je:Button ID="cmdSearch" runat="server" Label="搜索 2" Click="
+function(){
+	productList.__repeater('setfilter', 'productname', $('#myproductname').val());
+	productList.__repeater('filter');
+}
+">
+</je:Button>
+}}}
+ 上面的示例中, id 为 myproductname 的文本框用来输入搜索的产品名称, 而在按钮的 Click 事件中, 调用 *repeater* 的 setfilter 方法来将 myproductname 中的值设置到 *repeater* 的过滤条件中, 调用 filter 方法来检索数据.
+
+</font>

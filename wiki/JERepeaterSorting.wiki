@@ -1,0 +1,146 @@
+﻿#summary Repeater 排序
+<font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JERepeaterSorting Translate this page]</font>
+
+=== 简介/目录 ===
+ 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /repeater/Default.aspx.
+
+ 视频演示: [http://www.tudou.com/programs/view/HJmCQRpGQEg/ www.tudou.com/programs/view/HJmCQRpGQEg/]
+
+ 本文将详细的讲解如何在 Repeater 中根据字段对数据排序, 目录如下:
+
+  * 准备
+  * 调用 togglesort 函数
+  * 显示
+  * 设置 FieldMask 属性
+  * 消息的时效性
+
+=== 准备 ===
+ 请先查看 [JQueryElementRepeaterDoc Repeater 完全参考] 或者准备一节的内容.
+
+=== 设置 TipTemplate ===
+ 如果希望 *repeater* 可以显示一些提示信息, 则首先需要设置 TipTemplate 模板:
+{{{
+<TipTemplate>
+	<tr>
+		<td colspan="6" class="tip">
+		@{tip,'第 ' + (++tipCount).toString() + ' 条消息:' + @}
+		</td>
+	</tr>
+</TipTemplate>
+}}}
+ 代码中, 使用了 *`@{<属性名>[,<属性表达式>]}`* 来绑定属性 tip, tip 表示需要显示文本. 这和字段的绑定是类似, 不同的是 # 表示字段, 而 @ 表示属性, 可以参考 [JERepeaterBindField Repeater 绑定/处理字段]. tip 的内容可能是来自于 showtip 函数, 也可能来自于 FieldMask 属性.
+
+=== 调用 showtip 函数 ===
+ 通过 *`<repeater 变量>.__repeater('showtip', '<提示消息>')`* 可以让 *repeater* 显示提示消息:
+{{{
+<je:Repeater ID="orderList" runat="server"
+	...
+Filled="
+function(pe, e){
+	orderList.__repeater('showtip', e.custom.message);
+}
+" PreUpdate="
+function(pe, e){
+	orderList.__repeater('showtip', '提交数据...');
+}
+" Updated="
+function(pe, e){
+
+	if(e.issuccess)
+		orderList.__repeater('showtip',
+		'修改了序号为 ' + e.row.id.toString() +
+		' 的订单, 目前总金额 ' + e.row.sum.toString());
+	else
+		orderList.__repeater('showtip',
+		'修改序号为 ' + e.row.id.toString() +
+		' 的订单失败');
+
+}
+" PreInsert="
+function(pe, e){
+	orderList.__repeater('showtip', '提交数据...');
+}
+" Inserted="
+function(pe, e){
+
+	if(e.issuccess)
+		orderList.__repeater('showtip',
+		'新建了序号为 ' + e.row.id.toString() +
+		' 的订单, 目前总金额 ' + e.row.sum.toString());
+	else
+		orderList.__repeater('showtip',
+		'新建序号为 ' + e.row.id.toString() +
+		' 的订单失败');
+
+}
+">
+</je:Repeater>
+}}}
+ 上面的示例中, 多处调用了 showtip 函数, 并传递需要显示的字符串, 在 Filled 属性中, 传递的则是 `e.custom.message`, 这是来自于服务器返回的消息.
+
+=== 设置 FieldMask 属性 ===
+ FieldMask 本来是用于验证字段的, 但由于 FieldMask 中包含了错误提示, 所以 *repeater* 会在字段验证错误时, 显示这些提示:
+{{{
+<script type="text/javascript">
+	var mask = {
+		amount: {
+			type: 'number',
+			need: true,
+			max: 10,
+			min: 1,
+			tip: '数量需要在 1-10 之间'
+		},
+		price: {
+			type: 'number',
+			need: true,
+			max: 10000,
+			min: 1000,
+			tip: {
+				type: '单价是一个数字',
+				need: '请填写单价',
+				max: '单价不能超出 10000',
+				min: '单价不能小于 1000'
+			}
+		},
+		buyer: {
+			type: 'string',
+			need: true,
+			max: 10,
+			min: 3,
+			tip: '购买者长度需要在 3-10 之间'
+		},
+		address: {
+			type: 'string',
+			min: 1,
+			max: 100,
+			tip: '地址不能为空, 长度不能大于 100'
+		},
+		orderdate: {
+			type: 'date',
+			tip: '需要一个合法的日期'
+		},
+		iscompleted: {
+			type: 'boolean',
+			defaultvalue: false
+		}
+	};
+</script>
+
+<je:Repeater ID="orderList" runat="server"
+	...
+	FieldMask="mask"
+	...	>
+
+</je:Repeater>
+}}}
+ 代码中, FieldMask 被赋值为 mask 变量, 而 mask 中包含了用于验证的规则, 可以参考 [JQueryElementRepeaterDoc Repeater 完全参考] 的设置字段一节.
+
+ mask 中的 tip 可以是一个字符串, 表示验证失败的提示, 也可以是一个对象, 包含更具体的提示消息.
+
+ 而消息的提示是有 *repeater* 自动完成的, 前提是设置了有效的 TipTemplate.
+
+=== 消息的时效性 ===
+ 当需要显示新的消息, 或者 *repeater* 重新绑定数据时, 原有的消息将被替换或隐藏. 编辑行, 跳转到下一页, 调用 fill 方法都可以使 *repeater* 重新绑定数据.
+
+</font>
