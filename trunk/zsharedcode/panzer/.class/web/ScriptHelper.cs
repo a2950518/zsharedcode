@@ -1,4 +1,10 @@
 ﻿/*
+ * Author: M.S.cxc
+ * Code Url: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
+ * Version: .net 4.0
+ * 
+ * License: This file is an open source shared for free, you need to comply with panzer license http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt, please download the license and include it in your project and product.
+ * 
  * 作者: M.S.cxc
  * 原始代码: http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/.class/web/ScriptHelper.cs
  * 版本: 1.2, .net 4.0, 其它版本可能有所不同
