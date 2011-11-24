@@ -15,19 +15,44 @@
 namespace zoyobar.shared.panzer.web
 {
 
+	#region " ScriptType "
+#if EN
+	/// <summary>
+	/// Script type.
+	/// </summary>
+#elif HANS
 	/// <summary>
 	/// 脚本的类型.
 	/// </summary>
+#endif
+	#endregion
 	public enum ScriptType
 	{
+
+		#region " JavaScript "
+#if EN
+		/// <summary>
+		/// JavaScript.
+		/// </summary>
+#elif HANS
 		/// <summary>
 		/// Java 脚本.
 		/// </summary>
+#endif
+		#endregion
 		JavaScript = 1,
 
+		#region " VBScript "
+#if EN
+		/// <summary>
+		/// VBScript.
+		/// </summary>
+#elif HANS
 		/// <summary>
 		/// VB 脚本.
 		/// </summary>
+#endif
+		#endregion
 		VBScript = 2
 	}
 
