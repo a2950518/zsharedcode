@@ -1,0 +1,98 @@
+﻿#summary Repeater Sorting
+<font face="microsoft yahei">
+=== Introduction/Catalog ===
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /repeater/Default.aspx.
+
+ Video demo: [http://www.tudou.com/programs/view/M6aS81RVlCw/ www.tudou.com/programs/view/M6aS81RVlCw/]
+
+ This article will explain in detail how to sort data based on field in the Repeater, the directory is as follows:
+
+  * Prepare
+  * Call The Method togglesort
+  * Sort On Multiple Fields
+  * Server-Side Sorting
+  * Display The Sorting Status
+
+=== Prepare ===
+ Please view the prepare section at [JQueryElementRepeaterDoc Repeater Reference].
+
+=== Call The Method togglesort ===
+ Under normal circumstances, we start to sort data by clicking fields in table header, so you can call the togglesort method in the HeaderTemplate:
+{{{
+<je:Repeater ID="personList" runat="server"	...	>
+	<HeaderTemplate>
+		<thead je-class="{header}">
+			<tr>
+				<td je-onclick="togglesort,'realname'">
+					Real Name
+				</td>
+				<td je-onclick="togglesort,'age'">
+					Age
+				</td>
+				<td je-onclick="togglesort,'birthday'">
+					Birthday
+				</td>
+			</tr>
+		</thead>
+	</HeaderTemplate>
+</je:Repeater>
+}}}
+ In our example, we call method togglesort when click on header by je-onclick of td tag, togglesort switch sorting status of field, the order is asc, desc, none. In addition, you also need to specify which field is switched, which followed after the togglesort as the first parameter.
+
+ The method togglesort will get data from a server-side again, so do not need call method fill.
+
+=== Sort On Multiple Fields ===
+ By default, when you click a different field, the sorting status of sorted fields will disappear. If you want to sort according to multiple fields, you can hold down the key Ctrl while clicking field.
+
+=== Server-Side Sorting ===
+ Server-side method can receive a parameter named __order, which contains information about the sorting:
+{{{
+public void ProcessRequest ( HttpContext context )
+{
+	context.Response.ContentType = "text/javascript";
+	context.Response.Cache.SetNoStore ( );
+
+	int pageindex = 1;
+	int pagesize = 3;
+
+	if ( null != context.Request["pageindex"] )
+		int.TryParse ( context.Request["pageindex"], out pageindex );
+
+	if ( null != context.Request["pagesize"] )
+		int.TryParse ( context.Request["pagesize"], out pagesize );
+
+	int beginIndex = pagesize * ( pageindex - 1 ) + 1;
+	int endIndex = pagesize * pageindex;
+
+	string order = context.Request["__order"];
+	// "realname asc, age desc"
+
+	// return json
+}
+}}}
+ In the code above, we use a generic handler to return JSON, through the Request object to get the parameter __order. On how to return JSON, please refer to [AjaxReturnJSON Return JSON In Different .NET Version].
+
+=== Display The Sorting Status ===
+ In addition to sorting, usually to display the sorting status of the field, such as the up arrow indicates ascending order: 
+{{{
+<je:Repeater ID="personList" runat="server"
+Selector="'#list'" IsVariable="true"
+PageSize="3" FillAsync-Url="person.ashx">
+<HeaderTemplate>
+	<thead je-class="{header}">
+		<tr>
+
+			<td je-onclick="togglesort,'realname'">
+				Real Name
+<span je-class="{sort,realname,,asc-arrow icon,desc-arrow icon}">
+</span>
+			</td>
+
+		</tr>
+	</thead>
+</HeaderTemplate>
+</je:Repeater>
+}}}
+ You can use je-class to show a different style by sorting status, syntax is: *`{sort,<sort field name>[,<no sort class>[,<asc class>[,<desc class>]]]}`*.
+
+</font>
