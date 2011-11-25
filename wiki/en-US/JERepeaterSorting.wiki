@@ -73,7 +73,7 @@ public void ProcessRequest ( HttpContext context )
  In the code above, we use a generic handler to return JSON, through the Request object to get the parameter __order. On how to return JSON, please refer to [AjaxReturnJSON Return JSON In Different .NET Version].
 
 === Display The Sorting Status ===
- In addition to sorting, usually to display the sorting status of the field, such as the up arrow indicates ascending order: 
+ In addition to sorting, usually to display the sorting status of the field, such as the up arrow indicates ascending order:
 {{{
 <je:Repeater ID="personList" runat="server"
 Selector="'#list'" IsVariable="true"
