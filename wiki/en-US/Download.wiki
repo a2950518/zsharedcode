@@ -1,6 +1,9 @@
 ﻿#summary Download
 #labels Featured,Phase-Deploy
 <font face="microsoft yahei">
+=== Note ===
+ English comments not yet fully translated, please understand.
+
 === JQueryElement.dll ===
  The following dll files is uploaded at 2011-11-25.
  
