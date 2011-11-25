@@ -437,7 +437,7 @@ public static object Insert ( /* parameter */ )
  There are 4 kinds row status in client, namely unchanged did not change, updated updated, inserted a new row, removed deleting rows.
 
  ==== <font color="green">Sorting Status Description</font> ====
- There are 4 kinds sorting status in client, namely none no sorting or to use default sorting, asc ascending order, desc descending order.
+ There are 3 kinds sorting status in client, namely none no sorting or to use default sorting, asc ascending order, desc descending order.
 
  ==== <font color="green">Template Settings</font> ====
  In all of the templates, you can set the final display by html code, the html code should be complete, legitimate, else, this could cause the final display do not work properly.
