@@ -45,6 +45,7 @@
     * 处理控件
     * 消息提示
     * 检索数据
+    * 排序
     * 事件
     * 客户端方法
 
@@ -438,7 +439,7 @@ public static object Insert ( /* 参数 */ )
  在客户端的 javascript 脚本中, 行状态有 4 种, 分别是 unchanged 未改变, updated 更新过, inserted 新建后的行, removed 删除后的行.
 
  ==== <font color="green">排序状态说明</font> ====
- 在客户端的 javascript 脚本中, 排序状态有 4 种, 分别是 none 无排序或按照默认排序, asc 升序, desc 降序.
+ 在客户端的 javascript 脚本中, 排序状态有 3 种, 分别是 none 无排序或按照默认排序, asc 升序, desc 降序.
 
  ==== <font color="green">设置模板</font> ====
  在 Repeater 的各种模板中, 可以设置 Repeater 最终显示的 html 代码, 这些 html 代码应该是完整的, 合法的, 否则可能导致最终显示的不正常.
@@ -836,6 +837,9 @@ public static object Insert ( /* 参数 */ )
  ==== <font color="green">检索数据</font> ====
  在多数情况下, 都会使用到数据检索的功能, 通过 Repeater 的 FilterTemplate 和 FilterField 等属性即可实现数据检索, 详细内容请参考 [JERepeaterSearch Repeater 检索数据].
 
+ ==== <font color="green">排序</font> ====
+ 使用 togglesort 函数就可以完成对字段的排序, 再配合 je-class 在不同排序状态下显示不同样式, 详细内容请参考 [JERepeaterSorting Repeater 排序].
+
  ==== <font color="green">事件</font> ====
  在 Repeater 所有的事件中都有具有 pe 和 e 两个参数, pe.option 中包含了 *repeater* 中的选项, pe.jquery 表示当前 *repeater*, e 则包含了事件的相关数据.
 
@@ -922,11 +926,15 @@ public static object Insert ( /* 参数 */ )
 
  [JERepeaterSearch Repeater 检索数据]
 
+ [JERepeaterSorting Repeater 排序]
+
 === 修订历史 ===
  2011-11-17: 增加相关内容和一个对 Repeater 验证功能介绍的链接.
 
  2011-11-19: 增加 Repeater 消息提示介绍的链接.
 
  2011-11-22: 增加 Repeater 检索功能介绍的链接.
+
+ 2011-11-25: 增加 Repeater 排序功能介绍的链接.
 
 </font>
