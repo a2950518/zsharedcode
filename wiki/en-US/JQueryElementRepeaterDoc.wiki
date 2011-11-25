@@ -43,6 +43,7 @@
     * Handling Control
     * Message
     * Retrieving Data
+    * Sorting
     * Event
     * Client Methods
 
@@ -834,6 +835,9 @@ public static object Insert ( /* parameter */ )
  ==== <font color="green">Retrieving Data</font> ====
  In most cases, we will search something, you can achieve this through the properties such as FilterTemplate and FilterField, for details please refer to [JERepeaterSearch Repeater Retrieving Data].
 
+ ==== <font color="green">Sorting</font> ====
+ You can sort the fields using the togglesort method, coupled with the je-class display different styles in different sorting status, for details please refer to [JERepeaterSorting Repeater Sorting].
+
  ==== <font color="green">Event</font> ====
  pe and e are two parameters of all the events, pe.option contains the option of *repeater*, pe.jQuery that represents the current *repeater*, e contains the event data.
 
@@ -920,10 +924,14 @@ public static object Insert ( /* parameter */ )
 
  [JERepeaterSearch Repeater Retrieving Data]
 
+ [JERepeaterSorting Repeater Sorting]
+
 === Revision History ===
  2011-11-17: Increase Related Content section, and links to validation function of Repeater.
  
  2011-11-19: Increase link to message function of Repeater.
 
  2011-11-22: Increase link to retrieve function of Repeater.
+
+ 2011-11-25: Increase link to sorting function of Repeater.
 </font>

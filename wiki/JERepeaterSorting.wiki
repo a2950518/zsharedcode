@@ -18,7 +18,7 @@
 === 准备 ===
  请先查看 [JQueryElementRepeaterDoc Repeater 完全参考] 或者准备一节的内容.
 
-=== 设置 HeaderTemplate ===
+=== 调用 togglesort 函数 ===
  一般情况下, 会通过点击表头的字段标题来完成排序, 因此可以在 HeaderTemplate 中调用 togglesort 函数:
 {{{
 <je:Repeater ID="personList" runat="server"	...	>
