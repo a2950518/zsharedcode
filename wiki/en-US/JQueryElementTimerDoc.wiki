@@ -209,4 +209,7 @@ function(pe, e){
 }}}
  In code, use Validator control to validate the sender entered by the user and the title, is not explained here, you can refer to [JQueryElementValidatorDoc Validator Reference].
 
+=== Revision History ===
+ 2011-11-26: Modifying presentation on referencing jQueryUI.
+
 </font>

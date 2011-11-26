@@ -933,4 +933,6 @@ public static object Insert ( /* parameter */ )
  2011-11-22: Increase link to retrieve function of Repeater.
 
  2011-11-25: Increase link to sorting function of Repeater.
+
+ 2011-11-26: Modifying presentation on referencing jQueryUI.
 </font>

@@ -213,4 +213,7 @@ function(pe, e){
 }}}
  代码中, 使用了 Validator 来验证了用户输入的发信人和标题, 这里也不解释了, 可以参考 [JQueryElementValidatorDoc Validator 完全参考].
 
+=== 修订历史 ===
+ 2011-11-26: 修改关于引用 jQueryUI 的介绍.
+
 </font>

@@ -199,4 +199,7 @@ public SortedDictionary<string, object> CheckNickname ( string value )
 }
 }}}
 
+=== Revision History ===
+ 2011-11-26: Modifying presentation on referencing jQueryUI.
+
 </font>
