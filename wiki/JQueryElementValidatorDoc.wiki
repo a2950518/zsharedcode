@@ -36,7 +36,6 @@
 <link type="text/css" rel="stylesheet" href="[样式路径]/jquery-ui-1.8.15.custom.css" />
 <script type="text/javascript" src="[脚本路径]/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="[脚本路径]/jquery-ui-1.8.15.custom.min.js"></script>
-<script type="text/javascript" src="[脚本路径]/jquery.ui.datepicker-zh-CN.js"></script>
 }}}
 
 === 客户端验证 ===
