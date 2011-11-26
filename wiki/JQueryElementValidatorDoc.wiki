@@ -33,9 +33,9 @@
 
  除了命名空间, 还需要引用 jQueryUI 的脚本和样式, 在 [Download 下载资源] 下载的压缩包中包含了一个自定义样式的 jQueryUI, 如果需要更多样式, 可以在 [http://jqueryui.com/download jqueryui.com/download] 下载:
 {{{
-<link type="text/css" rel="stylesheet" href="[样式路径]/jquery-ui-1.8.15.custom.css" />
-<script type="text/javascript" src="[脚本路径]/jquery-1.6.2.min.js"></script>
-<script type="text/javascript" src="[脚本路径]/jquery-ui-1.8.15.custom.min.js"></script>
+<link type="text/css" rel="stylesheet" href="[样式路径]/jquery-ui-<version>.custom.css" />
+<script type="text/javascript" src="[脚本路径]/jquery-<version>.min.js"></script>
+<script type="text/javascript" src="[脚本路径]/jquery-ui-<version>.custom.min.js"></script>
 }}}
 
 === 客户端验证 ===
