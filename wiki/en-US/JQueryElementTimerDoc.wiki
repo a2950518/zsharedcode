@@ -28,10 +28,9 @@
 
  In addition to the namespace, you need to reference the jQueryUI scripts and styles, there is a custom theme for jQueryUI in the compressed file downloaded at [Download Downloads], if you need more themes, you can get them at [http://jqueryui.com/download jqueryui.com/download]:
 {{{
-<link type="text/css" rel="stylesheet" href="[style path]/jquery-ui-1.8.15.custom.css" />
-<script type="text/javascript" src="[script path]/jquery-1.6.2.min.js"></script>
-<script type="text/javascript" src="[script path]/jquery-ui-1.8.15.custom.min.js"></script>
-<script type="text/javascript" src="[script path]/jquery.ui.datepicker-zh-CN.js"></script>
+<link type="text/css" rel="stylesheet" href="[style path]/jquery-ui-<version>.custom.css" />
+<script type="text/javascript" src="[script path]/jquery-<version>.min.js"></script>
+<script type="text/javascript" src="[script path]/jquery-ui-<version>.custom.min.js"></script>
 }}}
 
 ==== Interval ====
