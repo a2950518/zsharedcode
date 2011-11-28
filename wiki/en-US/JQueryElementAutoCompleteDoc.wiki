@@ -1,0 +1,113 @@
+﻿#summary Autocompelete Reference
+#labels Phase-Implementation
+<font face="microsoft yahei">
+=== Introduction/Catalog ===
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /autocomplete/Default.aspx.
+ 
+ Video demo: [http://www.tudou.com/programs/view/fZu-HcdijZA/ www.tudou.com/programs/view/fZu-HcdijZA/]
+
+ This article explains the function and the use of Autocomplete, the directory is as follows:
+
+  * Prepare
+  * Source Property
+    * Array
+    * Url
+    * Method
+  * Delay Property
+  * MinLength Property
+  * Other Properties And Events
+
+=== Prepare ===
+ Be sure that you have got the latest version of JQueryElement at [Download Downloads].
+
+ Use the following statements to reference namespace:
+{{{
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui.plusin"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.web.jqueryui"
+	TagPrefix="je" %>
+}}}
+
+ In addition to the namespace, you need to reference the jQueryUI scripts and styles, there is a custom theme for jQueryUI in the compressed file downloaded at [Download Downloads], if you need more themes, you can get them at [http://jqueryui.com/download jqueryui.com/download]:
+{{{
+<link type="text/css" rel="stylesheet" href="[style path]/jquery-ui-<version>.custom.css" />
+<script type="text/javascript" src="[script path]/jquery-<version>.min.js"></script>
+<script type="text/javascript" src="[script path]/jquery-ui-<version>.custom.min.js"></script>
+}}}
+
+=== Source Property ===
+ Property Source is an important property of Autocomplete, contains suggested entries, can be the following three forms: array, a url, or a method.
+
+ ==== <font color="green">Array</font> ====
+ Source property can be set to a javascript array, in the form: *`['entry 1', 'entry N']`* or *`[{ label: 'entry 1', value: 'value 1' }, { label: 'entry N', value: 'value N' }]`*. In the latter form, label indicates that the text of entry, value indicates that the text of text box when an entry is selected:
+{{{
+<je:Autocomplete ID="aA" runat="server"
+	Source="['vs 2002','vs 2003','vs 2005','vs 2008','vs 2010']">
+</je:Autocomplete>
+}}}
+ In the code above, if the user has entered vs 201, it will display vs 2010 as suggested entry.
+
+ ==== <font color="green">Url</font> ====
+ If the Source property is specified as a url, that url should return a javascript array which is same with mentioned above:
+{{{
+<je:Autocomplete ID="aA" runat="server"
+	Source="'http:// ... /source.js'">
+</je:Autocomplete>
+}}}
+ In the code above, you need to *use single quotes to enclose the url*, otherwise it will generate an error. source.js above might look as follows:
+{{{
+["tom", "tomas", "li", "lili"]
+}}}
+
+ ==== <font color="green">Method</font> ====
+ Use a method can dynamically display suggested entries based on user input, but does not need to write this method because it can be done through the SourceAsync property of Autocomplete:
+{{{
+<je:Autocomplete ID="k" runat="server"
+	SourceAsync-Url="google_getitem.ashx">
+</je:Autocomplete>
+}}}
+ In the code, SourceAsync-Url is set to google_getitem.ashx, so when the text of text box has been changed, *autocomplete* will visit google_getitem.ashx to obtain suggested entry, the ProcessRequest method of google_getitem.ashx:
+{{{
+public void ProcessRequest ( HttpContext context )
+{
+	context.Response.ContentType = "text/javascript";
+	context.Response.Cache.SetNoStore ( );
+
+	string term = context.Request["term"];
+	List<object> items = new List<object> ( );
+
+	for ( int index = 0; index < term.Length; index++ )
+		items.Add ( term + "-" + term.Substring ( 0, index + 1 ) );
+
+	context.Response.Write ( new JavaScriptSerializer ( ).Serialize (
+		SampleHelper.CreateJSONArray ( items.ToArray ( ) ) )
+		);
+
+	/*
+	 * [
+	 *	"suggested entry 1", "suggested entry 2"
+	 * ]
+	 * 
+	 * [
+	 *  { "label": "suggested entry 1", "value": "value 1" },
+	 *  { "label": "suggested entry 2", "value": "value 2" }
+	 * ]
+	 * */
+}
+}}}
+ In the code, through the Request object to get the parameter term which is passed by *autocomplete*, says the text currently entered by the user. According to the term parameter, we can generate suggested entries and return them to the client in a javascript array.
+
+ If you need to return data in a different .NET version, please refer to [AjaxReturnJSON Return JSON In Different .NET Version].
+
+=== Delay Property ===
+ Delay property is the delay in milliseconds the Autocomplete waits to trigger the match, the default is 300 milliseconds.
+
+=== MinLength Property ===
+ MinLength property is the minimum number of characters a user has to type before the Autocomplete to trigger the match.
+
+=== Other Properties And Events ===
+ Other properties and events of *autocomplete*, you can refer to [http://docs.jquery.com/UI/Autocomplete docs.jquery.com/UI/Autocomplete].
+
+</font>
