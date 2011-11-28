@@ -50,7 +50,7 @@
       * [JQueryElementTimerDoc Timer 完全参考]
       * [JQueryElementValidatorDoc Validator 完全参考]
       * [JQueryElementAccordionDoc 折叠列表示例]
-      * [JQueryElementAutoCompleteDoc 自动填充示例]
+      * [JQueryElementAutoCompleteDoc Autocompelete 完全参考]
       * [JQueryElementButtonDoc 按钮示例]
       * [JQueryElementDatePickerDoc 日期框示例]
       * [JQueryElementDialogDoc 对话框示例]
@@ -96,4 +96,6 @@
       * [http://www.tudou.com/programs/view/bGiJ5XUyfVI/ jQuery Timer 实现的新邮件提醒]
       * [http://www.tudou.com/programs/view/f44DaiWHcGE/ 在 jQuery Repeater 进行验证更新等操作时提示消息]
       * [http://www.tudou.com/programs/view/HJmCQRpGQEg/ 在 jQuery Repeater 中检索过滤数据]
+      * [http://www.tudou.com/programs/view/M6aS81RVlCw/ 在 jQuery Repeater 中为多个字段排序]
+      * [http://www.tudou.com/programs/view/fZu-HcdijZA/ 使用 jQuery autocomplete 像 Google 一样给出建议词条]
 </font>

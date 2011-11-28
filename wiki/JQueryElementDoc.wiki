@@ -22,7 +22,7 @@
  * [JQueryElementValidatorDoc Validator 完全参考]
 
  * [JQueryElementAccordionDoc 折叠列表示例]
- * [JQueryElementAutoCompleteDoc 自动填充示例]
+ * [JQueryElementAutoCompleteDoc Autocompelete 完全参考]
  * [JQueryElementButtonDoc 按钮示例]
  * [JQueryElementDatePickerDoc 日期框示例]
  * [JQueryElementDialogDoc 对话框示例]
