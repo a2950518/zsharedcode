@@ -6,14 +6,14 @@
 
  This article explains the function and the use of Timer, the directory is as follows:
 
-   * Prepare
-   * Interval
-   * Client Tick Event
-   * Server Tick Event
-   * Start And Stop The Timer
-   * Appendix: New EMail Notifications
+  * Prepare
+  * Interval
+  * Client Tick Event
+  * Server Tick Event
+  * Start And Stop The Timer
+  * Appendix: New EMail Notifications
 
-==== Prepare ====
+=== Prepare ===
  Be sure that you have got the latest version of JQueryElement at [Download Downloads].
 
  Use the following statements to reference namespace:
@@ -33,10 +33,10 @@
 <script type="text/javascript" src="[script path]/jquery-ui-<version>.custom.min.js"></script>
 }}}
 
-==== Interval ====
+=== Interval ===
  Use the property Interval to set the interval, in milliseconds, default is 1000 milliseconds.
 
-==== Client Tick Event ====
+=== Client Tick Event ===
  Property Tick of Timer represents the trigger event run on a client:
 {{{
 <je:Timer ID="checkTimer" runat="server" Tick="
@@ -48,7 +48,7 @@ function(pe, e){
 }}}
  Property Tick is a javascript function, you can write code that is executed when tick event occurs. The property count of parameter e indicates how many times the event occurred after the timer started.
 
-==== Server Tick Event ====
+=== Server Tick Event ===
  By setting the TickAsync property, you can call methods on the server side, as the following form:
 {{{
 <je:Timer ID="checkTimer" runat="server">
@@ -81,7 +81,7 @@ function(pe, e){
  
  javascript method in property Success handle the JSON returned by the server, about how to return JSON, refer to [AjaxReturnJSON Return JSON In Different .NET Version], the above code written in .NET 2.
 
-==== Start And Stop The Timer ====
+=== Start And Stop The Timer ===
  In javascript, Call start and stop method to start or stop the timer, syntax is `<timer variable>.__timer('start'); <timer variable>.__timer('stop');`:
 {{{
 <script type="text/javascript">
@@ -93,7 +93,7 @@ function(pe, e){
 </script>
 }}}
 
-==== Appendix: New EMail Notifications ====
+=== Appendix: New EMail Notifications ===
  This section describes the design concept for email notifications about this example, we use a Timer control on the page to regularly get information about new email from the WebService:
 {{{
 <je:Timer ID="checkTimer" runat="server" IsVariable="true" Interval="5000">

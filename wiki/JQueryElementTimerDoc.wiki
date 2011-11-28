@@ -8,14 +8,14 @@
 
  本文将说明 Timer 控件的功能以及使用过程中的注意事项和技巧, 目录如下:
 
-   * 准备
-   * 触发间隔
-   * 客户端触发事件
-   * 服务器端触发事件
-   * 启动和停止时钟
-   * 附录: 新邮件提醒示例分析
+  * 准备
+  * 触发间隔
+  * 客户端触发事件
+  * 服务器端触发事件
+  * 启动和停止时钟
+  * 附录: 新邮件提醒示例分析
 
-==== 准备 ====
+=== 准备 ===
  请确保已经在 [Download 下载资源] 中下载 JQueryElement 最新的版本.
 
  请使用指令引用如下的命名空间:
@@ -35,10 +35,10 @@
 <script type="text/javascript" src="[脚本路径]/jquery-ui-<version>.custom.min.js"></script>
 }}}
 
-==== 触发间隔 ====
+=== 触发间隔 ===
  可以通过 Interval 属性来设置时钟的触发时间间隔, 以毫秒为单位, 默认为 1000 毫秒.
 
-==== 客户端触发事件 ====
+=== 客户端触发事件 ===
  Timer 的 Tick 属性表示在客户端运行的触发事件:
 {{{
 <je:Timer ID="checkTimer" runat="server" Tick="
@@ -50,7 +50,7 @@ function(pe, e){
 }}}
  将 Tick 属性设置为如上形式的 javascript 函数, 即可在对应的 javascript 函数中编写触发时执行的代码. 其中, 参数 e 的 count 属性表示 *timer* 开始计时后第几次触发事件.
 
-==== 服务器端触发事件 ====
+=== 服务器端触发事件 ===
  设置 TickAsync 属性, 可以调用服务器端的方法, 形式如下:
 {{{
 <je:Timer ID="checkTimer" runat="server">
@@ -83,7 +83,7 @@ function(pe, e){
  
  代码中的 Success 为处理服务器返回 JSON 的 javascript 函数, 这里采用的是 .NET 2.0 下的写法, 不同写法请参考 [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON].
 
-==== 启动和停止时钟 ====
+=== 启动和停止时钟 ===
  在 javascript 中, 调用 *timer* 的 start 和 stop 方法即可启动或者停止时钟, 语法为 `<timer 变量>.__timer('start'); <timer 变量>.__timer('stop');`:
 {{{
 <script type="text/javascript">
@@ -95,7 +95,7 @@ function(pe, e){
 </script>
 }}}
 
-==== 附录: 新邮件提醒示例分析 ====
+=== 附录: 新邮件提醒示例分析 ===
  这一节将说明新邮件提醒这个例子的大概设计思路, 在页面上使用了 Timer 控件来定时从 WebService 获取新邮件的有关信息:
 {{{
 <je:Timer ID="checkTimer" runat="server" IsVariable="true" Interval="5000">
