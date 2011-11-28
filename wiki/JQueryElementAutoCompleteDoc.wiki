@@ -1,4 +1,4 @@
-﻿#summary JQueryElement 自动填充
+﻿#summary JQueryElement Autocompelete 完全参考
 #labels Phase-Implementation
 <font face="microsoft yahei">
 <font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JQueryElementAutoCompleteDoc Translate this page]</font>
