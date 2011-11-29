@@ -31,6 +31,10 @@ namespace zoyobar.shared.panzer.web
 		/// html 代码.
 		/// </summary>
 		html = 4,
+		/// <summary>
+		/// 跨域的 json 数据.
+		/// </summary>
+		jsonp = 5,
 	}
 	#endregion
 
