@@ -12,9 +12,11 @@
  * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
 * */
 
-// HACK: 在项目中定义编译符号 PARAM, 采用提供默认参数的方法.
+// HACK: 在项目中定义编译符号 PARAM, 采用提供默认参数的方法
+// HACK: Define compilation symbol PARAM to provide the default parameters for method
 
 // HACK: 如果代码不能编译, 请尝试在项目中定义编译符号 V4, V3_5, V3, V2 以表示不同的 .NET 版本
+// HACK: If the code does not compile, try to define compilation symbol V4, V3_5, V3, V2 that represent different .NET version
 
 using System;
 using System.Text.RegularExpressions;
@@ -23,9 +25,17 @@ using System.Web.UI;
 namespace zoyobar.shared.panzer.web
 {
 
+	#region " ScriptHelper "
+#if EN
+	/// <summary>
+	/// You can use this class to write client-side scripts, modify the label attribute, contain a script file, set the clock, and so on.
+	/// </summary>
+#elif HANS
 	/// <summary>
 	/// 此类可以完成客户端脚本的编写, 修改标签属性, 包含脚本文件, 设置时钟等操作.
 	/// </summary>
+#endif
+	#endregion
 	public partial class ScriptHelper
 	{
 
@@ -33,20 +43,42 @@ namespace zoyobar.shared.panzer.web
 		private static readonly Random random = new Random ( );
 
 #if PARAM
+		#region " EscapeCharacter "
+#if EN
+		/// <summary>
+		/// Encode special characters in a string into script form, such as \ to \\.
+		/// </summary>
+		/// <param name="text">The string to encode.</param>
+		/// <param name="isRemove">If true, remove return, linefeed and tab, the default is false.</param>
+		/// <returns>Encoded string.</returns>
+#elif HANS
 		/// <summary>
 		/// 将字符串中的特殊字符编码为脚本形式, 如: \ 编码为 \\.
 		/// </summary>
 		/// <param name="text">需要编码的字符串.</param>
 		/// <param name="isRemove">如果为 true, 则删除回车, 换行和制表符, 默认为 false.</param>
 		/// <returns>编码后的字符串.</returns>
+#endif
+		#endregion
 		public static string EscapeCharacter ( string text, bool isRemove = false )
 #else
+		#region " EscapeCharacter "
+#if EN
+		/// <summary>
+		/// Encode special characters in a string into script form, such as \ to \\.
+		/// </summary>
+		/// <param name="text">The string to encode.</param>
+		/// <param name="isRemove">If true, remove return, linefeed and tab.</param>
+		/// <returns>Encoded string.</returns>
+#elif HANS
 		/// <summary>
 		/// 将字符串中的特殊字符编码为脚本形式, 如: \ 编码为 \\.
 		/// </summary>
 		/// <param name="text">需要编码的字符串.</param>
 		/// <param name="isRemove">如果为 true, 则删除回车, 换行和制表符.</param>
 		/// <returns>编码后的字符串.</returns>
+#endif
+		#endregion
 		public static string EscapeCharacter ( string text, bool isRemove )
 #endif
 		{
@@ -902,11 +934,21 @@ namespace zoyobar.shared.panzer.web
 #if !PARAM
 
 		#region " static "
+		#region " EscapeCharacter "
+#if EN
+		/// <summary>
+		/// Encode special characters in a string into script form, such as \ to \\, do not delete return, linefeed and tab.
+		/// </summary>
+		/// <param name="text">The string to encode.</param>
+		/// <returns>Encoded string.</returns>
+#elif HANS
 		/// <summary>
 		/// 将字符串中的特殊字符编码为脚本形式, 如: \ 编码为 \\, 不删除回车, 换行和制表符.
 		/// </summary>
 		/// <param name="text">需要编码的字符串.</param>
 		/// <returns>编码后的字符串.</returns>
+#endif
+		#endregion
 		public static string EscapeCharacter ( string text )
 		{ return EscapeCharacter ( text, false ); }
 

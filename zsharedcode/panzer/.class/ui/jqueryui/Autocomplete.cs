@@ -227,6 +227,18 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			get { return this.uiSetting.ChangeAsync; }
 		}
+
+		/// <summary>
+		/// 获取读取填充源时的 Ajax 操作的相关设置, 如果设置将替换掉 Source.
+		/// </summary>
+		[Category ( "Ajax" )]
+		[Description ( "填充源时的 Ajax 操作的相关设置, 如果设置将替换掉 Source" )]
+		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
+		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		public AjaxSetting SourceAsync
+		{
+			get { return this.uiSetting.SourceAsync; }
+		}
 		#endregion
 
 		protected override string facelessPrefix ( )

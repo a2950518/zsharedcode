@@ -78,6 +78,7 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 					catch
 					{ continue; }
 
+					//!+ The following code is similar with AutocompleteSetting.Recombine
 					string data;
 
 					if ( string.IsNullOrEmpty ( ajax.MethodName ) )
@@ -91,6 +92,7 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 					else
 					{
 
+						// According to the .NET version to determine the location of JSON
 						if ( Environment.Version.Major <= 2 || ( Environment.Version.Major == 3 && Environment.Version.Minor == 0 ) )
 							data = "data";
 						else
