@@ -12,10 +12,8 @@
  * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
 * */
 
-// HACK: 在项目中定义编译符号 PARAM, 采用提供默认参数的方法
 // HACK: Define compilation symbol PARAM to provide the default parameters for method
 
-// HACK: 如果代码不能编译, 请尝试在项目中定义编译符号 V4, V3_5, V3, V2 以表示不同的 .NET 版本
 // HACK: If the code does not compile, try to define compilation symbol V4, V3_5, V3, V2 that represent different .NET version
 
 using System;
@@ -98,15 +96,37 @@ namespace zoyobar.shared.panzer.web
 		}
 
 #if PARAM
+		#region " IsBuilt "
+#if EN
+		/// <summary>
+		/// Determine whether the code block with the specified name already exists?
+		/// </summary>
+		/// <param name="holder">Container page of the code block, which can be ASPXScriptHolder or RazorScriptHolder.</param>
+		/// <param name="key">Keyword used to differentiate between code blocks in the build process.</param>
+		/// <param name="option">Script generation options, which can be None, Startup, defaults to None. (Not valid for Razor)</param>
+		/// <returns>The code block exist?</returns>
+#elif HANS
 		/// <summary>
 		/// 判断指定名称的代码块是否已经存在?
 		/// </summary>
 		/// <param name="holder">代码块所在的容器页面, 可以是 ASPXScriptHolder 或者 RazorScriptHolder.</param>
-		/// <param name="key">代码块的名称.</param>
+		/// <param name="key">用于在生成过程中区分代码块的关键字.</param>
 		/// <param name="option">脚本的生成选项, 可以是 None, Startup, 默认为 None. (对 Razor 无效)</param>
 		/// <returns>是否存在代码块?</returns>
+#endif
+		#endregion
 		public static bool IsBuilt ( ScriptHolder holder, string key, ScriptBuildOption option = ScriptBuildOption.None )
 #else
+		#region " IsBuilt "
+#if EN
+		/// <summary>
+		/// Determine whether the code block with the specified name already exists?
+		/// </summary>
+		/// <param name="holder">Container page of the code block, which can be ASPXScriptHolder or RazorScriptHolder.</param>
+		/// <param name="key">Keyword used to differentiate between code blocks in the build process.</param>
+		/// <param name="option">Script generation options, which can be None, Startup. (Not valid for Razor)</param>
+		/// <returns>The code block exist?</returns>
+#elif HANS
 		/// <summary>
 		/// 判断指定名称的代码块是否已经存在?
 		/// </summary>
@@ -114,6 +134,8 @@ namespace zoyobar.shared.panzer.web
 		/// <param name="key">用于在生成过程中区分代码块的关键字.</param>
 		/// <param name="option">脚本的生成选项, 可以是 None, Startup. (对 Razor 无效)</param>
 		/// <returns>是否存在代码块?</returns>
+#endif
+		#endregion
 		public static bool IsBuilt ( ScriptHolder holder, string key, ScriptBuildOption option )
 #endif
 		{
@@ -121,7 +143,7 @@ namespace zoyobar.shared.panzer.web
 			if ( null == holder )
 				return false;
 
-			// HACK: 可能需要添加 V5
+			// HACK: You may need to add the V5
 #if V4
 			if ( option.HasFlag ( ScriptBuildOption.Startup ) )
 #else
@@ -134,18 +156,38 @@ namespace zoyobar.shared.panzer.web
 		}
 
 #if PARAM
+		#region " MakeKey "
+#if EN
+		/// <summary>
+		/// Generate script id from a string.
+		/// </summary>
+		/// <param name="key">Strings, as part of the ID, the default is a random string.</param>
+		/// <returns>Script id.</returns>
+#elif HANS
 		/// <summary>
 		/// 从一个字符串生成脚本的 id.
 		/// </summary>
 		/// <param name="key">字符串, 作为 id 的一部分, 默认为一个随机字符串.</param>
 		/// <returns>脚本 id.</returns>
+#endif
+		#endregion
 		public static string MakeKey ( string key = null )
 #else
+		#region " MakeKey "
+#if EN
+		/// <summary>
+		/// Generate script id from a string.
+		/// </summary>
+		/// <param name="key">Strings, as part of the id.</param>
+		/// <returns>Script id.</returns>
+#elif HANS
 		/// <summary>
 		/// 从一个字符串生成脚本的 id.
 		/// </summary>
 		/// <param name="key">字符串, 作为 id 的一部分.</param>
 		/// <returns>脚本 id.</returns>
+#endif
+		#endregion
 		public static string MakeKey ( string key )
 #endif
 		{
@@ -161,18 +203,34 @@ namespace zoyobar.shared.panzer.web
 		protected string code = string.Empty;
 		protected readonly ScriptType scriptType;
 
+		#region " Code "
+#if EN
+		/// <summary>
+		/// Get or set the current scripting code, null is equivalent to an empty string.
+		/// </summary>
+#elif HANS
 		/// <summary>
 		/// 获取或设置当前的脚本代码, 设置 null 相当于空字符串.
 		/// </summary>
+#endif
+		#endregion
 		public string Code
 		{
 			get { return this.code; }
 			set { this.code = ( null == value ? string.Empty : value ); }
 		}
 
+		#region " EndOfLine "
+#if EN
+		/// <summary>
+		/// Get statement completion symbols, such as ";" for JavaScript.
+		/// </summary>
+#elif HANS
 		/// <summary>
 		/// 获取当前脚本类型对应的语句结束符号, 比如 JavaScript 对应了 ";".
 		/// </summary>
+#endif
+		#endregion
 		public string EndOfLine
 		{
 			get
@@ -191,9 +249,17 @@ namespace zoyobar.shared.panzer.web
 			}
 		}
 
+		#region " Return "
+#if EN
+		/// <summary>
+		/// Get the Return statement, such as JavaScript corresponds to "return".
+		/// </summary>
+#elif HANS
 		/// <summary>
 		/// 获取当前脚本类型对应的 Return 语句, 比如 JavaScript 对应了 "return".
 		/// </summary>
+#endif
+		#endregion
 		public string Return
 		{
 			get
@@ -212,9 +278,17 @@ namespace zoyobar.shared.panzer.web
 			}
 		}
 
+		#region " ScriptType "
+#if EN
+		/// <summary>
+		/// Get the script type.
+		/// </summary>
+#elif HANS
 		/// <summary>
 		/// 获取代码所使用的脚本类型.
 		/// </summary>
+#endif
+		#endregion
 		public ScriptType ScriptType
 		{
 			get { return this.scriptType; }
@@ -222,16 +296,34 @@ namespace zoyobar.shared.panzer.web
 		#endregion
 
 #if PARAM
+		#region " ScriptHelper "
+#if EN
+		/// <summary>
+		/// Create a new script helper.
+		/// </summary>
+		/// <param name="scriptType">The script type, currently only available for JavaScript, defaults to JavaScript.</param>
+#elif HANS
 		/// <summary>
 		/// 创建脚本助手.
 		/// </summary>
 		/// <param name="scriptType">脚本类型, 目前只有 JavaScript 类型可用, 默认为 JavaScript.</param>
+#endif
+		#endregion
 		public ScriptHelper ( ScriptType scriptType = ScriptType.JavaScript )
 #else
+		#region " ScriptHelper "
+#if EN
+		/// <summary>
+		/// Create a new script helper.
+		/// </summary>
+		/// <param name="scriptType">The script type, currently only available for JavaScript.</param>
+#elif HANS
 		/// <summary>
 		/// 创建脚本助手.
 		/// </summary>
 		/// <param name="scriptType">脚本类型, 目前只有 JavaScript 类型可用.</param>
+#endif
+		#endregion
 		public ScriptHelper ( ScriptType scriptType )
 #endif
 		{
@@ -239,28 +331,56 @@ namespace zoyobar.shared.panzer.web
 			switch ( scriptType )
 			{
 				case ScriptType.VBScript:
+#if EN
+					throw new ArgumentException ( "Does not currently support VBScript, please use the JavaScript", "scriptType" );
+#elif HANS
 					throw new ArgumentException ( "目前不支持 VBScript, 请使用 JavaScript", "scriptType" );
+#endif
+
 			}
 
 			this.scriptType = scriptType;
 		}
 
 		#region " javascript "
+
 #if PARAM
+		#region " Alert "
+#if EN
+		/// <summary>
+		/// Generate alert method, and choose whether to append the script to the Code property.
+		/// </summary>
+		/// <param name="message">Popup content, for example: "'hello'", can also be expressions, for example: "'my name is' + myname".</param>
+		/// <param name="isAppend">Defaults to true, the script appends to the Code property.</param>
+		/// <returns>The script which contains alert method.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成弹出消息的脚本, 并选择是否将脚本追加到 Code 属性.
 		/// </summary>
 		/// <param name="message">弹出的内容, 比如: "'hello'", 也可以是计算表达式, 比如: "'my name is ' + myname".</param>
 		/// <param name="isAppend">默认为 true, 则将脚本追加到 Code 属性.</param>
 		/// <returns>弹出消息的脚本代码.</returns>
+#endif
+		#endregion
 		public string Alert ( string message, bool isAppend = true )
 #else
+		#region " Alert "
+#if EN
+		/// <summary>
+		/// Generate alert method, and choose whether to append the script to the Code property.
+		/// </summary>
+		/// <param name="message">Popup content, for example: "'hello'", can also be expressions, for example: "'my name is' + myname".</param>
+		/// <param name="isAppend">If true, the script appends to the Code property.</param>
+		/// <returns>The script which contains alert method.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成弹出消息的脚本, 并选择是否将脚本追加到 Code 属性.
 		/// </summary>
 		/// <param name="message">弹出的内容, 比如: "'hello'", 也可以是计算表达式, 比如: "'my name is ' + myname".</param>
 		/// <param name="isAppend">如果为 true, 则将脚本追加到 Code 属性.</param>
 		/// <returns>弹出消息的脚本代码.</returns>
+#endif
+		#endregion
 		public string Alert ( string message, bool isAppend )
 #endif
 		{
@@ -952,36 +1072,75 @@ namespace zoyobar.shared.panzer.web
 		public static string EscapeCharacter ( string text )
 		{ return EscapeCharacter ( text, false ); }
 
+		#region " IsBuilt "
+#if EN
+		/// <summary>
+		/// Determine whether the normal code block with the specified name already exists? 
+		/// </summary>
+		/// <param name="holder">Container page of the code block, which can be ASPXScriptHolder or RazorScriptHolder.</param>
+		/// <param name="key">Keyword used to differentiate between code blocks in the build process.</param>
+		/// <returns>The code block exist?</returns>
+#elif HANS
 		/// <summary>
 		/// 判断指定名称的普通代码块是否已经存在?
 		/// </summary>
 		/// <param name="holder">代码块所在的容器页面, 可以是 ASPXScriptHolder 或者 RazorScriptHolder.</param>
 		/// <param name="key">用于在生成过程中区分代码块的关键字.</param>
 		/// <returns>是否存在代码块?</returns>
+#endif
+		#endregion
 		public static bool IsBuilt ( ScriptHolder holder, string key )
 		{ return IsBuilt ( holder, key, ScriptBuildOption.None ); }
 
+		#region " MakeKey "
+#if EN
+		/// <summary>
+		/// Generate a random script id.
+		/// </summary>
+		/// <returns>Script id.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成一个随机的脚本 id.
 		/// </summary>
 		/// <returns>脚本 id.</returns>
+#endif
+		#endregion
 		public static string MakeKey ( )
 		{ return MakeKey ( null ); }
 		#endregion
 
+		#region " ScriptHelper "
+#if EN
+		/// <summary>
+		/// Create a new script helper, the script type is JavaScript.
+		/// </summary>
+#elif HANS
 		/// <summary>
 		/// 创建脚本助手, 脚本类型为 JavaScript.
 		/// </summary>
+#endif
+		#endregion
 		public ScriptHelper ( )
 			: this ( ScriptType.JavaScript )
 		{ }
 
 		#region " javascript "
+
+		#region " Alert "
+#if EN
+		/// <summary>
+		/// Generate alert method, and and appends to the Code property.
+		/// </summary>
+		/// <param name="message">Popup content, for example: "'hello'", can also be expressions, for example: "'my name is' + myname".</param>
+		/// <returns>The script which contains alert method.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成弹出消息的脚本, 并追加到 Code 属性.
 		/// </summary>
 		/// <param name="message">弹出的内容, 比如: "'hello'", 也可以是计算表达式, 比如: "'my name is ' + myname".</param>
 		/// <returns>弹出消息的脚本代码.</returns>
+#endif
+		#endregion
 		public string Alert ( string message )
 		{ return Alert ( message, true ); }
 
