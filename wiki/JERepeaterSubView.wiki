@@ -49,7 +49,7 @@ public SortedDictionary<string, object> GetGooglePicture ( string url )
 }}}
  由于, 只返回一行数据, 因此不必添加 pageindex 和 pagesize 参数.
 
- 关于如何返回 JSON, 请参考 在不同的 .NET 版本中返回 JSON, 本示例所有代码为在 .NET 4.0 下编写. 
+ 关于如何返回 JSON, 请参考 [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON], 本示例所有代码为在 .NET 4.0 下编写. 
 
 === 切换子视图状态 ===
  如果需要在 Repeater 中控制子视图切换, 关闭和打开, 可以使用 shiftview, collapseview, expandview 三个函数, 比如:
@@ -79,7 +79,7 @@ public SortedDictionary<string, object> GetGooglePicture ( string url )
 }}}
  以 shiftview 为例, 第一个参数为子视图的 ID, 之后的参数为用于搜索子视图数据的条件, 示例中将字段 url 作为参数, 对应了子视图样本 FilterField 属性中的 url. 如果有更多的条件, 继续添加即可, 顺序需要和子视图样本 FilterField 属性中条件一样.
 
- expandview 方法和 shiftview 是类似的, 不同的 expandview 是打开子视图, 而 shiftview 是切换子视图的打开状态.
+ expandview 方法和 shiftview 是类似的, 不同的是 expandview 打开子视图, 而 shiftview 是切换子视图的打开状态.
 
  而 collapseview 方法是关闭子视图, 不需要传递条件.
 
