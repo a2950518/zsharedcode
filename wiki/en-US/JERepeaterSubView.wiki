@@ -1,0 +1,107 @@
+﻿#summary Repeater Child Views
+<font face="microsoft yahei">
+=== Introduction/Catalog ===
+ Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /repeater/Default.aspx.
+ 
+ Video demo: [http://www.tudou.com/programs/view/uVx2BBMHgOQ/ www.tudou.com/programs/view/uVx2BBMHgOQ/]
+
+ This article will explain in detail how to use the child views in the Repeater control, the directory is as follows:
+
+  * Prepare
+  * Define Child View Sample
+  * Switch Child View
+  * Define A Container
+
+=== Prepare ===
+ Please view the prepare section at [JQueryElementRepeaterDoc Repeater Reference].
+
+=== Define Child View Sample ===
+ The *repeater* displayed within *repeater* is known as child view, child view is a copy of the child view sample, and according to the condition to display different data. Definition of child view sample has no special, such as:
+{{{
+<je:Repeater ID="<child view ID>" runat="server"
+	FilterField="<child view search field>">
+
+</je:Repeater>
+
+<je:Repeater ID="pictureRepeater" runat="server"
+	FilterField="['url']"
+	FillAsync-Url="webservice.asmx"
+	FillAsync-MethodName="GetGooglePicture">
+	<ItemTemplate>
+		<div>
+			<span class="url">#{url}</span>
+			<br />
+			<br />
+			#{picture}
+		</div>
+	</ItemTemplate>
+</je:Repeater>
+}}}
+ In most cases, need to define property FilterField for a child view sample, that is, the condition used to search the data of child view, in the code above, we add a url as a condition, then the method in server-side can be written:
+{{{
+[WebMethod]
+public SortedDictionary<string, object> GetGooglePicture ( string url )
+{
+	// Return JSON
+}
+}}}
+ Because we return only one row here, so you don't have to add the pageindex and pagesize parameters.
+
+ About how to return JSON, please refer to [AjaxReturnJSON Return JSON In Different .NET Version], all code for this example is written using the .NET 4.0.
+
+=== Switch Child View ===
+ If you need to switch, turn off, turn on child views in the Repeater control, you can use shiftview, collapseview, expandview three methods, such as:
+{{{
+//	je-<javascript event name>="shiftview,'<child view ID>'[,<search field value n>]"
+
+<div id="list">
+	<je:Repeater ID="googleRepeater" runat="server"
+		Selector="'#list'" PageSize="2" IsVariable="true"
+		FillAsync-Url="webservice.asmx"
+		FillAsync-MethodName="SearchGoogle">
+		<ItemTemplate>
+
+			<div class="picture">
+				<div
+					je-button="label='More';"
+					je-onclick="shiftview,'pictureRepeater','#{url}'">
+				</div>
+				<div je-id="pictureRepeater" style="display: none;">
+				</div>
+			</div>
+		
+		</ItemTemplate>
+
+	</je:Repeater>
+</div>
+}}}
+ Take shiftview for example, the first parameter is ID of a child view, the following parameters are the conditions used to search the data for child views, in the sample, field URL is a condition, corresponding to url in the property FilterField of child view sample. If there are more conditions, you can continue to add, but the order of conditions must same with FilterField property of child view sample.
+
+ expandview method and shiftview are similar, expandview will open child view, and shiftview will switch the open status of child view.
+
+ collapseview method will close the child views, does not need to pass condition.
+
+ Collapseview method is to close the child views, does not need to pass criteria. 
+
+ By default, when a child view is opened for the first time, it will automatically call the fill method to get data, then open operation will no longer refresh the data.
+
+=== Define A Container ===
+ In addition to defining the child views, you also need to define a container of child view in the row template:
+{{{
+// je-id="<child view ID>"
+
+<ItemTemplate>
+
+	<div class="picture">
+
+		<div je-id="pictureRepeater" style="display: none;">
+		</div>
+	</div>
+		
+</ItemTemplate>
+}}}
+ Set je-id to the ID of a child view, the element can be bound as the container of the child view, the child view will appear in the target container.
+
+ We make the container hidden in the beginning by `style="display: none;"`, because the child view is off by default.
+
+</font>
