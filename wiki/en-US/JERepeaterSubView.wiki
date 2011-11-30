@@ -75,13 +75,11 @@ public SortedDictionary<string, object> GetGooglePicture ( string url )
 	</je:Repeater>
 </div>
 }}}
- Take shiftview for example, the first parameter is ID of a child view, the following parameters are the conditions used to search the data for child views, in the sample, field URL is a condition, corresponding to url in the property FilterField of child view sample. If there are more conditions, you can continue to add, but the order of conditions must same with FilterField property of child view sample.
+ Take shiftview for example, the first parameter is the ID of a child view, the following parameters are the conditions used to search the data for child views, in the sample, field url is a condition, corresponding to url in the property FilterField of child view sample. If there are more conditions, you can continue to add, but the order of conditions must same with FilterField property of child view sample.
 
  expandview method and shiftview are similar, expandview will open child view, and shiftview will switch the open status of child view.
 
  collapseview method will close the child views, does not need to pass condition.
-
- Collapseview method is to close the child views, does not need to pass criteria. 
 
  By default, when a child view is opened for the first time, it will automatically call the fill method to get data, then open operation will no longer refresh the data.
 
