@@ -1,7 +1,7 @@
 ﻿#summary Download
 #labels Featured,Phase-Deploy
 <font face="microsoft yahei">
-<font color="#006600" size="3">Donate:</font> Thank you for your donation, which is support and encouragement on the project *panzer*, paypal donation address (*m.s.cxc@qq.com*): [https://www.paypal.com/us/cgi-bin/webscr&business=m.s.cxc@qq.com&cmd=_donations I want to pass donate by paypal]
+<font color="#006600" size="3">Donate:</font> Thank you for your donation, which is support and encouragement on the project *panzer*, paypal donation address (*m.s.cxc@qq.com*): [https://www.paypal.com/us/cgi-bin/webscr&business=m.s.cxc@qq.com&cmd=_donations I want to donate by paypal]
 
 === Note ===
  English comments not yet fully translated, please understand.
