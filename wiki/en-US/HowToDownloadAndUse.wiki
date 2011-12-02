@@ -1,6 +1,6 @@
 ﻿#summary How To Download
 #labels Featured,Phase-Deploy
-<font face="microsoft yahei">
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 === How To Download ===
  If you want to develop *panzer* project, you can use [http://ankhsvn.open.collab.net/ AnkhSvn] download code, you can view [http://blog.sina.com.cn/s/blog_604c436d0100o04n.html Using AnkhSvn, Visual Studio 2008 2010 To Share Your Code], open the solution file zsharedcode.sln in the zsharedcode directory http://zsharedcode.googlecode.com/svn/trunk/ by [http://ankhsvn.open.collab.net/ AnkhSvn].
 

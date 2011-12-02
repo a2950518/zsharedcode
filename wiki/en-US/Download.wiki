@@ -1,6 +1,6 @@
 ﻿#summary Download
 #labels Featured,Phase-Deploy
-<font face="Verdana, Tahoma, Arial, sans-serif">
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 <font color="#006600" size="3">Donate:</font> Thank you for your donation, which is support and encouragement on the project *panzer*, paypal donation address (*m.s.cxc@qq.com*): [https://www.paypal.com/us/cgi-bin/webscr&business=m.s.cxc@qq.com&cmd=_donations I want to donate by paypal]
 
 === Note ===

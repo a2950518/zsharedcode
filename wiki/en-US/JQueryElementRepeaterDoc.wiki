@@ -1,5 +1,5 @@
 ﻿#summary Repeater Reference
-<font face="microsoft yahei">
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 === Introduction/Catalog ===
  Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /JQueryElementTest.rar/3/Student.aspx or /repeater/Default.aspx.
 

@@ -1,6 +1,6 @@
 ﻿#summary 如何加入开发
 #labels Phase-Implementation
-<font face="microsoft yahei">
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 === Conditions ===
  As *panzer* was developed using C# as the language, therefore, if you wish to apply for a developer, you should master C#, and Visual Studio before then.
 

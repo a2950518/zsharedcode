@@ -1,6 +1,6 @@
 ﻿#labels Deprecated
 <wiki:toc max_depth="5" />
-<font face="microsoft yahei">
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
   * [Begin Begin]
     * [HowToDownloadAndUse How To Download]
     * [HowToJoin How To Join The Development]

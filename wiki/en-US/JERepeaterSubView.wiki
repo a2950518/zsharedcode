@@ -1,5 +1,5 @@
 ﻿#summary Repeater Child Views
-<font face="microsoft yahei">
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 === Introduction/Catalog ===
  Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /repeater/Default.aspx.
  
