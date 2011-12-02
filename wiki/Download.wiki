@@ -4,9 +4,9 @@
 <font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/Download Translate this page]</font>
 
 
-注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
+捐赠: 感谢您的捐赠, 这是对 *panzer* 项目的支持和鼓励, *paypal 捐赠地址 (m.s.cxc@qq.com):* [https://www.paypal.com/us/cgi-bin/webscr&business=m.s.cxc@qq.com&cmd=_donations 我要通过 PayPal 捐赠]
 
-捐赠: 感谢您的捐赠, 这是对 *panzer* 项目的支持和鼓励, PayPal 捐赠地址 (m.s.cxc@qq.com): [https://www.paypal.com/us/cgi-bin/webscr&business=m.s.cxc@qq.com&cmd=_donations 我要通过 PayPal 捐赠]
+注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
 
 === JQueryElement.dll ===
  以下 dll 文件, 为 2011-11-25 上传, 可能没有依照最新的 panzer 代码编译, 欢迎加入 *qq 群*, 如果群人数已满, 请选择位置靠后的群:
