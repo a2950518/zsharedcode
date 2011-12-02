@@ -2,11 +2,11 @@
 #labels Featured,Phase-Deploy
 <font face="microsoft yahei">
 <font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/Download Translate this page]</font>
+ 
+注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
 
 === JQueryElement.dll ===
  以下 dll 文件, 为 2011-11-25 上传, 可能没有依照最新的 panzer 代码编译.
- 
- 注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
  
  讨论, 欢迎加入 *qq 群*, 如果群人数已满, 请选择位置靠后的群:
  
@@ -21,13 +21,16 @@
 === IEBrowser.dll ===
  以下 dll 文件, 为 2011-7-4 上传, 可能没有依照最新的 panzer 代码编译.
  
- 注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
- 
  讨论: <font color="#990099">欢迎加入 qq 群: 91824470, IEBrowser 编程</font>, <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/91824470" target="_blank">加入 qq 群</a>.
 
  [http://zsharedcode.googlecode.com/files/IEBrowser.2.5.0.Debug.PARAM.zip IEBrowser 2.5.0 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]] <font color="#ff0000">(PARAM 仅支持在 Visual Studio 2010 中使用)</font>
 
  [http://zsharedcode.googlecode.com/files/IEBrowser.2.5.0.Debug.NOPARAM.zip IEBrowser 2.5.0 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(NOPARAM 版本支持所有 Visual Studio 版本)</font>
+
+=== 捐赠 ===
+ 感谢您的捐赠, 这是对 *panzer* 项目的支持和鼓励.
+
+ PayPal 捐赠地址 (m.s.cxc@qq.com): [https://www.paypal.com/us/cgi-bin/webscr&business=m.s.cxc@qq.com&cmd=_donations 我要通过 PayPal 捐赠]
 
 === 关于作者 ===
  M.S.cxc (麦丝平方, odmidi@gmail.com, M.S.cxc@qq.com)
