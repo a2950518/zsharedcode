@@ -4,7 +4,7 @@
 <font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/Download Translate this page]</font>
 
 
-捐赠: 感谢您的捐赠, 这是对 *panzer* 项目的支持和鼓励, *paypal 捐赠地址 (m.s.cxc@qq.com):* [https://www.paypal.com/us/cgi-bin/webscr&business=m.s.cxc@qq.com&cmd=_donations 我要通过 PayPal 捐赠]
+<font color="#0066FF">捐赠:</span> 感谢您的捐赠, 这是对 *panzer* 项目的支持和鼓励, paypal 捐赠地址 (*m.s.cxc@qq.com*): [https://www.paypal.com/us/cgi-bin/webscr&business=m.s.cxc@qq.com&cmd=_donations 我要通过 PayPal 捐赠]
 
 注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
 
