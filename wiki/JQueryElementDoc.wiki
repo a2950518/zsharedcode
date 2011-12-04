@@ -7,7 +7,7 @@
  [JQueryElement JQueryElement] 是可以在 Visual Studio 中使用的 jQuery UI 控件, 实现了 jQuery UI 的各种效果以及插件.
 
 === 使用 ===
- 请在 [Download 下载资源] 中下载 JQueryElement dll 文件的 zip 压缩包.
+ 请在 [Download 下载资源] 中的 JQueryElement.dll 下载一节下载 JQueryElement dll 文件的 zip 压缩包.
 
 === 示例 ===
  * [JQueryElementRepeaterDoc Repeater 完全参考]

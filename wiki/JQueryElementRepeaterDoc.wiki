@@ -3,7 +3,7 @@
 <font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JQueryElementRepeaterDoc Translate this page]</font>
 
 === 简介/目录 ===
- 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /JQueryElementTest.rar/3/Student.aspx 或 /repeater/Default.aspx.
+ 请到 [Download 下载资源] 的 JQueryElement 示例下载一节*下载示例代码*, 目录 /JQueryElementTest.rar/3/Student.aspx 或 /repeater/Default.aspx.
 
  本文将系统讲解 Repeater 控件的功能以及使用过程中的注意事项和技巧, 目录如下:
 
@@ -50,7 +50,7 @@
     * 客户端方法
 
 === 准备 ===
- 请确保已经在 [Download 下载资源] 中下载 JQueryElement 最新的版本.
+ 请确保已经在 [Download 下载资源] 中的 JQueryElement.dll 下载一节下载 JQueryElement 最新的版本.
 
  请使用指令引用如下的命名空间:
 {{{
@@ -62,7 +62,7 @@
 	TagPrefix="je" %>
 }}}
 
- 除了命名空间, 还需要引用 jQueryUI 的脚本和样式, 在 [Download 下载资源] 下载的压缩包中包含了一个自定义样式的 jQueryUI, 如果需要更多样式, 可以在 [http://jqueryui.com/download jqueryui.com/download] 下载:
+ 除了命名空间, 还需要引用 jQueryUI 的脚本和样式, 在 [Download 下载资源] 的 JQueryElement.dll 下载一节下载的压缩包中包含了一个自定义样式的 jQueryUI, 如果需要更多样式, 可以在 [http://jqueryui.com/download jqueryui.com/download] 下载:
 {{{
 <link type="text/css" rel="stylesheet" href="[样式路径]/jquery-ui-<version>.custom.css" />
 <script type="text/javascript" src="[脚本路径]/jquery-<version>.min.js"></script>
