@@ -1,12 +1,28 @@
 ﻿#summary Download
 #labels Featured,Phase-Deploy
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
-<font color="#006600" size="3">Donate:</font> Thank you for your donation, which is support and encouragement on the project *panzer*, paypal donation address (*m.s.cxc@qq.com*): [https://www.paypal.com/us/cgi-bin/webscr&business=m.s.cxc@qq.com&cmd=_donations I want to donate by paypal]
+<font color="#006600" size="3">Donate:</font> Thank you for your donation, which is support on the project *panzer*, paypal donation url (*m.s.cxc@qq.com*): [https://www.paypal.com/us/cgi-bin/webscr&business=m.s.cxc@qq.com&cmd=_donations I want to donate by paypal]
 
 === Note ===
  English comments not yet fully translated, please understand.
+ 
+=== Introduction/Catalog ===
+ This page contains all products of the project *panzer*, including:
 
-=== JQueryElement.dll ===
+  * JQueryElement Download
+    * JQueryElement Demo Download
+    * JQueryElement.dll Download
+  * IEBrowser Download
+    * IEBrowser.dll Download
+  * Author
+  * JQueryElement Update History
+
+=== <font color="#0066CC">JQueryElement Download</font> ===
+
+ ==== <font color="#0066CC">JQueryElement Demo Download</font> ====
+ The demo is uploaded at 2011-11-25, the version of dll file is 3.6.3: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip]
+
+ ==== <font color="#0066CC">JQueryElement.dll Download</font> ====
  The following dll files is uploaded at 2011-11-25.
  
  Note: *If using Visual Studio 2008 or earlier versions, it is recommended that download the NOPARAM parameter version.*
@@ -15,7 +31,9 @@
 
  [http://zsharedcode.googlecode.com/files/JQueryElement-en.3.6.3.Debug.NOPARAM.zip JQueryElement-en 3.6.3 for .NET (Debug, NOPARAM, include .NET 2, 3, 3.5, 4)] <font color="#ff0000">(NOPARAM support all Visual Studio versions)</font>
 
-=== IEBrowser.dll ===
+=== <font color="#008C8C">IEBrowser Download</font> ===
+
+ ==== <font color="#008C8C">IEBrowser.dll Download</font> ====
  The following dll files is uploaded at 2011-7-4.
  
  Note: *If using Visual Studio 2008 or earlier versions, it is recommended that download the NOPARAM parameter version.*
