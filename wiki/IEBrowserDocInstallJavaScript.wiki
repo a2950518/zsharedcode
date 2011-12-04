@@ -48,7 +48,7 @@ ie.ExecuteScript ( "showMessage($('*').length);" );
 *注意:* 安装过的脚本, 只针对当前 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 中的页面, 当 [http://msdn.microsoft.com/zh-cn/library/system.windows.forms.webbrowser(v=vs.80).aspx WebBrowser] 刷新后, 需要重新安装这些脚本.
 
 === 使用 ===
- 如果需要单独使用 [IEBrowser IEBrowser], 可以在 [Download 下载资源] 中下载 dll.
+ 如果需要单独使用 [IEBrowser IEBrowser], 可以在 [Download 下载资源] 中的 IEBrowser.dll 下载一节下载 dll.
 
  如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
 

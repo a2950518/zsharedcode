@@ -61,7 +61,7 @@ for ( int index = 0; index < count; index++ )
 *注意^3^:* 采用 Uri 参数安装 jquery 脚本, 可能因为编码的问题导致脚本的错误. 这时, 可以将 jquery 脚本作为项目的资源文件导入, 让后采用带有 string 参数的 InstallScript 方法安装 jquery 脚本.
 
 === 使用 ===
- 如果需要单独使用 [IEBrowser IEBrowser], 可以在 [Download 下载资源] 中下载 dll.
+ 如果需要单独使用 [IEBrowser IEBrowser], 可以在 [Download 下载资源] 中的 IEBrowser.dll 下载一节下载 dll.
 
  如果下载整个 *panzer* 项目, 请参考 [HowToDownloadAndUse 如何下载使用].
 
