@@ -19,7 +19,7 @@
  Please view the Prepare section at [JQueryElementRepeaterDoc Repeater Reference].
 
 === MultipleSelect Property ===
- Property multipleSelect indicates whether you can select more than one row in the Repeater, default is true. If set to false, you can have only one row is selected.
+ Property MultipleSelect indicates whether you can select more than one row in the Repeater, default is true. If set to false, you can have only one row is selected.
 
 ===  toggleselect Method ===
  In the row template of Repeater, set je-onclick to toggleselect, you can toggle the selected status of the current row:
@@ -102,7 +102,7 @@ public SortedDictionary<string, object> CustomEMail ( int id, string no, bool is
  In the method CustomEMail, we use the Sleep method of the Thread class to extend the time of execution, so they can see the progress of the implementation on the page.
 
 === Getting Progress ===
- You can set the SubStepping property to a JavaScript method to get the progress:
+ You can set the SubStepping property to a javascript method to get the progress:
 {{{
 <je:Repeater ID="emailRepeater" runat="server" Selector="'#list'" PageSize="5" IsVariable="true"
 	...
