@@ -840,7 +840,7 @@ public static object Insert ( /* parameter */ )
  You can sort the fields using the togglesort method, coupled with the je-class display different styles in different sorting status, for details please refer to [JERepeaterSorting Repeater Sorting].
 
  ==== <font color="green">Multi Rows</font> ====
- You can use customselected and removeselected methods to operate on the selected multiple rows of the *repeater* , for details please refer to [JERepeaterSorting Repeater Sorting].
+ You can use customselected and removeselected methods to operate on the selected multiple rows of the *repeater* , for details please refer to [JERepeaterMulti Repeater Multi Rows].
 
  ==== <font color="green">Event</font> ====
  pe and e are two parameters of all the events, pe.option contains the option of *repeater*, pe.jQuery that represents the current *repeater*, e contains the event data.
