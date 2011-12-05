@@ -1,0 +1,131 @@
+﻿#summary Repeater Multi Rows
+<font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JERepeaterMulti Translate this page]</font>
+=== Introduction/Catalog ===
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /repeater/Default.aspx.
+
+ Video demo: [http://www.tudou.com/programs/view/ONIARMEopOE/ www.tudou.com/programs/view/ONIARMEopOE/]
+
+ This article will explain in detail how to perform operations on multi rows and show the progress in the Repeater control, the catalog is as follows:
+
+  * Prepare
+  * MultipleSelect Property
+  * toggleselect Method
+  * selectall Method
+  * Perform Operations On Multi Rows
+  * Getting Progress
+
+=== Prepare ===
+ Please view the Prepare section at [JQueryElementRepeaterDoc Repeater Reference].
+
+=== MultipleSelect Property ===
+ Property multipleSelect indicates whether you can select more than one row in the Repeater, default is true. If set to false, you can have only one row is selected.
+
+===  toggleselect Method ===
+ In the row template of Repeater, set je-onclick to toggleselect, you can toggle the selected status of the current row:
+{{{
+<ItemTemplate>
+	<tr>
+		<td>
+			<input type="checkbox" je-checked="selected" je-onclick="toggleselect,false" />
+		</td>
+
+	</tr>
+</ItemTemplate>
+}}}
+ In the code above, toggleselect is followed by a boolean parameter, the parameter defaults to true, which means cancel the selected status of the prev row, if you set the parameter to false, you can select multiple rows.
+
+ In addition, you can call the methods select and unselect to select or unselect a row.
+
+=== selectall Method ===
+ In general, we will add select all button in footer template:
+{{{
+<FooterTemplate>
+	<tfoot>
+	<tr>
+		<td colspan="4">
+		<a href="#" je-onclick="selectall">Select all</a>
+		<a href="#" je-onclick="unselectall">Unselect all</a>
+		<a href="#" je-onclick="toggleselectall">Toggle all</a>
+		</td>
+	</tr>
+	</tfoot>
+</FooterTemplate>
+}}}
+ Set the je-onclick to selectall, when you click on this link, all rows will be selected.
+
+ In addition, you can also set je-onclick to unselectall, toggleselectall.
+
+=== Perform Operations On Multi Rows ===
+ Repeater supports the use of removeselected and customselected methods for multiple rows operation:
+{{{
+<je:Repeater ID="emailRepeater" runat="server" Selector="'#list'"
+	CustomAsync-Url="webservice.asmx"
+	CustomAsync-MethodName="CustomEMail"
+	...	>
+<FooterTemplate>
+	<tfoot>
+	<tr>
+		<td colspan="4">
+		<a href="#" je-onclick="customselected,'spam'">Mark spam</a>
+		<a href="#" je-onclick="customselected,'unspam'">Not spam</a>
+		</td>
+	</tr>
+	</tfoot>
+</FooterTemplate>
+</je:Repeater>
+}}}
+ In the above example, customselected is called to perform custom operation on the selected rows, the names of the custom operations are spam and unspam. Custom operation will call the method CustomEMail of WebService.asmx:
+{{{
+[WebMethod]
+[ScriptMethod]
+public SortedDictionary<string, object> CustomEMail ( int id, string no, bool isspam, string command )
+{
+	this.Context.Response.Cache.SetNoStore ( );
+
+	if ( command == "spam" )
+	{
+		isspam = true;
+		Thread.Sleep ( 1000 );
+	}
+	else if ( command == "unspam" )
+	{
+		isspam = false;
+		Thread.Sleep ( 1000 );
+	}
+	else if ( command == "togglespam" )
+		isspam = !isspam;
+
+	// Return JSON
+}
+}}}
+ In the method CustomEMail, we use the Sleep method of the Thread class to extend the time of execution, so they can see the progress of the implementation on the page.
+
+=== Getting Progress ===
+ You can set the SubStepping property to a JavaScript method to get the progress:
+{{{
+<je:Repeater ID="emailRepeater" runat="server" Selector="'#list'" PageSize="5" IsVariable="true"
+	...
+	CustomAsync-Url="webservice.asmx"
+	CustomAsync-MethodName="CustomEMail"
+	PreSubStep="
+	function(pe, e){
+		pb.progressbar('option', 'value', 0).show();
+	}
+	" SubStepping="
+	function(pe, e){
+		pb.progressbar('option', 'value', (100 * e.substep.completed / e.substep.count));
+		emailRepeater.__repeater('showtip', 'Completed ' + e.substep.completed);
+	}
+	" SubStepped="
+	function(pe, e){
+		pb.hide();
+	}
+	">
+</je:Repeater>
+}}}
+ In SubStepping, the parameter e has a property named substep, count property of substep represents the total row count, completed property indicates the number of rows that have been completed. In addition, through the showtip method of *repeater*, we display a progress message. About how to display a message, you can refer to [JERepeaterShowTip Repeater Message].
+
+ PreSubStep is the event before getting started, SubStepped is the event after the end of operations.
+
+</font>
