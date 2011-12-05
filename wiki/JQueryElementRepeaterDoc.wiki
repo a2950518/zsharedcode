@@ -46,6 +46,7 @@
     * 消息提示
     * 检索数据
     * 排序
+    * 多行操作
     * 事件
     * 客户端方法
 
@@ -839,6 +840,9 @@ public static object Insert ( /* 参数 */ )
  ==== <font color="green">排序</font> ====
  使用 togglesort 函数就可以完成对字段的排序, 再配合 je-class 在不同排序状态下显示不同样式, 详细内容请参考 [JERepeaterSorting Repeater 排序].
 
+ ==== <font color="green">多行操作</font> ====
+ 可以使用 customselected, removeselected 函数来对 *repeater* 中选中的多个行进行操作, 详细内容请参考 [JERepeaterMulti Repeater 多行操作].
+
  ==== <font color="green">事件</font> ====
  在 Repeater 所有的事件中都有具有 pe 和 e 两个参数, pe.option 中包含了 *repeater* 中的选项, pe.jquery 表示当前 *repeater*, e 则包含了事件的相关数据.
 
@@ -927,6 +931,8 @@ public static object Insert ( /* 参数 */ )
 
  [JERepeaterSorting Repeater 排序]
 
+ [JERepeaterMulti Repeater 多行操作]
+
 === 修订历史 ===
  2011-11-17: 增加相关内容和一个对 Repeater 验证功能介绍的链接.
 
@@ -937,5 +943,7 @@ public static object Insert ( /* 参数 */ )
  2011-11-25: 增加 Repeater 排序功能介绍的链接.
 
  2011-11-26: 修改关于引用 jQueryUI 的介绍.
+
+ 2011-12-5: 修改下载的链接, 增加 Repeater 多行操作介绍的链接.
 
 </font>

@@ -94,5 +94,8 @@
 </je:Repeater>
 }}}
  在 GroupTemplate 中可以使用属性 groupfield 和 groupname 来表示分组字段和当前分组的值.
+ 
+=== 修订历史 ===
+ 2011-12-5: 修改下载的链接.
 
 </font>

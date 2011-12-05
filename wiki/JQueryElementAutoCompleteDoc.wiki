@@ -111,5 +111,8 @@ public void ProcessRequest ( HttpContext context )
 
 === 其它属性和事件 ===
  至于 *autocomplete* 的其它属性和事件, 可以参考 [http://docs.jquery.com/UI/Autocomplete docs.jquery.com/UI/Autocomplete].
+ 
+=== 修订历史 ===
+ 2011-12-5: 修改下载的链接.
 
 </font>
