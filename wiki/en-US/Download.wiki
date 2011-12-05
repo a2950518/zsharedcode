@@ -20,16 +20,16 @@
 === <font color="#0066CC">JQueryElement Download</font> ===
 
  ==== <font color="#0066CC">JQueryElement Demo Download</font> ====
- The demo is uploaded at 2011-11-25, the version of dll file is 3.6.3: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip]
+ The demo is uploaded at 2011-12-5, the version of dll file is 3.6.4: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip]
 
  ==== <font color="#0066CC">JQueryElement.dll Download</font> ====
- The following dll files is uploaded at 2011-11-25.
+ The following dll files is uploaded at 2011-12-5.
  
  Note: *If using Visual Studio 2008 or earlier versions, it is recommended that download the NOPARAM parameter version.*
 
- [http://zsharedcode.googlecode.com/files/JQueryElement-en.3.6.3.Debug.PARAM.zip JQueryElement-en 3.6.3 for .NET (Debug, PARAM, include .NET 2, 3, 3.5, 4)] <font color="#ff0000">(PARAM support Visual Studio 2010 only)</font>
+ [http://zsharedcode.googlecode.com/files/JQueryElement-en.3.6.4.Debug.PARAM.zip JQueryElement-en 3.6.4 for .NET (Debug, PARAM, include .NET 2, 3, 3.5, 4)] <font color="#ff0000">(PARAM support Visual Studio 2010 only)</font>
 
- [http://zsharedcode.googlecode.com/files/JQueryElement-en.3.6.3.Debug.NOPARAM.zip JQueryElement-en 3.6.3 for .NET (Debug, NOPARAM, include .NET 2, 3, 3.5, 4)] <font color="#ff0000">(NOPARAM support all Visual Studio versions)</font>
+ [http://zsharedcode.googlecode.com/files/JQueryElement-en.3.6.4.Debug.NOPARAM.zip JQueryElement-en 3.6.4 for .NET (Debug, NOPARAM, include .NET 2, 3, 3.5, 4)] <font color="#ff0000">(NOPARAM support all Visual Studio versions)</font>
 
 === <font color="#008C8C">IEBrowser Download</font> ===
 
@@ -48,6 +48,9 @@
  Twitter: [http://twitter.com/zoyobar @zoyobar]
  
 === JQueryElement Update History ===
+3.6.4 Changes:
+ a. Adjust some bugs.
+
 3.6.3 Changes:
  a. Add SourceAsync property to Autocomplete.
 
