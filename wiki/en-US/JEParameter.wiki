@@ -1,7 +1,7 @@
 ﻿#summary Through Parameter Object Add Ajax Request Parameter
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 === Introduction/Catalog ===
- Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip].
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads].
 
  This article describes the role and use of the Parameter object in JQueryElement:
 
@@ -99,5 +99,8 @@ function(value){
 
 === Automatic Parameter ===
  Some events of the control will automatically add some parameters, such as the Repeater's FillAsync will add pageindex, pagesize to represent the page number and other information.
+
+=== Revision History ===
+ 2011-12-5: Modify the link of download.
 
 </font>

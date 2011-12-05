@@ -1,11 +1,11 @@
 ﻿#summary Repeater Message
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 === Introduction/Catalog ===
- Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /repeater/Default.aspx.
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /repeater/Default.aspx.
   
  Video demo: [http://www.tudou.com/programs/view/f44DaiWHcGE/ www.tudou.com/programs/view/f44DaiWHcGE/]
 
- This article will explain in detail how to prompt message in Repeater, such as data is downloaded successfully, the content of field dose not meet the requirements, the directory is as follows:
+ This article will explain in detail how to prompt message in Repeater, such as data is downloaded successfully, the content of field dose not meet the requirements, the catalog is as follows:
 
   * Prepare
   * Set TipTemplate
@@ -138,5 +138,8 @@ function(pe, e){
 
 === Timeliness Of Messages ===
  When you want to display a new message, or *repeater* to rebind the data, the original message is replaced or hidden. Edit a row, jump to the next page, call the fill method gives the *repeater* to rebind the data.
+
+=== Revision History ===
+ 2011-12-5: Modify the link of download.
 
 </font>

@@ -1,11 +1,11 @@
 ﻿#summary Repeater Retrieving Data
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 === Introduction/Catalog ===
- Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /repeater/Default.aspx.
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /repeater/Default.aspx.
   
  Video demo: [http://www.tudou.com/programs/view/HJmCQRpGQEg/ www.tudou.com/programs/view/HJmCQRpGQEg/]
 
- This article will explain in detail how to retrieve data in the Repeater, the directory is as follows:
+ This article will explain in detail how to retrieve data in the Repeater, the catalog is as follows:
 
   * Prepare
   * Set FilterTemplate
@@ -135,5 +135,8 @@ function(){
 </je:Button>
 }}}
  In the example above, in the button's click event, we call the setfilter method of *repeater* to set the filter condition productname to the value of text box which id is myproductname, and call the filter method to retrieve the data.
+
+=== Revision History ===
+ 2011-12-5: Modify the link of download.
 
 </font>

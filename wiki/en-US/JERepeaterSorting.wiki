@@ -1,11 +1,11 @@
 ﻿#summary Repeater Sorting
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 === Introduction/Catalog ===
- Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /repeater/Default.aspx.
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /repeater/Default.aspx.
 
  Video demo: [http://www.tudou.com/programs/view/M6aS81RVlCw/ www.tudou.com/programs/view/M6aS81RVlCw/]
 
- This article will explain in detail how to sort data based on field in the Repeater, the directory is as follows:
+ This article will explain in detail how to sort data based on field in the Repeater, the catalog is as follows:
 
   * Prepare
   * Call The Method togglesort
@@ -94,5 +94,8 @@ PageSize="3" FillAsync-Url="person.ashx">
 </je:Repeater>
 }}}
  You can use je-class to show a different style by sorting status, syntax is: *`{sort,<sort field name>[,<no sort class>[,<asc class>[,<desc class>]]]}`*.
+
+=== Revision History ===
+ 2011-12-5: Modify the link of download.
 
 </font>

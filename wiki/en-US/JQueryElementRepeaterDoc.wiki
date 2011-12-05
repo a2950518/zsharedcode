@@ -1,9 +1,10 @@
 ﻿#summary Repeater Reference
+#labels Phase-Implementation
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 === Introduction/Catalog ===
- Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /JQueryElementTest.rar/3/Student.aspx or /repeater/Default.aspx.
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /JQueryElementTest.rar/3/Student.aspx or /repeater/Default.aspx.
 
- This article explains the function and the use of Repeater, the directory is as follows:
+ This article explains the function and the use of Repeater, the catalog is as follows:
 
   * Prepare
   * Main Function
@@ -48,7 +49,7 @@
     * Client Methods
 
 === Prepare ===
- Be sure that you have got the latest version of JQueryElement at [Download Downloads].
+ Be sure that you have got the latest version of JQueryElement at the section JQueryElement.dll Download of [Download Downloads].
 
  Use the following statements to reference namespace:
 {{{
@@ -60,7 +61,7 @@
 	TagPrefix="je" %>
 }}}
 
- In addition to the namespace, you need to reference the jQueryUI scripts and styles, there is a custom theme for jQueryUI in the compressed file downloaded at [Download Downloads], if you need more themes, you can get them at [http://jqueryui.com/download jqueryui.com/download]:
+ In addition to the namespace, you need to reference the jQueryUI scripts and styles, there is a custom theme for jQueryUI in the compressed file downloaded at the section JQueryElement.dll Download of [Download Downloads], if you need more themes, you can get them at [http://jqueryui.com/download jqueryui.com/download]:
 {{{
 <link type="text/css" rel="stylesheet" href="[style path]/jquery-ui-<version>.custom.css" />
 <script type="text/javascript" src="[script path]/jquery-<version>.min.js"></script>
@@ -934,5 +935,8 @@ public static object Insert ( /* parameter */ )
 
  2011-11-25: Increase link to sorting function of Repeater.
 
- 2011-11-26: Modifying presentation on referencing jQueryUI.
+ 2011-11-26: Modify presentation on referencing jQueryUI.
+
+ 2011-12-5: Modify the link of download.
+
 </font>

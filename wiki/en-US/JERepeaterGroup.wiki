@@ -1,11 +1,11 @@
 ﻿#summary Repeater Grouping Data
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 === Introduction/Catalog ===
- Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /repeater/Default.aspx.
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /repeater/Default.aspx.
  
  Video demo: [http://www.tudou.com/programs/view/5KYgMnAdG6A/ www.tudou.com/programs/view/5KYgMnAdG6A/]
 
- This article will explain in detail how to group the data in the Repeater control, the directory is as follows:
+ This article will explain in detail how to group the data in the Repeater control, the catalog is as follows:
 
   * Prepare
   * Set Grouping Field
@@ -92,5 +92,8 @@
 </je:Repeater>
 }}}
  You can use the groupfield and groupname attributes in the GroupTemplate represent grouping field and the name of the current group.
+
+=== Revision History ===
+ 2011-12-5: Modify the link of download.
 
 </font>

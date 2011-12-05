@@ -1,7 +1,7 @@
 ﻿#summary Return JSON In Different .NET Version
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 === Introduction/Catalog ===
- Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /returnjson/Default.aspx.
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /returnjson/Default.aspx.
 
  Video demo: [http://www.tudou.com/programs/view/rHCYHX9cmcI/ www.tudou.com/programs/view/rHCYHX9cmcI/]
  
@@ -225,5 +225,8 @@ function(data){
 	alert(data.d.message);
 }
 }}}
+
+=== Revision History ===
+ 2011-12-5: Modify the link of download.
 
 </font>

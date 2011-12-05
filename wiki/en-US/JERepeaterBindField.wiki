@@ -1,11 +1,11 @@
 ﻿#summary Repeater Binding/Handling Field
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 === Introduction/Catalog ===
- Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /repeater/Default.aspx.
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /repeater/Default.aspx.
 
  Video demo: [http://www.tudou.com/programs/view/rwruM87J20s/ www.tudou.com/programs/view/rwruM87J20s/]
 
- This article will explain in detail how to bind and handle field in the Repeater control, the directory is as follows:
+ This article will explain in detail how to bind and handle field in the Repeater control, the catalog is as follows:
 
   * Prepare
   * Scope
@@ -166,5 +166,8 @@
 </style>
 }}}
  rank field in the examples is likely to be 1 to 5, so styles also define rank1 to rank5.
+
+=== Revision History ===
+ 2011-12-5: Modify the link of download.
 
 </font>

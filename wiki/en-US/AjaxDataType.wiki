@@ -1,7 +1,7 @@
 ﻿#summary Ajax And Server Data Type Conversions
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 === Introduction/Catalog ===
- Download sample: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip], the directory is /ajaxdatatype/Default.aspx.
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /ajaxdatatype/Default.aspx.
 
  Video demo: [http://www.tudou.com/programs/view/dlC1WPtjXEE/ www.tudou.com/programs/view/dlC1WPtjXEE/]
  
@@ -131,5 +131,8 @@ public string DateToString ( DateTime value )
 </je:Button>
 }}}
  Through the Parameter, turn the date to current date string that can be recognized by the server-side.
+
+=== Revision History ===
+ 2011-12-5: Modify the link of download.
 
 </font>
