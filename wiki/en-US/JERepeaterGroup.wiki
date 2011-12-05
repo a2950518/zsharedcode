@@ -12,7 +12,7 @@
   * Set Grouping Template
 
 === Prepare ===
- Please view the prepare section at [JQueryElementRepeaterDoc Repeater Reference].
+ Please view the Prepare section at [JQueryElementRepeaterDoc Repeater Reference].
 
 === Set Grouping Field ===
  Repeater only can group data based on one field at a time, GroupField property or setgroup method is used to set the grouping field, such as:

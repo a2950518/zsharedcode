@@ -19,7 +19,7 @@
     * jQueryUI Autocomplete
 
 === Prepare ===
- Please view the prepare section at [JQueryElementRepeaterDoc Repeater Reference].
+ Please view the Prepare section at [JQueryElementRepeaterDoc Repeater Reference].
 
 === html Element ===
  You can use html text box or drop down box in the template, and get or set the data.

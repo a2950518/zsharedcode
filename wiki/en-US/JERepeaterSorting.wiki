@@ -14,7 +14,7 @@
   * Display The Sorting Status
 
 === Prepare ===
- Please view the prepare section at [JQueryElementRepeaterDoc Repeater Reference].
+ Please view the Prepare section at [JQueryElementRepeaterDoc Repeater Reference].
 
 === Call The Method togglesort ===
  Under normal circumstances, we start to sort data by clicking fields in table header, so you can call the togglesort method in the HeaderTemplate:

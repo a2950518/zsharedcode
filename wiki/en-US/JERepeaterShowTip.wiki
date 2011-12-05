@@ -14,7 +14,7 @@
   * Timeliness Of Messages
 
 === Prepare ===
- Please view the prepare section at [JQueryElementRepeaterDoc Repeater Reference].
+ Please view the Prepare section at [JQueryElementRepeaterDoc Repeater Reference].
 
 === Set TipTemplate ===
  If you want the *repeater* to display some message, you first need to set the TipTemplate template:

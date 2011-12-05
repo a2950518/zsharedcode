@@ -13,7 +13,7 @@
   * Define A Container
 
 === Prepare ===
- Please view the prepare section at [JQueryElementRepeaterDoc Repeater Reference].
+ Please view the Prepare section at [JQueryElementRepeaterDoc Repeater Reference].
 
 === Define Child View Sample ===
  The *repeater* displayed within *repeater* is known as child view, child view is a copy of the child view sample, and according to the condition to display different data. Definition of child view sample has no special, such as:

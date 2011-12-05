@@ -14,7 +14,7 @@
   * Date
 
 === Prepare ===
- Please view the prepare section at [AjaxReturnJSON Return JSON In Different .NET Version]. The code in this article can run under .NET 2, different .NET versions may need a little change.
+ Please view the Prepare section at [AjaxReturnJSON Return JSON In Different .NET Version]. The code in this article can run under .NET 2, different .NET versions may need a little change.
 
 === How Do The WebService Convert Data ===
  In ASP.NET, if the type of the parameters passed from the client is different from the required parameter of the WebService, the server-side will try to reassign the parameter to the required type.

@@ -2,7 +2,7 @@
 #labels Phase-Implementation
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 === Introduction/Catalog ===
- Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /autocomplete/Default.aspx.
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads].
  
  Video demo: [http://www.tudou.com/programs/view/fZu-HcdijZA/ www.tudou.com/programs/view/fZu-HcdijZA/]
 
