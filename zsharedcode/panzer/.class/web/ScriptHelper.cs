@@ -404,20 +404,42 @@ namespace zoyobar.shared.panzer.web
 		}
 
 #if PARAM
+		#region " ClearInterval "
+#if EN
+		/// <summary>
+		/// Generate clearInterval method, and choose whether to append the script to the Code property.
+		/// </summary>
+		/// <param name="handler">The handle of the clock, for example: "100,000" or exit script variables, such as: "timer1".</param>
+		/// <param name="isAppend">Defaults to true, the script appends to the Code property.</param>
+		/// <returns>The script which contains clearInterval method.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成清除循环时钟的脚本, 并选择是否将脚本追加到 Code 属性.
 		/// </summary>
 		/// <param name="handler">时钟的句柄, 比如: "100000", 或者保存句柄的脚本变量, 比如: "timer1".</param>
 		/// <param name="isAppend">默认为 true, 则将脚本追加到 Code 属性.</param>
 		/// <returns>清除循环时钟的脚本代码.</returns>
+#endif
+		#endregion
 		public string ClearInterval ( string handler, bool isAppend = true )
 #else
+		#region " ClearInterval "
+#if EN
+		/// <summary>
+		/// Generate clearInterval method, and choose whether to append the script to the Code property.
+		/// </summary>
+		/// <param name="handler">The handle of the clock, for example: "100,000" or exit script variables, such as: "timer1".</param>
+		/// <param name="isAppend">If true, the script appends to the Code property.</param>
+		/// <returns>The script which contains clearInterval method.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成清除循环时钟的脚本, 并选择是否将脚本追加到 Code 属性.
 		/// </summary>
 		/// <param name="handler">时钟的句柄, 比如: "100000", 或者保存句柄的脚本变量, 比如: "timer1".</param>
 		/// <param name="isAppend">如果为 true, 则将脚本追加到 Code 属性.</param>
 		/// <returns>清除循环时钟的脚本代码.</returns>
+#endif
+		#endregion
 		public string ClearInterval ( string handler, bool isAppend )
 #endif
 		{
@@ -441,20 +463,42 @@ namespace zoyobar.shared.panzer.web
 		}
 
 #if PARAM
+		#region " ClearTimeout "
+#if EN
+		/// <summary>
+		/// Generate clearTimeout method, and choose whether to append the script to the Code property.
+		/// </summary>
+		/// <param name="handler">The handle of the clock, for example: "100,000" or exit script variables, such as: "timer1".</param>
+		/// <param name="isAppend">Defaults to true, the script appends to the Code property.</param>
+		/// <returns>The script which contains clearTimeout method.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成清除时钟的脚本, 并选择是否将脚本追加到 Code 属性.
 		/// </summary>
 		/// <param name="handler">时钟的句柄, 比如: "100000", 或者保存句柄的脚本变量, 比如: "timer1".</param>
 		/// <param name="isAppend">默认为 true, 则将脚本追加到 Code 属性.</param>
 		/// <returns>清除时钟的脚本代码.</returns>
+#endif
+		#endregion
 		public string ClearTimeout ( string handler, bool isAppend = true )
 #else
+		#region " ClearTimeout "
+#if EN
+		/// <summary>
+		/// Generate clearTimeout method, and choose whether to append the script to the Code property.
+		/// </summary>
+		/// <param name="handler">The handle of the clock, for example: "100,000" or exit script variables, such as: "timer1".</param>
+		/// <param name="isAppend">If true, the script appends to the Code property.</param>
+		/// <returns>The script which contains clearTimeout method.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成清除时钟的脚本, 并选择是否将脚本追加到 Code 属性.
 		/// </summary>
 		/// <param name="handler">时钟的句柄, 比如: "100000", 或者保存句柄的脚本变量, 比如: "timer1".</param>
 		/// <param name="isAppend">如果为 true, 则将脚本追加到 Code 属性.</param>
 		/// <returns>清除时钟的脚本代码.</returns>
+#endif
+		#endregion
 		public string ClearTimeout ( string handler, bool isAppend )
 #endif
 		{
@@ -1144,19 +1188,39 @@ namespace zoyobar.shared.panzer.web
 		public string Alert ( string message )
 		{ return Alert ( message, true ); }
 
+		#region " ClearInterval "
+#if EN
+		/// <summary>
+		/// Generate clearInterval method, and and appends to the Code property.
+		/// </summary>
+		/// <param name="isAppend">If true, the script appends to the Code property.</param>
+		/// <returns>The script which contains clearInterval method.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成清除循环时钟的脚本, 并追加到 Code 属性.
 		/// </summary>
 		/// <param name="handler">时钟的句柄, 比如: "100000", 或者保存句柄的脚本变量, 比如: "timer1".</param>
 		/// <returns>清除循环时钟的脚本代码.</returns>
+#endif
+		#endregion
 		public string ClearInterval ( string handler )
 		{ return this.ClearInterval ( handler, true ); }
 
+		#region " ClearTimeout "
+#if EN
+		/// <summary>
+		/// Generate clearTimeout method, and and appends to the Code property.
+		/// </summary>
+		/// <param name="isAppend">If true, the script appends to the Code property.</param>
+		/// <returns>The script which contains clearTimeout method.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成清除时钟的脚本, 并追加到 Code 属性.
 		/// </summary>
 		/// <param name="handler">时钟的句柄, 比如: "100000", 或者保存句柄的脚本变量, 比如: "timer1".</param>
 		/// <returns>清除时钟的脚本代码.</returns>
+#endif
+		#endregion
 		public string ClearTimeout ( string handler )
 		{ return this.ClearTimeout ( handler, true ); }
 
