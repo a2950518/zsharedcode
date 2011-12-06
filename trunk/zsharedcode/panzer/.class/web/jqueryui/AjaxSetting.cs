@@ -152,6 +152,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 获取或设置 Ajax 所使用的参数.
 		/// </summary>
+		[Browsable ( false )]
 		public Parameter[] Parameters
 		{
 			get { return this.parameters.ToArray ( ); }
