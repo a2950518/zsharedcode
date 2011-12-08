@@ -39,6 +39,9 @@
     <Compile Include="..\..\.class\ui\jqueryui\Accordion.cs">
       <Link>.class\Accordion.cs</Link>
     </Compile>
+    <Compile Include="..\..\.class\ui\jqueryui\AjaxManager.cs">
+      <Link>.class\AjaxManager.cs</Link>
+    </Compile>
     <Compile Include="..\..\.class\ui\jqueryui\Autocomplete.cs">
       <Link>.class\Autocomplete.cs</Link>
     </Compile>

@@ -6,6 +6,7 @@
  * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
 * */
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.UI;
@@ -38,7 +39,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			: base ( widgetSetting, elementType )
 		{ }
 
-		protected override bool  isFaceless()
+		protected override bool isFaceless ( )
 		{ return this.DesignMode && this.selector != string.Empty; }
 
 		protected override bool isFace ( )
@@ -48,6 +49,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		{
 			base.renderJQuery ( jquery );
 
+			// Generate scripts that are needed by WIDGET, each class that inherits from WidgetSetting can add needed scripts through method GetDependentScripts
 			foreach ( KeyValuePair<string, string> pair in this.uiSetting.GetDependentScripts ( ) )
 			{
 				string key = string.Format ( "__js{0}", pair.Key );
@@ -63,6 +65,29 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			}
 
+			for ( int index = 0; index < this.uiSetting.Ajaxs.Length; index++ )
+			{
+				AjaxSetting ajax = this.uiSetting.Ajaxs[index];
+
+				if ( !string.IsNullOrEmpty ( ajax.ClientFunction ) )
+				{
+					AjaxManager manager = this.NamingContainer.FindControl ( ajax.AjaxManagerID ) as AjaxManager;
+
+					if ( null == manager )
+						throw new Exception ( string.Format ( "没有找到 ID 为 {0} 的 AjaxManager 控件", ajax.AjaxManagerID ) );
+
+					foreach ( AjaxSetting target in manager.AjaxList )
+						if ( target.ClientFunction == this.uiSetting.Ajaxs[index].ClientFunction )
+						{
+							this.uiSetting.Ajaxs[index] = target;
+							break;
+						}
+
+				}
+
+			}
+
+			// Append scripts that create the WIDGET, such as: __repeater( ... )
 			jquery.Widget ( this.uiSetting );
 		}
 

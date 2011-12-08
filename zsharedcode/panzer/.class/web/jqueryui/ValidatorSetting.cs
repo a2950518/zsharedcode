@@ -260,10 +260,11 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 			this.CheckAsync.Success = "function(data){e.callback.call(pe.jquery, pe, (null == -:data.value ? e.value : -:data.value), -:data.tip, -:data.valid, -:data.custom);}";
 			this.CheckAsync.Error = "function(){e.callback.call(pe.jquery, pe, {}, false, null);}";
 
-			this.CheckAsync.ParameterList.AddRange ( new Parameter[]
-			{
-				new Parameter("value", ParameterType.Expression, "e.value")
-			} );
+			WidgetSetting.appendParameter ( this.CheckAsync,
+				new Parameter[]
+				{
+					new Parameter("value", ParameterType.Expression, "e.value")
+				} );
 
 			base.Recombine ( );
 		}

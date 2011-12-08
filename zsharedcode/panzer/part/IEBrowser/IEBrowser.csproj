@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;PARAM V4</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;PARAM V4 HANS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\zoyobar.shared.panzer.IEBrowser.XML</DocumentationFile>
@@ -79,6 +79,9 @@
     </Compile>
     <Compile Include="..\..\.class\web\ScriptHelper.cs">
       <Link>.class\ScriptHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\ScriptHolder.cs">
+      <Link>.class\ScriptHolder.cs</Link>
     </Compile>
     <Compile Include="..\..\.enum\StringCompareMode.cs">
       <Link>.enum\StringCompareMode.cs</Link>
