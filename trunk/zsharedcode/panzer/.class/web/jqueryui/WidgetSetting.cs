@@ -65,7 +65,24 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	public abstract class WidgetSetting
 		: UISetting
 	{
-	
+
+		protected static void appendParameter (AjaxSetting ajax, Parameter[] parameters )
+		{
+
+			if ( null == ajax || null == parameters )
+				return;
+
+			List<string> names = new List<string> ( );
+
+			foreach ( Parameter parameter in ajax.ParameterList )
+				names.Add ( parameter.Name );
+
+			foreach ( Parameter parameter in parameters )
+				if ( null != parameter && !names.Contains ( parameter.Name ) )
+					ajax.ParameterList.Add ( parameter );
+
+		}
+
 		/// <summary>
 		/// 重新构造.
 		/// </summary>

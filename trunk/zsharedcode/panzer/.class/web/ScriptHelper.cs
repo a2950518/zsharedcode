@@ -522,6 +522,16 @@ namespace zoyobar.shared.panzer.web
 		}
 
 #if PARAM
+		#region " Confirm "
+#if EN
+		/// <summary>
+		/// Generate confirm method, save the result user selected into a script variable, and choose whether to append the script to the Code property.
+		/// </summary>
+		/// <param name="message">What needs to be confirmed, such as: "'Delete?'", can also be a expression, such as: "'Delete student ' + name".</param>
+		/// <param name="result">The name of the variable which save the result, for example: "deleteIt", defaults to null, the result will not be saved.</param>
+		/// <param name="isAppend">Defaults to true, the script appends to the Code property.</param>
+		/// <returns>The script which contains confirm method.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成弹出确认框并将用户选择的结果保存在脚本变量中的脚本, 并选择是否将脚本追加到 Code 属性.
 		/// </summary>
@@ -529,8 +539,20 @@ namespace zoyobar.shared.panzer.web
 		/// <param name="result">保存用户所选结果的变量的名称, 比如: "deleteIt", 默认为 null, 不保存用户选择的结果.</param>
 		/// <param name="isAppend">默认为 true, 则将脚本追加到 Code 属性.</param>
 		/// <returns>弹出确认框的脚本代码.</returns>
+#endif
+		#endregion
 		public string Confirm ( string message, string result = null, bool isAppend = true )
 #else
+		#region " Confirm "
+#if EN
+		/// <summary>
+		/// Generate confirm method, save the result user selected into a script variable, and choose whether to append the script to the Code property.
+		/// </summary>
+		/// <param name="message">What needs to be confirmed, such as: "'Delete?'", can also be a expression, such as: "'Delete student ' + name".</param>
+		/// <param name="result">The name of the variable which save the result, for example: "deleteIt", if set to null, then the result will not be saved.</param>
+		/// <param name="isAppend">If true, the script appends to the Code property.</param>
+		/// <returns>The script which contains confirm method.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成弹出确认框并将用户选择的结果保存在脚本变量中的脚本, 并选择是否将脚本追加到 Code 属性.
 		/// </summary>
@@ -538,6 +560,8 @@ namespace zoyobar.shared.panzer.web
 		/// <param name="result">保存用户所选结果的变量的名称, 比如: "deleteIt", 如果设置为 null, 则不会保存用户选择的结果.</param>
 		/// <param name="isAppend">如果为 true, 则将脚本追加到 Code 属性.</param>
 		/// <returns>弹出确认框的脚本代码.</returns>
+#endif
+		#endregion
 		public string Confirm ( string message, string result, bool isAppend )
 #endif
 		{

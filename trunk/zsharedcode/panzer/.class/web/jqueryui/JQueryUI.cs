@@ -281,12 +281,19 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			if ( setting.EventType == EventType.none )
 				return this;
 
-			JQuery ajax = JQueryUI.Create ( setting );
+			string code;
 
-			if ( null == ajax )
-				return this;
+			if ( string.IsNullOrEmpty ( setting.ClientFunction ) )
+			{
+				JQuery ajax = JQueryUI.Create ( setting );
 
-			ajax.EndLine ( );
+				if ( null == ajax )
+					return this;
+
+				code = "function(e){" + ajax.EndLine ( ).Code + "}";
+			}
+			else
+				code = setting.ClientFunction;
 
 			if ( setting.EventType == EventType.__init )
 			{
@@ -294,13 +301,12 @@ namespace zoyobar.shared.panzer.web.jqueryui
 				if ( this.code != string.Empty )
 					this.EndLine ( );
 
-				this.AppendCode ( ajax.Code );
+				this.AppendCode ( code );
 			}
 			else
-				this.Bind ( string.Format ( "'{0}'", setting.EventType ), "function(e){" + ajax.Code + "}" );
+				this.Bind ( string.Format ( "'{0}'", setting.EventType ), code );
 
 			return this;
-
 		}
 
 		/// <summary>
@@ -341,18 +347,21 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <returns>更新后的 JQueryUI.</returns>
 		public JQueryUI Widget ( WidgetSetting setting )
 		{
-
+			// If this is the plusin, do not execute this method
 			if ( null == setting || setting.WidgetType == WidgetType.custom )
 				return this;
 
 			setting.Recombine ( );
 
+			// Append WIDGET script
 			this.Execute ( setting.WidgetType.ToString ( ), makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) );
 
+			// Append event, such as: click( ... )
 			foreach ( Event @event in setting.SettingHelper.Events )
 				if ( @event.Type != EventType.none && @event.Type != EventType.__init )
 					this.Execute ( @event.Type.ToString ( ), @event.Value );
 
+			// Append ajax calls
 			foreach ( AjaxSetting ajax in setting.Ajaxs )
 				this.Ajax ( ajax );
 

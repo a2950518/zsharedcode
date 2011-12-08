@@ -311,16 +311,19 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					this.scriptPackageID == string.Empty ? string.Empty : " <span style=\"color: #666633\">" + this.scriptPackageID + "</span>"
 					);
 			else if ( null == this.contentTemplate )
+				// If the ContentTemplate is null, then make the Html or Text as the display contents
 				if ( this.html != string.Empty )
 					writer.Write ( this.html );
 				else if ( this.text != string.Empty )
 					writer.WriteEncodedText ( this.text );
 
+			// Does not generate jQuery scripts in design mode
 			if ( this.DesignMode )
 				return;
 
 			JQueryUI jquery = new JQueryUI ( string.IsNullOrEmpty ( this.selector ) ? string.Format ( "'#{0}'", this.ClientID ) : this.selector, false );
 
+			// Classes that inherit from JQueryElement can generate jQuery script into variable jquery
 			this.renderJQuery ( jquery );
 
 			jquery.Code = "$(function(){" + ( this.isVariable ? ( "window['" + this.ClientID + "'] = " ) : string.Empty ) + JQueryCoder.Encode ( this, jquery.Code ) + "});";
@@ -331,6 +334,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 				if ( null != package )
 				{
+					// To write the script in the ScriptPackage, so that you do not need to separately generated
+
 					package.Code += jquery.Code;
 					return;
 				}

@@ -33,6 +33,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		private RequestType type;
 		private string url;
 
+		private string ajaxManagerID;
+		private string clientFunction;
+		private string clientParameter;
+
 		/// <summary>
 		/// 获取 Option, Event 辅助类.
 		/// </summary>
@@ -211,6 +215,45 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			get { return this.url; }
 			set { this.url = ( null == value ? string.Empty : value ); }
 		}
+
+		/// <summary>
+		/// 获取或设置客户端脚本存放的 AjaxManager 控件的 ID.
+		/// </summary>
+		[Category ( "脚本" )]
+		[DefaultValue ( "" )]
+		[Description ( "客户端脚本存放的 AjaxManager 控件的 ID" )]
+		[NotifyParentProperty ( true )]
+		public string AjaxManagerID
+		{
+			get { return this.ajaxManagerID; }
+			set { this.ajaxManagerID = ( null == value ? string.Empty : value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置调用的客户端函数, 而在 AjaxManager 中则表示定义的函数名称.
+		/// </summary>
+		[Category ( "脚本" )]
+		[DefaultValue ( "" )]
+		[Description ( "调用的客户端函数, 而在 AjaxManager 中则表示定义的函数名称" )]
+		[NotifyParentProperty ( true )]
+		public string ClientFunction
+		{
+			get { return this.clientFunction; }
+			set { this.clientFunction = ( null == value ? string.Empty : value ); }
+		}
+
+		/// <summary>
+		/// 获取或设置 AjaxManager 中定义的函数参数.
+		/// </summary>
+		[Category ( "脚本" )]
+		[DefaultValue ( "" )]
+		[Description ( "AjaxManager 中定义的函数参数" )]
+		[NotifyParentProperty ( true )]
+		public string ClientParameter
+		{
+			get { return this.clientParameter; }
+			set { this.clientParameter = ( null == value ? string.Empty : value ); }
+		}
 		#endregion
 
 		#region " event "
@@ -297,7 +340,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 创建 jQuery UI Ajax 设置.
 		/// </summary>
 		public AjaxSetting ( )
-			: this ( EventType.none, null, null, DataType.json, RequestType.GET, null, null, null, null, null, true )
+			: this ( EventType.none, null, null, DataType.json, RequestType.GET, null, null, null, null, null, true, null, null, null )
 		{ }
 		/// <summary>
 		/// 创建 jQuery UI Ajax 设置.
@@ -313,7 +356,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <param name="parameters">用作传递的参数, 如果指定了 form 参数, 则忽略 parameters.</param>
 		/// <param name="events">Ajax 相关事件.</param>
 		/// <param name="isSingleQuote">是否为字符串使用单引号.</param>
-		public AjaxSetting ( EventType eventType, string url, string methodName, DataType dataType, RequestType type, string contentType, string form, string data, Parameter[] parameters, Event[] events, bool isSingleQuote )
+		/// <param name="ajaxManagerID">客户端脚本存放的 AjaxManager 控件的 ID.</param>
+		/// <param name="clientFunction">调用的客户端函数, 而在 AjaxManager 中则表示定义的函数名称.</param>
+		/// <param name="clientParameter">AjaxManager 中定义的函数参数.</param>
+		public AjaxSetting ( EventType eventType, string url, string methodName, DataType dataType, RequestType type, string contentType, string form, string data, Parameter[] parameters, Event[] events, bool isSingleQuote, string ajaxManagerID, string clientFunction, string clientParameter )
 		{
 			this.Parameters = parameters;
 			this.settingHelper.Events = events;
@@ -330,6 +376,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			this.Data = data;
 
 			this.isSingleQuote = isSingleQuote;
+
+			this.AjaxManagerID = ajaxManagerID;
+			this.ClientFunction = clientFunction;
+			this.ClientParameter = clientParameter;
 		}
 
 	}

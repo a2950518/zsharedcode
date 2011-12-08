@@ -10,6 +10,7 @@ using System;
 using System.Web.WebPages;
 
 using zoyobar.shared.panzer.web;
+using zoyobar.shared.panzer.web.jqueryui.plusin;
 
 namespace zoyobar.shared.panzer.web.jqueryui
 {
@@ -56,7 +57,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			{
 				ScriptHelper script = new ScriptHelper ( );
 
-				script.AppendCode ( setting.GetPlusinCode ( ) );
+				//foreach
+				//script.AppendCode ( setting.GetDependentScripts ( ) );
 
 				script.Build ( new RazorScriptHolder ( this.page ), key, ScriptBuildOption.Startup );
 			}

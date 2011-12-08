@@ -531,9 +531,9 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 		/// <returns>Repeater 所需的基础脚本.</returns>
 		public override Dictionary<string, string> GetDependentScripts ( )
 		{
-			Dictionary<string, string> plusins = base.GetDependentScripts();
+			Dictionary<string, string> plusins = base.GetDependentScripts ( );
 
-			plusins.Add("repeater", Resources.repeater_min);
+			plusins.Add ( "repeater", Resources.repeater_min );
 
 			return plusins;
 		}
@@ -567,13 +567,14 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 			this.CustomAsync.Success = "function(data){e.callback.call(pe.jquery, pe, e.index, e.command, (null == -:data.row ? e.row : -:data.row), -:data.__success, e.substep, -:data.custom);}";
 			this.CustomAsync.Error = "function(){e.callback.call(pe.jquery, pe, e.index, e.command, e.row, false, e.substep, null);}";
 
-			this.FillAsync.ParameterList.AddRange ( new Parameter[]
-			{
-				new Parameter("pageindex", ParameterType.Expression, "this.__repeater('option', 'pageindex')", ParameterDataType.Number),
-				new Parameter("pagesize", ParameterType.Expression, "this.__repeater('option', 'pagesize')", ParameterDataType.Number),
-				new Parameter ( "__order", ParameterType.Expression, "e.sortconditioncustom", ParameterDataType.String ),
-				new Parameter ( "__group", ParameterType.Expression, "e.groupcondition", ParameterDataType.String )
-			} );
+			WidgetSetting.appendParameter ( this.FillAsync,
+				new Parameter[]
+				{
+					new Parameter("pageindex", ParameterType.Expression, "this.__repeater('option', 'pageindex')", ParameterDataType.Number),
+					new Parameter("pagesize", ParameterType.Expression, "this.__repeater('option', 'pagesize')", ParameterDataType.Number),
+					new Parameter ( "__order", ParameterType.Expression, "e.sortconditioncustom", ParameterDataType.String ),
+					new Parameter ( "__group", ParameterType.Expression, "e.groupcondition", ParameterDataType.String )
+				} );
 
 			string filterFieldList = this.FilterField.TrimEnd ( ']' ).TrimStart ( '[' );
 			int beginIndex = 0;
