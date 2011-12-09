@@ -102,11 +102,13 @@
 
 === 直接调用 ===
  在上面的例子中, 已经展示了直接调用, 就和调用普通的 javascript 函数是一样的:
+{{{
 <script>
 	$(function () {
 		add3(1);
 	});
 </script>
+}}}
 
 === 通过 Aysnc 属性调用 ===
  对于 JQueryElement 的控件可以通过 Aysnc 属性来调用 AjaxManager 生成的函数:
