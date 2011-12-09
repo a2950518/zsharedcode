@@ -225,8 +225,26 @@ function(data){
 	alert(data.d.message);
 }
 }}}
+ If you write javascript method in the property, you can use *`-:data`* to represent JSON, different versions will be automatically replaced with the data or data.d:
+{{{
+<je:Button ID="cmdWNet4" runat="server" Label="all version">
+	<ClickAsync Url="webservice.asmx" MethodName="Save" Success="
+	function(data){
+		alert(-:data.message);
+	}
+	">
+	</ClickAsync>
+</je:Button>
+}}}
+
+=== Related Content ===
+ [AjaxDataType Ajax And Server Data Type Conversions]
+
+ [JEParameter Through Parameter Object Add Ajax Request Parameter]
 
 === Revision History ===
  2011-12-5: Modify the link of download.
+
+ 2011-12-9: Increase the description of -:data.
 
 </font>

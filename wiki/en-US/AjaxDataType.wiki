@@ -132,6 +132,11 @@ public string DateToString ( DateTime value )
 }}}
  Through the Parameter, turn the date to current date string that can be recognized by the server-side.
 
+=== Related Content ===
+ [AjaxReturnJSON Return JSON In Different .NET Version]
+
+ [JEParameter Through Parameter Object Add Ajax Request Parameter]
+
 === Revision History ===
  2011-12-5: Modify the link of download.
 

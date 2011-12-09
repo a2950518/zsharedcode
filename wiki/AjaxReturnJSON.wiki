@@ -3,7 +3,7 @@
 <font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/AjaxReturnJSON Translate this page]</font>
 
 === 简介/目录 ===
- 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /returnjson/Default.aspx.
+ 请到 [Download 下载资源] 的 JQueryElement 示例下载一节*下载示例代码*, 目录 /returnjson/Default.aspx.
 
  视频演示: [http://www.tudou.com/programs/view/rHCYHX9cmcI/ www.tudou.com/programs/view/rHCYHX9cmcI/]
  
@@ -227,5 +227,26 @@ function(data){
 	alert(data.d.message);
 }
 }}}
+ 如果 javascript 函数写在属性中, 则可以使用 *`-:data`* 来表示 JSON, 在不同版本中将自动替换为 data 或者 data.d:
+{{{
+<je:Button ID="cmdWNet4" runat="server" Label="all version">
+	<ClickAsync Url="webservice.asmx" MethodName="Save" Success="
+	function(data){
+		alert(-:data.message);
+	}
+	">
+	</ClickAsync>
+</je:Button>
+}}}
+
+=== 相关内容 ===
+ [AjaxDataType Ajax 与服务器的数据类型转换]
+
+ [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数]
+
+=== 修订历史 ===
+ 2011-12-5: 修改下载的链接.
+
+ 2011-12-9: 增加 -:data 的使用说明.
 
 </font>

@@ -100,6 +100,11 @@ function(value){
 === Automatic Parameter ===
  Some events of the control will automatically add some parameters, such as the Repeater's FillAsync will add pageindex, pagesize to represent the page number and other information.
 
+=== Related Content ===
+ [AjaxReturnJSON Return JSON In Different .NET Version]
+
+ [AjaxDataType Ajax And Server Data Type Conversions]
+
 === Revision History ===
  2011-12-5: Modify the link of download.
 

@@ -3,7 +3,7 @@
 <font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/AjaxDataType Translate this page]</font>
 
 === 简介/目录 ===
- 示例代码下载: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar], 目录 /ajaxdatatype/Default.aspx.
+ 请到 [Download 下载资源] 的 JQueryElement 示例下载一节*下载示例代码*, 目录 /ajaxdatatype/Default.aspx.
 
  视频演示: [http://www.tudou.com/programs/view/dlC1WPtjXEE/ www.tudou.com/programs/view/dlC1WPtjXEE/]
  
@@ -133,5 +133,13 @@ public string DateToString ( DateTime value )
 </je:Button>
 }}}
  通过 Parameter 的设置, 将日期转化为可以被服务器端识别的当前日期的字符串形式.
+
+=== 相关内容 ===
+ [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
+
+ [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数]
+
+=== 修订历史 ===
+ 2011-12-5: 修改下载的链接.
 
 </font>
