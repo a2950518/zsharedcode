@@ -63,8 +63,10 @@
 		">
 			<ParameterList>
 				<je:Parameter Name="c" Type="Expression" Value="'add'" />
-				<je:Parameter Name="num1" Type="Selector" Value="'#num1'" DataType="Number" />
-				<je:Parameter Name="num2" Type="Selector" Value="'#num2'" DataType="Number" />
+				<je:Parameter Name="num1" Type="Selector"
+					Value="'#num1'" DataType="Number" />
+				<je:Parameter Name="num2" Type="Selector"
+					Value="'#num2'" DataType="Number" />
 			</ParameterList>
 		</je:AjaxSetting>
 	</AjaxList>
