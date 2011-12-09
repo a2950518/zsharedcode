@@ -23,15 +23,15 @@
  示例为 2011-12-5 上传, dll 版本为 3.6.4: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar]
 
  ==== <font color="#0066CC">JQueryElement.dll 下载</font> ====
- 以下 dll 文件, 为 2011-12-5 上传, 可能没有依照最新的 panzer 代码编译, 欢迎加入 *qq 群*, 如果群人数已满, 请选择位置靠后的群:
+ 以下 dll 文件, 为 2011-12-9 上传, 可能没有依照最新的 panzer 代码编译, 欢迎加入 *qq 群*, 如果群人数已满, 请选择位置靠后的群:
 
  注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
 
  <font color="#006600">149829251</font>, JQueryElement 编程 I 群(90+/100), <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/149829251" target="_blank">加入群</a> <font color="#006600">25183275</font>, JQueryElement 编程 II 群(10+/500), <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/25183275" target="_blank">加入群</a>
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.3.6.4.Debug.PARAM.zip JQueryElement 3.6.4 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(PARAM 仅支持在 Visual Studio 2010 中使用)</font>
+ [http://zsharedcode.googlecode.com/files/JQueryElement.3.7.0.Debug.PARAM.zip JQueryElement 3.7.0 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(PARAM 仅支持在 Visual Studio 2010 中使用)</font>
 
- [http://zsharedcode.googlecode.com/files/JQueryElement.3.6.4.Debug.NOPARAM.zip JQueryElement 3.6.4 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(NOPARAM 版本支持所有 Visual Studio 版本)</font>
+ [http://zsharedcode.googlecode.com/files/JQueryElement.3.7.0.Debug.NOPARAM.zip JQueryElement 3.7.0 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(NOPARAM 版本支持所有 Visual Studio 版本)</font>
 
 === <font color="#008C8C">IEBrowser 下载</font> ===
 
@@ -52,6 +52,11 @@
 </a>
 
 === JQueryElement 更新历史 ===
+3.7 版本改动:
+ a. 增加 AjaxManager 控件.
+ 
+ b. 在 Ajax 相关的 javascript 函数中可书写 -:data, 替换为 data 或者 data.d.
+
 3.6.4 版本改动:
  a. 调整 UI 界面设计的一些错误.
 
