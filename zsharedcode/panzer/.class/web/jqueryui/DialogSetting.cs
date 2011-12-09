@@ -485,6 +485,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		{
 			this.OpenAsync.EventType = EventType.dialogopen;
 			this.CloseAsync.EventType = EventType.dialogclose;
+
+			base.Recombine ( );
 		}
 
 	}

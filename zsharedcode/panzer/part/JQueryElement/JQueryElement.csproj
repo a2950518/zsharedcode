@@ -228,6 +228,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="JQueryElement.cd" />
     <None Include="Resources\repeater.min.js" />
   </ItemGroup>
   <ItemGroup>

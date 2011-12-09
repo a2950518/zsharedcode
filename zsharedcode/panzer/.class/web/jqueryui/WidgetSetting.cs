@@ -6,6 +6,7 @@
  * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
  * */
 
+using System;
 using System.Collections.Generic;
 
 using zoyobar.shared.panzer.Properties;
@@ -86,7 +87,37 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 重新构造.
 		/// </summary>
-		public abstract void Recombine();
+		public virtual void Recombine ( )
+		{
+
+			foreach ( AjaxSetting ajax in this.ajaxs )
+				if ( ajax.EventType != EventType.none )
+				{
+
+					//!+ The following code is similar with AutocompleteSetting.Recombine, AjaxManager.Render
+					string data;
+
+					if ( string.IsNullOrEmpty ( ajax.MethodName ) )
+						data = "data";
+					else
+						// According to the .NET version to determine the location of JSON
+						if ( Environment.Version.Major <= 2 || ( Environment.Version.Major == 3 && Environment.Version.Minor == 0 ) )
+							data = "data";
+						else
+							data = "data.d";
+
+					if ( !string.IsNullOrEmpty ( ajax.Success ) )
+						ajax.Success = ajax.Success.Replace ( "-:data", data );
+
+					if ( !string.IsNullOrEmpty ( ajax.Complete ) )
+						ajax.Complete = ajax.Complete.Replace ( "-:data", data );
+
+					if ( !string.IsNullOrEmpty ( ajax.Error ) )
+						ajax.Error = ajax.Error.Replace ( "-:data", data );
+
+				}
+
+		}
 
 		/// <summary>
 		/// 获取所需的基础脚本.

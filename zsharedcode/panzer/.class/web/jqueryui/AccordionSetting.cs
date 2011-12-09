@@ -186,15 +186,19 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <summary>
 		/// 创建一个折叠列表设置.
 		/// </summary>
-		public AccordionSetting()
-			: base(WidgetType.accordion, 1)
+		public AccordionSetting ( )
+			: base ( WidgetType.accordion, 1 )
 		{ }
 
 		/// <summary>
 		/// 重新构造.
 		/// </summary>
-		public override void Recombine()
-		{ this.ChangeAsync.EventType = EventType.accordionchange; }
+		public override void Recombine ( )
+		{
+			this.ChangeAsync.EventType = EventType.accordionchange;
+
+			base.Recombine ( );
+		}
 
 	}
 	#endregion

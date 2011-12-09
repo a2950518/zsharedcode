@@ -148,6 +148,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		{
 			this.ChangeAsync.EventType = EventType.progressbarchange;
 			this.CompleteAsync.EventType = EventType.progressbarcomplete;
+
+			base.Recombine ( );
 		}
 
 	}

@@ -256,7 +256,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			// request.term represents user input, it will passed to the server-side as parameter term
 			this.sourceAsync.Data = "{ term: request.term }";
 
-			//!+ The following code is similar with PlusinSetting.Recombine
+			//!+ The following code is similar with PlusinSetting.Recombine, AjaxManager.Render
 			string data;
 
 			if ( string.IsNullOrEmpty ( this.sourceAsync.MethodName ) )
@@ -286,6 +286,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 				this.Source = "function(request, response) {" + ajax.Code + "}";
 			}
 
+			base.Recombine ( );
 		}
 
 	}

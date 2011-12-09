@@ -58,11 +58,38 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			ScriptHelper script = new ScriptHelper ( );
 
+			//!+ The following code is similar with AutocompleteSetting.Recombine, WidgetSetting.Recombine
+
 			foreach ( AjaxSetting ajax in this.ajaxs )
 				if ( !string.IsNullOrEmpty ( ajax.ClientFunction ) )
-					script.AppendCode ( "function " + ajax.ClientFunction + "(" + ajax.ClientParameter + ") {" + JQueryUI.Create ( ajax ).Code + "}" );
+				{
+					string data;
 
-			writer.Write ( script.Code );
+					if ( string.IsNullOrEmpty ( ajax.MethodName ) )
+						data = "data";
+					else
+						// According to the .NET version to determine the location of JSON
+						if ( Environment.Version.Major <= 2 || ( Environment.Version.Major == 3 && Environment.Version.Minor == 0 ) )
+							data = "data";
+						else
+							data = "data.d";
+
+					if ( !string.IsNullOrEmpty ( ajax.Success ) )
+						ajax.Success = ajax.Success.Replace ( "-:data", data );
+
+					if ( !string.IsNullOrEmpty ( ajax.Complete ) )
+						ajax.Complete = ajax.Complete.Replace ( "-:data", data );
+
+					if ( !string.IsNullOrEmpty ( ajax.Error ) )
+						ajax.Error = ajax.Error.Replace ( "-:data", data );
+
+					JQuery jquery = JQueryUI.Create ( ajax );
+
+					if(null != jquery)
+						script.AppendCode ( "function " + ajax.ClientFunction + "(" + ajax.ClientParameter + ") {" + jquery.Code + "}" );
+
+				}
+
 			script.Build ( new ASPXScriptHolder ( this ), this.ClientID, ScriptBuildOption.Startup );
 		}
 
