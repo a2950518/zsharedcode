@@ -5,7 +5,7 @@
 === 简介/目录 ===
  请到 [Download 下载资源] 的 JQueryElement 示例下载一节*下载示例代码*, 目录 /ajaxmanager/Default.aspx.
 
- 视频演示: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+ 视频演示: [http://www.tudou.com/programs/view/Bbk5GvsEGKs/ www.tudou.com/programs/view/Bbk5GvsEGKs/]
  
  本文将说明如何使用 AjaxManager 来生成调用服务器端方法的 javascript 函数, 以及如何调用这些函数:
 
