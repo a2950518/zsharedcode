@@ -1,0 +1,143 @@
+﻿#summary 生成调用服务器端方法的 javascript 函数
+<font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/AjaxReturnJSON Translate this page]</font>
+
+=== 简介/目录 ===
+ 请到 [Download 下载资源] 的 JQueryElement 示例下载一节*下载示例代码*, 目录 /ajaxmanager/Default.aspx.
+
+ 视频演示: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+ 
+ 本文将说明如何使用 AjaxManager 来生成调用服务器端方法的 javascript 函数, 以及如何调用这些函数:
+
+  * 准备
+  * 创建 javascript 函数
+  * 直接调用
+  * 通过 Aysnc 属性调用
+  * 隐式添加的参数
+
+=== 准备 ===
+ 请确保已经在 [Download 下载资源] 中的 JQueryElement.dll 下载一节下载 JQueryElement 最新的版本.
+
+ 请使用指令引用如下的命名空间:
+{{{
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.web.jqueryui"
+	TagPrefix="je" %>
+}}}
+
+ 除了命名空间, 还需要引用 jQueryUI 的脚本:
+{{{
+<script type="text/javascript" src="[脚本路径]/jquery-<version>.min.js"></script>
+}}}
+
+=== 创建 javascript 函数 ===
+ 在页面中添加一个 AjaxManager 控件, 来创建调用服务器端方法的 javascript 函数:
+{{{
+<je:AjaxManager ID="manager" runat="server">
+	<AjaxList>
+		<je:AjaxSetting
+			ClientFunction="<javascript 函数名>"
+			ClientParameter="<javascript 参数, 比如: name, age>"
+			Url="<服务器端方法地址>" MethodName="<服务器端方法名称>"
+			Success="<调用成功时的 javascript 函数>"
+			Error="<调用失败时的 javascript 函数>"
+			Complete="<调用完成时的 javascript 函数>"
+			...
+			>
+			<ParameterList>
+				<参数>
+			</ParameterList>
+		</je:AjaxSetting>
+	</AjaxList>
+</je:AjaxManager>
+
+<je:AjaxManager ID="manager" runat="server">
+	<AjaxList>
+		<je:AjaxSetting ClientFunction="add" Url="handler.ashx" Success="
+		function(data){
+			$('#result').text(-:data.result);
+		}
+		">
+			<ParameterList>
+				<je:Parameter Name="c" Type="Expression" Value="'add'" />
+				<je:Parameter Name="num1" Type="Selector" Value="'#num1'" DataType="Number" />
+				<je:Parameter Name="num2" Type="Selector" Value="'#num2'" DataType="Number" />
+			</ParameterList>
+		</je:AjaxSetting>
+	</AjaxList>
+</je:AjaxManager>
+}}}
+ 上面的示例, 生成了一个名为 add 的 javascript 函数, 在此函数中将调用一般处理程序 handler.ashx 来返回 JSON 数据.
+
+ 代码中的 `-:data` 将被替换为 data 或者 data.d, 更多内容请参考 [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON].
+
+ 通过 Parameter 对象可以为 Ajax 调用增加参数, 详细内容请参考 [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数].
+
+=== 设置 javascript 函数的参数列表 ===
+ 通过 ClientParameter 属性, 可以为 javascript 函数设置参数列表:
+{{{
+<je:AjaxManager ID="manager" runat="server">
+	<AjaxList>
+		<je:AjaxSetting ClientFunction="add3" ClientParameter="othernum"
+		Url="handler.ashx"
+		...	>
+			<ParameterList>
+
+				<je:Parameter Name="num3" Type="Expression" Value="othernum" />
+
+			</ParameterList>
+		</je:AjaxSetting>
+	</AjaxList>
+</je:AjaxManager>
+}}}
+ 上面的示例中, 为 add3 函数增加了一个 othernum 参数, 而 othernum 参数将作为 num3 的值传递给服务器端. 可以像这样来调用 add3:
+{{{
+<input type="button" onclick="javascript:add3(1);" value="额外加 1" />
+}}}
+
+=== 直接调用 ===
+ 在上面的例子中, 已经展示了直接调用, 就和调用普通的 javascript 函数是一样的:
+<script>
+	$(function () {
+		add3(1);
+	});
+</script>
+
+=== 通过 Aysnc 属性调用 ===
+ 对于 JQueryElement 的控件可以通过 Aysnc 属性来调用 AjaxManager 生成的函数:
+{{{
+<je:Button ID="cmdSub" runat="server" IsVariable="true" Label="减" Disabled="true"
+	ClickAsync-AjaxManagerID="manager" ClickAsync-ClientFunction="sub">
+</je:Button>
+}}}
+ 通过 Async 的 AjaxManagerID 来指定需要调用的 javascript 函数所在的 AjaxManager, 通过 ClientFunction 来指定调用的 javascript 函数名称.
+
+=== 隐式添加的参数 ===
+ 部分 JQueryElement 控件会为 AjaxManager 增加 Parameter 对象, 比如 Repeater 会增加 pageindex, pagesize 等:
+{{{
+<je:Repeater ID="repeater" runat="server"
+	FillAsync-AjaxManagerID="manager" FillAsync-ClientFunction="fill">
+</je:Repeater>
+
+<je:AjaxManager ID="manager" runat="server">
+	<AjaxList>
+		<je:AjaxSetting ClientFunction="fill" ClientParameter="othernum"
+		Url="handler.ashx"
+		...	>
+			<ParameterList>
+			</ParameterList>
+		</je:AjaxSetting>
+	</AjaxList>
+</je:AjaxManager>
+}}}
+ 虽然 AjaxManager 中的 fill 函数没有添加任何的 Parameter, 但由于 Repeater 的 FillAsync 被指定调用 fill 函数, 因此 fill 函数被隐式的添加 pageindex, pagesize 等参数.
+
+=== 相关内容 ===
+ [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
+
+ [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数]
+
+</font>
