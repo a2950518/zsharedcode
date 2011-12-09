@@ -67,6 +67,7 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 		/// </summary>
 		public override void Recombine ( )
 		{
+			base.Recombine ( );
 
 			foreach ( AjaxSetting ajax in this.ajaxs )
 				if ( ajax.EventType != EventType.none && ajax.EventType != EventType.__init )
@@ -78,39 +79,20 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 					catch
 					{ continue; }
 
+					if ( !string.IsNullOrEmpty ( ajax.ClientFunction ) )
+					{
+						this.settingHelper.SetOptionValue ( optionType, ajax.ClientFunction, string.Empty );
+
+						continue;
+					}
+
 					//!+ The following code is similar with AutocompleteSetting.Recombine
-					string data;
 
-					if ( string.IsNullOrEmpty ( ajax.MethodName ) )
-					{
-						data = "data";
-
-						if ( ajax.Data.StartsWith ( "e." ) )
+					if ( ajax.Data.StartsWith ( "e." ) )
+						if ( string.IsNullOrEmpty ( ajax.MethodName ) )
 							ajax.Data = string.Format ( "jQuery.extend({0}, {1})", "{}", ajax.Data );
-
-					}
-					else
-					{
-
-						// According to the .NET version to determine the location of JSON
-						if ( Environment.Version.Major <= 2 || ( Environment.Version.Major == 3 && Environment.Version.Minor == 0 ) )
-							data = "data";
 						else
-							data = "data.d";
-
-						if ( ajax.Data.StartsWith ( "e." ) )
 							ajax.Data = string.Format ( "jQuery.panzer.encodeData({0})", ajax.Data );
-
-					}
-
-					if ( !string.IsNullOrEmpty ( ajax.Success ) )
-						ajax.Success = ajax.Success.Replace ( "-:data", data );
-
-					if ( !string.IsNullOrEmpty ( ajax.Complete ) )
-						ajax.Complete = ajax.Complete.Replace ( "-:data", data );
-
-					if ( !string.IsNullOrEmpty ( ajax.Error ) )
-						ajax.Error = ajax.Error.Replace ( "-:data", data );
 
 					JQuery jquery = JQueryUI.Create ( ajax );
 

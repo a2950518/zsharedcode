@@ -245,7 +245,11 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 重新构造.
 		/// </summary>
 		public override void Recombine()
-		{ this.SelectAsync.EventType = EventType.tabsselect; }
+		{
+			this.SelectAsync.EventType = EventType.tabsselect;
+
+			base.Recombine ( );
+		}
 
 	}
 	#endregion

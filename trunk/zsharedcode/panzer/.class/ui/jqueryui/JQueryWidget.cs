@@ -77,9 +77,12 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 						throw new Exception ( string.Format ( "没有找到 ID 为 {0} 的 AjaxManager 控件", ajax.AjaxManagerID ) );
 
 					foreach ( AjaxSetting target in manager.AjaxList )
-						if ( target.ClientFunction == this.uiSetting.Ajaxs[index].ClientFunction )
+						if ( target.ClientFunction == ajax.ClientFunction )
 						{
-							this.uiSetting.Ajaxs[index] = target;
+
+							if ( ajax != target )
+								this.uiSetting.Ajaxs[index] = target;
+
 							break;
 						}
 

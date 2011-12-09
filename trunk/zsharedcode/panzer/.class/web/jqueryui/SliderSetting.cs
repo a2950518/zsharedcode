@@ -260,7 +260,11 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 重新构造.
 		/// </summary>
 		public override void Recombine()
-		{ this.ChangeAsync.EventType = EventType.slidechange; }
+		{ 
+			this.ChangeAsync.EventType = EventType.slidechange;
+
+			base.Recombine ( );
+		}
 
 	}
 	#endregion

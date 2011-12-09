@@ -147,7 +147,11 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 重新构造.
 		/// </summary>
 		public override void Recombine()
-		{ this.ClickAsync.EventType = EventType.click; }
+		{
+			this.ClickAsync.EventType = EventType.click;
+
+			base.Recombine ( );
+		}
 
 	}
 	#endregion
