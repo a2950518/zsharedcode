@@ -102,7 +102,7 @@ function(value){
  Some events of the control will automatically add some parameters, such as the Repeater's FillAsync will add pageindex, pagesize to represent the page number and other information.
 
 === Appendix: Async Property Reference ===
- Url - the requested address, for example: `"http://www.???.com/???.asmx"`.
+ Url - The requested url, for example: `"http://www.???.com/???.asmx"`.
 
  MethodName - The method name of WebService, if it is a generic handler you can ignore this property.
 
