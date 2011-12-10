@@ -12,7 +12,7 @@
   * 准备
   * 创建 javascript 函数
   * 直接调用
-  * 通过 Aysnc 属性调用
+  * 通过 Async 属性调用
   * 隐式添加的参数
 
 === 准备 ===
@@ -110,8 +110,8 @@
 </script>
 }}}
 
-=== 通过 Aysnc 属性调用 ===
- 对于 JQueryElement 的控件可以通过 Aysnc 属性来调用 AjaxManager 生成的函数:
+=== 通过 Async 属性调用 ===
+ 对于 JQueryElement 的控件可以通过 Async 属性来调用 AjaxManager 生成的函数:
 {{{
 <je:Button ID="cmdSub" runat="server" IsVariable="true" Label="减" Disabled="true"
 	ClickAsync-AjaxManagerID="manager" ClickAsync-ClientFunction="sub">

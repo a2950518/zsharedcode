@@ -15,6 +15,7 @@
   * 数据类型
   * 自定义转换函数
   * 自动添加的参数
+  * 附录: Async 属性参考
 
 ===准备===
  在此之前, 请确保已经了解 JQueryElement 中一些控件的使用.
@@ -102,6 +103,25 @@ function(value){
 === 自动添加的参数 ===
  在一些控件的事件中, 会自动的添加一些参数, 比如 Repeater 的 FillAsync 中会添加 pageindex, pagesize 来表示页码等信息.
 
+=== 附录: Async 属性参考 ===
+ Url - 请求的地址, 比如: "http://www.???.com/???.asmx".
+
+ MethodName - WebService 的方法名称, 如果是一般处理程序可以忽略此属性.
+
+ EventType - 触发请求的事件类型.
+
+ Form - 一个表单的选择器, 表单中的数据将发送到服务器端.
+
+ Data - 额外传递的数据, 一个 javascript 表达式.
+
+ IsSingleQuote - 是否为字符串使用单引号.
+
+ ClientFunction - 调用的 javascript 函数名称.
+
+ AjaxManagerID - 包含被调用的 javascript 函数的 AjaxManager 的 ID.
+
+ 其它属性的设置可以参考 [http://api.jquery.com/jQuery.ajax/ api.jquery.com/jQuery.ajax/].
+
 === 相关内容 ===
  [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
 
@@ -109,5 +129,7 @@ function(value){
 
 === 修订历史 ===
  2011-12-5: 修改下载的链接.
+
+ 2011-12-6: 增加 Async 属性参考.
 
 </font>
