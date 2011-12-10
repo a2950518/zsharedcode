@@ -74,10 +74,10 @@
 
  Code `-:data` will be replaced with data or data.d, more please refer to [AjaxReturnJSON Return JSON In Different .NET Version].
 
- We can add ajax request parameter through Parameter, please refer to [JEParameter Through Parameter Object ] for details.
+ We can add Ajax request parameter through Parameter, please refer to [JEParameter Through Parameter Object Add Ajax Request Parameter] for details.
 
 === Set Parameter List Of The javascript Method ===
- Through the property ClientParameter, you can set the parameter list of a javascript Method: 
+ Through the property ClientParameter, you can set the parameter list of a javascript Method:
 {{{
 <je:AjaxManager ID="manager" runat="server">
 	<AjaxList>
@@ -118,7 +118,7 @@
  Using AjaxManagerID to specify the AjaxManager which contains the javascript method that you want to call, specify the javascript method name by ClientFunction.
 
 === Implicit Parameters ===
- Part of the JQueryElement control will add the Parameters to AjaxManager, such as the Repeater can add the pageindex, pagesize, etc:
+ Part of the JQueryElement control will add the parameters to AjaxManager, such as the Repeater can add the pageindex, pagesize, etc:
 {{{
 <je:Repeater ID="repeater" runat="server"
 	FillAsync-AjaxManagerID="manager" FillAsync-ClientFunction="fill">
