@@ -25,7 +25,7 @@
  请使用指令引用如下的命名空间:
 {{{
 <%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
-	Namespace="zoyobar.shared.panzer.ui.jqueryui.plusin"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui"
 	TagPrefix="je" %>
 <%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
 	Namespace="zoyobar.shared.panzer.web.jqueryui"

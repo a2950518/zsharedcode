@@ -55,7 +55,7 @@
  Use the following statements to reference namespace:
 {{{
 <%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
-	Namespace="zoyobar.shared.panzer.ui.jqueryui"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui.plusin"
 	TagPrefix="je" %>
 <%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
 	Namespace="zoyobar.shared.panzer.web.jqueryui"
