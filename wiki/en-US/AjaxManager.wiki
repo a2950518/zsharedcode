@@ -1,0 +1,145 @@
+﻿#summary Generate javascript That Calls The Server-Side Method
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
+=== Introduction/Catalog ===
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /ajaxmanager/Default.aspx.
+
+ Video demo: [http://www.tudou.com/programs/view/Bbk5GvsEGKs/ www.tudou.com/programs/view/Bbk5GvsEGKs/]
+ 
+ This article explains how to use AjaxManager to generate the javascript that calls the server-side method, and how to call these methods:
+
+  * Prepare
+  * Creating javascript
+  * Set Parameter List Of The javascript Method
+  * Direct Call
+  * Call By Async Property
+  * Implicit Parameters
+
+=== Prepare ===
+ Be sure that you have got the latest version of JQueryElement at the section JQueryElement.dll Download of [Download Downloads].
+
+ Use the following statements to reference namespace:
+{{{
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.web.jqueryui"
+	TagPrefix="je" %>
+}}}
+ In addition to the namespace, you need to reference the jQueryUI scripts:
+{{{
+<script type="text/javascript" src="[script path]/jquery-<version>.min.js"></script>
+}}}
+
+=== Creating javascript ===
+ In the page, we add a AjaxManager control to create a javascript method that calls the server-side method:
+{{{
+<je:AjaxManager ID="manager" runat="server">
+	<AjaxList>
+		<je:AjaxSetting
+			ClientFunction="<javascript method name>"
+			ClientParameter="<javascript parameter, 比如: name, age>"
+			Url="<server-side method url>" MethodName="<server-side method name>"
+			Success="<javascript method invoked on success>"
+			Error="<javascript method invoked when error>"
+			Complete="<javascript method invoked when completed>"
+			...
+			>
+			<ParameterList>
+				<parameter>
+			</ParameterList>
+		</je:AjaxSetting>
+	</AjaxList>
+</je:AjaxManager>
+
+<je:AjaxManager ID="manager" runat="server">
+	<AjaxList>
+		<je:AjaxSetting ClientFunction="add" Url="handler.ashx" Success="
+		function(data){
+			$('#result').text(-:data.result);
+		}
+		">
+			<ParameterList>
+				<je:Parameter Name="c" Type="Expression" Value="'add'" />
+				<je:Parameter Name="num1" Type="Selector"
+					Value="'#num1'" DataType="Number" />
+				<je:Parameter Name="num2" Type="Selector"
+					Value="'#num2'" DataType="Number" />
+			</ParameterList>
+		</je:AjaxSetting>
+	</AjaxList>
+</je:AjaxManager>
+}}}
+ The above example, generates a javascript method called add, the generic handler handler.ashx will be called in the method to return JSON data.
+
+ Code `-:data` will be replaced with data or data.d, more please refer to [AjaxReturnJSON Return JSON In Different .NET Version].
+
+ We can add ajax request parameter through Parameter, please refer to [JEParameter Through Parameter Object ] for details.
+
+=== Set Parameter List Of The javascript Method ===
+ Through the property ClientParameter, you can set the parameter list of a javascript Method: 
+{{{
+<je:AjaxManager ID="manager" runat="server">
+	<AjaxList>
+		<je:AjaxSetting ClientFunction="add3" ClientParameter="othernum"
+		Url="handler.ashx"
+		...	>
+			<ParameterList>
+
+				<je:Parameter Name="num3" Type="Expression" Value="othernum" />
+
+			</ParameterList>
+		</je:AjaxSetting>
+	</AjaxList>
+</je:AjaxManager>
+}}}
+ In the example above, by adding the parameter othernum for the method add3, the value of parameter othernum is passed to the server side as num3. add3 is invoked like this:
+{{{
+<input type="button" onclick="javascript:add3(1);" value="plus 1" />
+}}}
+
+=== Direct Call ===
+ In the above example, has shown a direct calling, and it's same with calling a normal javascript method:
+{{{
+<script>
+	$(function () {
+		add3(1);
+	});
+</script>
+}}}
+
+=== Call By Async Property ===
+ JQueryElement controls can invoke the generated methods by Async property:
+{{{
+<je:Button ID="cmdSub" runat="server" IsVariable="true" Label="sub" Disabled="true"
+	ClickAsync-AjaxManagerID="manager" ClickAsync-ClientFunction="sub">
+</je:Button>
+}}}
+ Using AjaxManagerID to specify the AjaxManager which contains the javascript method that you want to call, specify the javascript method name by ClientFunction.
+
+=== Implicit Parameters ===
+ Part of the JQueryElement control will add the Parameters to AjaxManager, such as the Repeater can add the pageindex, pagesize, etc:
+{{{
+<je:Repeater ID="repeater" runat="server"
+	FillAsync-AjaxManagerID="manager" FillAsync-ClientFunction="fill">
+</je:Repeater>
+
+<je:AjaxManager ID="manager" runat="server">
+	<AjaxList>
+		<je:AjaxSetting ClientFunction="fill" ClientParameter="othernum"
+		Url="handler.ashx"
+		...	>
+			<ParameterList>
+			</ParameterList>
+		</je:AjaxSetting>
+	</AjaxList>
+</je:AjaxManager>
+}}}
+ The method fill does not add any Parameter, but due to property FillAsync will call the method fill, so the fill method is implicitly added pageIndex and pagesize.
+
+=== Related Content ===
+ [AjaxReturnJSON Return JSON In Different .NET Version]
+
+ [JEParameter Through Parameter Object Add Ajax Request Parameter]
+
+</font>

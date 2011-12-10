@@ -13,6 +13,7 @@
   * Data Type
   * Custom Conversion Methods
   * Automatic Parameter
+  * Appendix: Async Property Reference
 
 ===Prepare===
  Until then, be sure to understand the use of control in the JQueryElement.
@@ -100,6 +101,25 @@ function(value){
 === Automatic Parameter ===
  Some events of the control will automatically add some parameters, such as the Repeater's FillAsync will add pageindex, pagesize to represent the page number and other information.
 
+=== Appendix: Async Property Reference ===
+ Url - the requested address, for example: `"http://www.???.com/???.asmx"`.
+
+ MethodName - The method name of WebService, if it is a generic handler you can ignore this property.
+
+ EventType - The type of event that triggers the request.
+
+ Form - A selector of the form, the data of the form will be sent to the server-side.
+
+ Data - Additional data that is passed, it is a javascript expression.
+
+ IsSingleQuote - Whether to use single quotation marks.
+
+ ClientFunction - The name of javascript method that be called.
+
+ AjaxManagerID - The ID of AjaxManager which contains the javascript method that is called.
+
+ Other property set can refer to [http://api.jquery.com/jQuery.ajax/ api.jquery.com/jQuery.ajax/].
+
 === Related Content ===
  [AjaxReturnJSON Return JSON In Different .NET Version]
 
@@ -107,5 +127,7 @@ function(value){
 
 === Revision History ===
  2011-12-5: Modify the link of download.
+
+ 2011-12-10: Increase the property reference of Async.
 
 </font>
