@@ -17,6 +17,8 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	/// <summary>
 	/// jQuery UI Ajax 设置.
 	/// </summary>
+	[ParseChildren ( true, "ParameterList" )]
+	[DefaultProperty ( "ParameterList" )]
 	public sealed class AjaxSetting
 	{
 		#region " property "
@@ -182,7 +184,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		[Category ( "数据" )]
 		[Description ( "用作传递的参数" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[PersistenceMode ( PersistenceMode.InnerDefaultProperty )]
 		[NotifyParentProperty ( true )]
 		public List<Parameter> ParameterList
 		{

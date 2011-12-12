@@ -21,7 +21,8 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// Ajax 管理器.
 	/// </summary>
 	[ToolboxData ( "<{0}:AjaxManager runat=server></{0}:AjaxManager>" )]
-	[ParseChildren ( true )]
+	[ParseChildren ( true, "AjaxList" )]
+	[DefaultProperty ( "AjaxList" )]
 	public class AjaxManager
 		: Control, INamingContainer
 	{
@@ -34,7 +35,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		[Category ( "行为" )]
 		[Description ( "Ajax 调用列表" )]
 		[DesignerSerializationVisibility ( DesignerSerializationVisibility.Content )]
-		[PersistenceMode ( PersistenceMode.InnerProperty )]
+		[PersistenceMode ( PersistenceMode.InnerDefaultProperty )]
 		[NotifyParentProperty ( true )]
 		public List<AjaxSetting> AjaxList
 		{
