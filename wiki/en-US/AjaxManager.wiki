@@ -14,6 +14,8 @@
   * Call By Async Property
   * Implicit Parameters
 
+<img src="http://zsharedcode.googlecode.com/files/Generate%20javascript1.jpg" />
+
 === Prepare ===
  Be sure that you have got the latest version of JQueryElement at the section JQueryElement.dll Download of [Download Downloads].
 
