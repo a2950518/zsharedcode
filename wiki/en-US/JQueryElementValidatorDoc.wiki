@@ -17,6 +17,8 @@
   * Is Validation Successful And Get Converted Data
   * Server Validation
 
+<img src="http://zsharedcode.googlecode.com/files/Register%20Mini%20Blog1.jpg" />
+
 === Prepare ===
  Be sure that you have got the latest version of JQueryElement at the section JQueryElement.dll Download of [Download Downloads].
 
