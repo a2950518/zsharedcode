@@ -20,6 +20,8 @@
     * jQueryUI 按钮
     * jQueryUI 自动匹配
 
+<img src="http://zsharedcode.googlecode.com/files/widget1.jpg" />
+
 === 准备 ===
  请先查看 [JQueryElementRepeaterDoc Repeater 完全参考] 或者准备一节的内容.
 

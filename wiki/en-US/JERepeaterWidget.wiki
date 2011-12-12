@@ -18,6 +18,8 @@
     * jQueryUI Button
     * jQueryUI Autocomplete
 
+<img src="http://zsharedcode.googlecode.com/files/Student%20Information%20management1.jpg" />
+
 === Prepare ===
  Please view the Prepare section at [JQueryElementRepeaterDoc Repeater Reference].
 
