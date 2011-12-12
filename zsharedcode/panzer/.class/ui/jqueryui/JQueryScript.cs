@@ -19,8 +19,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// 可在其中编写内嵌语法的客户端脚本的服务器控件.
 	/// </summary>
 	[ToolboxData ( "<{0}:JQueryScript runat=server></{0}:JQueryScript>" )]
-	[ParseChildren ( true, "ContentTemplate" )]
-	[DefaultProperty ( "ContentTemplate" )]
+	[ParseChildren ( true )]
 	public class JQueryScript
 		: Control, INamingContainer
 	{
