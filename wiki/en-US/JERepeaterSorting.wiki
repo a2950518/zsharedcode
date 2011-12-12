@@ -13,6 +13,8 @@
   * Server-Side Sorting
   * Display The Sorting Status
 
+<img src="http://zsharedcode.googlecode.com/files/Sorting1.jpg" />
+
 === Prepare ===
  Please view the Prepare section at [JQueryElementRepeaterDoc Repeater Reference].
 
