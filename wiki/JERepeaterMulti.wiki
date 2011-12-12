@@ -16,6 +16,8 @@
   * 对多个行操作
   * 获取进度
 
+<img src="http://zsharedcode.googlecode.com/files/emaillist1.jpg" />
+
 === 准备 ===
  请先查看 [JQueryElementRepeaterDoc Repeater 完全参考] 或者准备一节的内容.
 
