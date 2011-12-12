@@ -134,16 +134,14 @@ function refresh(value, tip, valid) {
 		alert(data);
 		}
 		">
-		<ParameterList>
-			<je:Parameter Name="email" Type="Expression"
-				Value="vEmail.__validator('option', 'value')" />
-			<je:Parameter Name="password" Type="Expression"
-				Value="vPassword.__validator('option', 'value')" />
-			<je:Parameter Name="nickname" Type="Expression"
-				Value="vNickname.__validator('option', 'value')" />
-			<je:Parameter Name="age" Type="Expression"
-				Value="vAge.__validator('option', 'value')" />
-		</ParameterList>
+		<je:Parameter Name="email" Type="Expression"
+			Value="vEmail.__validator('option', 'value')" />
+		<je:Parameter Name="password" Type="Expression"
+			Value="vPassword.__validator('option', 'value')" />
+		<je:Parameter Name="nickname" Type="Expression"
+			Value="vNickname.__validator('option', 'value')" />
+		<je:Parameter Name="age" Type="Expression"
+			Value="vAge.__validator('option', 'value')" />
 	</ClickAsync>
 </je:Button>
 }}}

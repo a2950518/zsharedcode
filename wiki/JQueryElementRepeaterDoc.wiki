@@ -231,33 +231,29 @@
 {{{
 <je:Repeater ID="studentRepeater" runat="server">
 <FillAsync Url="<填充方法地址>" MethodName="<填充方法名称>">
-	<ParameterList>
-		<je:Parameter Name="<参数名1>"
-			Type="Expression"
-			Value="<值1>"
-			Default="<默认值1>" />
-		<je:Parameter Name="<参数名2>"
-			Type="Selector"
-			Value="<选择器2>"
-			Default="<默认值2>" />
+	<je:Parameter Name="<参数名1>"
+		Type="Expression"
+		Value="<值1>"
+		Default="<默认值1>" />
+	<je:Parameter Name="<参数名2>"
+		Type="Selector"
+		Value="<选择器2>"
+		Default="<默认值2>" />
 
-	</ParameterList>
 </FillAsync>
 </je:Repeater>
 
 <je:Repeater ID="studentRepeater" runat="server">
 <FillAsync Url="Student.aspx" MethodName="Fill">
-	<ParameterList>
-		<je:Parameter Name="ws"
-			Type="Expression"
-			Value="website"
-			Default="'-'" />
-		<je:Parameter Name="year"
-			Type="Selector"
-			Value="'#year'"
-			Default="2011" />
+	<je:Parameter Name="ws"
+		Type="Expression"
+		Value="website"
+		Default="'-'" />
+	<je:Parameter Name="year"
+		Type="Selector"
+		Value="'#year'"
+		Default="2011" />
 
-	</ParameterList>
 </FillAsync>
 </je:Repeater>
 }}}

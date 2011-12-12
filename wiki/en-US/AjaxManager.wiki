@@ -35,39 +35,31 @@
  In the page, we add a AjaxManager control to create a javascript method that calls the server-side method:
 {{{
 <je:AjaxManager ID="manager" runat="server">
-	<AjaxList>
-		<je:AjaxSetting
-			ClientFunction="<javascript method name>"
-			ClientParameter="<javascript parameter, 比如: name, age>"
-			Url="<server-side method url>" MethodName="<server-side method name>"
-			Success="<javascript method invoked on success>"
-			Error="<javascript method invoked when error>"
-			Complete="<javascript method invoked when completed>"
-			...
-			>
-			<ParameterList>
-				<parameter>
-			</ParameterList>
-		</je:AjaxSetting>
-	</AjaxList>
+	<je:AjaxSetting
+		ClientFunction="<javascript method name>"
+		ClientParameter="<javascript parameter, 比如: name, age>"
+		Url="<server-side method url>" MethodName="<server-side method name>"
+		Success="<javascript method invoked on success>"
+		Error="<javascript method invoked when error>"
+		Complete="<javascript method invoked when completed>"
+		...
+		>
+		<parameter>
+	</je:AjaxSetting>
 </je:AjaxManager>
 
 <je:AjaxManager ID="manager" runat="server">
-	<AjaxList>
-		<je:AjaxSetting ClientFunction="add" Url="handler.ashx" Success="
-		function(data){
-			$('#result').text(-:data.result);
-		}
-		">
-			<ParameterList>
-				<je:Parameter Name="c" Type="Expression" Value="'add'" />
-				<je:Parameter Name="num1" Type="Selector"
-					Value="'#num1'" DataType="Number" />
-				<je:Parameter Name="num2" Type="Selector"
-					Value="'#num2'" DataType="Number" />
-			</ParameterList>
-		</je:AjaxSetting>
-	</AjaxList>
+	<je:AjaxSetting ClientFunction="add" Url="handler.ashx" Success="
+	function(data){
+		$('#result').text(-:data.result);
+	}
+	">
+		<je:Parameter Name="c" Type="Expression" Value="'add'" />
+		<je:Parameter Name="num1" Type="Selector"
+			Value="'#num1'" DataType="Number" />
+		<je:Parameter Name="num2" Type="Selector"
+			Value="'#num2'" DataType="Number" />
+	</je:AjaxSetting>
 </je:AjaxManager>
 }}}
  The above example, generates a javascript method called add, the generic handler handler.ashx will be called in the method to return JSON data.
@@ -80,17 +72,13 @@
  Through the property ClientParameter, you can set the parameter list of a javascript Method:
 {{{
 <je:AjaxManager ID="manager" runat="server">
-	<AjaxList>
-		<je:AjaxSetting ClientFunction="add3" ClientParameter="othernum"
-		Url="handler.ashx"
-		...	>
-			<ParameterList>
+	<je:AjaxSetting ClientFunction="add3" ClientParameter="othernum"
+	Url="handler.ashx"
+	...	>
 
-				<je:Parameter Name="num3" Type="Expression" Value="othernum" />
+		<je:Parameter Name="num3" Type="Expression" Value="othernum" />
 
-			</ParameterList>
-		</je:AjaxSetting>
-	</AjaxList>
+	</je:AjaxSetting>
 </je:AjaxManager>
 }}}
  In the example above, by adding the parameter othernum for the method add3, the value of parameter othernum is passed to the server side as num3. add3 is invoked like this:
@@ -125,14 +113,10 @@
 </je:Repeater>
 
 <je:AjaxManager ID="manager" runat="server">
-	<AjaxList>
-		<je:AjaxSetting ClientFunction="fill" ClientParameter="othernum"
-		Url="handler.ashx"
-		...	>
-			<ParameterList>
-			</ParameterList>
-		</je:AjaxSetting>
-	</AjaxList>
+	<je:AjaxSetting ClientFunction="fill" ClientParameter="othernum"
+	Url="handler.ashx"
+	...	>
+	</je:AjaxSetting>
 </je:AjaxManager>
 }}}
  The method fill does not add any Parameter, but due to property FillAsync will call the method fill, so the fill method is implicitly added pageIndex and pagesize.

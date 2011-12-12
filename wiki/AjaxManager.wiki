@@ -37,39 +37,31 @@
  在页面中添加一个 AjaxManager 控件, 来创建调用服务器端方法的 javascript 函数:
 {{{
 <je:AjaxManager ID="manager" runat="server">
-	<AjaxList>
-		<je:AjaxSetting
-			ClientFunction="<javascript 函数名>"
-			ClientParameter="<javascript 参数, 比如: name, age>"
-			Url="<服务器端方法地址>" MethodName="<服务器端方法名称>"
-			Success="<调用成功时的 javascript 函数>"
-			Error="<调用失败时的 javascript 函数>"
-			Complete="<调用完成时的 javascript 函数>"
-			...
-			>
-			<ParameterList>
-				<参数>
-			</ParameterList>
-		</je:AjaxSetting>
-	</AjaxList>
+	<je:AjaxSetting
+		ClientFunction="<javascript 函数名>"
+		ClientParameter="<javascript 参数, 比如: name, age>"
+		Url="<服务器端方法地址>" MethodName="<服务器端方法名称>"
+		Success="<调用成功时的 javascript 函数>"
+		Error="<调用失败时的 javascript 函数>"
+		Complete="<调用完成时的 javascript 函数>"
+		...
+		>
+		<参数>
+	</je:AjaxSetting>
 </je:AjaxManager>
 
 <je:AjaxManager ID="manager" runat="server">
-	<AjaxList>
-		<je:AjaxSetting ClientFunction="add" Url="handler.ashx" Success="
-		function(data){
-			$('#result').text(-:data.result);
-		}
-		">
-			<ParameterList>
-				<je:Parameter Name="c" Type="Expression" Value="'add'" />
-				<je:Parameter Name="num1" Type="Selector"
-					Value="'#num1'" DataType="Number" />
-				<je:Parameter Name="num2" Type="Selector"
-					Value="'#num2'" DataType="Number" />
-			</ParameterList>
-		</je:AjaxSetting>
-	</AjaxList>
+	<je:AjaxSetting ClientFunction="add" Url="handler.ashx" Success="
+	function(data){
+		$('#result').text(-:data.result);
+	}
+	">
+		<je:Parameter Name="c" Type="Expression" Value="'add'" />
+		<je:Parameter Name="num1" Type="Selector"
+			Value="'#num1'" DataType="Number" />
+		<je:Parameter Name="num2" Type="Selector"
+			Value="'#num2'" DataType="Number" />
+	</je:AjaxSetting>
 </je:AjaxManager>
 }}}
  上面的示例, 生成了一个名为 add 的 javascript 函数, 在此函数中将调用一般处理程序 handler.ashx 来返回 JSON 数据.
@@ -82,17 +74,11 @@
  通过 ClientParameter 属性, 可以为 javascript 函数设置参数列表:
 {{{
 <je:AjaxManager ID="manager" runat="server">
-	<AjaxList>
-		<je:AjaxSetting ClientFunction="add3" ClientParameter="othernum"
-		Url="handler.ashx"
-		...	>
-			<ParameterList>
-
-				<je:Parameter Name="num3" Type="Expression" Value="othernum" />
-
-			</ParameterList>
-		</je:AjaxSetting>
-	</AjaxList>
+	<je:AjaxSetting ClientFunction="add3" ClientParameter="othernum"
+	Url="handler.ashx"
+	...	>
+		<je:Parameter Name="num3" Type="Expression" Value="othernum" />
+	</je:AjaxSetting>
 </je:AjaxManager>
 }}}
  上面的示例中, 为 add3 函数增加了一个 othernum 参数, 而 othernum 参数将作为 num3 的值传递给服务器端. 可以像这样来调用 add3:
@@ -127,14 +113,10 @@
 </je:Repeater>
 
 <je:AjaxManager ID="manager" runat="server">
-	<AjaxList>
-		<je:AjaxSetting ClientFunction="fill" ClientParameter="othernum"
-		Url="handler.ashx"
-		...	>
-			<ParameterList>
-			</ParameterList>
-		</je:AjaxSetting>
-	</AjaxList>
+	<je:AjaxSetting ClientFunction="fill" ClientParameter="othernum"
+	Url="handler.ashx"
+	...	>
+	</je:AjaxSetting>
 </je:AjaxManager>
 }}}
  虽然 AjaxManager 中的 fill 函数没有添加任何的 Parameter, 但由于 Repeater 的 FillAsync 被指定调用 fill 函数, 因此 fill 函数被隐式的添加 pageindex, pagesize 等参数.

@@ -41,10 +41,8 @@ public string StringToString ( string value )
 		alert(data);
 	}
 	">
-		<ParameterList>
-			<je:Parameter Name="value" Type="Expression" Value="true"
-				DataType="Boolean" />
-		</ParameterList>
+		<je:Parameter Name="value" Type="Expression" Value="true"
+			DataType="Boolean" />
 	</ClickAsync>
 </je:Button>
 }}}
@@ -65,10 +63,8 @@ public string StringToString ( string value )
 		$('#lblInt1').text('result ' + data + ', type: ' + typeof data);
 	}
 	">
-		<ParameterList>
-			<je:Parameter Name="value" Type="Selector" Value="'#txtInt1'"
-				DataType="Number" />
-		</ParameterList>
+		<je:Parameter Name="value" Type="Selector" Value="'#txtInt1'"
+			DataType="Number" />
 	</ClickAsync>
 </je:Button>
 <p id="lblInt1"></p>
@@ -90,10 +86,8 @@ public string StringToString ( string value )
 		alert(data.responseText);
 	}
 	">
-		<ParameterList>
-			<je:Parameter Name="value" Type="Selector" Value="'#txtInt1'"
-				DataType="String" />
-		</ParameterList>
+		<je:Parameter Name="value" Type="Selector" Value="'#txtInt1'"
+			DataType="String" />
 	</ClickAsync>
 </je:Button>
 <p id="lblInt1"></p>
@@ -123,10 +117,8 @@ public string DateToString ( DateTime value )
 		alert(data);
 	}
 	">
-		<ParameterList>
-			<je:Parameter Name="value" Type="Expression" Value="new Date()"
-				DataType="Date" />
-		</ParameterList>
+		<je:Parameter Name="value" Type="Expression" Value="new Date()"
+			DataType="Date" />
 	</ClickAsync>
 </je:Button>
 }}}

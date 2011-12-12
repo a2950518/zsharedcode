@@ -230,33 +230,29 @@
 {{{
 <je:Repeater ID="studentRepeater" runat="server">
 <FillAsync Url="<fill method url>" MethodName="<fill method name>">
-	<ParameterList>
-		<je:Parameter Name="<parameter 1>"
-			Type="Expression"
-			Value="<value 1>"
-			Default="<defaul value 1>" />
-		<je:Parameter Name="<parameter 2>"
-			Type="Selector"
-			Value="<value 2>"
-			Default="<defaul value 2>" />
+	<je:Parameter Name="<parameter 1>"
+		Type="Expression"
+		Value="<value 1>"
+		Default="<defaul value 1>" />
+	<je:Parameter Name="<parameter 2>"
+		Type="Selector"
+		Value="<value 2>"
+		Default="<defaul value 2>" />
 
-	</ParameterList>
 </FillAsync>
 </je:Repeater>
 
 <je:Repeater ID="studentRepeater" runat="server">
 <FillAsync Url="Student.aspx" MethodName="Fill">
-	<ParameterList>
-		<je:Parameter Name="ws"
-			Type="Expression"
-			Value="website"
-			Default="'-'" />
-		<je:Parameter Name="year"
-			Type="Selector"
-			Value="'#year'"
-			Default="2011" />
+	<je:Parameter Name="ws"
+		Type="Expression"
+		Value="website"
+		Default="'-'" />
+	<je:Parameter Name="year"
+		Type="Selector"
+		Value="'#year'"
+		Default="2011" />
 
-	</ParameterList>
 </FillAsync>
 </je:Repeater>
 }}}

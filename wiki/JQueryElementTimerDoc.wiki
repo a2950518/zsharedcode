@@ -55,18 +55,16 @@ function(pe, e){
 {{{
 <je:Timer ID="checkTimer" runat="server">
 	<TickAsync Url="<触发事件地址>" MethodName="<触发事件名称>" Success="<处理结果的 javascript 函数>">
-		<ParameterList>
 
-			<je:Parameter Name="<参数名1>"
-				Type="Expression"
-				Value="<值1>"
-				Default="<默认值1>" />
-			<je:Parameter Name="<参数名2>"
-				Type="Selector"
-				Value="<选择器2>"
-				Default="<默认值2>" />
+		<je:Parameter Name="<参数名1>"
+			Type="Expression"
+			Value="<值1>"
+			Default="<默认值1>" />
+		<je:Parameter Name="<参数名2>"
+			Type="Selector"
+			Value="<选择器2>"
+			Default="<默认值2>" />
 
-		</ParameterList>
 	</TickAsync>
 </je:Timer>
 
@@ -202,12 +200,10 @@ function(pe, e){
 		alert(data);
 	}
 	">
-		<ParameterList>
-			<je:Parameter Name="sender" Type="Expression"
-				Value="vSender.__validator('option','value')" />
-			<je:Parameter Name="title" Type="Selector"
-				Value="'#eTitle'" />
-		</ParameterList>
+		<je:Parameter Name="sender" Type="Expression"
+			Value="vSender.__validator('option','value')" />
+		<je:Parameter Name="title" Type="Selector"
+			Value="'#eTitle'" />
 	</ClickAsync>
 </je:Button>
 }}}

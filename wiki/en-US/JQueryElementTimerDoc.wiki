@@ -53,18 +53,16 @@ function(pe, e){
 {{{
 <je:Timer ID="checkTimer" runat="server">
 	<TickAsync Url="<tick event url>" MethodName="<tick event name>" Success="<javascript method>">
-		<ParameterList>
 
-			<je:Parameter Name="<parameter 1>"
-				Type="Expression"
-				Value="<value 1>"
-				Default="<default value 1>" />
-			<je:Parameter Name="<parameter 2>"
-				Type="Selector"
-				Value="<selector 2>"
-				Default="<default value 2>" />
+		<je:Parameter Name="<parameter 1>"
+			Type="Expression"
+			Value="<value 1>"
+			Default="<default value 1>" />
+		<je:Parameter Name="<parameter 2>"
+			Type="Selector"
+			Value="<selector 2>"
+			Default="<default value 2>" />
 
-		</ParameterList>
 	</TickAsync>
 </je:Timer>
 
@@ -198,12 +196,10 @@ function(pe, e){
 		alert(data);
 	}
 	">
-		<ParameterList>
-			<je:Parameter Name="sender" Type="Expression"
-				Value="vSender.__validator('option','value')" />
-			<je:Parameter Name="title" Type="Selector"
-				Value="'#eTitle'" />
-		</ParameterList>
+		<je:Parameter Name="sender" Type="Expression"
+			Value="vSender.__validator('option','value')" />
+		<je:Parameter Name="title" Type="Selector"
+			Value="'#eTitle'" />
 	</ClickAsync>
 </je:Button>
 }}}

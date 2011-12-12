@@ -38,9 +38,7 @@ function(data){
 	alert(data.d.message);
 }
 ">
-	<ParameterList>
-		<je:Parameter Name="name" Type="Selector" Value="'#txtWName3'" />
-	</ParameterList>
+	<je:Parameter Name="name" Type="Selector" Value="'#txtWName3'" />
 </ClickAsync>
 }}}
 
@@ -49,9 +47,7 @@ function(data){
 {{{
 <je:Button ID="cmdWNet3" runat="server">
 	<ClickAsync Url="webservice.asmx" MethodName="Save">
-		<ParameterList>
-			<je:Parameter Name="name" Type="Selector" Value="'#txtWName3'" />
-		</ParameterList>
+		<je:Parameter Name="name" Type="Selector" Value="'#txtWName3'" />
 	</ClickAsync>
 </je:Button>
 }}}
