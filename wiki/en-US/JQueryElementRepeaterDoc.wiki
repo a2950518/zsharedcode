@@ -49,6 +49,8 @@
     * Event
     * Client Methods
 
+<img src="http://zsharedcode.googlecode.com/files/Student%20Information%20management1.jpg" />
+
 === Prepare ===
  Be sure that you have got the latest version of JQueryElement at the section JQueryElement.dll Download of [Download Downloads].
 
