@@ -14,6 +14,8 @@
   * 设置 FilterField 和 FilterFieldDefault
   * 调用 setfilter 和 filter 函数
 
+<img src="http://zsharedcode.googlecode.com/files/productlist1.jpg" />
+
 === 准备 ===
  请先查看 [JQueryElementRepeaterDoc Repeater 完全参考] 或者准备一节的内容.
 

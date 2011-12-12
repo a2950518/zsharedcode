@@ -12,6 +12,8 @@
   * Set FilterField And FilterFieldDefault
   * Call Method setfilter And filter
 
+<img src="http://zsharedcode.googlecode.com/files/Product%20View1.jpg" />
+
 === Prepare ===
  Please view the Prepare section at [JQueryElementRepeaterDoc Repeater Reference].
 
