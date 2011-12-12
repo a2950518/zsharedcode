@@ -17,6 +17,8 @@
   * 使用 jQuery 代替 $
   * 根据字段设置样式
 
+<img src="http://zsharedcode.googlecode.com/files/booklist1.jpg" />
+
 === 准备 ===
  请先查看 [JQueryElementRepeaterDoc Repeater 完全参考] 或者准备一节的内容.
 
