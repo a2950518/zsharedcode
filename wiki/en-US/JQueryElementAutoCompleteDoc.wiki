@@ -17,6 +17,8 @@
   * MinLength Property
   * Other Properties And Events
 
+<img src="http://zsharedcode.googlecode.com/files/auGoogle2.jpg" />
+
 === Prepare ===
  Be sure that you have got the latest version of JQueryElement at the section JQueryElement.dll Download of [Download Downloads].
 
