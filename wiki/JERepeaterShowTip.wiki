@@ -15,6 +15,8 @@
   * 设置 FieldMask 属性
   * 消息的时效性
 
+<img src="http://zsharedcode.googlecode.com/files/manageorder1.jpg" />
+
 === 准备 ===
  请先查看 [JQueryElementRepeaterDoc Repeater 完全参考] 或者准备一节的内容.
 
