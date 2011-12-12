@@ -15,6 +15,8 @@
   * 通过 Async 属性调用
   * 隐式添加的参数
 
+<img src="http://zsharedcode.googlecode.com/files/ajaxmanager1.jpg" />
+
 === 准备 ===
  请确保已经在 [Download 下载资源] 中的 JQueryElement.dll 下载一节下载 JQueryElement 最新的版本.
 
