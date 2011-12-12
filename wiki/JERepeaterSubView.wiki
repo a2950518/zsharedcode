@@ -14,6 +14,8 @@
   * 切换子视图状态
   * 定义子视图容器
 
+<img src="http://zsharedcode.googlecode.com/files/google.jpg" />
+
 === 准备 ===
  请先查看 [JQueryElementRepeaterDoc Repeater 完全参考] 或者准备一节的内容.
 

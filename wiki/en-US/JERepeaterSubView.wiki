@@ -12,6 +12,8 @@
   * Switch Child View
   * Define A Container
 
+<img src="http://zsharedcode.googlecode.com/files/Like%20Google1.jpg" />
+
 === Prepare ===
  Please view the Prepare section at [JQueryElementRepeaterDoc Repeater Reference].
 
