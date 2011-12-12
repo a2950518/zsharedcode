@@ -18,6 +18,8 @@
   * 获取是否验证成功和转化后的数据
   * 服务器端验证
 
+<img src="http://zsharedcode.googlecode.com/files/weiboregister1.jpg" />
+
 === 准备 ===
  请确保已经在 [Download 下载资源] 中的 JQueryElement.dll 下载一节下载 JQueryElement 最新的版本.
 
