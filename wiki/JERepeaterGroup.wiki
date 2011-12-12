@@ -13,6 +13,8 @@
   * 设置分组的字段
   * 设置分组模板
 
+<img src="http://zsharedcode.googlecode.com/files/qqmail2.jpg" />
+
 === 准备 ===
  请先查看 [JQueryElementRepeaterDoc Repeater 完全参考] 或者准备一节的内容.
 

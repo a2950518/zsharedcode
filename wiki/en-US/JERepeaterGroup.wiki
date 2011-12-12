@@ -11,6 +11,8 @@
   * Set Grouping Field
   * Set Grouping Template
 
+<img src="http://zsharedcode.googlecode.com/files/Group EMail1.jpg" />
+
 === Prepare ===
  Please view the Prepare section at [JQueryElementRepeaterDoc Repeater Reference].
 
