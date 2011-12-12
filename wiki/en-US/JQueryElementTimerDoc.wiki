@@ -13,6 +13,8 @@
   * Start And Stop The Timer
   * Appendix: New EMail Notifications
 
+<img src="http://zsharedcode.googlecode.com/files/New%20EMail%20Alert.jpg" />
+
 === Prepare ===
  Be sure that you have got the latest version of JQueryElement at the section JQueryElement.dll Download of [Download Downloads].
 
