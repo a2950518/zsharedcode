@@ -2,11 +2,11 @@
 <wiki:toc max_depth="5" />
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
   * [Begin Start To Prepare]
-    * [HowToDownloadAndUse 如何下载使用]
-    * [HowToJoin 如何加入开发]
-    * [PanzerLicense panzer 许可证]
+    * [HowToDownloadAndUse How To Download]
+    * [HowToJoin How To Join]
+    * [PanzerLicense panzer License]
   * [Notice Notice]
-    * [DefineDoc 编译符号参考]
+    * [DefineDoc Compilation Symbols]
     * [OtherIDE 不同 Visual Studio 版本的差别]
   * [Download Download]
   * [AnalysisNSampleDoc Reference&Sample]

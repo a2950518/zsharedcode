@@ -1,4 +1,4 @@
-﻿#summary 如何加入开发
+﻿#summary How To Join
 #labels Phase-Implementation
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 === Conditions ===
