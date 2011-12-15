@@ -27,7 +27,7 @@
  * [JQueryElementButtonDoc 按钮示例]
  * [JQueryElementDatePickerDoc 日期框示例]
  * [JQueryElementDialogDoc 对话框示例]
- * [JQueryElementProgressBarDoc 进度条示例]
+ * [JQueryElementProgressBarDoc Progressbar 完全参考]
  * [JQueryElementSliderDoc 分割条示例]
  * [JQueryElementTabsDoc 分组标签示例]
 
