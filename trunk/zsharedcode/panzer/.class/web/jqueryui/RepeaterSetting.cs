@@ -567,7 +567,7 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 			this.CustomAsync.Success = "function(data){e.callback.call(pe.jquery, pe, e.index, e.command, (null == -:data.row ? e.row : -:data.row), -:data.__success, e.substep, -:data.custom);}";
 			this.CustomAsync.Error = "function(){e.callback.call(pe.jquery, pe, e.index, e.command, e.row, false, e.substep, null);}";
 
-			WidgetSetting.appendParameter ( this.FillAsync,
+			WidgetSetting.AppendParameter ( this.FillAsync,
 				new Parameter[]
 				{
 					new Parameter("pageindex", ParameterType.Expression, "this.__repeater('option', 'pageindex')", ParameterDataType.Number),

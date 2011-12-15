@@ -585,6 +585,16 @@ namespace zoyobar.shared.panzer.web
 		}
 
 #if PARAM
+		#region " Navigate "
+#if EN
+		/// <summary>
+		/// Generate navigation scripts, and choose whether to append the script to the Code property.
+		/// </summary>
+		/// <param name="location">Url for navigation, for example: "'www.google.com.hk'", can also be a expressions, for example: "'www.' + mydomain + '.com'".</param>
+		/// <param name="option">Navigation option, indicating where to display the page, defaults to SelfWindow, in its own window.</param>
+		/// <param name="isAppend">If true, the script appends to the Code property.</param>
+		/// <returns>The script which contains navigation scripts.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成导航页面的脚本, 并选择是否将脚本追加到 Code 属性.
 		/// </summary>
@@ -592,8 +602,20 @@ namespace zoyobar.shared.panzer.web
 		/// <param name="option">导航的选项, 指示在自身还是新窗口中显示页面, 最终的代码中选项会使用单引号, 比如: '_blank', 默认为 SelfWindow, 在自身窗口显示.</param>
 		/// <param name="isAppend">默认为 true, 则将脚本追加到 Code 属性.</param>
 		/// <returns>导航的脚本代码.</returns>
+#endif
+		#endregion
 		public string Navigate ( string location, NavigateOption option = NavigateOption.SelfWindow, bool isAppend = true )
 #else
+		#region " Navigate "
+#if EN
+		/// <summary>
+		/// Generate navigation scripts, and choose whether to append the script to the Code property.
+		/// </summary>
+		/// <param name="location">Url for navigation, for example: "'www.google.com.hk'", can also be a expressions, for example: "'www.' + mydomain + '.com'".</param>
+		/// <param name="option">Navigation option, indicating where to display the page.</param>
+		/// <param name="isAppend">If true, the script appends to the Code property.</param>
+		/// <returns>The script which contains navigation scripts.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成导航页面的脚本, 并选择是否将脚本追加到 Code 属性.
 		/// </summary>
@@ -601,6 +623,8 @@ namespace zoyobar.shared.panzer.web
 		/// <param name="option">导航的选项, 指示在自身还是新窗口中显示页面, 最终的代码中选项会使用单引号, 比如: '_blank'.</param>
 		/// <param name="isAppend">如果为 true, 则将脚本追加到 Code 属性.</param>
 		/// <returns>导航的脚本代码.</returns>
+#endif
+		#endregion
 		public string Navigate ( string location, NavigateOption option, bool isAppend )
 #endif
 		{
@@ -1197,7 +1221,7 @@ namespace zoyobar.shared.panzer.web
 		#region " Alert "
 #if EN
 		/// <summary>
-		/// Generate alert method, and and appends to the Code property.
+		/// Generate alert method, and appends to the Code property.
 		/// </summary>
 		/// <param name="message">Popup content, for example: "'hello'", can also be expressions, for example: "'my name is' + myname".</param>
 		/// <returns>The script which contains alert method.</returns>
@@ -1215,7 +1239,7 @@ namespace zoyobar.shared.panzer.web
 		#region " ClearInterval "
 #if EN
 		/// <summary>
-		/// Generate clearInterval method, and and appends to the Code property.
+		/// Generate clearInterval method, and appends to the Code property.
 		/// </summary>
 		/// <param name="isAppend">If true, the script appends to the Code property.</param>
 		/// <returns>The script which contains clearInterval method.</returns>
@@ -1233,7 +1257,7 @@ namespace zoyobar.shared.panzer.web
 		#region " ClearTimeout "
 #if EN
 		/// <summary>
-		/// Generate clearTimeout method, and and appends to the Code property.
+		/// Generate clearTimeout method, and appends to the Code property.
 		/// </summary>
 		/// <param name="isAppend">If true, the script appends to the Code property.</param>
 		/// <returns>The script which contains clearTimeout method.</returns>
@@ -1248,51 +1272,115 @@ namespace zoyobar.shared.panzer.web
 		public string ClearTimeout ( string handler )
 		{ return this.ClearTimeout ( handler, true ); }
 
+		#region " Confirm "
+#if EN
+		/// <summary>
+		/// Generate confirm method, and appends to the Code property.
+		/// </summary>
+		/// <param name="message">What needs to be confirmed, such as: "'Delete?'", can also be a expression, such as: "'Delete student ' + name".</param>
+		/// <returns>The script which contains confirm method.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成弹出确认框的脚本, 并追加到 Code 属性.
 		/// </summary>
 		/// <param name="message">需要确认的内容, 比如: "'确认删除吗?'", 也可以是计算表达式, 比如: "'删除姓名为' + name + '的学生吗?'".</param>
 		/// <returns>弹出确认框的脚本代码.</returns>
+#endif
+		#endregion
 		public string Confirm ( string message )
 		{ return this.Confirm ( message, null, true ); }
+		#region " Confirm "
+#if EN
+		/// <summary>
+		/// Generate confirm method, save the result user selected into a script variable, and appends to the Code property.
+		/// </summary>
+		/// <param name="message">What needs to be confirmed, such as: "'Delete?'", can also be a expression, such as: "'Delete student ' + name".</param>
+		/// <param name="result">The name of the variable which save the result, for example: "deleteIt", if set to null, then the result will not be saved.</param>
+		/// <returns>The script which contains confirm method.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成弹出确认框并将用户选择的结果保存在脚本变量中的脚本, 并追加到 Code 属性.
 		/// </summary>
 		/// <param name="message">需要确认的内容, 比如: "'确认删除吗?'", 也可以是计算表达式, 比如: "'删除姓名为' + name + '的学生吗?'".</param>
 		/// <param name="result">保存用户所选结果的变量的名称, 比如: "deleteIt", 如果设置为 null, 则不会保存用户选择的结果.</param>
 		/// <returns>弹出确认框的脚本代码.</returns>
+#endif
+		#endregion
 		public string Confirm ( string message, string result )
 		{ return this.Confirm ( message, result, true ); }
+		#region " Confirm "
+#if EN
+		/// <summary>
+		/// Generate confirm method, and appends to the Code property.
+		/// </summary>
+		/// <param name="message">What needs to be confirmed, such as: "'Delete?'", can also be a expression, such as: "'Delete student ' + name".</param>
+		/// <param name="isAppend">If true, the script appends to the Code property.</param>
+		/// <returns>The script which contains confirm method.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成弹出确认框的脚本, 并选择是否将脚本追加到 Code 属性.
 		/// </summary>
 		/// <param name="message">需要确认的内容, 比如: "'确认删除吗?'", 也可以是计算表达式, 比如: "'删除姓名为' + name + '的学生吗?'".</param>
 		/// <param name="isAppend">如果为 true, 则将脚本追加到 Code 属性.</param>
 		/// <returns>弹出确认框的脚本代码.</returns>
+#endif
+		#endregion
 		public string Confirm ( string message, bool isAppend )
 		{ return this.Confirm ( message, null, isAppend ); }
 
+		#region " Navigate "
+#if EN
+		/// <summary>
+		/// Generate navigation scripts, and appends to the Code property.
+		/// </summary>
+		/// <param name="location">Url for navigation, for example: "'www.google.com.hk'", can also be a expressions, for example: "'www.' + mydomain + '.com'".</param>
+		/// <returns>The script which contains navigation scripts.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成在自身窗口打开页面的脚本, 并追加到 Code 属性.
 		/// </summary>
 		/// <param name="location">导航的地址, 比如: "'www.google.com.hk'", 也可以是计算表达式, 比如: "'www.' + mydomain + '.com'".</param>
 		/// <returns>导航的脚本代码.</returns>
+#endif
+		#endregion
 		public string Navigate ( string location )
 		{ return this.Navigate ( location, NavigateOption.SelfWindow, true ); }
+		#region " Navigate "
+#if EN
+		/// <summary>
+		/// Generate navigation scripts, and appends to the Code property.
+		/// </summary>
+		/// <param name="location">Url for navigation, for example: "'www.google.com.hk'", can also be a expressions, for example: "'www.' + mydomain + '.com'".</param>
+		/// <param name="option">Navigation option, indicating where to display the page.</param>
+		/// <returns>The script which contains navigation scripts.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成导航页面的脚本, 并追加到 Code 属性.
 		/// </summary>
 		/// <param name="location">导航的地址, 比如: "'www.google.com.hk'", 也可以是计算表达式, 比如: "'www.' + mydomain + '.com'".</param>
 		/// <param name="option">导航的选项, 指示在自身还是新窗口中显示页面, 最终的代码中选项会使用单引号, 比如: '_blank'.</param>
 		/// <returns>导航的脚本代码.</returns>
+#endif
+		#endregion
 		public string Navigate ( string location, NavigateOption option )
 		{ return this.Navigate ( location, option, true ); }
+		#region " Navigate "
+#if EN
+		/// <summary>
+		/// Generate navigation scripts, and appends to the Code property.
+		/// </summary>
+		/// <param name="location">Url for navigation, for example: "'www.google.com.hk'", can also be a expressions, for example: "'www.' + mydomain + '.com'".</param>
+		/// <param name="isAppend">If true, the script appends to the Code property.</param>
+		/// <returns>The script which contains navigation scripts.</returns>
+#elif HANS
 		/// <summary>
 		/// 生成导航页面的脚本, 并选择是否将脚本追加到 Code 属性.
 		/// </summary>
 		/// <param name="location">导航的地址, 比如: "'www.google.com.hk'", 也可以是计算表达式, 比如: "'www.' + mydomain + '.com'".</param>
 		/// <param name="isAppend">如果为 true, 则将脚本追加到 Code 属性.</param>
 		/// <returns>导航的脚本代码.</returns>
+#endif
+		#endregion
 		public string Navigate ( string location, bool isAppend )
 		{ return this.Navigate ( location, NavigateOption.SelfWindow, isAppend ); }
 

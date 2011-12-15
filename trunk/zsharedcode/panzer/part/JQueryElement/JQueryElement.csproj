@@ -105,6 +105,9 @@
     <Compile Include="..\..\.class\ui\jqueryui\Timer.cs">
       <Link>.class\Timer.cs</Link>
     </Compile>
+    <Compile Include="..\..\.class\ui\jqueryui\Uploader.cs">
+      <Link>.class\Uploader.cs</Link>
+    </Compile>
     <Compile Include="..\..\.class\ui\jqueryui\Validator.cs">
       <Link>.class\Validator.cs</Link>
     </Compile>
@@ -189,6 +192,9 @@
     <Compile Include="..\..\.class\web\jqueryui\UISetting.cs">
       <Link>.class\UISetting.cs</Link>
     </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\UploaderSetting.cs">
+      <Link>.class\UploaderSetting.cs</Link>
+    </Compile>
     <Compile Include="..\..\.class\web\jqueryui\ValidatorSetting.cs">
       <Link>.class\ValidatorSetting.cs</Link>
     </Compile>
@@ -238,6 +244,7 @@
     <None Include="Resources\panzer.min.js" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\uploader.min.js" />
     <Content Include="Resources\validator.min.js" />
   </ItemGroup>
   <ItemGroup>

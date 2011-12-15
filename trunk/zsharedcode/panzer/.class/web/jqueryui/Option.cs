@@ -1203,6 +1203,19 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 等于的提示.
 		/// </summary>
 		equaltip,
+
+		/// <summary>
+		/// 上传页面 iframe.
+		/// </summary>
+		upload,
+		/// <summary>
+		/// 上传页面的表单索引.
+		/// </summary>
+		uploadform,
+		/// <summary>
+		/// 时钟.
+		/// </summary>
+		timer,
 	}
 	#endregion
 
