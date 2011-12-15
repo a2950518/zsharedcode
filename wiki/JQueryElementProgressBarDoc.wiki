@@ -126,6 +126,6 @@
 
  [AjaxManager 生成调用服务器端方法的 javascript 函数]
 
-[JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数]
+ [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数]
 
 </font>
