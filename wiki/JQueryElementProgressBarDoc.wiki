@@ -1,4 +1,4 @@
-﻿#summary JQueryElement 进度条
+﻿#summary Progressbar 完全参考
 #labels Phase-Implementation
 <font face="microsoft yahei">
 <font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JQueryElementProgressBarDoc Translate this page]</font>
@@ -55,11 +55,77 @@
  在上面的示例中, 设置 Progressbar 的 IsVariable 属性为 true, 生成一个同名的 javascript 变量 pb. 然后通过 pb 来获取和设置 *progressbar* 的进度.
 
 === 附录: 显示资料完善度 ===
- 在这一节中, 将使用 Progressbar 来显示用户资料的完善度, :
+ 在这一节中, 将使用 Progressbar 来显示用户资料的完善度:
  {{{
-<je:Progressbar ID="pA" runat="server" ScriptPackageID="package" Value="20">
+<je:Progressbar ID="pb" runat="server" ScriptPackageID="package" Value="20">
 </je:Progressbar>
+
+...
+
+<je:ScriptPackage ID="package" runat="server" />
  }}}
- 这里实现了一个进度条, 其对应的 js 脚本将生成到刚才添加的 ScriptPackage 控件中.
+ 这里实现了一个进度条, 其对应的 javascript 脚本将生成到 ID 为 package 的 ScriptPackage 控件中.
+
+ 在页面载入后, 将调用由 AjaxManager 生成的 init 函数:
+{{{
+<je:AjaxManager ID="ajax" runat="server">
+	<je:AjaxSetting ClientFunction="init" Url="userinfo1.ashx" Success="
+		function(data){
+			$('#prec').text(-:data.prec + '%');
+			pb.progressbar('option', 'value', -:data.prec);
+
+			$('#realname').val(-:data.realname);
+			$('#nickname').val(-:data.nickname);
+			$('#email').val(-:data.email);
+			$('#sex').val(-:data.sex);
+			$('#birthday').val(-:data.birthday);
+		}
+		">
+		<je:Parameter Name="c" Type="Expression" Value="'get'" />
+	</je:AjaxSetting>
+</je:AjaxManager>
+
+...
+
+<script type="text/javascript">
+	$(function () {
+		init();
+	});
+</script>
+}}}
+ init 函数的作用是从 userinfo1.ashx 获取用户信息, 其中包含资料完善度, 并将这些信息显示在页面上. 有关更多 AjaxManager 的信息, 请参考 [AjaxManager 生成调用服务器端方法的 javascript 函数].
+
+ 在上面的代码中, `-:data` 将根据不同的 .NET 版本替换为 data 或者 data.d, 详细请参考 [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON].
+
+ 最后, 需要一个保存的按钮:
+{{{
+<je:Button ID="cmdSave" runat="server" ScriptPackageID="package" Label="即使警告也可以保存">
+	<ClickAsync Url="userinfo1.ashx" Success="
+	function(data){
+		$('#prec').text(-:data.prec + '%');
+		pb.progressbar('option', 'value', -:data.prec);
+
+		alert('设置完毕');
+	}
+	">
+		<je:Parameter Name="c" Type="Expression" Value="'save'" />
+		<je:Parameter Name="realname" Type="Selector" Value="'#realname'" />
+		<je:Parameter Name="nickname" Type="Selector" Value="'#nickname'" />
+		<je:Parameter Name="email" Type="Selector" Value="'#email'" />
+		<je:Parameter Name="sex" Type="Selector" Value="'#sex'" />
+		<je:Parameter Name="birthday" Type="Selector" Value="'#birthday'" />
+	</ClickAsync>
+</je:Button>
+}}}
+ 当点击按钮时, 将页面上的用户信息传递给 userinfo1.ashx, userinfo1.ashx 将返回资料完善度.
+
+ 在 AjaxManager 和 Button 的 ClickAsync 中, 都使用了 Parameter 来增加参数, 更多内容可以参考 [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数].
+
+=== 相关内容 ===
+ [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
+
+ [AjaxManager 生成调用服务器端方法的 javascript 函数]
+
+[JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数]
 
 </font>
