@@ -37,6 +37,10 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 		/// 验证插件.
 		/// </summary>
 		validator = 4,
+		/// <summary>
+		/// 上传插件.
+		/// </summary>
+		uploader = 5,
 	}
 	#endregion
 

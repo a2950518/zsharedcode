@@ -67,7 +67,12 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		: UISetting
 	{
 
-		protected static void appendParameter (AjaxSetting ajax, Parameter[] parameters )
+		/// <summary>
+		/// 为 AjaxSetting 增加参数, 将排除已经存在的参数.
+		/// </summary>
+		/// <param name="ajax">增加参数的 AjaxSetting.</param>
+		/// <param name="parameters">增加的参数.</param>
+		public static void AppendParameter (AjaxSetting ajax, Parameter[] parameters )
 		{
 
 			if ( null == ajax || null == parameters )

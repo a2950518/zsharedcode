@@ -91,6 +91,16 @@ namespace zoyobar.shared.panzer.Properties {
         }
         
         /// <summary>
+        ///   查找类似 (function(a){a.fn.__uploader=function(){var b=a.panzer.getPE.call(this,&quot;__uploader&quot;,arguments);return null==b?this:b.result};a.fn.__uploader.funs={destroy:{method:function(b){a.panzer.destroy.call(this,b)}}};a.fn.__uploader.defaults={progressurl:null};a.fn.__uploader.defaults.__mask={progressurl:{name:&quot;progressurl&quot;,type:&quot;string&quot;,need:!0,defaultvalue:null}};a.fn.__uploader.defaults.__mask={progressurl:{name:&quot;progressurl&quot;,type:&quot;string&quot;,need:!0}}})(jQuery);
+        /// 的本地化字符串。
+        /// </summary>
+        internal static string uploader_min {
+            get {
+                return ResourceManager.GetString("uploader_min", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 (function(c){function g(d){var a=d.option,b=c(a.target);if(b.length!=0){var f=a.mask,e=b.attr(&quot;type&quot;);e==&quot;checkbox&quot;||e==&quot;radio&quot;?(e=b.attr(&quot;checked&quot;),null==e?e=!1:e==&quot;checked&quot;&amp;&amp;(e=!0)):e=b.val();null!=f.need&amp;&amp;f.need&amp;&amp;typeof e==&quot;string&quot;&amp;&amp;e==&quot;&quot;?b={value:&quot;&quot;,tip:null==f.tip.need?(null==f.name?&quot;argument&quot;:f.name)+&quot; should not be empty&quot;:f.tip.need,success:!1}:(b=c.panzer.check.call(this,c.panzer.convert.call(this,e,f.defaultvalue,f.type,f.provider),f,!1),b.success&amp;&amp;null!=a.equal&amp;&amp;c(a.equal).length!=0&amp;&amp;e!=
         ///c(a.equal [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
