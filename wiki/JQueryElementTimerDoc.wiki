@@ -6,6 +6,8 @@
 === 简介/目录 ===
  请到 [Download 下载资源] 的 JQueryElement 示例下载一节*下载示例代码*, 目录 /timer/Default.aspx.
 
+ 视频演示: [http://www.tudou.com/programs/view/bGiJ5XUyfVI/ www.tudou.com/programs/view/bGiJ5XUyfVI/]
+
  本文将说明 Timer 控件的功能以及使用过程中的注意事项和技巧, 目录如下:
 
   * 准备

@@ -4,6 +4,8 @@
 === Introduction/Catalog ===
  Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /timer/Default.aspx.
 
+ Video demo: [http://www.tudou.com/programs/view/bGiJ5XUyfVI/ www.tudou.com/programs/view/bGiJ5XUyfVI/]
+
  This article explains the function and the use of Timer, the catalog is as follows:
 
   * Prepare
