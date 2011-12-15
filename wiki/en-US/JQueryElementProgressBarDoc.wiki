@@ -6,7 +6,7 @@
 
  Video demo: [http://www.tudou.com/programs/view/nkhyRcOuu6M/ www.tudou.com/programs/view/nkhyRcOuu6M/]
 
- This article explains the function and the use of Timer, the catalog is as follows:
+ This article explains the function and the use of Progressbar, the catalog is as follows:
 
   * Prepare
   * Progress
@@ -37,7 +37,7 @@
 === Progress ===
  Through the property Value to initialize the progress, Value should be between 0 and 100.
 
- You can also use JavaScript on the client to set or get the progress, more information please refer to [http://docs.jquery.com/UI/Progressbar docs.jquery.com/UI/Progressbar]:
+ You can also use javascript on the client to set or get the progress, more information please refer to [http://docs.jquery.com/UI/Progressbar docs.jquery.com/UI/Progressbar]:
 {{{
 <je:Progressbar ID="pb" runat="server" ScriptPackageID="package"
 	CssClass="info-bar" IsVariable="true">
