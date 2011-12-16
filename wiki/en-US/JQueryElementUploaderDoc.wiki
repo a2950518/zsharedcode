@@ -79,7 +79,8 @@ protected void Page_Load ( object sender, EventArgs e )
 
 	if ( this.IsPostBack && this.file.HasFile )
 		// TODO: Parameter waitSecond is set in order to show upload progress in test,
-		// do not set waitSecond if you want to use this page, and adjust the bufferSize to a reasonable value.
+		// do not set waitSecond if you want to use this page,
+		// and adjust the bufferSize to a reasonable value.
 		Uploader.Save (
 			this.Server.MapPath ( @"~/uploader/photo.jpg" ),
 			this.file.PostedFile,
