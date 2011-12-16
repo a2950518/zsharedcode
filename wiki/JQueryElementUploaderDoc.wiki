@@ -22,7 +22,9 @@
     * 隐藏保存页面
 
 <img src="http://zsharedcode.googlecode.com/files/uploadmyphoto1.jpg" />
+
 <img src="http://zsharedcode.googlecode.com/files/uploadmyphoto2.jpg" />
+
 <img src="http://zsharedcode.googlecode.com/files/uploadmyphoto3.jpg" />
 
 === 准备 ===
