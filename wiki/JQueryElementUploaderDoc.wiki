@@ -64,7 +64,9 @@
  ==== <font color="green">设置 EnableSessionState</font> ====
  需要设置保存页面的 EnableSessionState 为 ReadOnly, 这样可以在保存页面保存文件时, 请求获取进度的页面. 这主要是由于, ASP.NET 顺序执行可以读写 Session 的页面:
 {{{
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FileUpload.aspx.cs" Inherits="uploader_FileUpload" EnableSessionState="ReadOnly" %>
+<%@ Page Language="C#" AutoEventWireup="true"
+	CodeFile="FileUpload.aspx.cs" Inherits="uploader_FileUpload"
+	EnableSessionState="ReadOnly" %>
 }}}
 
  ==== <font color="green">调用 Uploader 的 Save 方法</font> ====
@@ -74,9 +76,18 @@ protected void Page_Load ( object sender, EventArgs e )
 {
 
 	if ( this.IsPostBack && this.file.HasFile )
-		// TODO: 这里设置 waitSecond 参数是为了在测试时显示上传的进度, 在实际的使用中请不要设置 waitSecond, 并调整 bufferSize 为一个合理的值.
-		Uploader.Save ( this.Server.MapPath ( @"~/uploader/photo.jpg" ), this.file.PostedFile, this.Session["myphotouploadinfo"] as Uploader.UploadInfo, 1, 1 );
-		//	Uploader.Save ( this.Server.MapPath ( @"~/uploader/photo.jpg" ), this.file.PostedFile, this.Session["myphotouploadinfo"] as Uploader.UploadInfo );
+		// TODO: 这里设置 waitSecond 参数是为了在测试时显示上传的进度,
+		// 在实际的使用中请不要设置 waitSecond, 并调整 bufferSize 为一个合理的值.
+		Uploader.Save (
+			this.Server.MapPath ( @"~/uploader/photo.jpg" ),
+			this.file.PostedFile,
+			this.Session["myphotouploadinfo"] as Uploader.UploadInfo,
+			1,
+			1 );
+		//	Uploader.Save (
+		//		this.Server.MapPath ( @"~/uploader/photo.jpg" ),
+		//		this.file.PostedFile,
+		//		this.Session["myphotouploadinfo"] as Uploader.UploadInfo );
 
 }
 }}}
@@ -104,9 +115,11 @@ public class uploader_getprec : IHttpHandler,
 		context.Response.ContentType = "text/javascript";
 		context.Response.Cache.SetNoStore ( );
 
-		Uploader.UploadInfo info = context.Session["myphotouploadinfo"] as Uploader.UploadInfo;
+		Uploader.UploadInfo info =
+			context.Session["myphotouploadinfo"] as Uploader.UploadInfo;
 
-		SortedDictionary<string, object> json = new SortedDictionary<string, object> ( );
+		SortedDictionary<string, object> json =
+			new SortedDictionary<string, object> ( );
 
 		if ( null == info )
 			json.Add ( "prec", "-" );
@@ -128,7 +141,9 @@ public class uploader_getprec : IHttpHandler,
 			 * */
 		}
 
-		context.Response.Write ( new JavaScriptSerializer ( ).Serialize ( json ) );
+		context.Response.Write (
+			new JavaScriptSerializer ( ).Serialize ( json )
+			);
 	}
 
 	...
@@ -140,7 +155,8 @@ public class uploader_getprec : IHttpHandler,
 === 创建上传页面 ===
  最后一步就是创建一个上传页面, 在页面中添加 Uploader 控件:
 {{{
-<je:Uploader ID="uploader" runat="server" IsVariable="true" UploadUrl="FileUpload.aspx"
+<je:Uploader ID="uploader" runat="server" IsVariable="true"
+	UploadUrl="FileUpload.aspx"
 	ProgressUrl="getprec.ashx" ProgressChanged="
 function(data){
 
@@ -155,14 +171,17 @@ function(data){
 			$('#photo').show().attr('src', -:data.url);
 		}
 		else{
-			$('#prec').text(-:data.posted + ' bytes/' + -:data.total + ' bytes, ' + -:data.prec + '%');
+			$('#prec').text(-:data.posted +
+				' bytes/' + -:data.total + ' bytes, ' +
+				-:data.prec + '%');
 			pb.progressbar('option', 'value', -:data.prec);
 		}
 
 }
 ">
 </je:Uploader>
-<je:Button ID="cmdUpload" runat="server" IsVariable="true" Label="开始" Click="
+<je:Button ID="cmdUpload" runat="server" IsVariable="true"
+	Label="开始" Click="
 function(){
 	cmdUpload.hide();
 	uploader.__uploader('hide').__uploader('upload');
@@ -193,7 +212,8 @@ function(){
  ==== <font color="green">上传</font> ====
  调用 *uploader* 的 upload 方法, 即可触发上传操作:
 {{{
-<je:Button ID="cmdUpload" runat="server" IsVariable="true" Label="开始" Click="
+<je:Button ID="cmdUpload" runat="server" IsVariable="true"
+	Label="开始" Click="
 function(){
 	uploader.__uploader('upload');
 }">
