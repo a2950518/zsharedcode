@@ -1,0 +1,215 @@
+﻿#summary Validator 完全参考
+<font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JQueryElementUploaderDoc Translate this page]</font>
+
+=== 简介/目录 ===
+ 请到 [Download 下载资源] 的 JQueryElement 示例下载一节*下载示例代码*, 目录 /uploader/Default.aspx.
+ 
+ 视频演示: [http://www.tudou.com/programs/view/-Zvwz5xsih8/ www.tudou.com/programs/view/-Zvwz5xsih8/]
+
+ 本文将系统讲解 Uploader 控件的功能以及使用过程中的注意事项和技巧, 目录如下:
+
+  * 准备
+  * 创建保存页面
+    * 添加 FileUpload 控件
+    * 设置 EnableSessionState
+    * 调用 Uploader 的 Save 方法
+  * 创建获取进度的页面
+  * 创建上传页面
+    * 设置保存页面
+    * 设置获取进度的页面
+    * 上传
+    * 隐藏保存页面
+
+<img src="http://zsharedcode.googlecode.com/files/.jpg" />
+
+=== 准备 ===
+ 请确保已经在 [Download 下载资源] 中的 JQueryElement.dll 下载一节下载 JQueryElement 最新的版本.
+
+ 请使用指令引用如下的命名空间:
+{{{
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui.plusin"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.web.jqueryui"
+	TagPrefix="je" %>
+}}}
+
+ 除了命名空间, 还需要引用 jQueryUI 的脚本和样式, 在 [Download 下载资源] 的 JQueryElement.dll 下载一节下载的压缩包中包含了一个自定义样式的 jQueryUI, 如果需要更多样式, 可以在 [http://jqueryui.com/download jqueryui.com/download] 下载:
+{{{
+<link type="text/css" rel="stylesheet" href="[样式路径]/jquery-ui-<version>.custom.css" />
+<script type="text/javascript" src="[脚本路径]/jquery-<version>.min.js"></script>
+<script type="text/javascript" src="[脚本路径]/jquery-ui-<version>.custom.min.js"></script>
+}}}
+
+=== 创建保存页面 ===
+ 保存页面是一个简单的页面, 主要完成文件的保存工作, 保存页面不会自己提交, 而是由上传页面提交.
+
+ ==== <font color="green">添加 FileUpload 控件</font> ====
+ 首先, 为保存页面添加 FileUpload 控件:
+{{{
+<form id="formFileUpload" runat="server">
+上传:&nbsp;<asp:FileUpload ID="file" runat="server" />
+</form>
+}}}
+ 也可以添加 type 属性为 file 的 input 元素:
+{{{
+<form id="formFileUpload" runat="server" enctype="multipart/form-data">
+上传:&nbsp;<input type="file" id="file" runat="server" />
+</form>
+}}}
+ 如果使用 input 元素, 则可能需要设置 form 的 enctype 属性为 multipart/form-data.
+
+ ==== <font color="green">设置 EnableSessionState</font> ====
+ 需要设置保存页面的 EnableSessionState 为 ReadOnly, 这样可以在保存页面保存文件时, 请求获取进度的页面. 这主要是由于, ASP.NET 顺序执行可以读写 Session 的页面:
+{{{
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FileUpload.aspx.cs" Inherits="uploader_FileUpload" EnableSessionState="ReadOnly" %>
+}}}
+
+ ==== <font color="green">调用 Uploader 的 Save 方法</font> ====
+ 在保存页面的 Page_Load 方法中, 调用 Uploader 控件的 Save 静态方法来保存文件:
+{{{
+protected void Page_Load ( object sender, EventArgs e )
+{
+
+	if ( this.IsPostBack && this.file.HasFile )
+		// TODO: 这里设置 waitSecond 参数是为了在测试时显示上传的进度, 在实际的使用中请不要设置 waitSecond, 并调整 bufferSize 为一个合理的值.
+		Uploader.Save ( this.Server.MapPath ( @"~/uploader/photo.jpg" ), this.file.PostedFile, this.Session["myphotouploadinfo"] as Uploader.UploadInfo, 1, 1 );
+		//	Uploader.Save ( this.Server.MapPath ( @"~/uploader/photo.jpg" ), this.file.PostedFile, this.Session["myphotouploadinfo"] as Uploader.UploadInfo );
+
+}
+}}}
+ 代码中, 通过 IsPostBack 和 HasFile 属性判断在用户提交了文件后, 才进行保存.
+
+ Save 方法的格式为 *`Save ( string filePath, HttpPostedFile postedFile, Uploader.UploadInfo uploadInfo, int bufferSize, int waitSecond )`*, filePath 参数是文件保存的完整路径, postedFile 参数是提供文件控制的 HttpPostedFile 对象, 可以从 FileUpload 控件获取, uploadInfo 参数是保存上传进度信息的对象, bufferSize 参数是保存文件时的缓存大小, 默认 128kb 保存一次, 最后一个参数 waitSecond 只在测试时使用, 表示缓存被保存后的等待时间, 这样可以确保看到进度.
+
+=== 创建获取进度的页面 ===
+ 包含进度信息的对象 Uploader.UploadInfo 被保存在 Session 中, 因此可以随时从 Session 中获取进度信息:
+{{{
+<%@ WebHandler Language="C#" Class="uploader_getprec" %>
+
+using System.Collections.Generic;
+using System.Web;
+using System.Web.Script.Serialization;
+using System.Web.SessionState;
+using zoyobar.shared.panzer.ui.jqueryui.plusin;
+
+public class uploader_getprec : IHttpHandler,
+	IReadOnlySessionState
+{
+
+	public void ProcessRequest ( HttpContext context )
+	{
+		context.Response.ContentType = "text/javascript";
+		context.Response.Cache.SetNoStore ( );
+
+		Uploader.UploadInfo info = context.Session["myphotouploadinfo"] as Uploader.UploadInfo;
+
+		SortedDictionary<string, object> json = new SortedDictionary<string, object> ( );
+
+		if ( null == info )
+			json.Add ( "prec", "-" );
+		else
+		{
+			json.Add ( "prec", info.Percent );
+			json.Add ( "total", info.ContentLength );
+			json.Add ( "posted", info.PostedLength );
+
+			if ( info.Percent == 100 )
+				json.Add ( "url", "photo.jpg" );
+
+			/*
+			 * {
+			 *	"prec": 20.23
+			 *	"total": 2000,
+			 *	"posted": 2
+			 * }
+			 * */
+		}
+
+		context.Response.Write ( new JavaScriptSerializer ( ).Serialize ( json ) );
+	}
+
+	...
+
+}
+}}}
+ 需要注意的是, uploader_getprec 实现了接口 IReadOnlySessionState, 而不是 IRequiresSessionState. 原因也是和设置 EnableSessionState 为 ReadOnly 类似的. 至于如何返回 JSON 数据, 请参考 [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON].
+
+=== 创建上传页面 ===
+ 最后一步就是创建一个上传页面, 在页面中添加 Uploader 控件:
+{{{
+<je:Uploader ID="uploader" runat="server" IsVariable="true" UploadUrl="FileUpload.aspx"
+	ProgressUrl="getprec.ashx" ProgressChanged="
+function(data){
+
+	if(-:data.prec == '-')
+		$('#prec').text('没有进度!');
+	else
+		if(-:data.prec == 100){
+			$('#prec').text('完成, 图片路径为: ' + -:data.url);
+
+			pb.hide();
+
+			$('#photo').show().attr('src', -:data.url);
+		}
+		else{
+			$('#prec').text(-:data.posted + ' bytes/' + -:data.total + ' bytes, ' + -:data.prec + '%');
+			pb.progressbar('option', 'value', -:data.prec);
+		}
+
+}
+">
+</je:Uploader>
+<je:Button ID="cmdUpload" runat="server" IsVariable="true" Label="开始" Click="
+function(){
+	cmdUpload.hide();
+	uploader.__uploader('hide').__uploader('upload');
+
+	pb.show();
+}">
+</je:Button>
+}}}
+
+ ==== <font color="green">设置保存页面</font> ====
+ 通过 Uploader 的 UploadUrl 属性, 可以选择保存页面, 示例中, 选择了页面 FileUpload.aspx, 这将自动生成一个 iframe 元素, iframe 的 src 属性指向 FileUpload.aspx 页面.
+
+ 也可以自定义一个 iframe, 然后通过 Upload 属性选择此 iframe:
+{{{
+<iframe id="myIFrame" src="FileUpload.aspx"></iframe>
+
+<je:Uploader ID="uploader" runat="server" IsVariable="true"
+	Upload="#myIFrame"
+	...	>
+</je:Uploader>
+}}}
+
+ ==== <font color="green">设置获取进度的页面</font> ====
+ 通过属性 ProgressUrl 和 ProgressChanged 可以获取并显示上传进度, ProgressUrl 表示返回进度信息的页面地址, ProgressChanged 则用于处理返回的进度等信息.
+
+ 此外 ProgressInterval 属性表示查询进度的时间间隔, 默认为 1000 毫秒.
+
+ ==== <font color="green">上传</font> ====
+ 调用 *uploader* 的 upload 方法, 即可触发上传操作:
+{{{
+<je:Button ID="cmdUpload" runat="server" IsVariable="true" Label="开始" Click="
+function(){
+	uploader.__uploader('upload');
+}">
+</je:Button>
+}}}
+ 默认情况下将对保存页面的第一个表单执行 submit 操作, 可以通过 UploadForm 属性来调整需要提交的表单的索引.
+
+ ==== <font color="green">隐藏保存页面</font> ====
+ 调用 *uploader* 的 hide 方法, 即可隐藏保存页面:
+{{{
+...
+	uploader.__uploader('upload');
+...
+}}}
+
+=== 相关内容 ===
+ [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
+
+</font>
