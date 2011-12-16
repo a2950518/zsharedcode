@@ -1,0 +1,237 @@
+﻿#summary Uploader Reference
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
+=== Introduction/Catalog ===
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /uploader/Default.aspx.
+ 
+ Video demo: [http://www.tudou.com/programs/view/-Zvwz5xsih8/ www.tudou.com/programs/view/-Zvwz5xsih8/]
+
+ This article explains the function and the use of Uploader, the catalog is as follows:
+
+  * Prepare
+  * Create Save Page
+    * Add FileUpload Control
+    * Set EnableSessionState
+    * Call The Save Method Of Uploader
+  * Create Page That Gets The Progress
+  * Create Upload Page
+    * Set Save Page
+    * Set Progress Page
+    * Upload
+    * Hide Save Page
+
+<img src="http://zsharedcode.googlecode.com/files/Upload%20My%20Photo1.jpg" />
+
+<img src="http://zsharedcode.googlecode.com/files/Upload%20My%20Photo2.jpg" />
+
+<img src="http://zsharedcode.googlecode.com/files/Upload%20My%20Photo3.jpg" />
+
+=== Prepare ===
+ Be sure that you have got the latest version of JQueryElement at the section JQueryElement.dll Download of [Download Downloads].
+
+ Use the following statements to reference namespace:
+{{{
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui.plusin"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.web.jqueryui"
+	TagPrefix="je" %>
+}}}
+
+ In addition to the namespace, you need to reference the jQueryUI scripts and styles, there is a custom theme for jQueryUI in the compressed file downloaded at the section JQueryElement.dll Download of [Download Downloads], if you need more themes, you can get them at [http://jqueryui.com/download jqueryui.com/download]:
+{{{
+<link type="text/css" rel="stylesheet" href="[style path]/jquery-ui-<version>.custom.css" />
+<script type="text/javascript" src="[script path]/jquery-<version>.min.js"></script>
+<script type="text/javascript" src="[script path]/jquery-ui-<version>.custom.min.js"></script>
+}}}
+
+=== Create Save Page ===
+ Save page is a simple page that to save the files, save page does not submit itself, but be submitted by the upload page. 
+
+ ==== <font color="green">Add FileUpload Control</font> ====
+ First, add a FileUpload control to the savepage:
+{{{
+<form id="formFileUpload" runat="server">
+Photo:&nbsp;<asp:FileUpload ID="file" runat="server" />
+</form>
+}}}
+ You can also add a input element which the attribute type is file:
+{{{
+<form id="formFileUpload" runat="server" enctype="multipart/form-data">
+Photo:&nbsp;<input type="file" id="file" runat="server" />
+</form>
+}}}
+ If you use the input element, you may need to set the enctype attribute of form to multipart/form-data.
+
+ ==== <font color="green">Set EnableSessionState</font> ====
+ The save page needs to be set EnableSessionState to ReadOnly, so you can request page that get the progress when you save the file. This was mainly due, ASP.NET order pages that you can read and write Session:
+{{{
+<%@ Page Language="C#" AutoEventWireup="true"
+	CodeFile="FileUpload.aspx.cs" Inherits="uploader_FileUpload"
+	EnableSessionState="ReadOnly" %>
+}}}
+
+ ==== <font color="green">Call The Save Method Of Uploader</font> ====
+ In the Page_Load method of save page, call the static method Save of Uploader control to save the file:
+{{{
+protected void Page_Load ( object sender, EventArgs e )
+{
+
+	if ( this.IsPostBack && this.file.HasFile )
+		// TODO: Parameter waitSecond is set in order to show upload progress in test,
+		// do not set waitSecond if you want to use this page, and adjust the bufferSize to a reasonable value.
+		Uploader.Save (
+			this.Server.MapPath ( @"~/uploader/photo.jpg" ),
+			this.file.PostedFile,
+			this.Session["myphotouploadinfo"] as Uploader.UploadInfo,
+			1,
+			1 );
+		//	Uploader.Save (
+		//		this.Server.MapPath ( @"~/uploader/photo.jpg" ),
+		//		this.file.PostedFile,
+		//		this.Session["myphotouploadinfo"] as Uploader.UploadInfo );
+
+}
+}}}
+ In the code, through the properties IsPostBack and HasFile to determine whether the user has submitted files.
+
+ The format of method Save is *`Save ( string filePath, HttpPostedFile postedFile, Uploader.UploadInfo uploadInfo, int bufferSize, int waitSecond )`*, parameter filePath is the full path of the saved file, parameter postedFile is a HttpPostedFile object which can be obtained from the FileUpload control, parameter uploadInfo is an object that contains the upload progress information, parameter bufferSize is the cache size when you save the file, default is 128kb, parameter waitSecond is used only during testing, that represents the wait time after the cache is saved, so you can ensure that saw progress.
+
+=== Create Page That Gets The Progress ===
+ The Object Uploader.UploadInfo that contains the progress information is saved in the Session, so you can get progress information from the Session at any time:
+{{{
+<%@ WebHandler Language="C#" Class="uploader_getprec" %>
+
+using System.Collections.Generic;
+using System.Web;
+using System.Web.Script.Serialization;
+using System.Web.SessionState;
+using zoyobar.shared.panzer.ui.jqueryui.plusin;
+
+public class uploader_getprec : IHttpHandler,
+	IReadOnlySessionState
+{
+
+	public void ProcessRequest ( HttpContext context )
+	{
+		context.Response.ContentType = "text/javascript";
+		context.Response.Cache.SetNoStore ( );
+
+		Uploader.UploadInfo info =
+			context.Session["myphotouploadinfo"] as Uploader.UploadInfo;
+
+		SortedDictionary<string, object> json =
+			new SortedDictionary<string, object> ( );
+
+		if ( null == info )
+			json.Add ( "prec", "-" );
+		else
+		{
+			json.Add ( "prec", info.Percent );
+			json.Add ( "total", info.ContentLength );
+			json.Add ( "posted", info.PostedLength );
+
+			if ( info.Percent == 100 )
+				json.Add ( "url", "photo.jpg" );
+
+			/*
+			 * {
+			 *	"prec": 20.23
+			 *	"total": 2000,
+			 *	"posted": 2
+			 * }
+			 * */
+		}
+
+		context.Response.Write (
+			new JavaScriptSerializer ( ).Serialize ( json )
+			);
+	}
+
+	...
+
+}
+}}}
+ Is important to note, uploader_getprec implements the interface IReadOnlySessionState, rather than the IRequiresSessionState. The reason is similar to setting EnableSessionState to ReadOnly. As for how to return the JSON, please refer to [AjaxReturnJSON Return JSON In Different .NET Version].
+
+=== Create Upload Page ===
+ The final step is to create the upload page, add the Uploader control in the page:
+{{{
+<je:Uploader ID="uploader" runat="server" IsVariable="true"
+	UploadUrl="FileUpload.aspx"
+	ProgressUrl="getprec.ashx" ProgressChanged="
+function(data){
+
+	if(-:data.prec == '-')
+		$('#prec').text('no progress!');
+	else
+		if(-:data.prec == 100){
+			$('#prec').text('ok, the url is: ' + -:data.url);
+
+			pb.hide();
+
+			$('#photo').show().attr('src', -:data.url);
+		}
+		else{
+			$('#prec').text(-:data.posted +
+				' bytes/' + -:data.total + ' bytes, ' +
+				-:data.prec + '%');
+			pb.progressbar('option', 'value', -:data.prec);
+		}
+
+}
+">
+</je:Uploader>
+<je:Button ID="cmdUpload" runat="server" IsVariable="true"
+	Label="Start" Click="
+function(){
+	cmdUpload.hide();
+	uploader.__uploader('hide').__uploader('upload');
+
+	pb.show();
+}">
+</je:Button>
+}}}
+
+ ==== <font color="green">Set Save Page</font> ====
+ By the UploadUrl property of Uploader, you can choose the save page, in the example, we select FileUpload.aspx as save page, which will automatically generate an iframe element which the src attribute is FileUpload.aspx.
+
+ You can also customize a iframe, and then select this iframe through the Upload property:
+{{{
+<iframe id="myIFrame" src="FileUpload.aspx"></iframe>
+
+<je:Uploader ID="uploader" runat="server" IsVariable="true"
+	Upload="#myIFrame"
+	...	>
+</je:Uploader>
+}}}
+
+ ==== <font color="green">Set Progress Page</font> ====
+ Via the properties ProgressUrl and ProgressChanged can obtain and display the upload progress, ProgressUrl is the url of progress page, ProgressChanged will handle the progress information.
+
+ In addition ProgressInterval property represents the query interval of the progress page, the default is 1000 milliseconds.
+
+ ==== <font color="green">Upload</font> ====
+ Call the upload method of *uploader*, you can trigger the upload operation:
+{{{
+<je:Button ID="cmdUpload" runat="server" IsVariable="true"
+	Label="Start" Click="
+function(){
+	uploader.__uploader('upload');
+}">
+</je:Button>
+}}}
+ By default, the first form of save page will be submitted, the index of form which will be submitted can be adjusted by the property UploadForm.
+
+ ==== <font color="green">Hide Save Page</font> ====
+ Call the hide method of *uploader*, you can hide the save page:
+{{{
+...
+	uploader.__uploader('upload');
+...
+}}}
+
+=== Related Content ===
+ [AjaxReturnJSON Return JSON In Different .NET Version]
+
+</font>
