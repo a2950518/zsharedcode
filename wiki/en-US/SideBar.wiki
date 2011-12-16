@@ -48,6 +48,7 @@
         * [JERepeaterMulti Repeater 多行操作]
       * [JQueryElementTimerDoc Timer 完全参考]
       * [JQueryElementValidatorDoc Validator 完全参考]
+      * [JQueryElementUploaderDoc Uploader 完全参考]
       * [JQueryElementAccordionDoc 折叠列表示例]
       * [JQueryElementAutoCompleteDoc Autocompelete 完全参考]
       * [JQueryElementButtonDoc 按钮示例]
