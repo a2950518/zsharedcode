@@ -21,7 +21,9 @@
     * 上传
     * 隐藏保存页面
 
-<img src="http://zsharedcode.googlecode.com/files/.jpg" />
+<img src="http://zsharedcode.googlecode.com/files/uploadmyphoto1.jpg" />
+<img src="http://zsharedcode.googlecode.com/files/uploadmyphoto2.jpg" />
+<img src="http://zsharedcode.googlecode.com/files/uploadmyphoto3.jpg" />
 
 === 准备 ===
  请确保已经在 [Download 下载资源] 中的 JQueryElement.dll 下载一节下载 JQueryElement 最新的版本.
