@@ -46,10 +46,10 @@
 }}}
 
 === Create Save Page ===
- Save page is a simple page that to save the files, save page does not submit itself, but be submitted by the upload page. 
+ Save page is a simple page that to save the files, save page does not submit itself, but be submitted by the upload page.
 
  ==== <font color="green">Add FileUpload Control</font> ====
- First, add a FileUpload control to the savepage:
+ First, add a FileUpload control to the save page:
 {{{
 <form id="formFileUpload" runat="server">
 Photo:&nbsp;<asp:FileUpload ID="file" runat="server" />
@@ -97,6 +97,8 @@ protected void Page_Load ( object sender, EventArgs e )
  In the code, through the properties IsPostBack and HasFile to determine whether the user has submitted files.
 
  The format of method Save is *`Save ( string filePath, HttpPostedFile postedFile, Uploader.UploadInfo uploadInfo, int bufferSize, int waitSecond )`*, parameter filePath is the full path of the saved file, parameter postedFile is a HttpPostedFile object which can be obtained from the FileUpload control, parameter uploadInfo is an object that contains the upload progress information, parameter bufferSize is the cache size when you save the file, default is 128kb, parameter waitSecond is used only during testing, that represents the wait time after the cache is saved, so you can ensure that saw progress.
+
+ If the upload file is larger than 4mb, please modify maxRequestLength of Web.config, you can refer to [http://msdn.microsoft.com/en-us/library/e1f13641(v=vs.71).aspx msdn.microsoft.com/en-us/library/e1f13641(v=vs.71).aspx].
 
 === Create Page That Gets The Progress ===
  The Object Uploader.UploadInfo that contains the progress information is saved in the Session, so you can get progress information from the Session at any time:

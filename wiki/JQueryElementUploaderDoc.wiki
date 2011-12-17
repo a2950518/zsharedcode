@@ -99,6 +99,8 @@ protected void Page_Load ( object sender, EventArgs e )
 
  Save 方法的格式为 *`Save ( string filePath, HttpPostedFile postedFile, Uploader.UploadInfo uploadInfo, int bufferSize, int waitSecond )`*, filePath 参数是文件保存的完整路径, postedFile 参数是提供文件控制的 HttpPostedFile 对象, 可以从 FileUpload 控件获取, uploadInfo 参数是保存上传进度信息的对象, bufferSize 参数是保存文件时的缓存大小, 默认 128kb 保存一次, 最后一个参数 waitSecond 只在测试时使用, 表示缓存被保存后的等待时间, 这样可以确保看到进度.
 
+ 上传大于 4mb 的文件, 请修改 web.config 的 maxRequestLength, 可以参考 [http://msdn.microsoft.com/zh-cn/library/e1f13641(v=vs.71).aspx msdn.microsoft.com/zh-cn/library/e1f13641(v=vs.71).aspx].
+
 === 创建获取进度的页面 ===
  包含进度信息的对象 Uploader.UploadInfo 被保存在 Session 中, 因此可以随时从 Session 中获取进度信息:
 {{{
