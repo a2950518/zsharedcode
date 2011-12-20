@@ -60,7 +60,7 @@ public SortedDictionary<string, object> GetGooglePicture ( string url )
 
 <div id="list">
 	<je:Repeater ID="googleRepeater" runat="server"
-		Selector="'#list'" PageSize="2" IsVariable="true"
+		Selector="#list" PageSize="2" IsVariable="true"
 		FillAsync-Url="webservice.asmx"
 		FillAsync-MethodName="SearchGoogle">
 		<ItemTemplate>
@@ -105,7 +105,14 @@ public SortedDictionary<string, object> GetGooglePicture ( string url )
  通过 je-id 绑定为子视图 ID, 即可将元素绑定为子视图的容器, 而子视图将显示在目标容器中.
 
  子视图默认为关闭状态, 因此代码中通过 `style="display: none;"` 使子视图容器在开始时隐藏.
- 
+
+=== 相关内容 ===
+ [JQueryElementRepeaterDoc Repeater 完全参考]
+
+ [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
+
+ [JEBase JQueryElement 基本属性参考]
+
 === 修订历史 ===
  2011-12-5: 修改下载的链接.
 

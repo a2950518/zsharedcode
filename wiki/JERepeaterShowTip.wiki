@@ -144,7 +144,14 @@ function(pe, e){
 
 === 消息的时效性 ===
  当需要显示新的消息, 或者 *repeater* 重新绑定数据时, 原有的消息将被替换或隐藏. 编辑行, 跳转到下一页, 调用 fill 方法都可以使 *repeater* 重新绑定数据.
- 
+
+=== 相关内容 ===
+ [JERepeaterBindField Repeater 绑定/处理字段]
+
+ [JQueryElementRepeaterDoc Repeater 完全参考]
+
+ [JEBase JQueryElement 基本属性参考]
+
 === 修订历史 ===
  2011-12-5: 修改下载的链接.
 

@@ -41,6 +41,7 @@
 === 其它 ===
  * [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
  * [AjaxDataType Ajax 与服务器的数据类型转换]
+ * [JEBase JQueryElement 基本属性参考]
  * [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数]
  * [AjaxManager 生成调用服务器端方法的 javascript 函数]
  * [JEIntelliSense 配置 Visual Studio 的 JQueryElement 智能提示]

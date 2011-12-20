@@ -29,7 +29,7 @@
 	DataType="<数据类型>" Provider="<自定义转换函数>" />
 
 <je:Parameter Name="name" Type="Selector"
-	Value="'#txtAName'" DataType="String" />
+	Value="#txtAName" DataType="String" />
 }}}
  每一个 Parameter 都需要包含在 ParameterList 中, 而 ParameterList 是所有 Async 对象的属性, 下面在点击的事件中, 增加了一个名为 name 的参数.
 {{{
@@ -38,7 +38,7 @@ function(data){
 	alert(data.d.message);
 }
 ">
-	<je:Parameter Name="name" Type="Selector" Value="'#txtWName3'" />
+	<je:Parameter Name="name" Type="Selector" Value="#txtWName3" />
 </ClickAsync>
 }}}
 
@@ -47,7 +47,7 @@ function(data){
 {{{
 <je:Button ID="cmdWNet3" runat="server">
 	<ClickAsync Url="webservice.asmx" MethodName="Save">
-		<je:Parameter Name="name" Type="Selector" Value="'#txtWName3'" />
+		<je:Parameter Name="name" Type="Selector" Value="#txtWName3" />
 	</ClickAsync>
 </je:Button>
 }}}
@@ -63,12 +63,12 @@ public SortedDictionary<string, object> Save ( string name )
 === 参数获取方式 ===
  参数获取方式有两种, 一种是 Selector, 这表示 Value 属性是一个选择器, 通过选择器将选择页面上的一个元素, 通常是 input 元素, 将取此元素的值作为参数的值, 另一种是 Expression, 表示 Value 中的是一个 javascript 表达式, javascript 表达式计算的值将作为参数的值:
 {{{
-<je:Parameter Name="name" Type="Selector" Value="'#txtWName3'" />
+<je:Parameter Name="name" Type="Selector" Value="#txtWName3" />
 
 <je:Parameter Name="value" Type="Expression" Value="123 + 321" DataType="Number" />
 <je:Parameter Name="value" Type="Expression" Value="add(123, 321)" DataType="Number" />
 }}}
- 代码中的选择器 #txtWName3 使用了单引号, 因为选择器需要是一个字符串, 如果改成 `Value="myselector"`, 则表示将 javascript 变量 myselector 的值作为选择器.
+ 代码中的选择器 #txtWName3 也可以使用单引号, 区别可以参考 [JEBase JQueryElement 基本属性参考] 的 JQueryElement 选择器一节.
 
  Value 作为 javascript 表达式, 则形式是多样的, 在代码中, 还调用了 javascript 函数 add.
 
@@ -78,14 +78,14 @@ public SortedDictionary<string, object> Save ( string name )
 === 数据类型 ===
  可以通过 DataType 转化参数的类型, 比如转化文本框中的字符串为数值类型:
 {{{
-<je:Parameter Name="name" Type="Selector" Value="'#txtAge'" DataType="number" />
+<je:Parameter Name="name" Type="Selector" Value="#txtAge" DataType="number" />
 }}}
  DataType 属性可以设置为 Number, Boolean, String, Date, 其实, 在服务器端 WebService 自身也会进行一些转化, 详细可以参考 [AjaxDataType Ajax 与服务器的数据类型转换].
 
 === 自定义转换函数 ===
  如果设置了 DataType, 则可以另外的设置 Provider 来提供自定义转换函数, 自定义转换函数将在不能正常转换时调用, 比如:
 {{{
-<je:Parameter Name="name" Type="Selector" Value="'#txtAge'" DataType="number" Provider="
+<je:Parameter Name="name" Type="Selector" Value="#txtAge" DataType="number" Provider="
 function(value){
 	if(value == '不惑')
 		return 40;
@@ -120,6 +120,8 @@ function(value){
 
 === 相关内容 ===
  [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
+
+ [JEBase JQueryElement 基本属性参考]
 
  [AjaxDataType Ajax 与服务器的数据类型转换]
 

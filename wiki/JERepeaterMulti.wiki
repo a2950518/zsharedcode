@@ -62,7 +62,7 @@
 === 对多个行操作 ===
  Repeater 支持使用 removeselected 和 customselected 函数来进行多行的操作:
 {{{
-<je:Repeater ID="emailRepeater" runat="server" Selector="'#list'"
+<je:Repeater ID="emailRepeater" runat="server" Selector="#list"
 	CustomAsync-Url="webservice.asmx"
 	CustomAsync-MethodName="CustomEMail"
 	...	>
@@ -107,7 +107,7 @@ public SortedDictionary<string, object> CustomEMail ( int id, string no, bool is
 === 获取进度 ===
  可以将 SubStepping 属性设置为获取进度的 javascript 函数:
 {{{
-<je:Repeater ID="emailRepeater" runat="server" Selector="'#list'" PageSize="5" IsVariable="true"
+<je:Repeater ID="emailRepeater" runat="server" Selector="#list" PageSize="5" IsVariable="true"
 	...
 	CustomAsync-Url="webservice.asmx"
 	CustomAsync-MethodName="CustomEMail"
@@ -130,5 +130,12 @@ public SortedDictionary<string, object> CustomEMail ( int id, string no, bool is
  在 SubStepping 中, 参数 e 拥有一个名为 substep 的属性, 而 substep 的 count 属性表示总行数, completed 属性表示已经完成的行数. 此外, 通过 *repeater* 的 showtip 方法, 显示了进度的消息. 关于如何显示消息, 可以参考 [JERepeaterShowTip Repeater 消息提示].
 
  PreSubStep 表示多行操作开始之前, SubStepped 表示多行操作结束之后.
+
+=== 相关内容 ===
+ [JERepeaterShowTip Repeater 消息提示]
+
+ [JQueryElementRepeaterDoc Repeater 完全参考]
+
+ [JEBase JQueryElement 基本属性参考]
 
 </font>

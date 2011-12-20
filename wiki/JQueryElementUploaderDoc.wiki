@@ -237,5 +237,7 @@ function(){
 
 === 相关内容 ===
  [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
+ 
+ [JEBase JQueryElement 基本属性参考]
 
 </font>

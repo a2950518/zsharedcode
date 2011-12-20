@@ -139,7 +139,12 @@ function(){
 </je:Button>
 }}}
  上面的示例中, id 为 myproductname 的文本框用来输入搜索的产品名称, 而在按钮的 Click 事件中, 调用 *repeater* 的 setfilter 方法来将 myproductname 中的值设置到 *repeater* 的过滤条件中, 调用 filter 方法来检索数据.
- 
+
+=== 相关内容 ===
+ [JQueryElementRepeaterDoc Repeater 完全参考]
+
+ [JEBase JQueryElement 基本属性参考]
+
 === 修订历史 ===
  2011-12-5: 修改下载的链接.
 

@@ -111,11 +111,11 @@
 	}
 	">
 		<je:Parameter Name="c" Type="Expression" Value="'save'" />
-		<je:Parameter Name="realname" Type="Selector" Value="'#realname'" />
-		<je:Parameter Name="nickname" Type="Selector" Value="'#nickname'" />
-		<je:Parameter Name="email" Type="Selector" Value="'#email'" />
-		<je:Parameter Name="sex" Type="Selector" Value="'#sex'" />
-		<je:Parameter Name="birthday" Type="Selector" Value="'#birthday'" />
+		<je:Parameter Name="realname" Type="Selector" Value="#realname" />
+		<je:Parameter Name="nickname" Type="Selector" Value="#nickname" />
+		<je:Parameter Name="email" Type="Selector" Value="#email" />
+		<je:Parameter Name="sex" Type="Selector" Value="#sex" />
+		<je:Parameter Name="birthday" Type="Selector" Value="#birthday" />
 	</ClickAsync>
 </je:Button>
 }}}
@@ -127,6 +127,8 @@
  [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
 
  [AjaxManager 生成调用服务器端方法的 javascript 函数]
+
+ [JEBase JQueryElement 基本属性参考]
 
  [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数]
 

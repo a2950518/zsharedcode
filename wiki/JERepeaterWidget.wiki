@@ -167,7 +167,12 @@
 </je:Repeater>
 }}}
  autocomplete 的 source 属性为用于匹配的条目的数组.
- 
+
+=== 相关内容 ===
+ [JQueryElementRepeaterDoc Repeater 完全参考]
+
+ [JEBase JQueryElement 基本属性参考]
+
 === 修订历史 ===
  2011-12-5: 修改下载的链接.
 

@@ -80,7 +80,7 @@ public void ProcessRequest ( HttpContext context )
  除了排序, 一般还要显示字段的排序状态, 比如用上箭头表示升序:
 {{{
 <je:Repeater ID="personList" runat="server"
-Selector="'#list'" IsVariable="true"
+Selector="#list" IsVariable="true"
 PageSize="3" FillAsync-Url="person.ashx">
 <HeaderTemplate>
 	<thead je-class="{header}">
@@ -98,7 +98,14 @@ PageSize="3" FillAsync-Url="person.ashx">
 </je:Repeater>
 }}}
  可以使用 je-class 来根据排序状态显示不同的样式, 语法为: *`{sort,<排序字段>[,<无排序样式>[,<升序样式>[,<降序样式>]]]}`*.
- 
+
+=== 相关内容 ===
+ [JQueryElementRepeaterDoc Repeater 完全参考]
+
+ [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
+
+ [JEBase JQueryElement 基本属性参考]
+
 === 修订历史 ===
  2011-12-5: 修改下载的链接.
 

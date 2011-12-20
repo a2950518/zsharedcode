@@ -201,6 +201,11 @@ public SortedDictionary<string, object> CheckNickname ( string value )
 }
 }}}
 
+=== 相关内容 ===
+ [JEBase JQueryElement 基本属性参考]
+
+ [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数]
+
 === 修订历史 ===
  2011-11-26: 修改关于引用 jQueryUI 的介绍.
 
