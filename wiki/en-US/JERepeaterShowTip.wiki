@@ -141,6 +141,13 @@ function(pe, e){
 === Timeliness Of Messages ===
  When you want to display a new message, or *repeater* to rebind the data, the original message is replaced or hidden. Edit a row, jump to the next page, call the fill method gives the *repeater* to rebind the data.
 
+=== Related Content ===
+ [JERepeaterBindField Repeater Binding/Handling Field]
+
+ [JQueryElementRepeaterDoc Repeater Reference]
+ 
+ [JEBase JQueryElement Basic Property Reference]
+
 === Revision History ===
  2011-12-5: Modify the link of download.
 

@@ -78,7 +78,7 @@ public void ProcessRequest ( HttpContext context )
  In addition to sorting, usually to display the sorting status of the field, such as the up arrow indicates ascending order:
 {{{
 <je:Repeater ID="personList" runat="server"
-Selector="'#list'" IsVariable="true"
+Selector="#list" IsVariable="true"
 PageSize="3" FillAsync-Url="person.ashx">
 <HeaderTemplate>
 	<thead je-class="{header}">
@@ -96,6 +96,13 @@ PageSize="3" FillAsync-Url="person.ashx">
 </je:Repeater>
 }}}
  You can use je-class to show a different style by sorting status, syntax is: *`{sort,<sort field name>[,<no sort class>[,<asc class>[,<desc class>]]]}`*.
+
+=== Related Content ===
+ [JQueryElementRepeaterDoc Repeater Reference]
+ 
+ [AjaxReturnJSON Return JSON In Different .NET Version]
+
+ [JEBase JQueryElement Basic Property Reference]
 
 === Revision History ===
  2011-12-5: Modify the link of download.

@@ -112,6 +112,11 @@ public void ProcessRequest ( HttpContext context )
 === Other Properties And Events ===
  Other properties and events of *autocomplete*, you can refer to [http://docs.jquery.com/UI/Autocomplete docs.jquery.com/UI/Autocomplete].
 
+=== Related Content ===
+ [AjaxReturnJSON Return JSON In Different .NET Version]
+
+ [JEBase JQueryElement Basic Property Reference]
+
 === Revision History ===
  2011-12-5: Modify the link of download.
 

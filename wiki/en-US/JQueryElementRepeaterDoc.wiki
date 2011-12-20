@@ -142,7 +142,7 @@
 <table id="list"></table>
 
 <je:Repeater ID="studentRepeater" runat="server"
-	Selector="'#list'">
+	Selector="#list">
 
 </je:Repeater>
 }}}
@@ -252,13 +252,13 @@
 		Default="'-'" />
 	<je:Parameter Name="year"
 		Type="Selector"
-		Value="'#year'"
+		Value="#year"
 		Default="2011" />
 
 </FillAsync>
 </je:Repeater>
 }}}
- By adding a Parameter, you can pass additional parameters, Name property is the parameter name, when Type is Expression, then the Value is a javascript expression, `Value="website"` represents the website take javascript variables, of course, you can set to a constant, for example: `Value="'www.google.com'"` or `Value="100"`, when Type is Selector, then the Value is a selector, selector writing can refer to [http://jquery.com jquery.com], the value of the selected element as the parameter value. Default is the default value of the javascript expressions, when the value is null or '', will use the Default values, and detail can refer to [JEParameter Through Parameter Object Add Ajax Request Parameter].
+ By adding a Parameter, you can pass additional parameters, Name property is the parameter name, when Type is Expression, then the Value is a javascript expression, when Type is Selector, then the Value is a selector, selector writing can refer to [http://jquery.com jquery.com], the value of the selected element as the parameter value. Default is the default value of the javascript expressions, when the value is null or '', will use the Default values, and detail can refer to [JEParameter Through Parameter Object Add Ajax Request Parameter].
 
  ==== <font color="green">Data Format of Request/Return</font> ====
  About how to return JSON, refer to [AjaxReturnJSON Return JSON In Different .NET Version], all of the following code written in .NET 4.
@@ -727,7 +727,7 @@ public static object Insert ( /* parameter */ )
 </table>
 
 <je:Repeater ID="studentRepeater" runat="server"
-	Selector="'#list'" Header="[je-template=my-header]">
+	Selector="#list" Header="[je-template=my-header]">
 
 </je:Repeater>
 }}}
@@ -763,7 +763,7 @@ public static object Insert ( /* parameter */ )
 </je:Repeater>
 
 <div id="list">
-	<je:Repeater ID="googleRepeater" runat="server" Selector="'#list'">
+	<je:Repeater ID="googleRepeater" runat="server" Selector="#list">
 		<ItemTemplate>
 			<div
 				je-button="label='More';"
@@ -930,6 +930,12 @@ public static object Insert ( /* parameter */ )
  
  [JERepeaterMulti Repeater Multi Rows]
 
+ [AjaxReturnJSON Return JSON In Different .NET Version]
+
+ [JEBase JQueryElement Basic Property Reference]
+
+ [JEParameter Through Parameter Object Add Ajax Request Parameter]
+
 === Revision History ===
  2011-11-17: Increase Related Content section, and links to validation function of Repeater.
  
@@ -942,5 +948,7 @@ public static object Insert ( /* parameter */ )
  2011-11-26: Modify presentation on referencing jQueryUI.
 
  2011-12-5: Modify the link of download, increase link to multi rows function of Repeater.
+ 
+ 2011-12-20: Modify introduction of Parameter.
 
 </font>

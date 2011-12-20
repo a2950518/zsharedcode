@@ -237,4 +237,6 @@ function(){
 === Related Content ===
  [AjaxReturnJSON Return JSON In Different .NET Version]
 
+ [JEBase JQueryElement Basic Property Reference]
+
 </font>

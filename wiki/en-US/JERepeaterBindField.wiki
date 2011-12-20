@@ -169,6 +169,11 @@
 }}}
  rank field in the examples is likely to be 1 to 5, so styles also define rank1 to rank5.
 
+=== Related Content ===
+ [JQueryElementRepeaterDoc Repeater Reference]
+ 
+ [JEBase JQueryElement Basic Property Reference]
+
 === Revision History ===
  2011-12-5: Modify the link of download.
 

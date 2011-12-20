@@ -61,7 +61,7 @@
 === Perform Operations On Multi Rows ===
  Repeater supports the use of removeselected and customselected methods for multiple rows operation:
 {{{
-<je:Repeater ID="emailRepeater" runat="server" Selector="'#list'"
+<je:Repeater ID="emailRepeater" runat="server" Selector="#list"
 	CustomAsync-Url="webservice.asmx"
 	CustomAsync-MethodName="CustomEMail"
 	...	>
@@ -106,7 +106,7 @@ public SortedDictionary<string, object> CustomEMail ( int id, string no, bool is
 === Getting Progress ===
  You can set the SubStepping property to a javascript method to get the progress:
 {{{
-<je:Repeater ID="emailRepeater" runat="server" Selector="'#list'" PageSize="5" IsVariable="true"
+<je:Repeater ID="emailRepeater" runat="server" Selector="#list" PageSize="5" IsVariable="true"
 	...
 	CustomAsync-Url="webservice.asmx"
 	CustomAsync-MethodName="CustomEMail"
@@ -129,5 +129,12 @@ public SortedDictionary<string, object> CustomEMail ( int id, string no, bool is
  In SubStepping, the parameter e has a property named substep, count property of substep represents the total row count, completed property indicates the number of rows that have been completed. In addition, through the showtip method of *repeater*, we display a progress message. About how to display a message, you can refer to [JERepeaterShowTip Repeater Message].
 
  PreSubStep is the event before getting started, SubStepped is the event after the end of operations.
+
+=== Related Content ===
+ [JERepeaterShowTip Repeater Message]
+
+ [JQueryElementRepeaterDoc Repeater Reference]
+ 
+ [JEBase JQueryElement Basic Property Reference]
 
 </font>

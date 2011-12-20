@@ -27,7 +27,7 @@
 	DataType="<data type>" Provider="<custom conversion methods>" />
 
 <je:Parameter Name="name" Type="Selector"
-	Value="'#txtAName'" DataType="String" />
+	Value="#txtAName" DataType="String" />
 }}}
  Each Parameter needs to be included in ParameterList, and ParameterList is the property of all the class Async, in the click event below, we add a parameter named name. 
 {{{
@@ -36,7 +36,7 @@ function(data){
 	alert(data.d.message);
 }
 ">
-	<je:Parameter Name="name" Type="Selector" Value="'#txtWName3'" />
+	<je:Parameter Name="name" Type="Selector" Value="#txtWName3" />
 </ClickAsync>
 }}}
 
@@ -45,7 +45,7 @@ function(data){
 {{{
 <je:Button ID="cmdWNet3" runat="server">
 	<ClickAsync Url="webservice.asmx" MethodName="Save">
-		<je:Parameter Name="name" Type="Selector" Value="'#txtWName3'" />
+		<je:Parameter Name="name" Type="Selector" Value="#txtWName3" />
 	</ClickAsync>
 </je:Button>
 }}}
@@ -61,12 +61,12 @@ public SortedDictionary<string, object> Save ( string name )
 === Way To Get Parameter Value ===
  There are two ways to get parameter value, one is the Selector, which means that the Value property is a selector, use the selector to select an element on the page, usually the input element, take the value of this element as the value of the parameter, then there's the Expression, that Value is a javascript expression, take the value of javascript expression as the value of the parameter:
 {{{
-<je:Parameter Name="name" Type="Selector" Value="'#txtWName3'" />
+<je:Parameter Name="name" Type="Selector" Value="#txtWName3" />
 
 <je:Parameter Name="value" Type="Expression" Value="123 + 321" DataType="Number" />
 <je:Parameter Name="value" Type="Expression" Value="add(123, 321)" DataType="Number" />
 }}}
- Selector #txtWName3 uses single quotation marks in the code, because the selector is a string, if you change it to `Value="myselector"`, it means that take the value of javascript variable myselector as the selector.
+ Selector #txtWName3 can also use single quotation marks, the difference can refer to the section JQueryElement Selector of [JEBase JQueryElement Basic Property Reference].
 
  Value property as a javascript expression, the form is varied, in code, we also call a javascript method add.
 
@@ -76,14 +76,14 @@ public SortedDictionary<string, object> Save ( string name )
 === Data Type ===
  Through DataType to convert the type of parameter, such as convert strings in the text box to numeric type:
 {{{
-<je:Parameter Name="name" Type="Selector" Value="'#txtAge'" DataType="number" />
+<je:Parameter Name="name" Type="Selector" Value="#txtAge" DataType="number" />
 }}}
  Property DataType can be set to Number, Boolean, String, Date, in fact, the WebService itself will also do some transformation on the server side, and detail can refer to [AjaxDataType Ajax And Server Data Type Conversions].
 
 === Custom Conversion Methods ===
  If the DataType is set, you can set Provider that provides custom conversion method, the method will be called when normal conversions fail, such as:
 {{{
-<je:Parameter Name="name" Type="Selector" Value="'#txtAge'" DataType="number" Provider="
+<je:Parameter Name="name" Type="Selector" Value="#txtAge" DataType="number" Provider="
 function(value){
 	if(value == 'without doubt')
 		return 40;
@@ -119,11 +119,15 @@ function(value){
 === Related Content ===
  [AjaxReturnJSON Return JSON In Different .NET Version]
 
+ [JEBase JQueryElement Basic Property Reference]
+
  [AjaxDataType Ajax And Server Data Type Conversions]
 
 === Revision History ===
  2011-12-5: Modify the link of download.
 
  2011-12-10: Increase the property reference of Async.
+
+ 2011-12-20: Modify introduction of Parameter.
 
 </font>

@@ -63,7 +63,7 @@ public string StringToString ( string value )
 		$('#lblInt1').text('result ' + data + ', type: ' + typeof data);
 	}
 	">
-		<je:Parameter Name="value" Type="Selector" Value="'#txtInt1'"
+		<je:Parameter Name="value" Type="Selector" Value="#txtInt1"
 			DataType="Number" />
 	</ClickAsync>
 </je:Button>
@@ -86,7 +86,7 @@ public string StringToString ( string value )
 		alert(data.responseText);
 	}
 	">
-		<je:Parameter Name="value" Type="Selector" Value="'#txtInt1'"
+		<je:Parameter Name="value" Type="Selector" Value="#txtInt1"
 			DataType="String" />
 	</ClickAsync>
 </je:Button>

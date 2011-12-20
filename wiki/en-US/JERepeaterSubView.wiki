@@ -58,7 +58,7 @@ public SortedDictionary<string, object> GetGooglePicture ( string url )
 
 <div id="list">
 	<je:Repeater ID="googleRepeater" runat="server"
-		Selector="'#list'" PageSize="2" IsVariable="true"
+		Selector="#list" PageSize="2" IsVariable="true"
 		FillAsync-Url="webservice.asmx"
 		FillAsync-MethodName="SearchGoogle">
 		<ItemTemplate>
@@ -103,6 +103,13 @@ public SortedDictionary<string, object> GetGooglePicture ( string url )
  Set je-id to the ID of a child view, the element can be bound as the container of the child view, the child view will appear in the target container.
 
  We make the container hidden in the beginning by `style="display: none;"`, because the child view is off by default.
+
+=== Related Content ===
+ [JQueryElementRepeaterDoc Repeater Reference]
+ 
+ [AjaxReturnJSON Return JSON In Different .NET Version]
+
+ [JEBase JQueryElement Basic Property Reference]
 
 === Revision History ===
  2011-12-5: Modify the link of download.

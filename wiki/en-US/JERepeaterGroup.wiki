@@ -95,6 +95,11 @@
 }}}
  You can use the groupfield and groupname attributes in the GroupTemplate represent grouping field and the name of the current group.
 
+=== Related Content ===
+ [JQueryElementRepeaterDoc Repeater Reference]
+ 
+ [JEBase JQueryElement Basic Property Reference]
+
 === Revision History ===
  2011-12-5: Modify the link of download.
 

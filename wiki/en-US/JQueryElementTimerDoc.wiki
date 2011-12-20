@@ -125,7 +125,7 @@ function(pe, e){
  The number of new email appear in the label newcount, in Close property of Dialog, we write a javascript function to set newEMailCount to 0. Buttons property of Dialog defines a refresh button which calls the Repeater's filter method, so you can refresh the message list, more information about Repeater can refer to [JQueryElementRepeaterDoc Repeater Reference], mailing list as follows:
 {{{
 <table id="list">
-	<je:Repeater ID="emailRepeater" runat="server" IsVariable="true" Selector="'#list'"
+	<je:Repeater ID="emailRepeater" runat="server" IsVariable="true" Selector="#list"
 		PageSize="4" FillAsync-Url="webservice.asmx" FillAsync-MethodName="GetEMailList">
 		<HeaderTemplate>
 			<thead>
@@ -203,11 +203,22 @@ function(pe, e){
 		<je:Parameter Name="sender" Type="Expression"
 			Value="vSender.__validator('option','value')" />
 		<je:Parameter Name="title" Type="Selector"
-			Value="'#eTitle'" />
+			Value="#eTitle" />
 	</ClickAsync>
 </je:Button>
 }}}
  In code, use Validator control to validate the sender entered by the user and the title, is not explained here, you can refer to [JQueryElementValidatorDoc Validator Reference].
+
+=== Related Content ===
+ [AjaxReturnJSON Return JSON In Different .NET Version]
+
+ [JEBase JQueryElement Basic Property Reference]
+
+ [JEParameter Through Parameter Object Add Ajax Request Parameter]
+ 
+ [JQueryElementRepeaterDoc Repeater Reference]
+
+ [JQueryElementValidatorDoc Validator Reference]
 
 === Revision History ===
  2011-11-26: Modify presentation on referencing jQueryUI.

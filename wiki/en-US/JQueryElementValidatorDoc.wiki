@@ -200,6 +200,11 @@ public SortedDictionary<string, object> CheckNickname ( string value )
 }
 }}}
 
+=== Related Content ===
+ [JEBase JQueryElement Basic Property Reference]
+
+ [JEParameter Through Parameter Object Add Ajax Request Parameter]
+
 === Revision History ===
  2011-11-26: Modify presentation on referencing jQueryUI.
 

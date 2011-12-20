@@ -109,11 +109,11 @@
 	}
 	">
 		<je:Parameter Name="c" Type="Expression" Value="'save'" />
-		<je:Parameter Name="realname" Type="Selector" Value="'#realname'" />
-		<je:Parameter Name="nickname" Type="Selector" Value="'#nickname'" />
-		<je:Parameter Name="email" Type="Selector" Value="'#email'" />
-		<je:Parameter Name="sex" Type="Selector" Value="'#sex'" />
-		<je:Parameter Name="birthday" Type="Selector" Value="'#birthday'" />
+		<je:Parameter Name="realname" Type="Selector" Value="#realname" />
+		<je:Parameter Name="nickname" Type="Selector" Value="#nickname" />
+		<je:Parameter Name="email" Type="Selector" Value="#email" />
+		<je:Parameter Name="sex" Type="Selector" Value="#sex" />
+		<je:Parameter Name="birthday" Type="Selector" Value="#birthday" />
 	</ClickAsync>
 </je:Button>
 }}}
@@ -125,6 +125,8 @@
  [AjaxReturnJSON Return JSON In Different .NET Version]
 
  [AjaxManager Generate javascript That Calls The Server-Side Method]
+
+ [JEBase JQueryElement Basic Property Reference]
 
  [JEParameter Through Parameter Object Add Ajax Request Parameter]
 
