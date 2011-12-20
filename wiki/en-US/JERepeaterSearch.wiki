@@ -136,7 +136,7 @@ function(){
 ">
 </je:Button>
 }}}
- In the example above, in the button's click event, we call the setfilter method of *repeater* to set the filter condition productname to the value of text box which id is myproductname, and call the filter method to retrieve the data.
+ In the example above, in the button's click event, we call the setfilter method of *repeater* to set the filter condition productname to the value of text box whose id is myproductname, and call the filter method to retrieve the data.
 
 === Related Content ===
  [JQueryElementRepeaterDoc Repeater Reference]

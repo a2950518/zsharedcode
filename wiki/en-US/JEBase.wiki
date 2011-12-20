@@ -1,0 +1,138 @@
+﻿#summary JQueryElement Basic Property Reference
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
+=== Introduction/Catalog ===
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /JQueryElementBase.aspx.
+
+ This article describes the role and use of the property of JQueryElement:
+
+  * JQueryElement Selector
+  * ElementType Property
+  * Set Content
+  * IsVariable Property
+  * ScriptPackageID Property
+
+=== JQueryElement Selector ===
+ JQueryElement selector is used to set container of JQueryElement controls, it can be used in property Selector or Value property of Parameter:
+{{{
+Button 1:
+<je:Button ID="button1" runat="server" Label="button 1">
+</je:Button>
+
+Button 2: <span id="button2"></span>
+
+<je:Button ID="cmd2" runat="server" Selector="#button2" Label="button 2">
+</je:Button>
+}}}
+ When you do not specify a Selector, JQueryElement will select itself as a container, in the above example, button1 to select itself as a container. The Selector property of cmd2 is #button2, which is a standard jQuery selector, so span element becomes the container for the button 2.
+
+ JQueryElement selector can be a javascript expression, such as:
+{{{
+<script type="text/javascript">
+	var div = "#button3";
+</script>
+
+Button 3: <div>button div</div> <span id="button3">button 3</span>
+
+<je:Button ID="cmd3" runat="server" Selector="div">
+</je:Button>
+}}}
+ In the code, Property Selector is set to div, but is not considered to be a jQuery selector, because the javascript variable named div is declared, the value of variable div will be the selector, and the span element whose id attribute is button3 will be the container for the button.
+
+ So, how do you resolve this conflict? You can use single quotation marks:
+{{{
+<script type="text/javascript">
+	var button = "#button4";
+</script>
+
+Button 4: <button>button button</button> <span id="button4">button 4</span>
+
+<je:Button ID="cmd4" runat="server" Selector="'button'">
+</je:Button>
+}}}
+ Use single quotes in Selector property, so it'll select button element as a container, rather than the span elements whose id is button4. 
+
+=== ElementType Property ===
+ You can set the tag name of JQueryElement control through the ElementType property:
+{{{
+<je:Button ID="buttonSpan" runat="server" Label="button span">
+</je:Button>
+
+<je:Button ID="buttonDiv" runat="server" ElementType="Div" Label="button div">
+</je:Button>
+}}}
+ By default Button control uses the span, in the example, we set ElementType of buttonDiv  to Div, so the container of buttonDiv will be div element. 
+
+=== Set Content ===
+ You can use Html, Text, ContentTemplate to set the contents of JQueryElement control: 
+{{{
+<je:Button ID="buttonText" runat="server" Text="button text">
+</je:Button>
+
+
+<je:Button ID="buttonHtml" runat="server" Html="<strong>button <font color='red'>html</font></strong>">
+</je:Button>
+
+
+<je:Button ID="buttonContentTemplate" runat="server">
+	<ContentTemplate>
+		button <strong>content</strong>
+	</ContentTemplate>
+</je:Button>
+}}}
+ Text property will set the text in the element.
+
+ Html property will set the html code in the element, if set, the Text property will have no effect.
+
+ ContentTemplate also set the element's html code, if set, the Html, Text properties will have no effect.
+
+=== IsVariable Property ===
+ IsVariable property controls whether generated a javascript variable whose name is same with the ClientID of JQueryElement controls:
+{{{
+<html>
+
+	<je:Button ID="buttonVariable1" runat="server" Text="button variable 1" IsVariable="true">
+	</je:Button>
+	<je:Button ID="buttonVariable2" runat="server" Text="button variable 2" IsVariable="true">
+	</je:Button>
+	<je:Button ID="buttonVariable3" runat="server" Text="button variable 3">
+	</je:Button>
+
+</html>
+
+<script type="text/javascript">
+	$(function () {
+		buttonVariable1.button('disable');
+		$('#buttonVariable3').button('disable');
+	});
+</script>
+
+<je:JQueryScript ID="jqueryScript" runat="server">
+	<ContentTemplate>
+		<script type="text/javascript">
+		$(function () {
+			eval('[%id:buttonVariable2%]').button('disable');
+		});
+		</script>
+	</ContentTemplate>
+</je:JQueryScript>
+}}}
+ By setting IsVariable to true, buttonVariable1 and buttonVariable2 respectively generate a javascript variable whose name is same with the ClientID, so you can access *button* through variable buttonVariable1.
+
+ buttonVariable3 does not generate a javascript variable, but it can still be accessed through ClientID and jQuery.
+
+ If ClientID is more complex, you can use inline syntax *`[%id:<Control ID>%]`* to obtain the ClientID, but it need to be written in the JQueryScript or property of JQueryElement controls.
+
+=== ScriptPackageID Property ===
+ ScriptPackageID property indicates the ScriptPackage that generated javascript, which corresponds to the script for JQueryElement control will be generated in the ScriptPackage control:
+{{{
+<je:Button ID="buttonPackage1" runat="server" Text="button package 1" ScriptPackageID="package">
+</je:Button>
+<je:Button ID="buttonPackage2" runat="server" Text="button package 2" ScriptPackageID="package">
+</je:Button>
+<je:ScriptPackage ID="package" runat="server" />
+}}}
+
+=== Related Content ===
+ [JEParameter Through Parameter Object Add Ajax Request Parameter]
+
+</font>

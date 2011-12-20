@@ -55,7 +55,7 @@
 Photo:&nbsp;<asp:FileUpload ID="file" runat="server" />
 </form>
 }}}
- You can also add a input element which the attribute type is file:
+ You can also add a input element whose type attribute is file:
 {{{
 <form id="formFileUpload" runat="server" enctype="multipart/form-data">
 Photo:&nbsp;<input type="file" id="file" runat="server" />
@@ -197,7 +197,7 @@ function(){
 }}}
 
  ==== <font color="green">Set Save Page</font> ====
- By the UploadUrl property of Uploader, you can choose the save page, in the example, we select FileUpload.aspx as save page, which will automatically generate an iframe element which the src attribute is FileUpload.aspx.
+ By the UploadUrl property of Uploader, you can choose the save page, in the example, we select FileUpload.aspx as save page, which will automatically generate an iframe element whose src attribute is FileUpload.aspx.
 
  You can also customize a iframe, and then select this iframe through the Upload property:
 {{{
