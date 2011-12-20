@@ -949,5 +949,7 @@ public static object Insert ( /* 参数 */ )
  2011-11-26: 修改关于引用 jQueryUI 的介绍.
 
  2011-12-5: 修改下载的链接, 增加 Repeater 多行操作介绍的链接.
+ 
+ 2011-12-20: 修改 Parameter 对象的介绍.
 
 </font>

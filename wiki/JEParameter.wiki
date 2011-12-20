@@ -130,4 +130,6 @@ function(value){
 
  2011-12-10: 增加 Async 属性参考.
 
+ 2011-12-20: 修改 Parameter 对象的介绍.
+
 </font>
