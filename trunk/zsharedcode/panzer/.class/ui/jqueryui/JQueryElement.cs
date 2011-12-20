@@ -29,6 +29,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 		where S : UISetting
 	{
 
+		#region " static "
 		protected static Literal renderTemplate ( WebControl control, ITemplate template )
 		{
 			Literal content = new Literal ( );
@@ -50,6 +51,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			return content;
 		}
+		#endregion
 
 		/// <summary>
 		/// 创建一个 jQuery UI 的基础服务器控件.
@@ -321,7 +323,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 			if ( this.DesignMode )
 				return;
 
-			JQueryUI jquery = new JQueryUI ( string.IsNullOrEmpty ( this.selector ) ? string.Format ( "'#{0}'", this.ClientID ) : this.selector, false );
+			JQueryUI jquery = new JQueryUI ( string.IsNullOrEmpty ( this.selector ) ? string.Format ( "'#{0}'", this.ClientID ) : string.Format ( "jQuery.panzer.createJQuery({0})", UISetting.CreateJQuerySelector ( this.selector ) ), false );
 
 			// Classes that inherit from JQueryElement can generate jQuery script into variable jquery
 			this.renderJQuery ( jquery );

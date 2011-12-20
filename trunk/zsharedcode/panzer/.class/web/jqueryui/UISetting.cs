@@ -14,6 +14,25 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	/// </summary>
 	public abstract class UISetting
 	{
+
+		/// <summary>
+		/// 从原有的选择器上创建新的选择器.
+		/// </summary>
+		/// <param name="selector">原有的选择器.</param>
+		/// <returns>新的选择器.</returns>
+		public static string CreateJQuerySelector ( string selector )
+		{
+
+			if ( string.IsNullOrEmpty ( selector ) )
+				return string.Empty;
+
+			if ( ( selector.StartsWith ( "'" ) && selector.EndsWith ( "'" ) ) || ( selector.StartsWith ( "\"" ) && selector.EndsWith ( "\"" ) ) )
+				return selector;
+			else
+				return "{expression: '" + selector + "', analyze: true}";
+
+		}
+
 		protected readonly SettingHelper settingHelper = new SettingHelper ( );
 
 		#region " property "

@@ -364,9 +364,11 @@ namespace zoyobar.shared.panzer.ui.jqueryui.plusin
 			//!+ We do not reset these properties in the UploaderSetting.Recombine, because we use the ClientID
 
 			if ( string.IsNullOrEmpty ( this.Upload ) )
-				this.Upload = string.Format ( "#{0} iframe", this.ClientID );
+				this.Upload = string.Format ( "'#{0} iframe'", this.ClientID );
+			else
+				this.Upload = UISetting.CreateJQuerySelector ( this.Upload );
 
-			this.uiSetting.Timer = string.Format ( "#{0}", this.timer.ClientID );
+			this.uiSetting.Timer = string.Format ( "'#{0}'", this.timer.ClientID );
 
 			if ( !string.IsNullOrEmpty ( this.uploadKey ) )
 				WidgetSetting.AppendParameter ( this.timer.TickAsync,
