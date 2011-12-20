@@ -36,8 +36,8 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 		/// </summary>
 		public string Equal
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.equal, string.Empty ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.equal, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue ( OptionType.equal, string.Empty ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.equal, value, string.Empty ); }
 		}
 
 		/// <summary>
@@ -171,8 +171,8 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 		/// </summary>
 		public string Target
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.target, string.Empty ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.target, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue ( OptionType.target, string.Empty ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.target, value, string.Empty ); }
 		}
 
 		/// <summary>
@@ -256,6 +256,9 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 		/// </summary>
 		public override void Recombine ( )
 		{
+			this.Target = CreateJQuerySelector ( this.Target );
+			this.Equal = CreateJQuerySelector ( this.Equal );
+
 			this.CheckAsync.EventType = EventType.check;
 			this.CheckAsync.Success = "function(data){e.callback.call(pe.jquery, pe, (null == -:data.value ? e.value : -:data.value), -:data.tip, -:data.valid, -:data.custom);}";
 			this.CheckAsync.Error = "function(){e.callback.call(pe.jquery, pe, {}, false, null);}";

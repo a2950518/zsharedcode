@@ -27,8 +27,8 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 		/// </summary>
 		public string Timer
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.timer, string.Empty ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.timer, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue ( OptionType.timer, string.Empty ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.timer, value, string.Empty ); }
 		}
 
 		/// <summary>
@@ -36,8 +36,8 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 		/// </summary>
 		public string Upload
 		{
-			get { return this.settingHelper.GetOptionValueToString ( OptionType.upload, string.Empty ); }
-			set { this.settingHelper.SetOptionValueToString ( OptionType.upload, value, string.Empty ); }
+			get { return this.settingHelper.GetOptionValue ( OptionType.upload, string.Empty ); }
+			set { this.settingHelper.SetOptionValue ( OptionType.upload, value, string.Empty ); }
 		}
 
 		/// <summary>

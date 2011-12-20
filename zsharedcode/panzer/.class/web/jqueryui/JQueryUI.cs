@@ -62,10 +62,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 								if ( parameterExpression != string.Empty )
 									parameterExpression += string.Format ( " + {0} ,{0}", quote );
 
-								parameterExpression += string.Format ( " + {0}{1}: {0} + jQuery.panzer.encodeValue({2}, {3}, {0}{4}{0}, {5})", quote, parameter.Name, JQuery.Create ( parameter.Value ).Val ( ).Code, parameter.Default, parameter.DataType.ToString ( ).ToLower ( ), parameter.Provider );
+								parameterExpression += string.Format ( " + {0}{1}: {0} + jQuery.panzer.encodeValue({2}, {3}, {0}{4}{0}, {5})", quote, parameter.Name, JQuery.Create ( string.Format ( "jQuery.panzer.createJQuery({0})", UISetting.CreateJQuerySelector ( parameter.Value ) ) ).Val ( ).Code, parameter.Default, parameter.DataType.ToString ( ).ToLower ( ), parameter.Provider );
 							}
 							else
-								parameterExpression += string.Format ( " {1}: jQuery.panzer.convert({2}, {3}, {0}{4}{0}, {5}),", quote, parameter.Name, JQuery.Create ( parameter.Value ).Val ( ).Code, parameter.Default, parameter.DataType.ToString ( ).ToLower ( ), parameter.Provider );
+								parameterExpression += string.Format ( " {1}: jQuery.panzer.convert({2}, {3}, {0}{4}{0}, {5}),", quote, parameter.Name, JQuery.Create ( string.Format ( "jQuery.panzer.createJQuery({0})", UISetting.CreateJQuerySelector ( parameter.Value ) ) ).Val ( ).Code, parameter.Default, parameter.DataType.ToString ( ).ToLower ( ), parameter.Provider );
 
 							break;
 
