@@ -48,6 +48,9 @@
  Twitter: [http://twitter.com/zoyobar @zoyobar]
  
 === JQueryElement Update History ===
+3.8.1 Changes:
+ a. Selector can be used without single quotation marks.
+
 3.8 Changes:
  a. Add the Uploader control.
 
