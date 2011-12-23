@@ -31,7 +31,7 @@
 <img src="http://zsharedcode.googlecode.com/files/style_50.jpg" />
 </a>
  
- <font color="#006600">149829251</font>, JQueryElement 编程 I 群(90+/100), <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/149829251" target="_blank"><img src="http://zsharedcode.googlecode.com/files/gp.png" /></a>
+ <font color="#006600">149829251</font>, JQueryElement 编程 I 群(100?/100), <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/149829251" target="_blank"><img src="http://zsharedcode.googlecode.com/files/gp.png" /></a>
  
  <font color="#006600">25183275</font>, JQueryElement 编程 II 群(10+/500), <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/25183275" target="_blank"><img src="http://zsharedcode.googlecode.com/files/gp.png" /></a>
 
