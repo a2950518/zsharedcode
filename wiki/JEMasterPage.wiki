@@ -93,7 +93,8 @@ public class master_webservice : System.Web.Services.WebService
 		this.Context.Response.Cache.SetNoStore ( );
 
 		string html = string.Format (
-			"通过服务器端获取页面内容, <span style='font-size: larger'><strong>isLogin<strong> = {0}, <strong>userName<strong> = {1}</span>",
+			"通过服务器端获取页面内容, " +
+			"<span style='font-size: larger'><strong>isLogin<strong> = {0}, <strong>userName<strong> = {1}</span>",
 			null != this.Session["master_un"] &&
 			this.Session["master_un"].ToString ( ) != string.Empty,
 			this.Session["master_un"] );
