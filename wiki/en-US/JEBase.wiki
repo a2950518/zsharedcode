@@ -49,7 +49,7 @@ Button 4: <button>button button</button> <span id="button4">button 4</span>
 <je:Button ID="cmd4" runat="server" Selector="'button'">
 </je:Button>
 }}}
- Use single quotes in Selector property, so it'll select button element as a container, rather than the span elements whose id is button4. 
+ Use single quotes in Selector property, so it'll select button element as a container, rather than the span elements whose id is button4.
 
 === ElementType Property ===
  You can set the tag name of JQueryElement control through the ElementType property:
@@ -60,10 +60,10 @@ Button 4: <button>button button</button> <span id="button4">button 4</span>
 <je:Button ID="buttonDiv" runat="server" ElementType="Div" Label="button div">
 </je:Button>
 }}}
- By default Button control uses the span, in the example, we set ElementType of buttonDiv  to Div, so the container of buttonDiv will be div element. 
+ By default Button control uses the span, in the example, we set ElementType of buttonDiv  to Div, so the container of buttonDiv will be div element.
 
 === Set Content ===
- You can use Html, Text, ContentTemplate to set the contents of JQueryElement control: 
+ You can use Html, Text, ContentTemplate to set the contents of JQueryElement control:
 {{{
 <je:Button ID="buttonText" runat="server" Text="button text">
 </je:Button>
