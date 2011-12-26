@@ -1,0 +1,212 @@
+﻿#summary 在母版页中使用 JQueryElement
+<font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JEMasterPage Translate this page]</font>
+
+=== 简介/目录 ===
+ 请到 [Download 下载资源] 的 JQueryElement 示例下载一节*下载示例代码*, 目录 /master/Welcome.aspx.
+
+ 本文将说明如何在母版页中使用 JQueryElement 控件:
+
+  * 母版页
+  * 内容页
+  * 附录: 公共登录框
+
+===母版页===
+ 在母版页中使用 JQueryElement 控件和普通页面是相同的, 只需要引用必需的命名空间和 jQueryUI 的脚本和样式即可:
+{{{
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement" Namespace="zoyobar.shared.panzer.ui.jqueryui"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement" Namespace="zoyobar.shared.panzer.ui.jqueryui.plusin"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement" Namespace="zoyobar.shared.panzer.web.jqueryui"
+	TagPrefix="je" %>
+
+<link type="text/css" rel="stylesheet" href="[样式路径]/jquery-ui-<version>.custom.css" />
+<script type="text/javascript" src="[脚本路径]/jquery-<version>.min.js"></script>
+<script type="text/javascript" src="[脚本路径]/jquery-ui-<version>.custom.min.js"></script>
+}}}
+
+=== 内容页 ===
+ 而在内容页中只需要引用命名空间即可, 因为脚本已经由母版页引用.
+
+=== 附录: 公共登录框 ===
+ 在这一节中, 将介绍如何使用母版页来制作一个公共登录框, 首先来看下 WebService:
+{{{
+[WebService ( Namespace = "http://tempuri.org/" )]
+[WebServiceBinding ( ConformsTo = WsiProfiles.BasicProfile1_1 )]
+[ScriptService]
+public class master_webservice : System.Web.Services.WebService
+{
+
+	[WebMethod ( true )]
+	[ScriptMethod]
+	public SortedDictionary<string, object> Check ( )
+	{
+		this.Context.Response.Cache.SetNoStore ( );
+
+		return SampleHelper.CreateJSONObject ( new KeyValuePair<string, object>[]
+			{
+			new KeyValuePair<string, object> ( "ok", null != this.Session["master_un"] && this.Session["master_un"].ToString() != string.Empty ),
+			new KeyValuePair<string, object> ( "un", this.Session["master_un"] ),
+			}
+			);
+
+	}
+
+	[WebMethod ( true )]
+	[ScriptMethod]
+	public SortedDictionary<string, object> Login ( string username, string password )
+	{
+		this.Context.Response.Cache.SetNoStore ( );
+
+		this.Session["master_un"] = username;
+
+		return SampleHelper.CreateJSONObject ( new KeyValuePair<string, object>[]
+			{
+			new KeyValuePair<string, object> ( "ok", null != this.Session["master_un"] && this.Session["master_un"].ToString() != string.Empty ),
+			new KeyValuePair<string, object> ( "un", username ),
+			}
+			);
+
+	}
+
+	[WebMethod ( true )]
+	[ScriptMethod]
+	public void Logout ( )
+	{
+		this.Context.Response.Cache.SetNoStore ( );
+
+		this.Session["master_un"] = null;
+	}
+
+	[WebMethod ( true )]
+	[ScriptMethod]
+	public SortedDictionary<string, object> GetContent ()
+	{
+		this.Context.Response.Cache.SetNoStore ( );
+
+		string html = string.Format ( "通过服务器端获取页面内容, <span style='font-size: larger'><strong>isLogin<strong> = {0}, <strong>userName<strong> = {1}</span>", null != this.Session["master_un"] && this.Session["master_un"].ToString ( ) != string.Empty, this.Session["master_un"] );
+
+		return SampleHelper.CreateJSONObject ( new KeyValuePair<string, object>[]
+			{
+			new KeyValuePair<string, object> ( "html", html)
+			}
+			);
+
+	}
+
+}
+}}}
+ 在 WebService 中, 定义了 4 个方法, Check 方法用于返回当前的用户状态, Login 和 Logout 方法用于登录和注销, GetContent 方法用于内容页获取页面内容. 对于如何返回 JSON, 请参考 [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON].
+
+ 然后, 在母版页中通过 AjaxManager 来调用这些方法:
+{{{
+<je:AjaxManager ID="ajax" runat="server">
+	<je:AjaxSetting ClientFunction="check" Url="webservice.asmx" MethodName="Check" Success="
+	function(data){
+		refreshUI(-:data.ok, -:data.un);
+	}
+	">
+	</je:AjaxSetting>
+	<je:AjaxSetting ClientFunction="login" Url="webservice.asmx" MethodName="Login" Success="
+	function(data){
+		refreshUI(-:data.ok, -:data.un);
+	}
+	">
+		<je:Parameter Name="username" Type="Selector" Value="#un" />
+		<je:Parameter Name="password" Type="Selector" Value="#pw" />
+	</je:AjaxSetting>
+	<je:AjaxSetting ClientFunction="logout" Url="webservice.asmx" MethodName="Logout"
+		Success="
+	function(data){
+		refreshUI(false, null);
+	}
+	">
+	</je:AjaxSetting>
+</je:AjaxManager>
+}}}
+ 上面的 AjaxSetting 使母版页中可以通过 check, login, logout 3 个 javascript 函数来调用服务器端的 Check, Login, Logout 方法. 其中为 Login 方法传递用户输入的用户名和密码, 在每一个方法调用成功后执行 refreshUI 函数. 更多 AjaxManager 的内容, 可以参考 [AjaxManager 生成调用服务器端方法的 javascript 函数].
+
+ 在页面载入时调用 check 函数获取用户登录信息, 在点击登录按钮和注销链接时, 分别调用 login 和 logout 函数:
+{{{
+<script type="text/javascript">
+	$(function () {
+		check();
+	});
+</script>
+
+...
+
+(任意输入一个用户名即可) 用户名:
+<input type="text" id="un" size="10" />
+密码:
+<input type="password" id="pw" size="10" />
+<je:Button ID="cmdLogin" runat="server" Label="登录"
+	ClickAsync-AjaxManagerID="ajax"
+	ClickAsync-ClientFunction="login">
+</je:Button>
+
+...
+
+欢迎, <span class="user-name"></span>, <a href="#" onclick="logout()">退出</a>!
+}}}
+ 再来看下母版页的 refreshUI 函数:
+{{{
+<script type="text/javascript">
+	function refreshUI(isLogin, userName) {
+
+		if (isLogin) {
+			$('.login-panel').hide();
+			$('.user-name').text(userName);
+			$('.user-panel').show();
+		}
+		else {
+			$('.login-panel').show();
+			$('.user-panel').hide();
+		}
+
+		if (typeof (refreshSubUI) != 'undefined')
+			refreshSubUI(isLogin, userName);
+
+	}
+</script>
+}}}
+ 在 refreshUI 中, 根据用户是否登录, 来显示或者隐藏登录框. 并且, 如果内容页定义了 refreshSubUI 函数, 还将调用 refreshSubUI.
+
+ 在内容页中, 可以定义 refreshSubUI 函数, 来设置页面的内容:
+{{{
+<script type="text/javascript">
+	function refreshSubUI(isLogin, userName) {
+		$('#sub').html('通过 javascript 修改页面内容, <span style="font-size: larger"><strong>isLogin<strong> = ' + isLogin.toString() + ', <strong>userName<strong> = ' + userName + '</span>');
+	}
+</script>
+}}}
+ 代码中, refreshSubUI 函数显示了参数 isLogin 和 userName 的值.
+
+ 也可以在内容页中调用服务器端的 GetContent 方法:
+{{{
+<script type="text/javascript">
+	function refreshSubUI(isLogin, userName) {
+		getContentFromServer();
+	}
+</script>
+
+<je:AjaxManager ID="ajax" runat="server">
+	<je:AjaxSetting ClientFunction="getContentFromServer" Url="webservice.asmx" MethodName="GetContent"
+		Success="
+	function(data){
+		$('#sub').html(-:data.html);
+	}
+	">
+	</je:AjaxSetting>
+</je:AjaxManager>
+}}}
+ 这里同样是使用了 AjaxManager, 页面的内容来自于服务器返回的 html 代码.
+
+=== 相关内容 ===
+ [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
+
+ [JEBase JQueryElement 基本属性参考]
+
+ [AjaxManager 生成调用服务器端方法的 javascript 函数]
+</font>
