@@ -69,6 +69,7 @@
       * [JEBase JQueryElement 基本属性参考]
       * [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数]
       * [AjaxManager 生成调用服务器端方法的 javascript 函数]
+      * [JEMasterPage 在母版页中使用 JQueryElement]
       * [JEIntelliSense 配置 Visual Studio 的 JQueryElement 智能提示]
   * [Member 项目成员]
   * [SideBar wiki 地图]
