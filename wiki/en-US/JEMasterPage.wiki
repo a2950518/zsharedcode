@@ -1,0 +1,228 @@
+﻿#summary 在母版页中使用 JQueryElement
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
+=== Introduction/Catalog ===
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /master/Welcome.aspx.
+
+ This article describes how to use JQueryElement control in a master page:
+
+  * Master Page
+  * Content Page
+  * Appendix: Common Login Box
+
+=== Master Page ===
+ Using the JQueryElement control in the master page is same with the general page, only need to reference the namespaces, jQueryUI scripts and styles:
+{{{
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui.plusin"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.web.jqueryui"
+	TagPrefix="je" %>
+
+<link type="text/css" rel="stylesheet" href="[style path]/jquery-ui-<version>.custom.css" />
+<script type="text/javascript" src="[script path]/jquery-<version>.min.js"></script>
+<script type="text/javascript" src="[script path]/jquery-ui-<version>.custom.min.js"></script>
+}}}
+
+=== Content Page ===
+ You only need to reference the namespaces in the content page, because the script has been referenced by the master page.
+
+=== Appendix: Common Login Box ===
+ In this section, will show you how to use master pages to create a common login box, first look at the WebService:
+{{{
+[WebService ( Namespace = "http://tempuri.org/" )]
+[WebServiceBinding ( ConformsTo = WsiProfiles.BasicProfile1_1 )]
+[ScriptService]
+public class master_webservice : System.Web.Services.WebService
+{
+
+	[WebMethod ( true )]
+	[ScriptMethod]
+	public SortedDictionary<string, object> Check ( )
+	{
+		this.Context.Response.Cache.SetNoStore ( );
+
+		return SampleHelper.CreateJSONObject ( new KeyValuePair<string, object>[]
+			{
+			new KeyValuePair<string, object> ( "ok",
+				null != this.Session["master_un"] &&
+				this.Session["master_un"].ToString() != string.Empty ),
+			new KeyValuePair<string, object> ( "un", this.Session["master_un"] ),
+			}
+			);
+
+	}
+
+	[WebMethod ( true )]
+	[ScriptMethod]
+	public SortedDictionary<string, object> Login ( string username, string password )
+	{
+		this.Context.Response.Cache.SetNoStore ( );
+
+		this.Session["master_un"] = username;
+
+		return SampleHelper.CreateJSONObject ( new KeyValuePair<string, object>[]
+			{
+			new KeyValuePair<string, object> ( "ok",
+				null != this.Session["master_un"] &&
+				this.Session["master_un"].ToString() != string.Empty ),
+			new KeyValuePair<string, object> ( "un", username ),
+			}
+			);
+
+	}
+
+	[WebMethod ( true )]
+	[ScriptMethod]
+	public void Logout ( )
+	{
+		this.Context.Response.Cache.SetNoStore ( );
+
+		this.Session["master_un"] = null;
+	}
+
+	[WebMethod ( true )]
+	[ScriptMethod]
+	public SortedDictionary<string, object> GetContent ()
+	{
+		this.Context.Response.Cache.SetNoStore ( );
+
+		string html = string.Format (
+			"Get content from server-side, " +
+			"<span style='font-size: larger'><strong>isLogin<strong> = {0}, " +
+			"<strong>userName<strong> = {1}</span>",
+			null != this.Session["master_un"] &&
+			this.Session["master_un"].ToString ( ) != string.Empty,
+			this.Session["master_un"] );
+
+		return SampleHelper.CreateJSONObject ( new KeyValuePair<string, object>[]
+			{
+			new KeyValuePair<string, object> ( "html", html )
+			}
+			);
+
+	}
+
+}
+}}}
+ WebService defines 4 methods, method Check return the current user status, Login and Logout are used to login and logout, GetContent is used to get content for the content pages. How to return JSON, please refer to [AjaxReturnJSON Return JSON In Different .NET Version].
+
+ Then, through AjaxManager to invoke these methods in the master page:
+{{{
+<je:AjaxManager ID="ajax" runat="server">
+	<je:AjaxSetting ClientFunction="check" Url="webservice.asmx" MethodName="Check" Success="
+	function(data){
+		refreshUI(-:data.ok, -:data.un);
+	}
+	">
+	</je:AjaxSetting>
+	<je:AjaxSetting ClientFunction="login" Url="webservice.asmx" MethodName="Login" Success="
+	function(data){
+		refreshUI(-:data.ok, -:data.un);
+	}
+	">
+		<je:Parameter Name="username" Type="Selector" Value="#un" />
+		<je:Parameter Name="password" Type="Selector" Value="#pw" />
+	</je:AjaxSetting>
+	<je:AjaxSetting ClientFunction="logout" Url="webservice.asmx" MethodName="Logout"
+		Success="
+	function(data){
+		refreshUI(false, null);
+	}
+	">
+	</je:AjaxSetting>
+</je:AjaxManager>
+}}}
+ You can use the javascript methods check, login, logout to invoke the server-side methods Check, Login, Logout. We pass the name and password that the user entered to Login method, refreshUI method is executed after these methods are invoked. For more information about the AjaxManager, you can refer to [AjaxManager Generate javascript That Calls The Server-Side Method].
+
+ We call the method check to obtain the user's logon information when the page load is complete, login and logout method is called when you click on the login button or logout link:
+{{{
+<script type="text/javascript">
+	$(function () {
+		check();
+	});
+</script>
+
+...
+
+(Just enter a username) User Name:
+<input type="text" id="un" size="10" />
+Password:
+<input type="password" id="pw" size="10" />
+<je:Button ID="cmdLogin" runat="server" Label="Login"
+	ClickAsync-AjaxManagerID="ajax"
+	ClickAsync-ClientFunction="login">
+</je:Button>
+
+...
+
+Welcome, <span class="user-name"></span>, <a href="#" onclick="logout()">Logout</a>!
+}}}
+ Then look at the refreshUI method of the master page:
+{{{
+<script type="text/javascript">
+	function refreshUI(isLogin, userName) {
+
+		if (isLogin) {
+			$('.login-panel').hide();
+			$('.user-name').text(userName);
+			$('.user-panel').show();
+		}
+		else {
+			$('.login-panel').show();
+			$('.user-panel').hide();
+		}
+
+		if (typeof (refreshSubUI) != 'undefined')
+			refreshSubUI(isLogin, userName);
+
+	}
+</script>
+}}}
+ Method refreshUI will display or hide the login box, depending on whether the user has logged in. And, if you define a javascript method named refreshSubUI in the content page, it will also invoke refreshSubUI.
+
+ In the content page, you can define a javascript method named refreshSubUI which will set the conents of the page:
+{{{
+<script type="text/javascript">
+	function refreshSubUI(isLogin, userName) {
+		$('#sub').html(
+			'Get content by javascript, ' +
+			'<span style="font-size: larger"><strong>isLogin<strong> = ' +
+			isLogin.toString() +
+			', <strong>userName<strong> = ' + userName + '</span>'
+			);
+	}
+</script>
+}}}
+ In the code, method refreshSubUI will display the value of the parameters isLogin and userName.
+
+ You can also call the server-side method GetContent in the content page:
+{{{
+<script type="text/javascript">
+	function refreshSubUI(isLogin, userName) {
+		getContentFromServer();
+	}
+</script>
+
+<je:AjaxManager ID="ajax" runat="server">
+	<je:AjaxSetting ClientFunction="getContentFromServer"
+		Url="webservice.asmx" MethodName="GetContent"
+		Success="
+	function(data){
+		$('#sub').html(-:data.html);
+	}
+	">
+	</je:AjaxSetting>
+</je:AjaxManager>
+}}}
+
+=== Related Content ===
+ [AjaxReturnJSON Return JSON In Different .NET Version]
+
+ [JEBase JQueryElement Basic Property Reference]
+
+ [AjaxManager Generate javascript That Calls The Server-Side Method]
+</font>
