@@ -110,6 +110,7 @@
     <Compile Include=".class\web\jqueryui\DialogSetting.cs" />
     <Compile Include=".class\web\jqueryui\InteractionSetting.cs" />
     <Compile Include=".class\web\jqueryui\ValidatorSetting.cs" />
+    <Compile Include=".class\web\ResponseProgress.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
