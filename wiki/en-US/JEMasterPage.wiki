@@ -9,9 +9,9 @@
   * Content Page
   * Appendix: Common Login Box
 
-<img src="http://zsharedcode.googlecode.com/files/master%201.jpg" />
+<img src="http://zsharedcode.googlecode.com/files/Master 1.jpg" />
 
-<img src="http://zsharedcode.googlecode.com/files/master%202.jpg" />
+<img src="http://zsharedcode.googlecode.com/files/Master 2.jpg" />
 
 === Master Page ===
  Using the JQueryElement control in the master page is same with the general page, only need to reference the namespaces, jQueryUI scripts and styles:
