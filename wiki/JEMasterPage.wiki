@@ -94,7 +94,8 @@ public class master_webservice : System.Web.Services.WebService
 
 		string html = string.Format (
 			"通过服务器端获取页面内容, " +
-			"<span style='font-size: larger'><strong>isLogin<strong> = {0}, <strong>userName<strong> = {1}</span>",
+			"<span style='font-size: larger'><strong>isLogin<strong> = {0}, " +
+			"<strong>userName<strong> = {1}</span>",
 			null != this.Session["master_un"] &&
 			this.Session["master_un"].ToString ( ) != string.Empty,
 			this.Session["master_un"] );
@@ -190,8 +191,9 @@ public class master_webservice : System.Web.Services.WebService
 <script type="text/javascript">
 	function refreshSubUI(isLogin, userName) {
 		$('#sub').html(
-			'通过 javascript 修改页面内容, <span style="font-size: larger"><strong>isLogin<strong> = ' + isLogin.toString() + ',
-			<strong>userName<strong> = ' + userName + '</span>'
+			'通过 javascript 修改页面内容, ' +
+			'<span style="font-size: larger"><strong>isLogin<strong> = ' + isLogin.toString() +
+			', <strong>userName<strong> = ' + userName + '</span>'
 			);
 	}
 </script>
