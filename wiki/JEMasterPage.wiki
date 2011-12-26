@@ -5,6 +5,8 @@
 === 简介/目录 ===
  请到 [Download 下载资源] 的 JQueryElement 示例下载一节*下载示例代码*, 目录 /master/Welcome.aspx.
 
+ 视频演示: [http://www.tudou.com/programs/view/1xYM_Xnk6Ok/ www.tudou.com/programs/view/1xYM_Xnk6Ok/]
+
  本文将说明如何在母版页中使用 JQueryElement 控件:
 
   * 母版页
