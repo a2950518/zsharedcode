@@ -192,7 +192,8 @@ public class master_webservice : System.Web.Services.WebService
 	function refreshSubUI(isLogin, userName) {
 		$('#sub').html(
 			'通过 javascript 修改页面内容, ' +
-			'<span style="font-size: larger"><strong>isLogin<strong> = ' + isLogin.toString() +
+			'<span style="font-size: larger"><strong>isLogin<strong> = ' +
+			isLogin.toString() +
 			', <strong>userName<strong> = ' + userName + '</span>'
 			);
 	}
