@@ -201,6 +201,9 @@
     <Compile Include="..\..\.class\web\jqueryui\WidgetSetting.cs">
       <Link>.class\WidgetSetting.cs</Link>
     </Compile>
+    <Compile Include="..\..\.class\web\ResponseProgress.cs">
+      <Link>.class\ResponseProgress.cs</Link>
+    </Compile>
     <Compile Include="..\..\.class\web\ScriptHelper.cs">
       <Link>.class\ScriptHelper.cs</Link>
     </Compile>

@@ -76,7 +76,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 					case "param":
 
 						try
-						{ result = HttpContext.Current.Request[commandParameter]; }
+						{ result = control.Page.Request[commandParameter]; }
 						catch { }
 
 						break;
