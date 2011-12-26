@@ -11,6 +11,10 @@
   * 内容页
   * 附录: 公共登录框
 
+<img src="http://zsharedcode.googlecode.com/files/master1.jpg" />
+
+<img src="http://zsharedcode.googlecode.com/files/master2.jpg" />
+
 === 母版页 ===
  在母版页中使用 JQueryElement 控件和普通页面是相同的, 只需要引用必需的命名空间和 jQueryUI 的脚本和样式即可:
 {{{
