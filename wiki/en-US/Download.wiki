@@ -1,7 +1,7 @@
 ﻿#summary Download
 #labels Featured,Phase-Deploy
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
-<font color="#006600" size="3">Donate:</font> Thank you for your donation, which is support on the project *panzer*, paypal donation url (*m.s.cxc@qq.com*), <a href="https://www.paypal.com/us/cgi-bin/webscr&business=m.s.cxc@qq.com&cmd=_donations" target="_blank"><img src="http://zsharedcode.googlecode.com/files/x-click-but04.gif" /></a>
+<font color="#006600" size="3">Donate:</font> Thank you for your donation, which is support on the project *panzer*, paypal donation url (*m.s.cxc@qq.com*), <a href="https://www.paypal.com/us/cgi-bin/webscr&business=m.s.cxc@qq.com&cmd=_donations" target="_blank"><img src="http://zsharedcode.googlecode.com/files/paypal.jpeg" /></a>
 
 === Note ===
  English comments not yet fully translated, please understand.
@@ -48,6 +48,9 @@
  Twitter: [http://twitter.com/zoyobar @zoyobar]
  
 === JQueryElement Update History ===
+3.8.2 Changes:
+ a. Add the ResponseProgress class.
+
 3.8.1 Changes:
  a. Selector can be used without single quotation marks.
 
