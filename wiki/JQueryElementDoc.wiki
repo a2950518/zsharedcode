@@ -45,6 +45,7 @@
  * [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数]
  * [AjaxManager 生成调用服务器端方法的 javascript 函数]
  * [JEMasterPage 在母版页中使用 JQueryElement]
+ * [ResponseProgress 显示页面加载进度]
  * [JEIntelliSense 配置 Visual Studio 的 JQueryElement 智能提示]
 
 === 相关内容 ===

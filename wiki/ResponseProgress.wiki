@@ -1,0 +1,115 @@
+﻿#summary 显示页面加载进度
+<font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/ResponseProgress Translate this page]</font>
+
+=== 简介/目录 ===
+ 请到 [Download 下载资源] 的 JQueryElement 示例下载一节*下载示例代码*, 目录 /responseprogress/Default.aspx.
+
+ 视频演示: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+ 
+ 本文将说明如何使用 ResponseProgress 类来显示页面的加载进度:
+
+  * 准备
+  * 一个简单的例子
+  * 自定义模板
+  * 自定义函数
+
+<img src="http://zsharedcode.googlecode.com/files/" />
+
+=== 准备 ===
+ 请确保已经在 [Download 下载资源] 中的 JQueryElement.dll 下载一节下载 JQueryElement 最新的版本.
+
+ 请在代码中引用如下的命名空间:
+{{{
+using zoyobar.shared.panzer.web;
+}}}
+
+=== 一个简单的例子 ===
+ 在页面的 Page_Load 方法中, 可以创建 ResponseProgress 类并调用 Register, Set, Hide 方法来显示页面载入进度:
+{{{
+using System.Threading;
+using zoyobar.shared.panzer.web;
+
+public partial class ResponseProgress_DefaultTemplate : System.Web.UI.Page
+{
+
+	protected void Page_Load(object sender, EventArgs e)
+	{
+		ResponseProgress progress = new ResponseProgress ( this.Response );
+
+		progress.Register ( );
+
+		progress.Set ( 1, "欢迎来到这里" );
+		Thread.Sleep ( 2000 );
+
+		progress.Set ( 100, "页面载入完成" );
+		Thread.Sleep ( 2000 );
+		progress.Hide ( );
+	}
+
+}
+}}}
+ 在上面的示例中, 为 ResponseProgress 传递了一个 HttpResponse 对象作为参数.
+
+ 在 ResponseProgress 对象创建之后, 需要首先调用 Register 方法来将一些 html 和 javascript 函数注册到当前页面中. Register 方法会设置 HttpResponse 对象的 BufferOutput 属性为 false.
+
+ 调用 ResponseProgress 的 Set 方法来设置需要显示给用户的内容, 参数 percent 表示载入的进度, 如果小于 0 则不显示进度, 参数 message 表示提示消息, 如果为 null 则不显示.
+
+ 最后, 可以通过 Hide 方法来隐藏已经显示的内容. 代码中, 还调用了 Thread 的 Sleep 方法, 这可以确保在测试时看到进度消息.
+
+ 以上提到的 3 个方法, 都会在结束时调用 HttpResponse 对象的 Flush 和 ClearContent 方法.
+
+=== 自定义模板 ===
+ 可以定义自己的模板, 请看下面的 CustomTemplate.htm 文件:
+{{{
+<body>
+	<center>
+		<div id="__progress" style="border: 1px solid #eeeeee; font-family: microsoft yahei; width: 400px; padding: 10px">
+			<div id="__message" style="font-size: x-large; color: Green; text-align: left">
+				...
+			</div>
+			<div style="font-size: xx-small; color: Blue; text-align: right;">
+				<span id="__percent"></span>
+			</div>
+		</div>
+	</center>
+</body>
+}}}
+ 如果没有自定义函数, 那么需要在模板中包含 id 为 __progress, __message 和 __percent 的 3 个元素, 其中 id 为 __message 的元素用于显示消息, id 为 __percent 的元素用于显示百分比. 而整个的模板需要一个 body 元素.
+
+ 在创建 ResponseProgress 类时, 需要传递自定义模板的路径:
+{{{
+ResponseProgress progress = new ResponseProgress ( this.Response, @"~/responseprogress/CustomTemplate.htm" );
+}}}
+
+=== 自定义函数 ===
+ 除了自定义模板, 也可以自定义函数:
+{{{
+<body>
+	<center>
+		<div id="bar" style="border: 1px solid #eeeeee; font-family: microsoft yahei; width: 500px;
+			padding: 10px">
+			<div id="msg" style="font-size: x-large; color: Red; text-align: left">
+				...
+			</div>
+			<div style="font-size: xx-small; color: Gray; text-align: right;">
+				<span id="per"></span>
+			</div>
+		</div>
+	</center>
+</body>
+<script type="text/javascript">
+	function showBar(data) {
+		document.getElementById('msg').innerText = (null == data.message ? '没有消息' : (data.message + ' ' + data.message.length.toString() + ' 个字符'));
+		document.getElementById('per').innerText = (null == data.percent ? '没有百分比' : data.percent.toString() + ' per');
+	}
+	function hideBar() {
+		document.getElementById('bar').style.display = 'none';
+	}
+</script>
+}}}
+ 一旦定义了自己的函数, 那么不需要再定义 id 为 __progress, __message 和 __percent 的元素. 而函数名称也不是固定的, 上面的模板中, 函数 showBar 用来显示进度信息, 函数 hideBar 用来隐藏进度信息.
+
+ 函数 hideBar 比较简单, 隐藏了 id 为 bar 的 div 元素. 函数 showBar 的第一个参数 data 包含了进度信息, data 的 message 属性表示提示消息, percent 属性表示百分比.
+
+</font>
