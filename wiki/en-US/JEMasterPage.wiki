@@ -3,6 +3,8 @@
 === Introduction/Catalog ===
  Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /master/Welcome.aspx.
 
+ Video demo: [http://www.tudou.com/programs/view/1xYM_Xnk6Ok/ www.tudou.com/programs/view/1xYM_Xnk6Ok/]
+
  This article describes how to use JQueryElement control in a master page:
 
   * Master Page

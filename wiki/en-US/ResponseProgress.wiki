@@ -1,0 +1,127 @@
+﻿#summary Display Page Loading Progress
+<font face="microsoft yahei">
+=== Introduction/Catalog ===
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /responseprogress/Default.aspx.
+
+ Video demo: [http://www.tudou.com/programs/view/1xYM_Xnk6Ok/ www.tudou.com/programs/view/1xYM_Xnk6Ok/]
+ 
+ This article explains how to use ResponseProgress to display the loading progress of the page:
+
+  * Prepare 
+  * A Simple Example
+  * Custom Template
+  * Custom Method
+
+<img src="http://zsharedcode.googlecode.com/files/Response%20Progress1.jpg" />
+
+<img src="http://zsharedcode.googlecode.com/files/Response%20Progress2.jpg" />
+
+=== Prepare ===
+ Be sure that you have got the latest version of JQueryElement at the section JQueryElement.dll Download of [Download Downloads].
+
+ Please reference the following namespace in your code:
+{{{
+using zoyobar.shared.panzer.web;
+}}}
+
+=== A Simple Example ===
+ In the Page_Load method of the page, you can create a ResponseProgress and call the methods Register, Set, Hide to display the page loading progress:
+{{{
+using System.Threading;
+using zoyobar.shared.panzer.web;
+
+public partial class ResponseProgress_DefaultTemplate : System.Web.UI.Page
+{
+
+	protected void Page_Load(object sender, EventArgs e)
+	{
+		ResponseProgress progress = new ResponseProgress ( this.Response );
+
+		progress.Register ( );
+
+		progress.Set ( 1, "Welcome" );
+		Thread.Sleep ( 2000 );
+
+		progress.Set ( 100, "Completed" );
+		Thread.Sleep ( 2000 );
+		progress.Hide ( );
+	}
+
+}
+}}}
+ In the above example, we pass an HttpResponse object as a parameter to the ResponseProgress.
+
+ After ResponseProgress is created, you need to call the Register method to register some html and javascrip methods to the current page. Register method sets the BufferOutput property of HttpResponse to false.
+
+ Call the Set method of ResponseProgress to set what needs to be displayed to the user, parameter percent said the loading progress, if it is less than 0, it will not display loading progress, and parameter message represent the prompt message, if it is null, it will not display message.
+
+ Finally, you can call Hide method to hide the displayed content. In the code, Sleep method is called, this ensures that you can see the progress messages in test.
+
+ The 3 methods mentioned above, will invoke the Flush and ClearContent methods of HttpResponse.
+
+=== Custom Template ===
+ You can define your own templates, please see the following file CustomTemplate.htm:
+{{{
+<body>
+	<center>
+		<div id="__progress"
+			style="width: 400px; padding: 10px">
+			<div id="__message"
+				style="font-size: x-large; color: Green; text-align: left">
+				...
+			</div>
+			<div
+				style="font-size: xx-small; color: Blue; text-align: right;">
+				<span id="__percent"></span>
+			</div>
+		</div>
+	</center>
+</body>
+}}}
+ If no custom function, you will need to include the elements whose id are __progress, __message and __percent, the element whose id is __message is used to display a message, the element whose id is __percent is used to display the percentage. And you need a body element in the template.
+
+ You need to pass the path of the custom template to ResponseProgress:
+{{{
+ResponseProgress progress =
+	new ResponseProgress ( this.Response,
+	@"~/responseprogress/CustomTemplate.htm"
+	);
+}}}
+
+=== Custom Method ===
+ In addition to custom templates, you can define custom methods:
+{{{
+<body>
+	<center>
+		<div id="bar"
+			style="width: 500px; padding: 10px">
+			<div id="msg"
+				style="font-size: x-large; color: Red; text-align: left">
+				...
+			</div>
+			<div
+				style="font-size: xx-small; color: Gray; text-align: right;">
+				<span id="per"></span>
+			</div>
+		</div>
+	</center>
+</body>
+<script type="text/javascript">
+	function showBar(data) {
+		document.getElementById('msg').innerText =
+			(null == data.message ? 'no message' :
+				(data.message + ' ' + data.message.length.toString() + ' characters'));
+
+		document.getElementById('per').innerText =
+			(null == data.percent ? 'no percentage' : data.percent.toString() + ' per');
+	}
+	function hideBar() {
+		document.getElementById('bar').style.display = 'none';
+	}
+</script>
+}}}
+ Once you define your own methods, so you don't have to define the elements whose id are __progress, __message and __percent. The names of the custom methods are not fixed, in the template above, method showBar used to display the progress information, method hideBar used to hide the progress information.
+
+ Method hideBar is relatively simple, we hide the div element whose id is bar. The first parameter data of method showBar contains the progress information, the message property of data represents the prompt message, percent property represents the percentage.
+
+</font>
