@@ -3,7 +3,7 @@
 <font face="microsoft yahei">
 <font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/Download Translate this page]</font>
 
-<font color="#006600" size="3">捐赠:</font> 感谢您的捐赠, 这是对 *panzer* 项目的支持, paypal 捐赠地址 (*m.s.cxc@qq.com*), <a href="https://www.paypal.com/us/cgi-bin/webscr&business=m.s.cxc@qq.com&cmd=_donations" target="_blank"><img src="http://zsharedcode.googlecode.com/files/paypal.jpg" /></a>
+<font color="#006600" size="3">捐赠:</font> 感谢您的热心捐赠, 以维持我继续创造新的控件和类, paypal 捐赠地址 (*m.s.cxc@qq.com*), <a href="https://www.paypal.com/us/cgi-bin/webscr&business=m.s.cxc@qq.com&cmd=_donations" target="_blank"><img src="http://zsharedcode.googlecode.com/files/paypal.jpg" /></a>
 
 === 简介/目录 ===
  本页包含 *panzer* 项目所有产品的下载, 包括:
