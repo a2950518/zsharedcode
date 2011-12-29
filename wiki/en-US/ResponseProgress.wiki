@@ -7,7 +7,7 @@
  
  This article explains how to use ResponseProgress to display the loading progress of the page:
 
-  * Prepare 
+  * Prepare
   * A Simple Example
   * Custom Template
   * Custom Method

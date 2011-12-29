@@ -33,7 +33,7 @@
  
  <font color="#006600">149829251</font>, JQueryElement 编程 I 群(100?/100), <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/149829251"><img src="http://zsharedcode.googlecode.com/files/gp.png" /></a>
  
- <font color="#006600">204756502</font>, JQueryElement 2 群(1+/100), <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/204756502"><img src="http://zsharedcode.googlecode.com/files/gp.png" /></a>
+ <font color="#006600">204756502</font>, JQueryElement 2 群(10+/100), <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/204756502"><img src="http://zsharedcode.googlecode.com/files/gp.png" /></a>
 
  [http://zsharedcode.googlecode.com/files/JQueryElement.3.8.3.Debug.PARAM.zip JQueryElement 3.8.3 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(PARAM 仅支持在 Visual Studio 2010 中使用)</font>
 
