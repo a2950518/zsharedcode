@@ -111,7 +111,8 @@ ResponseProgress progress =
 <script type="text/javascript">
 	function showBar(data) {
 		document.getElementById('msg').innerText =
-			(null == data.message ? '没有消息' : (data.message + ' ' + data.message.length.toString() + ' 个字符'));
+			(null == data.message ? '没有消息' :
+				(data.message + ' ' + data.message.length.toString() + ' 个字符'));
 
 		document.getElementById('per').innerText =
 			(null == data.percent ? '没有百分比' : data.percent.toString() + ' per');
