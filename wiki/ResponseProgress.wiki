@@ -66,11 +66,14 @@ public partial class ResponseProgress_DefaultTemplate : System.Web.UI.Page
 {{{
 <body>
 	<center>
-		<div id="__progress" style="border: 1px solid #eeeeee; font-family: microsoft yahei; width: 400px; padding: 10px">
-			<div id="__message" style="font-size: x-large; color: Green; text-align: left">
+		<div id="__progress"
+			style="width: 400px; padding: 10px">
+			<div id="__message"
+				style="font-size: x-large; color: Green; text-align: left">
 				...
 			</div>
-			<div style="font-size: xx-small; color: Blue; text-align: right;">
+			<div
+				style="font-size: xx-small; color: Blue; text-align: right;">
 				<span id="__percent"></span>
 			</div>
 		</div>
@@ -81,7 +84,10 @@ public partial class ResponseProgress_DefaultTemplate : System.Web.UI.Page
 
  在创建 ResponseProgress 类时, 需要传递自定义模板的路径:
 {{{
-ResponseProgress progress = new ResponseProgress ( this.Response, @"~/responseprogress/CustomTemplate.htm" );
+ResponseProgress progress =
+	new ResponseProgress ( this.Response,
+	@"~/responseprogress/CustomTemplate.htm"
+	);
 }}}
 
 === 自定义函数 ===
@@ -89,12 +95,14 @@ ResponseProgress progress = new ResponseProgress ( this.Response, @"~/responsepr
 {{{
 <body>
 	<center>
-		<div id="bar" style="border: 1px solid #eeeeee; font-family: microsoft yahei; width: 500px;
-			padding: 10px">
-			<div id="msg" style="font-size: x-large; color: Red; text-align: left">
+		<div id="bar"
+			style="width: 500px; padding: 10px">
+			<div id="msg"
+				style="font-size: x-large; color: Red; text-align: left">
 				...
 			</div>
-			<div style="font-size: xx-small; color: Gray; text-align: right;">
+			<div
+				style="font-size: xx-small; color: Gray; text-align: right;">
 				<span id="per"></span>
 			</div>
 		</div>
@@ -102,8 +110,11 @@ ResponseProgress progress = new ResponseProgress ( this.Response, @"~/responsepr
 </body>
 <script type="text/javascript">
 	function showBar(data) {
-		document.getElementById('msg').innerText = (null == data.message ? '没有消息' : (data.message + ' ' + data.message.length.toString() + ' 个字符'));
-		document.getElementById('per').innerText = (null == data.percent ? '没有百分比' : data.percent.toString() + ' per');
+		document.getElementById('msg').innerText =
+			(null == data.message ? '没有消息' : (data.message + ' ' + data.message.length.toString() + ' 个字符'));
+
+		document.getElementById('per').innerText =
+			(null == data.percent ? '没有百分比' : data.percent.toString() + ' per');
 	}
 	function hideBar() {
 		document.getElementById('bar').style.display = 'none';
