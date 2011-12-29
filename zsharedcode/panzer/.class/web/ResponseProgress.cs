@@ -22,7 +22,7 @@ namespace zoyobar.shared.panzer.web
 	/// 可以显示页面载入进度的类.
 	/// </summary>
 #endif
-	public class ResponseProgress
+	public partial class ResponseProgress
 	{
 		private readonly string templateFilePath;
 		private readonly string setMethodName;
@@ -117,14 +117,14 @@ namespace zoyobar.shared.panzer.web
 			this.response.Write (
 				"<script type=\"text/javascript\">" +
 				"function __set(id, value){var tag = document.getElementById(id); if(null == tag){return;} tag.innerText = null == value ? '' : value.toString();}" +
-				"function __setProgress(data){__set('__message', data.message);__set('__percent', data.percent);}" +
+				"function __setProgress(data){__set('__message', data.message);__set('__percent', null == data.percent ? null : data.percent.toString() + '%');}" +
 				"function __hideProgress(){document.getElementById('__progress').style.display = 'none';}" +
 				"</script>"
 				);
 
 			if ( string.IsNullOrEmpty ( this.templateFilePath ) )
 				this.response.Write (
-					"<body><div id=\"__progress\" style=\"font-family: microsoft yahei, Segoe UI, Verdana, Tahoma, Arial, sans-serif\"><span id=\"__message\"></span><span id=\"__percent\"></span></div></body>"
+					"<body><div id=\"__progress\" style=\"font-family: microsoft yahei, Segoe UI, Verdana, Tahoma, Arial, sans-serif\"><span id=\"__message\"></span>&nbsp;<span id=\"__percent\"></span></div></body>"
 					);
 			else
 				this.response.WriteFile ( templateFilePath );
@@ -133,6 +133,24 @@ namespace zoyobar.shared.panzer.web
 			this.response.ClearContent ( );
 		}
 
+#if PARAM
+		#region " Set "
+#if EN
+		/// <summary>
+		/// Sets the current progress information, the javacript method which specified by setMethodName in the constructor will be called, you need to call Register method first.
+		/// </summary>
+		/// <param name="percent">Percentage of progress, is the percent property of parameter, the default is -1, nothing is displayed.</param>
+		/// <param name="message">Message of progress, is the message property of parameter, the default is null, nothing is displayed.</param>
+#elif HANS
+		/// <summary>
+		/// 设置当前进度信息, 将调用构造函数中 setMethodName 指定的 javascript 函数, 需要首先调用 Register 方法.
+		/// </summary>
+		/// <param name="percent">进度的百分比, 对应参数的 percent 属性, 默认为 -1, 不显示.</param>
+		/// <param name="message">消息, 对应参数的 message 属性, 默认为 null, 不显示.</param>
+#endif
+		#endregion
+		public void Set ( int percent = -1, string message = null )
+#else
 		#region " Set "
 #if EN
 		/// <summary>
@@ -149,6 +167,7 @@ namespace zoyobar.shared.panzer.web
 #endif
 		#endregion
 		public void Set ( int percent, string message )
+#endif
 		{
 			this.response.Write (
 				"<script type=\"text/javascript\">" +
@@ -183,6 +202,44 @@ namespace zoyobar.shared.panzer.web
 			this.response.ClearContent ( );
 		}
 
+	}
+
+	partial class ResponseProgress
+	{
+#if !PARAM
+
+		#region " Set "
+#if EN
+		/// <summary>
+		/// Sets the current progress information, the javacript method which specified by setMethodName in the constructor will be called, you need to call Register method first.
+		/// </summary>
+		/// <param name="percent">Percentage of progress, is the percent property of parameter.</param>
+#elif HANS
+		/// <summary>
+		/// 设置当前进度信息, 将调用构造函数中 setMethodName 指定的 javascript 函数, 需要首先调用 Register 方法.
+		/// </summary>
+		/// <param name="percent">进度的百分比, 对应参数的 percent 属性.</param>
+#endif
+		#endregion
+		public void Set ( int percent )
+		{ this.Set ( percent, null ); }
+		#region " Set "
+#if EN
+		/// <summary>
+		/// Sets the current progress information, the javacript method which specified by setMethodName in the constructor will be called, you need to call Register method first.
+		/// </summary>
+		/// <param name="message">Message of progress, is the message property of parameter.</param>
+#elif HANS
+		/// <summary>
+		/// 设置当前进度信息, 将调用构造函数中 setMethodName 指定的 javascript 函数, 需要首先调用 Register 方法.
+		/// </summary>
+		/// <param name="message">消息, 对应参数的 message 属性.</param>
+#endif
+		#endregion
+		public void Set ( string message )
+		{ this.Set ( -1, message ); }
+
+#endif
 	}
 
 }
