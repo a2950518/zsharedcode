@@ -5,7 +5,7 @@
 === 简介/目录 ===
  请到 [Download 下载资源] 的 JQueryElement 示例下载一节*下载示例代码*, 目录 /responseprogress/Default.aspx.
 
- 视频演示: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+ 视频演示: [http://www.tudou.com/programs/view/J3KX4SDMOjk/ www.tudou.com/programs/view/J3KX4SDMOjk/]
  
  本文将说明如何使用 ResponseProgress 类来显示页面的加载进度:
 
