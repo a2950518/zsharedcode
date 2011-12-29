@@ -20,7 +20,7 @@
 === <font color="#0066CC">JQueryElement Download</font> ===
 
  ==== <font color="#0066CC">JQueryElement Demo Download</font> ====
- The demo is uploaded at 2011-12-26, the version of dll file is 3.8.2: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip]
+ The demo is uploaded at 2011-12-29, the version of dll file is 3.8.3: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip]
 
  ==== <font color="#0066CC">JQueryElement.dll Download</font> ====
  The following dll files is uploaded at 2011-12-29.
