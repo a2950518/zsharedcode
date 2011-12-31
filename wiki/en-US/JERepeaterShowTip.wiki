@@ -49,7 +49,7 @@ function(pe, e){
 
 	if(e.issuccess)
 		orderList.__repeater('showtip',
-		'Has saved order whick id is  ' + e.row.id.toString() +
+		'Has saved order which id is  ' + e.row.id.toString() +
 		' and sum is ' + e.row.sum.toString());
 	else
 		orderList.__repeater('showtip',
@@ -65,7 +65,7 @@ function(pe, e){
 
 	if(e.issuccess)
 		orderList.__repeater('showtip',
-		'Has created order whick id is ' + e.row.id.toString() +
+		'Has created order which id is ' + e.row.id.toString() +
 		' and sum is ' + e.row.sum.toString());
 	else
 		orderList.__repeater('showtip',
