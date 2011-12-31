@@ -41,6 +41,10 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin
 		/// 上传插件.
 		/// </summary>
 		uploader = 5,
+		/// <summary>
+		/// 图表插件.
+		/// </summary>
+		plot = 6,
 	}
 	#endregion
 
