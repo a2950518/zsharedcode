@@ -20,7 +20,7 @@
 === <font color="#0066CC">JQueryElement 下载</font> ===
 
  ==== <font color="#0066CC">JQueryElement 示例下载</font> ====
- 示例为 2011-12-29 上传, dll 版本为 3.8.3: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar]
+ 示例为 2011-12-31 上传, dll 版本为 3.8.3: [http://zsharedcode.googlecode.com/files/JQueryElementDemo.rar JQueryElementDemo.rar]
 
  ==== <font color="#0066CC">JQueryElement.dll 下载</font> ====
  以下 dll 文件, 为 2011-12-29 上传, 可能没有依照最新的 panzer 代码编译, 欢迎加入 *qq 群*, 如果群人数已满, 请选择位置靠后的群:
