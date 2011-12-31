@@ -22,7 +22,7 @@
  By adding a Parameter, to increase parameters for Ajax calling:
 {{{
 <je:Parameter
-	Name="<parameter mame>" Type="<way to get parameter value>"
+	Name="<parameter name>" Type="<way to get parameter value>"
 	Value="<parameter expression>" Default="<default value>"
 	DataType="<data type>" Provider="<custom conversion methods>" />
 
