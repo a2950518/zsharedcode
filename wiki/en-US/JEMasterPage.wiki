@@ -190,7 +190,7 @@ Welcome, <span class="user-name"></span>, <a href="#" onclick="logout()">Logout<
 }}}
  Method refreshUI will display or hide the login box, depending on whether the user has logged in. And, if you define a javascript method named refreshSubUI in the content page, it will also invoke refreshSubUI.
 
- In the content page, you can define a javascript method named refreshSubUI which will set the conents of the page:
+ In the content page, you can define a javascript method named refreshSubUI which will set the contents of the page:
 {{{
 <script type="text/javascript">
 	function refreshSubUI(isLogin, userName) {
