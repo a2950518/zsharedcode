@@ -18,6 +18,7 @@
     * Set Progress Page
     * Upload
     * Hide Save Page
+    * Stop Getting Progress
 
 <img src="http://zsharedcode.googlecode.com/files/Upload%20My%20Photo1.jpg" />
 
@@ -169,6 +170,7 @@ function(data){
 		$('#prec').text('no progress!');
 	else
 		if(-:data.prec == 100){
+			uploader.__uploader('complete');
 			$('#prec').text('ok, the url is: ' + -:data.url);
 
 			pb.hide();
@@ -230,13 +232,33 @@ function(){
  Call the hide method of *uploader*, you can hide the save page:
 {{{
 ...
-	uploader.__uploader('upload');
+	uploader.__uploader('hide');
 ...
+}}}
+
+ ==== <font color="green">Stop Getting Progress</font> ====
+ In the Uploader's ProgressChanged, you can call the complete method of *uploader* to stop getting progress when the file upload is complete:
+{{{
+<je:Uploader ID="uploader" runat="server" IsVariable="true"
+	UploadUrl="FileUpload.aspx"
+	ProgressUrl="getprec.ashx"
+	ProgressChanged="
+function(data){
+
+	if(-:data.prec == 100)
+		uploader.__uploader('complete');
+
+}
+">
+</je:Uploader>
 }}}
 
 === Related Content ===
  [AjaxReturnJSON Return JSON In Different .NET Version]
 
  [JEBase JQueryElement Basic Property Reference]
+
+=== Revision History ===
+ 2011-12-31: Increase Stop Getting Progress section. 
 
 </font>

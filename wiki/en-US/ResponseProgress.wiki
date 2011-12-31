@@ -124,4 +124,13 @@ ResponseProgress progress =
 
  Method hideBar is relatively simple, we hide the div element whose id is bar. The first parameter data of method showBar contains the progress information, the message property of data represents the prompt message, percent property represents the percentage.
 
+ Finally, you need pass the name of these 2 methods to ResponseProgress:
+{{{
+ResponseProgress progress =
+	new ResponseProgress ( this.Response,
+	@"~/responseprogress/CustomTemplate.htm",
+	"showBar", "hideBar"
+	);
+}}}
+
 </font>

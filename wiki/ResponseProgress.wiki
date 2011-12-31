@@ -126,4 +126,13 @@ ResponseProgress progress =
 
  函数 hideBar 比较简单, 隐藏了 id 为 bar 的 div 元素. 函数 showBar 的第一个参数 data 包含了进度信息, data 的 message 属性表示提示消息, percent 属性表示百分比.
 
+ 最后, 将这 2 个函数的名字传递给 ResponseProgress 即可:
+{{{
+ResponseProgress progress =
+	new ResponseProgress ( this.Response,
+	@"~/responseprogress/CustomTemplate.htm",
+	"showBar", "hideBar"
+	);
+}}}
+
 </font>
