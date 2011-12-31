@@ -20,7 +20,12 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		: JQuery
 	{
 
-		private static string makeOptionExpression ( Option[] options )
+		/// <summary>
+		/// 从选项中得到一个 javascript 对象.
+		/// </summary>
+		/// <param name="options">选项.</param>
+		/// <returns>javascript 对象.</returns>
+		public static string MakeOptionExpression ( Option[] options )
 		{
 
 			if ( null == options || options.Length == 0 )
@@ -323,7 +328,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 
 			setting.Recombine ( );
 
-			return this.Execute ( "__" + setting.PlusinType.ToString ( ), makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
+			return this.Execute ( "__" + setting.PlusinType.ToString ( ), MakeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
 		}
 
 		/// <summary>
@@ -337,7 +342,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			if ( null == setting )
 				return this;
 
-			return this.Execute ( setting.InteractionType.ToString ( ), makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
+			return this.Execute ( setting.InteractionType.ToString ( ), MakeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) ) as JQueryUI;
 		}
 
 		/// <summary>
@@ -354,7 +359,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			setting.Recombine ( );
 
 			// Append WIDGET script
-			this.Execute ( setting.WidgetType.ToString ( ), makeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) );
+			this.Execute ( setting.WidgetType.ToString ( ), MakeOptionExpression ( setting.SettingHelper.CreateOptions ( ) ) );
 
 			// Append event, such as: click( ... )
 			foreach ( Event @event in setting.SettingHelper.Events )

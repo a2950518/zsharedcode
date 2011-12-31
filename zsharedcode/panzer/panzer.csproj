@@ -90,8 +90,10 @@
     <Compile Include=".class\ui\jqueryui\Datepicker.cs" />
     <Compile Include=".class\ui\jqueryui\Autocomplete.cs" />
     <Compile Include=".class\ui\jqueryui\Timer.cs" />
+    <Compile Include=".class\ui\jqueryui\Uploader.cs" />
     <Compile Include=".class\ui\jqueryui\Validator.cs" />
     <Compile Include=".class\ui\jqueryui\AjaxManager.cs" />
+    <Compile Include=".class\ui\jqueryui\jqplot\Plot.cs" />
     <Compile Include=".class\ui\UILoader.cs" />
     <Compile Include=".class\ui\WindowCore.cs" />
     <Compile Include=".class\web\EMail.cs" />
@@ -109,6 +111,8 @@
     <Compile Include=".class\web\jqueryui\DatepickerSetting.cs" />
     <Compile Include=".class\web\jqueryui\DialogSetting.cs" />
     <Compile Include=".class\web\jqueryui\InteractionSetting.cs" />
+    <Compile Include=".class\web\jqueryui\jqplot\PlotSetting.cs" />
+    <Compile Include=".class\web\jqueryui\UploaderSetting.cs" />
     <Compile Include=".class\web\jqueryui\ValidatorSetting.cs" />
     <Compile Include=".class\web\ResponseProgress.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

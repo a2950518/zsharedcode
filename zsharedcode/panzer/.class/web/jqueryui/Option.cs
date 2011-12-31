@@ -1216,6 +1216,47 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 时钟.
 		/// </summary>
 		timer,
+
+		/// <summary>
+		/// 点.
+		/// </summary>
+		points,
+		/// <summary>
+		/// 选项.
+		/// </summary>
+		options,
+		/// <summary>
+		/// 序列的颜色.
+		/// </summary>
+		seriesColors,
+		/// <summary>
+		/// 序列堆栈.
+		/// </summary>
+		stackSeries,
+		/// <summary>
+		/// 轴.
+		/// </summary>
+		axes,
+		/// <summary>
+		/// x 轴.
+		/// </summary>
+		xaxis,
+		/// <summary>
+		/// y 轴.
+		/// </summary>
+		yaxis,
+		/// <summary>
+		/// x2 轴.
+		/// </summary>
+		x2axis,
+		/// <summary>
+		/// y2 轴.
+		/// </summary>
+		y2axis,
+		/// <summary>
+		/// 样式.
+		/// </summary>
+		style,
 	}
 	#endregion
 
