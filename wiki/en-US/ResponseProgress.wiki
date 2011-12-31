@@ -51,7 +51,7 @@ public partial class ResponseProgress_DefaultTemplate : System.Web.UI.Page
 }}}
  In the above example, we pass an HttpResponse object as a parameter to the ResponseProgress.
 
- After ResponseProgress is created, you need to call the Register method to register some html and javascrip methods to the current page. Register method sets the BufferOutput property of HttpResponse to false.
+ After ResponseProgress is created, you need to call the Register method to register some html and javascript methods to the current page. Register method sets the BufferOutput property of HttpResponse to false.
 
  Call the Set method of ResponseProgress to set what needs to be displayed to the user, parameter percent said the loading progress, if it is less than 0, it will not display loading progress, and parameter message represent the prompt message, if it is null, it will not display message.
 
