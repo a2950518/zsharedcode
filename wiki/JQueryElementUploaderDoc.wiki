@@ -20,6 +20,7 @@
     * 设置获取进度的页面
     * 上传
     * 隐藏保存页面
+    * 停止获取进度
 
 <img src="http://zsharedcode.googlecode.com/files/uploadmyphoto1.jpg" />
 
@@ -170,6 +171,7 @@ function(data){
 		$('#prec').text('没有进度!');
 	else
 		if(-:data.prec == 100){
+			uploader.__uploader('complete');
 			$('#prec').text('完成, 图片路径为: ' + -:data.url);
 
 			pb.hide();
@@ -231,13 +233,33 @@ function(){
  调用 *uploader* 的 hide 方法, 即可隐藏保存页面:
 {{{
 ...
-	uploader.__uploader('upload');
+	uploader.__uploader('hide');
 ...
+}}}
+
+ ==== <font color="green">停止获取进度</font> ====
+ 在 Uploader 的 ProgressChanged 中, 可以在文件上传完成时调用 *uploader* 的 complete 方法来停止获取进度:
+{{{
+<je:Uploader ID="uploader" runat="server" IsVariable="true"
+	UploadUrl="FileUpload.aspx"
+	ProgressUrl="getprec.ashx"
+	ProgressChanged="
+function(data){
+
+	if(-:data.prec == 100)
+		uploader.__uploader('complete');
+
+}
+">
+</je:Uploader>
 }}}
 
 === 相关内容 ===
  [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
  
  [JEBase JQueryElement 基本属性参考]
+ 
+=== 修订历史 ===
+ 2011-12-31: 增加停止获取进度一节.
 
 </font>
