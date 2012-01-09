@@ -1218,9 +1218,9 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		timer,
 
 		/// <summary>
-		/// 点.
+		/// 数据.
 		/// </summary>
-		points,
+		data,
 		/// <summary>
 		/// 选项.
 		/// </summary>
@@ -1257,6 +1257,602 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 样式.
 		/// </summary>
 		style,
+		/// <summary>
+		/// 显示提示.
+		/// </summary>
+		showTooltip,
+		/// <summary>
+		/// 是否跟随鼠标.
+		/// </summary>
+		followMouse,
+		/// <summary>
+		/// 提示位置.
+		/// </summary>
+		tooltipLocation,
+		/// <summary>
+		/// 提示的偏移.
+		/// </summary>
+		tooltipOffset,
+		/// <summary>
+		/// 显示像素位置.
+		/// </summary>
+		showTooltipGridPosition,
+		/// <summary>
+		/// 显示数据位置.
+		/// </summary>
+		showTooltipUnitPosition,
+		/// <summary>
+		/// 提示的格式.
+		/// </summary>
+		tooltipFormatString,
+		/// <summary>
+		/// 是否使用轴的格式.
+		/// </summary>
+		useAxesFormatters,
+		/// <summary>
+		/// 显示提示的轴.
+		/// </summary>
+		tooltipAxesGroups,
+		/// <summary>
+		/// 颜色.
+		/// </summary>
+		color,
+		/// <summary>
+		/// 拖动的方向.
+		/// </summary>
+		constrainTo,
+		/// <summary>
+		/// 拖动设置.
+		/// </summary>
+		dragable,
+		/// <summary>
+		/// 字体.
+		/// </summary>
+		fontFamily,
+		/// <summary>
+		/// 字号.
+		/// </summary>
+		fontSize,
+		/// <summary>
+		/// 对齐方式.
+		/// </summary>
+		textAlign,
+		/// <summary>
+		/// 文字颜色.
+		/// </summary>
+		textColor,
+		/// <summary>
+		/// 绘制.
+		/// </summary>
+		renderer,
+		/// <summary>
+		/// 绘制选项.
+		/// </summary>
+		rendererOptions,
+		/// <summary>
+		/// 转化 html.
+		/// </summary>
+		escapeHtml,
+		/// <summary>
+		/// 位置.
+		/// </summary>
+		location,
+		/// <summary>
+		/// 显示文字.
+		/// </summary>
+		showLabels,
+		/// <summary>
+		/// 颜色切换.
+		/// </summary>
+		showSwatch,
+		/// <summary>
+		/// 图例.
+		/// </summary>
+		legend,
+		/// <summary>
+		/// 位置.
+		/// </summary>
+		placement,
+		/// <summary>
+		/// x 偏移.
+		/// </summary>
+		xoffset,
+		/// <summary>
+		/// y 偏移.
+		/// </summary>
+		yoffset,
+		/// <summary>
+		/// 边框.
+		/// </summary>
+		border,
+		/// <summary>
+		/// 背景.
+		/// </summary>
+		background,
+		/// <summary>
+		/// 行间距.
+		/// </summary>
+		rowSpacing,
+		/// <summary>
+		/// 上方边距.
+		/// </summary>
+		marginTop,
+		/// <summary>
+		/// 下方边距.
+		/// </summary>
+		marginBottom,
+		/// <summary>
+		/// 右方边距.
+		/// </summary>
+		marginRight,
+		/// <summary>
+		/// 左方边距.
+		/// </summary>
+		marginLeft,
+		/// <summary>
+		/// 标签.
+		/// </summary>
+		labels,
+		/// <summary>
+		/// 调用 replot 时的动画.
+		/// </summary>
+		animateReplot,
+		/// <summary>
+		/// 对数据排序.
+		/// </summary>
+		sortData,
+		/// <summary>
+		/// 空数据指示器.
+		/// </summary>
+		noDataIndicator,
+		/// <summary>
+		/// 填充.
+		/// </summary>
+		fillBetween,
+		/// <summary>
+		/// 默认开始轴.
+		/// </summary>
+		defaultAxisStart,
+		/// <summary>
+		/// 序列默认设置.
+		/// </summary>
+		seriesDefaults,
+		/// <summary>
+		/// 轴默认设置.
+		/// </summary>
+		axesDefaults,
+		/// <summary>
+		/// 数据绘制选项.
+		/// </summary>
+		dataRendererOptions,
+		/// <summary>
+		/// 数据绘制.
+		/// </summary>
+		dataRenderer,
+		/// <summary>
+		/// 绘制网格.
+		/// </summary>
+		drawGridlines,
+		/// <summary>
+		/// 线的颜色.
+		/// </summary>
+		gridLineColor,
+		/// <summary>
+		/// 线的宽度.
+		/// </summary>
+		gridLineWidth,
+		/// <summary>
+		/// 边框颜色.
+		/// </summary>
+		borderColor,
+		/// <summary>
+		/// 边框宽度.
+		/// </summary>
+		borderWidth,
+		/// <summary>
+		/// 是否绘制边框.
+		/// </summary>
+		drawBorder,
+		/// <summary>
+		/// 是否显示阴影.
+		/// </summary>
+		shadow,
+		/// <summary>
+		/// 阴影的角度.
+		/// </summary>
+		shadowAngle,
+		/// <summary>
+		/// 阴影的偏移.
+		/// </summary>
+		shadowOffset,
+		/// <summary>
+		/// 阴影的宽度.
+		/// </summary>
+		shadowWidth,
+		/// <summary>
+		/// 阴影的深度.
+		/// </summary>
+		shadowDepth,
+		/// <summary>
+		/// 阴影的颜色.
+		/// </summary>
+		shadowColor,
+		/// <summary>
+		/// 阴影的透明度.
+		/// </summary>
+		shadowAlpha,
+		/// <summary>
+		/// 序列.
+		/// </summary>
+		series,
+		/// <summary>
+		/// 显示标题.
+		/// </summary>
+		showLabel,
+		/// <summary>
+		/// 填充区颜色.
+		/// </summary>
+		negativeColor,
+		/// <summary>
+		/// 线的宽度.
+		/// </summary>
+		lineWidth,
+		/// <summary>
+		/// 线的连接.
+		/// </summary>
+		lineJoin,
+		/// <summary>
+		/// 线的端点.
+		/// </summary>
+		lineCap,
+		/// <summary>
+		/// 直线类型.
+		/// </summary>
+		linePattern,
+		/// <summary>
+		/// 为空时断开.
+		/// </summary>
+		breakOnNull,
+		/// <summary>
+		/// 标记绘制.
+		/// </summary>
+		markerRenderer,
+		/// <summary>
+		/// 标记选项.
+		/// </summary>
+		markerOptions,
+		/// <summary>
+		/// 显示线.
+		/// </summary>
+		showLine,
+		/// <summary>
+		/// 是否显示标记
+		/// </summary>
+		showMarker,
+		/// <summary>
+		/// 索引.
+		/// </summary>
+		index,
+		/// <summary>
+		/// 填充色.
+		/// </summary>
+		fillColor,
+		/// <summary>
+		/// 填充透明度.
+		/// </summary>
+		fillAlpha,
+		/// <summary>
+		/// 描边.
+		/// </summary>
+		fillAndStroke,
+		/// <summary>
+		/// 禁止使用堆栈.
+		/// </summary>
+		disableStack,
+		/// <summary>
+		/// 临近阀值.
+		/// </summary>
+		neighborThreshold,
+		/// <summary>
+		/// 填充至 0.
+		/// </summary>
+		fillToZero,
+		/// <summary>
+		/// 填充至数值.
+		/// </summary>
+		fillToValue,
+		/// <summary>
+		/// 使用负色.
+		/// </summary>
+		useNegativeColors,
+		/// <summary>
+		/// 填充轴.
+		/// </summary>
+		fillAxis,
+		/// <summary>
+		/// 刻度绘制.
+		/// </summary>
+		tickRenderer,
+		/// <summary>
+		/// 刻度绘制选项.
+		/// </summary>
+		tickOptions,
+		/// <summary>
+		/// 标签绘制.
+		/// </summary>
+		labelRenderer,
+		/// <summary>
+		/// 标签绘制选项.
+		/// </summary>
+		labelOptions,
+		/// <summary>
+		/// 自动缩放.
+		/// </summary>
+		autoscale,
+		/// <summary>
+		/// 填充.
+		/// </summary>
+		pad,
+		/// <summary>
+		/// 最大填充.
+		/// </summary>
+		padMax,
+		/// <summary>
+		/// 最小填充.
+		/// </summary>
+		padMin,
+		/// <summary>
+		/// 刻度.
+		/// </summary>
+		ticks,
+		/// <summary>
+		/// 刻度个数.
+		/// </summary>
+		numberTicks,
+		/// <summary>
+		/// 刻度的间距.
+		/// </summary>
+		tickInterval,
+		/// <summary>
+		/// 显示刻度.
+		/// </summary>
+		showTicks,
+		/// <summary>
+		/// 显示刻度标记.
+		/// </summary>
+		showTickMarks,
+		/// <summary>
+		/// 显示最小刻度.
+		/// </summary>
+		showMinorTicks,
+		/// <summary>
+		/// 绘制主网格线.
+		/// </summary>
+		drawMajorGridlines,
+		/// <summary>
+		/// 绘制次要网格线.
+		/// </summary>
+		drawMinorGridlines,
+		/// <summary>
+		/// 绘制主要刻度标记.
+		/// </summary>
+		drawMajorTickMarks,
+		/// <summary>
+		/// 绘制次要刻度标记.
+		/// </summary>
+		drawMinorTickMarks,
+		/// <summary>
+		/// 使用序列的颜色.
+		/// </summary>
+		useSeriesColor,
+		/// <summary>
+		/// 同步刻度.
+		/// </summary>
+		syncTicks,
+		/// <summary>
+		/// 刻度空白.
+		/// </summary>
+		tickSpacing,
+		/// <summary>
+		/// 标记.
+		/// </summary>
+		mark,
+		/// <summary>
+		/// 显示标记.
+		/// </summary>
+		showMark,
+		/// <summary>
+		/// 显示网格线.
+		/// </summary>
+		showGridline,
+		/// <summary>
+		/// 是否为次要刻度.
+		/// </summary>
+		isMinorTick,
+		/// <summary>
+		/// 尺寸.
+		/// </summary>
+		size,
+		/// <summary>
+		/// 刻度尺寸.
+		/// </summary>
+		markSize,
+		/// <summary>
+		/// 格式化工具.
+		/// </summary>
+		formatter,
+		/// <summary>
+		/// 前缀.
+		/// </summary>
+		prefix,
+		/// <summary>
+		/// 格式化字符串.
+		/// </summary>
+		formatString,
+		/// <summary>
+		/// 断开点.
+		/// </summary>
+		breakPoints,
+		/// <summary>
+		/// 断开刻度标题.
+		/// </summary>
+		breakTickLabel,
+		/// <summary>
+		/// 绘制基线.
+		/// </summary>
+		drawBaseline,
+		/// <summary>
+		/// 基线宽度.
+		/// </summary>
+		baselineWidth,
+		/// <summary>
+		/// 基线颜色.
+		/// </summary>
+		baselineColor,
+		/// <summary>
+		/// 必须有 0 刻度.
+		/// </summary>
+		forceTickAt0,
+		/// <summary>
+		/// 必须有 100 刻度.
+		/// </summary>
+		forceTickAt100,
+		/// <summary>
+		/// 刻度内距.
+		/// </summary>
+		tickInset,
+		/// <summary>
+		/// 次要刻度.
+		/// </summary>
+		minorTicks,
+		/// <summary>
+		/// 对齐刻度.
+		/// </summary>
+		alignTicks,
+		/// <summary>
+		/// 阴影绘制.
+		/// </summary>
+		shadowRenderer,
+		/// <summary>
+		/// 形状绘制.
+		/// </summary>
+		shapeRenderer,
+		/// <summary>
+		/// 鼠标滑过高亮.
+		/// </summary>
+		highlightMouseOver,
+		/// <summary>
+		/// 鼠标按下高亮.
+		/// </summary>
+		highlightMouseDown,
+		/// <summary>
+		/// 高亮颜色.
+		/// </summary>
+		highlightColor,
+		/// <summary>
+		/// 柱状图内空白.
+		/// </summary>
+		barPadding,
+		/// <summary>
+		/// 柱状图外空白.
+		/// </summary>
+		barMargin,
+		/// <summary>
+		/// 柱状图的方向.
+		/// </summary>
+		barDirection,
+		/// <summary>
+		/// 柱状图宽度.
+		/// </summary>
+		barWidth,
+		/// <summary>
+		/// 瀑布.
+		/// </summary>
+		waterfall,
+		/// <summary>
+		/// 分组.
+		/// </summary>
+		groups,
+		/// <summary>
+		/// 使用不同颜色.
+		/// </summary>
+		varyBarColor,
+		/// <summary>
+		/// 高亮颜色.
+		/// </summary>
+		highlightColors,
+		/// <summary>
+		/// 换位数据.
+		/// </summary>
+		transposedData,
+		/// <summary>
+		/// 样式.
+		/// </summary>
+		css,
+		/// <summary>
+		/// 插入换行.
+		/// </summary>
+		insertBreaks,
+		/// <summary>
+		/// 使用不同颜色.
+		/// </summary>
+		varyBlockColors,
+		/// <summary>
+		/// 使用不同颜色.
+		/// </summary>
+		varyBubbleColors,
+		/// <summary>
+		/// 自动缩放泡泡.
+		/// </summary>
+		autoscaleBubbles,
+		/// <summary>
+		/// 自动缩放倍数.
+		/// </summary>
+		autoscaleMultiplier,
+		/// <summary>
+		/// 自动缩放因子.
+		/// </summary>
+		autoscalePointsFactor,
+		/// <summary>
+		/// 泡泡透明度.
+		/// </summary>
+		bubbleAlpha,
+		/// <summary>
+		/// 高亮透明度.
+		/// </summary>
+		highlightAlpha,
+		/// <summary>
+		/// 泡泡是否渐变.
+		/// </summary>
+		bubbleGradients,
+		/// <summary>
+		/// 角度.
+		/// </summary>
+		angle,
+		/// <summary>
+		/// 字体粗细.
+		/// </summary>
+		fontWeight,
+		/// <summary>
+		/// 字体压缩.
+		/// </summary>
+		fontStretch,
+		/// <summary>
+		/// 启动字体支持.
+		/// </summary>
+		enableFontSupport,
+		/// <summary>
+		/// pt 转 px.
+		/// </summary>
+		pt2px,
+		/// <summary>
+		/// 标签的位置.
+		/// </summary>
+		labelPosition,
+		/// <summary>
+		/// 排序合并的标签.
+		/// </summary>
+		sortMergedLabels,
 	}
 	#endregion
 

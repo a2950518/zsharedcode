@@ -8,6 +8,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Web.UI.WebControls;
 
 namespace zoyobar.shared.panzer.web.jqueryui
 {
@@ -19,7 +21,14 @@ namespace zoyobar.shared.panzer.web.jqueryui
 	{
 
 		#region " convert method "
-		private static T toEnum<T> ( string text, T defalutValue )
+		/// <summary>
+		/// 将字符串转化为枚举值.
+		/// </summary>
+		/// <typeparam name="T">枚举值类型.</typeparam>
+		/// <param name="text">需要转化的字符串.</param>
+		/// <param name="defalutValue">默认值.</param>
+		/// <returns>枚举值.</returns>
+		public static T ToEnum<T> ( string text, T defalutValue )
 			where T : struct
 		{
 			T value;
@@ -39,6 +48,36 @@ namespace zoyobar.shared.panzer.web.jqueryui
 #endif
 
 			return value;
+		}
+
+		private static Color htmlToColor ( string text, Color defaultValue )
+		{
+
+			if ( string.IsNullOrEmpty ( text ) )
+				return defaultValue;
+
+			try
+			{ return ColorTranslator.FromHtml ( text.Trim ( '\'' ) ); }
+			catch
+			{ return defaultValue; }
+
+		}
+
+		private static Color rgbaToColor ( string text, Color defaultValue )
+		{
+
+			if ( string.IsNullOrEmpty ( text ) )
+				return defaultValue;
+
+			try
+			{
+				string[] parts = text.Replace ( "'rgba(", string.Empty ).Replace ( ")'", string.Empty ).Split ( ',' );
+
+				return Color.FromArgb ( Convert.ToInt32 ( parts[3].Trim ( ) ), Convert.ToInt32 ( parts[0].Trim ( ) ), Convert.ToInt32 ( parts[1].Trim ( ) ), Convert.ToInt32 ( parts[2].Trim ( ) ) );
+			}
+			catch
+			{ return defaultValue; }
+
 		}
 
 		private static double toDouble ( string text, double defaultValue )
@@ -61,6 +100,19 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			return value;
 		}
 
+		private static FontUnit toFontUnit ( string text, FontUnit defaultValue )
+		{
+
+			if ( string.IsNullOrEmpty ( text ) )
+				return defaultValue;
+
+			try
+			{ return FontUnit.Parse ( text.Trim ( '\'' ) ); }
+			catch
+			{ return defaultValue; }
+
+		}
+
 		private static int toInteger ( string text, int defaultValue )
 		{
 			int value;
@@ -71,13 +123,26 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			return value;
 		}
 
-		private static string toString ( string value, string defaultValue )
+		private static string toString ( string text, string defaultValue )
 		{
 
-			if ( string.IsNullOrEmpty ( value ) )
+			if ( string.IsNullOrEmpty ( text ) )
 				return defaultValue;
 
-			return value.Trim ( '\'' );
+			return text.Trim ( '\'' );
+		}
+
+		private static Unit toUnit ( string text, Unit defaultValue )
+		{
+
+			if ( string.IsNullOrEmpty ( text ) )
+				return defaultValue;
+
+			try
+			{ return Unit.Parse ( text.Trim ( '\'' ) ); }
+			catch
+			{ return defaultValue; }
+
 		}
 
 		/// <summary>
@@ -101,6 +166,46 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <returns>javascript 布尔值.</returns>
 		private static string toString ( bool value )
 		{ return value.ToString ( ).ToLower ( ); }
+
+		/// <summary>
+		/// 将布尔值转化为 javascript 颜色.
+		/// </summary>
+		/// <param name="value">颜色.</param>
+		/// <returns>javascript 颜色.</returns>
+		private static string toHtmlColorString ( Color value )
+		{ return "'" + ColorTranslator.ToHtml ( value ) + "'"; }
+
+		/// <summary>
+		/// 将布尔值转化为 javascript rgba 颜色.
+		/// </summary>
+		/// <param name="value">rgba 颜色.</param>
+		/// <returns>rgba 颜色.</returns>
+		private static string toRgbaColorString ( Color value )
+		{ return string.Format ( "'rgba({0}, {1}, {2}, {3})'", value.R, value.G, value.B, value.A ); }
+
+		/// <summary>
+		/// 将布尔值转化为 javascript 日期值.
+		/// </summary>
+		/// <param name="value">日期值.</param>
+		/// <returns>javascript 日期值.</returns>
+		private static string toString ( DateTime value )
+		{ return string.Format ( "new Date({0}, {1}, {2}, {3}, {4}, {5})", value.Year, value.Month - 1, value.Day, value.Hour, value.Minute, value.Second ); }
+
+		/// <summary>
+		/// 将布尔值转化为 javascript 字号.
+		/// </summary>
+		/// <param name="value">字号.</param>
+		/// <returns>javascript 字号.</returns>
+		private static string toString ( FontUnit value )
+		{ return "'" + value.ToString ( ) + "'"; }
+
+		/// <summary>
+		/// 将布尔值转化为 javascript 长度.
+		/// </summary>
+		/// <param name="value">长度.</param>
+		/// <returns>javascript 长度.</returns>
+		private static string toString ( Unit value )
+		{ return "'" + value.ToString ( ) + "'"; }
 		#endregion
 
 		private string customOption = string.Empty;
@@ -230,7 +335,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// 得到 Option 的值.
 		/// </summary>
 		/// <param name="type">事件类型.</param>
-		/// <param name="defaultValue">如果值等于默认值, 则设置为空字符串.</param>
+		/// <param name="defaultValue">默认值.</param>
 		/// <returns>事件值.</returns>
 		public string GetOptionValue ( OptionType type, string defaultValue )
 		{
@@ -253,6 +358,24 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		{ return toBoolean ( this.GetOptionValue ( type ), defalutValue ); }
 
 		/// <summary>
+		/// 将 Option 的值转化为颜色.
+		/// </summary>
+		/// <param name="type">选项的类型.</param>
+		/// <param name="defalutValue">默认值.</param>
+		/// <returns>选项对应的颜色.</returns>
+		public Color GetOptionValueToHtmlColor ( OptionType type, Color defalutValue )
+		{ return htmlToColor ( this.GetOptionValue ( type ), defalutValue ); }
+
+		/// <summary>
+		/// 将 Option 的值转化为 rgba 颜色.
+		/// </summary>
+		/// <param name="type">选项的类型.</param>
+		/// <param name="defalutValue">默认值.</param>
+		/// <returns>选项对应的 rgba 颜色.</returns>
+		public Color GetOptionValueToRgbaColor ( OptionType type, Color defalutValue )
+		{ return rgbaToColor ( this.GetOptionValue ( type ), defalutValue ); }
+
+		/// <summary>
 		/// 将 Option 的值转化为数值.
 		/// </summary>
 		/// <param name="type">选项的类型.</param>
@@ -270,7 +393,16 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <returns>枚举值.</returns>
 		public T GetOptionValueToEnum<T> ( OptionType type, T defalutValue )
 			where T : struct
-		{ return toEnum<T> ( this.GetOptionValue ( type ), defalutValue ); }
+		{ return ToEnum<T> ( this.GetOptionValue ( type ), defalutValue ); }
+
+		/// <summary>
+		/// 将 Option 的值转化为字号.
+		/// </summary>
+		/// <param name="type">选项的类型.</param>
+		/// <param name="defalutValue">默认值.</param>
+		/// <returns>选项对应的字号.</returns>
+		public FontUnit GetOptionValueToFontUnit ( OptionType type, FontUnit defalutValue )
+		{ return toFontUnit ( this.GetOptionValue ( type ), defalutValue ); }
 
 		/// <summary>
 		/// 将 Option 的值转化为整型值.
@@ -289,6 +421,15 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// <returns>选项对应的字符串.</returns>
 		public string GetOptionValueToString ( OptionType type, string defalutValue )
 		{ return toString ( this.GetOptionValue ( type ), defalutValue ); }
+
+		/// <summary>
+		/// 将 Option 的值转化为长度.
+		/// </summary>
+		/// <param name="type">选项的类型.</param>
+		/// <param name="defalutValue">默认值.</param>
+		/// <returns>选项对应的长度.</returns>
+		public Unit GetOptionValueToUnit ( OptionType type, Unit defalutValue )
+		{ return toUnit ( this.GetOptionValue ( type ), defalutValue ); }
 		#endregion
 
 		/// <summary>
@@ -336,14 +477,59 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		{ this.SetOptionValue ( type, toString ( value ), toString ( defaultValue ) ); }
 
 		/// <summary>
+		/// 设置 Option 的值为一个 javascript 颜色.
+		/// </summary>
+		/// <param name="type">选项类型.</param>
+		/// <param name="value">选项值.</param>
+		/// <param name="defaultValue">如果值等于默认值, 则设置为空字符串.</param>
+		public void SetOptionValueToHtmlColor ( OptionType type, Color value, Color defaultValue )
+		{ this.SetOptionValue ( type, toHtmlColorString ( value ), toHtmlColorString ( defaultValue ) ); }
+
+		/// <summary>
+		/// 设置 Option 的值为一个 javascript rgba 颜色.
+		/// </summary>
+		/// <param name="type">选项类型.</param>
+		/// <param name="value">选项值.</param>
+		/// <param name="defaultValue">如果值等于默认值, 则设置为空字符串.</param>
+		public void SetOptionValueToRgbaColor ( OptionType type, Color value, Color defaultValue )
+		{ this.SetOptionValue ( type, toRgbaColorString ( value ), toRgbaColorString ( defaultValue ) ); }
+
+		/// <summary>
+		/// 设置 Option 的值为一个 javascript 日期值.
+		/// </summary>
+		/// <param name="type">选项类型.</param>
+		/// <param name="value">选项值.</param>
+		/// <param name="defaultValue">如果值等于默认值, 则设置为空字符串.</param>
+		public void SetOptionValueToDateTime ( OptionType type, DateTime value, DateTime defaultValue )
+		{ this.SetOptionValue ( type, toString ( value ), toString ( defaultValue ) ); }
+
+		/// <summary>
+		/// 设置 Option 的值为一个 javascript 字号.
+		/// </summary>
+		/// <param name="type">选项类型.</param>
+		/// <param name="value">选项值.</param>
+		/// <param name="defaultValue">如果值等于默认值, 则设置为空字符串.</param>
+		public void SetOptionValueToFontUnit ( OptionType type, FontUnit value, FontUnit defaultValue )
+		{ this.SetOptionValue ( type, toString ( value ), toString ( defaultValue ) ); }
+
+		/// <summary>
 		/// 设置 Option 的值为一个 javascript 字符串.
 		/// </summary>
 		/// <param name="type">选项类型.</param>
-		/// <param name="value">字符串.</param>
+		/// <param name="value">选项值.</param>
 		/// <param name="defaultValue">如果值等于默认值, 则设置为空字符串.</param>
 		public void SetOptionValueToString ( OptionType type, string value, string defaultValue )
 		{ this.SetOptionValue ( type, toString ( value ), toString ( defaultValue ) ); }
 		#endregion
+
+		/// <summary>
+		/// 设置 Option 的值为一个 javascript 长度.
+		/// </summary>
+		/// <param name="type">选项类型.</param>
+		/// <param name="value">选项值.</param>
+		/// <param name="defaultValue">如果值等于默认值, 则设置为空字符串.</param>
+		public void SetOptionValueToUnit ( OptionType type, Unit value, Unit defaultValue )
+		{ this.SetOptionValue ( type, toString ( value ), toString ( defaultValue ) ); }
 
 		/// <summary>
 		/// 设置 Event 的内容.
