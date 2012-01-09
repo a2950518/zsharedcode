@@ -297,11 +297,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			{
 				this.maxDate = value;
 
-				if ( value == DateTime.MaxValue )
-					this.settingHelper.SetOptionValue ( OptionType.maxDate, string.Empty, string.Empty );
-				else
-					this.settingHelper.SetOptionValue ( OptionType.maxDate, string.Format ( "new Date({0}, {1}, {2})", value.Year, value.Month - 1, value.Day ), string.Empty );
-
+				this.settingHelper.SetOptionValueToDateTime ( OptionType.maxDate, value, DateTime.MaxValue );
 			}
 		}
 
@@ -315,11 +311,7 @@ namespace zoyobar.shared.panzer.web.jqueryui
 			{
 				this.minDate = value;
 
-				if ( value == DateTime.MinValue )
-					this.settingHelper.SetOptionValue ( OptionType.minDate, string.Empty, string.Empty );
-				else
-					this.settingHelper.SetOptionValue ( OptionType.minDate, string.Format ( "new Date({0}, {1}, {2})", value.Year, value.Month - 1, value.Day ), string.Empty );
-
+				this.settingHelper.SetOptionValueToDateTime ( OptionType.minDate, value, DateTime.MinValue );
 			}
 		}
 

@@ -121,13 +121,16 @@
   <data name="panzer_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\panzer.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="plot_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plot.min.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
   <data name="repeater_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\repeater.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
   <data name="timer_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\timer.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="uploader_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\uploader.min.js;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>

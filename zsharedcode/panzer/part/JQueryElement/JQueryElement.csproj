@@ -60,6 +60,9 @@
     <Compile Include="..\..\.class\ui\jqueryui\Droppable.cs">
       <Link>.class\Droppable.cs</Link>
     </Compile>
+    <Compile Include="..\..\.class\ui\jqueryui\jqplot\Plot.cs">
+      <Link>.class\jqplot\Plot.cs</Link>
+    </Compile>
     <Compile Include="..\..\.class\ui\jqueryui\JQueryCoder.cs">
       <Link>.class\JQueryCoder.cs</Link>
     </Compile>
@@ -150,6 +153,60 @@
     <Compile Include="..\..\.class\web\jqueryui\InteractionSetting.cs">
       <Link>.class\InteractionSetting.cs</Link>
     </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\AxesSetting.cs">
+      <Link>.class\jqplot\AxesSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\Axis.cs">
+      <Link>.class\jqplot\Axis.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\AxisLabelRendererSetting.cs">
+      <Link>.class\jqplot\AxisLabelRendererSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\AxisRendererSetting.cs">
+      <Link>.class\jqplot\AxisRendererSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\CursorSetting.cs">
+      <Link>.class\jqplot\CursorSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\Data.cs">
+      <Link>.class\jqplot\Data.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\DataSetting.cs">
+      <Link>.class\jqplot\DataSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\DragableSetting.cs">
+      <Link>.class\jqplot\DragableSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\GridSetting.cs">
+      <Link>.class\jqplot\GridSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\LegendSetting.cs">
+      <Link>.class\jqplot\LegendSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\MarkerRendererSetting.cs">
+      <Link>.class\jqplot\MarkerRendererSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\PlotSetting.cs">
+      <Link>.class\jqplot\PlotSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\Point.cs">
+      <Link>.class\jqplot\Point.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\Series.cs">
+      <Link>.class\jqplot\Series.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\SeriesRendererSetting.cs">
+      <Link>.class\jqplot\SeriesRendererSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\SeriesSetting.cs">
+      <Link>.class\jqplot\SeriesSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\TickRendererSetting.cs">
+      <Link>.class\jqplot\TickRendererSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\..\.class\web\jqueryui\jqplot\TitleSetting.cs">
+      <Link>.class\jqplot\TitleSetting.cs</Link>
+    </Compile>
     <Compile Include="..\..\.class\web\jqueryui\JQueryUI.cs">
       <Link>.class\JQueryUI.cs</Link>
     </Compile>
@@ -222,6 +279,9 @@
     <Compile Include="..\..\.enum\web\ScriptType.cs">
       <Link>.enum\ScriptType.cs</Link>
     </Compile>
+    <Compile Include="..\..\.enum\web\TextAlignType.cs">
+      <Link>.enum\TextAlignType.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -247,6 +307,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\uploader.min.js" />
+    <Content Include="Resources\plot.min.js" />
     <Content Include="Resources\validator.min.js" />
   </ItemGroup>
   <ItemGroup>

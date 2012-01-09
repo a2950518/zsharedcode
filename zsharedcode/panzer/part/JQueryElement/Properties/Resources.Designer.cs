@@ -71,7 +71,17 @@ namespace zoyobar.shared.panzer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 (function(h){function v(b,a){var c=b.option;if(c.singlethread&amp;&amp;c.busy)return null!=c.blocked&amp;&amp;c.blocked.call(this,b,{action:a}),!1;c.busy=!0;if(null!=c.preexecute){var e={action:a,tip:null};c.preexecute.call(this,b,e);J.call(this,b,e.tip)}return!0}function P(b,a){if(B.call(this,b,a,&quot;state&quot;)!=&quot;removed&quot;){var c=b.option;!c.multipleedit&amp;&amp;null!=c.index.edit&amp;&amp;p.call(this,b,c.index.edit,&quot;editing&quot;,!1);c.index.edit=a;p.call(this,b,a,&quot;editing&quot;,!0);m.call(this,b,c.data)}}function m(b,a){var c=b.option,e=!1;
+        ///   查找类似 (function(a){a.fn.__plot=function(){var b=a.panzer.getPE.call(this,&quot;__plot&quot;,arguments);return null==b?this:b.result};a.fn.__plot.funs={create:{method:function(){}},destroy:{method:function(b){this.empty();a.panzer.destroy.call(this,b)}},fill:{method:function(b){b=b.option;this.attr(&quot;id&quot;)==&quot;&quot;&amp;&amp;a.error(&quot;the tag miss a id&quot;);a.jqplot(this.attr(&quot;id&quot;),b.points,b.options)}}};a.fn.__plot.defaults={points:[],options:null};a.fn.__plot.defaults.__mask={points:{name:&quot;points&quot;,type:&quot;object&quot;,need:!0,defaultvalue:[]},
+        ///opti [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string plot_min {
+            get {
+                return ResourceManager.GetString("plot_min", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 (function(g){function o(b,a){var c=b.option;if(c.singlethread&amp;&amp;c.busy)return null!=c.blocked&amp;&amp;c.blocked.call(this,b,{action:a}),!1;c.busy=!0;if(null!=c.preexecute){var e={action:a,tip:null};c.preexecute.call(this,b,e);F.call(this,b,e.tip)}return!0}function O(b,a){if(x.call(this,b,a,&quot;state&quot;)!=&quot;removed&quot;){var c=b.option;!c.multipleedit&amp;&amp;null!=c.index.edit&amp;&amp;k.call(this,b,c.index.edit,&quot;editing&quot;,!1);c.index.edit=a;k.call(this,b,a,&quot;editing&quot;,!0);p.call(this,b,c.data)}}function p(b,a){var c=b.option,e=!1;
         ///c.data=a;c [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string repeater_min {
@@ -91,8 +101,7 @@ namespace zoyobar.shared.panzer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 (function(a){a.fn.__uploader=function(){var b=a.panzer.getPE.call(this,&quot;__uploader&quot;,arguments);return null==b?this:b.result};a.fn.__uploader.funs={destroy:{method:function(b){a.panzer.destroy.call(this,b)}}};a.fn.__uploader.defaults={progressurl:null};a.fn.__uploader.defaults.__mask={progressurl:{name:&quot;progressurl&quot;,type:&quot;string&quot;,need:!0,defaultvalue:null}};a.fn.__uploader.defaults.__mask={progressurl:{name:&quot;progressurl&quot;,type:&quot;string&quot;,need:!0}}})(jQuery);
-        /// 的本地化字符串。
+        ///   查找类似 (function(b){function c(a){b.panzer.createJQuery.call(this,a.option.timer).__timer(&quot;stop&quot;)}b.fn.__uploader=function(){var a=b.panzer.getPE.call(this,&quot;__uploader&quot;,arguments);return null==a?this:a.result};b.fn.__uploader.funs={destroy:{method:function(a){c.call(this,a);b.panzer.destroy.call(this,a)}},complete:{method:c},hide:{method:function(a){a=b.panzer.createJQuery.call(this,a.option.upload);a.length!=0&amp;&amp;a.hide()}},upload:{method:function(a){var a=a.option,c=b.panzer.createJQuery.call(this,a.upload).conten [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string uploader_min {
             get {
@@ -101,8 +110,8 @@ namespace zoyobar.shared.panzer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 (function(c){function g(d){var a=d.option,b=c(a.target);if(b.length!=0){var f=a.mask,e=b.attr(&quot;type&quot;);e==&quot;checkbox&quot;||e==&quot;radio&quot;?(e=b.attr(&quot;checked&quot;),null==e?e=!1:e==&quot;checked&quot;&amp;&amp;(e=!0)):e=b.val();null!=f.need&amp;&amp;f.need&amp;&amp;typeof e==&quot;string&quot;&amp;&amp;e==&quot;&quot;?b={value:&quot;&quot;,tip:null==f.tip.need?(null==f.name?&quot;argument&quot;:f.name)+&quot; should not be empty&quot;:f.tip.need,success:!1}:(b=c.panzer.check.call(this,c.panzer.convert.call(this,e,f.defaultvalue,f.type,f.provider),f,!1),b.success&amp;&amp;null!=a.equal&amp;&amp;c(a.equal).length!=0&amp;&amp;e!=
-        ///c(a.equal [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 (function(c){function g(d){var a=d.option,b=c.panzer.createJQuery.call(this,a.target);if(b.length!=0){var f=a.mask,e=b.attr(&quot;type&quot;);e==&quot;checkbox&quot;||e==&quot;radio&quot;?(e=b.attr(&quot;checked&quot;),null==e?e=!1:e==&quot;checked&quot;&amp;&amp;(e=!0)):e=b.val();null!=f.need&amp;&amp;f.need&amp;&amp;typeof e==&quot;string&quot;&amp;&amp;e==&quot;&quot;?b={value:&quot;&quot;,tip:null==f.tip.need?(null==f.name?&quot;argument&quot;:f.name)+&quot; should not be empty&quot;:f.tip.need,success:!1}:(b=c.panzer.check.call(this,c.panzer.convert.call(this,e,f.defaultvalue,f.type,f.provider),f,!1),b.success&amp;&amp;null!=a.equal&amp;&amp;
+        ///c.pa [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string validator_min {
             get {
