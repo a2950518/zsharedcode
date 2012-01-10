@@ -1,0 +1,148 @@
+﻿#summary Plot Reference
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
+=== Introduction/Catalog ===
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /plot/Default.aspx.
+ 
+ Video demo: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+
+ This article explain how to set the data used by Plot control and some properties of Plot, the catalog is as follows:
+
+  * Prepare
+  * Set Data
+    * Data Series
+    * DataSetting
+    * AppendData Method
+    * Data Property
+  * To Display The Data
+  * Play The Animation 
+  * Data Sorting
+  * <font color="red">(Here are no completed chapters)</font>
+
+=== Prepare ===
+ Be sure that you have got the latest version of JQueryElement at the section JQueryElement.dll Download of [Download Downloads].
+
+ Use the following statements to reference namespace:
+{{{
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui.plusin.jqplot"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.web.jqueryui.plusin.jqplot"
+	TagPrefix="je" %>
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.web.jqueryui"
+	TagPrefix="je" %>
+}}}
+
+ In addition to the namespace, you need to reference the jQueryUI/jqplot scripts and styles, there are jqplot and a custom theme for jQueryUI in the compressed file downloaded at the section JQueryElement.dll Download of [Download Downloads], if you need more themes, you can get them at [http://jqueryui.com/download jqueryui.com/download]:
+{{{
+<link type="text/css" rel="stylesheet" href="[style path]/jquery-ui-<version>.custom.css" />
+<link rel="stylesheet" type="text/css" href="[style path]/jquery.jqplot.min.css" />
+<script type="text/javascript" src="[script path]/jquery-<version>.min.js"></script>
+<script type="text/javascript" src="[script path]/jquery-ui-<version>.custom.min.js"></script>
+<script type="text/javascript" src="[script path]/jquery.jqplot.min.js"></script>
+}}}
+
+=== Set Data ===
+
+ ==== <font color="green">Data Series</font> ====
+ Plot can display multiple sets of data, for example, simultaneously to display the sales of some books, the related data of each book is a data series.
+
+ ==== <font color="green">DataSetting</font> ====
+ Through DataSetting of Plot, you can add data:
+{{{
+<je:Plot ID="plot2" runat="server" IsVariable="true" Width="500px">
+	<DataSetting>
+		<je:Data>
+			<je:Point Param1="1" Param2="2" />
+			<je:Point Param1="2" Param2="4" />
+			<je:Point Param1="3" Param2="8" />
+			<je:Point Param1="4" Param2="16" />
+		</je:Data>
+		<je:Data>
+			<je:Point Param1="1" Param2="3" />
+			<je:Point Param1="2" Param2="7" />
+			<je:Point Param1="3" Param2="10" />
+			<je:Point Param1="4" Param2="6" />
+		</je:Data>
+	</DataSetting>
+</je:Plot>
+}}}
+ In the code above, we add 2 data series, each Data object corresponds to a data series. By adding Point, data series can be increased, Param1 property corresponds to the first parameter usually is x coordinate, Param2 property corresponds to the second argument usually is y coordinate. In some special cases, Param3 and Param4 is used also.
+
+ ==== <font color="green">AppendData Method</font> ====
+ In the background code, you can use AppendData method to add data series:
+{{{
+protected void Page_Load ( object sender, EventArgs e )
+{
+	this.plot3.AppendData (
+		new Data (
+			new Point ( 1, 1 ),
+			new Point ( 2, 2 ),
+			new Point ( 3, 3 )
+			),
+		new Data (
+			new Point ( 1, 3 ),
+			new Point ( 2, 2 ),
+			new Point ( 3, 1 )
+			)
+		);
+}
+}}}
+ We add 2 data series to plot3 when the page is loading, and the Data object represents a data series, and the Point object represents a point.
+
+ ==== <font color="green">Data Property</font> ====
+ In addition you can set the data series by Data property of Plot:
+{{{
+<je:Plot ID="plot6" runat="server" IsVariable="true"
+	Data="[[[2,5],[4,6]],[[2,6],[4,7]]]">
+</je:Plot>
+}}}
+ The format of the Data property is *`[<data series, such as: [<point, such as: [x, y]>]>]`*.
+
+=== To Display The Data ===
+ After you have data, you can use the method fill of *plot* to display the data:
+{{{
+<script type="text/javascript">
+	$(function () {
+		plot1.__plot('fill');
+	});
+</script>
+}}}
+ In the code above, after the page load is complete, it'll display the data. The javascript variable plot1 is generated through the IsVariable property of Plot, more information can refer to [JEBase JQueryElement Basic Property Reference].
+
+=== Play The Animation  ===
+ Set the Animate property of Plot to true, it will play the animation when you display the data:
+{{{
+<span class="span-button" onclick="plot8.__plot('fill');">play</span>
+<je:Plot ID="plot8" runat="server" IsVariable="true"
+	Data="[[[1,1],[3,5],[2,6],[4,7]]]"
+	Animate="true">
+</je:Plot>
+}}}
+
+=== Data Sorting ===
+ In the default case, the the data of *plot* will be sorted, and you can set the SortData property to false to prevent it, such as:
+{{{
+<je:Plot ID="plot7" runat="server" IsVariable="true"
+	Data="[[[1,1],[3,5],[2,6],[4,7]]]"
+	SortData="false">
+</je:Plot>
+
+<je:Plot ID="plot8" runat="server" IsVariable="true"
+	Data="[[[1,1],[3,5],[2,6],[4,7]]]">
+</je:Plot>
+}}}
+ In plot7, the 2nd point [3,5], and 3rd point [2,6] will exchange order, while not in the plot8.
+
+=== <font color="red">(Here are no completed chapters)</font> ===
+ More content, so stay tuned...
+
+=== Related Content ===
+ [AjaxReturnJSON Return JSON In Different .NET Version]
+
+ [JEBase JQueryElement Basic Property Reference]
+
+ [JEParameter Through Parameter Object Add Ajax Request Parameter]
+
+</font>
