@@ -14,9 +14,11 @@
     * AppendData Method
     * Data Property
   * To Display The Data
-  * Play The Animation 
+  * Play The Animation
   * Data Sorting
   * <font color="red">(Here are no completed chapters)</font>
+
+ <img src="http://zsharedcode.googlecode.com/files/plotdata4.jpg" />
 
 === Prepare ===
  Be sure that you have got the latest version of JQueryElement at the section JQueryElement.dll Download of [Download Downloads].
@@ -134,6 +136,8 @@ protected void Page_Load ( object sender, EventArgs e )
 </je:Plot>
 }}}
  In plot7, the 2nd point [3,5], and 3rd point [2,6] will exchange order, while not in the plot8.
+
+ <img src="http://zsharedcode.googlecode.com/files/plotdata7.8.jpg" />
 
 === <font color="red">(Here are no completed chapters)</font> ===
  More content, so stay tuned...

@@ -20,6 +20,8 @@
   * 数据排序
   * <font color="red">(这里是没有完成的章节)</font>
 
+ <img src="http://zsharedcode.googlecode.com/files/plotdata4.jpg" />
+
 === 准备 ===
  请确保已经在 [Download 下载资源] 中的 JQueryElement.dll 下载一节下载 JQueryElement 最新的版本.
 
@@ -136,6 +138,8 @@ protected void Page_Load ( object sender, EventArgs e )
 </je:Plot>
 }}}
  在 plot7 中, 第 2 个点 [3,5] 和第 3 个点 [2,6] 会交换顺序, 而在 plot8 中不会.
+
+ <img src="http://zsharedcode.googlecode.com/files/plotdata7.8.jpg" />
 
 === <font color="red">(这里是没有完成的章节)</font> ===
  更多内容, 敬请期待...
