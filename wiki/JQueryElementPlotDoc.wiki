@@ -126,10 +126,13 @@ protected void Page_Load ( object sender, EventArgs e )
 === 数据排序 ===
  在默认的情况下, *plot* 会对数据进行排序, 可以将 SortData 属性设置为 false 来阻止排序, 比如:
 {{{
-<je:Plot ID="plot7" runat="server" IsVariable="true" Width="500px" Data="[[[1,1],[3,5],[2,6],[4,7]]]" SortData="false">
+<je:Plot ID="plot7" runat="server" IsVariable="true"
+	Data="[[[1,1],[3,5],[2,6],[4,7]]]"
+	SortData="false">
 </je:Plot>
 
-<je:Plot ID="plot8" runat="server" IsVariable="true" Width="500px" Data="[[[1,1],[3,5],[2,6],[4,7]]]">
+<je:Plot ID="plot8" runat="server" IsVariable="true"
+	Data="[[[1,1],[3,5],[2,6],[4,7]]]">
 </je:Plot>
 }}}
  在 plot7 中, 第 2 个点 [3,5] 和第 3 个点 [2,6] 会交换顺序, 而在 plot8 中不会.
