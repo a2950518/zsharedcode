@@ -235,11 +235,11 @@
 	<je:Parameter Name="<parameter 1>"
 		Type="Expression"
 		Value="<value 1>"
-		Default="<defaul value 1>" />
+		Default="<default value 1>" />
 	<je:Parameter Name="<parameter 2>"
 		Type="Selector"
 		Value="<value 2>"
-		Default="<defaul value 2>" />
+		Default="<default value 2>" />
 
 </FillAsync>
 </je:Repeater>

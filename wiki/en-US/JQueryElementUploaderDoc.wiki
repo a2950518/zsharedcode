@@ -259,6 +259,6 @@ function(data){
  [JEBase JQueryElement Basic Property Reference]
 
 === Revision History ===
- 2011-12-31: Increase Stop Getting Progress section. 
+ 2011-12-31: Increase Stop Getting Progress section.
 
 </font>
