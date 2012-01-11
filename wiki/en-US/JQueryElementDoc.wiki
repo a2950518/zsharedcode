@@ -1,0 +1,53 @@
+﻿#summary JQueryElement Reference&Sample
+#labels Phase-Implementation
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
+
+=== Introduction ===
+ [JQueryElement JQueryElement] 是可以在 Visual Studio 中使用的 jQuery UI 控件, 实现了 jQuery UI 的各种效果以及插件.
+
+=== Use ===
+ 请在 [Download 下载资源] 中的 JQueryElement.dll 下载一节下载 JQueryElement dll 文件的 zip 压缩包.
+
+=== Sample ===
+ * [JQueryElementRepeaterDoc Repeater Reference]
+   * [JERepeaterBindField Repeater Binding/Handling Field]
+   * [JERepeaterSubView Repeater Child Views]
+   * [JERepeaterGroup Repeater Grouping Data]
+   * [JERepeaterWidget Repeater Handling Control]
+   * [JERepeaterShowTip Repeater Message]
+   * [JERepeaterSearch Repeater Retrieving Data]
+   * [JERepeaterSorting Repeater Sorting]
+   * [JERepeaterMulti Repeater Multi Rows]
+ * [JQueryElementTimerDoc Timer Reference]
+ * [JQueryElementValidatorDoc Validator Reference]
+ * [JQueryElementUploaderDoc Uploader Reference]
+ * [JQueryElementPlotDoc Plot Reference]
+
+ * [JQueryElementAccordionDoc Accordion Reference]
+ * [JQueryElementAutoCompleteDoc Autocompelete Reference]
+ * [JQueryElementButtonDoc Button Reference]
+ * [JQueryElementDatePickerDoc DatePicker Reference]
+ * [JQueryElementDialogDoc Dialog Reference]
+ * [JQueryElementProgressBarDoc ProgressBar Reference]
+ * [JQueryElementSliderDoc Slider Reference]
+ * [JQueryElementTabsDoc Tabs Reference]
+
+ * [JQueryElementDraggableDoc Draggable Reference]
+ * [JQueryElementDroppableDoc Droppable Reference]
+ * [JQueryElementResizableDoc Resizable Reference]
+ * [JQueryElementSelectableDoc Selectable Reference]
+ * [JQueryElementSortableDoc Sortable Reference]
+
+=== Other ===
+ * [AjaxReturnJSON Return JSON In Different .NET Version]
+ * [AjaxDataType Ajax And Server Data Type Conversions]
+ * [JEBase JQueryElement Basic Property Reference]
+ * [JEParameter Through Parameter Object Add Ajax Request Parameter]
+ * [AjaxManager Generate javascript That Calls The Server-Side Method]
+ * [JEMasterPage Use JQueryElement In Master Page]
+ * [ResponseProgress Display Page Loading Progress]
+ * [JEIntelliSense Configuring Visual Studio IntelliSense For JQueryElement]
+
+=== Related Content ===
+ * [HowToDownloadAndUse How To Download]
+</font>

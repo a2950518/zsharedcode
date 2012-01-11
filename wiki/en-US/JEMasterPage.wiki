@@ -1,4 +1,4 @@
-﻿#summary 在母版页中使用 JQueryElement
+﻿#summary Use JQueryElement In Master Page
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 === Introduction/Catalog ===
  Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /master/Welcome.aspx.

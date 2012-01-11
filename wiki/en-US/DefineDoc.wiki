@@ -1,0 +1,20 @@
+﻿#summary Compilation Symbols
+#labels Phase-Design,Phase-Implementation
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
+
+=== {{{PARAM}}} ===
+ Define the compilation symbol {{{PARAM}}} in project, method parameter will have a default value, such as:
+{{{
+public void Test(string name = null, int age = 10) { }
+}}}
+ In Visual Studio 2010 you can use this style, set {{{PARAM}}} to {{{NOPARAM}}} in the project properties when you use Visual Student 2008 and previous versions, at this point will use the following style:
+{{{
+public void Test() { }
+public void Test(string name) { }
+public void Test(string name, int age) { }
+public void Test(int age) { }
+}}}
+
+=== {{{V2, V3, V3_5, V4}}} ===
+ Define the compilation symbols {{{V2, V3, V3_5, V4}}} in the project, it'll be used in different .NET versions. If you use .NET 4.0, then you can define any of {{{V2, V3, V3_5, V4}}}. If you use .NET 2.0, you cannot define any of {{{V3, V3_5, V4}}}, this can result in compile fails.
+</font>
