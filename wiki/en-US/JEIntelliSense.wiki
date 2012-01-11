@@ -1,0 +1,11 @@
+﻿#summary Configuring Visual Studio IntelliSense For JQueryElement
+#labels Phase-Implementation
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
+
+=== Configuring Visual Studio IntelliSense For JQueryElement ===
+ JQueryElement has custom tag attributes, such as use je-class in the templates of the Repeater control, and so on, by default Visual Studio does not automatically prompt these attributes.
+
+ If you want Visual Studio to support the custom tag attributes of JQueryElement, extract the IntelliSense.zip which is included in JQueryElement zip compressed package, copy xsd files to <Visual Studio installation directory>\Common7\Packages\schemas\html\.
+
+ Please restart Visual Studio when the coverage is complete.
+</font>
