@@ -3,10 +3,10 @@
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 
 === Introduction ===
- [JQueryElement JQueryElement] 是可以在 Visual Studio 中使用的 jQuery UI 控件, 实现了 jQuery UI 的各种效果以及插件.
+ JQueryElement is a jQuery UI controls you can use in Visual Studio, implement the jQuery UI effects and plugins. 
 
 === Use ===
- 请在 [Download 下载资源] 中的 JQueryElement.dll 下载一节下载 JQueryElement dll 文件的 zip 压缩包.
+ Please *download JQueryElement* at the section JQueryElement.dll Download of [Download Downloads].
 
 === Sample ===
  * [JQueryElementRepeaterDoc Repeater Reference]
