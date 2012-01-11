@@ -1,5 +1,5 @@
 ﻿#summary IEBrowser 说明&参考
-#labels Phase-Implementation,Featured
+#labels Phase-Implementation
 <font face="microsoft yahei">
 <font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/IEBrowserDoc Translate this page]</font>
 
