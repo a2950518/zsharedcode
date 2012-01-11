@@ -1,0 +1,12 @@
+﻿#summary Notice
+#labels Phase-Implementation,Phase-Support,Phase-Deploy
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
+
+=== Notice ===
+ * [DefineDoc Compilation Symbols Reference]
+   Here explain how to set compilation symbols when you compile the project.
+
+ * [OtherIDE Differences In Different Versions Of Visual Studio]
+   Here to explain the differences in different versions of Visual Studio.
+
+</font>
