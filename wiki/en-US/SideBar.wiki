@@ -7,7 +7,7 @@
     * [PanzerLicense panzer License]
   * [Notice Notice]
     * [DefineDoc Compilation Symbols]
-    * [OtherIDE 不同 Visual Studio 版本的差别]
+    * [OtherIDE Differences Of Visual Studio]
   * [Download Download]
   * [AnalysisNSampleDoc Reference&Sample]
     * [IEBrowserDoc IEBrowser 说明&参考]

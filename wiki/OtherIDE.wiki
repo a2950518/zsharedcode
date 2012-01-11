@@ -4,5 +4,5 @@
 <font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/OtherIDE Translate this page]</font>
 
 === 差别 ===
- Visual Studio 2008, 2005, 2003 以及更早的版本, 可能对代码的解释不同, 比如: 不带 { } 的条件分支, 所以, 建议在 Visual Studio 2010 和 .NET 4.0 的环境下使用代码, 或者可以下载针对不同版本的 dll 文件.
+ Visual Studio 2008, 2005, 2003 以及更早的版本, 可能对代码的解释不同, 比如: 不带 { } 的条件分支, 所以, 建议在 Visual Studio 2010 和 .NET 4.0 的环境下使用代码.
 </font>

@@ -1,0 +1,7 @@
+﻿#summary Differences Of Visual Studio
+#labels Phase-Implementation,Phase-Support,Phase-Deploy
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
+
+=== Difference ===
+ Visual Studio 2008, 2005, 2003 and earlier versions, may explain the code differently, such as conditional branches without the {}, so, it is recommended to use Visual Studio 2010 and .NET 4.
+</font>
