@@ -1,4 +1,4 @@
-﻿<font face="microsoft yahei">
+﻿#labels Featured
 <font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
 
 {{{
