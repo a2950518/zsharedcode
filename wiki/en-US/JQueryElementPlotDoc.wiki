@@ -39,9 +39,10 @@
  In addition to the namespace, you need to reference the jQueryUI/jqplot scripts and styles, there are jqplot and a custom theme for jQueryUI in the compressed file downloaded at the section JQueryElement.dll Download of [Download Downloads], if you need more themes, you can get them at [http://jqueryui.com/download jqueryui.com/download]:
 {{{
 <link type="text/css" rel="stylesheet" href="[style path]/jquery-ui-<version>.custom.css" />
-<link rel="stylesheet" type="text/css" href="[style path]/jquery.jqplot.min.css" />
+<link type="text/css" rel="stylesheet" href="[style path]/jquery.jqplot.min.css" />
 <script type="text/javascript" src="[script path]/jquery-<version>.min.js"></script>
 <script type="text/javascript" src="[script path]/jquery-ui-<version>.custom.min.js"></script>
+<script type="text/javascript" src="[script path]/excanvas.min.js"></script>
 <script type="text/javascript" src="[script path]/jquery.jqplot.min.js"></script>
 }}}
 
@@ -148,5 +149,8 @@ protected void Page_Load ( object sender, EventArgs e )
  [JEBase JQueryElement Basic Property Reference]
 
  [JEParameter Through Parameter Object Add Ajax Request Parameter]
+
+=== Revision History ===
+ 2012-1-12: Add the script reference of excanvas.min.js.
 
 </font>

@@ -41,9 +41,10 @@
  除了命名空间, 还需要引用 jQueryUI 和 jqplot 的脚本和样式, 在 [Download 下载资源] 的 JQueryElement.dll 下载一节下载的压缩包中包含了一个自定义样式的 jQueryUI 和 jqplot, 如果需要更多样式, 可以在 [http://jqueryui.com/download jqueryui.com/download] 下载:
 {{{
 <link type="text/css" rel="stylesheet" href="[样式路径]/jquery-ui-<version>.custom.css" />
-<link rel="stylesheet" type="text/css" href="[样式路径]/jquery.jqplot.min.css" />
+<link type="text/css" rel="stylesheet" href="[样式路径]/jquery.jqplot.min.css" />
 <script type="text/javascript" src="[脚本路径]/jquery-<version>.min.js"></script>
 <script type="text/javascript" src="[脚本路径]/jquery-ui-<version>.custom.min.js"></script>
+<script type="text/javascript" src="[脚本路径]/excanvas.min.js"></script>
 <script type="text/javascript" src="[脚本路径]/jquery.jqplot.min.js"></script>
 }}}
 
@@ -150,5 +151,8 @@ protected void Page_Load ( object sender, EventArgs e )
  [JEBase JQueryElement 基本属性参考]
 
  [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数]
+
+=== 修订历史 ===
+ 2012-1-12: 增加脚本 excanvas.min.js 的引用.
 
 </font>
