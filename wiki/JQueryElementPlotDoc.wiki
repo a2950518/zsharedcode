@@ -5,7 +5,7 @@
 === 简介/目录 ===
  请到 [Download 下载资源] 的 JQueryElement 示例下载一节*下载示例代码*, 目录 /plot/Default.aspx.
  
- 视频演示: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+ 视频演示: [http://www.tudou.com/programs/view/mkuQaMpuBvE/ www.tudou.com/programs/view/mkuQaMpuBvE/]
 
  本文将初步的讲解如何设置 Plot 控件所使用的数据以及控件的部分属性, 目录如下:
 
@@ -18,6 +18,7 @@
   * 显示数据
   * 播放动画
   * 数据排序
+  * 轴和网格
   * <font color="red">(这里是没有完成的章节)</font>
 
  <img src="http://zsharedcode.googlecode.com/files/plotdata4.jpg" />
@@ -142,10 +143,15 @@ protected void Page_Load ( object sender, EventArgs e )
 
  <img src="http://zsharedcode.googlecode.com/files/plotdata7.8.jpg" />
 
+=== 轴和网格 ===
+ 通常轴就是指 x 和 y 轴, 网格也就是绘制数据的地方, 更多的内容请参考 [JEPlotAxisGrid Plot 轴和网格].
+
 === <font color="red">(这里是没有完成的章节)</font> ===
  更多内容, 敬请期待...
 
 === 相关内容 ===
+ [JEPlotAxisGrid Plot 轴和网格]
+
  [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
 
  [JEBase JQueryElement 基本属性参考]
@@ -153,6 +159,6 @@ protected void Page_Load ( object sender, EventArgs e )
  [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数]
 
 === 修订历史 ===
- 2012-1-12: 增加脚本 excanvas.min.js 的引用.
+ 2012-1-12: 增加脚本 excanvas.min.js 的引用, 增加轴和网格介绍.
 
 </font>
