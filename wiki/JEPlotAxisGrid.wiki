@@ -165,8 +165,6 @@
 </je:Plot>
 }}}
 
- <img src="http://zsharedcode.googlecode.com/files/plotaxis9.jpg" />
-
 === 网格 ===
 
  <img src="http://zsharedcode.googlecode.com/files/plotgrid1.jpg" />

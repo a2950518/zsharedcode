@@ -9,7 +9,7 @@
 
   * Prepare
   * Axis
-    * Title 
+    * Title
     * Tick
     * Pad
     * Border
@@ -150,6 +150,18 @@
  <img src="http://zsharedcode.googlecode.com/files/plotaxis4.jpg" />
 
  <img src="http://zsharedcode.googlecode.com/files/plotaxis5.jpg" />
+
+ ==== <font color="green">Border</font> ====
+ By BorderColor, and BorderWidth properties you can set the border style:
+{{{
+<je:Plot ID="plot9" runat="server" IsVariable="true"
+	Data="[[[-10,1],[20,10],[20,20]]]">
+	<AxesSetting
+		XAxisSetting-BorderColor="Blue"
+		XAxisSetting-BorderWidth="3">
+	</AxesSetting>
+</je:Plot>
+}}}
 
 === Grid ===
 
