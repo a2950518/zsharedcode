@@ -16,6 +16,7 @@
   * To Display The Data
   * Play The Animation
   * Data Sorting
+  * Axis And Grid
   * <font color="red">(Here are no completed chapters)</font>
 
  <img src="http://zsharedcode.googlecode.com/files/plotdata4.jpg" />
@@ -140,10 +141,15 @@ protected void Page_Load ( object sender, EventArgs e )
 
  <img src="http://zsharedcode.googlecode.com/files/Plot%20Data7.8.jpg" />
 
+=== Axis And Grid ===
+ Axis normally means that x and y axes, the grid is used to draw the data, for more information please refer to [JEPlotAxisGrid Plot Axis And Grid].
+
 === <font color="red">(Here are no completed chapters)</font> ===
  More content, so stay tuned...
 
 === Related Content ===
+ [JEPlotAxisGrid Plot Axis And Grid]
+ 
  [AjaxReturnJSON Return JSON In Different .NET Version]
 
  [JEBase JQueryElement Basic Property Reference]
@@ -151,6 +157,6 @@ protected void Page_Load ( object sender, EventArgs e )
  [JEParameter Through Parameter Object Add Ajax Request Parameter]
 
 === Revision History ===
- 2012-1-12: Add the script reference of excanvas.min.js.
+ 2012-1-12: Add the script reference of excanvas.min.js, increase presentation on axis and grid.
 
 </font>
