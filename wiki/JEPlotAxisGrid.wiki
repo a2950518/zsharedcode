@@ -148,7 +148,9 @@
 </je:Plot>
 }}}
 
- <img src="http://zsharedcode.googlecode.com/files/plotaxis10.jpg" />
+ <img src="http://zsharedcode.googlecode.com/files/plotaxis4.jpg" />
+
+ <img src="http://zsharedcode.googlecode.com/files/plotaxis5.jpg" />
 
 === 网格 ===
 
@@ -162,7 +164,7 @@
 </je:Plot>
 }}}
 
- <img src="http://zsharedcode.googlecode.com/files/plotgrid2.jpg" />
+ <img src="http://zsharedcode.googlecode.com/files/plotgrid3.jpg" />
 
  ==== <font color="green">阴影</font> ====
  关于阴影的设置参数也很多:
@@ -172,7 +174,7 @@
 </je:Plot>
 }}}
 
- <img src="http://zsharedcode.googlecode.com/files/plotgrid3.jpg" />
+ <img src="http://zsharedcode.googlecode.com/files/plotgrid4.jpg" />
 
 === <font color="red">(这里是没有完成的章节)</font> ===
  更多内容, 敬请期待...
