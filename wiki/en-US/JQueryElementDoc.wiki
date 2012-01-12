@@ -21,7 +21,9 @@
  * [JQueryElementTimerDoc Timer Reference]
  * [JQueryElementValidatorDoc Validator Reference]
  * [JQueryElementUploaderDoc Uploader Reference]
+
  * [JQueryElementPlotDoc Plot Reference]
+   * [JEPlotAxisGrid Plot Axis And Grid]
 
  * [JQueryElementAccordionDoc Accordion Reference]
  * [JQueryElementAutoCompleteDoc Autocompelete Reference]
