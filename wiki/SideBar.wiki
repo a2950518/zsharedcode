@@ -52,6 +52,7 @@
       * [JQueryElementValidatorDoc Validator 完全参考]
       * [JQueryElementUploaderDoc Uploader 完全参考]
       * [JQueryElementPlotDoc Plot 完全参考]
+        * [JEPlotAxisGrid Plot 轴和网格]
       * [JQueryElementAccordionDoc 折叠列表示例]
       * [JQueryElementAutoCompleteDoc Autocompelete 完全参考]
       * [JQueryElementButtonDoc 按钮示例]

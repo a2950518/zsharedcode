@@ -62,8 +62,8 @@
  ==== <font color="green">刻度</font> ====
  通过 NumberTicks 和 TickInterval 属性可以设置刻度之间的距离:
 {{{
-<je:Plot ID="plot3" runat="server" IsVariable="true" Data="[[[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]]"
-	Width="500px">
+<je:Plot ID="plot3" runat="server" IsVariable="true"
+	Data="[[[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]]">
 	<AxesSetting>
 		<XAxisSetting NumberTicks="4" TickInterval="3">
 		</XAxisSetting>
@@ -75,8 +75,8 @@
 
  而通过 Ticks 属性可以设置在哪些位置显示刻度:
 {{{
-<je:Plot ID="plot8" runat="server" IsVariable="true" Data="[[[0,1],[2,5],[3,7]]]"
-	Width="500px" Height="200px">
+<je:Plot ID="plot8" runat="server" IsVariable="true"
+	Data="[[[0,1],[2,5],[3,7]]]">
 	<AxesSetting>
 		<XAxisSetting Ticks="[0,1,3,5,10]">
 		</XAxisSetting>
@@ -89,11 +89,12 @@
 
  还可以设置刻度的颜色和文本的格式:
 {{{
-<je:Plot ID="plot11" runat="server" IsVariable="true" Data="[[[100,1],[200,101],[20,50]]]"
-	Width="500px" Height="200px">
+<je:Plot ID="plot11" runat="server" IsVariable="true"
+	Data="[[[100,1],[200,101],[20,50]]]">
 	<AxesSetting>
 		<XAxisSetting>
-			<TickRendererSetting TextColor="Red" Prefix="-" FormatString="(%d)" />
+			<TickRendererSetting TextColor="Red"
+				Prefix="-" FormatString="(%d)" />
 		</XAxisSetting>
 	</AxesSetting>
 </je:Plot>
@@ -103,8 +104,8 @@
 
  通过 Min 和 Max 可以设置刻度的最小值和最大值:
 {{{
-<je:Plot ID="plot6" runat="server" IsVariable="true" Data="[[[2,5],[4,2],[3,7]]]"
-	Width="500px" Height="200px">
+<je:Plot ID="plot6" runat="server" IsVariable="true"
+	Data="[[[2,5],[4,2],[3,7]]]">
 	<AxesSetting>
 		<XAxisSetting Min="0" Max="10">
 		</XAxisSetting>
@@ -116,8 +117,8 @@
 
  此外, 还可以设置刻度的样式和长度:
 {{{
-<je:Plot ID="plot10" runat="server" IsVariable="true" Data="[[[-1,1],[2,10],[20,50]]]"
-	Width="500px" Height="200px">
+<je:Plot ID="plot10" runat="server" IsVariable="true"
+	Data="[[[-1,1],[2,10],[20,50]]]">
 	<AxesSetting>
 		<XAxisSetting>
 			<TickRendererSetting Mark="outside" MarkSize="20" />
@@ -131,16 +132,16 @@
  ==== <font color="green">两边的空白</font> ====
  通过 Pad, PadMax 和 PadMin 可以设置空白的比例:
 {{{
-<je:Plot ID="plot4" runat="server" IsVariable="true" Data="[[[2,1],[2,2],[3,7]]]"
-	Width="500px">
+<je:Plot ID="plot4" runat="server" IsVariable="true"
+	Data="[[[2,1],[2,2],[3,7]]]">
 	<AxesSetting>
 		<XAxisSetting Pad="2">
 		</XAxisSetting>
 	</AxesSetting>
 </je:Plot>
 
-<je:Plot ID="plot5" runat="server" IsVariable="true" Data="[[[2,1],[2,2],[3,7]]]"
-	Width="500px">
+<je:Plot ID="plot5" runat="server" IsVariable="true"
+	Data="[[[2,1],[2,2],[3,7]]]">
 	<AxesSetting>
 		<XAxisSetting PadMax="2">
 		</XAxisSetting>
@@ -159,8 +160,12 @@
  ==== <font color="green">样式</font> ====
  可设置直线的颜色和宽度等:
 {{{
-<je:Plot ID="plot2" runat="server" IsVariable="true" Width="500px" Height="300px" Data="[[[0,0],[1,4],[2,4]]]">
-	<GridSetting Background="DarkGray" BorderColor="Red" BorderWidth="5" GridLineColor="Blue" GridLineWidth="2" />
+<je:Plot ID="plot2" runat="server" IsVariable="true"
+	Data="[[[0,0],[1,4],[2,4]]]">
+	<GridSetting
+		Background="DarkGray"
+		BorderColor="Red" BorderWidth="5"
+		GridLineColor="Blue" GridLineWidth="2" />
 </je:Plot>
 }}}
 
@@ -169,8 +174,11 @@
  ==== <font color="green">阴影</font> ====
  关于阴影的设置参数也很多:
 {{{
-<je:Plot ID="plot3" runat="server" IsVariable="true" Width="500px" Height="300px" Data="[[[1,10],[12,43],[22,4]]]">
-	<GridSetting ShadowDepth="5" ShadowWidth="6" ShadowAngle="60" ShadowOffset="2" />
+<je:Plot ID="plot3" runat="server" IsVariable="true"
+	Data="[[[1,10],[12,43],[22,4]]]">
+	<GridSetting
+		ShadowDepth="5" ShadowWidth="6"
+		ShadowAngle="60" ShadowOffset="2" />
 </je:Plot>
 }}}
 
