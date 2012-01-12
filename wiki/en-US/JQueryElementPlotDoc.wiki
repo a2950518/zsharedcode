@@ -3,7 +3,7 @@
 === Introduction/Catalog ===
  Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /plot/Default.aspx.
  
- Video demo: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+ Video demo: [http://www.tudou.com/programs/view/mkuQaMpuBvE/ www.tudou.com/programs/view/mkuQaMpuBvE/]
 
  This article explain how to set the data used by Plot control and some properties of Plot, the catalog is as follows:
 
