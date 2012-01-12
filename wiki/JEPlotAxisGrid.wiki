@@ -153,6 +153,20 @@
 
  <img src="http://zsharedcode.googlecode.com/files/plotaxis5.jpg" />
 
+ ==== <font color="green">边框</font> ====
+ 通过 BorderColor 和 BorderWidth 属性可以设置边框的样式:
+{{{
+<je:Plot ID="plot9" runat="server" IsVariable="true"
+	Data="[[[-10,1],[20,10],[20,20]]]">
+	<AxesSetting
+		XAxisSetting-BorderColor="Blue"
+		XAxisSetting-BorderWidth="3">
+	</AxesSetting>
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotaxis9.jpg" />
+
 === 网格 ===
 
  <img src="http://zsharedcode.googlecode.com/files/plotgrid1.jpg" />
