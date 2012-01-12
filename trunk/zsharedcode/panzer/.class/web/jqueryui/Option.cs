@@ -1334,6 +1334,10 @@ namespace zoyobar.shared.panzer.web.jqueryui
 		/// </summary>
 		escapeHtml,
 		/// <summary>
+		/// 转化 html.
+		/// </summary>
+		escapeHTML,
+		/// <summary>
 		/// 位置.
 		/// </summary>
 		location,

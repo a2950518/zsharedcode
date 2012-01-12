@@ -432,6 +432,9 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin.jqplot
 			if ( this.TickOptions == "{}" && null != this.tickRendererSetting )
 				this.TickOptions = JQueryUI.MakeOptionExpression ( this.tickRendererSetting.CreateOptions ( ) );
 
+			if ( this.LabelOptions == "{}" && null != this.lableRendererSetting )
+				this.LabelOptions = JQueryUI.MakeOptionExpression ( this.lableRendererSetting.CreateOptions ( ) );
+
 			return this.settingHelper.CreateOptions ( );
 		}
 

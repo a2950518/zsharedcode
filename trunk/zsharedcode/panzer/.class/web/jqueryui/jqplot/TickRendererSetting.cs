@@ -178,8 +178,8 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin.jqplot
 		[Description ( "是否解释 html, 默认为 false" )]
 		public bool EscapeHtml
 		{
-			get { return this.settingHelper.GetOptionValueToBoolean ( OptionType.escapeHtml, false ); }
-			set { this.settingHelper.SetOptionValueToBoolean ( OptionType.escapeHtml, value, false ); }
+			get { return this.settingHelper.GetOptionValueToBoolean ( OptionType.escapeHTML, false ); }
+			set { this.settingHelper.SetOptionValueToBoolean ( OptionType.escapeHTML, value, false ); }
 		}
 
 		/// <summary>

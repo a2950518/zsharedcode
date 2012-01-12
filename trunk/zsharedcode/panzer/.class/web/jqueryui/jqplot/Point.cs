@@ -69,6 +69,22 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin.jqplot
 		}
 
 		//! 这里没有使用 partial
+
+		/// <summary>
+		/// 创建一个点.
+		/// </summary>
+		/// <param name="param1">第一个参数.</param>
+		public Point ( decimal param1 )
+			: this ( param1.ToString ( ), null, null, null )
+		{ }
+		/// <summary>
+		/// 创建一个点.
+		/// </summary>
+		/// <param name="param2">第二个参数.</param>
+		public Point ( decimal param1, decimal param2 )
+			: this ( param1.ToString ( ), param2.ToString ( ), null, null )
+		{ }
+
 		/// <summary>
 		/// 创建一个点.
 		/// </summary>
