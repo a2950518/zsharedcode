@@ -43,7 +43,7 @@
 </je:Plot>
 }}}
 
- <img src="http://zsharedcode.googlecode.com/files/plotaxis1.jpg" />
+ <img src="http://zsharedcode.googlecode.com/files/Plot%20Axis1.jpg" />
 
  If you want to display the html code as text, you need to set up EscapeHtml property to true:
 {{{
@@ -55,7 +55,7 @@
 </je:Plot>
 }}}
 
- <img src="http://zsharedcode.googlecode.com/files/plotaxis2.jpg" />
+ <img src="http://zsharedcode.googlecode.com/files/Plot%20Axis2.jpg" />
 
  ==== <font color="green">Tick</font> ====
  You can set the distance between tick by NumberTicks and TickInterval property:
