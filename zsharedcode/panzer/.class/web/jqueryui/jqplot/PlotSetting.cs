@@ -282,6 +282,18 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin.jqplot
 
 			return plusins;
 		}
+		
+		/// <summary>
+		/// 重新构造.
+		/// </summary>
+		public override void Recombine ( )
+		{
+			this.FillAsync.EventType = EventType.fill;
+			this.FillAsync.Success = "function(data){e.callback.call(pe.jquery, pe, -:data, -:data.__success, -:data.custom);}";
+			this.FillAsync.Error = "function(){e.callback.call(pe.jquery, pe, null, false, null);}";
+
+			base.Recombine ( );
+		}
 
 	}
 	#endregion

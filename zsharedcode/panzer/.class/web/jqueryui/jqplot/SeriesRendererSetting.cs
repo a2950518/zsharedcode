@@ -268,7 +268,7 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin.jqplot
 		/// <summary>
 		/// 获取或设置是否解释 html, 默认为 true.
 		/// </summary>
-		[Category ( "断点" )]
+		[Category ( "泡泡图" )]
 		[Description ( "是否解释 html, 默认为 true" )]
 		public bool BubbleEscapeHtml
 		{
