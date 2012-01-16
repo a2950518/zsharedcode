@@ -170,9 +170,12 @@
  ==== <font color="green">X2, Y2</font> ====
  除了 x 和 y 轴, 图表中还有 x2 和 y2 轴:
 {{{
-<je:Plot ID="plot12" runat="server" IsVariable="true" Data="[[[0,1],[2,4],[5,7]]]"
-	Width="500px" Height="200px">
-	<AxesSetting X2AxisSetting-BorderWidth="3" X2AxisSetting-BorderColor="Blue"></AxesSetting>
+<je:Plot ID="plot12" runat="server" IsVariable="true"
+	Data="[[[0,1],[2,4],[5,7]]]">
+	<AxesSetting
+		X2AxisSetting-BorderWidth="3"
+		X2AxisSetting-BorderColor="Blue">
+	</AxesSetting>
 </je:Plot>
 }}}
  上面的代码设置了 x2 轴的颜色和宽度.
@@ -182,9 +185,11 @@
  ==== <font color="green">默认设置</font> ====
  可以为 x, y, x2, y2 这些轴设置默认的参数:
 {{{
-<je:Plot ID="plot13" runat="server" IsVariable="true" Data="[[[0,1],[2,4],[5,7]]]"
-	Width="500px" Height="200px">
-	<AxesDefaultsSetting BorderColor="Red" NumberTicks="3">
+<je:Plot ID="plot13" runat="server" IsVariable="true"
+	Data="[[[0,1],[2,4],[5,7]]]">
+	<AxesDefaultsSetting
+		BorderColor="Red"
+		NumberTicks="3">
 	</AxesDefaultsSetting>
 </je:Plot>
 }}}
