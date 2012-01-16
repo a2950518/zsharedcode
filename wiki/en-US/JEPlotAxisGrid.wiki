@@ -3,7 +3,7 @@
 === Introduction/Catalog ===
  Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /plot/Default.aspx.
  
- Video demo: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+ Video demo: [http://www.tudou.com/programs/view/HZC250BM_TE/ www.tudou.com/programs/view/HZC250BM_TE/]
 
  This article will explain in detail how to set the axis and grid of the Plot control, the catalog is as follows:
 
@@ -13,6 +13,8 @@
     * Tick
     * Pad
     * Border
+    * X2, Y2
+    * Default Setting
   * Grid
     * Style
     * Shadow
@@ -162,6 +164,35 @@
 	</AxesSetting>
 </je:Plot>
 }}}
+
+ ==== <font color="green">X2, Y2</font> ====
+ In addition to the x and y axes, there are x2 and y2 axes in a chart:
+{{{
+<je:Plot ID="plot12" runat="server" IsVariable="true"
+	Data="[[[0,1],[2,4],[5,7]]]">
+	<AxesSetting
+		X2AxisSetting-BorderWidth="3"
+		X2AxisSetting-BorderColor="Blue">
+	</AxesSetting>
+</je:Plot>
+}}}
+ In the above code, we set the color and width of x2 axis.
+
+ <img src="http://zsharedcode.googlecode.com/files/plotaxis12.jpg" />
+
+ ==== <font color="green">Default Setting</font> ====
+ We can set the default value for x, y, x2 and y2 axes by AxesDefaultsSetting:
+{{{
+<je:Plot ID="plot13" runat="server" IsVariable="true"
+	Data="[[[0,1],[2,4],[5,7]]]">
+	<AxesDefaultsSetting
+		BorderColor="Red"
+		NumberTicks="3">
+	</AxesDefaultsSetting>
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotaxis13.jpg" />
 
 === Grid ===
 
