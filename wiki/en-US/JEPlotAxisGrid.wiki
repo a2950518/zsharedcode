@@ -234,6 +234,6 @@
  [JEBase JQueryElement Basic Property Reference]
 
 === Revision History ===
- 2011-12-31: Increase content on axis.
+ 2012-1-16: Increase content on axis.
 
 </font>
