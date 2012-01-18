@@ -17,6 +17,7 @@
   * Play The Animation
   * Data Sorting
   * Axis And Grid
+  * Title Legend And Series
   * <font color="red">(Here are no completed chapters)</font>
 
  <img src="http://zsharedcode.googlecode.com/files/plotdata4.jpg" />
@@ -144,12 +145,17 @@ protected void Page_Load ( object sender, EventArgs e )
 === Axis And Grid ===
  Axis normally means that x and y axes, the grid is used to draw the data, for more information please refer to [JEPlotAxisGrid Plot Axis And Grid].
 
+=== Title Legend And Series ===
+ Title appears above the chart, the legend is the meaning of each series, for more information please refer to [JEPlotTitleLegendSeries Title Legend And Series].
+
 === <font color="red">(Here are no completed chapters)</font> ===
  More content, so stay tuned...
 
 === Related Content ===
  [JEPlotAxisGrid Plot Axis And Grid]
- 
+
+ [JEPlotTitleLegendSeries Plot Title Legend And Series]
+
  [AjaxReturnJSON Return JSON In Different .NET Version]
 
  [JEBase JQueryElement Basic Property Reference]
@@ -158,5 +164,7 @@ protected void Page_Load ( object sender, EventArgs e )
 
 === Revision History ===
  2012-1-12: Add the script reference of excanvas.min.js, increase presentation on axis and grid.
+
+ 2012-1-18: Increase the introduction of title, legend and series.
 
 </font>

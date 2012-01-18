@@ -1,0 +1,211 @@
+﻿#summary Plot Title Legend And Series
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
+=== Introduction/Catalog ===
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /plot/Default.aspx.
+ 
+ Video demo: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+
+ This article will explain in detail how to set the title, legend and series of the Plot control, the catalog is as follows:
+
+  * Prepare
+  * Title
+  * Legend
+    * Location
+    * Text
+  * Series
+    * Line
+    * Axis
+    * Fill
+    * Shadow
+    * Legend Text
+    * Default Setting
+  * <font color="red">(Here are no completed chapters)</font>
+
+=== Prepare ===
+ Please view the Prepare section at [JQueryElementPlotDoc Plot Reference].
+
+=== Title ===
+ You can set the title of chart through the TitleSetting property:
+{{{
+<je:Plot ID="plot1" runat="server" IsVariable="true"
+	Data="[[[1,2],[3,4]]]">
+	<TitleSetting
+		Text="Here is a title"
+		TextAlign="right"
+		TextColor="Blue"
+		FontSize="10pt" />
+</je:Plot>
+}}}
+ The Text property is the text of title, the TextAlign property is the alignment of the title, the TextColor property is the color of the title, and the FontSize property is the size of the font.
+
+ <img src="http://zsharedcode.googlecode.com/files/plottitle1.jpg" />
+
+=== Legend ===
+
+ ==== <font color="green">Location</font> ====
+ You can set the display position of the legend by the Location and Placement properties of the LegendSetting:
+{{{
+<je:Plot ID="plot1" runat="server" IsVariable="true"
+	Data="[[[1,2],[3,4]]]">
+	<LegendSetting
+		Show="true"
+		Location="sw"
+		Placement="outsideGrid" />
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotlegend1.jpg" />
+
+ ==== <font color="green">Text</font> ====
+ You can set the text of the legend through the Labels property, in the form of a javascript array, each element corresponds to the legend text of a series, defaults to *`Series N`*:
+{{{
+<je:Plot ID="plot2" runat="server" IsVariable="true"
+	Data="[[[1,2],[3,4]],[[3,2],[3,1]]]">
+	<LegendSetting Show="true"
+		Labels="['line 1','<u>line 2</u>']" />
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotlegend2.jpg" />
+
+ Set EscapeHtml property to true, the html code will be displayed as text:
+{{{
+<je:Plot ID="plot3" runat="server" IsVariable="true"
+	Data="[[[1,2],[3,4]],[[3,2],[3,1]],[[5,0],[7,9]]]">
+	<LegendSetting Show="true"
+		Labels="['line 1','<u>line 2</u>']"
+		EscapeHtml="true" />
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotlegend3.jpg" />
+
+=== Series ===
+ You can set each series with SeriesSetting.
+
+ ==== <font color="green">Line</font> ====
+ You can add a Series object to increase a set of series:
+{{{
+<je:Plot ID="plot1" runat="server" IsVariable="true"
+	Data="[[[1,2],[3,4]]]">
+	<SeriesSetting>
+		<je:Series
+			Color="Green"
+			LineWidth="5"
+			LinePattern="dashed">
+		</je:Series>
+	</SeriesSetting>
+</je:Plot>
+}}}
+ In the above code, we set the color of the first series to green, the width to 5 pixels, and the style to dashed line.
+
+ <img src="http://zsharedcode.googlecode.com/files/plotseries1.jpg" />
+
+ ==== <font color="green">Axis</font> ====
+ By XAxis and YAxis, you can set the axis that the series used:
+{{{
+<je:Plot ID="plot2" runat="server" IsVariable="true"
+	Data="[[[1,2],[3,4]]]">
+	<SeriesSetting>
+		<je:Series XAxis="x2axis" YAxis="y2axis">
+		</je:Series>
+	</SeriesSetting>
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotseries2.jpg" />
+
+ ==== <font color="green">Fill</font> ====
+ Set Fill to true, it'll fill the empty space between lines and a tick:
+{{{
+<je:Plot ID="plot3" runat="server" IsVariable="true"
+	Data="[[[2,2],[3,5],[5,3]]]">
+	<SeriesSetting>
+		<je:Series Fill="true">
+		</je:Series>
+	</SeriesSetting>
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotseries3.jpg" />
+
+ By FillAlpha and FillColor, you can set the fill color and transparency, set FillAndStroke to true, it'll show the line:
+{{{
+<je:Plot ID="plot4" runat="server" IsVariable="true"
+	Data="[[[-1,-1],[3,0],[4,3]]]">
+	<SeriesSetting>
+		<je:Series Fill="true"
+			FillAlpha="0.4"
+			FillColor="Red"
+			FillAndStroke="true">
+		</je:Series>
+	</SeriesSetting>
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotseries4.jpg" />
+
+ Set FillToZero property to true, it'll use 0 as baseline:
+{{{
+<je:Plot ID="plot5" runat="server" IsVariable="true"
+	Data="[[[-1,-1],[2,0],[5,3]]]">
+	<SeriesSetting>
+		<je:Series Fill="true"
+			FillToZero="true">
+		</je:Series>
+	</SeriesSetting>
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotseries5.jpg" />
+
+ ==== <font color="green">Shadow</font> ====
+ You can also set the shadow setting:
+{{{
+<je:Plot ID="plot6" runat="server" IsVariable="true"
+	Data="[[[1,1],[2,3],[5,3]]]">
+	<SeriesSetting>
+		<je:Series
+			ShadowAngle="30"
+			ShadowDepth="10"
+			ShadowOffset="3">
+		</je:Series>
+	</SeriesSetting>
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotseries6.jpg" />
+
+ ==== <font color="green">Legend Text</font> ====
+ Label property indicates the legend text of series:
+{{{
+<je:Plot ID="plot7" runat="server" IsVariable="true"
+	Data="[[[1,2],[2,4],[3,3]]]" LegendSetting-Show="true">
+	<SeriesSetting>
+		<je:Series Label="Hello!!!">
+		</je:Series>
+	</SeriesSetting>
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotseries7.jpg" />
+
+ ==== <font color="green">Default Setting</font> ====
+ Set the default setting of all series with SeriesDefaultsSetting:
+{{{
+<je:Plot ID="plot8" runat="server" IsVariable="true"
+	Data="[[[1,3],[2,1],[3,5]],[[1,1],[2,0],[3,3]]]">
+	<SeriesDefaultsSetting LineWidth="8">
+	</SeriesDefaultsSetting>
+</je:Plot>
+}}}
+
+=== <font color="red">(Here are no completed chapters)</font> ===
+ More content, so stay tuned...
+
+=== Related Content ===
+ [JQueryElementPlotDoc Plot Reference]
+
+ [JEBase JQueryElement Basic Property Reference]
+
+</font>

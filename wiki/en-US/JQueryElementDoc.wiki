@@ -24,6 +24,7 @@
 
  * [JQueryElementPlotDoc Plot Reference]
    * [JEPlotAxisGrid Plot Axis And Grid]
+   * [JEPlotTitleLegendSeries Plot Title Legend And Series]
 
  * [JQueryElementAccordionDoc Accordion Reference]
  * [JQueryElementAutoCompleteDoc Autocompelete Reference]
