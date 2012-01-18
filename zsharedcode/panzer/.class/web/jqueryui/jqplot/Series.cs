@@ -47,6 +47,14 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin.jqplot
 			/// 圆点.
 			/// </summary>
 			round,
+			/// <summary>
+			/// 桶.
+			/// </summary>
+			butt,
+			/// <summary>
+			/// 方形
+			/// </summary>
+			square,
 		}
 		#endregion
 
@@ -60,6 +68,14 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin.jqplot
 			/// 圆点.
 			/// </summary>
 			round,
+			/// <summary>
+			/// 桶.
+			/// </summary>
+			butt,
+			/// <summary>
+			/// 方形
+			/// </summary>
+			square,
 		}
 		#endregion
 
@@ -207,8 +223,8 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin.jqplot
 		[Description ( "填充颜色, 默认为 Transparent, 目前尚不可用" )]
 		public Color FillColor
 		{
-			get { return this.settingHelper.GetOptionValueToHtmlColor ( OptionType.fillColor, Color.Transparent ); }
-			set { this.settingHelper.SetOptionValueToHtmlColor ( OptionType.fillColor, value, Color.Transparent ); }
+			get { return this.settingHelper.GetOptionValueToRgbaColor ( OptionType.fillColor, Color.Transparent ); }
+			set { this.settingHelper.SetOptionValueToRgbaColor ( OptionType.fillColor, value, Color.Transparent ); }
 		}
 
 		/// <summary>
