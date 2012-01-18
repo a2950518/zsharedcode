@@ -5,7 +5,7 @@
 === 简介/目录 ===
  请到 [Download 下载资源] 的 JQueryElement 示例下载一节*下载示例代码*, 目录 /plot/Default.aspx.
  
- 视频演示: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+ 视频演示: [http://www.tudou.com/programs/view/HZC250BM_TE/ www.tudou.com/programs/view/HZC250BM_TE/]
 
  本文将详细的讲解如何设置 Plot 图表控件的轴和网格, 目录如下:
 

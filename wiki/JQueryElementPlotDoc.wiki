@@ -19,6 +19,7 @@
   * 播放动画
   * 数据排序
   * 轴和网格
+  * 标题图例和序列
   * <font color="red">(这里是没有完成的章节)</font>
 
  <img src="http://zsharedcode.googlecode.com/files/plotdata4.jpg" />
@@ -146,11 +147,16 @@ protected void Page_Load ( object sender, EventArgs e )
 === 轴和网格 ===
  通常轴就是指 x 和 y 轴, 网格也就是绘制数据的地方, 更多的内容请参考 [JEPlotAxisGrid Plot 轴和网格].
 
+=== 标题图例和序列 ===
+ 标题将显示在图表的上方, 图例可以说明每个序列的含义, 更多的内容请参考 [JEPlotTitleLegendSeries Plot 标题图例和序列].
+
 === <font color="red">(这里是没有完成的章节)</font> ===
  更多内容, 敬请期待...
 
 === 相关内容 ===
  [JEPlotAxisGrid Plot 轴和网格]
+
+ [JEPlotTitleLegendSeries Plot 标题图例和序列]
 
  [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
 
@@ -160,5 +166,7 @@ protected void Page_Load ( object sender, EventArgs e )
 
 === 修订历史 ===
  2012-1-12: 增加脚本 excanvas.min.js 的引用, 增加轴和网格介绍.
+
+ 2012-1-18: 增加标题图例和序列的介绍.
 
 </font>
