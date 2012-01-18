@@ -46,6 +46,9 @@
  Twitter: [http://twitter.com/zoyobar @zoyobar]
  
 === JQueryElement Update History ===
+3.9.1 Changes:
+ a. Fix some Bug.
+
 3.9 Changes:
  a. Add the Plot control.
 
