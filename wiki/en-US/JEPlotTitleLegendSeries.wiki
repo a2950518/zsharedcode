@@ -38,7 +38,7 @@
 }}}
  The Text property is the text of title, the TextAlign property is the alignment of the title, the TextColor property is the color of the title, and the FontSize property is the size of the font.
 
- <img src="http://zsharedcode.googlecode.com/files/plottitle1.jpg" />
+ <img src="http://zsharedcode.googlecode.com/files/Plot%20Title1.jpg" />
 
 === Legend ===
 
@@ -66,7 +66,7 @@
 </je:Plot>
 }}}
 
- <img src="http://zsharedcode.googlecode.com/files/plotlegend2.jpg" />
+ <img src="http://zsharedcode.googlecode.com/files/Plot%20Legend2.jpg" />
 
  Set EscapeHtml property to true, the html code will be displayed as text:
 {{{
@@ -78,7 +78,7 @@
 </je:Plot>
 }}}
 
- <img src="http://zsharedcode.googlecode.com/files/plotlegend3.jpg" />
+ <img src="http://zsharedcode.googlecode.com/files/Plot%20Legend3.jpg" />
 
 === Series ===
  You can set each series with SeriesSetting.
