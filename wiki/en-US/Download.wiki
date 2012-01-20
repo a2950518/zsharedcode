@@ -23,11 +23,11 @@
  The demo is uploaded at 2012-1-18, the version of dll file is 3.9.1: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip]
 
  ==== <font color="#0066CC">JQueryElement.dll Download</font> ====
- The following dll files is uploaded at 2012-1-18.
+ The following dll files is uploaded at 2012-1-20.
  
  Note: *No longer provide PARAM Edition.*
 
- [http://zsharedcode.googlecode.com/files/JQueryElement-en.3.9.1.Debug.NOPARAM.zip JQueryElement-en 3.9.1 for .NET (Debug, NOPARAM, include .NET 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/JQueryElement-en.3.9.2.Debug.NOPARAM.zip JQueryElement-en 3.9.2 for .NET (Debug, NOPARAM, include .NET 2, 3, 3.5, 4)]
 
 === <font color="#008C8C">IEBrowser Download</font> ===
 
@@ -46,6 +46,9 @@
  Twitter: [http://twitter.com/zoyobar @zoyobar]
  
 === JQueryElement Update History ===
+3.9.2 Changes:
+ a. Increase constructor of Point.
+
 3.9.1 Changes:
  a. Fix some Bug.
 
