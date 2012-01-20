@@ -3,7 +3,7 @@
 === Introduction/Catalog ===
  Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /plot/Default.aspx.
  
- Video demo: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+ Video demo: [http://www.tudou.com/programs/view/xIlCrBoRSc8/ www.tudou.com/programs/view/xIlCrBoRSc8/]
 
  This article will explain in detail how to set the title, legend and series of the Plot control, the catalog is as follows:
 
