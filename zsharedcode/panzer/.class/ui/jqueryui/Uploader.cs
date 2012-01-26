@@ -224,7 +224,14 @@ namespace zoyobar.shared.panzer.ui.jqueryui.plusin
 		public string ProgressUrl
 		{
 			get { return this.timer.TickAsync.Url; }
-			set { this.timer.TickAsync.Url = value; }
+			set
+			{
+
+				try
+				{ this.timer.TickAsync.Url = this.ResolveClientUrl ( value ); }
+				catch { }
+
+			}
 		}
 
 		/// <summary>
@@ -306,7 +313,14 @@ namespace zoyobar.shared.panzer.ui.jqueryui.plusin
 		public string UploadUrl
 		{
 			get { return this.iframe.Attributes["src"]; }
-			set { this.iframe.Attributes["src"] = value; }
+			set
+			{
+
+				try
+				{ this.iframe.Attributes["src"] = this.ResolveClientUrl ( value ); }
+				catch { }
+
+			}
 		}
 
 		/// <summary>

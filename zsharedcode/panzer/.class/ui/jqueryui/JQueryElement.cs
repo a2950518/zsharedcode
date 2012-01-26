@@ -24,6 +24,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 	/// 派生所有 jQuery UI 服务器控件的基础类.
 	/// </summary>
 	[ParseChildren ( true )]
+	[Resource ( SingleScript = "je.jquery.js;je.jquery.ui.js", SingleStyle = "je.jquery.ui.css" )]
 	public abstract class JQueryElement<S>
 		: WebControl, INamingContainer
 		where S : UISetting

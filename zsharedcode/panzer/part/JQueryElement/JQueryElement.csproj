@@ -90,6 +90,9 @@
     <Compile Include="..\..\.class\ui\jqueryui\Resizable.cs">
       <Link>.class\Resizable.cs</Link>
     </Compile>
+    <Compile Include="..\..\.class\ui\jqueryui\ResourceLoader.cs">
+      <Link>.class\ResourceLoader.cs</Link>
+    </Compile>
     <Compile Include="..\..\.class\ui\jqueryui\ScriptPackage.cs">
       <Link>.class\ScriptPackage.cs</Link>
     </Compile>
