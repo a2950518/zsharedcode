@@ -1,0 +1,178 @@
+﻿#summary Automatically Add Scripts And Styles
+<font face="microsoft yahei">
+=== Introduction/Catalog ===
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /resourceloader/Default.aspx.
+
+ Video demo: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+ 
+ This article explains how to use the ResourceLoader to add scripts and styles to page:
+
+  * Prepare
+  * Define Path
+  * JQuery UI Controls
+  * JQPlot Control
+  * Specify The Required Scripts And Styles
+  * Custom Controls
+
+=== Prepare ===
+ Be sure that you have got the latest version of JQueryElement at the section JQueryElement.dll Download of [Download Downloads].
+
+ Use the following statements to reference namespace:
+{{{
+<%@ Register Assembly="zoyobar.shared.panzer.JQueryElement"
+	Namespace="zoyobar.shared.panzer.ui.jqueryui"
+	TagPrefix="je" %>
+}}}
+
+=== Define Path ===
+ First, you need to define the path of the script or style in the web.config:
+{{{
+<appSettings>
+	<add key="je.jquery.js" value="<jquery script path>"/>
+	<add key="je.jquery.ui.js" value="<jquery ui script path>"/>
+	<add key="je.jquery.ui.css" value="<jquery ui style path>"/>
+	<add key="je.jqplot.excanvas.js" value="<jqplot excanvas script path>"/>
+	<add key="je.jqplot.js" value="<jqplot script path>"/>
+
+	<add key="je.jqplot.<widget>.js" value="<jqplot widget script path>"/>
+	...
+
+	<add key="je.jqplot.css" value="<jqplot style path>"/>
+
+	<add key="<custom key>" value="<path>"/>
+</appSettings>
+
+
+<appSettings>
+	<add key="je.jquery.js"
+		value="~/js/jquery-1.6.2.min.js"/>
+	<add key="je.jquery.ui.js"
+		value="~/js/jquery-ui-1.8.15.custom.min.js"/>
+	<add key="je.jquery.ui.css"
+		value="~/css/smoothness/jquery-ui-1.8.15.custom.css"/>
+	<add key="je.jqplot.excanvas.js"
+		value="~/js/excanvas.min.js"/>
+	<add key="je.jqplot.js"
+		value="~/js/jquery.jqplot.min.js"/>
+
+	<add key="je.jqplot.DateAxisRenderer.js"
+		value="~/js/plugins/jqplot.dateAxisRenderer.min.js"/>
+	...
+
+	<add key="je.jqplot.css"
+		value="~/css/jquery.jqplot.min.css"/>
+
+	<add key="my.key" value="~/js/my.js"/>
+</appSettings>
+}}}
+ In web.config, use specific keywords to jQuery, jQuery UI and jqplot scripts and styles.
+
+ You can add custom keywords to represent your own files. These keywords will be used in a custom control.
+
+=== JQuery UI Controls ===
+ In the page, we add a ResourceLoader control, and then add a JQueryElement control, such as a button:
+{{{
+<head runat="server">
+	<title>JQuery UI Controls</title>
+</head>
+
+...
+
+<je:ResourceLoader ID="resource" runat="server" />
+
+<je:Button ID="button" runat="server" Label="A Button">
+</je:Button>
+}}}
+ In the above example, you do not need to add the scripts and styles of jQuery UI, because the ResourceLoader will add these scripts and styles.
+
+=== JQPlot Control ===
+ You also need to add the ResourceLoader Control, but if you use jqplot widget, you also need to set some properties of ResourceLoader:
+{{{
+<je:ResourceLoader ID="resource" runat="server"
+	JQPlotDateAxisRenderer="true" />
+
+<je:Plot ID="plot1" runat="server" IsVariable="true">
+	<AxesSetting XAxisSetting-Renderer="DateAxisRenderer">
+	</AxesSetting>
+	<DataSetting>
+		<je:Data>
+			<je:Point Param1="'2011-1-1'" Param2="300" />
+			<je:Point Param1="'2011-1-2'" Param2="320" />
+			<je:Point Param1="'2011-1-3'" Param2="340" />
+			<je:Point Param1="'2011-1-4'" Param2="400" />
+		</je:Data>
+	</DataSetting>
+</je:Plot>
+}}}
+ In the code above, we use the jqplot date axis widget, so you need to set the property JQPlotDateAxisRenderer to true.
+
+ About the settings of different jqplot widget, please refer to the related article of jqplot.
+
+=== Specify The Required Scripts And Styles ===
+ Through the JQuery, JQueryUI, JQPlot properties of ResourceLoader control to add the scripts and styles:
+{{{
+<je:ResourceLoader ID="resource" runat="server"
+	JQueryUI="true" />
+}}}
+ In the above code, set the JQueryUI property to true, the page will be added the scripts and styles of jQuery UI.
+
+=== Custom Controls ===
+ You can specify the required scripts and styles for the custom control:
+{{{
+using zoyobar.shared.panzer.ui.jqueryui;
+
+[Resource ( SingleScript = "my.js", SingleStyle = "my.css" )]
+public partial class resourceloader_MyControl
+	: System.Web.UI.UserControl
+{
+	...
+}
+}}}
+ Use SingleScript and SingleStyle properties of ResourceAttribute to specify the keyword of the script and style. These keywords have been specified in the web.config:
+{{{
+<appSettings>
+	<add key="my.js"
+		value="~/resourceloader/mycontrol.js"/>
+	<add key="my.css"
+		value="~/resourceloader/mycontrol.css"/>
+
+	...
+
+</appSettings>
+}}}
+ You can specify more than one script or style, separated by semicolons. For a custom file, the keyword order is the load order of files.
+
+ You can also use the MultipleScript property to specify the required scripts, if the keywords in MultipleScript are specified in web.config, SingleScript will be ignored:
+{{{
+<%@ Control Language="C#" AutoEventWireup="true"
+	CodeFile="MyControl2.ascx.cs"
+	Inherits="resourceloader_MyControl2" %>
+<input type="button" class="my-button"
+	onclick="alert(add(1,2));"
+	value="1 + 2" />
+}}}
+
+{{{
+using zoyobar.shared.panzer.ui.jqueryui;
+
+[Resource ( SingleScript = "my.js", MultipleScript="my1.js", SingleStyle = "my.css" )]
+public partial class resourceloader_MyControl2
+	: System.Web.UI.UserControl
+{
+	...
+}
+}}}
+
+{{{
+<appSettings>
+	<add key="my.js" value="~/resourceloader/mycontrol.js"/>
+	<add key="my1.js" value="~/resourceloader/mycontrol.1.js"/>
+	<add key="my2.js" value="~/resourceloader/mycontrol.2.js"/>
+	<add key="my.css" value="~/resourceloader/mycontrol.css"/>
+
+	...
+
+</appSettings>
+}}}
+
+</font>

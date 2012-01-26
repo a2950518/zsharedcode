@@ -49,6 +49,7 @@
  * [AjaxManager Generate javascript That Calls The Server-Side Method]
  * [JEMasterPage Use JQueryElement In Master Page]
  * [ResponseProgress Display Page Loading Progress]
+ * [ResourceLoader Automatically Add Scripts And Styles]
  * [JEIntelliSense Configuring Visual Studio IntelliSense For JQueryElement]
 
 === Related Content ===

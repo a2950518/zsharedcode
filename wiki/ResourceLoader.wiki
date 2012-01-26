@@ -46,18 +46,23 @@
 
 
 <appSettings>
-	<add key="je.jquery.js" value="~/js/jquery-1.6.2.min.js"/>
-	<add key="je.jquery.ui.js" value="~/js/jquery-ui-1.8.15.custom.min.js"/>
+	<add key="je.jquery.js"
+		value="~/js/jquery-1.6.2.min.js"/>
+	<add key="je.jquery.ui.js"
+		value="~/js/jquery-ui-1.8.15.custom.min.js"/>
 	<add key="je.jquery.ui.css"
 		value="~/css/smoothness/jquery-ui-1.8.15.custom.css"/>
-	<add key="je.jqplot.excanvas.js" value="~/js/excanvas.min.js"/>
-	<add key="je.jqplot.js" value="~/js/jquery.jqplot.min.js"/>
+	<add key="je.jqplot.excanvas.js"
+		value="~/js/excanvas.min.js"/>
+	<add key="je.jqplot.js"
+		value="~/js/jquery.jqplot.min.js"/>
 
 	<add key="je.jqplot.DateAxisRenderer.js"
 		value="~/js/plugins/jqplot.dateAxisRenderer.min.js"/>
 	...
 
-	<add key="je.jqplot.css" value="~/css/jquery.jqplot.min.css"/>
+	<add key="je.jqplot.css"
+		value="~/css/jquery.jqplot.min.css"/>
 
 	<add key="my.key" value="~/js/my.js"/>
 </appSettings>
@@ -137,8 +142,10 @@ public partial class resourceloader_MyControl1
  使用 ResourceAttribute 的 SingleScript 和 SingleStyle 属性可以指定脚本和样式的关键字. 这些关键字在 web.config 中已经指定:
 {{{
 <appSettings>
-	<add key="my.js" value="~/resourceloader/mycontrol.js"/>
-	<add key="my.css" value="~/resourceloader/mycontrol.css"/>
+	<add key="my.js"
+		value="~/resourceloader/mycontrol.js"/>
+	<add key="my.css"
+		value="~/resourceloader/mycontrol.css"/>
 
 	...
 
