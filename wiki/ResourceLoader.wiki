@@ -48,11 +48,13 @@
 <appSettings>
 	<add key="je.jquery.js" value="~/js/jquery-1.6.2.min.js"/>
 	<add key="je.jquery.ui.js" value="~/js/jquery-ui-1.8.15.custom.min.js"/>
-	<add key="je.jquery.ui.css" value="~/css/smoothness/jquery-ui-1.8.15.custom.css"/>
+	<add key="je.jquery.ui.css"
+		value="~/css/smoothness/jquery-ui-1.8.15.custom.css"/>
 	<add key="je.jqplot.excanvas.js" value="~/js/excanvas.min.js"/>
 	<add key="je.jqplot.js" value="~/js/jquery.jqplot.min.js"/>
 
-	<add key="je.jqplot.DateAxisRenderer.js" value="~/js/plugins/jqplot.dateAxisRenderer.min.js"/>
+	<add key="je.jqplot.DateAxisRenderer.js"
+		value="~/js/plugins/jqplot.dateAxisRenderer.min.js"/>
 	...
 
 	<add key="je.jqplot.css" value="~/css/jquery.jqplot.min.css"/>
@@ -126,7 +128,8 @@
 using zoyobar.shared.panzer.ui.jqueryui;
 
 [Resource ( SingleScript = "my.js", SingleStyle = "my.css" )]
-public partial class resourceloader_MyControl1 : System.Web.UI.UserControl
+public partial class resourceloader_MyControl1
+	: System.Web.UI.UserControl
 {
 	...
 }
@@ -157,7 +160,8 @@ public partial class resourceloader_MyControl1 : System.Web.UI.UserControl
 using zoyobar.shared.panzer.ui.jqueryui;
 
 [Resource ( SingleScript = "my.js", MultipleScript="my1.js", SingleStyle = "my.css" )]
-public partial class resourceloader_MyControl2 : System.Web.UI.UserControl
+public partial class resourceloader_MyControl2
+	: System.Web.UI.UserControl
 {
 	...
 }
