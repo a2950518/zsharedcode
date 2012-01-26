@@ -60,6 +60,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 		}
 
+		/*
 		protected override void CreateChildControls ( )
 		{
 
@@ -77,6 +78,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui
 
 			this.Controls.Add ( content );
 		}
+		*/
 
 	}
 	#endregion

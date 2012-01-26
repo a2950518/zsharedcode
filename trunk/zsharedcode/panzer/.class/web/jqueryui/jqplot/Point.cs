@@ -6,6 +6,7 @@
  * 使用许可: 此文件是开源共享免费的, 您需要遵守 panzer 许可证 http://zsharedcode.googlecode.com/svn/trunk/zsharedcode/panzer/panzer.license.txt 中的内容, 并将许可证下载包含到您的项目和产品中.
  * */
 
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Web.UI;
@@ -74,12 +75,30 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin.jqplot
 		/// 创建一个点.
 		/// </summary>
 		/// <param name="param1">第一个参数.</param>
+		/// <param name="param2">第二个参数.</param>
+		public Point ( decimal param1, DateTime param2 )
+			: this ( param1.ToString ( ), param2.ToString ( "yyyy-MM-dd HH:mm:ss" ) )
+		{ }
+		/// <summary>
+		/// 创建一个点.
+		/// </summary>
+		/// <param name="param1">第一个参数.</param>
+		/// <param name="param2">第二个参数.</param>
+		public Point ( DateTime param1, decimal param2 )
+			: this ( param2.ToString ( "yyyy-MM-dd HH:mm:ss" ), param1.ToString ( ) )
+		{ }
+
+		/// <summary>
+		/// 创建一个点.
+		/// </summary>
+		/// <param name="param1">第一个参数.</param>
 		public Point ( decimal param1 )
 			: this ( param1.ToString ( ), null, null, null )
 		{ }
 		/// <summary>
 		/// 创建一个点.
 		/// </summary>
+		/// <param name="param1">第一个参数.</param>
 		/// <param name="param2">第二个参数.</param>
 		public Point ( decimal param1, decimal param2 )
 			: this ( param1.ToString ( ), param2.ToString ( ), null, null )
@@ -89,7 +108,7 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin.jqplot
 		/// 创建一个点.
 		/// </summary>
 		public Point ( )
-			: this(null, null, null, null)
+			: this ( null, null, null, null )
 		{ }
 		/// <summary>
 		/// 创建一个点.

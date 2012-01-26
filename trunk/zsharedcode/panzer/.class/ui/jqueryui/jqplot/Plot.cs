@@ -20,6 +20,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui.plusin.jqplot
 	/// 图表插件.
 	/// </summary>
 	[ToolboxData ( "<{0}:Plot runat=server></{0}:Plot>" )]
+	[Resource ( SingleScript = "je.jquery.js;je.jquery.ui.js;je.jqplot.excanvas.js;je.jqplot.js", SingleStyle = "je.jquery.ui.css;je.jqplot.css" )]
 	public sealed class Plot
 		: JQueryPlusin<PlotSetting>
 	{
@@ -578,7 +579,7 @@ namespace zoyobar.shared.panzer.ui.jqueryui.plusin.jqplot
 		public void AppendData ( params Data[] datas )
 		{
 
-			if(null == datas)
+			if ( null == datas )
 				return;
 
 			foreach ( Data data in datas )
@@ -641,10 +642,10 @@ namespace zoyobar.shared.panzer.ui.jqueryui.plusin.jqplot
 						foreach ( Point point in data.PointList )
 							if ( null != point )
 								pointExpression += string.Format ( ",[{0},{1},{2},{3}]",
-									string.IsNullOrEmpty(point.Param1) ? "null" : point.Param1,
-									string.IsNullOrEmpty(point.Param2) ? "null" : point.Param2,
-									string.IsNullOrEmpty(point.Param3) ? "null" : point.Param3,
-									string.IsNullOrEmpty(point.Param4) ? "null" : point.Param4
+									string.IsNullOrEmpty ( point.Param1 ) ? "null" : point.Param1,
+									string.IsNullOrEmpty ( point.Param2 ) ? "null" : point.Param2,
+									string.IsNullOrEmpty ( point.Param3 ) ? "null" : point.Param3,
+									string.IsNullOrEmpty ( point.Param4 ) ? "null" : point.Param4
 									);
 
 						dataExpression += ",[" + pointExpression.TrimStart ( ',' ) + "]";

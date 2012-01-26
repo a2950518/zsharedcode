@@ -150,6 +150,10 @@ namespace zoyobar.shared.panzer.web.jqueryui.plusin.jqplot
 		/// 画布轴标签绘制.
 		/// </summary>
 		CanvasAxisLabelRenderer,
+		/// <summary>
+		/// 日期轴绘制.
+		/// </summary>
+		DateAxisRenderer,
 	}
 	#endregion
 
