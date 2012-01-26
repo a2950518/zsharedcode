@@ -114,10 +114,19 @@
 === 自定义控件 ===
  可以为自定义控件指定需要引用的脚本和样式:
 {{{
+<%@ Control Language="C#" AutoEventWireup="true"
+	CodeFile="MyControl1.ascx.cs"
+	Inherits="resourceloader_MyControl1" %>
+<input type="button" class="my-button"
+	onclick="alert(sub(1,2,3));"
+	value="1 + 2 - 3" />
+}}}
+
+{{{
 using zoyobar.shared.panzer.ui.jqueryui;
 
 [Resource ( SingleScript = "my.js", SingleStyle = "my.css" )]
-public partial class resourceloader_MyControl : System.Web.UI.UserControl
+public partial class resourceloader_MyControl1 : System.Web.UI.UserControl
 {
 	...
 }
@@ -126,6 +135,39 @@ public partial class resourceloader_MyControl : System.Web.UI.UserControl
 {{{
 <appSettings>
 	<add key="my.js" value="~/resourceloader/mycontrol.js"/>
+	<add key="my.css" value="~/resourceloader/mycontrol.css"/>
+
+	...
+
+</appSettings>
+}}}
+ 可以指定多个脚本或样式, 使用分号分隔即可. 对于自定义的文件, 关键字的顺序也就是文件的加载顺序.
+
+ 也可以使用 MultipleScript 属性来指定所需要的脚本, 如果 MultipleScript 指定的关键字在 web.config 中存在, 则将忽略 SingleScript:
+{{{
+<%@ Control Language="C#" AutoEventWireup="true"
+	CodeFile="MyControl2.ascx.cs"
+	Inherits="resourceloader_MyControl2" %>
+<input type="button" class="my-button"
+	onclick="alert(add(1,2));"
+	value="1 + 2" />
+}}}
+
+{{{
+using zoyobar.shared.panzer.ui.jqueryui;
+
+[Resource ( SingleScript = "my.js", MultipleScript="my1.js", SingleStyle = "my.css" )]
+public partial class resourceloader_MyControl2 : System.Web.UI.UserControl
+{
+	...
+}
+}}}
+
+{{{
+<appSettings>
+	<add key="my.js" value="~/resourceloader/mycontrol.js"/>
+	<add key="my1.js" value="~/resourceloader/mycontrol.1.js"/>
+	<add key="my2.js" value="~/resourceloader/mycontrol.2.js"/>
 	<add key="my.css" value="~/resourceloader/mycontrol.css"/>
 
 	...
