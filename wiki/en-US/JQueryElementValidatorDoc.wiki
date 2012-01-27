@@ -31,13 +31,13 @@
 	Namespace="zoyobar.shared.panzer.web.jqueryui"
 	TagPrefix="je" %>
 }}}
-
  In addition to the namespace, you need to reference the jQueryUI scripts and styles, there is a custom theme for jQueryUI in the compressed file downloaded at the section JQueryElement.dll Download of [Download Downloads], if you need more themes, you can get them at [http://jqueryui.com/download jqueryui.com/download]:
 {{{
 <link type="text/css" rel="stylesheet" href="[style path]/jquery-ui-<version>.custom.css" />
 <script type="text/javascript" src="[script path]/jquery-<version>.min.js"></script>
 <script type="text/javascript" src="[script path]/jquery-ui-<version>.custom.min.js"></script>
 }}}
+ You can also use ResourceLoader to add the script or style you want, details, please refer to [ResourceLoader Automatically Add Scripts And Styles].
 
 === Client Validation ===
  Through a simple introduction to the Validator's property, you can generally understand how to do client-side validation:
@@ -204,10 +204,14 @@ public SortedDictionary<string, object> CheckNickname ( string value )
  [JEBase JQueryElement Basic Property Reference]
 
  [JEParameter Through Parameter Object Add Ajax Request Parameter]
+ 
+ [ResourceLoader Automatically Add Scripts And Styles]
 
 === Revision History ===
  2011-11-26: Modify presentation on referencing jQueryUI.
 
  2011-12-5: Modify the link of download.
+
+ 2012-1-26: Increase link to ResourceLoader.
 
 </font>

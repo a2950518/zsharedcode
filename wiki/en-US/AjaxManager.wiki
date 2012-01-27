@@ -28,10 +28,11 @@
 	Namespace="zoyobar.shared.panzer.web.jqueryui"
 	TagPrefix="je" %>
 }}}
- In addition to the namespace, you need to reference the jQueryUI scripts:
+ In addition to the namespace, you need to reference the jQuery scripts:
 {{{
 <script type="text/javascript" src="[script path]/jquery-<version>.min.js"></script>
 }}}
+ You can also use ResourceLoader to add the script or style you want, details, please refer to [ResourceLoader Automatically Add Scripts And Styles].
 
 === Creating javascript ===
  In the page, we add a AjaxManager control to create a javascript method that calls the server-side method:
@@ -127,5 +128,10 @@
  [AjaxReturnJSON Return JSON In Different .NET Version]
 
  [JEParameter Through Parameter Object Add Ajax Request Parameter]
+
+ [ResourceLoader Automatically Add Scripts And Styles]
+
+=== Revision History ===
+ 2012-1-26: Increase link to ResourceLoader.
 
 </font>

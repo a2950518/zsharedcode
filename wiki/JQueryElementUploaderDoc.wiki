@@ -40,13 +40,13 @@
 	Namespace="zoyobar.shared.panzer.web.jqueryui"
 	TagPrefix="je" %>
 }}}
-
  除了命名空间, 还需要引用 jQueryUI 的脚本和样式, 在 [Download 下载资源] 的 JQueryElement.dll 下载一节下载的压缩包中包含了一个自定义样式的 jQueryUI, 如果需要更多样式, 可以在 [http://jqueryui.com/download jqueryui.com/download] 下载:
 {{{
 <link type="text/css" rel="stylesheet" href="[样式路径]/jquery-ui-<version>.custom.css" />
 <script type="text/javascript" src="[脚本路径]/jquery-<version>.min.js"></script>
 <script type="text/javascript" src="[脚本路径]/jquery-ui-<version>.custom.min.js"></script>
 }}}
+ 也可以使用 ResourceLoader 来添加所需的脚本或样式, 详细请参考 [ResourceLoader 自动添加脚本和样式].
 
 === 创建保存页面 ===
  保存页面是一个简单的页面, 主要完成文件的保存工作, 保存页面不会自己提交, 而是由上传页面提交.
@@ -259,7 +259,10 @@ function(data){
  
  [JEBase JQueryElement 基本属性参考]
  
+ [ResourceLoader 自动添加脚本和样式]
 === 修订历史 ===
  2011-12-31: 增加停止获取进度一节.
+
+ 2012-1-26: 增加关于 ResourceLoader 的链接.
 
 </font>

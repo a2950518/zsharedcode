@@ -34,6 +34,7 @@
 <script type="text/javascript" src="[脚本路径]/jquery-<version>.min.js"></script>
 <script type="text/javascript" src="[脚本路径]/jquery-ui-<version>.custom.min.js"></script>
 }}}
+ 也可以使用 ResourceLoader 来添加所需的脚本或样式, 详细请参考 [ResourceLoader 自动添加脚本和样式].
 
 === 内容页 ===
  而在内容页中只需要引用命名空间即可, 因为脚本已经由母版页引用.
@@ -234,4 +235,10 @@ public class master_webservice : System.Web.Services.WebService
  [JEBase JQueryElement 基本属性参考]
 
  [AjaxManager 生成调用服务器端方法的 javascript 函数]
+
+ [ResourceLoader 自动添加脚本和样式]
+
+=== 修订历史 ===
+ 2012-1-26: 增加关于 ResourceLoader 的链接.
+
 </font>

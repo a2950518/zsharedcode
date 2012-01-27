@@ -32,6 +32,7 @@
 <script type="text/javascript" src="[script path]/jquery-<version>.min.js"></script>
 <script type="text/javascript" src="[script path]/jquery-ui-<version>.custom.min.js"></script>
 }}}
+ You can also use ResourceLoader to add the script or style you want, details, please refer to [ResourceLoader Automatically Add Scripts And Styles].
 
 === Content Page ===
  You only need to reference the namespaces in the content page, because the script has been referenced by the master page.
@@ -231,4 +232,10 @@ Welcome, <span class="user-name"></span>, <a href="#" onclick="logout()">Logout<
  [JEBase JQueryElement Basic Property Reference]
 
  [AjaxManager Generate javascript That Calls The Server-Side Method]
+
+ [ResourceLoader Automatically Add Scripts And Styles]
+
+=== Revision History ===
+ 2012-1-26: Increase link to ResourceLoader.
+
 </font>

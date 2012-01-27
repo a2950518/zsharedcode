@@ -28,13 +28,13 @@
 	Namespace="zoyobar.shared.panzer.web.jqueryui"
 	TagPrefix="je" %>
 }}}
-
  除了命名空间, 还需要引用 jQueryUI 的脚本和样式, 在 [Download 下载资源] 的 JQueryElement.dll 下载一节下载的压缩包中包含了一个自定义样式的 jQueryUI, 如果需要更多样式, 可以在 [http://jqueryui.com/download jqueryui.com/download] 下载:
 {{{
 <link type="text/css" rel="stylesheet" href="[样式路径]/jquery-ui-<version>.custom.css" />
 <script type="text/javascript" src="[脚本路径]/jquery-<version>.min.js"></script>
 <script type="text/javascript" src="[脚本路径]/jquery-ui-<version>.custom.min.js"></script>
 }}}
+ 也可以使用 ResourceLoader 来添加所需的脚本或样式, 详细请参考 [ResourceLoader 自动添加脚本和样式].
 
 === 进度 ===
  通过 Value 属性可以初始化 Progressbar 的进度, Value 应该在 0 到 100 之间.
@@ -131,5 +131,10 @@
  [JEBase JQueryElement 基本属性参考]
 
  [JEParameter 通过 Parameter 对象添加 Ajax 请求时的参数]
+
+ [ResourceLoader 自动添加脚本和样式]
+
+=== 修订历史 ===
+ 2012-1-26: 增加关于 ResourceLoader 的链接.
 
 </font>

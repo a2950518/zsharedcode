@@ -33,13 +33,13 @@
 	Namespace="zoyobar.shared.panzer.web.jqueryui"
 	TagPrefix="je" %>
 }}}
-
  除了命名空间, 还需要引用 jQueryUI 的脚本和样式, 在 [Download 下载资源] 的 JQueryElement.dll 下载一节下载的压缩包中包含了一个自定义样式的 jQueryUI, 如果需要更多样式, 可以在 [http://jqueryui.com/download jqueryui.com/download] 下载:
 {{{
 <link type="text/css" rel="stylesheet" href="[样式路径]/jquery-ui-<version>.custom.css" />
 <script type="text/javascript" src="[脚本路径]/jquery-<version>.min.js"></script>
 <script type="text/javascript" src="[脚本路径]/jquery-ui-<version>.custom.min.js"></script>
 }}}
+ 也可以使用 ResourceLoader 来添加所需的脚本或样式, 详细请参考 [ResourceLoader 自动添加脚本和样式].
 
 === Source 属性 ===
  Source 属性是 Autocomplete 重要的属性之一, 包含建议的条目, 可以是如下三种形式: 数组, 一个返回数组的地址, 或者一个函数.
@@ -119,7 +119,11 @@ public void ProcessRequest ( HttpContext context )
 
  [JEBase JQueryElement 基本属性参考]
 
+ [ResourceLoader 自动添加脚本和样式]
+
 === 修订历史 ===
  2011-12-5: 修改下载的链接.
+
+ 2012-1-26: 增加关于 ResourceLoader 的链接.
 
 </font>
