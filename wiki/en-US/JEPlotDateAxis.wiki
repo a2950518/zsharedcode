@@ -22,7 +22,7 @@
 	src="js/plugins/jqplot.dateAxisRenderer.min.js">
 </script>
 }}}
- If you use the ResourceLoader to load scripts, you need to configure the web.config and set the JQPlotDateAxisRenderer property of ResourceLoader to true, for example: 
+ If you use the ResourceLoader to load scripts, you need to configure the web.config and set the JQPlotDateAxisRenderer property of ResourceLoader to true, for example:
 {{{
 <appSettings>
 	...
