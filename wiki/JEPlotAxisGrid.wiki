@@ -20,6 +20,7 @@
   * 网格
     * 样式
     * 阴影
+  * 日期轴
   * <font color="red">(这里是没有完成的章节)</font>
 
 === 准备 ===
@@ -227,15 +228,22 @@
 
  <img src="http://zsharedcode.googlecode.com/files/plotgrid4.jpg" />
 
+=== 日期轴 ===
+ 大部分情况下, 数据都是和日期相关的, 因此就需要在 jqplot 中显示日期, 详情请参考 [JEPlotDateAxis Plot 日期轴].
+
 === <font color="red">(这里是没有完成的章节)</font> ===
  更多内容, 敬请期待...
 
 === 相关内容 ===
  [JQueryElementPlotDoc Plot 完全参考]
 
+ [JEPlotDateAxis Plot 日期轴]
+
  [JEBase JQueryElement 基本属性参考]
 
 === 修订历史 ===
  2012-1-16: 增加关于轴的内容.
+
+ 2012-1-29: 增加关于日期轴的链接.
 
 </font>

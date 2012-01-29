@@ -1,0 +1,157 @@
+﻿#summary Plot 日期轴
+<font face="microsoft yahei">
+<font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/JEPlotDateAxis Translate this page]</font>
+
+=== 简介/目录 ===
+ 请到 [Download 下载资源] 的 JQueryElement 示例下载一节*下载示例代码*, 目录 /plot/Default.aspx.
+ 
+ 视频演示: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+
+ 本文将详细的讲解如何在 Plot 图表中使用日期轴, 目录如下:
+
+  * 准备
+  * 所需脚本
+  * Renderer 属性
+  * 格式
+
+=== 准备 ===
+ 请先查看 [JEPlotAxisGrid Plot 轴和网格] 或者准备一节的内容.
+
+=== 所需脚本 ===
+ 需要在页面中引用日期轴所需的脚本, 比如:
+{{{
+<script type="text/javascript" src="js/plugins/jqplot.dateAxisRenderer.min.js"></script>
+}}}
+ 如果使用 ResourceLoader 来加载脚本, 则需要配置 web.config 并设置 ResourceLoader 的 JQPlotDateAxisRenderer 属性为 true, 比如:
+{{{
+<appSettings>
+	...
+
+	<add key="je.jqplot.DateAxisRenderer.js" value="~/js/plugins/jqplot.dateAxisRenderer.min.js"/>
+</appSettings>
+}}}
+
+{{{
+<je:ResourceLoader ID="resource" runat="server"
+	JQPlotDateAxisRenderer="true" />
+}}}
+ 而更多关于 ResourceLoader 的内容, 可以参考 [ResourceLoader 自动添加脚本和样式].
+
+=== Renderer 属性 ===
+ 设置轴的 Renderer 属性为 DateAxisRenderer, 该轴就可以显示日期:
+{{{
+<je:Plot ID="plot1" runat="server" IsVariable="true">
+	<AxesSetting
+		XAxisSetting-Renderer="DateAxisRenderer">
+	</AxesSetting>
+	
+	...
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotdateaxis1.jpg" />
+
+=== 格式 ===
+ 可以通过 FormatString 属性来设置日期显示的格式, 比如:
+{{{
+<je:Plot ID="plot2" runat="server" IsVariable="true">
+	<AxesSetting
+		XAxisSetting-Renderer="DateAxisRenderer"
+		XAxisSetting-TickRendererSetting-FormatString="%R">
+	</AxesSetting>
+	
+	...
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotdateaxis2.jpg" />
+
+{{{
+<je:Plot ID="plot3" runat="server" IsVariable="true">
+	<AxesSetting>
+		<XAxisSetting
+			Renderer="DateAxisRenderer"
+			TickRendererSetting-FormatString="%y-%#m-%#d%n%#I:%#M:%#S %p"
+			Ticks="['2011-1-1 1:25:30','2011-1-1 5:4:3','2011-1-1 10:2','2011-1-1 23:22:00']">
+		</XAxisSetting>
+	</AxesSetting>
+
+	...
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotdateaxis3.jpg" />
+
+ 更多格式如下:
+{{{
+// 年
+%Y		2008
+%y		08
+
+// 月
+%m		09
+%#m		9
+%B		September
+%b		Sep
+
+// 日
+%d		05
+%#d		5
+%e		5
+%A		Sunday
+%a		Sun
+%w		0, 0 表示星期天, 6 表示星期六
+%o		th, 跟随在日后的字符串
+
+// 时
+%H		23
+%#H		3
+%I			11
+%#I		3
+%p		PM, 显示 AM 或者 PM
+
+// 分
+%M		09
+%#M		9
+
+// 秒
+%S		02
+%#S		2
+%s		1206567625723, 与 1970-01-01 00:00:00 相差的秒数
+
+// 毫秒
+%N		008
+%#N		8
+
+// 时区
+%O		360, 本地与 GMT 之间相差的分钟数
+%Z		Mountain Standard Time, 时区名称
+%G		-06:00, GMT 时间
+
+// 组合
+%F		2008-03-26, %Y-%m-%d
+%T		05:06:30, %H:%M:%S
+%X		05:06:30, %H:%M:%S
+%x		03/26/08, %m/%d/%y
+%D		03/26/08, %m/%d/%y
+%#c		Wed Mar 26 15:31:00 2008, %a %b %e %H:%M:%S %Y
+%v		3-Sep-2008, %e-%b-%Y
+%R		15:31, %H:%M
+%r		3:31:00 PM, %I:%M:%S %p
+
+// 特殊字符
+%n		\n, 换行
+%t			\t, 制表符
+%%		%, 百分号
+}}}
+
+=== 相关内容 ===
+ [JQueryElementPlotDoc Plot 完全参考]
+
+ [JEPlotAxisGrid Plot 轴和网格]
+
+ [JEBase JQueryElement 基本属性参考]
+
+ [ResourceLoader 自动添加脚本和样式]
+
+</font>
