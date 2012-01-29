@@ -1,0 +1,8 @@
+﻿#summary Reference&Sample
+#labels Phase-Implementation
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
+
+=== Reference&Sample ===
+ * [JQueryElementDoc JQueryElement Reference&Sample]
+
+</font>
