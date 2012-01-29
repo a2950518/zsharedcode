@@ -18,6 +18,7 @@
   * Grid
     * Style
     * Shadow
+  * Date Axis
   * <font color="red">(Here are no completed chapters)</font>
 
 === Prepare ===
@@ -225,15 +226,22 @@
 
  <img src="http://zsharedcode.googlecode.com/files/plotgrid4.jpg" />
 
+=== Date Axis ===
+ In most cases, we use date, so we need to show the dates in jqplot, please refer to [JEPlotDateAxis Plot Date Axis].
+
 === <font color="red">(Here are no completed chapters)</font> ===
  More content, so stay tuned...
 
 === Related Content ===
  [JQueryElementPlotDoc Plot Reference]
 
+ [JEPlotDateAxis Plot Date Axis]
+
  [JEBase JQueryElement Basic Property Reference]
 
 === Revision History ===
  2012-1-16: Increase content on axis.
+
+ 2012-1-29: Increase link on the date axis.
 
 </font>
