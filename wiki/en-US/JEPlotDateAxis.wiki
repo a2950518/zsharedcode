@@ -1,0 +1,158 @@
+﻿#summary Plot Date Axis
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
+=== Introduction/Catalog ===
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /plot/Default.aspx.
+ 
+ Video demo: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+
+ This article will explain in detail how to use the date axis in Plot chart, the catalog is as follows:
+
+  * Prepare
+  * Required Scripts
+  * Renderer Property
+  * Format
+
+=== Prepare ===
+ Please view the Prepare section at [JEPlotAxisGrid Plot Axis And Grid].
+
+=== Required Scripts ===
+ You need add the script that required by date axis, such as:
+{{{
+<script type="text/javascript"
+	src="js/plugins/jqplot.dateAxisRenderer.min.js">
+</script>
+}}}
+ If you use the ResourceLoader to load scripts, you need to configure the web.config and set the JQPlotDateAxisRenderer property of ResourceLoader to true, for example: 
+{{{
+<appSettings>
+	...
+
+	<add key="je.jqplot.DateAxisRenderer.js"
+		value="~/js/plugins/jqplot.dateAxisRenderer.min.js"/>
+</appSettings>
+}}}
+
+{{{
+<je:ResourceLoader ID="resource" runat="server"
+	JQPlotDateAxisRenderer="true" />
+}}}
+ More about the ResourceLoader, you can refer to [ResourceLoader Automatically Add Scripts And Styles].
+
+=== Renderer Property ===
+ Set the Renderer property of axis to DateAxisRenderer, the axis will show dates:
+{{{
+<je:Plot ID="plot1" runat="server" IsVariable="true">
+	<AxesSetting
+		XAxisSetting-Renderer="DateAxisRenderer">
+	</AxesSetting>
+	
+	...
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotdateaxis1.jpg" />
+
+=== Format ===
+ Through the FormatString property to set the date display format, such as:
+{{{
+<je:Plot ID="plot2" runat="server" IsVariable="true">
+	<AxesSetting
+		XAxisSetting-Renderer="DateAxisRenderer"
+		XAxisSetting-TickRendererSetting-FormatString="%R">
+	</AxesSetting>
+	
+	...
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotdateaxis2.jpg" />
+
+{{{
+<je:Plot ID="plot3" runat="server" IsVariable="true">
+	<AxesSetting>
+		<XAxisSetting
+			Renderer="DateAxisRenderer"
+			TickRendererSetting-FormatString="%y-%#m-%#d%n%#I:%#M:%#S %p"
+			Ticks="['2011-1-1 1:25:30','2011-1-1 5:4:3','2011-1-1 10:2','2011-1-1 23:22:00']">
+		</XAxisSetting>
+	</AxesSetting>
+
+	...
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plotdateaxis3.jpg" />
+
+ More formats are as follows:
+{{{
+// Year
+%Y		2008
+%y		08
+
+// Month
+%m		09
+%#m		9
+%B		September
+%b		Sep
+
+// Day
+%d		05
+%#d		5
+%e		5
+%A		Sunday
+%a		Sun
+%w		0, 0 = Sunday, 6 = Saturday
+%o		th, The ordinal suffix string following the day of the month
+
+// Hour
+%H		23
+%#H		3
+%I			11
+%#I		3
+%p		PM, AM or PM
+
+// Minute
+%M		09
+%#M		9
+
+// Second
+%S		02
+%#S		2
+%s		1206567625723, Unix timestamp, seconds past 1970-01-01 00:00:00
+
+// Millisecond
+%N		008
+%#N		8
+
+// Timezone
+%O		360, Difference in minutes between local time and GMT
+%Z		Mountain Standard Time, Name of timezone
+%G		-06:00, GMT Time
+
+// Shortcut
+%F		2008-03-26, %Y-%m-%d
+%T		05:06:30, %H:%M:%S
+%X		05:06:30, %H:%M:%S
+%x		03/26/08, %m/%d/%y
+%D		03/26/08, %m/%d/%y
+%#c		Wed Mar 26 15:31:00 2008, %a %b %e %H:%M:%S %Y
+%v		3-Sep-2008, %e-%b-%Y
+%R		15:31, %H:%M
+%r		3:31:00 PM, %I:%M:%S %p
+
+// Character
+%n		\n, Newline
+%t			\t, Tab
+%%		%, Percent Symbol
+}}}
+
+=== Related Content ===
+ [JQueryElementPlotDoc Plot Reference]
+
+ [JEPlotAxisGrid Plot Axis And Grid]
+
+ [JEBase JQueryElement Basic Property Reference]
+
+ [ResourceLoader Automatically Add Scripts And Styles]
+
+</font>
