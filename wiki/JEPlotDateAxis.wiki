@@ -20,14 +20,17 @@
 === 所需脚本 ===
  需要在页面中引用日期轴所需的脚本, 比如:
 {{{
-<script type="text/javascript" src="js/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script type="text/javascript"
+	src="js/plugins/jqplot.dateAxisRenderer.min.js">
+</script>
 }}}
  如果使用 ResourceLoader 来加载脚本, 则需要配置 web.config 并设置 ResourceLoader 的 JQPlotDateAxisRenderer 属性为 true, 比如:
 {{{
 <appSettings>
 	...
 
-	<add key="je.jqplot.DateAxisRenderer.js" value="~/js/plugins/jqplot.dateAxisRenderer.min.js"/>
+	<add key="je.jqplot.DateAxisRenderer.js"
+		value="~/js/plugins/jqplot.dateAxisRenderer.min.js"/>
 </appSettings>
 }}}
 
