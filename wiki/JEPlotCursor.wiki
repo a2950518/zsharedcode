@@ -179,8 +179,6 @@ public partial class plot_Cursor1 : System.Web.UI.Page
 </je:Plot>
 }}}
 
- <img src="http://zsharedcode.googlecode.com/files/plotcursor7.jpg" />
-
 === 相关内容 ===
  [JQueryElementPlotDoc Plot 完全参考]
 
