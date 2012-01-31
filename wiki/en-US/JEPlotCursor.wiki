@@ -18,7 +18,7 @@
     * Restore Original
 
 === Prepare ===
- Please view the Prepare section at [JEPlotAxisGrid Plot Axis And Grid].
+ Please view the Prepare section at [JQueryElementPlotDoc Plot Reference].
 
 === Required Scripts ===
  You need add the script that required by cursor, such as:
