@@ -20,6 +20,7 @@
   * 数据排序
   * 轴和网格
   * 标题图例和序列
+  * 光标位置和放大图表
   * <font color="red">(这里是没有完成的章节)</font>
 
  <img src="http://zsharedcode.googlecode.com/files/plotdata4.jpg" />
@@ -150,6 +151,9 @@ protected void Page_Load ( object sender, EventArgs e )
 === 标题图例和序列 ===
  标题将显示在图表的上方, 图例可以说明每个序列的含义, 更多的内容请参考 [JEPlotTitleLegendSeries Plot 标题图例和序列].
 
+=== 光标位置和放大图表 ===
+ jqplot 中可以显示光标的位置, 也可以放大某个区域, 更多的内容请参考 [JEPlotCursor Plot 光标位置和放大图表].
+
 === <font color="red">(这里是没有完成的章节)</font> ===
  更多内容, 敬请期待...
 
@@ -157,6 +161,8 @@ protected void Page_Load ( object sender, EventArgs e )
  [JEPlotAxisGrid Plot 轴和网格]
 
  [JEPlotTitleLegendSeries Plot 标题图例和序列]
+
+ [JEPlotCursor Plot 光标位置和放大图表]
 
  [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
 
@@ -172,5 +178,7 @@ protected void Page_Load ( object sender, EventArgs e )
  2012-1-18: 增加标题图例和序列的介绍.
 
  2012-1-26: 增加关于 ResourceLoader 的链接.
+
+ 2012-1-31: 增加光标的介绍.
 
 </font>
