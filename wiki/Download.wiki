@@ -56,6 +56,10 @@
 </a>
 
 === JQueryElement 更新历史 ===
+3.9.4 版本改动:
+ a. 调整 ResourceLoader 控件.
+ b. 为 Data 对象增加 AppendPoint 方法.
+
 3.9.3 版本改动:
  a. 增加 ResourceLoader 控件.
 
