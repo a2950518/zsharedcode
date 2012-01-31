@@ -17,7 +17,7 @@
   * Play The Animation
   * Data Sorting
   * Axis And Grid
-  * Title Legend And Series
+  * Cursor Location And Zoom Chart
   * <font color="red">(Here are no completed chapters)</font>
 
  <img src="http://zsharedcode.googlecode.com/files/plotdata4.jpg" />
@@ -146,7 +146,10 @@ protected void Page_Load ( object sender, EventArgs e )
  Axis normally means that x and y axes, the grid is used to draw the data, for more information please refer to [JEPlotAxisGrid Plot Axis And Grid].
 
 === Title Legend And Series ===
- Title appears above the chart, the legend is the meaning of each series, for more information please refer to [JEPlotTitleLegendSeries Title Legend And Series].
+ Title appears above the chart, the legend is the meaning of each series, for more information please refer to [JEPlotTitleLegendSeries Plot Title Legend And Series].
+
+=== Cursor Location And Zoom Chart ===
+ jqplot can display the location of the cursor, can also enlarge an area that user selected, for more information please refer to [JEPlotCursor Plot Cursor Location And Zoom Chart].
 
 === <font color="red">(Here are no completed chapters)</font> ===
  More content, so stay tuned...
@@ -155,6 +158,8 @@ protected void Page_Load ( object sender, EventArgs e )
  [JEPlotAxisGrid Plot Axis And Grid]
 
  [JEPlotTitleLegendSeries Plot Title Legend And Series]
+
+ [JEPlotCursor Plot Cursor Location And Zoom Chart]
 
  [AjaxReturnJSON Return JSON In Different .NET Version]
 
@@ -170,5 +175,7 @@ protected void Page_Load ( object sender, EventArgs e )
  2012-1-18: Increase the introduction of title, legend and series.
 
  2012-1-26: Increase link to ResourceLoader.
+
+ 2012-1-18: Increase the introduction of cursor.
 
 </font>
