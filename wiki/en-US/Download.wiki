@@ -23,11 +23,11 @@
  The demo is uploaded at 2012-1-29, the version of dll file is 3.9.3: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip]
 
  ==== <font color="#0066CC">JQueryElement.dll Download</font> ====
- The following dll files is uploaded at 2012-1-21.
+ The following dll files is uploaded at 2012-1-31.
  
  Note: *No longer provide PARAM Edition.*
 
- [http://zsharedcode.googlecode.com/files/JQueryElement-en.3.9.3.Debug.NOPARAM.zip JQueryElement-en 3.9.3 for .NET (Debug, NOPARAM, include .NET 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/JQueryElement-en.3.9.4.Debug.NOPARAM.zip JQueryElement-en 3.9.4 for .NET (Debug, NOPARAM, include .NET 2, 3, 3.5, 4)]
 
 === <font color="#008C8C">IEBrowser Download</font> ===
 
@@ -46,6 +46,10 @@
  Twitter: [http://twitter.com/zoyobar @zoyobar]
  
 === JQueryElement Update History ===
+3.9.4 Changes:
+ a. Adjust the ResourceLoader control.
+ b. Added AppendPoint method to Data object.
+
 3.9.3 Changes:
  a. Add the ResourceLoader control.
 
