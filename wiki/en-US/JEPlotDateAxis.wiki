@@ -3,7 +3,7 @@
 === Introduction/Catalog ===
  Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /plot/Default.aspx.
  
- Video demo: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+ Video demo: [http://www.tudou.com/programs/view/z34c999KKSA/ www.tudou.com/programs/view/z34c999KKSA/]
 
  This article will explain in detail how to use the date axis in Plot chart, the catalog is as follows:
 

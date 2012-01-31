@@ -5,7 +5,7 @@
 === 简介/目录 ===
  请到 [Download 下载资源] 的 JQueryElement 示例下载一节*下载示例代码*, 目录 /plot/Default.aspx.
  
- 视频演示: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+ 视频演示: [http://www.tudou.com/programs/view/z34c999KKSA/ www.tudou.com/programs/view/z34c999KKSA/]
 
  本文将详细的讲解如何在 Plot 图表中使用日期轴, 目录如下:
 

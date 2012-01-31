@@ -45,7 +45,7 @@
 === 图例 ===
 
  ==== <font color="green">位置</font> ====
- 通过 LegendSetting 的 Location 和 Placement 属性可以设置 图例的显示位置:
+ 通过 LegendSetting 的 Location 和 Placement 属性可以设置图例的显示位置:
 {{{
 <je:Plot ID="plot1" runat="server" IsVariable="true"
 	Data="[[[1,2],[3,4]]]">
