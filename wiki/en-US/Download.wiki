@@ -48,6 +48,7 @@
 === JQueryElement Update History ===
 3.9.4 Changes:
  a. Adjust the ResourceLoader control.
+
  b. Added AppendPoint method to Data object.
 
 3.9.3 Changes:
