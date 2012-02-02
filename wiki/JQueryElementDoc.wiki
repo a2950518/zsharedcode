@@ -28,6 +28,7 @@
    * [JEPlotDateAxis Plot 日期轴]
    * [JEPlotTitleLegendSeries Plot 标题图例和序列]
    * [JEPlotCursor Plot 光标位置和放大图表]
+   * [JEPlotHighlighter Plot 高亮显示数据]
 
  * [JQueryElementAccordionDoc 折叠列表示例]
  * [JQueryElementAutoCompleteDoc Autocompelete 完全参考]

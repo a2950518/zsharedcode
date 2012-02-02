@@ -21,6 +21,7 @@
   * 轴和网格
   * 标题图例和序列
   * 光标位置和放大图表
+  * 高亮显示数据
   * <font color="red">(这里是没有完成的章节)</font>
 
  <img src="http://zsharedcode.googlecode.com/files/plotdata4.jpg" />
@@ -154,6 +155,9 @@ protected void Page_Load ( object sender, EventArgs e )
 === 光标位置和放大图表 ===
  jqplot 中可以显示光标的位置, 也可以放大某个区域, 更多的内容请参考 [JEPlotCursor Plot 光标位置和放大图表].
 
+=== 高亮显示数据 ===
+ 通过设置 HighlighterSetting 属性就可以让数据高亮显示, 更多的内容请参考 [JEPlotHighlighter Plot 高亮显示数据].
+
 === <font color="red">(这里是没有完成的章节)</font> ===
  更多内容, 敬请期待...
 
@@ -163,6 +167,8 @@ protected void Page_Load ( object sender, EventArgs e )
  [JEPlotTitleLegendSeries Plot 标题图例和序列]
 
  [JEPlotCursor Plot 光标位置和放大图表]
+
+ [JEPlotHighlighter Plot 高亮显示数据]
 
  [AjaxReturnJSON 在不同的 .NET 版本中返回 JSON]
 
@@ -180,5 +186,7 @@ protected void Page_Load ( object sender, EventArgs e )
  2012-1-26: 增加关于 ResourceLoader 的链接.
 
  2012-1-31: 增加光标的介绍.
+
+ 2012-2-2: 增加高亮的介绍.
 
 </font>
