@@ -97,7 +97,8 @@
 {{{
 <je:Plot ID="plot5" runat="server" IsVariable="true"
 	Data="[[[1,1],[2,4],[3,7],[4,9]],[[1,2],[2,2],[3,3],[4,1]]]">
-	<HighlighterSetting Show="true" BringSeriesToFront="true" />
+	<HighlighterSetting Show="true"
+		BringSeriesToFront="true" />
 </je:Plot>
 }}}
 
