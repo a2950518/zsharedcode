@@ -20,14 +20,14 @@
 === <font color="#0066CC">JQueryElement Download</font> ===
 
  ==== <font color="#0066CC">JQueryElement Demo Download</font> ====
- The demo is uploaded at 2012-1-31, the version of dll file is 3.9.4: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip]
+ The demo is uploaded at 2012-2-2, the version of dll file is 3.9.5: [http://zsharedcode.googlecode.com/files/JQueryElementDemo-en.zip JQueryElementDemo-en.zip]
 
  ==== <font color="#0066CC">JQueryElement.dll Download</font> ====
- The following dll files is uploaded at 2012-1-31.
+ The following dll files is uploaded at 2012-2-2.
  
  Note: *No longer provide PARAM Edition.*
 
- [http://zsharedcode.googlecode.com/files/JQueryElement-en.3.9.4.Debug.NOPARAM.zip JQueryElement-en 3.9.4 for .NET (Debug, NOPARAM, include .NET 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/JQueryElement-en.3.9.5.Debug.NOPARAM.zip JQueryElement-en 3.9.5 for .NET (Debug, NOPARAM, include .NET 2, 3, 3.5, 4)]
 
 === <font color="#008C8C">IEBrowser Download</font> ===
 
