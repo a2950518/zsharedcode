@@ -27,6 +27,7 @@
    * [JEPlotDateAxis Plot Date Axis]
    * [JEPlotTitleLegendSeries Plot Title Legend And Series]
    * [JEPlotCursor Plot Cursor Location And Zoom Chart]
+   * [JEPlotHighlighter Plot Highlight Data]
 
  * [JQueryElementAccordionDoc Accordion Reference]
  * [JQueryElementAutoCompleteDoc Autocompelete Reference]

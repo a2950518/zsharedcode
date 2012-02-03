@@ -1,0 +1,114 @@
+﻿#summary Plot Highlight Data
+<font face="Segoe UI, Verdana, Tahoma, Arial, sans-serif">
+=== Introduction/Catalog ===
+ Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /plot/Default.aspx.
+ 
+ Video demo: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+
+ This article will explain in detail how to highlight data in Plot chart, the catalog is as follows:
+
+  * Prepare
+  * Required Scripts
+  * Highlight
+  * Size
+  * Tooltip
+  * Bring To Front
+
+=== Prepare ===
+ Please view the Prepare section at [JQueryElementPlotDoc Plot Reference].
+
+=== Required Scripts ===
+ You need add the script that required by highlight, such as:
+{{{
+<script type="text/javascript"
+	src="js/plugins/jqplot.highlighter.min.js">
+</script>
+}}}
+ If you use the ResourceLoader to load scripts, you need to configure the web.config and set the JQPlotHighlighter property of ResourceLoader to true, for example:
+{{{
+<appSettings>
+	...
+
+	<add key="je.jqplot.Highlighter.js"
+		value="~/js/plugins/jqplot.highlighter.min.js"/>
+</appSettings>
+}}}
+
+{{{
+<je:ResourceLoader ID="resource" runat="server"
+	JQPlotHighlighter="true" />
+}}}
+ More about the ResourceLoader, you can refer to [ResourceLoader Automatically Add Scripts And Styles].
+
+=== Highlight ===
+ Set Show property of HighlighterSetting to true, you will highlight the data which the mouse hover on:
+{{{
+<je:Plot ID="plot1" runat="server" IsVariable="true"
+	Data="[[[1,1],[3,2],[4,4],[5,8]]]">
+	<HighlighterSetting Show="true" />
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plothighlighter1.jpg" />
+
+=== Size ===
+ SizeAdjust property of HighlighterSetting represents the size of highlight:
+{{{
+<je:Plot ID="plot2" runat="server" IsVariable="true"
+	Data="[[[2,1],[3,2],[4,7],[5,8]]]">
+	<HighlighterSetting Show="true"
+		SizeAdjust="10" />
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plothighlighter2.jpg" />
+
+=== Tooltip ===
+ ToolTipLocation property of HighlighterSetting represents the location of tooltip, ToolTipOffset property represents the offset distance of the tooltip, ToolTipFadeSpeed property represents the disappearing speed of tooltip:
+{{{
+<je:Plot ID="plot3" runat="server" IsVariable="true"
+	Data="[[[2,3],[3,7],[4,7],[5,9]]]">
+	<HighlighterSetting Show="true"
+		ToolTipLocation="e"
+		ToolTipOffset="30"
+		ToolTipFadeSpeed="slow"
+		FormatString="x: %.5P, y: %.5P" />
+</je:Plot>
+}}}
+ You can set the content of tooltip by FormatString property, by default the first value is the data of x axis, the second value is the y axis data.
+
+ <img src="http://zsharedcode.googlecode.com/files/plothighlighter3.jpg" />
+
+ If you set ToolTipAxes property to yx, the first value will be the data of y axis:
+{{{
+<je:Plot ID="plot4" runat="server" IsVariable="true"
+	Data="[[[2,3],[3,7],[4,7],[5,9]]]">
+	<HighlighterSetting Show="true"
+		ToolTipAxes="yx" />
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plothighlighter4.jpg" />
+
+=== Bring To Front ===
+ The BringSeriesToFront property is set to true, the highlighted series will be placed on top:
+{{{
+<je:Plot ID="plot5" runat="server" IsVariable="true"
+	Data="[[[1,1],[2,4],[3,7],[4,9]],[[1,2],[2,2],[3,3],[4,1]]]">
+	<HighlighterSetting Show="true"
+		BringSeriesToFront="true" />
+</je:Plot>
+}}}
+
+ <img src="http://zsharedcode.googlecode.com/files/plothighlighter5.jpg" />
+
+ <img src="http://zsharedcode.googlecode.com/files/plothighlighter51.jpg" />
+
+=== Related Content ===
+ [JQueryElementPlotDoc Plot Reference]
+
+ [JEBase JQueryElement Basic Property Reference]
+
+ [ResourceLoader Automatically Add Scripts And Styles]
+
+</font>

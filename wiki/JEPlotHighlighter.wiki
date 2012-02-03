@@ -20,7 +20,7 @@
  请先查看 [JQueryElementPlotDoc Plot 完全参考] 或者准备一节的内容.
 
 === 所需脚本 ===
- 需要在页面中引用光标所需的脚本, 比如:
+ 需要在页面中引用高亮显示所需的脚本, 比如:
 {{{
 <script type="text/javascript"
 	src="js/plugins/jqplot.highlighter.min.js">
@@ -81,7 +81,7 @@
 
  <img src="http://zsharedcode.googlecode.com/files/plothighlighter3.jpg" />
 
- FormatString 可以设置提示的内容, 默认第一个值为 x 轴的数据, 第二个值为 y 轴的数据. 如果将 ToolTipAxes 设置为 yx, 则第一个值为 y 轴的数据:
+ 如果将 ToolTipAxes 设置为 yx, 则第一个值为 y 轴的数据:
 {{{
 <je:Plot ID="plot4" runat="server" IsVariable="true"
 	Data="[[[2,3],[3,7],[4,7],[5,9]]]">

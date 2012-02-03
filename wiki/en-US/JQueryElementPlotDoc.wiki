@@ -18,6 +18,7 @@
   * Data Sorting
   * Axis And Grid
   * Cursor Location And Zoom Chart
+  * Highlight Data
   * <font color="red">(Here are no completed chapters)</font>
 
  <img src="http://zsharedcode.googlecode.com/files/plotdata4.jpg" />
@@ -151,6 +152,9 @@ protected void Page_Load ( object sender, EventArgs e )
 === Cursor Location And Zoom Chart ===
  jqplot can display the location of the cursor, can also enlarge an area that user selected, for more information please refer to [JEPlotCursor Plot Cursor Location And Zoom Chart].
 
+=== Highlight Data ===
+ You can highlight data by setting the HighlighterSetting property, for more information please refer to [JEPlotHighlighter Plot Highlight Data].
+
 === <font color="red">(Here are no completed chapters)</font> ===
  More content, so stay tuned...
 
@@ -160,6 +164,8 @@ protected void Page_Load ( object sender, EventArgs e )
  [JEPlotTitleLegendSeries Plot Title Legend And Series]
 
  [JEPlotCursor Plot Cursor Location And Zoom Chart]
+
+ [JEPlotHighlighter Plot Highlight Data]
 
  [AjaxReturnJSON Return JSON In Different .NET Version]
 
@@ -176,6 +182,8 @@ protected void Page_Load ( object sender, EventArgs e )
 
  2012-1-26: Increase link to ResourceLoader.
 
- 2012-1-18: Increase the introduction of cursor.
+ 2012-1-31: Increase the introduction of cursor.
+
+ 2012-2-3: Increase the introduction of highlight.
 
 </font>

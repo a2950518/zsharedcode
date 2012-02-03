@@ -3,7 +3,7 @@
 === Introduction/Catalog ===
  Please *download the sample code* at the section JQueryElement Demo Download of [Download Downloads], the directory is /plot/Default.aspx.
  
- Video demo: [http://www.tudou.com/programs/view// www.tudou.com/programs/view//]
+ Video demo: [http://www.tudou.com/programs/view/9XXZDJUs7wo/ www.tudou.com/programs/view/9XXZDJUs7wo/]
 
  This article will explain in detail how to set the cursor of Plot chart, the catalog is as follows:
 
@@ -105,7 +105,7 @@
  <img src="http://zsharedcode.googlecode.com/files/plotcursor4.jpg" />
 
 === Zoom ===
- Only need to set the Zoom property to true, you can complete function for zooming.
+ Only need to set the Zoom property to true, you can complete function for zooming:
 {{{
 <je:Plot ID="plot5" runat="server" IsVariable="true">
 	
