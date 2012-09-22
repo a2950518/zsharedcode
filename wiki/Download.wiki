@@ -32,8 +32,7 @@
  
  <font color="#006600">213685539</font>, IEBrowser, JQueryElement(110+/200), <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/213685539"><img src="http://zsharedcode.googlecode.com/files/gp.png" /></a>
 
-
-[http://zsharedcode.googlecode.com/files/JQueryElement.3.9.5.Debug.NOPARAM.zip JQueryElement 3.9.5 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
+ [http://zsharedcode.googlecode.com/files/JQueryElement.3.9.5.Debug.NOPARAM.zip JQueryElement 3.9.5 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]
 
 === <font color="#008C8C">IEBrowser 下载</font> ===
 
@@ -47,9 +46,9 @@
 </a>
  
  <font color="#006600">213685539</font>, IEBrowser, JQueryElement(110+/200), <a target="_blank" href="http://qun.qq.com/#jointhegroup/gid/213685539"><img src="http://zsharedcode.googlecode.com/files/gp.png" /></a>
- 
 
-[http://zsharedcode.googlecode.com/files/IEBrowser.2.5.0.Debug.PARAM.zip IEBrowser 2.5.0 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]] <font color="#ff0000">(PARAM 仅支持在 Visual Studio 2010 中使用)</font>
+
+ [http://zsharedcode.googlecode.com/files/IEBrowser.2.5.0.Debug.PARAM.zip IEBrowser 2.5.0 for .NET (Debug, PARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)]] <font color="#ff0000">(PARAM 仅支持在 Visual Studio 2010 中使用)</font>
 
  [http://zsharedcode.googlecode.com/files/IEBrowser.2.5.0.Debug.NOPARAM.zip IEBrowser 2.5.0 for .NET (Debug, NOPARAM, 已经包含 .NET 版本 2, 3, 3.5, 4)] <font color="#ff0000">(NOPARAM 版本支持所有 Visual Studio 版本)</font>
 
