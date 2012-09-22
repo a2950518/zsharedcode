@@ -38,7 +38,7 @@
 === <font color="#008C8C">IEBrowser 下载</font> ===
 
  ==== <font color="#008C8C">IEBrowser.dll 下载</font> ====
- 以下 dll 文件, 为 2011-7-4 上传, 可能没有依照最新的 panzer 代码编译, <font color="#990099">欢迎加入 *qq 群*:
+ 以下 dll 文件, 为 2011-7-4 上传, 可能没有依照最新的 panzer 代码编译, 欢迎加入 *qq 群*:
 
  注意: *如果, 使用 Visual Studio 2008 或者更早的版本, 建议下载采用 NOPARAM 参数编译的文件.*
 
