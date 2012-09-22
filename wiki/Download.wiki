@@ -3,6 +3,8 @@
 <font face="microsoft yahei">
 <font size="1">[http://www.microsofttranslator.com/bv.aspx?from=&to=en&a=http://code.google.com/p/zsharedcode/wiki/Download Translate this page]</font>
 
+=== 作者博客 ===
+ 关注 IT, 移动互联网最新事件, 深入分析点评, 请关注 <a target=_blank href=http://mscxc.diandian.com>麦丝平方</a> 的博客.
 
 === 简介/目录 ===
  本页包含 *panzer* 项目所有产品的下载, 包括:
